@@ -1,0 +1,100 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor247208627/monit
+    SrcPathEnd: monit
+  Name: garden
+  Packages:
+  - Name: garden-linux
+  - Name: iptables
+  - Name: shadow
+  - Name: busybox
+  Properties:
+  - Default: true
+    Description: Enforce disk quotas. Disable for nested Garden.
+    Example: null
+    Name: garden.disk_quota_enabled
+  - Default: []
+    Description: List of CIDR blocks to which containers will be denied access.
+    Example: null
+    Name: garden.deny_networks
+  - Default: /var/vcap/packages/busybox
+    Description: path to the rootfs to use when a container specifies no rootfs
+    Example: null
+    Name: garden.default_container_rootfs
+  - Default: null
+    Description: An integer port number used to denote where ports should start being
+      allocated for Net In calls. Uses the Garden default if not set.
+    Example: null
+    Name: garden.port_pool.start
+  - Default: null
+    Description: An integer used to denote how many UIDs are avaliable. Uses the Garden
+      default if not set.
+    Example: null
+    Name: garden.uid_pool.size
+  - Default: false
+    Description: destroy existing containers when the server starts up
+    Example: null
+    Name: garden.destroy_containers_on_start
+  - Default: /var/vcap/data/garden/garden.sock
+    Description: Garden server listening address.
+    Example: null
+    Name: garden.listen_address
+  - Default: 1500
+    Description: Maximum network transmission unit length in bytes.
+    Example: null
+    Name: garden.network_mtu
+  - Default: false
+    Description: A boolean stating whether or not containers started on this host
+      should be able to reach this host.
+    Example: null
+    Name: garden.allow_host_access
+  - Default: null
+    Description: A string that is a server-wide identifier used for 'global' configuration.
+    Example: null
+    Name: garden.tag
+  - Default: null
+    Description: An integer UID number used to denote where UIDs should start being
+      allocated. Uses the Garden default if not set.
+    Example: null
+    Name: garden.uid_pool.start
+  - Default: null
+    Description: A URL that points at the Metron agent to which metrics are forwarded.
+      By default, it matches with the default of Metron.
+    Example: null
+    Name: garden.dropsonde.destination
+  - Default: unix
+    Description: Garden server connection mode (tcp or unix).
+    Example: null
+    Name: garden.listen_network
+  - Default: null
+    Description: An URL pointing to the Docker registry to use to fetch Docker images.
+      If unset, this will default to the Docker default.
+    Example: null
+    Name: garden.docker_registry_endpoint
+  - Default: 5m
+    Description: duration after which to reap idle containers
+    Example: null
+    Name: garden.default_container_grace_time
+  - Default: []
+    Description: List of CIDR blocks to which containers will be allowed access (applied
+      after deny).
+    Example: null
+    Name: garden.allow_networks
+  - Default: 0.0.0.0:17013
+    Description: tcp address on which to serve debug info
+    Example: null
+    Name: garden.debug_listen_address
+  - Default: null
+    Description: An integer used to denote how many ports are avaliable for Net In
+      calls. Uses the Garden default if not set.
+    Example: null
+    Name: garden.port_pool.size
+  - Default: null
+    Description: A string identifier that will be used when reporting metrics to Dropsonde.
+    Example: null
+    Name: garden.dropsonde.origin
+  Templates:
+  - DstPathEnd: bin/garden_ctl
+    Path: /mnt/tmp/tar-CmdExtractor247208627/templates/garden_ctl.erb
+    SrcPathEnd: garden_ctl.erb

@@ -1,0 +1,159 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor109614513/monit
+    SrcPathEnd: monit
+  Name: garden
+  Packages:
+  - Name: guardian
+  - Name: iptables
+  - Name: runc
+  - Name: shadow
+  - Name: busybox
+  - Name: tar
+  Properties:
+  - Default: unix
+    Description: Garden server connection mode (tcp or unix).
+    Example: null
+    Examples: null
+    Name: garden.listen_network
+  - Default: /var/vcap/data/garden/garden.sock
+    Description: Garden server listening address.
+    Example: null
+    Examples: null
+    Name: garden.listen_address
+  - Default: []
+    Description: List of CIDR blocks to which containers will be allowed access (applied
+      after deny).
+    Example: null
+    Examples: null
+    Name: garden.allow_networks
+  - Default: false
+    Description: A boolean stating whether or not containers started on this host
+      should be able to reach this host.
+    Example: null
+    Examples: null
+    Name: garden.allow_host_access
+  - Default: 5m
+    Description: duration after which to reap idle containers
+    Example: null
+    Examples: null
+    Name: garden.default_container_grace_time
+  - Default: -1
+    Description: Total size of all filesystem layers downloaded from Docker registries
+      before graph cleanup is activated. -1 disables graph cleanup.
+    Example: null
+    Examples: null
+    Name: garden.graph_cleanup_threshold_in_mb
+  - Default: []
+    Description: List of Rootfs Paths (directories or docker URLs) which will never
+      be deleted during graph cleanup
+    Example: null
+    Examples: null
+    Name: garden.persistent_image_list
+  - Default: []
+    Description: A list of IP:PORT tuples that we allow pulling docker images from
+      using self-signed certificates.
+    Example: null
+    Examples: null
+    Name: garden.insecure_docker_registry_list
+  - Default: null
+    Description: Path to an optional network plugin binary
+    Example: null
+    Examples: null
+    Name: garden.network_plugin
+  - Default: 1500
+    Description: Maximum network transmission unit length in bytes.
+    Example: null
+    Examples: null
+    Name: garden.network_mtu
+  - Default: null
+    Description: An URL pointing to the Docker registry to use to fetch Docker images.
+      If unset, this will default to the Docker default.
+    Example: null
+    Examples: null
+    Name: garden.docker_registry_endpoint
+  - Default: null
+    Description: A URL that points at the Metron agent to which metrics are forwarded.
+      By default, it matches with the default of Metron.
+    Example: null
+    Examples: null
+    Name: garden.dropsonde.destination
+  - Default: []
+    Description: Override DNS servers to be used in containers; defaults to the same
+      as the host
+    Example: null
+    Examples: null
+    Name: garden.dns_servers
+  - Default: false
+    Description: If true, all existing containers will be destroyed any time the garden
+      server starts up
+    Example: null
+    Examples: null
+    Name: garden.destroy_containers_on_startup
+  - Default: 0.0.0.0:17013
+    Description: tcp address on which to serve debug info
+    Example: null
+    Examples: null
+    Name: garden.debug_listen_address
+  - Default: null
+    Description: An integer used to denote how many ports are avaliable for Net In
+      calls. Uses the Garden default if not set.
+    Example: null
+    Examples: null
+    Name: garden.port_pool.size
+  - Default: null
+    Description: A string identifier that will be used when reporting metrics to Dropsonde.
+    Example: null
+    Examples: null
+    Name: garden.dropsonde.origin
+  - Default: []
+    Description: An array of additional arguments which will be passed to the network
+      plugin binary
+    Example: null
+    Examples: null
+    Name: garden.network_plugin_extra_args
+  - Default: []
+    Description: List of CIDR blocks to which containers will be denied access.
+    Example: null
+    Examples: null
+    Name: garden.deny_networks
+  - Default: info
+    Description: log level for the Garden server - can be debug, info, error or fatal
+    Example: null
+    Examples: null
+    Name: garden.log_level
+  - Default: null
+    Description: A string that is a server-wide identifier used for 'global' configuration.
+    Example: null
+    Examples: null
+    Name: garden.tag
+  - Default: /var/vcap/packages/busybox
+    Description: path to the rootfs to use when a container specifies no rootfs
+    Example: null
+    Examples: null
+    Name: garden.default_container_rootfs
+  - Default: null
+    Description: An integer port number used to denote where ports should start being
+      allocated for Net In calls. Uses the Garden default if not set.
+    Example: null
+    Examples: null
+    Name: garden.port_pool.start
+  - Default: []
+    Description: A list of mount points to share into the garden mount namespace
+    Example: null
+    Examples: null
+    Name: garden.shared_mounts
+  - Default: null
+    Description: Maximum container capacity to advertise. It is not recommended to
+      set this larger than 250.
+    Example: null
+    Examples: null
+    Name: garden.max_containers
+  Templates:
+  - DstPathEnd: bin/share_mounts
+    Path: /mnt/tmp/tar-CmdExtractor109614513/templates/share_mounts.erb
+    SrcPathEnd: share_mounts.erb
+  - DstPathEnd: bin/garden_ctl
+    Path: /mnt/tmp/tar-CmdExtractor109614513/templates/garden_ctl.erb
+    SrcPathEnd: garden_ctl.erb

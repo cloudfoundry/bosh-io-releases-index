@@ -1,0 +1,60 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor619080018/monit
+    SrcPathEnd: monit
+  Name: grootfs
+  Packages:
+  - Name: idmapper
+  - Name: btrfs-progs
+  - Name: grootfs
+  Properties:
+  - Default: info
+    Description: Log level for grootfs - can be debug, info, error or fatal
+    Example: null
+    Examples: null
+    Name: grootfs.log_level
+  - Default: null
+    Description: Local metron agent's port
+    Example: null
+    Examples: null
+    Name: grootfs.dropsonde_port
+  - Default: []
+    Description: A list of IP:PORT tuples that we allow pulling docker images from
+      using self-signed certificates.
+    Example: null
+    Examples: null
+    Name: grootfs.insecure_docker_registry_list
+  - Default: []
+    Description: List of base images (directories or Docker URLs) which will never
+      be deleted during cleanup.
+    Example: null
+    Examples: null
+    Name: grootfs.persistent_image_list
+  - Default: -1
+    Description: Total size of all filesystem layers downloaded from Docker registries
+      before graph cleanup is activated. -1 disables graph cleanup.
+    Example: null
+    Examples: null
+    Name: grootfs.graph_cleanup_threshold_in_mb
+  - Default: 10737418240
+    Description: The size of the grootfs store
+    Example: null
+    Examples: null
+    Name: grootfs.store_size_bytes
+  Templates:
+  - DstPathEnd: bin/btrfs-setup
+    Path: /mnt/tmp/tar-CmdExtractor619080018/templates/bin/btrfs-setup.erb
+    SrcPathEnd: bin/btrfs-setup.erb
+  - DstPathEnd: bin/drax-setup
+    Path: /mnt/tmp/tar-CmdExtractor619080018/templates/bin/drax-setup.erb
+    SrcPathEnd: bin/drax-setup.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor619080018/templates/bin/pre-start.erb
+    SrcPathEnd: bin/pre-start.erb
+  - DstPathEnd: config/grootfs_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor619080018/templates/config/grootfs_config.yml.erb
+    SrcPathEnd: config/grootfs_config.yml.erb
+  - DstPathEnd: config/privileged_grootfs_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor619080018/templates/config/privileged_grootfs_config.yml.erb
+    SrcPathEnd: config/privileged_grootfs_config.yml.erb

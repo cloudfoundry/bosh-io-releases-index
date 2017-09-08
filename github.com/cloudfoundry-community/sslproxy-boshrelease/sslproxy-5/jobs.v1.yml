@@ -1,0 +1,95 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor109946493/monit
+    SrcPathEnd: monit
+  Name: sslproxy
+  Packages:
+  - Name: nginx
+  Properties:
+  - Default: 120
+    Description: Timeout for send queries to the upstream server
+    Example: null
+    Name: sslproxy.proxy_send_timeout
+  - Default: 80
+    Description: Port that proxy listen on for HTTP connections
+    Example: null
+    Name: sslproxy.http.port
+  - Default: null
+    Description: Array of router addresses
+    Example: null
+    Name: router.servers
+  - Default: 75 20
+    Description: Timeout for keep-alive connections
+    Example: null
+    Name: sslproxy.keepalive_timeout
+  - Default: 7200
+    Description: Timeout for reusing the previously negotiated cryptographic parameters
+    Example: null
+    Name: sslproxy.https.ssl_timeout
+  - Default: 80
+    Description: Router port
+    Example: null
+    Name: router.port
+  - Default: 2
+    Description: Number of nginx workers
+    Example: null
+    Name: sslproxy.worker_processes
+  - Default: 5000m
+    Description: File upload maximum size
+    Example: null
+    Name: sslproxy.max_upload_size
+  - Default: 300
+    Description: Timeout for the connection to the upstream server
+    Example: null
+    Name: sslproxy.proxy_connect_timeout
+  - Default: 120
+    Description: Timeout for read queries to the upstream server
+    Example: null
+    Name: sslproxy.proxy_read_timeout
+  - Default: 443
+    Description: Port that proxy listen on for HTTPS connections
+    Example: null
+    Name: sslproxy.https.port
+  - Default: null
+    Description: SSL Certificate (PEM encoded)
+    Example: null
+    Name: sslproxy.https.ssl_cert
+  - Default: 8192
+    Description: Number of nginx connections per worker
+    Example: null
+    Name: sslproxy.worker_connections
+  - Default: true
+    Description: Enable/Disable HTTP requests (true/false)
+    Example: null
+    Name: sslproxy.http.enabled
+  - Default: null
+    Description: SSL private key (PEM encoded)
+    Example: null
+    Name: sslproxy.https.ssl_key
+  - Default: false
+    Description: Enable/Disable internal redirects (X-Accel-Redirect)
+    Example: null
+    Name: sslproxy.internal_redirect.enabled
+  Templates:
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/nginx_ctl
+    SrcPathEnd: nginx_ctl
+  - DstPathEnd: config/sslproxy.key
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/sslproxy.key.erb
+    SrcPathEnd: sslproxy.key.erb
+  - DstPathEnd: config/sslproxy.pem
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/sslproxy.pem.erb
+    SrcPathEnd: sslproxy.pem.erb
+  - DstPathEnd: config/location.conf
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/location.conf.erb
+    SrcPathEnd: location.conf.erb
+  - DstPathEnd: config/location.internal_redirect.conf
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/location.internal_redirect.conf.erb
+    SrcPathEnd: location.internal_redirect.conf.erb
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor109946493/templates/mime.types
+    SrcPathEnd: mime.types

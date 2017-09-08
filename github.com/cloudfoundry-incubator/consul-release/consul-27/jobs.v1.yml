@@ -1,0 +1,131 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor603039274/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: acceptance-tests
+  - Name: consul
+  - Name: golang1.5
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor603039274/templates/test.sh.erb
+    SrcPathEnd: test.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor579161324/monit
+    SrcPathEnd: monit
+  Name: consul_agent
+  Packages:
+  - Name: consul-common
+  - Name: consul
+  - Name: confab
+  Properties:
+  - Default: []
+    Description: LAN server addresses to join on start.
+    Example: null
+    Examples: null
+    Name: consul.agent.servers.lan
+  - Default: null
+    Description: PEM-encoded server certificate
+    Example: null
+    Examples: null
+    Name: consul.server_cert
+  - Default: null
+    Description: PEM-encoded agent certificate
+    Example: null
+    Examples: null
+    Name: consul.agent_cert
+  - Default: null
+    Description: A list of passphrases that will be converted into encryption keys,
+      the first key in the list is the active one
+    Example: null
+    Examples: null
+    Name: consul.encrypt_keys
+  - Default: true
+    Description: enable ssl for all communication with consul
+    Example: null
+    Examples: null
+    Name: consul.require_ssl
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: consul.ca_cert
+  - Default: null
+    Description: PEM-encoded server key
+    Example: null
+    Examples: null
+    Name: consul.server_key
+  - Default: info
+    Description: Agent log level.
+    Example: null
+    Examples: null
+    Name: consul.agent.log_level
+  - Default: 60
+    Description: Time to wait for a consul node to finish syncing with the cluster
+      in seconds
+    Example: null
+    Examples: null
+    Name: consul.agent.sync_timeout_in_seconds
+  - Default: {}
+    Description: Map of consul service definitions.
+    Example: null
+    Examples: null
+    Name: consul.agent.services
+  - Default: 2
+    Description: The Consul protocol to use.
+    Example: null
+    Examples: null
+    Name: consul.agent.protocol_version
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: consul.agent_key
+  - Default: client
+    Description: Mode to run the agent in. (client or server)
+    Example: null
+    Examples: null
+    Name: consul.agent.mode
+  - Default: []
+    Description: WAN server addresses to join.
+    Example: null
+    Examples: null
+    Name: consul.agent.servers.wan
+  - Default: dc1
+    Description: Name of the agent's datacenter.
+    Example: null
+    Examples: null
+    Name: consul.agent.datacenter
+  Templates:
+  - DstPathEnd: confab.json
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/confab.json.erb
+    SrcPathEnd: confab.json.erb
+  - DstPathEnd: config/certs/server.key
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/server.key.erb
+    SrcPathEnd: server.key.erb
+  - DstPathEnd: config/certs/agent.crt
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/agent.crt.erb
+    SrcPathEnd: agent.crt.erb
+  - DstPathEnd: config/certs/agent.key
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/agent.key.erb
+    SrcPathEnd: agent.key.erb
+  - DstPathEnd: bin/agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/agent_ctl.sh.erb
+    SrcPathEnd: agent_ctl.sh.erb
+  - DstPathEnd: bin/join_ctl
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/join_ctl.sh.erb
+    SrcPathEnd: join_ctl.sh.erb
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: config/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: config/certs/server.crt
+    Path: /mnt/tmp/tar-CmdExtractor579161324/templates/server.crt.erb
+    SrcPathEnd: server.crt.erb

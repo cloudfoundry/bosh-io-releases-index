@@ -1,0 +1,232 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor211225329/monit
+    SrcPathEnd: monit
+  Name: bootstrap_swarm
+  Packages:
+  - Name: docker
+  - Name: docker_swarm
+  Properties:
+  - Default: 2375
+    Description: Port for swarm manage
+    Example: null
+    Examples: null
+    Name: listen_port
+  - Default: null
+    Description: Docker's cluster store to use
+    Example: etcd://10.244.0.58:4001
+    Examples: null
+    Name: cluster_store
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor211225329/templates/run.sh
+    SrcPathEnd: run.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor445960779/monit
+    SrcPathEnd: monit
+  Name: docker
+  Packages:
+  - Name: docker
+  Properties:
+  - Default: false
+    Description: Set CORS headers in the remote API
+    Example: null
+    Examples: null
+    Name: api_cors_header
+  - Default: null
+    Description: Array of insecure registries (no certificate verification for HTTPS
+      and enable HTTP fallback)
+    Example: null
+    Examples: null
+    Name: insecure_registries
+  - Default: null
+    Description: Container default gateway IPv6 address
+    Example: null
+    Examples: null
+    Name: default_gateway_v6
+  - Default: null
+    Description: Array of DNS servers to be used by Docker
+    Example: null
+    Examples: null
+    Name: dns_servers
+  - Default: info
+    Description: Set the logging level (debug, info, warn, error, fatal)
+    Example: null
+    Examples: null
+    Name: log_level
+  - Default: null
+    Description: 'Set the containers network MTU (if no value is provided: default
+      to the default route MTU or 1500 if no default route is available)'
+    Example: null
+    Examples: null
+    Name: mtu
+  - Default: vcap
+    Description: Group which will own the Docker services
+    Example: null
+    Examples: null
+    Name: group
+  - Default: 0.0.0.0
+    Description: TCP address where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: listen_address
+  - Default: "4243"
+    Description: TCP port where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: listen_port
+  - Default: null
+    Description: CIDR notation prefix (first 2 octets) for the network bridges IP
+    Example: null
+    Examples: null
+    Name: cidr_prefix
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Examples: null
+    Name: debug
+  - Default: true
+    Description: Allow unrestricted inter-container and Docker daemon host communication
+    Example: null
+    Examples: null
+    Name: icc
+  - Default: null
+    Description: Array of key=value labels for the daemon
+    Example: null
+    Examples: null
+    Name: labels
+  - Default: true
+    Description: Enable net.ipv4.ip_forward and IPv6 forwarding
+    Example: null
+    Examples: null
+    Name: ip_forward
+  - Default: null
+    Description: TLS certificate
+    Example: null
+    Examples: null
+    Name: tls
+  - Default: null
+    Description: HTTP proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: false
+    Description: Enable selinux support
+    Example: null
+    Examples: null
+    Name: selinux_enable
+  - Default: null
+    Description: Array of storage driver options
+    Example: null
+    Examples: null
+    Name: storage_options
+  - Default: true
+    Description: Use userland proxy for loopback traffic
+    Example: null
+    Examples: null
+    Name: userland_proxy
+  - Default: false
+    Description: This job is running inside another container
+    Example: null
+    Examples: null
+    Name: inside_container
+  - Default: null
+    Description: List of comma-separated hosts that Docker should skip connecting
+      to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: root
+    Description: User which will own the Docker services
+    Example: null
+    Examples: null
+    Name: user
+  - Default: true
+    Description: Enable Docker's addition of iptables rules
+    Example: null
+    Examples: null
+    Name: iptables
+  - Default: null
+    Description: Use a specific storage driver
+    Example: null
+    Examples: null
+    Name: storage_driver
+  - Default: null
+    Description: Use a specific exec driver
+    Example: null
+    Examples: null
+    Name: exec_driver
+  - Default: null
+    Description: Array of exec driver options
+    Example: null
+    Examples: null
+    Name: exec_options
+  - Default: null
+    Description: Cluster store URL
+    Example: etcd://some-host:port
+    Examples: null
+    Name: cluster_store
+  - Default: null
+    Description: HTTPS proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: null
+    Description: Name of the network bridge to attach containers (defaults to docker0)
+    Example: null
+    Examples: null
+    Name: bridge
+  - Default: null
+    Description: Container default gateway IPv4 address
+    Example: null
+    Examples: null
+    Name: default_gateway
+  - Default: null
+    Description: Array of default ulimits for containers
+    Example: null
+    Examples: null
+    Name: default_ulimits
+  - Default: null
+    Description: Array of DNS search domains to be used by Docker
+    Example: null
+    Examples: null
+    Name: dns_domains
+  - Default: true
+    Description: Enable IP masquerading for bridge's IP range
+    Example: null
+    Examples: null
+    Name: ip_masq
+  - Default: false
+    Description: Enable IPv6 networking
+    Example: null
+    Examples: null
+    Name: ipv6
+  - Default: null
+    Description: Array of preferred Docker registry mirrors
+    Example: null
+    Examples: null
+    Name: registry_mirrors
+  Templates:
+  - DstPathEnd: bin/cgroupfs-mount
+    Path: /mnt/tmp/tar-CmdExtractor445960779/templates/bin/cgroupfs-mount
+    SrcPathEnd: bin/cgroupfs-mount
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor445960779/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/props.sh
+    Path: /mnt/tmp/tar-CmdExtractor445960779/templates/bin/props.sh
+    SrcPathEnd: bin/props.sh
+  - DstPathEnd: config/ca
+    Path: /mnt/tmp/tar-CmdExtractor445960779/templates/config/ca
+    SrcPathEnd: config/ca
+  - DstPathEnd: config/cert
+    Path: /mnt/tmp/tar-CmdExtractor445960779/templates/config/cert
+    SrcPathEnd: config/cert
+  - DstPathEnd: config/private_key
+    Path: /mnt/tmp/tar-CmdExtractor445960779/templates/config/private_key
+    SrcPathEnd: config/private_key

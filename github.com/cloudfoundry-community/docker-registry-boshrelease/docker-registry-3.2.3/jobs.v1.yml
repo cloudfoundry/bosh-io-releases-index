@@ -1,0 +1,550 @@
+- Description: Docker Registry v2 API
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor101482595/monit
+    SrcPathEnd: monit
+  Name: registry
+  Packages:
+  - Name: golang
+  - Name: distribution
+  Properties:
+  - Default: true
+    Description: Enable periodic health check on the storage driver's backend storage
+    Example: null
+    Examples: null
+    Name: docker.registry.health_storagedriver_enabled
+  - Default: null
+    Description: Docker registry password
+    Example: null
+    Examples: null
+    Name: docker.mirror.password
+  - Default: null
+    Description: IP address of the redis cache host
+    Example: null
+    Examples: null
+    Name: docker.cache.host
+  - Default: 6379
+    Description: Port address of the cache host
+    Example: null
+    Examples: null
+    Name: docker.cache.port
+  - Default: null
+    Description: PEM-encoded SSL certificate for HTTPS registry operation
+    Example: null
+    Examples: null
+    Name: docker.registry.ssl.cert
+  - Default: null
+    Description: PEM-encoded private key for HTTPS registry operation
+    Example: null
+    Examples: null
+    Name: docker.registry.ssl.key
+  - Default: 5000
+    Description: What port to run the Docker Registry v2 API on
+    Example: null
+    Examples: null
+    Name: docker.registry.port
+  - Default: true
+    Description: Enable monit restart capability using the debug endpoint. Setting
+      to true will enable the debug endpoint.
+    Example: null
+    Examples: null
+    Name: docker.registry.debug_endpoint_monit
+  - Default:
+      readonly:
+        enabled: false
+      uploadpurging:
+        age: 168h
+        dryrun: false
+        enabled: true
+        interval: 24h
+    Description: Maintenance jobs for storage, upload purging and read-only mode are
+      the only functions available
+    Example: null
+    Examples: null
+    Name: docker.registry.storage_maintenance
+  - Default: null
+    Description: Docker registry username
+    Example: null
+    Examples: null
+    Name: docker.mirror.username
+  - Default: 127.0.0.1
+    Description: What address to bind the Docker Registry v2 API
+    Example: null
+    Examples: null
+    Name: docker.registry.bind
+  - Default: null
+    Description: Defines which storage backend is in use, otherwise filesystem backend
+      will be used
+    Example:
+      s3:
+        accesskey: awsaccesskey
+        bucket: bucketname
+        chunksize: 5242880
+        encrypt: true
+        keyid: mykeyid
+        region: us-west-1
+        regionendpoint: http://myobjects.local
+        rootdirectory: /s3/object/name/prefix
+        secretkey: awssecretkey
+        secure: true
+        v4auth: true
+    Examples: null
+    Name: docker.registry.storage
+  - Default: null
+    Description: Password to access the cache host
+    Example: null
+    Examples: null
+    Name: docker.cache.password
+  - Default: null
+    Description: Notifications are sent in response to manifest pushes and pulls and
+      layer pushes and pulls
+    Example:
+      endpoints:
+      - backoff: 1s
+        headers:
+          Authorization:
+          - Bearer token
+        name: alistener
+        threshold: 5
+        timeout: 500ms
+        url: https://mylistener.example.com/event
+    Examples: null
+    Name: docker.registry.notifications
+  - Default: null
+    Description: Externally-reachable address for the registry, as a fully qualified
+      URL. If present, it is used when creating generated URLs. Otherwise, these URLs
+      are derived from client requests
+    Example: https://myregistryaddress.org:5000
+    Examples: null
+    Name: docker.registry.endpoint
+  - Default: true
+    Description: In case of cache is defined, enables a periodic health check on the
+      redis host and port
+    Example: null
+    Examples: null
+    Name: docker.registry.health_cache_enabled
+  - Default: null
+    Description: Enables a registry to be configured as a pull through cache to the
+      official Docker Hub. See mirror for more information
+    Example: https://registry-1.docker.io
+    Examples: null
+    Name: docker.mirror.host
+  - Default:
+      idletimeout: 300s
+      maxactive: 64
+      maxidle: 16
+    Description: Configure the behavior of the Redis connection pool.
+    Example: null
+    Examples: null
+    Name: docker.cache.pool
+  - Default: info
+    Description: Sets the sensitivity of logging output. Permitted values are error,
+      warn, info and debug
+    Example: null
+    Examples: null
+    Name: docker.registry.loglevel
+  - Default: true
+    Description: Debug endpoint enabled or disabled. It will create a log file with
+      the dump of the health endpoint everytime the app it is stopped, useful with
+      monit.
+    Example: null
+    Examples: null
+    Name: docker.registry.debug_endpoint_enabled
+  - Default: null
+    Description: A secret cookie used to sign state against tampering.
+    Example: null
+    Examples: null
+    Name: docker.registry.cookie
+  - Default: false
+    Description: Enable the deletion of image blobs and manifests by digest
+    Example: null
+    Examples: null
+    Name: docker.registry.storage_delete
+  - Default: 10000
+    Description: Open files (ulimit)
+    Example: null
+    Examples: null
+    Name: docker.registry.ofiles
+  - Default: /var/vcap/store/registry
+    Description: Path (on-disk, locally) where the Docker registry should store its
+      data (filesystem storage backend)
+    Example: null
+    Examples: null
+    Name: docker.registry.root
+  - Default: false
+    Description: Route all data through the Registry, or redirect the client to the
+      backend in order to download from there
+    Example: null
+    Examples: null
+    Name: docker.registry.storage_disable_redirect
+  - Default: 127.0.0.1:5001
+    Description: Debug endpoint can be used for monitoring registry metrics and health,
+      as well as profiling
+    Example: null
+    Examples: null
+    Name: docker.registry.debug_endpoint
+  - Default: null
+    Description: Configures error and metrics reporting tools. At the moment only
+      two services are supported, New Relic and Bugsnag
+    Example:
+      newrelic:
+        licensekey: newreliclicensekey
+        name: newrelicname
+    Examples: null
+    Name: docker.registry.reporting
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: tls/key.pem
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/tls/key.pem
+    SrcPathEnd: tls/key.pem
+  - DstPathEnd: config/registry.conf
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/config/registry.conf
+    SrcPathEnd: config/registry.conf
+  - DstPathEnd: config/gcs.key
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/config/gcs.key
+    SrcPathEnd: config/gcs.key
+  - DstPathEnd: tls/cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor101482595/templates/tls/cert.pem
+    SrcPathEnd: tls/cert.pem
+- Description: The NFS Server provides a storage server that can be used with the
+    Cloud Controllers to store uploaded application source code and compiled application
+    assets.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor193732749/monit
+    SrcPathEnd: monit
+  Name: debian_nfs_server
+  Packages:
+  - Name: common
+  - Name: debian_nfs_server
+  Properties:
+  - Default: false
+    Description: Exports /var/vcap/store with no_root_squash when set to true
+    Example: null
+    Examples: null
+    Name: nfs_server.no_root_squash
+  - Default: null
+    Description: An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or
+      IPs from which /var/vcap/store is accessible
+    Example: null
+    Examples: null
+    Name: nfs_server.allow_from_entries
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.idmapd_domain
+  - Default: /var/lib/nfs/rpc_pipef
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.pipefs_directory
+  Templates:
+  - DstPathEnd: bin/rpc_nfsd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor193732749/templates/rpc_nfsd_ctl
+    SrcPathEnd: rpc_nfsd_ctl
+  - DstPathEnd: bin/rpc_mountd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor193732749/templates/rpc_mountd_ctl
+    SrcPathEnd: rpc_mountd_ctl
+  - DstPathEnd: config/exports
+    Path: /mnt/tmp/tar-CmdExtractor193732749/templates/exports.erb
+    SrcPathEnd: exports.erb
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor193732749/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor310168647/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: docker
+  Properties:
+  - Default: false
+    Description: Connect to the registry over SSL/TLS (requires the HTTPS proxy)
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.ssl.enabled
+  - Default: true
+    Description: Verify the SSL/TLS certificate of the registry
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.ssl.verify
+  - Default: alpine
+    Description: Image to pull from Dockerhub
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.image
+  - Default: smoke-tests-95115f
+    Description: Unique string to use for verifying a push
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.retag
+  - Default: null
+    Description: IP address of hostname of the registry to test
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.registry.ip
+  - Default: null
+    Description: Port of the registry to test
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.registry.port
+  - Default: null
+    Description: Username to use for authenticating (HTTP Basic Auth) to the registry
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.registry.username
+  - Default: null
+    Description: Password to use for authenticating (HTTP Basic Auth) to the registry
+    Example: null
+    Examples: null
+    Name: docker.smoke-tests.registry.password
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor310168647/templates/bin/run
+    SrcPathEnd: bin/run
+- Description: Redis provides caching features for Docker Registry
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor107142673/monit
+    SrcPathEnd: monit
+  Name: cache
+  Packages:
+  - Name: redis
+  Properties:
+  - Default: 30
+    Description: Close the connection after a client is idle for N seconds (0 to disable)
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.timeout
+  - Default: 16
+    Description: Set the number of redis databases.
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.databases
+  - Default: 6379
+    Description: What port to run Redis server on
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.port
+  - Default: 60
+    Description: TCP keepalive. If non-zero, use SO_KEEPALIVE to send TCP ACKs to
+      clients if no communication
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.tcp_keepalive
+  - Default: warning
+    Description: Log verbosity level for Redis cache server
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.loglevel
+  - Default: null
+    Description: Require clients to issue AUTH <PASSWORD> before processing any command
+    Example: mypasswordredis
+    Examples: null
+    Name: docker.cache.redis.password
+  - Default: 10000
+    Description: Set the max number of connected clients at the same time
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.maxclients
+  - Default: null
+    Description: Don't use more memory than the specified amount of bytes.
+    Example: 1000000000000
+    Examples: null
+    Name: docker.cache.redis.maxmemory
+  - Default: 127.0.0.1
+    Description: IP Address to bind the Redis server to
+    Example: null
+    Examples: null
+    Name: docker.cache.redis.bind
+  Templates:
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor107142673/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor107142673/templates/config/redis.conf
+    SrcPathEnd: config/redis.conf
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor107142673/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor107142673/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor107142673/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor107142673/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+- Description: The NFS Mounter sets up an NFS mount at a specific location. It can
+    be used with the Cloud Controller to save assets to the NFS Server.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor658200683/monit
+    SrcPathEnd: monit
+  Name: nfs_mounter
+  Packages:
+  - Name: common
+  Properties:
+  - Default: /var/vcap/nfs
+    Description: Location to mount the nfs share
+    Example: null
+    Examples: null
+    Name: nfs_server.share_path
+  - Default: null
+    Description: NFS server for droplets and apps
+    Example: null
+    Examples: null
+    Name: nfs_server.address
+  - Default: null
+    Description: Path to share from the remote NFS server
+    Example: null
+    Examples: null
+    Name: nfs_server.share
+  - Default: null
+    Description: bool to use NFS4
+    Example: null
+    Examples: null
+    Name: nfs_server.nfsv4
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.idmapd_domain
+  - Default: /var/lib/nfs/rpc_pipefs
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.pipefs_directory
+  Templates:
+  - DstPathEnd: bin/handle_nfs_blobstore.sh
+    Path: /mnt/tmp/tar-CmdExtractor658200683/templates/handle_nfs_blobstore.sh.erb
+    SrcPathEnd: handle_nfs_blobstore.sh.erb
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor658200683/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+  - DstPathEnd: config/nfs-common
+    Path: /mnt/tmp/tar-CmdExtractor658200683/templates/nfs-common
+    SrcPathEnd: nfs-common
+  - DstPathEnd: bin/nfs_mounter_ctl
+    Path: /mnt/tmp/tar-CmdExtractor658200683/templates/nfs_mounter_ctl.erb
+    SrcPathEnd: nfs_mounter_ctl.erb
+- Description: Nginx provides proxy and auth functionalities for Docker Registry
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor376066517/monit
+    SrcPathEnd: monit
+  Name: proxy
+  Packages:
+  - Name: nginx
+  Properties:
+  - Default:
+    - 127.0.0.1
+    Description: A list of the IP addresses of each Docker proxy to load-balance
+    Example: null
+    Examples: null
+    Name: docker.proxy.backend.hosts
+  - Default: null
+    Description: Port to listen to for incoming connections. Defaults to 443 if ssl,
+      otherwise 80
+    Example: null
+    Examples: null
+    Name: docker.proxy.port
+  - Default: null
+    Description: PEM-encoded private key for HTTPS proxy operation
+    Example: null
+    Examples: null
+    Name: docker.proxy.ssl.key
+  - Default: null
+    Description: If defined, it will enable Auth Basic authentication in the proxy
+    Example:
+      user: '{PLAIN}password'
+      user2: $(openssl passwd -crypt PASSWORD)
+    Examples: null
+    Name: docker.proxy.auth_basic
+  - Default: 75s
+    Description: Time to keep a keep-alive connection open
+    Example: null
+    Examples: null
+    Name: docker.proxy.keepalive_timeout
+  - Default: 20s
+    Description: Show Keep-alive header
+    Example: null
+    Examples: null
+    Name: docker.proxy.keepalive_timeout_header
+  - Default: 0
+    Description: Priority of the worker processes
+    Example: null
+    Examples: null
+    Name: docker.proxy.worker_priority
+  - Default: 5000
+    Description: TCP Port that each backend registry is listening on
+    Example: null
+    Examples: null
+    Name: docker.proxy.backend.port
+  - Default: '*'
+    Description: IP address where to listen for incoming connections. (For all interfaces,
+      do not use 0.0.0.0, use *)
+    Example: null
+    Examples: null
+    Name: docker.proxy.address
+  - Default: null
+    Description: PEM-encoded SSL certificate for HTTPS proxy operation
+    Example: null
+    Examples: null
+    Name: docker.proxy.ssl.cert
+  - Default: error
+    Description: Error loglevel
+    Example: null
+    Examples: null
+    Name: docker.proxy.loglevel
+  - Default: auto
+    Description: Number of worker processes
+    Example: null
+    Examples: null
+    Name: docker.proxy.worker_processes
+  Templates:
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/config/nginx.conf
+    SrcPathEnd: config/nginx.conf
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: tls/key.pem
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/tls/key.pem
+    SrcPathEnd: tls/key.pem
+  - DstPathEnd: config/auth/registry
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/config/auth/registry.erb
+    SrcPathEnd: config/auth/registry.erb
+  - DstPathEnd: tls/cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor376066517/templates/tls/cert.pem
+    SrcPathEnd: tls/cert.pem

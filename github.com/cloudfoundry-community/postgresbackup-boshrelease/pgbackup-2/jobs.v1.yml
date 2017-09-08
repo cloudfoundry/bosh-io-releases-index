@@ -1,0 +1,128 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor240177340/monit
+    SrcPathEnd: monit
+  Name: pgbackup
+  Packages:
+  - Name: pgbackup
+  - Name: gof3r
+  - Name: postgres90
+  - Name: postgres91
+  - Name: postgres92
+  - Name: postgres93
+  - Name: postgres94
+  - Name: postgres95
+  Properties:
+  - Default: ""
+    Description: Path to prepend to backup filenames when storing in Amazon S3
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.path
+  - Default: ""
+    Description: Access Key ID for storing backups in Amazon S3
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.access_key_id
+  - Default: s3.amazonaws.com
+    Description: endpoint for backup/restore
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.endpoint
+  - Default: "01"
+    Description: Backup schedule - hour (00-23)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.hour
+  - Default: '*'
+    Description: Backup schedule - day of the month (1-31, or *)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.monthday
+  - Default: '*'
+    Description: Backup schedule - month (1-12, or *)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.month
+  - Default: '*'
+    Description: Backup schedule - weekday (0-7, sun/mon/tue/etc., or *)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.weekday
+  - Default: ""
+    Description: Secret Access key for storing backups in Amazon S3
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.secret_access_key
+  - Default: pgdumpall
+    Description: Name of the backup to create - will be <timestamp>-<name>.tar
+    Example: null
+    Examples: null
+    Name: pgbackup.name
+  - Default: localhost
+    Description: Hostname or IP address to connect to PostgreSQL on
+    Example: null
+    Examples: null
+    Name: pgbackup.host
+  - Default: 5432
+    Description: TCP port to connect to PostgreSQL on
+    Example: null
+    Examples: null
+    Name: pgbackup.port
+  - Default: PLEASE-CHANGE-THIS
+    Description: Password to authenticate to PostgreSQL with
+    Example: null
+    Examples: null
+    Name: pgbackup.password
+  - Default: "false"
+    Description: Enable debug output, can be 'true' or 'false' (default).
+    Example: null
+    Examples: null
+    Name: pgbackup.debug
+  - Default: "9.5"
+    Description: Version of PostgreSQL to be backed up/restored
+    Example: null
+    Examples: null
+    Name: pgbackup.version
+  - Default: pgbackup
+    Description: Amazon S3 bucket to store backups in
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.bucket
+  - Default: pgbackup
+    Description: User to connect to PostgreSQL as
+    Example: null
+    Examples: null
+    Name: pgbackup.username
+  - Default: ""
+    Description: Extra arguments to pass to PostgreSQL's pg_dump utility
+    Example: null
+    Examples: null
+    Name: pgbackup.pgdump.arguments
+  - Default: "00"
+    Description: Backup schedule - minute (00-59)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.minute
+  Templates:
+  - DstPathEnd: shell/functions
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/shell/functions
+    SrcPathEnd: shell/functions
+  - DstPathEnd: bin/control
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/bin/control
+    SrcPathEnd: bin/control
+  - DstPathEnd: bin/cronwatch
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/bin/cronwatch
+    SrcPathEnd: bin/cronwatch
+  - DstPathEnd: bin/pgbackup
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/bin/pgbackup
+    SrcPathEnd: bin/pgbackup
+  - DstPathEnd: bin/pgrestore
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/bin/pgrestore
+    SrcPathEnd: bin/pgrestore
+  - DstPathEnd: config/pgbackup.cron
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/config/pgbackup.cron
+    SrcPathEnd: config/pgbackup.cron
+  - DstPathEnd: shell/env
+    Path: /mnt/tmp/tar-CmdExtractor240177340/templates/shell/env
+    SrcPathEnd: shell/env

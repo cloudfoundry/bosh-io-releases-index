@@ -1,0 +1,264 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor331881750/monit
+    SrcPathEnd: monit
+  Name: memcache_broker
+  Packages:
+  - Name: memcache-common
+  - Name: memcache-java
+  - Name: memcache_broker
+  Properties:
+  - Default: null
+    Description: The shared secret between the CC and the service broker.
+    Example: null
+    Examples: null
+    Name: memcache_broker.broker_password
+  - Default: 21080
+    Description: The http port the Memcache hazelcast service will listen for REST
+      calls on
+    Example: null
+    Examples: null
+    Name: memcache_broker.host.port
+  - Default: null
+    Description: A vip an application can use to provide simpler access to the memcache
+      cluster.
+    Example: null
+    Examples: null
+    Name: memcache_broker.memcache.vip
+  - Default: null
+    Description: The port used to connect to the NATS server.
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: The user used to connect to the NATS server.
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: The password used to connect to the NATS server.
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: The domain of the application
+    Example: null
+    Examples: null
+    Name: domain
+  - Default: hazelcast-user
+    Description: The memcache rest endpoint username.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.username
+  - Default: null
+    Description: The memcache rest endpoint password.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.password
+  - Default: null
+    Description: The shared secret used for memcache authentication.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.secret_key
+  - Default: null
+    Description: The machines in this hazelcast cluster.
+    Example: null
+    Examples: null
+    Name: memcache_broker.memcache.servers
+  - Default: null
+    Description: The list of hosts running NATS server.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: null
+    Description: Collector network information.
+    Example: null
+    Examples: null
+    Name: networks.apps
+  - Default: null
+    Description: The service endpoint url on memcache_hazelcast
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.srv_api
+  - Default: null
+    Description: The plans this server will support.
+    Example: null
+    Examples: null
+    Name: memcache_broker.plans
+  Templates:
+  - DstPathEnd: bin/memcache_broker
+    Path: /mnt/tmp/tar-CmdExtractor331881750/templates/memcache_broker.erb
+    SrcPathEnd: memcache_broker.erb
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor331881750/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor352670392/monit
+    SrcPathEnd: monit
+  Name: memcache_hazelcast
+  Packages:
+  - Name: memcache-common
+  - Name: memcache-java
+  - Name: memcache_hazelcast
+  Properties:
+  - Default: 1
+    Description: Minimum number of cluster members this node can see to determine
+      if this node is healthy in the cluster.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.minimum_cluster_members
+  - Default: 20
+    Description: When max cache size is exceeded how much should be evicted from each
+      cache.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.percent_to_trim
+  - Default: 5
+    Description: Thread count for handling incoming event packets.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.client_event_thread_count
+  - Default: 5701
+    Description: The port this server will listen on for memcache requests.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.port
+  - Default: hazelcast-user
+    Description: The memcache rest endpoint username.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.username
+  - Default: null
+    Description: The memcache rest endpoint password.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.password
+  - Default: 11211
+    Description: The port this server will listen on for memcache requests.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.port
+  - Default: 536870912
+    Description: The maximum amount of heap you wish to be reserved for cache entries.  Once
+      total cache size gets bigger than this then node will start LRU evicting a %
+      from each cache.  Should be less than heap_size.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.max_cache_size
+  - Default: 271
+    Description: How many partitions exist in this cluster.  Effects total cluster
+      scalability.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.partition_count
+  - Default: null
+    Description: The port used to connect to the NATS server.
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: 120
+    Description: Number of seconds to wait for local member to be safe before shutting
+      it down.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.local_member_safe_timeout
+  - Default: null
+    Description: The plans this server will support.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.plans
+  - Default: null
+    Description: The domain of the application
+    Example: null
+    Examples: null
+    Name: domain
+  - Default: 3
+    Description: Number of input and output threads.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.io_thread_count
+  - Default: 10
+    Description: How often in seconds should the node check to see if max cache size
+      is exceeded.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.trim_delay
+  - Default: -1
+    Description: Number of generic operation handler threads. -1 means CPU core count
+      x 2.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.operation_generic_thread_count
+  - Default: null
+    Description: Collector network information.
+    Example: null
+    Examples: null
+    Name: networks.apps
+  - Default: null
+    Description: The list of hosts running NATS server.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: 8080
+    Description: The http port the Memcache hazelcast service will listen for REST
+      calls on
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.port
+  - Default: null
+    Description: The machines in this hazelcast cluster.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.machines
+  - Default: null
+    Description: The user used to connect to the NATS server.
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: 5
+    Description: Number of event handler threads.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.event_thread_count
+  - Default: null
+    Description: Set debug port and enable debug mode.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.debug
+  - Default: 1G
+    Description: The amount of Heap the cache should be configured with.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.heap_size
+  - Default: null
+    Description: The shared secret used for memcache authentication.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.secret_key
+  - Default: 0
+    Description: The size of the executor pool to handle asyncronous requests.  A
+      value of zero will use the default of cores * 2.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.executor_pool_size
+  - Default: -1
+    Description: Number of partition based operation handler threads. -1 means CPU
+      core count x 2.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.operation_thread_count
+  - Default: null
+    Description: The password used to connect to the NATS server.
+    Example: null
+    Examples: null
+    Name: nats.password
+  Templates:
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor352670392/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+  - DstPathEnd: bin/memcache_hazelcast
+    Path: /mnt/tmp/tar-CmdExtractor352670392/templates/memcache_hazelcast.erb
+    SrcPathEnd: memcache_hazelcast.erb

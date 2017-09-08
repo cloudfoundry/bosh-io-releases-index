@@ -1,0 +1,520 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor094947711/monit
+    SrcPathEnd: monit
+  Name: broker-registrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Name: broker.protocol
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Name: broker.host
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor094947711/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor088601097/monit
+    SrcPathEnd: monit
+  Name: proxy
+  Packages:
+  - Name: haproxy
+  - Name: syslog_aggregator
+  - Name: route-registrar
+  - Name: common
+  Properties:
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: A user for HAProxy health check
+    Example: null
+    Name: haproxy_mysql_user
+  - Default: null
+    Description: IPs of all MySQL nodes
+    Example: null
+    Name: mysql_ips
+  - Default: null
+    Description: IP of each NATS cluster member
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: SSL certificate (PEM file)
+    Example: null
+    Name: haproxy.ssl_pem
+  - Default: 300
+    Description: Server and client timeouts in seconds
+    Example: null
+    Name: request_timeout_in_seconds
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: Password for the HA Proxy stats interface
+    Example: null
+    Name: haproxy_stats_password
+  - Default: null
+    Description: Username for broker to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: Password for broker to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: Domain of the route registered for the Stats UI; typically the CF
+      system domain
+    Example: null
+    Name: external_domain
+  - Default: null
+    Description: The name of the network (needed for the syslog aggregator)
+    Example: null
+    Name: network_name
+  Templates:
+  - DstPathEnd: config/cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor088601097/templates/cert.pem.erb
+    SrcPathEnd: cert.pem.erb
+  - DstPathEnd: bin/route-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor088601097/templates/route-registrar_ctl.erb
+    SrcPathEnd: route-registrar_ctl.erb
+  - DstPathEnd: config/registrar_settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor088601097/templates/registrar_settings.yml.erb
+    SrcPathEnd: registrar_settings.yml.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor088601097/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/haproxy.config
+    Path: /mnt/tmp/tar-CmdExtractor088601097/templates/haproxy.config.erb
+    SrcPathEnd: haproxy.config.erb
+  - DstPathEnd: bin/haproxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor088601097/templates/haproxy_ctl
+    SrcPathEnd: haproxy_ctl
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor008422179/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: golang
+  - Name: acceptance-tests
+  - Name: cli
+  Properties:
+  - Default: false
+    Description: Include browser-automated dashboard tests
+    Example: null
+    Name: include_dashboard_tests
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Shared domain for pushed apps
+    Example: null
+    Name: cf.apps_domain
+  - Default: false
+    Description: Whether to add --skip-ssl-validation for cf cli
+    Example: null
+    Name: cf.skip_ssl_validation
+  - Default: null
+    Description: Host for the broker. Should be the same as jobs.cf-mysql-broker.properties.external_host
+    Example: null
+    Name: broker.host
+  - Default: null
+    Description: Array of MySQL plans
+    Example: null
+    Name: service.plans
+  - Default: false
+    Description: Instead of running the full acceptance test suite, only run a shorter
+      smoke test
+    Example: null
+    Name: smoke_tests_only
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Name of the MySQL service
+    Example: null
+    Name: service.name
+  - Default: 40
+    Description: number of user connections to allow in a plan if not specified
+    Example: null
+    Name: service.max_user_connections_default
+  - Default: false
+    Description: Include failover tests
+    Example: null
+    Name: include_failover_tests
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor008422179/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor491085133/monit
+    SrcPathEnd: monit
+  Name: mysql
+  Packages:
+  - Name: xtrabackup
+  - Name: mariadb
+  - Name: mariadb_ctrl
+  - Name: galera
+  - Name: galera-healthcheck
+  - Name: gra-log-purger
+  - Name: golang
+  - Name: common
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: A user for HAProxy health check
+    Example: null
+    Name: haproxy_mysql_user
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: false
+    Description: Define whether forwarders should also send non-mysql syslog activity
+      to the aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: Password for the MySQL server admin user
+    Example: null
+    Name: admin_password
+  - Default: 1500
+    Description: Maximum total number of database connections for the node
+    Example: null
+    Name: max_connections
+  - Default: null
+    Description: List of nodes.  Must have the same number of ips as there are nodes
+      in the cluster
+    Example: null
+    Name: cluster_ips
+  - Default: 3306
+    Description: Port the mysql server should bind to
+    Example: null
+    Name: port
+  - Default: null
+    Description: List of proxy node ip addresses
+    Example: null
+    Name: proxy_ips
+  - Default: 512
+    Description: Cache size used by galera (maximum amount of data possible in an
+      IST), in MB
+    Example: null
+    Name: gcache_size
+  - Default: {}
+    Description: Set of databases to seed
+    Example: null
+    Name: seeded_databases
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: root
+    Description: Username for the MySQL server admin user
+    Example: null
+    Name: admin_username
+  - Default: null
+    Description: The size in bytes of the memory buffer InnoDB uses to cache data
+      and indexes of its tables
+    Example: null
+    Name: innodb_buffer_pool_size
+  - Default: 1024
+    Description: Size of the ib_log_file used by innodb, in MB
+    Example: null
+    Name: ib_log_file_size
+  - Default: null
+    Description: The name of the network (needed for the syslog aggregator)
+    Example: null
+    Name: network_name
+  Templates:
+  - DstPathEnd: config/mariadb_init
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/mariadb_init.erb
+    SrcPathEnd: mariadb_init.erb
+  - DstPathEnd: bin/galera-healthcheck_ctl
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/galera-healthcheck_ctl.erb
+    SrcPathEnd: galera-healthcheck_ctl.erb
+  - DstPathEnd: bin/gra-log-purger_ctl
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/gra-log-purger_ctl.erb
+    SrcPathEnd: gra-log-purger_ctl.erb
+  - DstPathEnd: bin/gra-log-purger.sh
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/gra-log-purger.sh.erb
+    SrcPathEnd: gra-log-purger.sh.erb
+  - DstPathEnd: bin/mysql_database_seed.sh
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/mysql_database_seed.sh.erb
+    SrcPathEnd: mysql_database_seed.sh.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: bin/mariadb_ctl
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/mariadb_ctl.erb
+    SrcPathEnd: mariadb_ctl.erb
+  - DstPathEnd: config/my.cnf
+    Path: /mnt/tmp/tar-CmdExtractor491085133/templates/my.cnf.erb
+    SrcPathEnd: my.cnf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor682233607/monit
+    SrcPathEnd: monit
+  Name: cf-mysql-broker
+  Packages:
+  - Name: ruby
+  - Name: mysqlclient
+  - Name: cf-mysql-broker
+  - Name: common
+  - Name: mariadb
+  - Name: syslog_aggregator
+  - Name: route-registrar
+  Properties:
+  - Default: true
+    Description: Determines use of https in dashboard url and in callback uri for
+      calls to UAA
+    Example: null
+    Name: ssl_enabled
+  - Default: null
+    Description: Username for broker to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: false
+    Description: Define whether forwarders should also send non-mysql syslog activity
+      to the aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: A unique secret key, used to sign sessions
+    Example: null
+    Name: cookie_secret
+  - Default: null
+    Description: Size of the persistent disk allocated to the MySQL node for storage
+    Example: null
+    Name: mysql_node.persistent_disk
+  - Default: false
+    Description: Determines whether dashboard verifies SSL certificates when communicating
+      with Cloud Controller and UAA
+    Example: null
+    Name: skip_ssl_validation
+  - Default: null
+    Description: Name of the network the broker will get its IP address from
+    Example: null
+    Name: networks.broker_network
+  - Default: null
+    Description: Host (DNS) or IP address of the MySQL server or the proxy if using
+      one
+    Example: null
+    Name: mysql_node.host
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Name: services
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: The name of the network (needed for the syslog aggregator)
+    Example: null
+    Name: network_name
+  - Default: null
+    Description: Broker's basic auth username
+    Example: null
+    Name: auth_username
+  - Default: null
+    Description: URL of the CloudFoundry Cloud Controller
+    Example: null
+    Name: cc_api_uri
+  - Default: root
+    Description: Username for the admin MySQL account
+    Example: null
+    Name: mysql_node.admin_username
+  - Default: null
+    Description: Password for the admin MySQL account
+    Example: null
+    Name: mysql_node.admin_password
+  - Default: 512
+    Description: Cache size used by galera (maximum amount of data possible in an
+      IST), in MB
+    Example: null
+    Name: mysql_node.gcache_size
+  - Default: 1024
+    Description: Size of the ib_log_file used by innodb, in MB
+    Example: null
+    Name: mysql_node.ib_log_file_size
+  - Default: 40
+    Description: number of user connections to allow in a plan if not specified
+    Example: null
+    Name: max_user_connections_default
+  - Default: null
+    Description: Host used to register the broker. Domain is often the same as system
+      domain.
+    Example: null
+    Name: external_host
+  - Default: null
+    Description: Broker's basic auth password
+    Example: null
+    Name: auth_password
+  - Default: 3306
+    Description: Port of the MySQL server
+    Example: null
+    Name: mysql_node.port
+  - Default: null
+    Description: Password for broker to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  Templates:
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/settings.yml.erb
+    SrcPathEnd: settings.yml.erb
+  - DstPathEnd: bin/cf-mysql-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/cf-mysql-broker_ctl.erb
+    SrcPathEnd: cf-mysql-broker_ctl.erb
+  - DstPathEnd: config/database.yml
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/database.yml.erb
+    SrcPathEnd: database.yml.erb
+  - DstPathEnd: config/00-validation
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/00-validation.erb
+    SrcPathEnd: 00-validation.erb
+  - DstPathEnd: bin/cf-mysql-quota-enforcer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/cf-mysql-quota-enforcer_ctl.erb
+    SrcPathEnd: cf-mysql-quota-enforcer_ctl.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: bin/healthcheck.sh
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/healthcheck.sh.erb
+    SrcPathEnd: healthcheck.sh.erb
+  - DstPathEnd: config/registrar_settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/registrar_settings.yml.erb
+    SrcPathEnd: registrar_settings.yml.erb
+  - DstPathEnd: bin/route-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/route-registrar_ctl.erb
+    SrcPathEnd: route-registrar_ctl.erb
+  - DstPathEnd: config/unicorn.conf.rb
+    Path: /mnt/tmp/tar-CmdExtractor682233607/templates/unicorn.conf.rb.erb
+    SrcPathEnd: unicorn.conf.rb.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor765661905/monit
+    SrcPathEnd: monit
+  Name: broker-deregistrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: null
+    Description: Host for the broker. Should be the same as jobs.cf-mysql-broker.properties.external_host
+    Example: null
+    Name: broker.host
+  - Default: 80
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor765661905/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb

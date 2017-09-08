@@ -1,0 +1,59 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor941110493/monit
+    SrcPathEnd: monit
+  Name: shell
+  Packages:
+  - Name: git
+  Properties:
+  - Default: ""
+    Description: Shell for the user account.  Deprecated, use shell.users instead.
+    Example: null
+    Examples: null
+    Name: shell.user.shell
+  - Default: []
+    Description: List of SSH Public Keys for connecting to the shell.  Deprecated,
+      use shell.users instead.
+    Example: null
+    Examples: null
+    Name: shell.user.ssh_keys
+  - Default: ""
+    Description: URL of a publicly-accessible shell environment repo.  Deprecated,
+      use shell.users instead.
+    Example: null
+    Examples: null
+    Name: shell.env.repo
+  - Default: []
+    Description: A list of entries to append to /etc/hosts
+    Example: null
+    Examples: null
+    Name: shell.hosts
+  - Default: []
+    Description: |-
+      List of users to create
+      - name: jhunt
+        shell: /bin/bash
+        env: https://github.com/jhunt/devbox-env.git  # specifies a git environment to clone
+        setup_script: /path/to/setup/script           # runs a script as the user, after cloning the above repo
+        ssh_keys:
+          - ssh-rsa AAAAB3NzaC1yabcd
+          - ssh-rsa AAAAB3NzaC1y1234
+    Example: null
+    Examples: null
+    Name: shell.users
+  - Default: shell.local
+    Description: Hostname to set on the shell
+    Example: null
+    Examples: null
+    Name: shell.hostname
+  - Default: ""
+    Description: Name of the user account to provision for this shell.  Deprecated,
+      use shell.users instead.
+    Example: null
+    Examples: null
+    Name: shell.user.account
+  Templates:
+  - DstPathEnd: bin/setup
+    Path: /mnt/tmp/tar-CmdExtractor941110493/templates/bin/setup
+    SrcPathEnd: bin/setup

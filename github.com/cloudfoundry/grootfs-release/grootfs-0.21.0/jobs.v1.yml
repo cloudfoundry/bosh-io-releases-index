@@ -1,0 +1,95 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor867185644/monit
+    SrcPathEnd: monit
+  Name: grootfs
+  Packages:
+  - Name: idmapper
+  - Name: btrfs-progs
+  - Name: xfs-progs
+  - Name: grootfs
+  Properties:
+  - Default: 3457
+    Description: Local metron agent's port.
+    Example: null
+    Examples: null
+    Name: grootfs.dropsonde_port
+  - Default: []
+    Description: A list of IP:PORT tuples that we allow pulling docker images from
+      using self-signed certificates.
+    Example: null
+    Examples: null
+    Name: grootfs.insecure_docker_registry_list
+  - Default: []
+    Description: List of base images (tarballs or Docker URLs) which will never be
+      deleted during cleanup.
+    Example: null
+    Examples: null
+    Name: grootfs.persistent_image_list
+  - Default: -1
+    Description: Total size of all filesystem layers downloaded from Docker registries
+      before graph cleanup is activated. -1 disables graph cleanup.
+    Example: null
+    Examples: null
+    Name: grootfs.graph_cleanup_threshold_in_mb
+  - Default: false
+    Description: 'EXPERIMENTAL: If true, places the image store on /var/vcap/store.
+      If false (the default), uses /var/vcap/data'
+    Example: null
+    Examples: null
+    Name: grootfs.use_persistent_disk
+  - Default: 0
+    Description: The size of the grootfs store. Changes to this value do not update
+      the store on existing hosts. To resize the store, the job host must be recreated.
+      If 0 the size will be the same as the ephemeral disk.
+    Example: null
+    Examples: null
+    Name: grootfs.store_size_bytes
+  - Default: overlay-xfs
+    Description: Filesystem driver to use.
+    Example: null
+    Examples: null
+    Name: grootfs.driver
+  - Default: info
+    Description: Log level for grootfs - can be debug, info, error or fatal.
+    Example: null
+    Examples: null
+    Name: grootfs.log_level
+  - Default: false
+    Description: Do not mount image root filesystem automatically, just return the
+      mount information.
+    Example: null
+    Examples: null
+    Name: grootfs.skip_mount
+  - Default: 0
+    Description: 'EXPERIMENTAL: Defines a acceptable duration for grootfs actions
+      before a system report log is emitted. 0 means disabled.'
+    Example: null
+    Examples: null
+    Name: grootfs.slow_action_threshold_in_seconds
+  - Default: 0
+    Description: 'EXPERIMENTAL: Size of the XFS external log device in megabytes.
+      0 means disabled.'
+    Example: null
+    Examples: null
+    Name: grootfs.external_logdevice_size_in_mb
+  Templates:
+  - DstPathEnd: bin/btrfs-setup
+    Path: /mnt/tmp/tar-CmdExtractor867185644/templates/bin/btrfs-setup.erb
+    SrcPathEnd: bin/btrfs-setup.erb
+  - DstPathEnd: bin/overlay-xfs-setup
+    Path: /mnt/tmp/tar-CmdExtractor867185644/templates/bin/overlay-xfs-setup.erb
+    SrcPathEnd: bin/overlay-xfs-setup.erb
+  - DstPathEnd: bin/utils
+    Path: /mnt/tmp/tar-CmdExtractor867185644/templates/bin/utils.erb
+    SrcPathEnd: bin/utils.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor867185644/templates/bin/pre-start.erb
+    SrcPathEnd: bin/pre-start.erb
+  - DstPathEnd: config/grootfs_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor867185644/templates/config/grootfs_config.yml.erb
+    SrcPathEnd: config/grootfs_config.yml.erb
+  - DstPathEnd: config/privileged_grootfs_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor867185644/templates/config/privileged_grootfs_config.yml.erb
+    SrcPathEnd: config/privileged_grootfs_config.yml.erb

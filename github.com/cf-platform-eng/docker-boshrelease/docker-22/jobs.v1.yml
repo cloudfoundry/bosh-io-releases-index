@@ -1,0 +1,768 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor529882621/monit
+    SrcPathEnd: monit
+  Name: broker-deregistrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Name: broker.protocol
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Name: broker.host
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor529882621/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor522885943/monit
+    SrcPathEnd: monit
+  Name: broker-registrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Name: broker.host
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Name: broker.protocol
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor522885943/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor657739393/monit
+    SrcPathEnd: monit
+  Name: cf-containers-broker
+  Packages:
+  - Name: bosh-helpers
+  - Name: ruby
+  - Name: cf-containers-broker
+  - Name: remote_syslog
+  Properties:
+  - Default: unix:///var/vcap/sys/run/docker/docker.sock
+    Description: Docker URL (IP/Socket)
+    Example: null
+    Name: broker.docker_url
+  - Default: vcap
+    Description: Group which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.group
+  - Default: true
+    Description: Allocate Docker host ports when creating a container
+    Example: null
+    Name: broker.allocate_docker_host_ports
+  - Default: 0 * * * *
+    Description: Frequency to run logrotate for Docker daemon log files (crontab five
+      time and date fields)
+    Example: null
+    Name: broker.logrotate.frequency
+  - Default: udp
+    Description: Protocol to be used when forwarding logs to a Remote Syslog (tcp|udp|tls)
+    Example: null
+    Name: remote_syslog.protocol
+  - Default: "80"
+    Description: Unicorn listen port
+    Example: null
+    Name: broker.unicorn.port
+  - Default: null
+    Description: Host used to register the broker
+    Example: null
+    Name: broker.host
+  - Default: "0"
+    Description: Max number of containers
+    Example: null
+    Name: broker.max_containers
+  - Default: 2M
+    Description: Size before Docker daemon log files are rotateds
+    Example: null
+    Name: broker.logrotate.size
+  - Default: null
+    Description: Array of IPs of each NATS cluster member
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: Broker's basic auth password
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: A unique secret key, used to sign sessions
+    Example: null
+    Name: broker.cookie_secret
+  - Default: "86400"
+    Description: Session expiry time of the session
+    Example: null
+    Name: broker.session_expiry
+  - Default: true
+    Description: Fetch new/updated container images on restart
+    Example: null
+    Name: broker.fetch_images
+  - Default: vcap
+    Description: Group which will own the CF-Containers-Broker services
+    Example: null
+    Name: broker.group
+  - Default: null
+    Description: Broker's basic auth username
+    Example: null
+    Name: broker.username
+  - Default: "7"
+    Description: 'Number of times Docker daemon log files are rotated before being
+      removed '
+    Example: null
+    Name: broker.logrotate.rotate
+  - Default: root
+    Description: User which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.user
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Name: broker.services
+  - Default: null
+    Description: Username for broker to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: Password for broker to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: root
+    Description: User which will own the CF-Containers-Broker services
+    Example: null
+    Name: broker.user
+  - Default: "1"
+    Description: Unicorn worker processes. If the number of worker processes > 1 then
+      you must disable the broker.fetch_images property
+    Example: null
+    Name: broker.unicorn.worker_processes
+  - Default: cf-containers-broker
+    Description: Component name used to register the broker
+    Example: null
+    Name: broker.component_name
+  - Default: false
+    Description: Determines use of https in dashboard url and in callback uri for
+      calls to UAA
+    Example: null
+    Name: broker.ssl_enabled
+  - Default: true
+    Description: Determines whether dashboard verifies SSL certificates when communicating
+      with Cloud Controller and UAA
+    Example: null
+    Name: broker.skip_ssl_validation
+  - Default: null
+    Description: URL of the CloudFoundry Cloud Controller
+    Example: null
+    Name: cf.api_url
+  - Default: false
+    Description: Write a debug file
+    Example: null
+    Name: remote_syslog.debug
+  - Default: null
+    Description: IP address for Remote Syslog
+    Example: null
+    Name: remote_syslog.address
+  - Default: "514"
+    Description: TCP port of Remote Syslog
+    Example: null
+    Name: remote_syslog.port
+  - Default: 10s
+    Description: How often to check for new files
+    Example: null
+    Name: remote_syslog.new_file_check_interval
+  Templates:
+  - DstPathEnd: bin/remote_syslog_ctl
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/bin/remote_syslog_ctl
+    SrcPathEnd: bin/remote_syslog_ctl
+  - DstPathEnd: config/logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/config/logrotate.cron.erb
+    SrcPathEnd: config/logrotate.cron.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/config/logrotate.conf.erb
+    SrcPathEnd: config/logrotate.conf.erb
+  - DstPathEnd: config/remote_syslog.yml
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/config/remote_syslog.yml.erb
+    SrcPathEnd: config/remote_syslog.yml.erb
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/config/settings.yml.erb
+    SrcPathEnd: config/settings.yml.erb
+  - DstPathEnd: config/unicorn.conf.rb
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/config/unicorn.conf.rb.erb
+    SrcPathEnd: config/unicorn.conf.rb.erb
+  - DstPathEnd: bin/cf-containers-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/bin/cf-containers-broker_ctl
+    SrcPathEnd: bin/cf-containers-broker_ctl
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor657739393/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor792548443/monit
+    SrcPathEnd: monit
+  Name: containers
+  Packages:
+  - Name: bosh-helpers
+  - Name: remote_syslog
+  Properties:
+  - Default: 0 * * * *
+    Description: Frequency to run logrotate for Containers log files (crontab five
+      time and date fields)
+    Example: null
+    Name: docker.containers.logrotate.frequency
+  - Default: "7"
+    Description: Number of times Containers log files are rotated before being removed
+    Example: null
+    Name: docker.containers.logrotate.rotate
+  - Default: root
+    Description: User which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.user
+  - Default: vcap
+    Description: Group which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.group
+  - Default: "514"
+    Description: TCP port of Remote Syslog
+    Example: null
+    Name: remote_syslog.port
+  - Default: null
+    Description: Containers Array (see below for details)
+    Example: null
+    Name: containers
+  - Default: false
+    Description: Write a debug file
+    Example: null
+    Name: remote_syslog.debug
+  - Default: root
+    Description: User which will own the Docker services
+    Example: null
+    Name: docker.user
+  - Default: vcap
+    Description: Group which will own the Docker services
+    Example: null
+    Name: docker.group
+  - Default: 10M
+    Description: Size before Containers log files are rotateds
+    Example: null
+    Name: docker.containers.logrotate.size
+  - Default: null
+    Description: IP address for Remote Syslog
+    Example: null
+    Name: remote_syslog.address
+  - Default: udp
+    Description: Protocol to be used when forwarding logs to a Remote Syslog (tcp|udp|tls)
+    Example: null
+    Name: remote_syslog.protocol
+  - Default: 10s
+    Description: How often to check for new files
+    Example: null
+    Name: remote_syslog.new_file_check_interval
+  Templates:
+  - DstPathEnd: bin/containers_ctl
+    Path: /mnt/tmp/tar-CmdExtractor792548443/templates/bin/containers_ctl.erb
+    SrcPathEnd: bin/containers_ctl.erb
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor792548443/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: bin/remote_syslog_ctl
+    Path: /mnt/tmp/tar-CmdExtractor792548443/templates/bin/remote_syslog_ctl
+    SrcPathEnd: bin/remote_syslog_ctl
+  - DstPathEnd: config/containers_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor792548443/templates/config/containers_logrotate.cron.erb
+    SrcPathEnd: config/containers_logrotate.cron.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor792548443/templates/config/logrotate.conf.erb
+    SrcPathEnd: config/logrotate.conf.erb
+  - DstPathEnd: config/remote_syslog.yml
+    Path: /mnt/tmp/tar-CmdExtractor792548443/templates/config/remote_syslog.yml.erb
+    SrcPathEnd: config/remote_syslog.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor673580869/monit
+    SrcPathEnd: monit
+  Name: docker
+  Packages:
+  - Name: bosh-helpers
+  - Name: docker
+  - Name: remote_syslog
+  Properties:
+  - Default: null
+    Description: Array of default ulimits for containers
+    Example: null
+    Name: docker.default_ulimits
+  - Default: null
+    Description: Use a specific exec driver
+    Example: null
+    Name: docker.exec_driver
+  - Default: true
+    Description: Enable IP masquerading for bridge's IP range
+    Example: null
+    Name: docker.ip_masq
+  - Default: 8192
+    Description: Maximum number of open files
+    Example: null
+    Name: docker.ulimit.nofile
+  - Default: null
+    Description: HTTPS proxy that Docker should use
+    Example: null
+    Name: env.https_proxy
+  - Default: null
+    Description: CIDR notation prefix (first 2 octets) for the network bridges IP
+    Example: null
+    Name: docker.cidr_prefix
+  - Default: null
+    Description: Use a specific storage driver
+    Example: null
+    Name: docker.storage_driver
+  - Default: null
+    Description: Trust only remotes providing a certificate signed by the CA given
+      here
+    Example: null
+    Name: docker.tls_cacert
+  - Default: udp
+    Description: Protocol to be used when forwarding logs to a Remote Syslog (tcp|udp|tls)
+    Example: null
+    Name: remote_syslog.protocol
+  - Default: null
+    Description: 'Set the containers network MTU (if no value is provided: default
+      to the default route MTU or 1500 if no default route is available)'
+    Example: null
+    Name: docker.mtu
+  - Default: 0 * * * *
+    Description: Frequency to run logrotate for Docker daemon log files (crontab five
+      time and date fields)
+    Example: null
+    Name: docker.daemon.logrotate.frequency
+  - Default: 10M
+    Description: Size before Docker daemon log files are rotated
+    Example: null
+    Name: docker.daemon.logrotate.size
+  - Default: info
+    Description: Set the logging level (debug, info, warn, error, fatal)
+    Example: null
+    Name: docker.log_level
+  - Default: "4243"
+    Description: TCP port where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Name: docker.tcp_port
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Name: docker.debug
+  - Default: null
+    Description: Array of exec driver options
+    Example: null
+    Name: docker.exec_options
+  - Default: false
+    Description: Enable selinux support
+    Example: null
+    Name: docker.selinux_enable
+  - Default: false
+    Description: Use TLS
+    Example: null
+    Name: docker.tls
+  - Default: null
+    Description: TLS key file
+    Example: null
+    Name: docker.tls_key
+  - Default: "7"
+    Description: Number of times Docker daemon log files are rotated before being
+      removed
+    Example: null
+    Name: docker.daemon.logrotate.rotate
+  - Default: vcap
+    Description: Group which will own the Docker services
+    Example: null
+    Name: docker.group
+  - Default: null
+    Description: HTTP proxy that Docker should use
+    Example: null
+    Name: env.http_proxy
+  - Default: null
+    Description: IP address for Remote Syslog
+    Example: null
+    Name: remote_syslog.address
+  - Default: null
+    Description: Array of insecure registries (no certificate verification for HTTPS
+      and enable HTTP fallback)
+    Example: null
+    Name: docker.insecure_registries
+  - Default: null
+    Description: Array of storage driver options
+    Example: null
+    Name: docker.storage_options
+  - Default: root
+    Description: User which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.user
+  - Default: 10s
+    Description: How often to check for new files
+    Example: null
+    Name: remote_syslog.new_file_check_interval
+  - Default: null
+    Description: List of comma-separated hosts that Docker should skip connecting
+      to the proxy
+    Example: null
+    Name: env.no_proxy
+  - Default: 127.0.0.1
+    Description: TCP address where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Name: docker.tcp_address
+  - Default: null
+    Description: Container default gateway IPv6 address
+    Example: null
+    Name: docker.default_gateway_v6
+  - Default: false
+    Description: Use TLS and verify the remote
+    Example: null
+    Name: docker.tls_verify
+  - Default: "514"
+    Description: TCP port of Remote Syslog
+    Example: null
+    Name: remote_syslog.port
+  - Default: root
+    Description: User which will own the Docker services
+    Example: null
+    Name: docker.user
+  - Default: null
+    Description: Array of DNS search domains to be used by Docker
+    Example: null
+    Name: docker.dns_domains
+  - Default: false
+    Description: Enable IPv6 networking
+    Example: null
+    Name: docker.ipv6
+  - Default: null
+    Description: Array of key=value labels for the daemon
+    Example: null
+    Name: docker.labels
+  - Default: null
+    Description: TLS certificate file
+    Example: null
+    Name: docker.tls_cert
+  - Default: true
+    Description: Use userland proxy for loopback traffic
+    Example: null
+    Name: docker.userland_proxy
+  - Default: null
+    Description: Container default gateway IPv4 address
+    Example: null
+    Name: docker.default_gateway
+  - Default: null
+    Description: Name of the network bridge to attach containers (defaults to docker0)
+    Example: null
+    Name: docker.bridge
+  - Default: null
+    Description: Array of DNS servers to be used by Docker
+    Example: null
+    Name: docker.dns_servers
+  - Default: true
+    Description: Allow unrestricted inter-container and Docker daemon host communication
+    Example: null
+    Name: docker.icc
+  - Default: true
+    Description: Enable net.ipv4.ip_forward and IPv6 forwarding
+    Example: null
+    Name: docker.ip_forward
+  - Default: true
+    Description: Enable Docker's addition of iptables rules
+    Example: null
+    Name: docker.iptables
+  - Default: null
+    Description: Array of preferred Docker registry mirrors
+    Example: null
+    Name: docker.registry_mirrors
+  - Default: vcap
+    Description: Group which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.group
+  - Default: false
+    Description: Set CORS headers in the remote API
+    Example: null
+    Name: docker.api_cors_header
+  - Default: false
+    Description: Write a debug file
+    Example: null
+    Name: remote_syslog.debug
+  Templates:
+  - DstPathEnd: bin/cgroupfs-mount
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/bin/cgroupfs-mount
+    SrcPathEnd: bin/cgroupfs-mount
+  - DstPathEnd: bin/docker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/bin/docker_ctl
+    SrcPathEnd: bin/docker_ctl
+  - DstPathEnd: bin/remote_syslog_ctl
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/bin/remote_syslog_ctl
+    SrcPathEnd: bin/remote_syslog_ctl
+  - DstPathEnd: config/docker.cacert
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/config/docker.cacert.erb
+    SrcPathEnd: config/docker.cacert.erb
+  - DstPathEnd: config/docker.cert
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/config/docker.cert.erb
+    SrcPathEnd: config/docker.cert.erb
+  - DstPathEnd: config/remote_syslog.yml
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/config/remote_syslog.yml.erb
+    SrcPathEnd: config/remote_syslog.yml.erb
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: config/docker.key
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/config/docker.key.erb
+    SrcPathEnd: config/docker.key.erb
+  - DstPathEnd: config/docker_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/config/docker_logrotate.cron.erb
+    SrcPathEnd: config/docker_logrotate.cron.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor673580869/templates/config/logrotate.conf.erb
+    SrcPathEnd: config/logrotate.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor427352511/monit
+    SrcPathEnd: monit
+  Name: fetch-containers-images
+  Packages:
+  - Name: ruby
+  - Name: cf-containers-broker
+  Properties:
+  - Default: null
+    Description: Docker URL (IP/Socket)
+    Example: null
+    Name: fetch_containers_images.docker_url
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Name: broker.services
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor427352511/templates/bin/run.erb
+    SrcPathEnd: bin/run.erb
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor427352511/templates/config/settings.yml.erb
+    SrcPathEnd: config/settings.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor737787465/monit
+    SrcPathEnd: monit
+  Name: swarm_manager
+  Packages:
+  - Name: bosh-helpers
+  - Name: remote_syslog
+  - Name: swarm
+  Properties:
+  - Default: null
+    Description: Trust only remotes providing a certificate signed by the CA given
+      here
+    Example: null
+    Name: docker.tls_cacert
+  - Default: null
+    Description: TLS key file
+    Example: null
+    Name: docker.tls_key
+  - Default: vcap
+    Description: Group which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.group
+  - Default: spread
+    Description: Placement strategy to use [spread, binpack, random]
+    Example: null
+    Name: swarm_manager.strategy
+  - Default: []
+    Description: Array of Docker nodes
+    Example: null
+    Name: swarm_manager.docker_nodes
+  - Default: 0 * * * *
+    Description: Frequency to run logrotate for Docker daemon log files (crontab five
+      time and date fields)
+    Example: null
+    Name: swarm_manager.logrotate.frequency
+  - Default: "7"
+    Description: Number of times Docker daemon log files are rotated before being
+      removed
+    Example: null
+    Name: swarm_manager.logrotate.rotate
+  - Default: 10M
+    Description: Size before Docker daemon log files are rotated
+    Example: null
+    Name: swarm_manager.logrotate.size
+  - Default: "514"
+    Description: TCP port of Remote Syslog
+    Example: null
+    Name: remote_syslog.port
+  - Default: false
+    Description: Write a debug file
+    Example: null
+    Name: remote_syslog.debug
+  - Default: false
+    Description: Enable CORS headers in the remote API
+    Example: null
+    Name: swarm_manager.api_enable_cors
+  - Default: root
+    Description: User which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.user
+  - Default: udp
+    Description: Protocol to be used when forwarding logs to a Remote Syslog (tcp|udp|tls)
+    Example: null
+    Name: remote_syslog.protocol
+  - Default: null
+    Description: TLS certificate file
+    Example: null
+    Name: docker.tls_cert
+  - Default: false
+    Description: Use TLS and verify the remote
+    Example: null
+    Name: docker.tls_verify
+  - Default: 10s
+    Description: How often to check for new files
+    Example: null
+    Name: remote_syslog.new_file_check_interval
+  - Default: vcap
+    Description: Group which will own the Swarm Manager services
+    Example: null
+    Name: swarm_manager.group
+  - Default: 0.0.0.0
+    Description: Listen address
+    Example: null
+    Name: swarm_manager.listen_address
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Name: swarm_manager.debug
+  - Default: "4243"
+    Description: TCP port where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Name: docker.tcp_port
+  - Default: false
+    Description: Use TLS
+    Example: null
+    Name: docker.tls
+  - Default: root
+    Description: User which will own the Swarm Manager services
+    Example: null
+    Name: swarm_manager.user
+  - Default: "2375"
+    Description: Listen port
+    Example: null
+    Name: swarm_manager.port
+  - Default: 20s
+    Description: Time in second between each heartbeat
+    Example: null
+    Name: swarm_manager.heartbeat
+  - Default: info
+    Description: 'Log level (options: debug, info, warn, error, fatal, panic)'
+    Example: null
+    Name: swarm_manager.log_level
+  - Default: null
+    Description: IP address for Remote Syslog
+    Example: null
+    Name: remote_syslog.address
+  Templates:
+  - DstPathEnd: bin/swarm_manager_ctl
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/bin/swarm_manager_ctl
+    SrcPathEnd: bin/swarm_manager_ctl
+  - DstPathEnd: config/docker.cacert
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/config/docker.cacert.erb
+    SrcPathEnd: config/docker.cacert.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/config/logrotate.conf.erb
+    SrcPathEnd: config/logrotate.conf.erb
+  - DstPathEnd: bin/remote_syslog_ctl
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/bin/remote_syslog_ctl
+    SrcPathEnd: bin/remote_syslog_ctl
+  - DstPathEnd: config/docker.cert
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/config/docker.cert.erb
+    SrcPathEnd: config/docker.cert.erb
+  - DstPathEnd: config/docker.key
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/config/docker.key.erb
+    SrcPathEnd: config/docker.key.erb
+  - DstPathEnd: config/remote_syslog.yml
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/config/remote_syslog.yml.erb
+    SrcPathEnd: config/remote_syslog.yml.erb
+  - DstPathEnd: config/swarm_manager_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/config/swarm_manager_logrotate.cron.erb
+    SrcPathEnd: config/swarm_manager_logrotate.cron.erb
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor737787465/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb

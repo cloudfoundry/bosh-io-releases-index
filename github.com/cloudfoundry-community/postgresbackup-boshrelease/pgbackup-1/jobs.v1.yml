@@ -1,0 +1,112 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor421862989/monit
+    SrcPathEnd: monit
+  Name: pgbackup
+  Packages:
+  - Name: pgbackup
+  - Name: gof3r
+  Properties:
+  - Default: ""
+    Description: Secret Access key for storing backups in Amazon S3
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.secret_access_key
+  - Default: "false"
+    Description: Enable debug output, can be 'true' or 'false' (default).
+    Example: null
+    Examples: null
+    Name: pgbackup.debug
+  - Default: 5432
+    Description: TCP port to connect to PostgreSQL on
+    Example: null
+    Examples: null
+    Name: pgbackup.port
+  - Default: '*'
+    Description: Backup schedule - weekday (0-7, sun/mon/tue/etc., or *)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.weekday
+  - Default: pgbackup
+    Description: Amazon S3 bucket to store backups in
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.bucket
+  - Default: pgdumpall
+    Description: Name of the backup to create - will be <timestamp>-<name>.tar
+    Example: null
+    Examples: null
+    Name: pgbackup.name
+  - Default: localhost
+    Description: Hostname or IP address to connect to PostgreSQL on
+    Example: null
+    Examples: null
+    Name: pgbackup.host
+  - Default: pgbackup
+    Description: User to connect to PostgreSQL as
+    Example: null
+    Examples: null
+    Name: pgbackup.username
+  - Default: '*'
+    Description: Backup schedule - day of the month (1-31, or *)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.monthday
+  - Default: PLEASE-CHANGE-THIS
+    Description: Password to authenticate to PostgreSQL with
+    Example: null
+    Examples: null
+    Name: pgbackup.password
+  - Default: "00"
+    Description: Backup schedule - minute (00-59)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.minute
+  - Default: '*'
+    Description: Backup schedule - month (1-12, or *)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.month
+  - Default: ""
+    Description: Access Key ID for storing backups in Amazon S3
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.access_key_id
+  - Default: ""
+    Description: Extra arguments to pass to PostgreSQL's pg_dump utility
+    Example: null
+    Examples: null
+    Name: pgbackup.pgdump.arguments
+  - Default: "01"
+    Description: Backup schedule - hour (00-23)
+    Example: null
+    Examples: null
+    Name: pgbackup.schedule.hour
+  - Default: ""
+    Description: Path to prepend to backup filenames when storing in Amazon S3
+    Example: null
+    Examples: null
+    Name: pgbackup.s3.path
+  Templates:
+  - DstPathEnd: bin/cronwatch
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/bin/cronwatch
+    SrcPathEnd: bin/cronwatch
+  - DstPathEnd: bin/pgbackup
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/bin/pgbackup
+    SrcPathEnd: bin/pgbackup
+  - DstPathEnd: bin/pgrestore
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/bin/pgrestore
+    SrcPathEnd: bin/pgrestore
+  - DstPathEnd: config/pgbackup.cron
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/config/pgbackup.cron
+    SrcPathEnd: config/pgbackup.cron
+  - DstPathEnd: shell/env
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/shell/env
+    SrcPathEnd: shell/env
+  - DstPathEnd: shell/functions
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/shell/functions
+    SrcPathEnd: shell/functions
+  - DstPathEnd: bin/control
+    Path: /mnt/tmp/tar-CmdExtractor421862989/templates/bin/control
+    SrcPathEnd: bin/control

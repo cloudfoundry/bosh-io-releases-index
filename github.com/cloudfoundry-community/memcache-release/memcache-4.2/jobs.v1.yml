@@ -1,0 +1,307 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor168418806/monit
+    SrcPathEnd: monit
+  Name: memcache_ping
+  Packages:
+  - Name: memcache-utils
+  - Name: memcache-java
+  - Name: memcache_ping
+  Properties:
+  - Default: 16m
+    Description: The Xmx of this process.
+    Example: null
+    Examples: null
+    Name: memcache_ping.max_heap
+  - Default: 5000
+    Description: The interval in ms the application will ping memcache.
+    Example: null
+    Examples: null
+    Name: memcache_ping.ping_interval
+  - Default:
+    - localhost:11211
+    Description: The severs the memcache ping client will be configured with in the
+      format "server:port"
+    Example: null
+    Examples: null
+    Name: memcache_ping.memcache.servers
+  - Default: test
+    Description: The test username to use when connecting to memcache.
+    Example: null
+    Examples: null
+    Name: memcache_ping.memcache.username
+  - Default: null
+    Description: The test password to use when connecting to memcache.
+    Example: null
+    Examples: null
+    Name: memcache_ping.memcache.password
+  Templates:
+  - DstPathEnd: bin/memcache_ping
+    Path: /mnt/tmp/tar-CmdExtractor168418806/templates/memcache_ping.erb
+    SrcPathEnd: memcache_ping.erb
+  - DstPathEnd: config/application-bosh.yml
+    Path: /mnt/tmp/tar-CmdExtractor168418806/templates/application-bosh.yml.erb
+    SrcPathEnd: application-bosh.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor562598552/monit
+    SrcPathEnd: monit
+  Name: memcache_broker
+  Packages:
+  - Name: memcache-utils
+  - Name: memcache-java
+  - Name: memcache_broker
+  Properties:
+  - Default: hazelcast-user
+    Description: The memcache rest endpoint username.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.username
+  - Default: null
+    Description: The machines in this hazelcast cluster.
+    Example: null
+    Examples: null
+    Name: memcache_broker.memcache.servers
+  - Default: null
+    Description: A vip an application can use to provide simpler access to the memcache
+      cluster.
+    Example: null
+    Examples: null
+    Name: memcache_broker.memcache.vip
+  - Default: null
+    Description: The plans this server will support.
+    Example: null
+    Examples: null
+    Name: memcache_broker.plans
+  - Default: null
+    Description: The service endpoint url on memcache_hazelcast
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.srv_api
+  - Default: null
+    Description: The memcache rest endpoint password.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.password
+  - Default: null
+    Description: The shared secret used for memcache authentication.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.secret_key
+  - Default: 32m
+    Description: The Xmx of this process.
+    Example: null
+    Examples: null
+    Name: memcache_broker.max_heap
+  - Default: null
+    Description: The shared secret between the CC and the service broker.
+    Example: null
+    Examples: null
+    Name: memcache_broker.broker_password
+  - Default: 21080
+    Description: The http port the Memcache hazelcast service will listen for REST
+      calls on
+    Example: null
+    Examples: null
+    Name: memcache_broker.host.port
+  Templates:
+  - DstPathEnd: bin/memcache_broker
+    Path: /mnt/tmp/tar-CmdExtractor562598552/templates/memcache_broker.erb
+    SrcPathEnd: memcache_broker.erb
+  - DstPathEnd: config/application-bosh.yml
+    Path: /mnt/tmp/tar-CmdExtractor562598552/templates/application-bosh.yml.erb
+    SrcPathEnd: application-bosh.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor348172170/monit
+    SrcPathEnd: monit
+  Name: memcache_hazelcast
+  Packages:
+  - Name: memcache-utils
+  - Name: memcache-java
+  - Name: memcache_hazelcast
+  Properties:
+  - Default: 5
+    Description: Number of event handler threads.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.event_thread_count
+  - Default: null
+    Description: The plans this server will support.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.plans
+  - Default: 8080
+    Description: The http port the Memcache hazelcast service will listen for REST
+      calls on
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.port
+  - Default: -1
+    Description: Number of generic operation handler threads. -1 means CPU core count
+      x 2.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.operation_generic_thread_count
+  - Default: 10
+    Description: How often in seconds should the node check to see if max cache size
+      is exceeded.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.trim_delay
+  - Default: 10000
+    Description: The maximum amount of time in milliseconds hazelcast will wait to
+      get a response from a call to another node before erroring out.  Making the
+      default short cause these operations should be fast.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.operation_call_timeout
+  - Default: 0
+    Description: The size of the executor pool to handle asyncronous requests.  A
+      value of zero will use the default of cores * 2.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.executor_pool_size
+  - Default: 3
+    Description: Number of input and output threads.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.io_thread_count
+  - Default: -1
+    Description: Number of partition based operation handler threads. -1 means CPU
+      core count x 2.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.operation_thread_count
+  - Default: 5
+    Description: Thread count for handling incoming event packets.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.client_event_thread_count
+  - Default: test
+    Description: The username that non cf clients can use to hit the cache for ping/testing
+      purposes.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.test_user
+  - Default: 120
+    Description: Number of seconds to wait for local member to be safe before shutting
+      it down.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.local_member_safe_timeout
+  - Default: 11211
+    Description: The port this server will listen on for memcache requests.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.port
+  - Default: null
+    Description: The shared secret used for memcache authentication.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.secret_key
+  - Default: 100
+    Description: The maximum size of the memcache request queue before the memcache
+      server begins to apply back pressure.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.max_queue_size
+  - Default: 60
+    Description: The maximum amount of time hazelcast will fail to communicate with
+      another node before dropping it from the cluster.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.max_no_heartbeat_seconds
+  - Default: null
+    Description: Set debug port and enable debug mode.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.debug
+  - Default: null
+    Description: The memcache rest endpoint password.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.password
+  - Default: 271
+    Description: How many partitions exist in this cluster.  Effects total cluster
+      scalability.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.partition_count
+  - Default: 1024
+    Description: The size of the network send buffer in KB.  Hazelcast recommends
+      this be 1M+ for a 10GB Network.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.send_buffer_size
+  - Default: null
+    Description: The password to use when connecting with the test user.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.test_password
+  - Default: 20
+    Description: When max cache size is exceeded how much should be evicted from each
+      cache.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.percent_to_trim
+  - Default: 1024
+    Description: The size of the network receive buffer in KB.  Hazelcast recommends
+      this be 1M+ for a 10GB Network.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.receive_buffer_size
+  - Default: null
+    Description: The machines in this hazelcast cluster.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.machines
+  - Default: 1G
+    Description: The amount of Heap the cache should be configured with.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.heap_size
+  - Default: null
+    Description: The cache name the test user is linked to.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.memcache.test_cache
+  - Default: 1
+    Description: Minimum number of cluster members this node can see to determine
+      if this node is healthy in the cluster.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.minimum_cluster_members
+  - Default: 536870912
+    Description: The maximum amount of heap you wish to be reserved for cache entries.  Once
+      total cache size gets bigger than this then node will start LRU evicting a %
+      from each cache.  Should be less than heap_size.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.max_cache_size
+  - Default: hazelcast-user
+    Description: The memcache rest endpoint username.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.host.username
+  - Default: 5701
+    Description: The port this server will listen on for memcache requests.
+    Example: null
+    Examples: null
+    Name: memcache_hazelcast.hazelcast.port
+  Templates:
+  - DstPathEnd: config/application-bosh.yml
+    Path: /mnt/tmp/tar-CmdExtractor348172170/templates/application-bosh.yml.erb
+    SrcPathEnd: application-bosh.yml.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor348172170/templates/drain.erb
+    SrcPathEnd: drain.erb
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor348172170/templates/post-start.erb
+    SrcPathEnd: post-start.erb
+  - DstPathEnd: bin/memcache_hazelcast
+    Path: /mnt/tmp/tar-CmdExtractor348172170/templates/memcache_hazelcast.erb
+    SrcPathEnd: memcache_hazelcast.erb

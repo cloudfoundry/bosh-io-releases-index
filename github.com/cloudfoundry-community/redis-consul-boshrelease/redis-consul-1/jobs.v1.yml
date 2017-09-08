@@ -1,0 +1,40 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /tmp/tar-CmdExtractor844359815/monit
+    SrcPathEnd: monit
+  Name: redis-consul
+  Packages: null
+  Properties:
+  - Default: 20s
+    Description: Interval for consul to perform health checks
+    Example: null
+    Name: health.interval
+  - Default: 95
+    Description: Percentage of persistent disk full to trigger critial health alert
+    Example: null
+    Name: health.disk.critical
+  - Default: 50
+    Description: Percentage of persistent disk full to trigger warning health alert
+    Example: null
+    Name: health.disk.warning
+  - Default: 6379
+    Description: Port to listen for requests to redis server
+    Example: null
+    Name: redis.port
+  - Default: null
+    Description: Name for advertising/discovering this service over consul
+    Example: null
+    Name: consul.service.name
+  - Default:
+    - redis
+    Description: Array of tags to include in consul advertisement
+    Example: null
+    Name: consul.service.tags
+  Templates:
+  - DstPathEnd: consul/redis-service.json
+    Path: /tmp/tar-CmdExtractor844359815/templates/consul/redis-service.json.erb
+    SrcPathEnd: consul/redis-service.json.erb
+  - DstPathEnd: consul/redis-disk-level.json
+    Path: /tmp/tar-CmdExtractor844359815/templates/consul/redis-disk-level.json.erb
+    SrcPathEnd: consul/redis-disk-level.json.erb

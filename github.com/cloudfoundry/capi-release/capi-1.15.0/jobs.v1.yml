@@ -1,0 +1,4257 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor492780368/monit
+    SrcPathEnd: monit
+  Name: blobstore
+  Packages:
+  - Name: nginx_webdav
+  - Name: blobstore_url_signer
+  - Name: capi_utils
+  Properties:
+  - Default: null
+    Description: The PEM-encoded certificate (optionally as a certificate chain) for
+      serving blobs over TLS/SSL
+    Example: null
+    Examples: null
+    Name: blobstore.tls.cert
+  - Default: null
+    Description: The PEM-encoded private key for signing TLS/SSL traffic
+    Example: null
+    Examples: null
+    Name: blobstore.tls.private_key
+  - Default: null
+    Description: |
+      List of Username and Password pairs that have admin access to the blobstore. Cloud Controller must use one of these to access the blobstore via HTTP Basic Auth.
+      Example:
+        users:
+        - username: user1
+          password: password1
+        - username: user2
+          password: password2
+    Example: null
+    Examples: null
+    Name: blobstore.admin_users
+  - Default: null
+    Description: The secret used for signing URLs
+    Example: null
+    Examples: null
+    Name: blobstore.secure_link.secret
+  - Default: null
+    Description: The system domain.  The public server will listen on host 'blobstore.system-domain.tld'
+    Example: null
+    Examples: null
+    Name: system_domain
+  - Default: 4443
+    Description: The TCP port on which the internal blobstore server listens
+    Example: null
+    Examples: null
+    Name: blobstore.tls.port
+  - Default: 8080
+    Description: TCP port on which the blobstore server (nginx) listens
+    Example: null
+    Examples: null
+    Name: blobstore.port
+  - Default: 5000m
+    Description: Max allowed file size for upload
+    Example: null
+    Examples: null
+    Name: blobstore.max_upload_size
+  - Default: 2
+    Description: Number of NGINX worker processes per CPU core
+    Example: null
+    Examples: null
+    Name: blobstore.nginx_workers_per_core
+  - Default: null
+    Description: 'DEPRECATED: The system domain.  The public server will listen on
+      host ''blobstore.system-domain.tld'''
+    Example: null
+    Examples: null
+    Name: domain
+  - Default:
+    - allow 10.0.0.0/8;
+    - allow 172.16.0.0/12;
+    - allow 192.168.0.0/16;
+    Description: List of allow / deny rules for the blobstore internal server. Defaults
+      to RFC 1918 Private Networks. Will be followed by 'deny all'. See http://nginx.org/en/docs/http/ngx_http_access_module.html
+      for valid rules
+    Example: null
+    Examples: null
+    Name: blobstore.internal_access_rules
+  Templates:
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/mime.types
+    SrcPathEnd: mime.types
+  - DstPathEnd: config/write_users
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/write_users.erb
+    SrcPathEnd: write_users.erb
+  - DstPathEnd: ssl/blobstore.crt
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/blobstore.crt.erb
+    SrcPathEnd: blobstore.crt.erb
+  - DstPathEnd: ssl/blobstore.key
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/blobstore.key.erb
+    SrcPathEnd: blobstore.key.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/nginx_ctl.erb
+    SrcPathEnd: nginx_ctl.erb
+  - DstPathEnd: bin/signer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/signer_ctl.sh.erb
+    SrcPathEnd: signer_ctl.sh.erb
+  - DstPathEnd: config/sites/blobstore.conf
+    Path: /mnt/tmp/tar-CmdExtractor492780368/templates/blobstore.conf.erb
+    SrcPathEnd: blobstore.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor935750402/monit
+    SrcPathEnd: monit
+  Name: cc_uploader
+  Packages:
+  - Name: capi_utils
+  - Name: cc_uploader
+  Properties:
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.log_level
+  - Default: 3457
+    Description: local metron agent's port
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.dropsonde_port
+  - Default: 8500
+    Description: local consul agent's port
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.consul_agent_port
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.cc.external_port
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Examples: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: 0.0.0.0:9090
+    Description: Address of interface on which to serve files
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.listen_addr
+  - Default: 127.0.0.1:17018
+    Description: address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.debug_addr
+  - Default: null
+    Description: the interval between job polling requests
+    Example: null
+    Examples: null
+    Name: capi.cc_uploader.cc.job_polling_interval_in_seconds
+  Templates:
+  - DstPathEnd: config/cc_uploader_config.json
+    Path: /mnt/tmp/tar-CmdExtractor935750402/templates/cc_uploader_config.json.erb
+    SrcPathEnd: cc_uploader_config.json.erb
+  - DstPathEnd: bin/cc_uploader_ctl
+    Path: /mnt/tmp/tar-CmdExtractor935750402/templates/cc_uploader_ctl.erb
+    SrcPathEnd: cc_uploader_ctl.erb
+  - DstPathEnd: bin/cc_uploader_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor935750402/templates/cc_uploader_as_vcap.erb
+    SrcPathEnd: cc_uploader_as_vcap.erb
+- Description: The Cloud Controller clock periodically schedules Cloud Controller
+    clean up tasks for app usage events, audit events, failed jobs, and more. Only
+    single instance of this job is necessary.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor264658308/monit
+    SrcPathEnd: monit
+  Name: cloud_controller_clock
+  Packages:
+  - Name: capi_utils
+  - Name: cloud_controller_ng
+  - Name: nginx
+  - Name: nginx_newrelic_plugin
+  - Name: libpq
+  - Name: libmariadb
+  - Name: ruby-2.3
+  Properties:
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.blobstore_delete.timeout_in_seconds
+  - Default: 31
+    Description: How old an audit event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.audit_events.cutoff_age_in_days
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.packages.fog_connection
+  - Default: 1536M
+    Description: Maximum body size for nginx
+    Example: null
+    Examples: null
+    Name: cc.client_max_body_size
+  - Default: 2
+    Description: Maximum depth of inlined relationships in the result
+    Example: null
+    Examples: null
+    Name: cc.renderer.max_inline_relations_depth
+  - Default: default
+    Description: Local to use a local (NFS) file system.  AWS to use AWS.
+    Example: null
+    Examples: null
+    Name: cc.default_quota_definition
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.key_pair_id
+  - Default: 25
+    Description: Maximum connections for Sequel
+    Example: null
+    Examples: null
+    Name: ccdb.max_connections
+  - Default: 10
+    Description: The timeout for Sequel pooled connections
+    Example: null
+    Examples: null
+    Name: ccdb.pool_timeout
+  - Default: 1024
+    Description: How much memory given to an app if not specified
+    Example: null
+    Examples: null
+    Name: cc.default_app_memory
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.droplet_upload.timeout_in_seconds
+  - Default: 300
+    Description: How often the droplet pending cleanup job runs
+    Example: null
+    Examples: null
+    Name: cc.pending_droplets.frequency_in_seconds
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.fog_connection
+  - Default: ""
+    Description: URI for a CDN to used for droplet downloads
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.uri
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.ca_cert
+  - Default: ""
+    Description: Password for the bits-service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.password
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: 31
+    Description: How long a completed task will stay in cloud controller database
+      before being cleaned up based on last updated time with success or failure.
+    Example: null
+    Examples: null
+    Name: cc.completed_tasks.cutoff_age_in_days
+  - Default: 65536
+    Description: Minimum size of a resource to add to the pool
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.minimum_size
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.packages.fog_aws_storage_options
+  - Default: debug2
+    Description: Log level for cc database operations
+    Example: null
+    Examples: null
+    Name: cc.db_logging_level
+  - Default: info
+    Description: Log level for cc
+    Example: null
+    Examples: null
+    Name: cc.logging_level
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.private_key
+  - Default: postgres
+    Description: The type of database being used. mysql or postgres
+    Example: null
+    Examples: null
+    Name: ccdb.db_scheme
+  - Default: false
+    Description: specifies that the job is allowed to skip ssl cert verification
+    Example: null
+    Examples: null
+    Name: ssl.skip_cert_verify
+  - Default: null
+    Description: Deprecated in favor of system_domain. Domain where cloud_controller
+      will listen (api.domain)
+    Example: null
+    Examples: null
+    Name: domain
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: internal_user
+    Description: User name used by Diego to access internal endpoints
+    Example: null
+    Examples: null
+    Name: cc.internal_api_user
+  - Default: null
+    Description: URL of the login server
+    Example: null
+    Examples: null
+    Name: login.url
+  - Default: 16384
+    Description: File descriptor limit for staging tasks
+    Example: null
+    Examples: null
+    Name: cc.staging_file_descriptor_limit
+  - Default: 1200
+    Description: Extra token expiry time while uploading big apps.
+    Example: null
+    Examples: null
+    Name: cc.app_bits_upload_grace_period_in_seconds
+  - Default: ""
+    Description: Private url for the bits-service service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.private_endpoint
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.private_endpoint
+  - Default: null
+    Description: Users to create on the database when seeding
+    Example: null
+    Examples: null
+    Name: ccdb.roles
+  - Default: null
+    Description: The address of the database server
+    Example: null
+    Examples: null
+    Name: ccdb.address
+  - Default: null
+    Description: Symmetric secret used to decode uaa tokens. Used for testing.
+    Example: null
+    Examples: null
+    Name: uaa.cc.token_secret
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Examples: null
+    Name: system_domain
+  - Default: 31
+    Description: How old an app event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.app_events.cutoff_age_in_days
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.private_endpoint
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.key_pair_id
+  - Default: 3
+    Description: The threshold of crashes after which the app is marked as flapping
+    Example: null
+    Examples: null
+    Name: cc.flapping_crash_count_threshold
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.fog_connection
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Examples: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: null
+    Description: Array of security groups that will be seeded into CloudController.
+    Example: null
+    Examples: null
+    Name: cc.security_group_definitions
+  - Default: 900
+    Description: Timeout for requests in seconds.
+    Example: null
+    Examples: null
+    Name: request_timeout_in_seconds
+  - Default: 9023
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: cc.tls_port
+  - Default: 1
+    Description: Passthru value for Steno logger
+    Example: null
+    Examples: null
+    Name: cc.logging_max_retries
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.droplets.blobstore_type
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.password
+  - Default: 2048
+    Description: The maximum amount of disk a user can request
+    Example: null
+    Examples: null
+    Name: cc.maximum_app_disk_in_mb
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_bits_packer.timeout_in_seconds
+  - Default: 31
+    Description: How old a failed job should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.failed_jobs.cutoff_age_in_days
+  - Default: null
+    Description: Hash of default quota definitions. Overriden by custom quota definitions.
+    Example: null
+    Examples: null
+    Name: cc.quota_definitions
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.fog_aws_storage_options
+  - Default: 60
+    Description: For requests to service brokers, this is the HTTP (open and read)
+      timeout setting.
+    Example: null
+    Examples: null
+    Name: cc.broker_client_timeout_seconds
+  - Default: null
+    Description: Set of buildpacks to install during deploy
+    Example: null
+    Examples: null
+    Name: cc.install_buildpacks
+  - Default: ""
+    Description: '''build'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: build
+  - Default:
+    - description: Cloud Foundry Linux-based filesystem
+      name: cflinuxfs2
+    Description: Tag used by the DEA to describe capabilities (i.e. 'Windows7', 'python-linux').
+      DEA and CC must agree.
+    Example: null
+    Examples: null
+    Name: cc.stacks
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.private_key
+  - Default: 5155
+    Description: Port of the hm9000 Api Server
+    Example: null
+    Examples: null
+    Name: hm9000.port
+  - Default: ""
+    Description: User name used to access internal endpoints of Cloud Controller to
+      upload files when staging
+    Example: null
+    Examples: null
+    Name: cc.staging_upload_user
+  - Default: 1073741824
+    Description: Maximum size of application package
+    Example: null
+    Examples: null
+    Name: cc.packages.max_package_size
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.private_key
+  - Default: null
+    Description: The port used by UAA for ssl connections
+    Example: null
+    Examples: null
+    Name: uaa.ssl.port
+  - Default: 50
+    Description: Default number of results returned per page if user does not specify
+    Example: null
+    Examples: null
+    Name: cc.renderer.default_results_per_page
+  - Default: ""
+    Description: '''name'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: name
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Examples: null
+    Name: cc.bulk_api_user
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.public_endpoint
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.public_endpoint
+  - Default: null
+    Description: Contains the name of the database on the database server
+    Example: null
+    Examples: null
+    Name: ccdb.databases
+  - Default: ""
+    Description: '''support'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: support_address
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_usage_events_cleanup.timeout_in_seconds
+  - Default: cflinuxfs2
+    Description: The default stack to use if no custom stack is specified by an app.
+    Example: null
+    Examples: null
+    Name: cc.default_stack
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.fog_aws_storage_options
+  - Default: true
+    Description: whether use login as the authorization endpoint or not
+    Example: null
+    Examples: null
+    Name: login.enabled
+  - Default: false
+    Description: Disable external (i.e. git) buildpacks? (Admin buildpacks and system
+      buildpacks only.)
+    Example: null
+    Examples: null
+    Name: cc.disable_custom_buildpacks
+  - Default: false
+    Description: Activate NewRelic monitor mode
+    Example: null
+    Examples: null
+    Name: cc.newrelic.monitor_mode
+  - Default: false
+    Description: Activate NewRelic developer mode
+    Example: null
+    Examples: null
+    Name: cc.newrelic.developer_mode
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Examples: null
+    Name: cc.bulk_api_password
+  - Default: 60
+    Description: Default health check timeout (in seconds) that can be set for the
+      app
+    Example: null
+    Examples: null
+    Name: cc.default_health_check_timeout
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.droplets.fog_aws_storage_options
+  - Default: null
+    Description: The port of the database server
+    Example: null
+    Examples: null
+    Name: ccdb.port
+  - Default: ""
+    Description: User's password used to access internal endpoints of Cloud Controller
+      to upload files when staging
+    Example: null
+    Examples: null
+    Name: cc.staging_upload_password
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.key_pair_id
+  - Default: ""
+    Description: URI for a CDN to used for app package downloads
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.uri
+  - Default: 1024
+    Description: The default disk space an app gets
+    Example: null
+    Examples: null
+    Name: cc.default_app_disk_in_mb
+  - Default: ""
+    Description: An organization that will be created as part of the seeding process.
+      When the system_domain is not shared with (in the list of) app_domains, this
+      is required as the system_domain will be created as a PrivateDomain in this
+      organization.
+    Example: null
+    Examples: null
+    Name: system_domain_organization
+  - Default: 0
+    Description: '''version'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: version
+  - Default: ""
+    Description: URI for a CDN to used for resource pool downloads
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.uri
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.password
+  - Default: shared
+    Description: |
+      Name of the shared isolation segment created at startup.
+      This field can be updated, but subject to the following caveat:
+         Using the name of an existing IS will cause a deployment to fail.
+         To recover, redeploy using the last valid Shared Isolation Segment name.
+    Example: null
+    Examples: null
+    Name: cc.shared_isolation_segment_name
+  - Default: null
+    Description: The port used by UAA for non-ssl connections
+    Example: null
+    Examples: null
+    Name: uaa.port
+  - Default: /var/vcap/sys/log/cloud_controller_ng/newrelic
+    Description: The location for NewRelic to log to
+    Example: null
+    Examples: null
+    Name: cc.newrelic.log_file_path
+  - Default:
+    - api
+    - uaa
+    - login
+    - doppler
+    - loggregator
+    - hm9000
+    Description: List of hostnames for which routes cannot be created on the system
+      domain.
+    Example: null
+    Examples: null
+    Name: cc.system_hostnames
+  - Default: 14400
+    Description: The longest any job can take before it is cancelled unless overriden
+      per job
+    Example: null
+    Examples: null
+    Name: cc.jobs.global.timeout_in_seconds
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.private_endpoint
+  - Default: null
+    Description: URL of the UAA server
+    Example: null
+    Examples: null
+    Name: uaa.url
+  - Default: false
+    Description: Enable integration of the bits-service incubator (experimental)
+    Example: null
+    Examples: null
+    Name: cc.bits_service.enabled
+  - Default: null
+    Description: File location of a list of reserved private domains (for file format,
+      see https://publicsuffix.org/)
+    Example: null
+    Examples: null
+    Name: cc.reserved_private_domains
+  - Default: null
+    Description: 'Array of domains for user apps (example: ''user.app.space.foo'',
+      a user app called ''neat'' will listen at ''http://neat.user.app.space.foo'')'
+    Example: |
+      - name: example.com
+      - name: tcp.example.com
+        router_group_name: default-tcp
+    Examples: null
+    Name: app_domains
+  - Default: ""
+    Description: '''description'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: description
+  - Default: uaa.service.cf.internal
+    Description: The internal url used by UAA
+    Example: null
+    Examples: null
+    Name: cc.uaa.internal_url
+  - Default: 100
+    Description: Maximum number of results returned per page
+    Example: null
+    Examples: null
+    Name: cc.renderer.max_results_per_page
+  - Default: https
+    Description: The protocol used to access the CC API from an external entity
+    Example: null
+    Examples: null
+    Name: cc.external_protocol
+  - Default: cloud_controller,cloud_controller_service_permissions
+    Description: Name of service to register to UAA
+    Example: null
+    Examples: null
+    Name: cc.uaa_resource_id
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.droplets.fog_connection
+  - Default: false
+    Description: Enable transaction tracing in NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.transaction_tracer.enabled
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: (DEPRECATED) - Used to grant scope for SSO clients for service brokers
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_service_broker_client.scope
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.private_endpoint
+  - Default: null
+    Description: URL of the hm9000 server
+    Example: null
+    Examples: null
+    Name: hm9000.url
+  - Default: true
+    Description: Whether to use ssl for logger endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: logger_endpoint.use_ssl
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.key_pair_id
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.blobstore_timeout
+  - Default: 16384
+    Description: The file descriptors made available to each app instance
+    Example: null
+    Examples: null
+    Name: cc.instance_file_descriptor_limit
+  - Default: default
+    Description: Deprecated. Defines a 'partition' for the health_manager job
+    Example: null
+    Examples: null
+    Name: cc.cc_partition
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.public_endpoint
+  - Default: cc-packages
+    Description: Directory (bucket) used store app packages.  It does not have be
+      pre-created.
+    Example: null
+    Examples: null
+    Name: cc.packages.app_package_directory_key
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.ca_cert
+  - Default: 536870912
+    Description: Maximum size of a resource to add to the pool
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.maximum_size
+  - Default: ""
+    Description: URI for a CDN to used for buildpack downloads
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.uri
+  - Default: 3457
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.port
+  - Default: null
+    Description: The api key for NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.license_key
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: cc.external_port
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Internal hostname used to resolve the address of the Cloud Controller
+    Example: null
+    Examples: null
+    Name: cc.internal_service_hostname
+  - Default: 30
+    Description: How often to synchronize CC's database with Diego's
+    Example: null
+    Examples: null
+    Name: cc.diego_sync.frequency_in_seconds
+  - Default: 900
+    Description: Timeout for staging a droplet
+    Example: null
+    Examples: null
+    Name: cc.staging_timeout_in_seconds
+  - Default: development
+    Description: The environment name used by NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.environment_name
+  - Default: null
+    Description: Used for generating SSO clients for service brokers.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc-service-dashboards.secret
+  - Default: null
+    Description: The default staging security groups that will be seeded in CloudController.
+    Example: null
+    Examples: null
+    Name: cc.default_staging_security_groups
+  - Default: 3500
+    Description: The cc will restart if memory remains above this threshold for 15
+      monit cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.api.restart_if_consistently_above_mb
+  - Default: false
+    Description: Capture and send query params to NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.capture_params
+  - Default: ""
+    Description: Username for the bits-service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.username
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_events_cleanup.timeout_in_seconds
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.blobstore_type
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.username
+  - Default: cc-droplets
+    Description: Directory (bucket) used store droplets.  It does not have be pre-created.
+    Example: null
+    Examples: null
+    Name: cc.droplets.droplet_directory_key
+  - Default: null
+    Description: The default running security groups that will be seeded in CloudController.
+    Example: null
+    Examples: null
+    Name: cc.default_running_security_groups
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.blobstore_upload.timeout_in_seconds
+  - Default: 31
+    Description: How old an app usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.app_usage_events.cutoff_age_in_days
+  - Default: 31
+    Description: How old a service usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.service_usage_events.cutoff_age_in_days
+  - Default: null
+    Description: (DEPRECATED) - Used for generating SSO clients for service brokers.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_service_broker_client.secret
+  - Default: cc-buildpacks
+    Description: Directory (bucket) used store buildpacks.  It does not have be pre-created.
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.buildpack_directory_key
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 443
+    Description: Port for logger endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: logger_endpoint.port
+  - Default: 3500
+    Description: The cc will alert if memory remains above this threshold for 3 monit
+      cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.api.alert_if_above_mb
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.droplet_deletion.timeout_in_seconds
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.blobstore_timeout
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.private_key
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.username
+  - Default: ""
+    Description: key for encrypting sensitive values in the CC database
+    Example: null
+    Examples: null
+    Name: cc.db_encryption_key
+  - Default: "off"
+    Description: 'NewRelic''s SQL statement recording mode: [off | obfuscated | raw]'
+    Example: null
+    Examples: null
+    Name: cc.newrelic.transaction_tracer.record_sql
+  - Default: 6144
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Examples: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: Used to grant scope for SSO clients for service brokers
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc-service-dashboards.scope
+  - Default: null
+    Description: Password used by Diego to access internal endpoints
+    Example: null
+    Examples: null
+    Name: cc.internal_api_password
+  - Default: 180
+    Description: Maximum health check timeout (in seconds) that can be set for the
+      app
+    Example: null
+    Examples: null
+    Name: cc.maximum_health_check_timeout
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.blobstore_timeout
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.packages.blobstore_type
+  - Default: false
+    Description: Use Diego backend by default for new apps
+    Example: null
+    Examples: null
+    Name: cc.default_to_diego_backend
+  - Default: true
+    Description: Allow users to change the value of the app-level allow_ssh attribute
+    Example: null
+    Examples: null
+    Name: cc.allow_app_ssh_access
+  - Default: 3750
+    Description: The cc will restart if memory remains above this threshold for 3
+      monit cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.api.restart_if_above_mb
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.public_endpoint
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.ca_cert
+  - Default: true
+    Description: Allow non-admin users to switch their apps between DEA and Diego
+      backends
+    Example: null
+    Examples: null
+    Name: cc.users_can_select_backend
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.password
+  - Default: https
+    Description: http or https
+    Example: null
+    Examples: null
+    Name: login.protocol
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.password
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.ca_cert
+  - Default: cc-resources
+    Description: Directory (bucket) used store app resources.  It does not have be
+      pre-created.
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.resource_directory_key
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.blobstore_type
+  - Default: ""
+    Description: Public url for the bits-service service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.public_endpoint
+  - Default: api
+    Description: Host part of the cloud_controller api URI, will be joined with value
+      of 'domain'
+    Example: null
+    Examples: null
+    Name: cc.external_host
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.username
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.username
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.blobstore_timeout
+  Templates:
+  - DstPathEnd: config/stacks.yml
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/stacks.yml.erb
+    SrcPathEnd: stacks.yml.erb
+  - DstPathEnd: bin/ruby_version.sh
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/ruby_version.sh.erb
+    SrcPathEnd: ruby_version.sh.erb
+  - DstPathEnd: bin/console
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/console.erb
+    SrcPathEnd: console.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+  - DstPathEnd: config/cloud_controller_ng.yml
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/cloud_controller_clock.yml.erb
+    SrcPathEnd: cloud_controller_clock.yml.erb
+  - DstPathEnd: bin/cloud_controller_clock_ctl
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/cloud_controller_clock_ctl.erb
+    SrcPathEnd: cloud_controller_clock_ctl.erb
+  - DstPathEnd: config/newrelic.yml
+    Path: /mnt/tmp/tar-CmdExtractor264658308/templates/newrelic.yml.erb
+    SrcPathEnd: newrelic.yml.erb
+- Description: The Cloud Controller provides primary Cloud Foundry API that is by
+    the CF CLI. The Cloud Controller uses a database to keep tables for organizations,
+    spaces, apps, services, service instances, user roles, and more. Typically multiple
+    instances of Cloud Controller are load balanced.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor074552662/monit
+    SrcPathEnd: monit
+  Name: cloud_controller_ng
+  Packages:
+  - Name: capi_utils
+  - Name: cloud_controller_ng
+  - Name: nginx
+  - Name: nginx_newrelic_plugin
+  - Name: libpq
+  - Name: libmariadb
+  - Name: ruby-2.3
+  Properties:
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.private_key
+  - Default: /var/vcap/sys/log/nginx_cc/nginx.access.log
+    Description: The nginx access log destination. This can be used to route access
+      logs to a file, syslog, or a memory buffer.
+    Example: null
+    Examples: null
+    Name: cc.nginx_access_log_destination
+  - Default: ""
+    Description: PEM-encoded CA certificate for secure, mutually authenticated TLS
+      communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.ca_cert
+  - Default: http://cc-uploader.service.cf.internal:9090
+    Description: URL of cc uploader
+    Example: null
+    Examples: null
+    Name: cc.diego.cc_uploader_url
+  - Default: /var/vcap/nfs
+    Description: The location at which to mount the nfs share
+    Example: null
+    Examples: null
+    Name: nfs_server.share_path
+  - Default: 60
+    Description: For requests to service brokers, this is the HTTP (open and read)
+      timeout setting.
+    Example: null
+    Examples: null
+    Name: cc.broker_client_timeout_seconds
+  - Default: null
+    Description: The rate limiting and burst value to use for '/'
+    Example: |
+      limit: 100r/s
+      burst: 500
+    Examples: null
+    Name: cc.nginx_rate_limit_general
+  - Default: 31
+    Description: How old an app usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.app_usage_events.cutoff_age_in_days
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.blobstore_timeout
+  - Default: null
+    Description: URL of the login server
+    Example: null
+    Examples: null
+    Name: login.url
+  - Default: false
+    Description: Use Diego backend by default for new apps
+    Example: null
+    Examples: null
+    Name: cc.default_to_diego_backend
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.private_key
+  - Default: shared
+    Description: |
+      Name of the shared isolation segment created at startup.
+      This field can be updated, but subject to the following caveat:
+         Using the name of an existing IS will cause a deployment to fail.
+         To recover, redeploy using the last valid Shared Isolation Segment name.
+    Example: null
+    Examples: null
+    Name: cc.shared_isolation_segment_name
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.public_endpoint
+  - Default: 5
+    Description: Number of recent, staged droplets stored per app (not including current
+      droplet)
+    Example: null
+    Examples: null
+    Name: cc.droplets.max_staged_droplets_stored
+  - Default: true
+    Description: whether use login as the authorization endpoint or not
+    Example: null
+    Examples: null
+    Name: login.enabled
+  - Default: false
+    Description: Temporary flag to run tasks directly to the bbs from cc
+    Example: null
+    Examples: null
+    Name: cc.diego.temporary_local_tasks
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Internal hostname used to resolve the address of the Cloud Controller
+    Example: null
+    Examples: null
+    Name: cc.internal_service_hostname
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: cc.external_port
+  - Default: 536870912
+    Description: Maximum size of a resource to add to the pool
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.maximum_size
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.password
+  - Default: ""
+    Description: An organization that will be created as part of the seeding process.
+      When the system_domain is not shared with (in the list of) app_domains, this
+      is required as the system_domain will be created as a PrivateDomain in this
+      organization.
+    Example: null
+    Examples: null
+    Name: system_domain_organization
+  - Default: development
+    Description: The environment name used by NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.environment_name
+  - Default: 3750
+    Description: The cc will restart if memory remains above this threshold for 3
+      monit cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.api.restart_if_above_mb
+  - Default: ""
+    Description: key for encrypting sensitive values in the CC database
+    Example: null
+    Examples: null
+    Name: cc.db_encryption_key
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Examples: null
+    Name: nfs_server.address
+  - Default: ""
+    Description: '''support'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: support_address
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_usage_events_cleanup.timeout_in_seconds
+  - Default: 31
+    Description: How old a failed job should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.failed_jobs.cutoff_age_in_days
+  - Default: /var/vcap/data/cloud_controller_ng/tmp
+    Description: The directory to use for temporary files
+    Example: null
+    Examples: null
+    Name: cc.directories.tmpdir
+  - Default: {}
+    Description: Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse
+      for example configuration.
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.fog_aws_storage_options
+  - Default: null
+    Description: Deprecated in favor of system_domain. Domain where cloud_controller
+      will listen (api.domain)
+    Example: null
+    Examples: null
+    Name: domain
+  - Default: false
+    Description: Enable rate limiting for UAA-authenticated endpoints per user or
+      client
+    Example: null
+    Examples: null
+    Name: cc.rate_limiter.enabled
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.key_pair_id
+  - Default: null
+    Description: URL of the UAA server
+    Example: null
+    Examples: null
+    Name: uaa.url
+  - Default: 50
+    Description: Default number of results returned per page if user does not specify
+    Example: null
+    Examples: null
+    Name: cc.renderer.default_results_per_page
+  - Default: 10
+    Description: The percentage of top stagers considered when choosing a stager
+    Example: null
+    Examples: null
+    Name: cc.placement_top_stager_percentage
+  - Default: ""
+    Description: IP for nginx
+    Example: null
+    Examples: null
+    Name: cc.nginx.ip
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.password
+  - Default: 127.0.0.1
+    Description: The host for the statsd server, defaults to the local metron agent
+    Example: null
+    Examples: null
+    Name: cc.statsd_host
+  - Default: ""
+    Description: Public url for the bits-service service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.public_endpoint
+  - Default: false
+    Description: Temporary flag to enable staging directly to the bbs from cc
+    Example: null
+    Examples: null
+    Name: cc.diego.temporary_local_staging
+  - Default: 2222
+    Description: External port for SSH access to application instances
+    Example: null
+    Examples: null
+    Name: app_ssh.port
+  - Default: false
+    Description: Capture and send query params to NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.capture_params
+  - Default: 3457
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.port
+  - Default: postgres
+    Description: The type of database being used. mysql or postgres
+    Example: null
+    Examples: null
+    Name: ccdb.db_scheme
+  - Default: 2048
+    Description: The maximum amount of disk a user can request
+    Example: null
+    Examples: null
+    Name: cc.maximum_app_disk_in_mb
+  - Default: http://tps.service.cf.internal:1518
+    Description: URL of the Diego tps service
+    Example: null
+    Examples: null
+    Name: cc.diego.tps_url
+  - Default: {}
+    Description: Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse
+      for example configuration.
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.fog_aws_storage_options
+  - Default: /var/vcap/sys/log/cloud_controller_ng/newrelic
+    Description: The location for NewRelic to log to
+    Example: null
+    Examples: null
+    Name: cc.newrelic.log_file_path
+  - Default: https://bbs.service.cf.internal:8889
+    Description: URL of the BBS Server
+    Example: null
+    Examples: null
+    Name: cc.diego.bbs.url
+  - Default: false
+    Description: Temporary flag to manage app state directly to the bbs from cc
+    Example: null
+    Examples: null
+    Name: cc.diego.temporary_local_apps
+  - Default: ""
+    Description: User's password used to access internal endpoints of Cloud Controller
+      to upload files when staging
+    Example: null
+    Examples: null
+    Name: cc.staging_upload_password
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Examples: null
+    Name: cc.bulk_api_user
+  - Default: cc-buildpacks
+    Description: Directory (bucket) used store buildpacks.  It does not have be pre-created.
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.buildpack_directory_key
+  - Default: null
+    Description: 'The default running security groups that will be seeded in CloudController.
+      Note: security groups are only seeded on the first deploy, after which they
+      should be managed via the API'
+    Example: null
+    Examples: null
+    Name: cc.default_running_security_groups
+  - Default: null
+    Description: PEM-encoded server key
+    Example: null
+    Examples: null
+    Name: dea_next.client_key
+  - Default: null
+    Description: 'Array of domains for user apps (example: ''user.app.space.foo'',
+      a user app called ''neat'' will listen at ''http://neat.user.app.space.foo'')'
+    Example: |
+      - name: example.com
+      - name: tcp.example.com
+        router_group_name: default-tcp
+    Examples: null
+    Name: app_domains
+  - Default: cc-packages
+    Description: Directory (bucket) used store app packages.  It does not have be
+      pre-created.
+    Example: null
+    Examples: null
+    Name: cc.packages.app_package_directory_key
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.ca_cert
+  - Default: false
+    Description: Activate NewRelic developer mode
+    Example: null
+    Examples: null
+    Name: cc.newrelic.developer_mode
+  - Default: null
+    Description: MD5 fingerprint of the host key of the SSH proxy that brokers connections
+      to application instances
+    Example: null
+    Examples: null
+    Name: app_ssh.host_key_fingerprint
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.private_key
+  - Default: ""
+    Description: URI for a CDN to used for buildpack downloads
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.uri
+  - Default: 1024
+    Description: The default disk space an app gets
+    Example: null
+    Examples: null
+    Name: cc.default_app_disk_in_mb
+  - Default: ""
+    Description: Password for the bits-service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.password
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: Minimum recommended version of the CF CLI.
+    Example: null
+    Examples: null
+    Name: cc.min_recommended_cli_version
+  - Default: true
+    Description: Run Cloud Controller DB migrations in BOSH pre-start script. Should
+      be changed to false for deployments where the PostgreSQL job is deployed to
+      the same VM as Cloud Controller. Otherwise, the default of true is preferable.
+    Example: null
+    Examples: null
+    Name: cc.run_prestart_migrations
+  - Default: null
+    Description: 'Array of security groups that will be seeded into CloudController.
+      Note: security groups are only seeded on the first deploy, after which they
+      should be managed via the API'
+    Example: null
+    Examples: null
+    Name: cc.security_group_definitions
+  - Default: 5
+    Description: Minimum number of candidate deas for staging.  Defaults to 5, should
+      be fewer than the total DEAs in the deployment.
+    Example: null
+    Examples: null
+    Name: cc.minimum_candidate_stagers
+  - Default: default
+    Description: Deprecated. Defines a 'partition' for the health_manager job
+    Example: null
+    Examples: null
+    Name: cc.cc_partition
+  - Default: ""
+    Description: Username for the bits-service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.username
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.private_endpoint
+  - Default: null
+    Description: Users to create on the database when seeding
+    Example: null
+    Examples: null
+    Name: ccdb.roles
+  - Default: 25
+    Description: Maximum connections for Sequel
+    Example: null
+    Examples: null
+    Name: ccdb.max_connections
+  - Default: true
+    Description: Allow non-admin users to switch their apps between DEA and Diego
+      backends
+    Example: null
+    Examples: null
+    Name: cc.users_can_select_backend
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: (DEPRECATED) - Used to grant scope for SSO clients for service brokers
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_service_broker_client.scope
+  - Default: null
+    Description: Hash of default quota definitions to be seeded. This property can
+      be used to add quotas with subsequent deploys, but not to update existing ones.
+    Example: |
+      - example-quota:
+          memory_limit: 10240
+          non_basic_services_allowed: true
+          total_routes: 1000
+          total_service_keys: 1000
+          total_services: 100
+          total_reserved_route_ports: 10
+    Examples: null
+    Name: cc.quota_definitions
+  - Default: null
+    Description: Used for fetching routing information from the Routing API
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_routing.secret
+  - Default: null
+    Description: Symmetric secret used to decode uaa tokens. Used for testing.
+    Example: null
+    Examples: null
+    Name: uaa.cc.token_secret
+  - Default: 31
+    Description: How old an audit event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.audit_events.cutoff_age_in_days
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.droplets.fog_connection
+  - Default: error
+    Description: The lowest severity nginx log level to capture in the error log.
+    Example: null
+    Examples: null
+    Name: cc.nginx_error_log_level
+  - Default: false
+    Description: Whether to expose the routing_endpoint listed at /v2/info. Enable
+      this after deploying the Routing API
+    Example: null
+    Examples: null
+    Name: routing_api.enabled
+  - Default: 2000
+    Description: The number of requests a user or client is allowed to make for all
+      endpoints that do not have a custom limit over the configured interval
+    Example: null
+    Examples: null
+    Name: cc.rate_limiter.general_limit
+  - Default: ""
+    Description: PEM-encoded certificate for secure, mutually authenticated TLS communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.public_cert
+  - Default: 31
+    Description: How old an app event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.app_events.cutoff_age_in_days
+  - Default: info
+    Description: Log level for cc
+    Example: null
+    Examples: null
+    Name: cc.logging_level
+  - Default: null
+    Description: PEM-encoded server certificate
+    Example: null
+    Examples: null
+    Name: dea_next.client_cert
+  - Default: 100
+    Description: The number of requests an unauthenticated client is allowed to make
+      over the configured interval
+    Example: null
+    Examples: null
+    Name: cc.rate_limiter.unauthenticated_limit
+  - Default: /var/vcap/data/cloud_controller_ng/diagnostics
+    Description: The directory where operator requested diagnostic files should be
+      placed
+    Example: null
+    Examples: null
+    Name: cc.directories.diagnostics
+  - Default: https
+    Description: The protocol used to access the CC API from an external entity
+    Example: null
+    Examples: null
+    Name: cc.external_protocol
+  - Default: internal_user
+    Description: User name used by Diego to access internal endpoints
+    Example: null
+    Examples: null
+    Name: cc.internal_api_user
+  - Default: null
+    Description: Custom attribute keys and values for /v2/info endpoint
+    Example: null
+    Examples: null
+    Name: cc.info.custom
+  - Default: 5155
+    Description: Port of the hm9000 Api Server
+    Example: null
+    Examples: null
+    Name: hm9000.port
+  - Default: null
+    Description: Used for fetching usernames from UAA.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cloud_controller_username_lookup.secret
+  - Default: null
+    Description: Custom message to use for a disabled feature.
+    Example: null
+    Examples: null
+    Name: cc.feature_disabled_message
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.ca_cert
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.blobstore_type
+  - Default: 1024
+    Description: How much memory given to an app if not specified
+    Example: null
+    Examples: null
+    Name: cc.default_app_memory
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.public_endpoint
+  - Default: false
+    Description: Whether or not to use privileged containers for staging tasks.
+    Example: null
+    Examples: null
+    Name: cc.diego.use_privileged_containers_for_staging
+  - Default: {}
+    Description: Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse
+      for example configuration.
+    Example: null
+    Examples: null
+    Name: cc.droplets.fog_aws_storage_options
+  - Default: null
+    Description: File location of a list of reserved private domains (for file format,
+      see https://publicsuffix.org/)
+    Example: null
+    Examples: null
+    Name: cc.reserved_private_domains
+  - Default: 8125
+    Description: The port for the statsd server, defaults to the local metron agent
+    Example: null
+    Examples: null
+    Name: cc.statsd_port
+  - Default: 31
+    Description: How old a service usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.service_usage_events.cutoff_age_in_days
+  - Default: null
+    Description: Password used by Diego to access internal endpoints
+    Example: null
+    Examples: null
+    Name: cc.internal_api_password
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.ca_cert
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.public_endpoint
+  - Default: null
+    Description: The api key for NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.license_key
+  - Default: 5
+    Description: Advertise interval for DEAs
+    Example: null
+    Examples: null
+    Name: dea_next.advertise_interval_in_seconds
+  - Default: 14400
+    Description: The longest any job can take before it is cancelled unless overriden
+      per job
+    Example: null
+    Examples: null
+    Name: cc.jobs.global.timeout_in_seconds
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.private_endpoint
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Examples: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.droplet_deletion.timeout_in_seconds
+  - Default: /var/vcap/sys/log/nginx_cc/nginx.error.log
+    Description: The nginx error log destination. This can be used to route error
+      logs to a file, syslog, or a memory buffer.
+    Example: null
+    Examples: null
+    Name: cc.nginx_error_log_destination
+  - Default: ""
+    Description: Support for route services is disabled when no value is configured.
+    Example: null
+    Examples: null
+    Name: router.route_services_secret
+  - Default: ""
+    Description: '''build'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: build
+  - Default: 3500
+    Description: The cc will alert if memory remains above this threshold for 3 monit
+      cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.api.alert_if_above_mb
+  - Default: /var/vcap/sys/cores/core-%e-%s-%p-%t
+    Description: Filename template for core dump files. Use an empty string if you
+      don't want core files saved.
+    Example: null
+    Examples: null
+    Name: cc.core_file_pattern
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.blobstore_timeout
+  - Default: 1073741824
+    Description: Maximum size of application package
+    Example: null
+    Examples: null
+    Name: cc.packages.max_package_size
+  - Default: |
+      $host - [$time_local] "$request" $status $bytes_sent "$http_referer" "$http_user_agent" $proxy_add_x_forwarded_for vcap_request_id:$upstream_http_x_vcap_request_id response_time:$upstream_response_time
+    Description: The nginx log format string to use when writing to the access log.
+    Example: null
+    Examples: null
+    Name: cc.nginx_access_log_format
+  - Default: http://nsync.service.cf.internal:8787
+    Description: URL of the Diego nsync service
+    Example: null
+    Examples: null
+    Name: cc.diego.nsync_url
+  - Default: 900
+    Description: Timeout for staging a droplet
+    Example: null
+    Examples: null
+    Name: cc.staging_timeout_in_seconds
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.fog_connection
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.key_pair_id
+  - Default: false
+    Description: Enable binding to services that provide volume_mount information.
+    Example: null
+    Examples: null
+    Name: cc.volume_services_enabled
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.blobstore_timeout
+  - Default: cloud_controller,cloud_controller_service_permissions
+    Description: Name of service to register to UAA
+    Example: null
+    Examples: null
+    Name: cc.uaa_resource_id
+  - Default: null
+    Description: The port used by UAA for non-ssl connections
+    Example: null
+    Examples: null
+    Name: uaa.port
+  - Default: true
+    Description: Whether to expose the doppler_logging_endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: doppler.enabled
+  - Default: true
+    Description: Allow users to change the value of the app-level allow_ssh attribute
+    Example: null
+    Examples: null
+    Name: cc.allow_app_ssh_access
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.blobstore_upload.timeout_in_seconds
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.packages.fog_connection
+  - Default: https
+    Description: http or https
+    Example: null
+    Examples: null
+    Name: login.protocol
+  - Default: 15M
+    Description: Maximum body size for nginx
+    Example: null
+    Examples: null
+    Name: cc.client_max_body_size
+  - Default: 31
+    Description: How long a completed task will stay in cloud controller database
+      before being cleaned up based on last updated time with success or failure.
+    Example: null
+    Examples: null
+    Name: cc.completed_tasks.cutoff_age_in_days
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.username
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.public_endpoint
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.blobstore_delete.timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_bits_packer.timeout_in_seconds
+  - Default: debug2
+    Description: Log level for cc database operations
+    Example: null
+    Examples: null
+    Name: cc.db_logging_level
+  - Default: 1
+    Description: Passthru value for Steno logger
+    Example: null
+    Examples: null
+    Name: cc.logging_max_retries
+  - Default: 65536
+    Description: Minimum size of a resource to add to the pool
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.minimum_size
+  - Default: 60
+    Description: Specifies interval on which the CC will poll a service broker for
+      asynchronous actions. If the service broker provides a value, this value is
+      the minimum accepted value the broker can provide.
+    Example: null
+    Examples: null
+    Name: cc.broker_client_default_async_poll_interval_seconds
+  - Default: ""
+    Description: PEM-encoded key for secure, mutually authenticated TLS communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.private_key
+  - Default: 900
+    Description: Timeout for requests in seconds.
+    Example: null
+    Examples: null
+    Name: request_timeout_in_seconds
+  - Default: ""
+    Description: URI for a CDN to used for resource pool downloads
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.uri
+  - Default: uaa.service.cf.internal
+    Description: The internal url used by UAA
+    Example: null
+    Examples: null
+    Name: cc.uaa.internal_url
+  - Default: true
+    Description: Whether to use ssl for logger endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: logger_endpoint.use_ssl
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Examples: null
+    Name: system_domain
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.packages.blobstore_type
+  - Default: true
+    Description: When ssh is allowed and not explicitly set in the application, new
+      applications will start with ssh service enabled
+    Example: null
+    Examples: null
+    Name: cc.default_app_ssh_access
+  - Default: false
+    Description: Enable development features for monitoring and insight
+    Example: null
+    Examples: null
+    Name: cc.development_mode
+  - Default: 1200
+    Description: Extra token expiry time while uploading big apps.
+    Example: null
+    Examples: null
+    Name: cc.app_bits_upload_grace_period_in_seconds
+  - Default: ""
+    Description: Private url for the bits-service service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.private_endpoint
+  - Default: http://stager.service.cf.internal:8888
+    Description: URL of the Diego stager service
+    Example: null
+    Examples: null
+    Name: cc.diego.stager_url
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.private_endpoint
+  - Default: 2
+    Description: Number of local cloud_controller_worker workers
+    Example: null
+    Examples: null
+    Name: cc.jobs.local.number_of_workers
+  - Default: false
+    Description: Enable logging of all requests made to the Cloud Controller in CEF
+      format.
+    Example: null
+    Examples: null
+    Name: cc.security_event_logging.enabled
+  - Default: ""
+    Description: URI for a CDN to used for droplet downloads
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.uri
+  - Default: 4096
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Examples: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: false
+    Description: enable ssl for communication with DEAs
+    Example: null
+    Examples: null
+    Name: cc.dea_use_https
+  - Default: false
+    Description: Enable transaction tracing in NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.transaction_tracer.enabled
+  - Default: 9023
+    Description: Port for internal TLS communication
+    Example: null
+    Examples: null
+    Name: cc.tls_port
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.droplet_upload.timeout_in_seconds
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Examples: null
+    Name: cc.bulk_api_password
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.fog_connection
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.username
+  - Default: null
+    Description: Contains the name of the database on the database server
+    Example: null
+    Examples: null
+    Name: ccdb.databases
+  - Default: null
+    Description: URL of the hm9000 server
+    Example: null
+    Examples: null
+    Name: hm9000.url
+  - Default: false
+    Description: specifies that the job is allowed to skip ssl cert verification
+    Example: null
+    Examples: null
+    Name: ssl.skip_cert_verify
+  - Default: false
+    Description: Whether or not to use privileged containers for running buildpack
+      apps and tasks.
+    Example: null
+    Examples: null
+    Name: cc.diego.use_privileged_containers_for_running
+  - Default: false
+    Description: Disable external (i.e. git) buildpacks? (Admin buildpacks and system
+      buildpacks only.)
+    Example: null
+    Examples: null
+    Name: cc.disable_custom_buildpacks
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.private_key
+  - Default: []
+    Description: List of domains (including scheme) from which Cross-Origin requests
+      will be accepted, a * can be used as a wildcard for any part of a domain
+    Example: null
+    Examples: null
+    Name: cc.allowed_cors_domains
+  - Default: default
+    Description: The name of the quota definition CC will fallback on for org and
+      space limits from the list of quota definitions.
+    Example: null
+    Examples: null
+    Name: cc.default_quota_definition
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.ca_cert
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.key_pair_id
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.droplets.blobstore_type
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.key_pair_id
+  - Default: []
+    Description: An array of insecure Docker registries in the form of <HOSTNAME|IP>:PORT
+    Example: null
+    Examples: null
+    Name: cc.diego.insecure_docker_registry_list
+  - Default: 60
+    Description: Default health check timeout (in seconds) that can be set for the
+      app
+    Example: null
+    Examples: null
+    Name: cc.default_health_check_timeout
+  - Default: 5
+    Description: Number of recent, valid packages stored per app (not including package
+      for current droplet)
+    Example: null
+    Examples: null
+    Name: cc.packages.max_valid_packages_stored
+  - Default: null
+    Description: Used for generating SSO clients for service brokers.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc-service-dashboards.secret
+  - Default: null
+    Description: Set of buildpacks to install during deploy
+    Example: null
+    Examples: null
+    Name: cc.install_buildpacks
+  - Default: ""
+    Description: '''name'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: name
+  - Default: null
+    Description: Minimum version of the CF CLI to work with the API.
+    Example: null
+    Examples: null
+    Name: cc.min_cli_version
+  - Default: ""
+    Description: User name used to access internal endpoints of Cloud Controller to
+      upload files when staging
+    Example: null
+    Examples: null
+    Name: cc.staging_upload_user
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.blobstore_type
+  - Default: 3500
+    Description: The cc will restart if memory remains above this threshold for 15
+      monit cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.api.restart_if_consistently_above_mb
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.private_endpoint
+  - Default: 180
+    Description: Maximum health check timeout (in seconds) that can be set for the
+      app
+    Example: null
+    Examples: null
+    Name: cc.maximum_health_check_timeout
+  - Default: ""
+    Description: URI for a CDN to used for app package downloads
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.uri
+  - Default: 16384
+    Description: File descriptor limit for staging tasks
+    Example: null
+    Examples: null
+    Name: cc.staging_file_descriptor_limit
+  - Default: 60
+    Description: The interval in minutes, after which, a user's available api requests
+      will be reset
+    Example: null
+    Examples: null
+    Name: cc.rate_limiter.reset_interval_in_minutes
+  - Default: api
+    Description: Host part of the cloud_controller api URI, will be joined with value
+      of 'domain'
+    Example: null
+    Examples: null
+    Name: cc.external_host
+  - Default: null
+    Description: (DEPRECATED) - Used for generating SSO clients for service brokers.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_service_broker_client.secret
+  - Default:
+    - description: Cloud Foundry Linux-based filesystem
+      name: cflinuxfs2
+    Description: Tag used by the DEA to describe capabilities (i.e. 'Windows7', 'python-linux').
+      DEA and CC must agree.
+    Example: null
+    Examples: null
+    Name: cc.stacks
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.password
+  - Default: null
+    Description: The address of the database server
+    Example: null
+    Examples: null
+    Name: ccdb.address
+  - Default: 443
+    Description: Port for doppler_logging_endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: doppler.port
+  - Default: "off"
+    Description: 'NewRelic''s SQL statement recording mode: [off | obfuscated | raw]'
+    Example: null
+    Examples: null
+    Name: cc.newrelic.transaction_tracer.record_sql
+  - Default: null
+    Description: 'The default staging security groups that will be seeded in CloudController.
+      Note: security groups are only seeded on the first deploy, after which they
+      should be managed via the API'
+    Example: null
+    Examples: null
+    Name: cc.default_staging_security_groups
+  - Default:
+    - api
+    - uaa
+    - login
+    - doppler
+    - loggregator
+    - hm9000
+    Description: List of hostnames for which routes cannot be created on the system
+      domain.
+    Example: null
+    Examples: null
+    Name: cc.system_hostnames
+  - Default: 0
+    Description: '''version'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: version
+  - Default: null
+    Description: 'Array of zones to do rate limiting for. '
+    Example: |
+      - name: apps
+        location: /v2/apps
+        limit: 10r/s
+        burst: 50
+      - name: spaces
+        location: ~ ^/v2/spaces/(.*)
+        limit: 10r/s
+        burst: 100
+    Examples: null
+    Name: cc.nginx_rate_limit_zones
+  - Default: http://file-server.service.cf.internal:8080
+    Description: URL of file server
+    Example: null
+    Examples: null
+    Name: cc.diego.file_server_url
+  - Default: cflinuxfs2
+    Description: stack to use for staging Docker applications
+    Example: null
+    Examples: null
+    Name: cc.diego.docker_staging_stack
+  - Default: null
+    Description: The port of the database server
+    Example: null
+    Examples: null
+    Name: ccdb.port
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.password
+  - Default: 3
+    Description: The threshold of crashes after which the app is marked as flapping
+    Example: null
+    Examples: null
+    Name: cc.flapping_crash_count_threshold
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: dea_next.ca_cert
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: false
+    Description: Enable integration of the bits-service incubator (experimental)
+    Example: null
+    Examples: null
+    Name: cc.bits_service.enabled
+  - Default: null
+    Description: The certificate authority being used by UAA
+    Example: null
+    Examples: null
+    Name: uaa.ca_cert
+  - Default: 1536M
+    Description: Maximum body size for nginx bits uploads
+    Example: null
+    Examples: null
+    Name: cc.app_bits_max_body_size
+  - Default: 2
+    Description: Maximum depth of inlined relationships in the result
+    Example: null
+    Examples: null
+    Name: cc.renderer.max_inline_relations_depth
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: Used to grant scope for SSO clients for service brokers
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc-service-dashboards.scope
+  - Default: cc-droplets
+    Description: Directory (bucket) used store droplets.  It does not have be pre-created.
+    Example: null
+    Examples: null
+    Name: cc.droplets.droplet_directory_key
+  - Default: cflinuxfs2
+    Description: The default stack to use if no custom stack is specified by an app.
+    Example: null
+    Examples: null
+    Name: cc.default_stack
+  - Default: ""
+    Description: '''description'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: description
+  - Default: {}
+    Description: Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse
+      for example configuration.
+    Example: null
+    Examples: null
+    Name: cc.packages.fog_aws_storage_options
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.blobstore_timeout
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.username
+  - Default: 10
+    Description: The timeout for Sequel pooled connections
+    Example: null
+    Examples: null
+    Name: ccdb.pool_timeout
+  - Default: 443
+    Description: Port for logger endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: logger_endpoint.port
+  - Default: cc-resources
+    Description: Directory (bucket) used store app resources.  It does not have be
+      pre-created.
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.resource_directory_key
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.username
+  - Default: 10080
+    Description: The max duration the CC will fetch service instance state from a
+      service broker (in minutes). Default is 1 week
+    Example: null
+    Examples: null
+    Name: cc.broker_client_max_async_poll_duration_minutes
+  - Default: false
+    Description: Activate NewRelic monitor mode
+    Example: null
+    Examples: null
+    Name: cc.newrelic.monitor_mode
+  - Default:
+      buildpack/cflinuxfs2: buildpack_app_lifecycle/buildpack_app_lifecycle.tgz
+      buildpack/windows2012R2: windows_app_lifecycle/windows_app_lifecycle.tgz
+      docker: docker_app_lifecycle/docker_app_lifecycle.tgz
+    Description: List of lifecycle bundles arguments for different stacks
+    Example: null
+    Examples: null
+    Name: cc.diego.lifecycle_bundles
+  - Default: ssh-proxy
+    Description: The oauth client ID of the SSH proxy
+    Example: null
+    Examples: null
+    Name: app_ssh.oauth_client_id
+  - Default: 16384
+    Description: The file descriptors made available to each app instance
+    Example: null
+    Examples: null
+    Name: cc.instance_file_descriptor_limit
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_events_cleanup.timeout_in_seconds
+  - Default: true
+    Description: Whether to use ssl for the doppler_logging_endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: doppler.use_ssl
+  - Default: 100
+    Description: Maximum number of results returned per page
+    Example: null
+    Examples: null
+    Name: cc.renderer.max_results_per_page
+  - Default: null
+    Description: The port used by UAA for ssl connections
+    Example: null
+    Examples: null
+    Name: uaa.ssl.port
+  Templates:
+  - DstPathEnd: bin/restart_drain
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/restart_drain.rb
+    SrcPathEnd: restart_drain.rb
+  - DstPathEnd: config/certs/mutual_tls.crt
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/mutual_tls.crt.erb
+    SrcPathEnd: mutual_tls.crt.erb
+  - DstPathEnd: config/certs/dea_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/dea_ca.crt.erb
+    SrcPathEnd: dea_ca.crt.erb
+  - DstPathEnd: bin/console
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/console.erb
+    SrcPathEnd: console.erb
+  - DstPathEnd: bin/blobstore_waiter.sh
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/blobstore_waiter.sh.erb
+    SrcPathEnd: blobstore_waiter.sh.erb
+  - DstPathEnd: config/certs/mutual_tls_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/mutual_tls_ca.crt.erb
+    SrcPathEnd: mutual_tls_ca.crt.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+  - DstPathEnd: config/certs/uaa_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/uaa_ca.crt.erb
+    SrcPathEnd: uaa_ca.crt.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/setup_local_blobstore.sh
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/setup_local_blobstore.sh.erb
+    SrcPathEnd: setup_local_blobstore.sh.erb
+  - DstPathEnd: config/newrelic.yml
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/newrelic.yml.erb
+    SrcPathEnd: newrelic.yml.erb
+  - DstPathEnd: config/certs/resource_pool_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/resource_pool_ca_cert.pem.erb
+    SrcPathEnd: resource_pool_ca_cert.pem.erb
+  - DstPathEnd: bin/cloud_controller_ng_ctl
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/cloud_controller_api_ctl.erb
+    SrcPathEnd: cloud_controller_api_ctl.erb
+  - DstPathEnd: bin/cloud_controller_worker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/cloud_controller_api_worker_ctl.erb
+    SrcPathEnd: cloud_controller_api_worker_ctl.erb
+  - DstPathEnd: config/stacks.yml
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/stacks.yml.erb
+    SrcPathEnd: stacks.yml.erb
+  - DstPathEnd: bin/migrate_db
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/migrate_db.sh.erb
+    SrcPathEnd: migrate_db.sh.erb
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/mime.types
+    SrcPathEnd: mime.types
+  - DstPathEnd: bin/ruby_version.sh
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/ruby_version.sh.erb
+    SrcPathEnd: ruby_version.sh.erb
+  - DstPathEnd: config/certs/packages_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/packages_ca_cert.pem.erb
+    SrcPathEnd: packages_ca_cert.pem.erb
+  - DstPathEnd: config/newrelic_plugin.yml
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/newrelic_plugin.yml.erb
+    SrcPathEnd: newrelic_plugin.yml.erb
+  - DstPathEnd: config/certs/buildpacks_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/buildpacks_ca_cert.pem.erb
+    SrcPathEnd: buildpacks_ca_cert.pem.erb
+  - DstPathEnd: config/certs/droplets_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/droplets_ca_cert.pem.erb
+    SrcPathEnd: droplets_ca_cert.pem.erb
+  - DstPathEnd: config/certs/dea_client.key
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/dea_client.key.erb
+    SrcPathEnd: dea_client.key.erb
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/post-start.sh.erb
+    SrcPathEnd: post-start.sh.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/nginx_ctl.erb
+    SrcPathEnd: nginx_ctl.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/drain.rb
+    SrcPathEnd: drain.rb
+  - DstPathEnd: config/cloud_controller_ng.yml
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/cloud_controller_api.yml.erb
+    SrcPathEnd: cloud_controller_api.yml.erb
+  - DstPathEnd: config/certs/mutual_tls.key
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/mutual_tls.key.erb
+    SrcPathEnd: mutual_tls.key.erb
+  - DstPathEnd: bin/seed_db
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/seed_db.sh.erb
+    SrcPathEnd: seed_db.sh.erb
+  - DstPathEnd: bin/nginx_newrelic_plugin_ctl
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/nginx_newrelic_plugin_ctl.erb
+    SrcPathEnd: nginx_newrelic_plugin_ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: config/certs/dea_client.crt
+    Path: /mnt/tmp/tar-CmdExtractor074552662/templates/dea_client.crt.erb
+    SrcPathEnd: dea_client.crt.erb
+- Description: Cloud Controller worker processes background tasks submitted via the.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor333713144/monit
+    SrcPathEnd: monit
+  Name: cloud_controller_worker
+  Packages:
+  - Name: capi_utils
+  - Name: cloud_controller_ng
+  - Name: nginx
+  - Name: nginx_newrelic_plugin
+  - Name: libpq
+  - Name: libmariadb
+  - Name: ruby-2.3
+  Properties:
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: debug2
+    Description: Log level for cc database operations
+    Example: null
+    Examples: null
+    Name: cc.db_logging_level
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.ca_cert
+  - Default: false
+    Description: Enable integration of the bits-service incubator (experimental)
+    Example: null
+    Examples: null
+    Name: cc.bits_service.enabled
+  - Default: false
+    Description: Temporary flag to run tasks directly to the bbs from cc
+    Example: null
+    Examples: null
+    Name: cc.diego.temporary_local_tasks
+  - Default: 180
+    Description: Maximum health check timeout (in seconds) that can be set for the
+      app
+    Example: null
+    Examples: null
+    Name: cc.maximum_health_check_timeout
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.private_key
+  - Default: false
+    Description: Whether or not to use privileged containers for running buildpack
+      apps and tasks.
+    Example: null
+    Examples: null
+    Name: cc.diego.use_privileged_containers_for_running
+  - Default: false
+    Description: Temporary flag to enable staging directly to the bbs from cc
+    Example: null
+    Examples: null
+    Name: cc.diego.temporary_local_staging
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.fog_aws_storage_options
+  - Default: http://nsync.service.cf.internal:8787
+    Description: URL of the Diego nsync service
+    Example: null
+    Examples: null
+    Name: cc.diego.nsync_url
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_bits_packer.timeout_in_seconds
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Examples: null
+    Name: cc.bulk_api_user
+  - Default: null
+    Description: URL of the login server
+    Example: null
+    Examples: null
+    Name: login.url
+  - Default:
+    - api
+    - uaa
+    - login
+    - doppler
+    - loggregator
+    - hm9000
+    Description: List of hostnames for which routes cannot be created on the system
+      domain.
+    Example: null
+    Examples: null
+    Name: cc.system_hostnames
+  - Default: 31
+    Description: How old an audit event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.audit_events.cutoff_age_in_days
+  - Default: cc-buildpacks
+    Description: Directory (bucket) used store buildpacks.  It does not have be pre-created.
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.buildpack_directory_key
+  - Default: 384
+    Description: The cc will restart if memory remains above this threshold for 15
+      monit cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.worker.restart_if_consistently_above_mb
+  - Default: false
+    Description: Temporary flag to manage app state directly to the bbs from cc
+    Example: null
+    Examples: null
+    Name: cc.diego.temporary_local_apps
+  - Default: https
+    Description: http or https
+    Example: null
+    Examples: null
+    Name: login.protocol
+  - Default: null
+    Description: 'Array of domains for user apps (example: ''user.app.space.foo'',
+      a user app called ''neat'' will listen at ''http://neat.user.app.space.foo'')'
+    Example: |
+      - name: example.com
+      - name: tcp.example.com
+        router_group_name: default-tcp
+    Examples: null
+    Name: app_domains
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.private_key
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.packages.blobstore_type
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.public_endpoint
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.blobstore_timeout
+  - Default: null
+    Description: URL of the UAA server
+    Example: null
+    Examples: null
+    Name: uaa.url
+  - Default: false
+    Description: Activate NewRelic monitor mode
+    Example: null
+    Examples: null
+    Name: cc.newrelic.monitor_mode
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Examples: null
+    Name: nfs_server.address
+  - Default: info
+    Description: Log level for cc
+    Example: null
+    Examples: null
+    Name: cc.logging_level
+  - Default: ""
+    Description: User's password used to access internal endpoints of Cloud Controller
+      to upload files when staging
+    Example: null
+    Examples: null
+    Name: cc.staging_upload_password
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.username
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.private_key
+  - Default: 10
+    Description: The timeout for Sequel pooled connections
+    Example: null
+    Examples: null
+    Name: ccdb.pool_timeout
+  - Default: 512
+    Description: The cc will restart if memory remains above this threshold for 3
+      monit cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.worker.restart_if_above_mb
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: ""
+    Description: '''support'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: support_address
+  - Default: shared
+    Description: |
+      Name of the shared isolation segment created at startup.
+      This field can be updated, but subject to the following caveat:
+         Using the name of an existing IS will cause a deployment to fail.
+         To recover, redeploy using the last valid Shared Isolation Segment name.
+    Example: null
+    Examples: null
+    Name: cc.shared_isolation_segment_name
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.droplets.fog_connection
+  - Default: false
+    Description: Enable development features for monitoring and insight
+    Example: null
+    Examples: null
+    Name: cc.development_mode
+  - Default: 60
+    Description: Specifies interval on which the CC will poll a service broker for
+      asynchronous actions
+    Example: null
+    Examples: null
+    Name: cc.broker_client_default_async_poll_interval_seconds
+  - Default: ""
+    Description: Private url for the bits-service service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.private_endpoint
+  - Default: ""
+    Description: PEM-encoded CA certificate for secure, mutually authenticated TLS
+      communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.ca_cert
+  - Default: 1
+    Description: Passthru value for Steno logger
+    Example: null
+    Examples: null
+    Name: cc.logging_max_retries
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.fog_connection
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.username
+  - Default: null
+    Description: The port of the database server
+    Example: null
+    Examples: null
+    Name: ccdb.port
+  - Default: http://tps.service.cf.internal:1518
+    Description: URL of the Diego tps service
+    Example: null
+    Examples: null
+    Name: cc.diego.tps_url
+  - Default: 16384
+    Description: The file descriptors made available to each app instance
+    Example: null
+    Examples: null
+    Name: cc.instance_file_descriptor_limit
+  - Default: 10080
+    Description: The max duration the CC will fetch service instance state from a
+      service broker. Default is 1 week
+    Example: null
+    Examples: null
+    Name: cc.broker_client_max_async_poll_duration_minutes
+  - Default: ""
+    Description: URI for a CDN to used for resource pool downloads
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.uri
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.key_pair_id
+  - Default: 1
+    Description: Number of generic cloud_controller_worker workers
+    Example: null
+    Examples: null
+    Name: cc.jobs.generic.number_of_workers
+  - Default: null
+    Description: Array of security groups that will be seeded into CloudController.
+    Example: null
+    Examples: null
+    Name: cc.security_group_definitions
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.public_endpoint
+  - Default: null
+    Description: Symmetric secret used to decode uaa tokens. Used for testing.
+    Example: null
+    Examples: null
+    Name: uaa.cc.token_secret
+  - Default: ""
+    Description: Password for the bits-service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.password
+  - Default: null
+    Description: The port used by UAA for non-ssl connections
+    Example: null
+    Examples: null
+    Name: uaa.port
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: Used to grant scope for SSO clients for service brokers
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc-service-dashboards.scope
+  - Default: ""
+    Description: PEM-encoded certificate for secure, mutually authenticated TLS communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.public_cert
+  - Default: ""
+    Description: '''name'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: name
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Internal hostname used to resolve the address of the Cloud Controller
+    Example: null
+    Examples: null
+    Name: cc.internal_service_hostname
+  - Default: 65536
+    Description: Minimum size of a resource to add to the pool
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.minimum_size
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.private_key
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: (DEPRECATED) - Used to grant scope for SSO clients for service brokers
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_service_broker_client.scope
+  - Default: https
+    Description: The protocol used to access the CC API from an external entity
+    Example: null
+    Examples: null
+    Name: cc.external_protocol
+  - Default: cflinuxfs2
+    Description: The default stack to use if no custom stack is specified by an app.
+    Example: null
+    Examples: null
+    Name: cc.default_stack
+  - Default: 2048
+    Description: The maximum amount of disk a user can request
+    Example: null
+    Examples: null
+    Name: cc.maximum_app_disk_in_mb
+  - Default: 60
+    Description: For requests to service brokers, this is the HTTP (open and read)
+      timeout setting.
+    Example: null
+    Examples: null
+    Name: cc.broker_client_timeout_seconds
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.private_endpoint
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.fog_connection
+  - Default: 443
+    Description: Port for logger endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: logger_endpoint.port
+  - Default: true
+    Description: Allow non-admin users to switch their apps between DEA and Diego
+      backends
+    Example: null
+    Examples: null
+    Name: cc.users_can_select_backend
+  - Default: null
+    Description: Deprecated in favor of system_domain. Domain where cloud_controller
+      will listen (api.domain)
+    Example: null
+    Examples: null
+    Name: domain
+  - Default: ""
+    Description: '''description'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: description
+  - Default: null
+    Description: Hash of default quota definitions. Overriden by custom quota definitions.
+    Example: null
+    Examples: null
+    Name: cc.quota_definitions
+  - Default: 1073741824
+    Description: Maximum size of application package
+    Example: null
+    Examples: null
+    Name: cc.packages.max_package_size
+  - Default: true
+    Description: Allow users to change the value of the app-level allow_ssh attribute
+    Example: null
+    Examples: null
+    Name: cc.allow_app_ssh_access
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: postgres
+    Description: The type of database being used. mysql or postgres
+    Example: null
+    Examples: null
+    Name: ccdb.db_scheme
+  - Default: 6144
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Examples: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: null
+    Description: (DEPRECATED) - Used for generating SSO clients for service brokers.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc_service_broker_client.secret
+  - Default: null
+    Description: Users to create on the database when seeding
+    Example: null
+    Examples: null
+    Name: ccdb.roles
+  - Default: 1536M
+    Description: Maximum body size for nginx
+    Example: null
+    Examples: null
+    Name: cc.client_max_body_size
+  - Default: 900
+    Description: Timeout for staging a droplet
+    Example: null
+    Examples: null
+    Name: cc.staging_timeout_in_seconds
+  - Default: default
+    Description: Local to use a local (NFS) file system.  AWS to use AWS.
+    Example: null
+    Examples: null
+    Name: cc.default_quota_definition
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.packages.fog_aws_storage_options
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.blobstore_timeout
+  - Default: true
+    Description: Whether to use ssl for logger endpoint listed at /v2/info
+    Example: null
+    Examples: null
+    Name: logger_endpoint.use_ssl
+  - Default: 50
+    Description: Default number of results returned per page if user does not specify
+    Example: null
+    Examples: null
+    Name: cc.renderer.default_results_per_page
+  - Default: 900
+    Description: Timeout for requests in seconds.
+    Example: null
+    Examples: null
+    Name: request_timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.blobstore_upload.timeout_in_seconds
+  - Default: 31
+    Description: How old a service usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.service_usage_events.cutoff_age_in_days
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.blobstore_timeout
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.password
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.private_endpoint
+  - Default: uaa.service.cf.internal
+    Description: The internal url used by UAA
+    Example: null
+    Examples: null
+    Name: cc.uaa.internal_url
+  - Default: 1200
+    Description: Extra token expiry time while uploading big apps.
+    Example: null
+    Examples: null
+    Name: cc.app_bits_upload_grace_period_in_seconds
+  - Default: 9023
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: cc.tls_port
+  - Default: default
+    Description: Deprecated. Defines a 'partition' for the health_manager job
+    Example: null
+    Examples: null
+    Name: cc.cc_partition
+  - Default: internal_user
+    Description: User name used by Diego to access internal endpoints
+    Example: null
+    Examples: null
+    Name: cc.internal_api_user
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.blobstore_type
+  - Default: http://cc-uploader.service.cf.internal:9090
+    Description: URL of cc uploader
+    Example: null
+    Examples: null
+    Name: cc.diego.cc_uploader_url
+  - Default: 5
+    Description: The timeout in seconds for requests to the blobstore
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.blobstore_timeout
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.blobstore_type
+  - Default: development
+    Description: The environment name used by NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.environment_name
+  - Default: 16384
+    Description: File descriptor limit for staging tasks
+    Example: null
+    Examples: null
+    Name: cc.staging_file_descriptor_limit
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_events_cleanup.timeout_in_seconds
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.cdn.key_pair_id
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.ca_cert
+  - Default: ""
+    Description: URI for a CDN to used for app package downloads
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.uri
+  - Default: null
+    Description: Used for generating SSO clients for service brokers.
+    Example: null
+    Examples: null
+    Name: uaa.clients.cc-service-dashboards.secret
+  - Default: null
+    Description: File location of a list of reserved private domains (for file format,
+      see https://publicsuffix.org/)
+    Example: null
+    Examples: null
+    Name: cc.reserved_private_domains
+  - Default: cc-resources
+    Description: Directory (bucket) used store app resources.  It does not have be
+      pre-created.
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.resource_directory_key
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.packages.cdn.key_pair_id
+  - Default: null
+    Description: URL of the hm9000 server
+    Example: null
+    Examples: null
+    Name: hm9000.url
+  - Default: true
+    Description: whether use login as the authorization endpoint or not
+    Example: null
+    Examples: null
+    Name: login.enabled
+  - Default: ""
+    Description: '''build'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: build
+  - Default: null
+    Description: Password used by Diego to access internal endpoints
+    Example: null
+    Examples: null
+    Name: cc.internal_api_password
+  - Default:
+    - description: Cloud Foundry Linux-based filesystem
+      name: cflinuxfs2
+    Description: Tag used by the DEA to describe capabilities (i.e. 'Windows7', 'python-linux').
+      DEA and CC must agree.
+    Example: null
+    Examples: null
+    Name: cc.stacks
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.password
+  - Default: false
+    Description: Activate NewRelic developer mode
+    Example: null
+    Examples: null
+    Name: cc.newrelic.developer_mode
+  - Default: http://file-server.service.cf.internal:8080
+    Description: URL of file server
+    Example: null
+    Examples: null
+    Name: cc.diego.file_server_url
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.private_endpoint
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.username
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.key_pair_id
+  - Default: 3
+    Description: The threshold of crashes after which the app is marked as flapping
+    Example: null
+    Examples: null
+    Name: cc.flapping_crash_count_threshold
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Examples: null
+    Name: system_domain
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.app_usage_events_cleanup.timeout_in_seconds
+  - Default: 31
+    Description: How old an app event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.app_events.cutoff_age_in_days
+  - Default: 31
+    Description: How long a completed task will stay in cloud controller database
+      before being cleaned up based on last updated time with success or failure.
+    Example: null
+    Examples: null
+    Name: cc.completed_tasks.cutoff_age_in_days
+  - Default: http://stager.service.cf.internal:8888
+    Description: URL of the Diego stager service
+    Example: null
+    Examples: null
+    Name: cc.diego.stager_url
+  - Default: 536870912
+    Description: Maximum size of a resource to add to the pool
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.maximum_size
+  - Default: 1024
+    Description: The default disk space an app gets
+    Example: null
+    Examples: null
+    Name: cc.default_app_disk_in_mb
+  - Default: false
+    Description: Whether or not to use privileged containers for staging tasks.
+    Example: null
+    Examples: null
+    Name: cc.diego.use_privileged_containers_for_staging
+  - Default: false
+    Description: specifies that the job is allowed to skip ssl cert verification
+    Example: null
+    Examples: null
+    Name: ssl.skip_cert_verify
+  - Default: /var/vcap/nfs
+    Description: The location at which to mount the nfs share
+    Example: null
+    Examples: null
+    Name: nfs_server.share_path
+  - Default: 31
+    Description: How old a failed job should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.failed_jobs.cutoff_age_in_days
+  - Default: ""
+    Description: User name used to access internal endpoints of Cloud Controller to
+      upload files when staging
+    Example: null
+    Examples: null
+    Name: cc.staging_upload_user
+  - Default: ""
+    Description: Username for the bits-service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.username
+  - Default: ""
+    Description: PEM-encoded key for secure, mutually authenticated TLS communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.private_key
+  - Default:
+      buildpack/cflinuxfs2: buildpack_app_lifecycle/buildpack_app_lifecycle.tgz
+      buildpack/windows2012R2: windows_app_lifecycle/windows_app_lifecycle.tgz
+      docker: docker_app_lifecycle/docker_app_lifecycle.tgz
+    Description: List of lifecycle bundles arguments for different stacks
+    Example: null
+    Examples: null
+    Name: cc.diego.lifecycle_bundles
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.password
+  - Default: ""
+    Description: key for encrypting sensitive values in the CC database
+    Example: null
+    Examples: null
+    Name: cc.db_encryption_key
+  - Default: false
+    Description: Use Diego backend by default for new apps
+    Example: null
+    Examples: null
+    Name: cc.default_to_diego_backend
+  - Default: false
+    Description: Capture and send query params to NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.capture_params
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Examples: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: null
+    Description: The default running security groups that will be seeded in CloudController.
+    Example: null
+    Examples: null
+    Name: cc.default_running_security_groups
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.droplet_upload.timeout_in_seconds
+  - Default: 60
+    Description: Default health check timeout (in seconds) that can be set for the
+      app
+    Example: null
+    Examples: null
+    Name: cc.default_health_check_timeout
+  - Default: true
+    Description: When ssh is allowed and not explicitly set in the application, new
+      applications will start with ssh service enabled
+    Example: null
+    Examples: null
+    Name: cc.default_app_ssh_access
+  - Default: /var/vcap/sys/log/cloud_controller_ng/newrelic
+    Description: The location for NewRelic to log to
+    Example: null
+    Examples: null
+    Name: cc.newrelic.log_file_path
+  - Default: ""
+    Description: URI for a CDN to used for buildpack downloads
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.cdn.uri
+  - Default: 0
+    Description: '''version'' attribute in the /v2/info endpoint'
+    Example: null
+    Examples: null
+    Name: version
+  - Default: 14400
+    Description: The longest any job can take before it is cancelled unless overriden
+      per job
+    Example: null
+    Examples: null
+    Name: cc.jobs.global.timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.blobstore_delete.timeout_in_seconds
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.ca_cert
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: cc.external_port
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Examples: null
+    Name: cc.jobs.droplet_deletion.timeout_in_seconds
+  - Default: cc-droplets
+    Description: Directory (bucket) used store droplets.  It does not have be pre-created.
+    Example: null
+    Examples: null
+    Name: cc.droplets.droplet_directory_key
+  - Default: false
+    Description: Disable external (i.e. git) buildpacks? (Admin buildpacks and system
+      buildpacks only.)
+    Example: null
+    Examples: null
+    Name: cc.disable_custom_buildpacks
+  - Default: false
+    Description: Enable transaction tracing in NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.transaction_tracer.enabled
+  - Default: null
+    Description: Set of buildpacks to install during deploy
+    Example: null
+    Examples: null
+    Name: cc.install_buildpacks
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.public_endpoint
+  - Default: ""
+    Description: The ca cert to use when communicating with webdav
+    Example: null
+    Examples: null
+    Name: cc.droplets.webdav_config.ca_cert
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 2
+    Description: Maximum depth of inlined relationships in the result
+    Example: null
+    Examples: null
+    Name: cc.renderer.max_inline_relations_depth
+  - Default: api
+    Description: Host part of the cloud_controller api URI, will be joined with value
+      of 'domain'
+    Example: null
+    Examples: null
+    Name: cc.external_host
+  - Default: null
+    Description: The address of the database server
+    Example: null
+    Examples: null
+    Name: ccdb.address
+  - Default: 25
+    Description: Maximum connections for Sequel
+    Example: null
+    Examples: null
+    Name: ccdb.max_connections
+  - Default: "off"
+    Description: 'NewRelic''s SQL statement recording mode: [off | obfuscated | raw]'
+    Example: null
+    Examples: null
+    Name: cc.newrelic.transaction_tracer.record_sql
+  - Default: 100
+    Description: Maximum number of results returned per page
+    Example: null
+    Examples: null
+    Name: cc.renderer.max_results_per_page
+  - Default: ""
+    Description: Public url for the bits-service service
+    Example: null
+    Examples: null
+    Name: cc.bits_service.public_endpoint
+  - Default: ""
+    Description: An organization that will be created as part of the seeding process.
+      When the system_domain is not shared with (in the list of) app_domains, this
+      is required as the system_domain will be created as a PrivateDomain in this
+      organization.
+    Example: null
+    Examples: null
+    Name: system_domain_organization
+  - Default: 31
+    Description: How old an app usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Examples: null
+    Name: cc.app_usage_events.cutoff_age_in_days
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Examples: null
+    Name: cc.bulk_api_password
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.droplets.fog_aws_storage_options
+  - Default: 1024
+    Description: How much memory given to an app if not specified
+    Example: null
+    Examples: null
+    Name: cc.default_app_memory
+  - Default: ""
+    Description: 'The location of the webdav server eg: https://blobstore.com'
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.public_endpoint
+  - Default: ""
+    Description: The basic auth password that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.packages.webdav_config.password
+  - Default: ""
+    Description: URI for a CDN to used for droplet downloads
+    Example: null
+    Examples: null
+    Name: cc.droplets.cdn.uri
+  - Default: ""
+    Description: The basic auth user that CC uses to connect to the admin endpoint
+      on webdav
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.webdav_config.username
+  - Default: null
+    Description: The api key for NewRelic
+    Example: null
+    Examples: null
+    Name: cc.newrelic.license_key
+  - Default: null
+    Description: The default staging security groups that will be seeded in CloudController.
+    Example: null
+    Examples: null
+    Name: cc.default_staging_security_groups
+  - Default: cloud_controller,cloud_controller_service_permissions
+    Description: Name of service to register to UAA
+    Example: null
+    Examples: null
+    Name: cc.uaa_resource_id
+  - Default: https://blobstore.service.cf.internal:4443
+    Description: 'The location of the webdav server eg: https://blobstore.internal'
+    Example: null
+    Examples: null
+    Name: cc.resource_pool.webdav_config.private_endpoint
+  - Default: null
+    Description: 'Storage options passed to fog for aws blobstores. Valid keys: [''encryption''].'
+    Example: null
+    Examples: null
+    Name: cc.buildpacks.fog_aws_storage_options
+  - Default: 5155
+    Description: Port of the hm9000 Api Server
+    Example: null
+    Examples: null
+    Name: hm9000.port
+  - Default: null
+    Description: The port used by UAA for ssl connections
+    Example: null
+    Examples: null
+    Name: uaa.ssl.port
+  - Default: 3457
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.port
+  - Default: 384
+    Description: The cc will alert if memory remains above this threshold for 3 monit
+      cycles
+    Example: null
+    Examples: null
+    Name: cc.thresholds.worker.alert_if_above_mb
+  - Default: https://bbs.service.cf.internal:8889
+    Description: URL of the BBS Server
+    Example: null
+    Examples: null
+    Name: cc.diego.bbs.url
+  - Default: cc-packages
+    Description: Directory (bucket) used store app packages.  It does not have be
+      pre-created.
+    Example: null
+    Examples: null
+    Name: cc.packages.app_package_directory_key
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Examples: null
+    Name: cc.packages.fog_connection
+  - Default: fog
+    Description: 'The type of blobstore backing to use. Valid values: [''fog'', ''webdav'']'
+    Example: null
+    Examples: null
+    Name: cc.droplets.blobstore_type
+  - Default: null
+    Description: Contains the name of the database on the database server
+    Example: null
+    Examples: null
+    Name: ccdb.databases
+  Templates:
+  - DstPathEnd: config/cloud_controller_ng.yml
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/cloud_controller_worker.yml.erb
+    SrcPathEnd: cloud_controller_worker.yml.erb
+  - DstPathEnd: bin/setup_local_blobstore.sh
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/setup_local_blobstore.sh.erb
+    SrcPathEnd: setup_local_blobstore.sh.erb
+  - DstPathEnd: bin/console
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/console.erb
+    SrcPathEnd: console.erb
+  - DstPathEnd: bin/blobstore_waiter.sh
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/blobstore_waiter.sh.erb
+    SrcPathEnd: blobstore_waiter.sh.erb
+  - DstPathEnd: config/certs/mutual_tls_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/mutual_tls_ca.crt.erb
+    SrcPathEnd: mutual_tls_ca.crt.erb
+  - DstPathEnd: bin/ruby_version.sh
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/ruby_version.sh.erb
+    SrcPathEnd: ruby_version.sh.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+  - DstPathEnd: config/certs/packages_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/packages_ca_cert.pem.erb
+    SrcPathEnd: packages_ca_cert.pem.erb
+  - DstPathEnd: config/certs/mutual_tls.crt
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/mutual_tls.crt.erb
+    SrcPathEnd: mutual_tls.crt.erb
+  - DstPathEnd: config/certs/mutual_tls.key
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/mutual_tls.key.erb
+    SrcPathEnd: mutual_tls.key.erb
+  - DstPathEnd: config/stacks.yml
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/stacks.yml.erb
+    SrcPathEnd: stacks.yml.erb
+  - DstPathEnd: bin/cloud_controller_worker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/cloud_controller_worker_ctl.erb
+    SrcPathEnd: cloud_controller_worker_ctl.erb
+  - DstPathEnd: config/newrelic.yml
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/newrelic.yml.erb
+    SrcPathEnd: newrelic.yml.erb
+  - DstPathEnd: config/certs/buildpacks_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/buildpacks_ca_cert.pem.erb
+    SrcPathEnd: buildpacks_ca_cert.pem.erb
+  - DstPathEnd: config/certs/droplets_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/droplets_ca_cert.pem.erb
+    SrcPathEnd: droplets_ca_cert.pem.erb
+  - DstPathEnd: config/certs/resource_pool_ca_cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor333713144/templates/resource_pool_ca_cert.pem.erb
+    SrcPathEnd: resource_pool_ca_cert.pem.erb
+- Description: The NFS Server provides a storage server that can be used with the
+    Cloud Controllers to store uploaded application source code and compiled application
+    assets.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor967757034/monit
+    SrcPathEnd: monit
+  Name: debian_nfs_server
+  Packages:
+  - Name: capi_utils
+  - Name: debian_nfs_server
+  Properties:
+  - Default: null
+    Description: An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or
+      IPs from which /var/vcap/store is accessible
+    Example: null
+    Examples: null
+    Name: nfs_server.allow_from_entries
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.idmapd_domain
+  - Default: /var/lib/nfs/rpc_pipef
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.pipefs_directory
+  - Default: false
+    Description: Exports /var/vcap/store with no_root_squash when set to true
+    Example: null
+    Examples: null
+    Name: nfs_server.no_root_squash
+  Templates:
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor967757034/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+  - DstPathEnd: bin/rpc_nfsd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor967757034/templates/rpc_nfsd_ctl
+    SrcPathEnd: rpc_nfsd_ctl
+  - DstPathEnd: bin/rpc_mountd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor967757034/templates/rpc_mountd_ctl
+    SrcPathEnd: rpc_mountd_ctl
+  - DstPathEnd: config/exports
+    Path: /mnt/tmp/tar-CmdExtractor967757034/templates/exports.erb
+    SrcPathEnd: exports.erb
+- Description: The NFS Mounter sets up an NFS mount at a specific location. It can
+    be used with the Cloud Controller to save assets to the NFS Server.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor212468140/monit
+    SrcPathEnd: monit
+  Name: nfs_mounter
+  Packages:
+  - Name: capi_utils
+  Properties:
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Examples: null
+    Name: nfs_server.address
+  - Default: null
+    Description: Path to share from the remote NFS server (not used in an AWS deploy,
+      use s3 instead)
+    Example: null
+    Examples: null
+    Name: nfs_server.share
+  - Default: null
+    Description: bool to use NFS4 (not used in an AWS deploy, use s3 instead)
+    Example: null
+    Examples: null
+    Name: nfs_server.nfsv4
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.idmapd_domain
+  - Default: /var/lib/nfs/rpc_pipefs
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Examples: null
+    Name: nfs_server.pipefs_directory
+  - Default: /var/vcap/nfs
+    Description: Location to mount the nfs share
+    Example: null
+    Examples: null
+    Name: nfs_server.share_path
+  Templates:
+  - DstPathEnd: bin/handle_nfs_blobstore.sh
+    Path: /mnt/tmp/tar-CmdExtractor212468140/templates/handle_nfs_blobstore.sh.erb
+    SrcPathEnd: handle_nfs_blobstore.sh.erb
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor212468140/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+  - DstPathEnd: config/nfs-common
+    Path: /mnt/tmp/tar-CmdExtractor212468140/templates/nfs-common
+    SrcPathEnd: nfs-common
+  - DstPathEnd: bin/nfs_mounter_ctl
+    Path: /mnt/tmp/tar-CmdExtractor212468140/templates/nfs_mounter_ctl.erb
+    SrcPathEnd: nfs_mounter_ctl.erb
+  - DstPathEnd: bin/nfs_mounter_crontab
+    Path: /mnt/tmp/tar-CmdExtractor212468140/templates/nfs_mounter_crontab
+    SrcPathEnd: nfs_mounter_crontab
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor212468140/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor780364222/monit
+    SrcPathEnd: monit
+  Name: nsync
+  Packages:
+  - Name: capi_utils
+  - Name: nsync
+  Properties:
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.external_port
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.client_cert
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.client_key
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.require_ssl
+  - Default: 30
+    Description: interval at which to poll bulk API in seconds
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.polling_interval_in_seconds
+  - Default: 30
+    Description: How long to wait for completion of requests to CC in seconds.
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.fetch_timeout_in_seconds
+  - Default: http://file-server.service.cf.internal:8080
+    Description: URL of file server
+    Example: null
+    Examples: null
+    Name: capi.nsync.file_server_url
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Examples: null
+    Name: diego.ssl.skip_cert_verify
+  - Default:
+    - buildpack/cflinuxfs2:buildpack_app_lifecycle/buildpack_app_lifecycle.tgz
+    - buildpack/windows2012R2:windows_app_lifecycle/windows_app_lifecycle.tgz
+    - docker:docker_app_lifecycle/docker_app_lifecycle.tgz
+    Description: List of lifecycle bundles arguments for different stacks in form
+      'lifecycle-name:path/to/bundle'
+    Example: null
+    Examples: null
+    Name: capi.nsync.lifecycle_bundles
+  - Default: null
+    Description: base URL of the cloud controller
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.base_url
+  - Default: internal_user
+    Description: basic auth username for CC bulk API
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.basic_auth_username
+  - Default: 127.0.0.1:17007
+    Description: address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: capi.nsync.bulker_debug_addr
+  - Default: bbs.service.cf.internal:8889
+    Description: Address to the BBS Server
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.api_location
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.ca_cert
+  - Default: 8500
+    Description: local consul agent's port
+    Example: null
+    Examples: null
+    Name: capi.nsync.consul_agent_port
+  - Default: null
+    Description: basic auth password for CC bulk API
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.basic_auth_password
+  - Default: 500
+    Description: number of apps to fetch at once from bulk API
+    Example: null
+    Examples: null
+    Name: capi.nsync.cc.bulk_batch_size
+  - Default: 127.0.0.1:17006
+    Description: address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: capi.nsync.listener_debug_addr
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: capi.nsync.log_level
+  - Default: false
+    Description: Whether or not to use privileged containers for  buildpack based
+      LRPs and tasks. Containers with a docker-image-based rootfs will continue to
+      always be unprivileged and cannot be changed.
+    Example: null
+    Examples: null
+    Name: capi.nsync.diego_privileged_containers
+  - Default: null
+    Description: capacity of the tls client cache
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.client_session_cache_size
+  - Default: null
+    Description: maximum number of idle http connections
+    Example: null
+    Examples: null
+    Name: capi.nsync.bbs.max_idle_conns_per_host
+  - Default: 3457
+    Description: local metron agent's port
+    Example: null
+    Examples: null
+    Name: capi.nsync.dropsonde_port
+  - Default: 0.0.0.0:8787
+    Description: Address from which nsync serves requests
+    Example: null
+    Examples: null
+    Name: capi.nsync.listen_addr
+  Templates:
+  - DstPathEnd: bin/nsync_bulker_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/nsync_bulker_as_vcap.erb
+    SrcPathEnd: nsync_bulker_as_vcap.erb
+  - DstPathEnd: config/nsync_listener_config.json
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/nsync_listener_config.json.erb
+    SrcPathEnd: nsync_listener_config.json.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+  - DstPathEnd: bin/nsync_listener_ctl
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/nsync_listener_ctl.erb
+    SrcPathEnd: nsync_listener_ctl.erb
+  - DstPathEnd: bin/nsync_bulker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/nsync_bulker_ctl.erb
+    SrcPathEnd: nsync_bulker_ctl.erb
+  - DstPathEnd: config/nsync_bulker_config.json
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/nsync_bulker_config.json.erb
+    SrcPathEnd: nsync_bulker_config.json.erb
+  - DstPathEnd: bin/nsync_listener_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/nsync_listener_as_vcap.erb
+    SrcPathEnd: nsync_listener_as_vcap.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor780364222/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor874966944/monit
+    SrcPathEnd: monit
+  Name: stager
+  Packages:
+  - Name: capi_utils
+  - Name: stager
+  Properties:
+  - Default: http://stager.service.cf.internal:8888
+    Description: URL for staging task callbacks
+    Example: null
+    Examples: null
+    Name: capi.stager.staging_task_callback_url
+  - Default: 9022
+    Description: External port to access the Cloud Controller
+    Example: null
+    Examples: null
+    Name: capi.stager.cc.external_port
+  - Default: null
+    Description: Basic auth password for CC internal API
+    Example: null
+    Examples: null
+    Name: capi.stager.cc.basic_auth_password
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Internal CC host name
+    Example: null
+    Examples: null
+    Name: capi.stager.cc.internal_service_hostname
+  - Default:
+    - buildpack/cflinuxfs2:buildpack_app_lifecycle/buildpack_app_lifecycle.tgz
+    - buildpack/windows2012R2:windows_app_lifecycle/windows_app_lifecycle.tgz
+    - docker:docker_app_lifecycle/docker_app_lifecycle.tgz
+    Description: List of lifecycle bundles arguments for different stacks in form
+      'lifecycle-name:path/to/bundle'
+    Example: null
+    Examples: null
+    Name: capi.stager.lifecycle_bundles
+  - Default: 127.0.0.1:17011
+    Description: address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: capi.stager.debug_addr
+  - Default: 3457
+    Description: local metron agent's port
+    Example: null
+    Examples: null
+    Name: capi.stager.dropsonde_port
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.ca_cert
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.client_cert
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: capi.stager.log_level
+  - Default: http://cc-uploader.service.cf.internal:9090
+    Description: URL of cc uploader
+    Example: null
+    Examples: null
+    Name: capi.stager.cc_uploader_url
+  - Default: []
+    Description: An array of insecure Docker registries in the form of <HOSTNAME|IP>:PORT
+    Example: null
+    Examples: null
+    Name: capi.stager.insecure_docker_registry_list
+  - Default: 8500
+    Description: local consul agent's port
+    Example: null
+    Examples: null
+    Name: capi.stager.consul_agent_port
+  - Default: bbs.service.cf.internal:8889
+    Description: Address to the BBS Server
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.api_location
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.client_key
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.require_ssl
+  - Default: http://file-server.service.cf.internal:8080
+    Description: URL of file server
+    Example: null
+    Examples: null
+    Name: capi.stager.file_server_url
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Examples: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: null
+    Description: capacity of the tls client cache
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.client_session_cache_size
+  - Default: null
+    Description: maximum number of idle http connections
+    Example: null
+    Examples: null
+    Name: capi.stager.bbs.max_idle_conns_per_host
+  - Default: 0.0.0.0:8888
+    Description: Address from which the Stager serves requests
+    Example: null
+    Examples: null
+    Name: capi.stager.listen_addr
+  - Default: internal_user
+    Description: Basic auth username for CC internal API
+    Example: null
+    Examples: null
+    Name: capi.stager.cc.basic_auth_username
+  - Default: cflinuxfs2
+    Description: stack to use for staging Docker applications
+    Example: null
+    Examples: null
+    Name: capi.stager.docker_staging_stack
+  - Default: false
+    Description: Whether or not to use privileged containers for staging tasks.
+    Example: null
+    Examples: null
+    Name: capi.stager.diego_privileged_containers
+  Templates:
+  - DstPathEnd: bin/stager_ctl
+    Path: /mnt/tmp/tar-CmdExtractor874966944/templates/stager_ctl.erb
+    SrcPathEnd: stager_ctl.erb
+  - DstPathEnd: bin/stager_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor874966944/templates/stager_as_vcap.erb
+    SrcPathEnd: stager_as_vcap.erb
+  - DstPathEnd: config/stager_config.json
+    Path: /mnt/tmp/tar-CmdExtractor874966944/templates/stager_config.json.erb
+    SrcPathEnd: stager_config.json.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor874966944/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor874966944/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor874966944/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor218939346/monit
+    SrcPathEnd: monit
+  Name: tps
+  Packages:
+  - Name: capi_utils
+  - Name: tps
+  Properties:
+  - Default: 3457
+    Description: local metron agent's port
+    Example: null
+    Examples: null
+    Name: capi.tps.dropsonde_port
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: capi.tps.log_level
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.client_key
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Internal CC host name
+    Example: null
+    Examples: null
+    Name: capi.tps.cc.internal_service_hostname
+  - Default: 127.0.0.1:17014
+    Description: address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: capi.tps.listener.debug_addr
+  - Default: 8500
+    Description: local consul agent's port
+    Example: null
+    Examples: null
+    Name: capi.tps.consul_agent_port
+  - Default: 200
+    Description: Maximum number of requests to handle at once.
+    Example: null
+    Examples: null
+    Name: capi.tps.max_in_flight_requests
+  - Default: 0.0.0.0:1518
+    Description: address at which to serve API requests
+    Example: null
+    Examples: null
+    Name: capi.tps.listener.listen_addr
+  - Default: 127.0.0.1:17015
+    Description: address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: capi.tps.watcher.debug_addr
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Examples: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.ca_cert
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.require_ssl
+  - Default: internal_user
+    Description: Basic auth username for CC internal API
+    Example: null
+    Examples: null
+    Name: capi.tps.cc.basic_auth_username
+  - Default: 9022
+    Description: External port to access the Cloud Controller
+    Example: null
+    Examples: null
+    Name: capi.tps.cc.external_port
+  - Default: null
+    Description: Basic auth password for CC internal API
+    Example: null
+    Examples: null
+    Name: capi.tps.cc.basic_auth_password
+  - Default: ws://loggregator-trafficcontroller.service.cf.internal:8081
+    Description: URL of Traffic controller
+    Example: null
+    Examples: null
+    Name: capi.tps.traffic_controller_url
+  - Default: bbs.service.cf.internal:8889
+    Description: Address to the BBS Server
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.api_location
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.client_cert
+  - Default: null
+    Description: capacity of the tls client cache
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.client_session_cache_size
+  - Default: null
+    Description: maximum number of idle http connections
+    Example: null
+    Examples: null
+    Name: capi.tps.bbs.max_idle_conns_per_host
+  Templates:
+  - DstPathEnd: config/tps_watcher_config.json
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/tps_watcher_config.json.erb
+    SrcPathEnd: tps_watcher_config.json.erb
+  - DstPathEnd: bin/tps_listener_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/tps_listener_as_vcap.erb
+    SrcPathEnd: tps_listener_as_vcap.erb
+  - DstPathEnd: bin/tps_watcher_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/tps_watcher_as_vcap.erb
+    SrcPathEnd: tps_watcher_as_vcap.erb
+  - DstPathEnd: bin/tps_listener_ctl
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/tps_listener_ctl.erb
+    SrcPathEnd: tps_listener_ctl.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+  - DstPathEnd: config/tps_listener_config.json
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/tps_listener_config.json.erb
+    SrcPathEnd: tps_listener_config.json.erb
+  - DstPathEnd: bin/tps_watcher_ctl
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/tps_watcher_ctl.erb
+    SrcPathEnd: tps_watcher_ctl.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor218939346/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb

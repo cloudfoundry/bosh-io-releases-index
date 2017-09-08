@@ -1,0 +1,102 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor972207199/monit
+    SrcPathEnd: monit
+  Name: cpi
+  Packages:
+  - Name: cpi
+  Properties:
+  - Default: /var/vcap/data
+    Description: Path at which ephemeral disk is mounted inside VMs
+    Example: null
+    Name: cpi.actions.guest_ephemeral_bind_mount_path
+  - Default: null
+    Description: IP address of the host that will be used by containers, must be the
+      same as mbus IP
+    Example: 10.254.50.4
+    Name: cpi.host_ip
+  - Default: {}
+    Description: Options for the blobstore used by deployed BOSH agents
+    Example: null
+    Name: cpi.agent.blobstore.options
+  - Default: /var/vcap/store/cpi/stemcells
+    Description: Directory where stemcells are stored
+    Example: null
+    Name: cpi.actions.stemcells_dir
+  - Default: /var/vcap/store/cpi/persistent_bind_mounts_dir
+    Description: Directory with sub-directories at which persistent disks are mounted
+      on the host
+    Example: null
+    Name: cpi.actions.host_persistent_bind_mounts_dir
+  - Default: dav
+    Description: Provider type for the blobstore used by deployed BOSH agents (e.g.
+      dav, s3)
+    Example: null
+    Name: cpi.agent.blobstore.provider
+  - Default: ""
+    Description: Username for registry
+    Example: null
+    Name: registry.username
+  - Default: ""
+    Description: Password for registry
+    Example: null
+    Name: registry.password
+  - Default: null
+    Description: Address warden client will use to connect (ip:port or sock path)
+    Example: null
+    Name: cpi.warden.connect_address
+  - Default: []
+    Description: NTP configuration used by deployed BOSH agents
+    Example: null
+    Name: cpi.agent.ntp
+  - Default: /warden-cpi-dev
+    Description: Directory with sub-directories at which persistent disks are mounted
+      inside VMs
+    Example: null
+    Name: cpi.actions.guest_persistent_bind_mounts_dir
+  - Default: ""
+    Description: Hostname of registry
+    Example: null
+    Name: registry.host
+  - Default: /var/vcap/store/cpi/ephemeral_bind_mounts_dir
+    Description: Directory with sub-directories at which ephemeral disks are mounted
+      on the host
+    Example: null
+    Name: cpi.actions.host_ephemeral_bind_mounts_dir
+  - Default: 6901
+    Description: Port of registry
+    Example: null
+    Name: registry.port
+  - Default: null
+    Description: Range of loopback devices that will be used by the CPI for mounting
+      persistent disks (example shows /dev/loop100 to /dev/loop130)
+    Example:
+    - 100
+    - 130
+    Name: cpi.loopback_range
+  - Default: null
+    Description: Connection type warden client will use to connect (tcp or unix)
+    Example: null
+    Name: cpi.warden.connect_network
+  - Default: null
+    Description: Mbus URL used by deployed BOSH agents
+    Example: nats://nats:nats-password@10.254.50.4:4222
+    Name: cpi.agent.mbus
+  - Default: /var/vcap/store/cpi/disks
+    Description: Directory where disks are stored
+    Example: null
+    Name: cpi.actions.disks_dir
+  Templates:
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor972207199/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb
+  - DstPathEnd: config/sudoers
+    Path: /mnt/tmp/tar-CmdExtractor972207199/templates/sudoers
+    SrcPathEnd: sudoers
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor972207199/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: bin/cpi_ctl
+    Path: /mnt/tmp/tar-CmdExtractor972207199/templates/cpi_ctl.erb
+    SrcPathEnd: cpi_ctl.erb

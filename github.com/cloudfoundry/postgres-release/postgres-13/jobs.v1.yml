@@ -1,0 +1,85 @@
+- Description: The Postgres server provides a single instance Postgres database that
+    can be used with the Cloud Controller or the UAA. It does not provide highly-available
+    configuration.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor790409027/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: postgres-common
+  - Name: postgres-9.4.9
+  Properties:
+  - Default: null
+    Description: The database address
+    Example: null
+    Examples: null
+    Name: databases.address
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: null
+    Examples: null
+    Name: databases.databases
+  - Default: null
+    Description: A list of database roles and associated properties to create
+    Example: null
+    Examples: null
+    Name: databases.roles
+  - Default: '%m: '
+    Description: The postgres `printf` style string that is output at the beginning
+      of each log line
+    Example: null
+    Examples: null
+    Name: databases.log_line_prefix
+  - Default: null
+    Description: Monit timout in seconds for the postgres job start. If not specified,
+      no timeout statement will be added so that the global monit timeout applies.
+    Example: null
+    Examples: null
+    Name: databases.monit_timeout
+  - Default: null
+    Description: The database scheme
+    Example: null
+    Examples: null
+    Name: databases.db_scheme
+  - Default: null
+    Description: The database port
+    Example: null
+    Examples: null
+    Name: databases.port
+  - Default: null
+    Description: Maximum number of database connections
+    Example: null
+    Examples: null
+    Name: databases.max_connections
+  - Default: false
+    Description: Enable the `pg_stat_statements` extension and collect statement execution
+      statistics
+    Example: null
+    Examples: null
+    Name: databases.collect_statement_statistics
+  - Default: null
+    Description: A map of additional key/value pairs to include as extra configuration
+      properties
+    Example: null
+    Examples: null
+    Name: databases.additional_config
+  Templates:
+  - DstPathEnd: bin/postgres_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor790409027/templates/postgres_start.sh.erb
+    SrcPathEnd: postgres_start.sh.erb
+  - DstPathEnd: bin/pgconfig.sh
+    Path: /mnt/tmp/tar-CmdExtractor790409027/templates/pgconfig.sh.erb
+    SrcPathEnd: pgconfig.sh.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor790409027/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor790409027/templates/pg_hba.conf.erb
+    SrcPathEnd: pg_hba.conf.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor790409027/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: bin/postgres_ctl
+    Path: /mnt/tmp/tar-CmdExtractor790409027/templates/postgres_ctl.erb
+    SrcPathEnd: postgres_ctl.erb

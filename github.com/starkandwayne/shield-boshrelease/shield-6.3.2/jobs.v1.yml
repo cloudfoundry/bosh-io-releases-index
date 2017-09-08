@@ -1,0 +1,585 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor110571876/monit
+    SrcPathEnd: monit
+  Name: agent-mysql
+  Packages:
+  - Name: shield-mysql
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor110571876/templates/ignore
+    SrcPathEnd: ignore
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor233788982/monit
+    SrcPathEnd: monit
+  Name: agent-pgtools
+  Packages:
+  - Name: postgres-9.4
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor233788982/templates/ignore
+    SrcPathEnd: ignore
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor960230616/monit
+    SrcPathEnd: monit
+  Name: mariadb
+  Packages:
+  - Name: common
+  - Name: mariadb
+  Properties:
+  - Default: 3306
+    Description: The database port
+    Example: null
+    Examples: null
+    Name: databases.port
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: null
+    Examples: null
+    Name: databases.databases
+  - Default: null
+    Description: A list of database roles
+    Example: null
+    Examples: null
+    Name: databases.roles
+  Templates:
+  - DstPathEnd: bin/mariadb_ctl
+    Path: /mnt/tmp/tar-CmdExtractor960230616/templates/mariadb_ctl.erb
+    SrcPathEnd: mariadb_ctl.erb
+  - DstPathEnd: bin/mariadb_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor960230616/templates/mariadb_start.sh.erb
+    SrcPathEnd: mariadb_start.sh.erb
+  - DstPathEnd: config/my.cnf
+    Path: /mnt/tmp/tar-CmdExtractor960230616/templates/my.cnf.erb
+    SrcPathEnd: my.cnf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor870367690/monit
+    SrcPathEnd: monit
+  Name: nginx
+  Packages:
+  - Name: nginx
+  Properties:
+  - Default: 8192
+    Description: Number of nginx connections per worker
+    Example: null
+    Examples: null
+    Name: nginx.worker_connections
+  - Default: null
+    Description: SSL private key (PEM encoded)
+    Example: null
+    Examples: null
+    Name: nginx.ssl_key
+  - Default: 120
+    Description: Timeout for send queries to the upstream server
+    Example: null
+    Examples: null
+    Name: nginx.proxy_send_timeout
+  - Default: 443
+    Description: Port to listen on for encrypted traffic
+    Example: null
+    Examples: null
+    Name: shield.daemon.port
+  - Default: 80
+    Description: Port non-encrypted traffic should listen on. Redirects to https_port
+    Example: null
+    Examples: null
+    Name: shield.daemon.http_port
+  - Default: null
+    Description: Hostname/IP SHIELD is accessed with
+    Example: null
+    Examples: null
+    Name: shield.daemon.domain
+  - Default: 2
+    Description: Number of nginx workers
+    Example: null
+    Examples: null
+    Name: nginx.worker_processes
+  - Default: 75 20
+    Description: Timeout for keep-alive connections
+    Example: null
+    Examples: null
+    Name: nginx.keepalive_timeout
+  - Default: 300
+    Description: Timeout for the connection to the upstream server
+    Example: null
+    Examples: null
+    Name: nginx.proxy_connect_timeout
+  - Default: 120
+    Description: Timeout for read queries to the upstream server
+    Example: null
+    Examples: null
+    Name: nginx.proxy_read_timeout
+  - Default: 7200
+    Description: Timeout for reusing the previously negotiated cryptographic parameters
+    Example: null
+    Examples: null
+    Name: nginx.ssl_timeout
+  - Default: null
+    Description: SSL Certificate (PEM encoded)
+    Example: null
+    Examples: null
+    Name: nginx.ssl_crt
+  Templates:
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor870367690/templates/mime.types
+    SrcPathEnd: mime.types
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor870367690/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor870367690/templates/nginx_ctl
+    SrcPathEnd: nginx_ctl
+  - DstPathEnd: config/ssl_key
+    Path: /mnt/tmp/tar-CmdExtractor870367690/templates/ssl_key.erb
+    SrcPathEnd: ssl_key.erb
+  - DstPathEnd: config/ssl_crt
+    Path: /mnt/tmp/tar-CmdExtractor870367690/templates/ssl_crt.erb
+    SrcPathEnd: ssl_crt.erb
+- Description: The Postgres server provides a single instance Postgres database that
+    can be used with the Cloud Controller or the UAA. It does not provide highly-available
+    configuration.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor406844300/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: common
+  - Name: postgres-9.4
+  Properties:
+  - Default: null
+    Description: Maximum number of database connections
+    Example: null
+    Examples: null
+    Name: databases.max_connections
+  - Default: '%m: '
+    Description: The postgres `printf` style string that is output at the beginning
+      of each log line
+    Example: null
+    Examples: null
+    Name: databases.log_line_prefix
+  - Default: null
+    Description: The database scheme
+    Example: null
+    Examples: null
+    Name: databases.db_scheme
+  - Default: null
+    Description: The database port
+    Example: null
+    Examples: null
+    Name: databases.port
+  - Default: null
+    Description: The database address
+    Example: null
+    Examples: null
+    Name: databases.address
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: null
+    Examples: null
+    Name: databases.databases
+  - Default: null
+    Description: A list of database roles and associated properties to create
+    Example: null
+    Examples: null
+    Name: databases.roles
+  Templates:
+  - DstPathEnd: bin/postgres_ctl
+    Path: /mnt/tmp/tar-CmdExtractor406844300/templates/postgres_ctl.erb
+    SrcPathEnd: postgres_ctl.erb
+  - DstPathEnd: bin/postgres_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor406844300/templates/postgres_start.sh.erb
+    SrcPathEnd: postgres_start.sh.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor406844300/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor406844300/templates/pg_hba.conf.erb
+    SrcPathEnd: pg_hba.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor232444062/monit
+    SrcPathEnd: monit
+  Name: shield-agent
+  Packages:
+  - Name: shield
+  - Name: bsdtar
+  - Name: plugins
+  - Name: elasticsearch-cloud-aws-plugin
+  Properties:
+  - Default: null
+    Description: Name of job store
+    Example: null
+    Examples: null
+    Name: shield.job.store
+  - Default: null
+    Description: Target plugin to use in emergency-recovery-mode
+    Example: null
+    Examples: null
+    Name: shield.agent.recovery.target_plugin
+  - Default: null
+    Description: A map of key-values that will be converted to JSON, representing
+      the target plugin configration
+    Example: null
+    Examples: null
+    Name: shield.agent.recovery.target_config
+  - Default: null
+    Description: Store plugin to use in emergency-recovery-mode
+    Example: null
+    Examples: null
+    Name: shield.agent.recovery.store_plugin
+  - Default: null
+    Description: A map of key-values that will be converted to JSON, representing
+      the store plugin configration
+    Example: null
+    Examples: null
+    Name: shield.agent.recovery.store_config
+  - Default: info
+    Description: Log level for shield processes
+    Example: null
+    Examples: null
+    Name: shield.log_level
+  - Default: null
+    Description: API Key to use when provisioning jobs, or targets. Required if shield.target
+      or shield.job have data
+    Example: null
+    Examples: null
+    Name: shield.provisioning_key
+  - Default: null
+    Description: Plugin type
+    Example: null
+    Examples: null
+    Name: shield.target.plugin
+  - Default: null
+    Description: Name of job retention
+    Example: null
+    Examples: null
+    Name: shield.job.retention
+  - Default: null
+    Description: Name of job schedule
+    Example: null
+    Examples: null
+    Name: shield.job.schedule
+  - Default: 5444
+    Description: port to run agent
+    Example: null
+    Examples: null
+    Name: shield.agent.port
+  - Default: null
+    Description: Optional HTTP API of the Shield installation to automatically provision
+      authorized keys from
+    Example: null
+    Examples: null
+    Name: shield.agent.autoprovision
+  - Default: null
+    Description: Map of paths that the binary of the plugins can be found
+    Example: |
+      plugin_paths:
+        atmos: /var/vcap/packages/atmos-plugin/bin
+    Examples: null
+    Name: shield.agent.plugin_paths
+  - Default: null
+    Description: Target name
+    Example: null
+    Examples: null
+    Name: shield.target.name
+  - Default: null
+    Description: Hash of config information
+    Example: null
+    Examples: null
+    Name: shield.target.config
+  - Default: null
+    Description: public key to permit access from a shield daemon
+    Example: null
+    Examples: null
+    Name: shield.agent.daemon_public_key
+  - Default: true
+    Description: Boolean to determine if SSL certs will be ignored when provisioning
+      SHIELD data
+    Example: null
+    Examples: null
+    Name: shield.skip_ssl_verify
+  - Default: null
+    Description: Job name
+    Example: null
+    Examples: null
+    Name: shield.job.name
+  Templates:
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: config/target.json
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/config/target.json.erb
+    SrcPathEnd: config/target.json.erb
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/bin/post-start.erb
+    SrcPathEnd: bin/post-start.erb
+  - DstPathEnd: bin/emergency-recovery
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/bin/emergency-recovery.erb
+    SrcPathEnd: bin/emergency-recovery.erb
+  - DstPathEnd: config/shield-agent.conf
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/config/shield-agent.conf.erb
+    SrcPathEnd: config/shield-agent.conf.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor232444062/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor236192640/monit
+    SrcPathEnd: monit
+  Name: shield-daemon
+  Packages:
+  - Name: shield
+  - Name: utils
+  Properties:
+  - Default: null
+    Description: store config
+    Example: null
+    Examples: null
+    Name: shield.store.config
+  - Default: null
+    Description: username for postgres database
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.sessions.db.username
+  - Default: null
+    Description: password for postgres database
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.sessions.db.password
+  - Default: info
+    Description: Log level for shield processes
+    Example: null
+    Examples: null
+    Name: shield.log_level
+  - Default: null
+    Description: store name
+    Example: null
+    Examples: null
+    Name: shield.store.name
+  - Default: null
+    Description: database username
+    Example: null
+    Examples: null
+    Name: shield.daemon.database.username
+  - Default: null
+    Description: db for postgres database
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.sessions.db.name
+  - Default: null
+    Description: API Key to use when provisioning schedules, retention policies, or
+      stores. Required if shield.schedule, shield.retention, or shield.store have
+      data
+    Example: null
+    Examples: null
+    Name: shield.provisioning_key
+  - Default: null
+    Description: database password
+    Example: null
+    Examples: null
+    Name: shield.daemon.database.password
+  - Default: null
+    Description: port for postgres database
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.sessions.db.port
+  - Default: null
+    Description: host for postgres database
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.sessions.db.host
+  - Default: null
+    Description: Map of API keys to grant script-level access to SHIELD (keys are
+      names of keys, values are keys themselves)
+    Example: |
+      api_keys:
+        my_script: AwB6iMPhTHiE7V2ngLNv
+        autoprovision: KTocoRDwtasU22kiA3Go
+    Examples: null
+    Name: shield.daemon.auth.api_keys
+  - Default: null
+    Description: database type (postgres or mysql)
+    Example: null
+    Examples: null
+    Name: shield.daemon.database.type
+  - Default: admin
+    Description: Username to use with basic auth for SHIELD (disabled if oauth is
+      enabled)
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.basic_user
+  - Default: admin
+    Description: Password to use with basic auth for SHIELD (disabled if oauth is
+      enabled)
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.basic_password
+  - Default: null
+    Description: database port
+    Example: null
+    Examples: null
+    Name: shield.daemon.database.port
+  - Default: null
+    Description: 'OAuth2 provider to use with SHIELD (supported values: ''github''
+      and ''cloudfoundry'')'
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.provider
+  - Default: null
+    Description: Auth Key/Client ID to use with the OAuth2 provider
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.key
+  - Default: null
+    Description: schedule when
+    Example: null
+    Examples: null
+    Name: shield.schedule.when
+  - Default: null
+    Description: retention name
+    Example: null
+    Examples: null
+    Name: shield.retention.name
+  - Default: null
+    Description: store plugin
+    Example: null
+    Examples: null
+    Name: shield.store.plugin
+  - Default: null
+    Description: database name
+    Example: null
+    Examples: null
+    Name: shield.daemon.database.db
+  - Default: null
+    Description: Auth Secret/Client Secret to use with the OAuth2 provider
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.secret
+  - Default: 2592000
+    Description: Maximum age for an authenticated session in seconds
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.sessions.max_age
+  - Default: null
+    Description: schedule name
+    Example: null
+    Examples: null
+    Name: shield.schedule.name
+  - Default: null
+    Description: |
+      private key to use for communicating with the shield-agent.
+    Example: null
+    Examples: null
+    Name: shield.daemon.ssh_private_key
+  - Default: 443
+    Description: port to run daemon (https requests)
+    Example: null
+    Examples: null
+    Name: shield.daemon.port
+  - Default: 80
+    Description: Port for http requests
+    Example: null
+    Examples: null
+    Name: shield.daemon.http_port
+  - Default: null
+    Description: Hostname/IP SHIELD is accessed with
+    Example: null
+    Examples: null
+    Name: shield.daemon.domain
+  - Default: null
+    Description: expires
+    Example: null
+    Examples: null
+    Name: shield.retention.expires
+  - Default: (none)
+    Description: name to display to `shield status' calls
+    Example: null
+    Examples: null
+    Name: shield.daemon.name
+  - Default: null
+    Description: database host
+    Example: null
+    Examples: null
+    Name: shield.daemon.database.host
+  - Default: null
+    Description: List of organizations that users must be members of to access SHIELD.
+      This *MUST* be specified or no one will be able to access SHIELD.
+    Example: null
+    Examples: null
+    Name: shield.daemon.auth.oauth.authorization.orgs
+  - Default: true
+    Description: Boolean to determine if SSL certs will be ignored when provisioning
+      SHIELD data
+    Example: null
+    Examples: null
+    Name: shield.skip_ssl_verify
+  Templates:
+  - DstPathEnd: config/retention.json
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/config/retention.json.erb
+    SrcPathEnd: config/retention.json.erb
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/bin/post-start.erb
+    SrcPathEnd: bin/post-start.erb
+  - DstPathEnd: config/shieldd.conf
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/config/shieldd.conf.erb
+    SrcPathEnd: config/shieldd.conf.erb
+  - DstPathEnd: config/schedule.json
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/config/schedule.json.erb
+    SrcPathEnd: config/schedule.json.erb
+  - DstPathEnd: config/store.json
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/config/store.json.erb
+    SrcPathEnd: config/store.json.erb
+  - DstPathEnd: shared/id_rsa
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/shared/id_rsa
+    SrcPathEnd: shared/id_rsa
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor236192640/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+- Description: |
+    The shield tests errand runs tests for shield
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor130578610/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: shield
+  - Name: utils
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor130578610/templates/bin/run
+    SrcPathEnd: bin/run

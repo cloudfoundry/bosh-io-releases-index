@@ -1,0 +1,884 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor463575980/monit
+    SrcPathEnd: monit
+  Name: file_server
+  Packages:
+  - Name: pid_utils
+  - Name: file_server
+  - Name: linux-circus
+  - Name: docker-circus
+  Properties:
+  - Default: null
+    Description: IP address of interface on which to serve files
+    Example: null
+    Name: diego.file_server.ip
+  - Default: "8080"
+    Description: IP port on which to serve files
+    Example: null
+    Name: diego.file_server.port
+  - Default: 0.0.0.0:17005
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.file_server.debug_addr
+  - Default: null
+    Description: URI to access the Cloud Controller
+    Example: null
+    Name: diego.file_server.cc.srv_api_uri
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: null
+    Description: User to upload files to Cloud Controller
+    Example: null
+    Name: diego.file_server.cc.staging_upload_user
+  - Default: null
+    Description: User's password to upload files to Cloud Controller
+    Example: null
+    Name: diego.file_server.cc.staging_upload_password
+  - Default: null
+    Description: the interval between job polling requests
+    Example: null
+    Name: diego.file_server.cc.job_polling_interval
+  - Default: /var/vcap/jobs/file_server/packages/
+    Description: Fully-qualified path to the doc root for the file server's static
+      files
+    Example: null
+    Name: diego.file_server.static_directory
+  Templates:
+  - DstPathEnd: bin/file_server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor463575980/templates/file_server_ctl.erb
+    SrcPathEnd: file_server_ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor463575980/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor146689470/monit
+    SrcPathEnd: monit
+  Name: nsync
+  Packages:
+  - Name: pid_utils
+  - Name: nsync
+  Properties:
+  - Default: 500
+    Description: number of apps to fetch at once from bulk API
+    Example: null
+    Name: diego.nsync.cc.bulk_batch_size
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: docker-circus/docker-circus.tgz
+    Description: Lifecycle bundle for docker apps
+    Example: null
+    Name: diego.nsync.docker_lifecycle_bundle
+  - Default: null
+    Description: basic auth password for CC bulk API
+    Example: null
+    Name: diego.nsync.cc.basic_auth_password
+  - Default: 30s
+    Description: interval at which to poll bulk API
+    Example: null
+    Name: diego.nsync.cc.polling_interval
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.nsync.nats.port
+  - Default: http://file_server.service.dc1.consul:8080
+    Description: URL of file server
+    Example: null
+    Name: diego.file_server.file_server_url
+  - Default:
+      lucid64: linux-circus/linux-circus.tgz
+    Description: Map of lifecycle bundles for different stacks in json format {"stack_name":"lifecycle_bundle_path"}
+    Example: null
+    Name: diego.nsync.lifecycle_bundles
+  - Default: null
+    Description: base URL of the cloud controller
+    Example: null
+    Name: diego.nsync.cc.base_url
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.nsync.etcd.machines
+  - Default: internal_user
+    Description: basic auth username for CC bulk API
+    Example: null
+    Name: diego.nsync.cc.basic_auth_username
+  - Default: 0.0.0.0:17007
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.nsync.bulker_debug_addr
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: diego.nsync.nats.password
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.nsync.nats.machines
+  - Default: 0.0.0.0:17006
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.nsync.listener_debug_addr
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: diego.nsync.nats.username
+  Templates:
+  - DstPathEnd: bin/nsync_bulker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor146689470/templates/nsync_bulker_ctl.erb
+    SrcPathEnd: nsync_bulker_ctl.erb
+  - DstPathEnd: bin/nsync_listener_ctl
+    Path: /mnt/tmp/tar-CmdExtractor146689470/templates/nsync_listener_ctl.erb
+    SrcPathEnd: nsync_listener_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor922978720/monit
+    SrcPathEnd: monit
+  Name: route_emitter
+  Packages:
+  - Name: pid_utils
+  - Name: route_emitter
+  Properties:
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.route_emitter.etcd.machines
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: diego.route_emitter.nats.username
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: diego.route_emitter.nats.password
+  - Default: 4222
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.route_emitter.nats.port
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.route_emitter.nats.machines
+  - Default: 0.0.0.0:17009
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.route_emitter.debug_addr
+  Templates:
+  - DstPathEnd: bin/route_emitter_ctl
+    Path: /mnt/tmp/tar-CmdExtractor922978720/templates/route_emitter_ctl.erb
+    SrcPathEnd: route_emitter_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor896836562/monit
+    SrcPathEnd: monit
+  Name: auctioneer
+  Packages:
+  - Name: pid_utils
+  - Name: auctioneer
+  Properties:
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.auctioneer.etcd.machines
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: diego.auctioneer.nats.username
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: diego.auctioneer.nats.password
+  - Default: 4222
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.auctioneer.nats.port
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.auctioneer.nats.machines
+  - Default: 0.0.0.0:17001
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.auctioneer.debug_addr
+  Templates:
+  - DstPathEnd: bin/auctioneer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor896836562/templates/auctioneer_ctl.erb
+    SrcPathEnd: auctioneer_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor209250004/monit
+    SrcPathEnd: monit
+  Name: converger
+  Packages:
+  - Name: pid_utils
+  - Name: converger
+  Properties:
+  - Default: 0.0.0.0:17002
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.converger.debug_addr
+  - Default: 30s
+    Description: the interval between runs of the converge process
+    Example: null
+    Name: diego.converger.repeat.interval
+  - Default: 30s
+    Description: the interval, in seconds, between kicks to pending tasks
+    Example: null
+    Name: diego.converger.kick.pending.task.duration
+  - Default: 120s
+    Description: completed, unresolved tasks are deleted after this duration
+    Example: null
+    Name: diego.converger.expire.completed.duration
+  - Default: 30m
+    Description: unclaimed tasks are marked as failed, after this duration
+    Example: null
+    Name: diego.converger.expire.pending.duration
+  - Default: 30s
+    Description: the interval between kicks to pending start auctions for long-running
+      process
+    Example: null
+    Name: diego.converger.kick.lrp.pending.start.auction.duration
+  - Default: 300s
+    Description: unclaimed start auctions for long-running processes are deleted,
+      after this interval
+    Example: null
+    Name: diego.converger.expire.claimed.lrp.start.auction.duration
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.converger.etcd.machines
+  Templates:
+  - DstPathEnd: bin/converger_ctl
+    Path: /mnt/tmp/tar-CmdExtractor209250004/templates/converger_ctl.erb
+    SrcPathEnd: converger_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor556994854/monit
+    SrcPathEnd: monit
+  Name: etcd
+  Packages:
+  - Name: pid_utils
+  - Name: etcd
+  Properties:
+  - Default: null
+    Description: Name of the network that the job lives in; used to figure out our
+      IP.
+    Example: null
+    Name: network_name
+  - Default: 50
+    Description: Interval between heartbeats. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
+    Example: null
+    Name: diego.etcd.heartbeat_interval_in_milliseconds
+  - Default: 1000
+    Description: Time without recieving a heartbeat before peer should attempt to
+      become leader. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
+    Example: null
+    Name: diego.etcd.election_timeout_in_milliseconds
+  - Default: null
+    Description: IPs of etcd machines
+    Example: null
+    Name: diego.etcd.machines
+  Templates:
+  - DstPathEnd: bin/etcd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor556994854/templates/etcd_ctl.erb
+    SrcPathEnd: etcd_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor869675336/monit
+    SrcPathEnd: monit
+  Name: executor
+  Packages:
+  - Name: pid_utils
+  - Name: executor
+  Properties:
+  - Default: null
+    Description: The key used to sign log messages
+    Example: null
+    Name: loggregator_endpoint.shared_secret
+  - Default: auto
+    Description: the container disk capacity the executor should manage.  this should
+      not be greater than the actual disk quota on the VM
+    Example: null
+    Name: diego.executor.disk_capacity_mb
+  - Default: /var/vcap/data/executor_cache
+    Description: path to the executor's cache
+    Example: null
+    Name: diego.executor.cache_path
+  - Default: 10000000000
+    Description: maximum size of the cache in bytes - this should leam a healthy overhead
+      for temporary items, etc.
+    Example: null
+    Name: diego.executor.max_cache_size_in_bytes
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Loggregator
+    Example: null
+    Name: loggregator_endpoint.host
+  - Default: auto
+    Description: the memory capacity the executor should manage.  this should not
+      be greater than the actual memory on the VM
+    Example: null
+    Name: diego.executor.memory_capacity_mb
+  - Default: 200000
+    Description: the inode limit enforced on each garden container.
+    Example: null
+    Name: diego.executor.container_inode_limit
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: 3456
+    Description: The port used to emit messages to the Loggregator
+    Example: null
+    Name: loggregator_endpoint.port
+  - Default: 1024
+    Description: the maximum number of cpu shares for a container.
+    Example: null
+    Name: diego.executor.container_max_cpu_shares
+  - Default: unix
+    Description: Network type for the garden server connection (tcp or unix).
+    Example: null
+    Name: diego.executor.garden.network
+  - Default: 0.0.0.0:1700
+    Description: address at which to serve API requests
+    Example: null
+    Name: diego.executor.listen_addr
+  - Default: 0.0.0.0:17004
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.executor.debug_addr
+  - Default: /var/vcap/data/garden-linux/garden-linux.sock
+    Description: Garden server listening address.
+    Example: null
+    Name: diego.executor.garden.address
+  - Default: false
+    Description: Allow creation of privileged containers.
+    Example: null
+    Name: diego.executor.allow_privileged
+  Templates:
+  - DstPathEnd: bin/executor_ctl
+    Path: /mnt/tmp/tar-CmdExtractor869675336/templates/executor_ctl.erb
+    SrcPathEnd: executor_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor106705850/monit
+    SrcPathEnd: monit
+  Name: stager
+  Packages:
+  - Name: pid_utils
+  - Name: stager
+  Properties:
+  - Default: http://file_server.service.dc1.consul:8080
+    Description: URL of file server
+    Example: null
+    Name: diego.file_server.file_server_url
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: null
+    Description: URI to access the Cloud Controller
+    Example: null
+    Name: diego.stager.cc.base_url
+  - Default:
+      lucid64: linux-circus/linux-circus.tgz
+    Description: Map of lifecycle bundles for different stacks in json format {"stack_name":"lifecycle_bundle_path"}
+    Example: null
+    Name: diego.stager.lifecycle_bundles
+  - Default: 1024
+    Description: Minimum memory in megabytes that will be used for staging
+    Example: null
+    Name: diego.stager.min_memory_mb
+  - Default: 3072
+    Description: Minimum disk space in megabytes that will be used for staging
+    Example: null
+    Name: diego.stager.min_disk_mb
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.stager.nats.machines
+  - Default: 1024
+    Description: Minimum number of file descriptors that will be made available for
+      staging
+    Example: null
+    Name: diego.stager.min_file_descriptors
+  - Default: docker-circus/docker-circus.tgz
+    Description: Lifecycle bundle for docker apps
+    Example: null
+    Name: diego.stager.docker_lifecycle_bundle
+  - Default: http://stager.service.dc1.consul:8888
+    Description: URL of stager, used for completion callbacks from receptor API
+    Example: null
+    Name: diego.stager.stager_url
+  - Default: receptor.service.dc1.consul:8888
+    Description: URL of diego API
+    Example: null
+    Name: diego.stager.diego_api_url
+  - Default: 0.0.0.0:17011
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.stager.debug_addr
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: diego.stager.nats.username
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: diego.stager.nats.password
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.stager.nats.port
+  - Default: internal_user
+    Description: Basic auth username for CC internal API
+    Example: null
+    Name: diego.stager.cc.basic_auth_username
+  - Default: null
+    Description: Basic auth password for CC internal API
+    Example: null
+    Name: diego.stager.cc.basic_auth_password
+  Templates:
+  - DstPathEnd: bin/stager_ctl
+    Path: /mnt/tmp/tar-CmdExtractor106705850/templates/stager_ctl.erb
+    SrcPathEnd: stager_ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor106705850/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor550188284/monit
+    SrcPathEnd: monit
+  Name: consul-agent
+  Packages:
+  - Name: consul_0.4
+  Properties:
+  - Default: dc1
+    Description: Name of the agent's datacenter.
+    Example: null
+    Name: consul.agent.datacenter
+  - Default: []
+    Description: List of services to configure.
+    Example: null
+    Name: consul.agent.services
+  - Default: 2
+    Description: The Consul protocol to use.
+    Example: null
+    Name: consul.agent.protocol_version
+  - Default: client
+    Description: Mode to run the agent in. (client or server)
+    Example: null
+    Name: consul.agent.mode
+  - Default: []
+    Description: LAN server addresses to join on start.
+    Example: null
+    Name: consul.agent.servers.lan
+  - Default: []
+    Description: WAN server addresses to join.
+    Example: null
+    Name: consul.agent.servers.wan
+  - Default: info
+    Description: Agent log level.
+    Example: null
+    Name: consul.agent.log_level
+  Templates:
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor550188284/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: bin/agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor550188284/templates/agent_ctl.sh.erb
+    SrcPathEnd: agent_ctl.sh.erb
+  - DstPathEnd: bin/join_ctl
+    Path: /mnt/tmp/tar-CmdExtractor550188284/templates/join_ctl.sh.erb
+    SrcPathEnd: join_ctl.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor799060878/monit
+    SrcPathEnd: monit
+  Name: garden-linux
+  Packages:
+  - Name: pid_utils
+  - Name: iptables
+  - Name: garden-linux
+  - Name: rootfs_lucid64
+  - Name: shadow
+  Properties:
+  - Default: unix
+    Description: Garden server connection mode (tcp or unix).
+    Example: null
+    Name: diego.garden-linux.listen_network
+  - Default: /var/vcap/data/garden-linux/garden-linux.sock
+    Description: Garden server listening address.
+    Example: null
+    Name: diego.garden-linux.listen_address
+  - Default: true
+    Description: Enforce disk quotas.
+    Example: null
+    Name: diego.garden-linux.disk_quota_enabled
+  - Default: []
+    Description: List of CIDR blocks to which containers will be denied access.
+    Example: null
+    Name: diego.garden-linux.deny_networks
+  - Default: []
+    Description: List of CIDR blocks to which containers will be allowed access (applied
+      after deny).
+    Example: null
+    Name: diego.garden-linux.allow_networks
+  - Default: 0.0.0.0:17013
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.garden-linux.debug_addr
+  - Default: true
+    Description: enable or disable kernel network tuning; disable for Garden CPI
+    Example: null
+    Name: diego.garden-linux.kernel_network_tuning_enabled
+  Templates:
+  - DstPathEnd: bin/garden-linux_ctl
+    Path: /mnt/tmp/tar-CmdExtractor799060878/templates/garden-linux_ctl.erb
+    SrcPathEnd: garden-linux_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor180889072/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: golang
+  - Name: cf-cli
+  - Name: acceptance-tests
+  Properties:
+  - Default: null
+    Description: The Elastic Runtime Appliction Domain
+    Example: null
+    Name: acceptance_tests.apps_domain
+  - Default: null
+    Description: The Elastic Runtime API admin user
+    Example: null
+    Name: acceptance_tests.admin_user
+  - Default: null
+    Description: The Elastic Runtime API admin user's password
+    Example: null
+    Name: acceptance_tests.admin_password
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Name: acceptance_tests.skip_ssl_validation
+  - Default: 4
+    Description: The number of parallel test executors to spawn. The larger the number
+      the higher the stress on the system.
+    Example: null
+    Name: acceptance_tests.nodes
+  - Default: false
+    Description: Whether to pass the -v flag to cf-acceptance-tests
+    Example: null
+    Name: acceptance_tests.verbose
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Name: acceptance_tests.api
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor180889072/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor180889072/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor200053922/monit
+    SrcPathEnd: monit
+  Name: tps
+  Packages:
+  - Name: pid_utils
+  - Name: tps
+  Properties:
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.tps.etcd.machines
+  - Default: 0.0.0.0:17012
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.tps.debug_addr
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: diego.tps.nats.username
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: diego.tps.nats.password
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.tps.nats.port
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.tps.nats.machines
+  - Default: 200
+    Description: Maximum number of requests to handle at once.
+    Example: null
+    Name: diego.tps.max_in_flight_requests
+  - Default: null
+    Description: Name of the network that the job lives in; used to figure out our
+      IP.
+    Example: null
+    Name: network_name
+  Templates:
+  - DstPathEnd: bin/tps_ctl
+    Path: /mnt/tmp/tar-CmdExtractor200053922/templates/tps_ctl.erb
+    SrcPathEnd: tps_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor431071268/monit
+    SrcPathEnd: monit
+  Name: receptor
+  Packages:
+  - Name: pid_utils
+  - Name: receptor
+  Properties:
+  - Default: ""
+    Description: Password for NATS authentication.
+    Example: null
+    Name: diego.receptor.nats.password
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.receptor.etcd.machines
+  - Default: 0.0.0.0:8888
+    Description: address at which to serve API requests
+    Example: null
+    Name: diego.receptor.listen_addr
+  - Default: 0.0.0.0:17014
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.receptor.debug_addr
+  - Default: ""
+    Description: password for basic auth
+    Example: null
+    Name: diego.receptor.password
+  - Default: false
+    Description: Controls if the receptor should register itself with the router.
+    Example: null
+    Name: diego.receptor.register_with_router
+  - Default: []
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.receptor.nats.machines
+  - Default: ""
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.receptor.nats.port
+  - Default: false
+    Description: Enable support for CORS requests.
+    Example: null
+    Name: diego.receptor.cors_enabled
+  - Default: ""
+    Description: username for basic auth
+    Example: null
+    Name: diego.receptor.username
+  - Default: []
+    Description: Domain names to be registered with the router.
+    Example: null
+    Name: diego.receptor.domain_names
+  - Default: ""
+    Description: Username for NATS authentication.
+    Example: null
+    Name: diego.receptor.nats.username
+  Templates:
+  - DstPathEnd: bin/receptor_ctl
+    Path: /mnt/tmp/tar-CmdExtractor431071268/templates/receptor_ctl.erb
+    SrcPathEnd: receptor_ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor431071268/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor861466870/monit
+    SrcPathEnd: monit
+  Name: rep
+  Packages:
+  - Name: pid_utils
+  - Name: rep
+  Properties:
+  - Default: 0.0.0.0:17008
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.rep.debug_addr
+  - Default: null
+    Description: Name of the network that the job lives in; used to figure out our
+      IP.
+    Example: null
+    Name: network_name
+  - Default: http://127.0.0.1:1700
+    Description: URL of the executor to represent.
+    Example: null
+    Name: diego.rep.executor.url
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: diego.rep.nats.username
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: diego.rep.nats.password
+  - Default: 4222
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: diego.rep.nats.port
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.rep.etcd.machines
+  - Default: lucid64
+    Description: the stack for which to handle requests
+    Example: null
+    Name: diego.rep.stack
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: diego.rep.nats.machines
+  - Default: null
+    Description: |
+      The interval on which to look for completed tasks and LRPs. Normally they are handled immediately, but if an event is missed the continuous polling will catch it.
+    Example: null
+    Name: diego.rep.polling_interval
+  Templates:
+  - DstPathEnd: bin/rep_ctl
+    Path: /mnt/tmp/tar-CmdExtractor861466870/templates/rep_ctl.erb
+    SrcPathEnd: rep_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor191073688/monit
+    SrcPathEnd: monit
+  Name: runtime_metrics_server
+  Packages:
+  - Name: pid_utils
+  - Name: runtime_metrics_server
+  Properties:
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: diego.runtime_metrics_server.etcd.machines
+  - Default: 0.0.0.0:17010
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.runtime_metrics_server.debug_addr
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor191073688/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor576180874/monit
+    SrcPathEnd: monit
+  Name: etcd_metrics_server
+  Packages:
+  - Name: pid_utils
+  - Name: etcd_metrics_server
+  Properties:
+  - Default: 5678
+    Description: listening port for metrics server
+    Example: null
+    Name: diego.etcd_metrics_server.status.port
+  - Default: ""
+    Description: basic auth password for metrics server (leave empty for generated)
+    Example: null
+    Name: diego.etcd_metrics_server.status.password
+  - Default: 0.0.0.0:17003
+    Description: address at which to serve debug info
+    Example: null
+    Name: diego.etcd_metrics_server.debug_addr
+  - Default: null
+    Description: array of NATS addresses
+    Example: null
+    Name: diego.etcd_metrics_server.nats.machines
+  - Default: 4222
+    Description: NATS server port
+    Example: null
+    Name: diego.etcd_metrics_server.nats.port
+  - Default: null
+    Description: NATS server password
+    Example: null
+    Name: diego.etcd_metrics_server.nats.password
+  - Default: null
+    Description: NATS server username
+    Example: null
+    Name: diego.etcd_metrics_server.nats.username
+  - Default: ""
+    Description: basic auth username for metrics server (leave empty for generated)
+    Example: null
+    Name: diego.etcd_metrics_server.status.username
+  - Default: etcd
+    Description: job name for collector
+    Example: null
+    Name: diego.etcd_metrics_server.job_name
+  - Default: 127.0.0.1
+    Description: address of ETCD server to instrument
+    Example: null
+    Name: diego.etcd_metrics_server.etcd.machine
+  - Default: 4001
+    Description: port of ETCD server to instrument
+    Example: null
+    Name: diego.etcd_metrics_server.etcd.port
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor576180874/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor552278092/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: cf-cli
+  - Name: smoke-tests
+  Properties:
+  - Default: null
+    Description: The Elastic Runtime API user's password
+    Example: null
+    Name: diego.smoke_tests.password
+  - Default: null
+    Description: The Elastic Runtime organization name to use when running tests
+    Example: null
+    Name: diego.smoke_tests.org
+  - Default: null
+    Description: The Elastic Runtime space name to use when running tests
+    Example: null
+    Name: diego.smoke_tests.space
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Name: diego.smoke_tests.api
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Name: diego.ssl.skip_cert_verify
+  - Default: null
+    Description: The Elastic Runtime API user
+    Example: null
+    Name: diego.smoke_tests.user
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor552278092/templates/run.erb
+    SrcPathEnd: run.erb

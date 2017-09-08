@@ -1,0 +1,136 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor295413306/monit
+    SrcPathEnd: monit
+  Name: riemann
+  Packages:
+  - Name: java
+  - Name: riemann
+  Properties:
+  - Default: riemann
+    Description: Name of the database to write to.
+    Example: null
+    Examples: null
+    Name: riemann.influxdb.database
+  - Default: ""
+    Description: Database user to authenticate as.
+    Example: null
+    Examples: null
+    Name: riemann.influxdb.username
+  - Default: ""
+    Description: Password to authenticate with.
+    Example: null
+    Examples: null
+    Name: riemann.influxdb.password
+  - Default: null
+    Description: Custom alert rules
+    Example: null
+    Examples: null
+    Name: riemann.custom_rules
+  - Default: {}
+    Description: this property auto-registers TSA as a service
+    Example: null
+    Examples: null
+    Name: consul.agent.services.riemann
+  - Default: null
+    Description: If configured, events will be emitted to DataDog.
+    Example: null
+    Examples: null
+    Name: riemann.datadog.api_key
+  - Default: null
+    Description: If configured, events will be emitted to InfluxDB.
+    Example: null
+    Examples: null
+    Name: riemann.influxdb.host
+  - Default: 0.9
+    Description: Version of InfluxDB.
+    Example: null
+    Examples: null
+    Name: riemann.influxdb.version
+  Templates:
+  - DstPathEnd: config/riemann.config
+    Path: /mnt/tmp/tar-CmdExtractor295413306/templates/config/riemann.config.erb
+    SrcPathEnd: config/riemann.config.erb
+  - DstPathEnd: bin/riemann_ctl
+    Path: /mnt/tmp/tar-CmdExtractor295413306/templates/bin/riemann_ctl
+    SrcPathEnd: bin/riemann_ctl
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor295413306/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor470778748/monit
+    SrcPathEnd: monit
+  Name: riemann-emitter
+  Packages:
+  - Name: ruby-2.1
+  - Name: riemann-tools
+  Properties:
+  - Default: []
+    Description: Tags to attach to all events emitted.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.tags
+  - Default: us-east-1
+    Description: Region in which the RDS instance lives.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.rds.region
+  - Default: null
+    Description: AWS access key ID to use when collecting CloudWatch metrics.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.rds.access_key_id
+  - Default: null
+    Description: AWS secret access key to use when collecting CloudWatch metrics.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.rds.secret_access_key
+  - Default: null
+    Description: Host of the elastic instance to emit metrics for.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.elastic.host
+  - Default: 9200
+    Description: Port of the elastic instance to emit metrics for.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.elastic.port
+  - Default: riemann.service.dc1.consul
+    Description: Address of the Riemann server to report to.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.host
+  - Default: 5555
+    Description: Port of the Riemann server to connect to.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.port
+  - Default: []
+    Description: Attributes to attach to all events emitted.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.attributes
+  - Default: null
+    Description: Name of the RDS instance to emit metrics for.
+    Example: null
+    Examples: null
+    Name: riemann_emitter.rds.instance_name
+  Templates:
+  - DstPathEnd: bin/riemann-elastic_ctl
+    Path: /mnt/tmp/tar-CmdExtractor470778748/templates/bin/riemann-elastic_ctl.erb
+    SrcPathEnd: bin/riemann-elastic_ctl.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor470778748/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/riemann-health_ctl
+    Path: /mnt/tmp/tar-CmdExtractor470778748/templates/bin/riemann-health_ctl.erb
+    SrcPathEnd: bin/riemann-health_ctl.erb
+  - DstPathEnd: bin/riemann-net_ctl
+    Path: /mnt/tmp/tar-CmdExtractor470778748/templates/bin/riemann-net_ctl.erb
+    SrcPathEnd: bin/riemann-net_ctl.erb
+  - DstPathEnd: bin/riemann-rds_ctl
+    Path: /mnt/tmp/tar-CmdExtractor470778748/templates/bin/riemann-rds_ctl.erb
+    SrcPathEnd: bin/riemann-rds_ctl.erb

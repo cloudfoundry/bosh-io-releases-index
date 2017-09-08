@@ -1,0 +1,40 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor592331080/monit
+    SrcPathEnd: monit
+  Name: xip
+  Packages:
+  - Name: pdns-3.4.6
+  Properties:
+  - Default: ""
+    Description: The contents of named.conf (PowerDNS's BIND backend's configuration
+      file)
+    Example: null
+    Name: xip.named_conf
+  - Default: |
+      launch=pipe
+      pipe-command=/var/vcap/jobs/xip/bin/xip-pdns /var/vcap/jobs/xip/etc/xip-pdns.conf
+    Description: The contents of pdns.conf (PowerDNS's configuration file)
+    Example: null
+    Name: xip.pdns_conf
+  - Default: null
+    Description: The contents of xip-pdns.conf (xip's configuration file)
+    Example: null
+    Name: xip.xip_pdns_conf
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor592331080/templates/ctl.sh
+    SrcPathEnd: ctl.sh
+  - DstPathEnd: bin/xip-pdns
+    Path: /mnt/tmp/tar-CmdExtractor592331080/templates/xip-pdns.sh
+    SrcPathEnd: xip-pdns.sh
+  - DstPathEnd: etc/named.conf
+    Path: /mnt/tmp/tar-CmdExtractor592331080/templates/named.conf.erb
+    SrcPathEnd: named.conf.erb
+  - DstPathEnd: etc/xip-pdns.conf
+    Path: /mnt/tmp/tar-CmdExtractor592331080/templates/xip-pdns.conf.erb
+    SrcPathEnd: xip-pdns.conf.erb
+  - DstPathEnd: etc/pdns.conf
+    Path: /mnt/tmp/tar-CmdExtractor592331080/templates/pdns.conf.erb
+    SrcPathEnd: pdns.conf.erb

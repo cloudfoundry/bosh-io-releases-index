@@ -1,0 +1,763 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor743360202/monit
+    SrcPathEnd: monit
+  Name: cf-networking-acceptance
+  Packages:
+  - Name: golang
+  - Name: cf-networking-acceptance
+  Properties:
+  - Default: null
+    Description: cf apps domain, e.g. bosh-lite.com
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.apps_domain
+  - Default: false
+    Description: Skip ssl validation when connecting to apis
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.skip_ssl_validation
+  - Default: admin
+    Description: cf admin user name
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.admin_user
+  - Default: null
+    Description: cf admin user password
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.admin_password
+  - Default: null
+    Description: uaa admin client secret
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.admin_secret
+  - Default: 1
+    Description: number of proxy applications to use in acceptance tests
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.proxy_instances
+  - Default: 2
+    Description: number of applications to use in acceptance tests
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.num_apps
+  - Default: null
+    Description: cf system domain, e.g. bosh-lite.com
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.system_domain
+  - Default: cf-networking-test-
+    Description: prefix applied to all apps, orgs and spaces created by test
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.prefix
+  - Default: 1
+    Description: number of proxy applications to use in acceptance tests
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.proxy_applications
+  - Default: 2
+    Description: number of app instances to use in acceptance tests
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.num_app_instances
+  - Default: admin
+    Description: uaa admin client name
+    Example: null
+    Examples: null
+    Name: cf_networking.acceptance.admin_client
+  Templates:
+  - DstPathEnd: config.json
+    Path: /mnt/tmp/tar-CmdExtractor743360202/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor743360202/templates/run-tests.erb
+    SrcPathEnd: run-tests.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor730055308/monit
+    SrcPathEnd: monit
+  Name: garden-cni
+  Packages:
+  - Name: runc-cni
+  Properties:
+  - Default: 5000
+    Description: Total number of host ports that may be allocated to containers
+    Example: null
+    Examples: null
+    Name: cf_networking.nat_port_range_size
+  - Default: /var/vcap/packages/silk-cni/bin
+    Description: Directory containing CNI plugins.
+    Example: null
+    Examples: null
+    Name: cf_networking.cni_plugin_dir
+  - Default: /var/vcap/jobs/silk-cni/config/cni
+    Description: Directory to store CNI config files.  Other jobs may write files
+      into here.
+    Example: null
+    Examples: null
+    Name: cf_networking.cni_config_dir
+  - Default: 61000
+    Description: Starting value for allocating host ports to containers
+    Example: null
+    Examples: null
+    Name: cf_networking.nat_port_range_start
+  Templates:
+  - DstPathEnd: config/adapter.json
+    Path: /mnt/tmp/tar-CmdExtractor730055308/templates/adapter.json.erb
+    SrcPathEnd: adapter.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor513031582/monit
+    SrcPathEnd: monit
+  Name: netmon
+  Packages:
+  - Name: netmon
+  - Name: ctl-utils
+  Properties:
+  - Default: false
+    Description: disable container to container networking
+    Example: null
+    Examples: null
+    Name: cf_networking.disable
+  - Default: 127.0.0.1:3457
+    Description: Forward metrics to this metron agent
+    Example: null
+    Examples: null
+    Name: cf_networking.netmon.metron_address
+  - Default: 30
+    Description: Gather and report metrics at this interval, in seconds
+    Example: null
+    Examples: null
+    Name: cf_networking.netmon.poll_interval
+  - Default: silk-vtep
+    Description: Report tx/rx bytes on the interface with this name
+    Example: null
+    Examples: null
+    Name: cf_networking.netmon.interface_name
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: cf_networking.netmon.log_level
+  Templates:
+  - DstPathEnd: bin/netmon_ctl
+    Path: /mnt/tmp/tar-CmdExtractor513031582/templates/netmon_ctl.erb
+    SrcPathEnd: netmon_ctl.erb
+  - DstPathEnd: config/netmon.json
+    Path: /mnt/tmp/tar-CmdExtractor513031582/templates/netmon.json.erb
+    SrcPathEnd: netmon.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor879185536/monit
+    SrcPathEnd: monit
+  Name: policy-server
+  Packages:
+  - Name: policy-server
+  - Name: ctl-utils
+  Properties:
+  - Default: 4002
+    Description: Port where the policy server will serve its external API.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.listen_port
+  - Default: null
+    Description: Trusted CA for UAA server.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.uaa_ca
+  - Default: 31821
+    Description: Port for the debug server. Use this to adjust log level at runtime
+      or dump process stats.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.debug_port
+  - Default: 8443
+    Description: Port of the UAA server. Must match `uaa.ssl.port`.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.uaa_port
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Host name for the Cloud Controller server.  E.g. the service advertised
+      via Consul DNS. Must match `cc.internal_service_hostname`.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.cc_hostname
+  - Default: 2
+    Description: Length in bytes of the packet tags to generate for policy sources
+      and destinations. Must be greater than 0 and less than or equal to 4. If using
+      VXLAN GBP, must be less than or equal to 2.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.tag_length
+  - Default: false
+    Description: Allows space developers to always be able to configure policies for
+      the apps they own.
+    Example: null
+    Examples: null
+    Name: cf_networking.enable_space_developer_self_service
+  - Default: 0.0.0.0
+    Description: IP address where the policy server will serve its API.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.listen_ip
+  - Default: 5
+    Description: Connection timeout between the policy server and its database.  Also
+      used by Consul DNS health check.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.connect_timeout_seconds
+  - Default: null
+    Description: Server key for TLS.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.server_key
+  - Default: 9022
+    Description: External port of Cloud Controller server. Must match `cc.external_port`.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.cc_port
+  - Default: info
+    Description: Logging level (debug, info, warn, error).
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.log_level
+  - Default: false
+    Description: Disable container to container networking.
+    Example: null
+    Examples: null
+    Name: cf_networking.disable
+  - Default: 60
+    Description: Clean up stale policies on this interval, in minutes.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_cleanup_interval
+  - Default: network-policy
+    Description: |
+      UAA client name. Must match the name of a UAA client with the following properties:
+      `authorities: uaa.resource,cloud_controller.admin_read_only`,
+      `authorities: uaa.resource,cloud_controller.admin_read_only`."
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.uaa_client
+  - Default: null
+    Description: |
+      UAA client secret. Must match the secret of the above UAA client.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.uaa_client_secret
+  - Default: 4003
+    Description: Port where the policy server will serve its internal API.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.internal_listen_port
+  - Default: null
+    Description: 'Type of database: postgres or mysql.'
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.database.type
+  - Default: null
+    Description: Trusted CA certificate that was used to sign the vxlan policy agent's
+      client cert and key.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.ca_cert
+  - Default: uaa.service.cf.internal
+    Description: Host name for the UAA server.  E.g. the service advertised via Consul
+      DNS.  Must match common name in the UAA server cert. Must be listed in `uaa.zones.internal.hostnames`.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.uaa_hostname
+  - Default: false
+    Description: Skip verifying ssl certs when speaking to UAA or Cloud Controller.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.skip_ssl_validation
+  - Default: 50
+    Description: Maximum policies a space developer may configure for an application
+      source. Does not affect admin users.
+    Example: null
+    Examples: null
+    Name: cf_networking.max_policies_per_app_source
+  - Default: null
+    Description: Host (IP or DNS name) for database server.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.database.host
+  - Default: null
+    Description: Port for database server.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.database.port
+  - Default: null
+    Description: Name of logical database to use.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.database.name
+  - Default: null
+    Description: Server certificate for TLS. Must have common name that matches the
+      Consul DNS name of the policy server, eg `policy-server.service.cf.internal`.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.server_cert
+  - Default: null
+    Description: Username for database connection.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.database.username
+  - Default: null
+    Description: Password for database connection.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.database.password
+  - Default: 3457
+    Description: Port of metron agent on localhost. This is used to forward metrics.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.metron_port
+  Templates:
+  - DstPathEnd: bin/policy-server_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/policy-server_as_vcap.erb
+    SrcPathEnd: policy-server_as_vcap.erb
+  - DstPathEnd: config/policy-server.json
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/policy-server.json.erb
+    SrcPathEnd: policy-server.json.erb
+  - DstPathEnd: config/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: config/certs/uaa_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/uaa_ca.crt.erb
+    SrcPathEnd: uaa_ca.crt.erb
+  - DstPathEnd: config/certs/server.key
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/server.key.erb
+    SrcPathEnd: server.key.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: bin/policy-server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/policy-server_ctl.erb
+    SrcPathEnd: policy-server_ctl.erb
+  - DstPathEnd: config/certs/server.crt
+    Path: /mnt/tmp/tar-CmdExtractor879185536/templates/server.crt.erb
+    SrcPathEnd: server.crt.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor688851378/monit
+    SrcPathEnd: monit
+  Name: silk-cni
+  Packages:
+  - Name: silk-cni
+  - Name: runc-cni
+  Properties:
+  - Default: 0
+    Description: Bandwidth burst in Kb for traffic through container. 0 for no limit.
+      If burst is set, rate must also be set.
+    Example: null
+    Examples: null
+    Name: cf_networking.burst
+  - Default: 1
+    Description: Maximum number of iptables logs per second for denied packets.
+    Example: null
+    Examples: null
+    Name: cf_networking.iptables_denied_logs_per_sec
+  - Default: false
+    Description: Disable container to container networking.
+    Example: null
+    Examples: null
+    Name: cf_networking.disable
+  - Default: 0
+    Description: Pre-encapsulation MTU for containers.  If set, the network interface
+      inside the container will have an MTU that is 50 bytes less than this value,
+      in order to account for VXLAN encap overhead.  If zero, MTU will be automatically
+      configured to account for the VXLAN encapsulation, but it may not account for
+      additional network encapsulations, e.g. IPSec.
+    Example: null
+    Examples: null
+    Name: cf_networking.mtu
+  - Default: 23954
+    Description: Silk CNI plugin connects to the silk daemon on this port.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.listen_port
+  - Default: false
+    Description: Enables iptables logging for overlay network policies and Application
+      Security Groups.  Logs to the kernel log.
+    Example: null
+    Examples: null
+    Name: cf_networking.iptables_logging
+  - Default: []
+    Description: DNS servers that containers will use.  If set, this list takes precedence
+      over DNS servers configured through garden.
+    Example: null
+    Examples: null
+    Name: cf_networking.dns_servers
+  - Default: 0
+    Description: Bandwidth rate in Kbps for traffic through container. 0 for no limit.
+      If rate is set, burst must also be set.
+    Example: null
+    Examples: null
+    Name: cf_networking.rate
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor688851378/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: config/cni/cni-wrapper-plugin.conf
+    Path: /mnt/tmp/tar-CmdExtractor688851378/templates/cni-wrapper-plugin.conf.erb
+    SrcPathEnd: cni-wrapper-plugin.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor869870004/monit
+    SrcPathEnd: monit
+  Name: silk-controller
+  Packages:
+  - Name: silk-controller
+  - Name: ctl-utils
+  Properties:
+  - Default: false
+    Description: Disable container to container networking.
+    Example: null
+    Examples: null
+    Name: cf_networking.disable
+  - Default: null
+    Description: Server certificate for TLS. Must have common name that matches the
+      Consul DNS name of the silk controller, eg silk-controller.service.cf.internal
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.server_cert
+  - Default: null
+    Description: Username for database connection.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.database.username
+  - Default: 4103
+    Description: Port where the silk controller will serve its API.   Silk daemon
+      connects to this port.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.listen_port
+  - Default: null
+    Description: Trusted CA certificate that was used to sign the silk daemon client
+      cert and key.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.ca_cert
+  - Default: 10.255.0.0/16
+    Description: CIDR address block for overlay network.  Subnets for each diego cell
+      are allocated out of this network.
+    Example: null
+    Examples: null
+    Name: cf_networking.network
+  - Default: 168
+    Description: Expiration time for subnet leases, in hours.  If a cell is not gracefully
+      stopped, its lease may be reclaimed after this duration.  Diego cells that are
+      partitioned from the silk controller for longer than this duration will be removed
+      from the network.
+    Example: null
+    Examples: null
+    Name: cf_networking.subnet_lease_expiration_hours
+  - Default: 46455
+    Description: Debug port for silk controller.  Use this to adjust log level at
+      runtime or dump process stats.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.debug_port
+  - Default: null
+    Description: Host (IP or DNS name) for database server.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.database.host
+  - Default: null
+    Description: Port for database server.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.database.port
+  - Default: null
+    Description: Name of logical database to use.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.database.name
+  - Default: 19683
+    Description: Health check port for silk controller. Used by the Consul DNS health
+      check.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.health_check_port
+  - Default: 0.0.0.0
+    Description: IP address where the silk controller will serve its API.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.listen_ip
+  - Default: null
+    Description: 'Type of database: postgres or mysql'
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.database.type
+  - Default: 3457
+    Description: Forward metrics to this metron agent, listening on this port on localhost
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.metron_port
+  - Default: null
+    Description: Password for database connection.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.database.password
+  - Default: 24
+    Description: Length, in bits, of the prefix for subnets allocated per Diego cell,
+      e.g. '24' for a '/24' subnet.
+    Example: null
+    Examples: null
+    Name: cf_networking.subnet_prefix_length
+  - Default: 5
+    Description: Connection timeout between the silk controller and the silk database.  Also
+      used by Consul DNS health check.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.connect_timeout_seconds
+  - Default: null
+    Description: Server key for TLS.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.server_key
+  Templates:
+  - DstPathEnd: bin/silk-controller_ctl
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/silk-controller_ctl.erb
+    SrcPathEnd: silk-controller_ctl.erb
+  - DstPathEnd: bin/silk-controller_as_vcap
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/silk-controller_as_vcap.erb
+    SrcPathEnd: silk-controller_as_vcap.erb
+  - DstPathEnd: config/silk-controller.json
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/silk-controller.json.erb
+    SrcPathEnd: silk-controller.json.erb
+  - DstPathEnd: config/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: config/certs/server.crt
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/server.crt.erb
+    SrcPathEnd: server.crt.erb
+  - DstPathEnd: config/certs/server.key
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/server.key.erb
+    SrcPathEnd: server.key.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor869870004/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor432317702/monit
+    SrcPathEnd: monit
+  Name: silk-daemon
+  Packages:
+  - Name: silk-daemon
+  - Name: ctl-utils
+  Properties:
+  - Default: 4789
+    Description: Host port used for receiving VXLAN packets
+    Example: null
+    Examples: null
+    Name: cf_networking.vtep_port
+  - Default: 5
+    Description: The silk daemon queries the silk controller on this interval in seconds
+      to renew its lease and get all routable leases.
+    Example: null
+    Examples: null
+    Name: cf_networking.lease_poll_interval_seconds
+  - Default: null
+    Description: Trusted CA certificate that was used to sign the silk controller
+      server cert and key.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.ca_cert
+  - Default: 3457
+    Description: Forward metrics to this metron agent, listening on this port on localhost
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.metron_port
+  - Default: 22233
+    Description: Debug port for silk daemon.  Use this to adjust log level at runtime
+      or dump process stats.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.debug_port
+  - Default: false
+    Description: Disable container to container networking.
+    Example: null
+    Examples: null
+    Name: cf_networking.disable
+  - Default: 127.0.0.1:1800
+    Description: Admin endpoint on diego rep.  Silk daemon job drain waits for the
+      rep to exit before tearing down the network.  See diego.rep.listen_addr_admin
+    Example: null
+    Examples: null
+    Name: cf_networking.rep_listen_addr_admin
+  - Default: 168
+    Description: When silk controller is unavailable, silk daemon will remain healthy
+      and allow creation of new containers for this number of hours.  Should be no
+      larger than cf_networking.subnet_lease_expiration_hours.
+    Example: null
+    Examples: null
+    Name: cf_networking.partition_tolerance_hours
+  - Default: null
+    Description: Client private key for TLS to access silk controller.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.client_key
+  - Default: 24
+    Description: Length, in bits, of the prefix for subnets allocated per Diego cell,
+      e.g. '24' for a '/24' subnet.
+    Example: null
+    Examples: null
+    Name: cf_networking.subnet_prefix_length
+  - Default: 23954
+    Description: Silk daemon handles requests from the CNI plugin on this localhost
+      port.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.listen_port
+  - Default: silk-controller.service.cf.internal
+    Description: Host name for the silk controller.  E.g. the service advertised via
+      Consul DNS.  Must match common name in the silk_controller.server_cert
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.hostname
+  - Default: 10.255.0.0/16
+    Description: CIDR address block for overlay network.  Subnets for each diego cell
+      are allocated out of this network.
+    Example: null
+    Examples: null
+    Name: cf_networking.network
+  - Default: null
+    Description: Client certificate for TLS to access silk controller.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_daemon.client_cert
+  - Default: 4103
+    Description: Silk controller handles requests from the silk daemon on this port.
+    Example: null
+    Examples: null
+    Name: cf_networking.silk_controller.listen_port
+  Templates:
+  - DstPathEnd: config/client-config.json
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/client-config.json.erb
+    SrcPathEnd: client-config.json.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/drain.erb
+    SrcPathEnd: drain.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: bin/silk-daemon_ctl
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/silk-daemon_ctl.erb
+    SrcPathEnd: silk-daemon_ctl.erb
+  - DstPathEnd: config/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: config/certs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/client.crt.erb
+    SrcPathEnd: client.crt.erb
+  - DstPathEnd: config/certs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor432317702/templates/client.key.erb
+    SrcPathEnd: client.key.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor263601704/monit
+    SrcPathEnd: monit
+  Name: vxlan-policy-agent
+  Packages:
+  - Name: vxlan-policy-agent
+  - Name: ctl-utils
+  Properties:
+  - Default: 3457
+    Description: Port of metron agent on localhost. This is used to forward metrics.
+    Example: null
+    Examples: null
+    Name: cf_networking.vxlan_policy_agent.metron_port
+  - Default: info
+    Description: Logging level (debug, info, warn, error).
+    Example: null
+    Examples: null
+    Name: cf_networking.vxlan_policy_agent.log_level
+  - Default: false
+    Description: Enables iptables logging for container to container traffic. Logs
+      to the kernel log.
+    Example: null
+    Examples: null
+    Name: cf_networking.iptables_logging
+  - Default: 4003
+    Description: Policy server handles requests from the vxlan policy agent on this
+      port.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.internal_listen_port
+  - Default: null
+    Description: Trusted CA certificate that was used to sign the policy server's
+      server cert and key.
+    Example: null
+    Examples: null
+    Name: cf_networking.vxlan_policy_agent.ca_cert
+  - Default: null
+    Description: Client certificate for TLS to access policy server.
+    Example: null
+    Examples: null
+    Name: cf_networking.vxlan_policy_agent.client_cert
+  - Default: null
+    Description: Client private key for TLS to access policy server.
+    Example: null
+    Examples: null
+    Name: cf_networking.vxlan_policy_agent.client_key
+  - Default: false
+    Description: Disable container to container networking.
+    Example: null
+    Examples: null
+    Name: cf_networking.disable
+  - Default: policy-server.service.cf.internal
+    Description: Host name for the policy server.  E.g. the service advertised via
+      Consul DNS.  Must match common name in the policy_server.server_cert
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_server.hostname
+  - Default: 5
+    Description: The VXLAN policy agent queries the policy server on this interval
+      in seconds and updates local policy rules.
+    Example: null
+    Examples: null
+    Name: cf_networking.policy_poll_interval_seconds
+  - Default: 44151
+    Description: Port for the debug server. Use this to adjust log level at runtime
+      or dump process stats.
+    Example: null
+    Examples: null
+    Name: cf_networking.vxlan_policy_agent.debug_server_port
+  Templates:
+  - DstPathEnd: config/vxlan-policy-agent.json
+    Path: /mnt/tmp/tar-CmdExtractor263601704/templates/vxlan-policy-agent.json.erb
+    SrcPathEnd: vxlan-policy-agent.json.erb
+  - DstPathEnd: config/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor263601704/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: config/certs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor263601704/templates/client.crt.erb
+    SrcPathEnd: client.crt.erb
+  - DstPathEnd: config/certs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor263601704/templates/client.key.erb
+    SrcPathEnd: client.key.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor263601704/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: bin/vxlan-policy-agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor263601704/templates/vxlan-policy-agent_ctl.erb
+    SrcPathEnd: vxlan-policy-agent_ctl.erb

@@ -1,0 +1,139 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor163986867/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: golang_1.4
+  - Name: cf-cli
+  - Name: acceptance-tests
+  Properties:
+  - Default: false
+    Description: Whether to pass the -v flag to cf-acceptance-tests
+    Example: null
+    Name: acceptance_tests.verbose
+  - Default: null
+    Description: Path to Docker executable
+    Example: null
+    Name: acceptance_tests.docker_executable
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Name: acceptance_tests.skip_ssl_validation
+  - Default: null
+    Description: The Elastic Runtime Appliction Domain
+    Example: null
+    Name: acceptance_tests.apps_domain
+  - Default: null
+    Description: The Elastic Runtime API admin user
+    Example: null
+    Name: acceptance_tests.admin_user
+  - Default: null
+    Description: The Elastic Runtime API admin user's password
+    Example: null
+    Name: acceptance_tests.admin_password
+  - Default: null
+    Description: Docker executable parameters
+    Example: null
+    Name: acceptance_tests.docker_parameters
+  - Default: cloudfoundry/private-docker-app:latest
+    Description: Docker private image
+    Example: null
+    Name: acceptance_tests.docker_private_image
+  - Default: null
+    Description: Docker user for pulling the private image
+    Example: null
+    Name: acceptance_tests.docker_user
+  - Default: null
+    Description: Docker password for pulling the private image
+    Example: null
+    Name: acceptance_tests.docker_password
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Name: acceptance_tests.api
+  - Default: null
+    Description: Docker email, used to pull the private image
+    Example: null
+    Name: acceptance_tests.docker_email
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor163986867/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor163986867/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor075117661/monit
+    SrcPathEnd: monit
+  Name: docker
+  Packages:
+  - Name: docker-1.7.1
+  Properties:
+  - Default: 0.0.0.0:8080
+    Description: Address of interface on which to serve
+    Example: null
+    Name: docker_registry.address
+  Templates:
+  - DstPathEnd: bin/cgroups-mount
+    Path: /mnt/tmp/tar-CmdExtractor075117661/templates/cgroups-mount.sh
+    SrcPathEnd: cgroups-mount.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor075117661/templates/ctl.sh
+    SrcPathEnd: ctl.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor937519767/monit
+    SrcPathEnd: monit
+  Name: docker_registry
+  Packages:
+  - Name: docker-registry-2.0.1
+  Properties:
+  - Default: null
+    Description: Access key for the S3 bucket
+    Example: null
+    Name: docker_registry.storage.s3.accesskey
+  - Default: null
+    Description: Secret key for the S3 bucket
+    Example: null
+    Name: docker_registry.storage.s3.secretkey
+  - Default: null
+    Description: Amazon S3 region
+    Example: null
+    Name: docker_registry.storage.s3.region
+  - Default: false
+    Description: Enable TLS
+    Example: null
+    Name: docker_registry.tls.enabled
+  - Default: null
+    Description: TLS Certificate
+    Example: null
+    Name: docker_registry.tls.certificate
+  - Default: null
+    Description: TLS Key
+    Example: null
+    Name: docker_registry.tls.key
+  - Default: 0.0.0.0:8080
+    Description: Address of interface on which to serve
+    Example: null
+    Name: docker_registry.address
+  - Default: filesystem
+    Description: 'Backend storage for the registry images. Supported values: filesystem,
+      s3'
+    Example: null
+    Name: docker_registry.storage.name
+  - Default: null
+    Description: Amazon S3 bucket name
+    Example: null
+    Name: docker_registry.storage.s3.bucket
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor937519767/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor937519767/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb

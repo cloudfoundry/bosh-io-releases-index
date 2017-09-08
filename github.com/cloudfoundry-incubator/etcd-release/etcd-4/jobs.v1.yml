@@ -1,0 +1,85 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor395857406/monit
+    SrcPathEnd: monit
+  Name: etcd
+  Packages:
+  - Name: etcd-common
+  - Name: etcd
+  Properties:
+  - Default: null
+    Description: Information about etcd cluster
+    Example: null
+    Name: etcd.cluster
+  - Default: null
+    Description: PEM-encoded server key
+    Example: null
+    Name: etcd.server_key
+  - Default: null
+    Description: PEM-encoded peer certificate
+    Example: null
+    Name: etcd.peer_cert
+  - Default: null
+    Description: PEM-encoded peer key
+    Example: null
+    Name: etcd.peer_key
+  - Default: 50
+    Description: Interval between heartbeats in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
+    Example: null
+    Name: etcd.heartbeat_interval_in_milliseconds
+  - Default: null
+    Description: PEM-encoded server certificate
+    Example: null
+    Name: etcd.server_cert
+  - Default: null
+    Description: PEM-encoded peer CA certificate
+    Example: null
+    Name: etcd.peer_ca_cert
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Name: etcd.ca_cert
+  - Default: null
+    Description: Addresses of etcd machines
+    Example: null
+    Name: etcd.machines
+  - Default: 30
+    Description: Time to wait for a joining node to finish syncing logs with the existing
+      cluster in seconds
+    Example: null
+    Name: etcd.log_sync_timeout_in_seconds
+  - Default: false
+    Description: enable ssl for all communication with etcd
+    Example: null
+    Name: etcd.require_ssl
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Name: etcd.client_cert
+  - Default: 1000
+    Description: Time without recieving a heartbeat before peer should attempt to
+      become leader in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
+    Example: null
+    Name: etcd.election_timeout_in_milliseconds
+  - Default: false
+    Description: enable ssl between etcd peers
+    Example: null
+    Name: etcd.peer_require_ssl
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Name: etcd.client_key
+  Templates:
+  - DstPathEnd: bin/etcd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor395857406/templates/etcd_ctl.erb
+    SrcPathEnd: etcd_ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor395857406/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor395857406/templates/drain
+    SrcPathEnd: drain
+  - DstPathEnd: bin/etcd_bosh_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor395857406/templates/etcd_bosh_utils.sh.erb
+    SrcPathEnd: etcd_bosh_utils.sh.erb

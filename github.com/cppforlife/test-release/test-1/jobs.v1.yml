@@ -1,0 +1,237 @@
+- Description: This job does not do anything except run a drain script.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor024924771/monit
+    SrcPathEnd: monit
+  Name: drain
+  Packages: null
+  Properties:
+  - Default: stderr
+    Description: Content to send to stderr
+    Example: null
+    Examples: null
+    Name: drain.stderr
+  - Default: 0
+    Description: Number of seconds to delay before exiting
+    Example: null
+    Examples: null
+    Name: drain.delay_secs
+  - Default: 0
+    Description: Exit code to return
+    Example: null
+    Examples: null
+    Name: drain.exit_code
+  - Default: stdout
+    Description: Content to send to stdout
+    Example: null
+    Examples: null
+    Name: drain.stdout
+  Templates:
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor024924771/templates/drain.sh
+    SrcPathEnd: drain.sh
+- Description: This job does not do anything except run an errand script.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor668320397/monit
+    SrcPathEnd: monit
+  Name: errand
+  Packages: null
+  Properties:
+  - Default: stdout
+    Description: Content to send to stdout
+    Example: null
+    Examples: null
+    Name: errand.stdout
+  - Default: stderr
+    Description: Content to send to stderr
+    Example: null
+    Examples: null
+    Name: errand.stderr
+  - Default: 0
+    Description: Number of seconds to delay before exiting
+    Example: null
+    Examples: null
+    Name: errand.delay_secs
+  - Default: 0
+    Description: Exit code to return
+    Example: null
+    Examples: null
+    Name: errand.exit_code
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor668320397/templates/run.sh
+    SrcPathEnd: run.sh
+- Description: This job runs an HTTP proxy and uses a link to find its backend.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor478564935/monit
+    SrcPathEnd: monit
+  Name: http_proxy_with_requires
+  Packages:
+  - Name: http_proxy
+  Properties:
+  - Default: 8080
+    Description: Listen port
+    Example: null
+    Examples: null
+    Name: http_proxy_with_requires.listen_port
+  - Default: 8080
+    Description: Backend's port
+    Example: null
+    Examples: null
+    Name: http_proxy_with_requires.backend_port
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor478564935/templates/ctl.sh
+    SrcPathEnd: ctl.sh
+- Description: This job runs a single monitored service (HTTP server) that depends
+    on a package.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor256221201/monit
+    SrcPathEnd: monit
+  Name: http_server
+  Packages:
+  - Name: http_server
+  Properties:
+  - Default: 8080
+    Description: Port to listen on
+    Example: null
+    Examples: null
+    Name: http_server.listen_port
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor256221201/templates/ctl.sh
+    SrcPathEnd: ctl.sh
+- Description: This job runs an HTTP server and with a provides link directive.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor775959659/monit
+    SrcPathEnd: monit
+  Name: http_server_with_provides
+  Packages:
+  - Name: http_server
+  Properties:
+  - Default: 8080
+    Description: Port to listen on
+    Example: null
+    Examples: null
+    Name: http_server_with_provides.listen_port
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor775959659/templates/ctl.sh
+    SrcPathEnd: ctl.sh
+- Description: This job does not do anything except run a pre-start script.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor548966869/monit
+    SrcPathEnd: monit
+  Name: pre_start
+  Packages: null
+  Properties:
+  - Default: stderr
+    Description: Content to send to stderr
+    Example: null
+    Examples: null
+    Name: pre_start.stderr
+  - Default: 0
+    Description: Number of seconds to delay before exiting
+    Example: null
+    Examples: null
+    Name: pre_start.delay_secs
+  - Default: 0
+    Description: Exit code to return
+    Example: null
+    Examples: null
+    Name: pre_start.exit_code
+  - Default: stdout
+    Description: Content to send to stdout
+    Example: null
+    Examples: null
+    Name: pre_start.stdout
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor548966869/templates/pre_start.sh
+    SrcPathEnd: pre_start.sh
+- Description: This job runs pre-start, monitored service and drain without any packages.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor059650255/monit
+    SrcPathEnd: monit
+  Name: service
+  Packages: null
+  Properties:
+  - Default: 0
+    Description: Drain script specific status code
+    Example: null
+    Examples: null
+    Name: service.drain.echoed_status
+  - Default: true
+    Description: Whether monitored service should start successfully
+    Example: null
+    Examples: null
+    Name: service.start.success
+  - Default: 0
+    Description: Number of seconds to delay before stopping service
+    Example: null
+    Examples: null
+    Name: service.stop.delay_secs
+  - Default: true
+    Description: Whether monitored service should stop successfully
+    Example: null
+    Examples: null
+    Name: service.stop.success
+  - Default: 0
+    Description: Number of seconds to delay before exiting
+    Example: null
+    Examples: null
+    Name: service.pre_start.delay_secs
+  - Default: stderr
+    Description: Content to send to stderr
+    Example: null
+    Examples: null
+    Name: service.pre_start.stderr
+  - Default: 0
+    Description: Exit code to return
+    Example: null
+    Examples: null
+    Name: service.pre_start.exit_code
+  - Default: stderr
+    Description: Content to send to stderr
+    Example: null
+    Examples: null
+    Name: service.drain.stderr
+  - Default: 0
+    Description: Number of seconds to delay before exiting
+    Example: null
+    Examples: null
+    Name: service.drain.delay_secs
+  - Default: 0
+    Description: Exit code to return
+    Example: null
+    Examples: null
+    Name: service.drain.exit_code
+  - Default: 0
+    Description: Number of seconds to delay before starting service
+    Example: null
+    Examples: null
+    Name: service.start.delay_secs
+  - Default: stdout
+    Description: Content to send to stdout
+    Example: null
+    Examples: null
+    Name: service.pre_start.stdout
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor059650255/templates/pre_start.sh
+    SrcPathEnd: pre_start.sh
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor059650255/templates/drain.sh
+    SrcPathEnd: drain.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor059650255/templates/ctl.sh
+    SrcPathEnd: ctl.sh
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor059650255/templates/config.json
+    SrcPathEnd: config.json

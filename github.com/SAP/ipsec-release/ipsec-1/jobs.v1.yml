@@ -1,0 +1,125 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor663035056/monit
+    SrcPathEnd: monit
+  Name: racoon
+  Packages:
+  - Name: racoon
+  Properties:
+  - Default: false
+    Description: Disable ipsec globally
+    Example: null
+    Examples: null
+    Name: racoon.disabled
+  - Default: aes
+    Description: |
+      Specifies the encryption algorithm used for the phase 1 negotiation. Possible values are des, 3des, blowfish, cast128, aes, or camellia
+    Example: null
+    Examples: null
+    Name: racoon.phase1_encryption
+  - Default: hmac_sha256
+    Description: |
+      Authentication algorithm for phase 2 authentication. Possible values are des, 3des, des_iv64, des_iv32, hmac_md5, hmac_sha1, hmac_sha256, hmac_sha384, hmac_sha512, non_auth
+    Example: null
+    Examples: null
+    Name: racoon.phase2_authentication_algorithm
+  - Default: "2"
+    Description: Perfect-Forward-Secrecy group (see racoon documentation)
+    Example: null
+    Examples: null
+    Name: racoon.pfs_group
+  - Default: require
+    Description: Means to turn ipsed on and off without causing a downtime (see README.md
+      file)
+    Example: null
+    Examples: null
+    Name: racoon.level
+  - Default: true
+    Description: on or off
+    Example: null
+    Examples: null
+    Name: racoon.verify_certificate
+  - Default: null
+    Description: |
+      Array of IP addresses participating in IPSEC transport mode. See  README.md file for further information
+    Example: null
+    Examples: null
+    Name: racoon.ports
+  - Default: info
+    Description: Log level for racoon. Possible values are warning, notify, info,
+      debug or debug2
+    Example: null
+    Examples: null
+    Name: racoon.racoon_log_level
+  - Default: sha256
+    Description: "Defines the hash algorithm used for phase 1 negotiation. Possible
+      values are md5, sha1, sha256, sha384, or sha512 \n"
+    Example: null
+    Examples: null
+    Name: racoon.phase1_hash_algorithm
+  - Default: "2"
+    Description: Diffie-Hellman group
+    Example: null
+    Examples: null
+    Name: racoon.dh_group
+  - Default: 2 hours
+    Description: lifetime which will be proposed in phase 1 negotiation
+    Example: null
+    Examples: null
+    Name: racoon.outer_lifetime
+  - Default: ""
+    Description: certificate of ca
+    Example: null
+    Examples: null
+    Name: racoon.certificate_authority_cert
+  - Default: aes
+    Description: |
+      Defines the encryption algorithm used for phase 2. Possible values are des, 3des, des_iv64, des_iv32, rc5, rc4, idea, 3idea, cast128, blowfish, null_enc, twofish, rijndael, aes, camellia
+    Example: null
+    Examples: null
+    Name: racoon.phase2_encryption
+  - Default: ""
+    Description: private key of ca
+    Example: null
+    Examples: null
+    Name: racoon.certificate_authority_private_key
+  - Default: 1 hour
+    Description: lifetime which will be proposed in phase 1 SA proposal
+    Example: null
+    Examples: null
+    Name: racoon.inner_lifetime
+  Templates:
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: etc/setkey.conf
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/etc/setkey.conf.erb
+    SrcPathEnd: etc/setkey.conf.erb
+  - DstPathEnd: etc/racoon/certs/ca_pkey.pem
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/etc/racoon/certs/ca_pkey.pem.erb
+    SrcPathEnd: etc/racoon/certs/ca_pkey.pem.erb
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: bin/racoon_ctl
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/bin/racoon_ctl.erb
+    SrcPathEnd: bin/racoon_ctl.erb
+  - DstPathEnd: etc/racoon/racoon.conf
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/etc/racoon/racoon.conf.erb
+    SrcPathEnd: etc/racoon/racoon.conf.erb
+  - DstPathEnd: etc/racoon/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/etc/racoon/certs/ca.crt.erb
+    SrcPathEnd: etc/racoon/certs/ca.crt.erb
+  - DstPathEnd: etc/racoon/certs/openssl-exts.conf
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/etc/racoon/certs/openssl-exts.conf.erb
+    SrcPathEnd: etc/racoon/certs/openssl-exts.conf.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor663035056/templates/bin/pre-start
+    SrcPathEnd: bin/pre-start

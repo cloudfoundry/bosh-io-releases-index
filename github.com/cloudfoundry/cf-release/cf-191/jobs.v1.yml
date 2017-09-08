@@ -1,0 +1,4422 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor327278372/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: golang1.3
+  - Name: cli
+  - Name: acceptance-tests
+  Properties:
+  - Default: null
+    Description: The Elastic Runtime API admin user
+    Example: null
+    Name: acceptance_tests.admin_user
+  - Default: 2
+    Description: The number of parallel test executors to spawn. The larger the number
+      the higher the stress on the system.
+    Example: null
+    Name: acceptance_tests.nodes
+  - Default: false
+    Description: Flag to run the 'diego' test package.
+    Example: null
+    Name: acceptance_tests.diego
+  - Default: false
+    Description: Flag to include the services tests that integrate with SSO.
+    Example: null
+    Name: acceptance_tests.include_sso
+  - Default: false
+    Description: Whether to pass the -v flag to cf-acceptance-tests
+    Example: null
+    Name: acceptance_tests.verbose
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Name: acceptance_tests.api
+  - Default: null
+    Description: The Elastic Runtime Appliction Domain
+    Example: null
+    Name: acceptance_tests.apps_domain
+  - Default: null
+    Description: The Elastic Runtime API admin user's password
+    Example: null
+    Name: acceptance_tests.admin_password
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Name: acceptance_tests.skip_ssl_validation
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor327278372/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor327278372/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor567847926/monit
+    SrcPathEnd: monit
+  Name: cloud_controller_clock
+  Packages:
+  - Name: common
+  - Name: cloud_controller_ng
+  - Name: nginx
+  - Name: nginx_newrelic_plugin
+  - Name: libpq
+  - Name: mysqlclient
+  - Name: sqlite
+  - Name: ruby-2.1.3
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.model_deletion.timeout_in_seconds
+  - Default: ""
+    Description: URI for a CDN to used for app package downloads
+    Example: null
+    Name: cc.packages.cdn.uri
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.url
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.resource_pool.fog_connection
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.packages.cdn.key_pair_id
+  - Default: "2"
+    Description: ""
+    Example: null
+    Name: version
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Name: nfs_server.address
+  - Default: default
+    Description: Deprecated. Defines a 'partition' for the health_manager job
+    Example: null
+    Name: cc.cc_partition
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_password
+  - Default: null
+    Description: The default staging security groups that will be seeded in CloudController.
+    Example: null
+    Name: cc.default_staging_security_groups
+  - Default: vcap
+    Description: ""
+    Example: null
+    Name: name
+  - Default: "2222"
+    Description: ""
+    Example: null
+    Name: build
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Name: cc.external_port
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.address
+  - Default: 3456
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.port
+  - Default: "off"
+    Description: 'NewRelic''s SQL statement recording mode: [off | obfuscated | raw]'
+    Example: null
+    Name: cc.newrelic.transaction_tracer.record_sql
+  - Default: Cloud Foundry sponsored by Pivotal
+    Description: ""
+    Example: null
+    Name: description
+  - Default: /var/lib/nfs/rpc_pipefs
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Name: nfs_server.pipefs_directory
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.blobstore_delete.timeout_in_seconds
+  - Default: 31
+    Description: How old an app usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Name: cc.app_usage_events.cutoff_age_in_days
+  - Default: 1024
+    Description: How much memory given to an app if not specified
+    Example: null
+    Name: cc.default_app_memory
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_events_cleanup.timeout_in_seconds
+  - Default: default
+    Description: Local to use a local (NFS) file system.  AWS to use AWS.
+    Example: null
+    Name: cc.default_quota_definition
+  - Default: false
+    Description: Enable development features for monitoring and insight
+    Example: null
+    Name: cc.development_mode
+  - Default: cc-resources
+    Description: Directory (bucket) used store app resources.  It does not have be
+      pre-created.
+    Example: null
+    Name: cc.resource_pool.resource_directory_key
+  - Default: postgres
+    Description: ""
+    Example: null
+    Name: ccdb.db_scheme
+  - Default: false
+    Description: specifies that the job is allowed to skip ssl cert verification
+    Example: null
+    Name: ssl.skip_cert_verify
+  - Default: cloud_controller,cloud_controller_service_permissions
+    Description: Name of service to register to UAA
+    Example: null
+    Name: cc.uaa_resource_id
+  - Default:
+    - description: Ubuntu 10.04
+      name: lucid64
+    Description: Tag used by the DEA to describe capabilities (i.e. 'Windows7', 'python-linux').
+      DEA and CC must agree.
+    Example: null
+    Name: cc.stacks
+  - Default: Local
+    Description: Local fog provider (should always be 'Local'), used if fog_connection
+      hash is not provided in the manifest
+    Example: null
+    Name: cc.default_fog_connection.provider
+  - Default: 536870912
+    Description: Maximum size of a resource to add to the pool
+    Example: null
+    Name: cc.resource_pool.maximum_size
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_usage_events_cleanup.timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.blobstore_upload.timeout_in_seconds
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.resource_pool.cdn.private_key
+  - Default: 3
+    Description: The threshold of crashes after which the app is marked as flapping
+    Example: null
+    Name: cc.flapping_crash_count_threshold
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: Used to grant scope for SSO clients for service brokers
+    Example: null
+    Name: uaa.clients.cc-service-dashboards.scope
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: free form description for attribute in the /info endpoint
+    Example: null
+    Name: cc.info.description
+  - Default: false
+    Description: Disable external (i.e. git) buildpacks? (Admin buildpacks and system
+      buildpacks only.)
+    Example: null
+    Name: cc.disable_custom_buildpacks
+  - Default: /var/vcap/data/cloud_controller_ng/tmp
+    Description: The directory to use for temporary files
+    Example: null
+    Name: cc.directories.tmpdir
+  - Default: disabled
+    Description: 'Diego running support: ''disabled'', ''optional'', or ''required'''
+    Example: null
+    Name: cc.diego.running
+  - Default: false
+    Description: Capture and send query params to NewRelic
+    Example: null
+    Name: cc.newrelic.capture_params
+  - Default: http://support.cloudfoundry.com
+    Description: ""
+    Example: null
+    Name: support_address
+  - Default: cc-droplets
+    Description: Directory (bucket) used store droplets.  It does not have be pre-created.
+    Example: null
+    Name: cc.droplets.droplet_directory_key
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.buildpacks.cdn.key_pair_id
+  - Default: 25
+    Description: Maximum connections for Sequel
+    Example: null
+    Name: ccdb.max_connections
+  - Default: 31
+    Description: How old a failed job should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.failed_jobs.cutoff_age_in_days
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.packages.cdn.private_key
+  - Default: 443
+    Description: Port for logger endpoint listed at /v2/info
+    Example: null
+    Name: logger_endpoint.port
+  - Default: null
+    Description: Array of security groups that will be seeded into CloudController.
+    Example: null
+    Name: cc.security_group_definitions
+  - Default: 2250
+    Description: The cc will alert if memory remains above this threshold for 3 monit
+      cycles
+    Example: null
+    Name: cc.thresholds.api.alert_if_above_mb
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Name: system_domain
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_bits_packer.timeout_in_seconds
+  - Default: false
+    Description: when true, uaa uses http, otherwise it uses https
+    Example: null
+    Name: uaa.no_ssl
+  - Default: 1200
+    Description: Extra token expiry time while uploading big apps.
+    Example: null
+    Name: cc.app_bits_upload_grace_period_in_seconds
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: ""
+    Description: The User Org that owns the system_domain, required if system_domain
+      is defined
+    Example: null
+    Name: system_domain_organization
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.droplets.cdn.key_pair_id
+  - Default: null
+    Description: URL for the support attribute in the /info endpoint
+    Example: null
+    Name: cc.info.support_address
+  - Default: null
+    Description: Password used by Diego to access internal endpoints
+    Example: null
+    Name: cc.internal_api_password
+  - Default: 10
+    Description: ""
+    Example: null
+    Name: ccdb.pool_timeout
+  - Default: 1024
+    Description: The default disk space an app gets
+    Example: null
+    Name: cc.default_app_disk_in_mb
+  - Default: 60
+    Description: For requests to service brokers, this is the HTTP (open and read)
+      timeout setting.
+    Example: null
+    Name: cc.broker_client_timeout_seconds
+  - Default: ""
+    Description: S3 Access key for staging droplets on AWS installs; Blobstore user
+      for other IaaSs
+    Example: null
+    Name: cc.staging_upload_user
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.packages.fog_connection
+  - Default: 2250
+    Description: The cc will restart if memory remains above this threshold for 15
+      monit cycles
+    Example: null
+    Name: cc.thresholds.api.restart_if_consistently_above_mb
+  - Default: 14400
+    Description: The longest any job can take before it is cancelled unless overriden
+      per job
+    Example: null
+    Name: cc.jobs.global.timeout_in_seconds
+  - Default: true
+    Description: If true, billing events are written to the CCDB.
+    Example: null
+    Name: cc.billing_event_writing_enabled
+  - Default: 900
+    Description: Timeout for staging a droplet
+    Example: null
+    Name: cc.staging_timeout_in_seconds
+  - Default: 5
+    Description: Maximum connections for ActiveRecord
+    Example: null
+    Name: ccdb.max_ar_connections
+  - Default: 100
+    Description: Maximum number of results returned per page
+    Example: null
+    Name: cc.renderer.max_results_per_page
+  - Default: disabled
+    Description: 'Diego staging support: ''disabled'', ''optional'', or ''required'''
+    Example: null
+    Name: cc.diego.staging
+  - Default: null
+    Description: build attribute in the /info endpoint
+    Example: null
+    Name: cc.info.build
+  - Default: null
+    Description: version attribute in the /info endpoint
+    Example: null
+    Name: cc.info.version
+  - Default: ""
+    Description: ssl cert defined in the manifest by the UAA, required by the cc to
+      communicate with UAA
+    Example: null
+    Name: uaa.jwt.verification_key
+  - Default: true
+    Description: Whether to use ssl for logger endpoint listed at /v2/info
+    Example: null
+    Name: logger_endpoint.use_ssl
+  - Default: 2048
+    Description: The maximum amount of disk a user can request
+    Example: null
+    Name: cc.maximum_app_disk_in_mb
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: internal_user
+    Description: User name used by Diego to access internal endpoints
+    Example: null
+    Name: cc.internal_api_user
+  - Default: ""
+    Description: S3 Secure Access Key for staging droplets on AWS installs; Blobstore
+      password for other IaaSs
+    Example: null
+    Name: cc.staging_upload_password
+  - Default: 65536
+    Description: Minimum size of a resource to add to the pool
+    Example: null
+    Name: cc.resource_pool.minimum_size
+  - Default: null
+    Description: Used for generating SSO clients for service brokers.
+    Example: null
+    Name: uaa.clients.cc-service-dashboards.secret
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: ""
+    Description: URI for a CDN to used for resource pool downloads
+    Example: null
+    Name: cc.resource_pool.cdn.uri
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.host
+  - Default: debug2
+    Description: Log level for cc
+    Example: null
+    Name: cc.logging_level
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.droplets.fog_connection
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.port
+  - Default: ""
+    Description: key for encrypting sensitive values in the CC database
+    Example: null
+    Name: cc.db_encryption_key
+  - Default: false
+    Description: Activate NewRelic developer mode
+    Example: null
+    Name: cc.newrelic.developer_mode
+  - Default: ""
+    Description: URI for a CDN to used for droplet downloads
+    Example: null
+    Name: cc.droplets.cdn.uri
+  - Default: cc-buildpacks
+    Description: Directory (bucket) used store buildpacks.  It does not have be pre-created.
+    Example: null
+    Name: cc.buildpacks.buildpack_directory_key
+  - Default: null
+    Description: (DEPRECATED) - Used for generating SSO clients for service brokers.
+    Example: null
+    Name: uaa.clients.cc_service_broker_client.secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.roles
+  - Default: 1536M
+    Description: Maximum body size for nginx
+    Example: null
+    Name: cc.client_max_body_size
+  - Default: development
+    Description: The environment name used by NewRelic
+    Example: null
+    Name: cc.newrelic.environment_name
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: 300
+    Description: Timeout for requests in seconds.
+    Example: null
+    Name: request_timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.droplet_deletion.timeout_in_seconds
+  - Default: /var/vcap/nfs/shared
+    Description: Local root when fog provider is not overridden (should be an NFS
+      mount if using more than one cloud controller)
+    Example: null
+    Name: cc.default_fog_connection.local_root
+  - Default: cc-packages
+    Description: Directory (bucket) used store app packages.  It does not have be
+      pre-created.
+    Example: null
+    Name: cc.packages.app_package_directory_key
+  - Default: null
+    Description: 'Array of domains for user apps (example: ''user.app.space.foo'',
+      a user app called ''neat'' will listen at ''http://neat.user.app.space.foo'')'
+    Example: null
+    Name: app_domains
+  - Default: 31
+    Description: How old an app event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.app_events.cutoff_age_in_days
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_user
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.resource_pool.cdn.key_pair_id
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.databases
+  - Default: null
+    Description: Set of buildpacks to install during deploy
+    Example: null
+    Name: cc.install_buildpacks
+  - Default: 31
+    Description: How old an audit event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.audit_events.cutoff_age_in_days
+  - Default: 1073741824
+    Description: Maximum size of application package
+    Example: null
+    Name: cc.packages.max_package_size
+  - Default: 4096
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: 2
+    Description: Maximum depth of inlined relationships in the result
+    Example: null
+    Name: cc.renderer.max_inline_relations_depth
+  - Default: /var/vcap/sys/log/cloud_controller_ng/newrelic
+    Description: The location for NewRelic to log to
+    Example: null
+    Name: cc.newrelic.log_file_path
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.cc.token_secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: login.url
+  - Default: false
+    Description: Activate NewRelic monitor mode
+    Example: null
+    Name: cc.newrelic.monitor_mode
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Name: nfs_server.share
+  - Default: http
+    Description: The protocol used to access the CC API from an external entity
+    Example: null
+    Name: cc.external_protocol
+  - Default: 1
+    Description: Passthru value for Steno logger
+    Example: null
+    Name: cc.logging_max_retries
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.buildpacks.fog_connection
+  - Default: ""
+    Description: URI for a CDN to used for buildpack downloads
+    Example: null
+    Name: cc.buildpacks.cdn.uri
+  - Default: null
+    Description: The default running security groups that will be seeded in CloudController.
+    Example: null
+    Name: cc.default_running_security_groups
+  - Default: 2450
+    Description: The cc will restart if memory remains above this threshold for 3
+      monit cycles
+    Example: null
+    Name: cc.thresholds.api.restart_if_above_mb
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.droplets.cdn.private_key
+  - Default: true
+    Description: whether use login as the authorization endpoint or not
+    Example: null
+    Name: login.enabled
+  - Default: null
+    Description: The key used to sign log messages
+    Example: null
+    Name: metron_endpoint.shared_secret
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: domain where cloud_controller will listen (api.domain) often the
+      same as the system domain
+    Example: null
+    Name: domain
+  - Default: null
+    Description: name attribute in the /info endpoint
+    Example: null
+    Name: cc.info.name
+  - Default: api
+    Description: Host part of the cloud_controller api URI, will be joined with value
+      of 'domain'
+    Example: null
+    Name: cc.external_host
+  - Default: 180
+    Description: Maximum health check timeout that can be set for the app
+    Example: null
+    Name: cc.maximum_health_check_timeout
+  - Default: 50
+    Description: Default number of results returned per page if user does not specify
+    Example: null
+    Name: cc.renderer.default_results_per_page
+  - Default: null
+    Description: bool to use NFS4 (not used in an AWS deploy, use s3 instead)
+    Example: null
+    Name: nfs_server.nfsv4
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Name: nfs_server.idmapd_domain
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.droplet_upload.timeout_in_seconds
+  - Default: debug2
+    Description: Log level for cc database operations
+    Example: null
+    Name: cc.db_logging_level
+  - Default: false
+    Description: Enable diego docker support
+    Example: null
+    Name: cc.diego_docker
+  - Default: null
+    Description: TODO
+    Example: null
+    Name: networks.apps
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.buildpacks.cdn.private_key
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: (DEPRECATED) - Used to grant scope for SSO clients for service brokers
+    Example: null
+    Name: uaa.clients.cc_service_broker_client.scope
+  - Default: null
+    Description: Custom values for /v2/info endpoint
+    Example: null
+    Name: cc.info.custom
+  - Default: null
+    Description: Hash of default quota definitions. Overriden by custom quota definitions.
+    Example: null
+    Name: cc.quota_definitions
+  - Default: null
+    Description: The api key for NewRelic
+    Example: null
+    Name: cc.newrelic.license_key
+  - Default: false
+    Description: Enable transaction tracing in NewRelic
+    Example: null
+    Name: cc.newrelic.transaction_tracer.enabled
+  Templates:
+  - DstPathEnd: config/cloud_controller_ng.yml
+    Path: /mnt/tmp/tar-CmdExtractor567847926/templates/cloud_controller_clock.yml.erb
+    SrcPathEnd: cloud_controller_clock.yml.erb
+  - DstPathEnd: bin/cloud_controller_clock_ctl
+    Path: /mnt/tmp/tar-CmdExtractor567847926/templates/cloud_controller_clock_ctl.erb
+    SrcPathEnd: cloud_controller_clock_ctl.erb
+  - DstPathEnd: config/newrelic.yml
+    Path: /mnt/tmp/tar-CmdExtractor567847926/templates/newrelic.yml.erb
+    SrcPathEnd: newrelic.yml.erb
+  - DstPathEnd: config/stacks.yml
+    Path: /mnt/tmp/tar-CmdExtractor567847926/templates/stacks.yml.erb
+    SrcPathEnd: stacks.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor589473432/monit
+    SrcPathEnd: monit
+  Name: cloud_controller_ng
+  Packages:
+  - Name: common
+  - Name: cloud_controller_ng
+  - Name: nginx
+  - Name: nginx_newrelic_plugin
+  - Name: libpq
+  - Name: mysqlclient
+  - Name: sqlite
+  - Name: ruby-2.1.3
+  - Name: syslog_aggregator
+  - Name: buildpack_java
+  - Name: buildpack_java_offline
+  - Name: buildpack_ruby
+  - Name: buildpack_nodejs
+  - Name: buildpack_go
+  - Name: buildpack_python
+  - Name: buildpack_php
+  Properties:
+  - Default: ""
+    Description: key for encrypting sensitive values in the CC database
+    Example: null
+    Name: cc.db_encryption_key
+  - Default: false
+    Description: Activate NewRelic developer mode
+    Example: null
+    Name: cc.newrelic.developer_mode
+  - Default: false
+    Description: specifies that the job is allowed to skip ssl cert verification
+    Example: null
+    Name: ssl.skip_cert_verify
+  - Default: http
+    Description: The protocol used to access the CC API from an external entity
+    Example: null
+    Name: cc.external_protocol
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.buildpacks.fog_connection
+  - Default: Cloud Foundry sponsored by Pivotal
+    Description: ""
+    Example: null
+    Name: description
+  - Default: null
+    Description: 'Array of domains for user apps (example: ''user.app.space.foo'',
+      a user app called ''neat'' will listen at ''http://neat.user.app.space.foo'')'
+    Example: null
+    Name: app_domains
+  - Default: ""
+    Description: URI for a CDN to used for droplet downloads
+    Example: null
+    Name: cc.droplets.cdn.uri
+  - Default: 3
+    Description: The threshold of crashes after which the app is marked as flapping
+    Example: null
+    Name: cc.flapping_crash_count_threshold
+  - Default: true
+    Description: If true, billing events are written to the CCDB.
+    Example: null
+    Name: cc.billing_event_writing_enabled
+  - Default: /var/vcap/data/cloud_controller_ng/tmp
+    Description: The directory to use for temporary files
+    Example: null
+    Name: cc.directories.tmpdir
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.droplets.fog_connection
+  - Default: false
+    Description: Enable diego docker support
+    Example: null
+    Name: cc.diego_docker
+  - Default: null
+    Description: Advertise interval for DEAs
+    Example: null
+    Name: dea_next.advertise_interval_in_seconds
+  - Default: debug2
+    Description: Log level for cc
+    Example: null
+    Name: cc.logging_level
+  - Default: cc-resources
+    Description: Directory (bucket) used store app resources.  It does not have be
+      pre-created.
+    Example: null
+    Name: cc.resource_pool.resource_directory_key
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.packages.cdn.private_key
+  - Default: 4096
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Name: nfs_server.address
+  - Default: 300
+    Description: Timeout for requests in seconds.
+    Example: null
+    Name: request_timeout_in_seconds
+  - Default: postgres
+    Description: ""
+    Example: null
+    Name: ccdb.db_scheme
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_events_cleanup.timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.droplet_upload.timeout_in_seconds
+  - Default: 2250
+    Description: The cc will restart if memory remains above this threshold for 15
+      monit cycles
+    Example: null
+    Name: cc.thresholds.api.restart_if_consistently_above_mb
+  - Default: null
+    Description: Custom message to use for a disabled feature.
+    Example: null
+    Name: cc.feature_disabled_message
+  - Default: "2"
+    Description: ""
+    Example: null
+    Name: version
+  - Default: null
+    Description: name attribute in the /info endpoint
+    Example: null
+    Name: cc.info.name
+  - Default: disabled
+    Description: 'Diego running support: ''disabled'', ''optional'', or ''required'''
+    Example: null
+    Name: cc.diego.running
+  - Default: 50
+    Description: Default number of results returned per page if user does not specify
+    Example: null
+    Name: cc.renderer.default_results_per_page
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.cc.token_secret
+  - Default: null
+    Description: The api key for NewRelic
+    Example: null
+    Name: cc.newrelic.license_key
+  - Default: /var/vcap/sys/log/cloud_controller_ng/newrelic
+    Description: The location for NewRelic to log to
+    Example: null
+    Name: cc.newrelic.log_file_path
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.resource_pool.cdn.private_key
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.databases
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.address
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: vcap
+    Description: ""
+    Example: null
+    Name: name
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Name: nfs_server.share
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.blobstore_delete.timeout_in_seconds
+  - Default: 100
+    Description: Maximum number of results returned per page
+    Example: null
+    Name: cc.renderer.max_results_per_page
+  - Default: null
+    Description: bool to use NFS4 (not used in an AWS deploy, use s3 instead)
+    Example: null
+    Name: nfs_server.nfsv4
+  - Default: disabled
+    Description: 'Diego staging support: ''disabled'', ''optional'', or ''required'''
+    Example: null
+    Name: cc.diego.staging
+  - Default: false
+    Description: Activate NewRelic monitor mode
+    Example: null
+    Name: cc.newrelic.monitor_mode
+  - Default: true
+    Description: whether use login as the authorization endpoint or not
+    Example: null
+    Name: login.enabled
+  - Default: 2
+    Description: Number of local cloud_controller_worker workers
+    Example: null
+    Name: cc.jobs.local.number_of_workers
+  - Default: 31
+    Description: How old an app event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.app_events.cutoff_age_in_days
+  - Default: Local
+    Description: Local fog provider (should always be 'Local'), used if fog_connection
+      hash is not provided in the manifest
+    Example: null
+    Name: cc.default_fog_connection.provider
+  - Default: 25
+    Description: Maximum connections for Sequel
+    Example: null
+    Name: ccdb.max_connections
+  - Default: 60
+    Description: For requests to service brokers, this is the HTTP (open and read)
+      timeout setting.
+    Example: null
+    Name: cc.broker_client_timeout_seconds
+  - Default: null
+    Description: free form description for attribute in the /info endpoint
+    Example: null
+    Name: cc.info.description
+  - Default: 180
+    Description: Maximum health check timeout that can be set for the app
+    Example: null
+    Name: cc.maximum_health_check_timeout
+  - Default: ""
+    Description: S3 Access key for staging droplets on AWS installs; Blobstore user
+      for other IaaSs
+    Example: null
+    Name: cc.staging_upload_user
+  - Default: 536870912
+    Description: Maximum size of a resource to add to the pool
+    Example: null
+    Name: cc.resource_pool.maximum_size
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: (DEPRECATED) - Used to grant scope for SSO clients for service brokers
+    Example: null
+    Name: uaa.clients.cc_service_broker_client.scope
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: cloud_controller,cloud_controller_service_permissions
+    Description: Name of service to register to UAA
+    Example: null
+    Name: cc.uaa_resource_id
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.resource_pool.cdn.key_pair_id
+  - Default: false
+    Description: when true, uaa uses http, otherwise it uses https
+    Example: null
+    Name: uaa.no_ssl
+  - Default: 2450
+    Description: The cc will restart if memory remains above this threshold for 3
+      monit cycles
+    Example: null
+    Name: cc.thresholds.api.restart_if_above_mb
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Name: system_domain
+  - Default: 31
+    Description: How old a failed job should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.failed_jobs.cutoff_age_in_days
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Name: cc.external_port
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_password
+  - Default: false
+    Description: Capture and send query params to NewRelic
+    Example: null
+    Name: cc.newrelic.capture_params
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.buildpacks.cdn.key_pair_id
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.roles
+  - Default: null
+    Description: Array of security groups that will be seeded into CloudController.
+    Example: null
+    Name: cc.security_group_definitions
+  - Default: ""
+    Description: The User Org that owns the system_domain, required if system_domain
+      is defined
+    Example: null
+    Name: system_domain_organization
+  - Default: null
+    Description: Custom values for /v2/info endpoint
+    Example: null
+    Name: cc.info.custom
+  - Default: 443
+    Description: Port for logger endpoint listed at /v2/info
+    Example: null
+    Name: logger_endpoint.port
+  - Default: cc-packages
+    Description: Directory (bucket) used store app packages.  It does not have be
+      pre-created.
+    Example: null
+    Name: cc.packages.app_package_directory_key
+  - Default: false
+    Description: Enable transaction tracing in NewRelic
+    Example: null
+    Name: cc.newrelic.transaction_tracer.enabled
+  - Default: null
+    Description: (DEPRECATED) - Used for generating SSO clients for service brokers.
+    Example: null
+    Name: uaa.clients.cc_service_broker_client.secret
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: /var/lib/nfs/rpc_pipefs
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Name: nfs_server.pipefs_directory
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_bits_packer.timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.model_deletion.timeout_in_seconds
+  - Default: true
+    Description: Whether to use ssl for logger endpoint listed at /v2/info
+    Example: null
+    Name: logger_endpoint.use_ssl
+  - Default: null
+    Description: The default staging security groups that will be seeded in CloudController.
+    Example: null
+    Name: cc.default_staging_security_groups
+  - Default: cc-droplets
+    Description: Directory (bucket) used store droplets.  It does not have be pre-created.
+    Example: null
+    Name: cc.droplets.droplet_directory_key
+  - Default: development
+    Description: The environment name used by NewRelic
+    Example: null
+    Name: cc.newrelic.environment_name
+  - Default: 2
+    Description: Maximum depth of inlined relationships in the result
+    Example: null
+    Name: cc.renderer.max_inline_relations_depth
+  - Default: 14400
+    Description: The longest any job can take before it is cancelled unless overriden
+      per job
+    Example: null
+    Name: cc.jobs.global.timeout_in_seconds
+  - Default: null
+    Description: Hash of default quota definitions. Overriden by custom quota definitions.
+    Example: null
+    Name: cc.quota_definitions
+  - Default: default
+    Description: Local to use a local (NFS) file system.  AWS to use AWS.
+    Example: null
+    Name: cc.default_quota_definition
+  - Default: null
+    Description: URL for the support attribute in the /info endpoint
+    Example: null
+    Name: cc.info.support_address
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.resource_pool.fog_connection
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.packages.cdn.key_pair_id
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.droplets.cdn.private_key
+  - Default: 1536M
+    Description: Maximum body size for nginx
+    Example: null
+    Name: cc.client_max_body_size
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Name: nfs_server.idmapd_domain
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.droplet_deletion.timeout_in_seconds
+  - Default: false
+    Description: Enable development features for monitoring and insight
+    Example: null
+    Name: cc.development_mode
+  - Default: 2250
+    Description: The cc will alert if memory remains above this threshold for 3 monit
+      cycles
+    Example: null
+    Name: cc.thresholds.api.alert_if_above_mb
+  - Default: null
+    Description: Set of buildpacks to install during deploy
+    Example: null
+    Name: cc.install_buildpacks
+  - Default: 65536
+    Description: Minimum size of a resource to add to the pool
+    Example: null
+    Name: cc.resource_pool.minimum_size
+  - Default: ""
+    Description: URI for a CDN to used for resource pool downloads
+    Example: null
+    Name: cc.resource_pool.cdn.uri
+  - Default: null
+    Description: Used for generating SSO clients for service brokers.
+    Example: null
+    Name: uaa.clients.cc-service-dashboards.secret
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_usage_events_cleanup.timeout_in_seconds
+  - Default: ""
+    Description: URI for a CDN to used for buildpack downloads
+    Example: null
+    Name: cc.buildpacks.cdn.uri
+  - Default: 1200
+    Description: Extra token expiry time while uploading big apps.
+    Example: null
+    Name: cc.app_bits_upload_grace_period_in_seconds
+  - Default: 31
+    Description: How old an app usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Name: cc.app_usage_events.cutoff_age_in_days
+  - Default: /var/vcap/data/cloud_controller_ng/diagnostics
+    Description: The directory where operator requested diagnostic files should be
+      placed
+    Example: null
+    Name: cc.directories.diagnostics
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.droplets.cdn.key_pair_id
+  - Default: http://support.cloudfoundry.com
+    Description: ""
+    Example: null
+    Name: support_address
+  - Default: 1
+    Description: Passthru value for Steno logger
+    Example: null
+    Name: cc.logging_max_retries
+  - Default: "off"
+    Description: 'NewRelic''s SQL statement recording mode: [off | obfuscated | raw]'
+    Example: null
+    Name: cc.newrelic.transaction_tracer.record_sql
+  - Default: debug2
+    Description: Log level for cc database operations
+    Example: null
+    Name: cc.db_logging_level
+  - Default: ""
+    Description: URI for a CDN to used for app package downloads
+    Example: null
+    Name: cc.packages.cdn.uri
+  - Default: ""
+    Description: ssl cert defined in the manifest by the UAA, required by the cc to
+      communicate with UAA
+    Example: null
+    Name: uaa.jwt.verification_key
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.host
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: 31
+    Description: How old an audit event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.audit_events.cutoff_age_in_days
+  - Default: null
+    Description: build attribute in the /info endpoint
+    Example: null
+    Name: cc.info.build
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.port
+  - Default: 2048
+    Description: The maximum amount of disk a user can request
+    Example: null
+    Name: cc.maximum_app_disk_in_mb
+  - Default: []
+    Description: List of domains (including scheme) from which Cross-Origin requests
+      will be accepted, a * can be used as a wildcard for any part of a domain
+    Example: null
+    Name: cc.allowed_cors_domains
+  - Default: "2222"
+    Description: ""
+    Example: null
+    Name: build
+  - Default: null
+    Description: Cloud controller network information.
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: Password used by Diego to access internal endpoints
+    Example: null
+    Name: cc.internal_api_password
+  - Default: cc-buildpacks
+    Description: Directory (bucket) used store buildpacks.  It does not have be pre-created.
+    Example: null
+    Name: cc.buildpacks.buildpack_directory_key
+  - Default: null
+    Description: ""
+    Example: null
+    Name: login.url
+  - Default: 1024
+    Description: How much memory given to an app if not specified
+    Example: null
+    Name: cc.default_app_memory
+  - Default: null
+    Description: domain where cloud_controller will listen (api.domain) often the
+      same as the system domain
+    Example: null
+    Name: domain
+  - Default: ""
+    Description: S3 Secure Access Key for staging droplets on AWS installs; Blobstore
+      password for other IaaSs
+    Example: null
+    Name: cc.staging_upload_password
+  - Default: 1073741824
+    Description: Maximum size of application package
+    Example: null
+    Name: cc.packages.max_package_size
+  - Default: internal_user
+    Description: User name used by Diego to access internal endpoints
+    Example: null
+    Name: cc.internal_api_user
+  - Default:
+    - description: Ubuntu 10.04
+      name: lucid64
+    Description: Tag used by the DEA to describe capabilities (i.e. 'Windows7', 'python-linux').
+      DEA and CC must agree.
+    Example: null
+    Name: cc.stacks
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.buildpacks.cdn.private_key
+  - Default: 10
+    Description: ""
+    Example: null
+    Name: ccdb.pool_timeout
+  - Default: null
+    Description: The key used to sign log messages
+    Example: null
+    Name: metron_endpoint.shared_secret
+  - Default: api
+    Description: Host part of the cloud_controller api URI, will be joined with value
+      of 'domain'
+    Example: null
+    Name: cc.external_host
+  - Default: default
+    Description: Deprecated. Defines a 'partition' for the health_manager job
+    Example: null
+    Name: cc.cc_partition
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_user
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: Used to grant scope for SSO clients for service brokers
+    Example: null
+    Name: uaa.clients.cc-service-dashboards.scope
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.url
+  - Default: 3456
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.port
+  - Default: false
+    Description: Disable external (i.e. git) buildpacks? (Admin buildpacks and system
+      buildpacks only.)
+    Example: null
+    Name: cc.disable_custom_buildpacks
+  - Default: null
+    Description: The default running security groups that will be seeded in CloudController.
+    Example: null
+    Name: cc.default_running_security_groups
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.blobstore_upload.timeout_in_seconds
+  - Default: 900
+    Description: Timeout for staging a droplet
+    Example: null
+    Name: cc.staging_timeout_in_seconds
+  - Default: /var/vcap/nfs/shared
+    Description: Local root when fog provider is not overridden (should be an NFS
+      mount if using more than one cloud controller)
+    Example: null
+    Name: cc.default_fog_connection.local_root
+  - Default: 1024
+    Description: The default disk space an app gets
+    Example: null
+    Name: cc.default_app_disk_in_mb
+  - Default: null
+    Description: version attribute in the /info endpoint
+    Example: null
+    Name: cc.info.version
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.packages.fog_connection
+  - Default: 5
+    Description: Maximum connections for ActiveRecord
+    Example: null
+    Name: ccdb.max_ar_connections
+  Templates:
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/nginx_ctl.erb
+    SrcPathEnd: nginx_ctl.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/drain.rb
+    SrcPathEnd: drain.rb
+  - DstPathEnd: config/stacks.yml
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/stacks.yml.erb
+    SrcPathEnd: stacks.yml.erb
+  - DstPathEnd: bin/nginx_newrelic_plugin_ctl
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/nginx_newrelic_plugin_ctl.erb
+    SrcPathEnd: nginx_newrelic_plugin_ctl.erb
+  - DstPathEnd: config/newrelic_plugin.yml
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/newrelic_plugin.yml.erb
+    SrcPathEnd: newrelic_plugin.yml.erb
+  - DstPathEnd: bin/restart_drain
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/restart_drain.rb
+    SrcPathEnd: restart_drain.rb
+  - DstPathEnd: config/cloud_controller_ng.yml
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/cloud_controller_api.yml.erb
+    SrcPathEnd: cloud_controller_api.yml.erb
+  - DstPathEnd: bin/cloud_controller_worker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/cloud_controller_api_worker_ctl.erb
+    SrcPathEnd: cloud_controller_api_worker_ctl.erb
+  - DstPathEnd: bin/handle_nfs_or_local_blobstore.sh
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/handle_nfs_or_local_blobstore.sh.erb
+    SrcPathEnd: handle_nfs_or_local_blobstore.sh.erb
+  - DstPathEnd: config/nfs-common
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/nfs-common
+    SrcPathEnd: nfs-common
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/mime.types
+    SrcPathEnd: mime.types
+  - DstPathEnd: bin/cloud_controller_ng_ctl
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/cloud_controller_api_ctl.erb
+    SrcPathEnd: cloud_controller_api_ctl.erb
+  - DstPathEnd: config/newrelic.yml
+    Path: /mnt/tmp/tar-CmdExtractor589473432/templates/newrelic.yml.erb
+    SrcPathEnd: newrelic.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor806755722/monit
+    SrcPathEnd: monit
+  Name: cloud_controller_worker
+  Packages:
+  - Name: common
+  - Name: cloud_controller_ng
+  - Name: nginx
+  - Name: nginx_newrelic_plugin
+  - Name: libpq
+  - Name: mysqlclient
+  - Name: sqlite
+  - Name: ruby-2.1.3
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: /var/lib/nfs/rpc_pipefs
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Name: nfs_server.pipefs_directory
+  - Default: api
+    Description: Host part of the cloud_controller api URI, will be joined with value
+      of 'domain'
+    Example: null
+    Name: cc.external_host
+  - Default: cloud_controller,cloud_controller_service_permissions
+    Description: Name of service to register to UAA
+    Example: null
+    Name: cc.uaa_resource_id
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Name: system_domain
+  - Default: ""
+    Description: The User Org that owns the system_domain, required if system_domain
+      is defined
+    Example: null
+    Name: system_domain_organization
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: 31
+    Description: How old an app event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.app_events.cutoff_age_in_days
+  - Default: Local
+    Description: Local fog provider (should always be 'Local'), used if fog_connection
+      hash is not provided in the manifest
+    Example: null
+    Name: cc.default_fog_connection.provider
+  - Default: 4096
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: null
+    Description: Set of buildpacks to install during deploy
+    Example: null
+    Name: cc.install_buildpacks
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_bits_packer.timeout_in_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.blobstore_upload.timeout_in_seconds
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.roles
+  - Default: null
+    Description: The key used to sign log messages
+    Example: null
+    Name: metron_endpoint.shared_secret
+  - Default: false
+    Description: Disable external (i.e. git) buildpacks? (Admin buildpacks and system
+      buildpacks only.)
+    Example: null
+    Name: cc.disable_custom_buildpacks
+  - Default: false
+    Description: Activate NewRelic developer mode
+    Example: null
+    Name: cc.newrelic.developer_mode
+  - Default: "2"
+    Description: ""
+    Example: null
+    Name: version
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.address
+  - Default: 2048
+    Description: The maximum amount of disk a user can request
+    Example: null
+    Name: cc.maximum_app_disk_in_mb
+  - Default: 2
+    Description: Maximum depth of inlined relationships in the result
+    Example: null
+    Name: cc.renderer.max_inline_relations_depth
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: ""
+    Description: S3 Access key for staging droplets on AWS installs; Blobstore user
+      for other IaaSs
+    Example: null
+    Name: cc.staging_upload_user
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.buildpacks.cdn.key_pair_id
+  - Default: 1024
+    Description: The default disk space an app gets
+    Example: null
+    Name: cc.default_app_disk_in_mb
+  - Default: 512
+    Description: The cc will restart if memory remains above this threshold for 3
+      monit cycles
+    Example: null
+    Name: cc.thresholds.worker.restart_if_above_mb
+  - Default: 1
+    Description: Number of generic cloud_controller_worker workers
+    Example: null
+    Name: cc.jobs.generic.number_of_workers
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: 'Array of domains for user apps (example: ''user.app.space.foo'',
+      a user app called ''neat'' will listen at ''http://neat.user.app.space.foo'')'
+    Example: null
+    Name: app_domains
+  - Default: null
+    Description: TODO
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: build attribute in the /info endpoint
+    Example: null
+    Name: cc.info.build
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_password
+  - Default: 10
+    Description: ""
+    Example: null
+    Name: ccdb.pool_timeout
+  - Default: disabled
+    Description: 'Diego staging support: ''disabled'', ''optional'', or ''required'''
+    Example: null
+    Name: cc.diego.staging
+  - Default: internal_user
+    Description: User name used by Diego to access internal endpoints
+    Example: null
+    Name: cc.internal_api_user
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.droplets.fog_connection
+  - Default: false
+    Description: Enable diego docker support
+    Example: null
+    Name: cc.diego_docker
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: Used to grant scope for SSO clients for service brokers
+    Example: null
+    Name: uaa.clients.cc-service-dashboards.scope
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.droplet_upload.timeout_in_seconds
+  - Default: null
+    Description: free form description for attribute in the /info endpoint
+    Example: null
+    Name: cc.info.description
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.buildpacks.fog_connection
+  - Default: false
+    Description: Enable transaction tracing in NewRelic
+    Example: null
+    Name: cc.newrelic.transaction_tracer.enabled
+  - Default: 60
+    Description: For requests to service brokers, this is the HTTP (open and read)
+      timeout setting.
+    Example: null
+    Name: cc.broker_client_timeout_seconds
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.model_deletion.timeout_in_seconds
+  - Default: debug2
+    Description: Log level for cc database operations
+    Example: null
+    Name: cc.db_logging_level
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.resource_pool.fog_connection
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.droplets.cdn.private_key
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.databases
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.url
+  - Default: 443
+    Description: Port for logger endpoint listed at /v2/info
+    Example: null
+    Name: logger_endpoint.port
+  - Default: null
+    Description: (DEPRECATED) - Used for generating SSO clients for service brokers.
+    Example: null
+    Name: uaa.clients.cc_service_broker_client.secret
+  - Default: 3
+    Description: The threshold of crashes after which the app is marked as flapping
+    Example: null
+    Name: cc.flapping_crash_count_threshold
+  - Default: false
+    Description: Enable development features for monitoring and insight
+    Example: null
+    Name: cc.development_mode
+  - Default: null
+    Description: The api key for NewRelic
+    Example: null
+    Name: cc.newrelic.license_key
+  - Default: 300
+    Description: Timeout for requests in seconds.
+    Example: null
+    Name: request_timeout_in_seconds
+  - Default: http
+    Description: The protocol used to access the CC API from an external entity
+    Example: null
+    Name: cc.external_protocol
+  - Default: true
+    Description: whether use login as the authorization endpoint or not
+    Example: null
+    Name: login.enabled
+  - Default: null
+    Description: The default staging security groups that will be seeded in CloudController.
+    Example: null
+    Name: cc.default_staging_security_groups
+  - Default: 384
+    Description: The cc will alert if memory remains above this threshold for 3 monit
+      cycles
+    Example: null
+    Name: cc.thresholds.worker.alert_if_above_mb
+  - Default: 14400
+    Description: The longest any job can take before it is cancelled unless overriden
+      per job
+    Example: null
+    Name: cc.jobs.global.timeout_in_seconds
+  - Default:
+    - description: Ubuntu 10.04
+      name: lucid64
+    Description: Tag used by the DEA to describe capabilities (i.e. 'Windows7', 'python-linux').
+      DEA and CC must agree.
+    Example: null
+    Name: cc.stacks
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Name: nfs_server.idmapd_domain
+  - Default: 384
+    Description: The cc will restart if memory remains above this threshold for 15
+      monit cycles
+    Example: null
+    Name: cc.thresholds.worker.restart_if_consistently_above_mb
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.droplet_deletion.timeout_in_seconds
+  - Default: null
+    Description: version attribute in the /info endpoint
+    Example: null
+    Name: cc.info.version
+  - Default: default
+    Description: Deprecated. Defines a 'partition' for the health_manager job
+    Example: null
+    Name: cc.cc_partition
+  - Default: true
+    Description: Whether to use ssl for logger endpoint listed at /v2/info
+    Example: null
+    Name: logger_endpoint.use_ssl
+  - Default: development
+    Description: The environment name used by NewRelic
+    Example: null
+    Name: cc.newrelic.environment_name
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: postgres
+    Description: ""
+    Example: null
+    Name: ccdb.db_scheme
+  - Default: 31
+    Description: How old an audit event should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.audit_events.cutoff_age_in_days
+  - Default: cc-resources
+    Description: Directory (bucket) used store app resources.  It does not have be
+      pre-created.
+    Example: null
+    Name: cc.resource_pool.resource_directory_key
+  - Default: null
+    Description: Fog connection hash
+    Example: null
+    Name: cc.packages.fog_connection
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.droplets.cdn.key_pair_id
+  - Default: null
+    Description: The default running security groups that will be seeded in CloudController.
+    Example: null
+    Name: cc.default_running_security_groups
+  - Default: null
+    Description: bool to use NFS4 (not used in an AWS deploy, use s3 instead)
+    Example: null
+    Name: nfs_server.nfsv4
+  - Default: 9022
+    Description: External Cloud Controller port
+    Example: null
+    Name: cc.external_port
+  - Default: null
+    Description: URL for the support attribute in the /info endpoint
+    Example: null
+    Name: cc.info.support_address
+  - Default: null
+    Description: Custom values for /v2/info endpoint
+    Example: null
+    Name: cc.info.custom
+  - Default: 1073741824
+    Description: Maximum size of application package
+    Example: null
+    Name: cc.packages.max_package_size
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.packages.cdn.private_key
+  - Default: "2222"
+    Description: ""
+    Example: null
+    Name: build
+  - Default: Cloud Foundry sponsored by Pivotal
+    Description: ""
+    Example: null
+    Name: description
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: 5
+    Description: Maximum connections for ActiveRecord
+    Example: null
+    Name: ccdb.max_ar_connections
+  - Default: null
+    Description: Used for generating SSO clients for service brokers.
+    Example: null
+    Name: uaa.clients.cc-service-dashboards.secret
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_usage_events_cleanup.timeout_in_seconds
+  - Default: cc-packages
+    Description: Directory (bucket) used store app packages.  It does not have be
+      pre-created.
+    Example: null
+    Name: cc.packages.app_package_directory_key
+  - Default: 100
+    Description: Maximum number of results returned per page
+    Example: null
+    Name: cc.renderer.max_results_per_page
+  - Default: openid,cloud_controller_service_permissions.read
+    Description: (DEPRECATED) - Used to grant scope for SSO clients for service brokers
+    Example: null
+    Name: uaa.clients.cc_service_broker_client.scope
+  - Default: 31
+    Description: How old a failed job should stay in cloud controller database before
+      being cleaned up
+    Example: null
+    Name: cc.failed_jobs.cutoff_age_in_days
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.resource_pool.cdn.private_key
+  - Default: disabled
+    Description: 'Diego running support: ''disabled'', ''optional'', or ''required'''
+    Example: null
+    Name: cc.diego.running
+  - Default: "off"
+    Description: 'NewRelic''s SQL statement recording mode: [off | obfuscated | raw]'
+    Example: null
+    Name: cc.newrelic.transaction_tracer.record_sql
+  - Default: null
+    Description: name attribute in the /info endpoint
+    Example: null
+    Name: cc.info.name
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.resource_pool.cdn.key_pair_id
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.cc.token_secret
+  - Default: false
+    Description: Activate NewRelic monitor mode
+    Example: null
+    Name: cc.newrelic.monitor_mode
+  - Default: 180
+    Description: Maximum health check timeout that can be set for the app
+    Example: null
+    Name: cc.maximum_health_check_timeout
+  - Default: cc-buildpacks
+    Description: Directory (bucket) used store buildpacks.  It does not have be pre-created.
+    Example: null
+    Name: cc.buildpacks.buildpack_directory_key
+  - Default: 900
+    Description: Timeout for staging a droplet
+    Example: null
+    Name: cc.staging_timeout_in_seconds
+  - Default: null
+    Description: domain where cloud_controller will listen (api.domain) often the
+      same as the system domain
+    Example: null
+    Name: domain
+  - Default: null
+    Description: Hash of default quota definitions. Overriden by custom quota definitions.
+    Example: null
+    Name: cc.quota_definitions
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_user
+  - Default: debug2
+    Description: Log level for cc
+    Example: null
+    Name: cc.logging_level
+  - Default: /var/vcap/nfs/shared
+    Description: Local root when fog provider is not overridden (should be an NFS
+      mount if using more than one cloud controller)
+    Example: null
+    Name: cc.default_fog_connection.local_root
+  - Default: 536870912
+    Description: Maximum size of a resource to add to the pool
+    Example: null
+    Name: cc.resource_pool.maximum_size
+  - Default: ""
+    Description: URI for a CDN to used for app package downloads
+    Example: null
+    Name: cc.packages.cdn.uri
+  - Default: 50
+    Description: Default number of results returned per page if user does not specify
+    Example: null
+    Name: cc.renderer.default_results_per_page
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Name: nfs_server.address
+  - Default: null
+    Description: Array of security groups that will be seeded into CloudController.
+    Example: null
+    Name: cc.security_group_definitions
+  - Default: vcap
+    Description: ""
+    Example: null
+    Name: name
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.app_events_cleanup.timeout_in_seconds
+  - Default: /var/vcap/data/cloud_controller_ng/tmp
+    Description: The directory to use for temporary files
+    Example: null
+    Name: cc.directories.tmpdir
+  - Default: ""
+    Description: Key pair name for signed download URIs
+    Example: null
+    Name: cc.packages.cdn.key_pair_id
+  - Default: 31
+    Description: How old an app usage event should stay in cloud controller database
+      before being cleaned up
+    Example: null
+    Name: cc.app_usage_events.cutoff_age_in_days
+  - Default: 1
+    Description: Passthru value for Steno logger
+    Example: null
+    Name: cc.logging_max_retries
+  - Default: ""
+    Description: S3 Secure Access Key for staging droplets on AWS installs; Blobstore
+      password for other IaaSs
+    Example: null
+    Name: cc.staging_upload_password
+  - Default: false
+    Description: when true, uaa uses http, otherwise it uses https
+    Example: null
+    Name: uaa.no_ssl
+  - Default: false
+    Description: Capture and send query params to NewRelic
+    Example: null
+    Name: cc.newrelic.capture_params
+  - Default: null
+    Description: The longest this job can take before it is cancelled
+    Example: null
+    Name: cc.jobs.blobstore_delete.timeout_in_seconds
+  - Default: null
+    Description: Password used by Diego to access internal endpoints
+    Example: null
+    Name: cc.internal_api_password
+  - Default: default
+    Description: Local to use a local (NFS) file system.  AWS to use AWS.
+    Example: null
+    Name: cc.default_quota_definition
+  - Default: ""
+    Description: URI for a CDN to used for resource pool downloads
+    Example: null
+    Name: cc.resource_pool.cdn.uri
+  - Default: cc-droplets
+    Description: Directory (bucket) used store droplets.  It does not have be pre-created.
+    Example: null
+    Name: cc.droplets.droplet_directory_key
+  - Default: ""
+    Description: URI for a CDN to used for buildpack downloads
+    Example: null
+    Name: cc.buildpacks.cdn.uri
+  - Default: ""
+    Description: key for encrypting sensitive values in the CC database
+    Example: null
+    Name: cc.db_encryption_key
+  - Default: ""
+    Description: ssl cert defined in the manifest by the UAA, required by the cc to
+      communicate with UAA
+    Example: null
+    Name: uaa.jwt.verification_key
+  - Default: false
+    Description: specifies that the job is allowed to skip ssl cert verification
+    Example: null
+    Name: ssl.skip_cert_verify
+  - Default: http://support.cloudfoundry.com
+    Description: ""
+    Example: null
+    Name: support_address
+  - Default: null
+    Description: NFS server for droplets and apps (not used in an AWS deploy, use
+      s3 instead)
+    Example: null
+    Name: nfs_server.share
+  - Default: true
+    Description: If true, billing events are written to the CCDB.
+    Example: null
+    Name: cc.billing_event_writing_enabled
+  - Default: null
+    Description: ""
+    Example: null
+    Name: ccdb.port
+  - Default: 25
+    Description: Maximum connections for Sequel
+    Example: null
+    Name: ccdb.max_connections
+  - Default: null
+    Description: ""
+    Example: null
+    Name: login.url
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.host
+  - Default: 1024
+    Description: How much memory given to an app if not specified
+    Example: null
+    Name: cc.default_app_memory
+  - Default: /var/vcap/sys/log/cloud_controller_ng/newrelic
+    Description: The location for NewRelic to log to
+    Example: null
+    Name: cc.newrelic.log_file_path
+  - Default: 1200
+    Description: Extra token expiry time while uploading big apps.
+    Example: null
+    Name: cc.app_bits_upload_grace_period_in_seconds
+  - Default: 65536
+    Description: Minimum size of a resource to add to the pool
+    Example: null
+    Name: cc.resource_pool.minimum_size
+  - Default: ""
+    Description: URI for a CDN to used for droplet downloads
+    Example: null
+    Name: cc.droplets.cdn.uri
+  - Default: ""
+    Description: Private key for signing download URIs
+    Example: null
+    Name: cc.buildpacks.cdn.private_key
+  - Default: 3456
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.port
+  - Default: 1536M
+    Description: Maximum body size for nginx
+    Example: null
+    Name: cc.client_max_body_size
+  Templates:
+  - DstPathEnd: config/cloud_controller_ng.yml
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/cloud_controller_worker.yml.erb
+    SrcPathEnd: cloud_controller_worker.yml.erb
+  - DstPathEnd: bin/cloud_controller_worker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/cloud_controller_worker_ctl.erb
+    SrcPathEnd: cloud_controller_worker_ctl.erb
+  - DstPathEnd: bin/handle_nfs_or_local_blobstore.sh
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/handle_nfs_or_local_blobstore.sh.erb
+    SrcPathEnd: handle_nfs_or_local_blobstore.sh.erb
+  - DstPathEnd: config/nfs-common
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/nfs-common
+    SrcPathEnd: nfs-common
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+  - DstPathEnd: config/newrelic.yml
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/newrelic.yml.erb
+    SrcPathEnd: newrelic.yml.erb
+  - DstPathEnd: config/stacks.yml
+    Path: /mnt/tmp/tar-CmdExtractor806755722/templates/stacks.yml.erb
+    SrcPathEnd: stacks.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor568779596/monit
+    SrcPathEnd: monit
+  Name: collector
+  Packages:
+  - Name: common
+  - Name: collector
+  - Name: ruby
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: Datadog API key
+    Example: null
+    Name: collector.datadog.api_key
+  - Default: 60
+    Description: the interval in seconds that the collector attempts to discover components
+    Example: null
+    Name: collector.intervals.discover
+  - Default: 30
+    Description: the interval in seconds that healthz is checked
+    Example: null
+    Name: collector.intervals.healthz
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: 300
+    Description: the interval in seconds that the collector attempts to prune unresponsive
+      components
+    Example: null
+    Name: collector.intervals.prune
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: name for this bosh deployment. All metrics will be tagged with deployment:XXX
+      when sending them to CloudWatch, Datadog and Graphite
+    Example: null
+    Name: collector.deployment_name
+  - Default: false
+    Description: enable CloudWatch plugin
+    Example: null
+    Name: collector.use_aws_cloudwatch
+  - Default: false
+    Description: enable OpenTsdb plugin
+    Example: null
+    Name: collector.use_tsdb
+  - Default: null
+    Description: IP address of OpenTsdb
+    Example: null
+    Name: collector.opentsdb.address
+  - Default: null
+    Description: NATS TCP port
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: NATS user
+    Example: null
+    Name: nats.user
+  - Default: false
+    Description: enable Graphite plugin
+    Example: null
+    Name: collector.use_graphite
+  - Default: null
+    Description: IP address of Graphite
+    Example: null
+    Name: collector.graphite.address
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: NATS password
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: 30
+    Description: the interval in seconds that local_metrics are checked
+    Example: null
+    Name: collector.intervals.local_metrics
+  - Default: 30
+    Description: the interval in seconds that the collector pings nats to record latency
+    Example: null
+    Name: collector.intervals.nats_ping
+  - Default: null
+    Description: TCP port of OpenTsdb
+    Example: null
+    Name: collector.opentsdb.port
+  - Default: false
+    Description: enable Datadog plugin
+    Example: null
+    Name: collector.use_datadog
+  - Default: null
+    Description: Collector network information.
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: AWS secret for CloudWatch access
+    Example: null
+    Name: collector.aws.secret_access_key
+  - Default: null
+    Description: Datadog application key
+    Example: null
+    Name: collector.datadog.application_key
+  - Default: 30
+    Description: the interval in seconds that varz is checked
+    Example: null
+    Name: collector.intervals.varz
+  - Default: null
+    Description: TCP port of Graphite
+    Example: null
+    Name: collector.graphite.port
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: AWS access key for CloudWatch access
+    Example: null
+    Name: collector.aws.access_key_id
+  Templates:
+  - DstPathEnd: bin/collector_ctl
+    Path: /mnt/tmp/tar-CmdExtractor568779596/templates/collector_ctl.erb
+    SrcPathEnd: collector_ctl.erb
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor568779596/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor568779596/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor892076126/monit
+    SrcPathEnd: monit
+  Name: dea_logging_agent
+  Packages:
+  - Name: common
+  - Name: dea_logging_agent
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: The key used to sign log messages
+    Example: null
+    Name: metron_endpoint.shared_secret
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: etcd.machines
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: false
+    Description: boolean value to turn on verbose mode
+    Example: null
+    Name: dea_logging_agent.debug
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.dropsonde_port
+  - Default: null
+    Description: IP addresses of Cloud Foundry NATS servers
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: DEA Logging Agent network information.
+    Example: null
+    Name: networks.apps
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.host
+  - Default: 3456
+    Description: The port used to emit legacy messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.port
+  - Default: ""
+    Description: username used to log into varz endpoint
+    Example: null
+    Name: dea_logging_agent.status.user
+  - Default: ""
+    Description: password used to log into varz endpoint
+    Example: null
+    Name: dea_logging_agent.status.password
+  - Default: 0
+    Description: port used to run the varz endpoint
+    Example: null
+    Name: dea_logging_agent.status.port
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  Templates:
+  - DstPathEnd: bin/dea_logging_agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor892076126/templates/dea_logging_agent_ctl.erb
+    SrcPathEnd: dea_logging_agent_ctl.erb
+  - DstPathEnd: config/dea_logging_agent.json
+    Path: /mnt/tmp/tar-CmdExtractor892076126/templates/dea_logging_agent.json.erb
+    SrcPathEnd: dea_logging_agent.json.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor892076126/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor194831168/monit
+    SrcPathEnd: monit
+  Name: dea_next
+  Packages:
+  - Name: common
+  - Name: dea_next
+  - Name: warden
+  - Name: rootfs_lucid64
+  - Name: ruby
+  - Name: syslog_aggregator
+  - Name: buildpack_cache
+  Properties:
+  - Default: 8000
+    Description: ""
+    Example: null
+    Name: dea_next.memory_mb
+  - Default: 200000
+    Description: Limit on inodes for a staging container
+    Example: null
+    Name: dea_next.staging_disk_inode_limit
+  - Default: 200000
+    Description: Limit on inodes for an instance container
+    Example: null
+    Name: dea_next.instance_disk_inode_limit
+  - Default: true
+    Description: with latest kernel version, no kernel network tunings allowed with
+      in warden cpi containers
+    Example: null
+    Name: dea_next.kernel_network_tuning_enabled
+  - Default: null
+    Description: The key used to sign log messages
+    Example: null
+    Name: metron_endpoint.shared_secret
+  - Default: debug
+    Description: Log level for DEA.
+    Example: null
+    Name: dea_next.logging_level
+  - Default: null
+    Description: ""
+    Example: null
+    Name: dea_next.deny_networks
+  - Default: 1
+    Description: ""
+    Example: null
+    Name: dea_next.memory_overcommit_factor
+  - Default: 3600
+    Description: Crashed app lifetime in seconds
+    Example: null
+    Name: dea_next.crash_lifetime_secs
+  - Default: 115
+    Description: Duration to wait before shutting down, in seconds.
+    Example: null
+    Name: dea_next.evacuation_bail_out_time_in_seconds
+  - Default: true
+    Description: disk quota must be disabled to use warden-inside-warden with the
+      warden cpi
+    Example: null
+    Name: disk_quota_enabled
+  - Default: 20
+    Description: Interval at which the router requests routes to be registered.
+    Example: null
+    Name: router.requested_route_registration_interval_in_seconds
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: 512
+    Description: CPU limit in shares for staging tasks cgroup
+    Example: null
+    Name: dea_next.staging_cpu_limit_shares
+  - Default: null
+    Description: user name for NATS login
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: TCP port of NATS server
+    Example: null
+    Name: nats.port
+  - Default: 900
+    Description: ""
+    Example: null
+    Name: dea_next.max_staging_duration
+  - Default:
+    - lucid64
+    Description: ""
+    Example: null
+    Name: dea_next.stacks
+  - Default: 4096
+    Description: Disk limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_disk_limit_mb
+  - Default: 256
+    Description: The maximum number of CPU shares that can be given to an app
+    Example: null
+    Name: dea_next.instance_max_cpu_share_limit
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: 1024
+    Description: Memory limit in mb for staging tasks
+    Example: null
+    Name: dea_next.staging_memory_limit_mb
+  - Default: 32000
+    Description: ""
+    Example: null
+    Name: dea_next.disk_mb
+  - Default: null
+    Description: ""
+    Example: null
+    Name: dea_next.allow_networks
+  - Default: 60
+    Description: ""
+    Example: null
+    Name: dea_next.streaming_timeout
+  - Default: 1
+    Description: The minimum number of CPU shares that can be given to an app
+    Example: null
+    Name: dea_next.instance_min_cpu_share_limit
+  - Default: null
+    Description: DEA network information.
+    Example: null
+    Name: networks.apps
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: password for NATS login
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: 1
+    Description: ""
+    Example: null
+    Name: dea_next.disk_overcommit_factor
+  - Default: https
+    Description: The protocol to use when communicating with the directory server
+      ("http" or "https")
+    Example: null
+    Name: dea_next.directory_server_protocol
+  - Default: 10
+    Description: frequency of heartbeats in seconds.
+    Example: null
+    Name: dea_next.heartbeat_interval_in_seconds
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.host
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: 60
+    Description: Default timeout for application to start
+    Example: null
+    Name: dea_next.default_health_check_timeout
+  - Default: 8
+    Description: Controls the relationship between app memory and cpu shares. app_cpu_shares
+      = app_memory / cpu_share_factor
+    Example: null
+    Name: dea_next.instance_memory_to_cpu_share_ratio
+  - Default: 1500
+    Description: Interface MTU size
+    Example: null
+    Name: dea_next.mtu
+  - Default: 5
+    Description: frequency of staging & DEA advertisments in seconds.
+    Example: null
+    Name: dea_next.advertise_interval_in_seconds
+  - Default: default
+    Description: The Availability Zone
+    Example: null
+    Name: dea_next.zone
+  - Default: 3456
+    Description: The port used to emit messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.port
+  - Default: null
+    Description: DNS domain name for this Cloud Foundry deployment
+    Example: null
+    Name: domain
+  Templates:
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/warden.yml
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/warden.yml.erb
+    SrcPathEnd: warden.yml.erb
+  - DstPathEnd: bin/warden_ctl
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/warden_ctl.erb
+    SrcPathEnd: warden_ctl.erb
+  - DstPathEnd: bin/dir_server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/dir_server_ctl.erb
+    SrcPathEnd: dir_server_ctl.erb
+  - DstPathEnd: config/dea.yml
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/dea.yml.erb
+    SrcPathEnd: dea.yml.erb
+  - DstPathEnd: bin/dea_ctl
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/dea_ctl.erb
+    SrcPathEnd: dea_ctl.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor194831168/templates/deterministic_drain.rb
+    SrcPathEnd: deterministic_drain.rb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor381472882/monit
+    SrcPathEnd: monit
+  Name: debian_nfs_server
+  Packages:
+  - Name: common
+  - Name: debian_nfs_server
+  Properties:
+  - Default: false
+    Description: Exports /var/vcap/store with no_root_squash when set to true
+    Example: null
+    Name: nfs_server.no_root_squash
+  - Default: null
+    Description: An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or
+      IPs from which /var/vcap/store is accessible
+    Example: null
+    Name: nfs_server.allow_from_entries
+  - Default: localdomain
+    Description: Domain name for NFS idmapd
+    Example: null
+    Name: nfs_server.idmapd_domain
+  - Default: /var/lib/nfs/rpc_pipef
+    Description: Pipefs directory for NFS idmapd
+    Example: null
+    Name: nfs_server.pipefs_directory
+  Templates:
+  - DstPathEnd: bin/rpc_nfsd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor381472882/templates/rpc_nfsd_ctl
+    SrcPathEnd: rpc_nfsd_ctl
+  - DstPathEnd: bin/rpc_mountd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor381472882/templates/rpc_mountd_ctl
+    SrcPathEnd: rpc_mountd_ctl
+  - DstPathEnd: config/exports
+    Path: /mnt/tmp/tar-CmdExtractor381472882/templates/exports.erb
+    SrcPathEnd: exports.erb
+  - DstPathEnd: config/idmapd.conf
+    Path: /mnt/tmp/tar-CmdExtractor381472882/templates/idmapd.conf.erb
+    SrcPathEnd: idmapd.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor032454260/monit
+    SrcPathEnd: monit
+  Name: doppler
+  Packages:
+  - Name: common
+  - Name: doppler
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: Blacklist for IPs that should not be used as syslog drains, e.g.
+      internal ip addresses.
+    Example: null
+    Name: doppler.blacklisted_syslog_ranges
+  - Default: false
+    Description: when connecting over TLS, don't verify certificates
+    Example: null
+    Name: ssl.skip_cert_verify
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: ""
+    Description: password used to log into varz endpoint
+    Example: null
+    Name: doppler.status.password
+  - Default: 0
+    Description: port used to run the varz endpoint
+    Example: null
+    Name: doppler.status.port
+  - Default: 100
+    Description: number of log messages to retain per application
+    Example: null
+    Name: doppler.maxRetainedLogMessages
+  - Default: 3456
+    Description: Port for incoming log messages in the legacy format
+    Example: null
+    Name: doppler.incoming_port
+  - Default: 3457
+    Description: Port for incoming messages in the dropsonde format
+    Example: null
+    Name: doppler.dropsonde_incoming_port
+  - Default: null
+    Description: doppler network information.
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: Zone of the doppler server
+    Example: null
+    Name: doppler.zone
+  - Default: false
+    Description: boolean value to turn on verbose logging for doppler system (dea
+      agent & doppler server)
+    Example: null
+    Name: doppler.debug
+  - Default: null
+    Description: Shared secret used to verify cryptographically signed doppler messages
+    Example: null
+    Name: doppler_endpoint.shared_secret
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: IP addresses of Cloud Foundry NATS servers
+    Example: null
+    Name: nats.machines
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: ""
+    Description: username used to log into varz endpoint
+    Example: null
+    Name: doppler.status.user
+  - Default: 8081
+    Description: Port for outgoing log messages
+    Example: null
+    Name: doppler.outgoing_port
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: etcd.machines
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  Templates:
+  - DstPathEnd: bin/doppler_ctl
+    Path: /mnt/tmp/tar-CmdExtractor032454260/templates/doppler_ctl.erb
+    SrcPathEnd: doppler_ctl.erb
+  - DstPathEnd: config/doppler.json
+    Path: /mnt/tmp/tar-CmdExtractor032454260/templates/doppler.json.erb
+    SrcPathEnd: doppler.json.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor032454260/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor784039878/monit
+    SrcPathEnd: monit
+  Name: etcd
+  Packages:
+  - Name: common
+  - Name: etcd
+  - Name: syslog_aggregator
+  Properties:
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: 50
+    Description: Interval between heartbeats. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
+    Example: null
+    Name: heartbeat_interval_in_milliseconds
+  - Default: 1000
+    Description: Time without recieving a heartbeat before peer should attempt to
+      become leader. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
+    Example: null
+    Name: election_timeout_in_milliseconds
+  - Default: null
+    Description: IPs of etcd machines
+    Example: null
+    Name: etcd.machines
+  - Default: null
+    Description: Used to get our IP address
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  Templates:
+  - DstPathEnd: bin/etcd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor784039878/templates/etcd_ctl.erb
+    SrcPathEnd: etcd_ctl.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor784039878/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor079159528/monit
+    SrcPathEnd: monit
+  Name: etcd_metrics_server
+  Packages:
+  - Name: common
+  - Name: etcd_metrics_server
+  Properties:
+  - Default: 4001
+    Description: port of ETCD server to instrument
+    Example: null
+    Name: etcd_metrics_server.etcd.port
+  - Default: 5678
+    Description: listening port for metrics server
+    Example: null
+    Name: etcd_metrics_server.status.port
+  - Default: 127.0.0.1
+    Description: address of ETCD server to instrument
+    Example: null
+    Name: etcd_metrics_server.etcd.machine
+  - Default: null
+    Description: array of NATS addresses
+    Example: null
+    Name: etcd_metrics_server.nats.machines
+  - Default: 4222
+    Description: NATS server port
+    Example: null
+    Name: etcd_metrics_server.nats.port
+  - Default: null
+    Description: NATS server username
+    Example: null
+    Name: etcd_metrics_server.nats.username
+  - Default: null
+    Description: NATS server password
+    Example: null
+    Name: etcd_metrics_server.nats.password
+  - Default: ""
+    Description: basic auth username for metrics server (leave empty for generated)
+    Example: null
+    Name: etcd_metrics_server.status.username
+  - Default: ""
+    Description: basic auth password for metrics server (leave empty for generated)
+    Example: null
+    Name: etcd_metrics_server.status.password
+  Templates:
+  - DstPathEnd: bin/etcd_metrics_server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor079159528/templates/etcd_metrics_server_ctl.erb
+    SrcPathEnd: etcd_metrics_server_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor920176730/monit
+    SrcPathEnd: monit
+  Name: gorouter
+  Packages:
+  - Name: common
+  - Name: gorouter
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: TCP port of syslog aggregator.
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: 0
+    Description: ""
+    Example: null
+    Name: router.offset
+  - Default: 300
+    Description: Timeout in seconds for Router -> Endpoint roundtrip.
+    Example: null
+    Name: request_timeout_in_seconds
+  - Default: 3456
+    Description: The port used to emit legacy messages to the Metron agent.
+    Example: null
+    Name: metron_endpoint.port
+  - Default: null
+    Description: The key used to sign log messages.
+    Example: null
+    Name: metron_endpoint.shared_secret
+  - Default: false
+    Description: Enable the dropsonde emitter library
+    Example: null
+    Name: dropsonde.enabled
+  - Default: 8080
+    Description: Port for the Router varz/status endpoint.
+    Example: null
+    Name: router.status.port
+  - Default: 20
+    Description: Interval at which the router requests routes to be registered.
+    Example: null
+    Name: router.requested_route_registration_interval_in_seconds
+  - Default: 22
+    Description: If the X-Vcap-Trace request header is set and has this value, trace
+      headers are added to the response.
+    Example: null
+    Name: router.trace_key
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent.
+    Example: null
+    Name: metron_endpoint.host
+  - Default: null
+    Description: IP address for syslog aggregator.
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent.
+    Example: null
+    Name: metron_endpoint.dropsonde_port
+  - Default: null
+    Description: GoRouter network information.
+    Example: null
+    Name: networks.apps
+  - Default: 80
+    Description: Listening Port for Router.
+    Example: null
+    Name: router.port
+  - Default: null
+    Description: Username for HTTP basic auth to the varz/status endpoint.
+    Example: null
+    Name: router.status.user
+  - Default: null
+    Description: Password for HTTP basic auth to the varz/status endpoint.
+    Example: null
+    Name: router.status.password
+  Templates:
+  - DstPathEnd: bin/gorouter_ctl
+    Path: /mnt/tmp/tar-CmdExtractor920176730/templates/gorouter_ctl.erb
+    SrcPathEnd: gorouter_ctl.erb
+  - DstPathEnd: config/gorouter.yml
+    Path: /mnt/tmp/tar-CmdExtractor920176730/templates/gorouter.yml.erb
+    SrcPathEnd: gorouter.yml.erb
+  - DstPathEnd: config/gorouter_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor920176730/templates/gorouter_logrotate.cron.erb
+    SrcPathEnd: gorouter_logrotate.cron.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor920176730/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor920176730/templates/logrotate.conf.erb
+    SrcPathEnd: logrotate.conf.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor920176730/templates/drain
+    SrcPathEnd: drain
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor712369308/monit
+    SrcPathEnd: monit
+  Name: haproxy
+  Packages:
+  - Name: haproxy
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: SSL certificate (PEM file)
+    Example: null
+    Name: ha_proxy.ssl_pem
+  - Default: 300
+    Description: Server and client timeouts in seconds
+    Example: null
+    Name: request_timeout_in_seconds
+  - Default: null
+    Description: ""
+    Example: null
+    Name: router.servers.z1
+  - Default: 80
+    Description: Listening port for Router
+    Example: null
+    Name: router.port
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: ""
+    Example: null
+    Name: router.servers.z2
+  - Default: null
+    Description: HAProxy network information.
+    Example: null
+    Name: networks.apps
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  Templates:
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor712369308/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/haproxy.config
+    Path: /mnt/tmp/tar-CmdExtractor712369308/templates/haproxy.config.erb
+    SrcPathEnd: haproxy.config.erb
+  - DstPathEnd: bin/haproxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor712369308/templates/haproxy_ctl
+    SrcPathEnd: haproxy_ctl
+  - DstPathEnd: config/cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor712369308/templates/cert.pem.erb
+    SrcPathEnd: cert.pem.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor117102638/monit
+    SrcPathEnd: monit
+  Name: hm9000
+  Packages:
+  - Name: common
+  - Name: hm9000
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: ""
+    Example: null
+    Name: cc.srv_api_uri
+  - Default: null
+    Description: Heartbeat interval for DEAs
+    Example: null
+    Name: dea_next.heartbeat_interval_in_seconds
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: etcd.machines
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Name: ssl.skip_cert_verify
+  - Default: 5000
+    Description: The batch size when fetching desired state information from the CC.
+    Example: null
+    Name: hm9000.desired_state_batch_size
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: Password used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_password
+  - Default: 30
+    Description: Each API call to the CC must succeed within this timeout.
+    Example: null
+    Name: hm9000.fetcher_network_timeout_in_seconds
+  - Default: null
+    Description: ""
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: bulk_api
+    Description: User used to access the bulk_api, health_manager uses it to connect
+      to the cc, announced over NATS
+    Example: null
+    Name: cc.bulk_api_user
+  - Default: null
+    Description: HM9000 network information.
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  Templates:
+  - DstPathEnd: bin/hm9000_fetcher_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_fetcher_ctl
+    SrcPathEnd: hm9000_fetcher_ctl
+  - DstPathEnd: bin/hm9000_evacuator_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_evacuator_ctl
+    SrcPathEnd: hm9000_evacuator_ctl
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: bin/hm9000_listener_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_listener_ctl
+    SrcPathEnd: hm9000_listener_ctl
+  - DstPathEnd: bin/hm9000_analyzer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_analyzer_ctl
+    SrcPathEnd: hm9000_analyzer_ctl
+  - DstPathEnd: bin/hm9000_sender_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_sender_ctl
+    SrcPathEnd: hm9000_sender_ctl
+  - DstPathEnd: bin/hm9000_metrics_server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_metrics_server_ctl
+    SrcPathEnd: hm9000_metrics_server_ctl
+  - DstPathEnd: bin/hm9000_api_server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_api_server_ctl
+    SrcPathEnd: hm9000_api_server_ctl
+  - DstPathEnd: bin/hm9000_shredder_ctl
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000_shredder_ctl
+    SrcPathEnd: hm9000_shredder_ctl
+  - DstPathEnd: config/hm9000.json
+    Path: /mnt/tmp/tar-CmdExtractor117102638/templates/hm9000.json.erb
+    SrcPathEnd: hm9000.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor957259152/monit
+    SrcPathEnd: monit
+  Name: loggregator_trafficcontroller
+  Packages:
+  - Name: common
+  - Name: loggregator_trafficcontroller
+  - Name: syslog_aggregator
+  Properties:
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: Zone of the loggregator_trafficcontroller
+    Example: null
+    Name: traffic_controller.zone
+  - Default: 8081
+    Description: Port for outgoing doppler messages
+    Example: null
+    Name: loggregator.doppler_port
+  - Default: ""
+    Description: password used to log into varz endpoint
+    Example: null
+    Name: traffic_controller.status.password
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent
+    Example: null
+    Name: metron_endpoint.dropsonde_port
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: etcd.machines
+  - Default: null
+    Description: API URI of cloud controller
+    Example: null
+    Name: cc.srv_api_uri
+  - Default: 0.0.0.0
+    Description: The host the loggregator_trafficcontroller should listen on
+    Example: null
+    Name: traffic_controller.host
+  - Default: false
+    Description: boolean value to turn on verbose logging for loggregator system (dea
+      agent & loggregator server)
+    Example: null
+    Name: traffic_controller.debug
+  - Default: 0
+    Description: port used to run the varz endpoint
+    Example: null
+    Name: traffic_controller.status.port
+  - Default: null
+    Description: IP addresses of Cloud Foundry NATS servers
+    Example: null
+    Name: nats.machines
+  - Default: 8081
+    Description: Port for outgoing dropsonde messages
+    Example: null
+    Name: loggregator.outgoing_dropsonde_port
+  - Default: 10
+    Description: Number of concurrent requests to ETCD
+    Example: null
+    Name: etcd.maxconcurrentrequests
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: Shared secret used to verify cryptographically signed loggregator
+      messages
+    Example: null
+    Name: loggregator_endpoint.shared_secret
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: 3456
+    Description: ""
+    Example: null
+    Name: traffic_controller.incoming_port
+  - Default: 8080
+    Description: ""
+    Example: null
+    Name: traffic_controller.outgoing_port
+  - Default: ""
+    Description: username used to log into varz endpoint
+    Example: null
+    Name: traffic_controller.status.user
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Name: system_domain
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Name: ssl.skip_cert_verify
+  - Default: null
+    Description: Loggregator Traffic Controller network information.
+    Example: null
+    Name: networks.apps
+  Templates:
+  - DstPathEnd: bin/loggregator_trafficcontroller_ctl
+    Path: /mnt/tmp/tar-CmdExtractor957259152/templates/loggregator_trafficcontroller_ctl.erb
+    SrcPathEnd: loggregator_trafficcontroller_ctl.erb
+  - DstPathEnd: config/loggregator_trafficcontroller.json
+    Path: /mnt/tmp/tar-CmdExtractor957259152/templates/loggregator_trafficcontroller.json.erb
+    SrcPathEnd: loggregator_trafficcontroller.json.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor957259152/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor286058818/monit
+    SrcPathEnd: monit
+  Name: login
+  Packages:
+  - Name: common
+  - Name: ruby
+  - Name: syslog_aggregator
+  - Name: login
+  - Name: git
+  Properties:
+  - Default: 8080
+    Description: ""
+    Example: null
+    Name: login.port
+  - Default: samlKeystore.jks
+    Description: Name of the SAML login server keystore.
+    Example: null
+    Name: login.saml.keystore_name
+  - Default: password
+    Description: Key password to the SAML login server keystore.
+    Example: null
+    Name: login.saml.keystore_password
+  - Default: null
+    Description: Certificate to import if the UAA is using self-signed certificates
+    Example: null
+    Name: login.uaa_certificate
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.profile_type
+  - Default: localhost
+    Description: SMTP server host address
+    Example: null
+    Name: login.smtp.host
+  - Default: null
+    Description: Set No_Proxy accross the VMs
+    Example: null
+    Name: env.no_proxy
+  - Default: null
+    Description: Private key for the service provider certificate.
+    Example: null
+    Name: login.saml.serviceProviderKey
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.url
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.sslCertificate
+  - Default: null
+    Description: SMTP server username
+    Example: null
+    Name: login.smtp.user
+  - Default: null
+    Description: 'Deprecated: Use login.saml.providers list objects'
+    Example: null
+    Name: login.saml.idpEntityAlias
+  - Default: null
+    Description: Read timeout in milliseconds for SAML metadata HTTP requests
+    Example: null
+    Name: login.saml.socket.soTimeout
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: null
+    Description: ""
+    Example: null
+    Name: login.catalina_opts
+  - Default: null
+    Description: The domain name for this CloudFoundry deploy
+    Example: null
+    Name: domain
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.userDN
+  - Default: userPassword
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.passwordAttributeName
+  - Default: null
+    Description: Base url for static assets, allows custom styling of the login server.  Use
+      '/resources/pivotal' for Pivotal style.
+    Example: null
+    Name: login.asset_base_url
+  - Default: https://console.run.pivotal.io/register
+    Description: URL for requesting to signup/register for an account
+    Example: null
+    Name: login.links.signup
+  - Default: null
+    Description: 'Deprecated: Use login.saml.providers list objects'
+    Example: null
+    Name: login.saml.idpMetadataURL
+  - Default: null
+    Description: The ID to represent this server
+    Example: null
+    Name: login.saml.entityid
+  - Default: selfsigned
+    Description: Key name of the SAML login server keystore.
+    Example: null
+    Name: login.saml.keystore_key
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.userPassword
+  - Default: null
+    Description: SMTP server configuration, for password reset emails etc.
+    Example: null
+    Name: login.smtp
+  - Default: null
+    Description: The http_proxy accross the VMs
+    Example: null
+    Name: env.http_proxy
+  - Default: null
+    Description: TCP port of NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: Service provider certificate.
+    Example: null
+    Name: login.saml.serviceProviderCertificate
+  - Default: null
+    Description: Timeout in milliseconds for connection pooling for SAML metadata
+      HTTP requests
+    Example: null
+    Name: login.saml.socket.connectionManagerTimeout
+  - Default: cn={0}
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.searchFilter
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: https://console.run.pivotal.io/password_resets/new
+    Description: URL for requesting password reset
+    Example: null
+    Name: login.links.passwd
+  - Default: 1
+    Description: 'Deprecated: Use login.saml.providers list objects'
+    Example: null
+    Name: login.saml.assertion_consumer_index
+  - Default: urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+    Description: 'Deprecated: Use login.saml.providers list objects'
+    Example: null
+    Name: login.saml.nameidFormat
+  - Default: ""
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.searchBase
+  - Default: null
+    Description: The Login network name
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: Login client secret - overrides uaa.login.client_secret
+    Example: null
+    Name: uaa.clients.login.secret
+  - Default: true
+    Description: 'Deprecated: Use login.saml.providers list objects'
+    Example: null
+    Name: login.saml.metadataTrustCheck
+  - Default: null
+    Description: Analytics code
+    Example: null
+    Name: login.analytics.code
+  - Default: null
+    Description: A hash of home/passwd/signup URLS (see commented examples below)
+    Example: null
+    Name: login.links
+  - Default: null
+    Description: 'Deprecated: Use login.saml.entityid'
+    Example: null
+    Name: login.entity_id
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.spring_profiles
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: https://console.run.pivotal.io
+    Description: URL for primary console/dashboard for users
+    Example: null
+    Name: login.links.home
+  - Default: https://network.gopivotal.com/login
+    Description: URL for Pivotal Network
+    Example: null
+    Name: login.links.network
+  - Default: https://network.gopivotal.com/registrations/new
+    Description: URL for requesting to signup/register for an account at Pivotal Network
+    Example: null
+    Name: login.links.signup-network
+  - Default: null
+    Description: A list of links to other services to show on the landing page after
+      logging in and/or signing up, depending on whether login-link and/or signup-link
+      is specified.
+    Example: null
+    Name: login.tiles
+  - Default: null
+    Description: Enable account creation flow in the login server. Enabled by default.
+    Example: null
+    Name: login.signups_enabled
+  - Default: 2525
+    Description: SMTP server port
+    Example: null
+    Name: login.smtp.port
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.dump_requests
+  - Default: null
+    Description: The https_proxy accross the VMs
+    Example: null
+    Name: env.https_proxy
+  - Default: null
+    Description: Password for NATS login
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: Contains a hash of SAML Identity Providers, the key is the IDP Alias,
+      followed by key/value pairs for idpMetadata, nameID, assertionConsumerIndex,
+      metadataTrustCheck, showSamlLoginLink, linkText, iconUrl
+    Example: null
+    Name: login.saml.providers
+  - Default: org.cloudfoundry.identity.uaa.login.ldap.DynamicPasswordComparator
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.passwordEncoder
+  - Default: oss
+    Description: The brand to use for the reset password emails, available values
+      are oss and pivotal
+    Example: null
+    Name: login.brand
+  - Default: null
+    Description: SMTP server password
+    Example: null
+    Name: login.smtp.password
+  - Default: null
+    Description: Location of the UAA.
+    Example: null
+    Name: login.uaa_base
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.require_https
+  - Default: "true"
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.localPasswordCompare
+  - Default: null
+    Description: User name for NATS login
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: Analytics domain
+    Example: null
+    Name: login.analytics.domain
+  - Default: null
+    Description: Deprecated. Default login client secret if no login client is defined
+    Example: null
+    Name: uaa.login.client_secret
+  - Default: http
+    Description: The scheme in which login server should use to contact the UAA
+    Example: null
+    Name: login.protocol
+  - Default: null
+    Description: 'Deprecated: Use login.saml.providers list objects'
+    Example: null
+    Name: login.saml.idp_metadata_file
+  - Default: null
+    Description: Password to protect the service provider private key.
+    Example: null
+    Name: login.saml.serviceProviderKeyPassword
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.userDNPattern
+  - Default: null
+    Description: deprecated. use UAA configuration.
+    Example: null
+    Name: login.ldap.sslCertificateAlias
+  Templates:
+  - DstPathEnd: config/login.yml
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/login.yml.erb
+    SrcPathEnd: login.yml.erb
+  - DstPathEnd: config/varz.yml
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/varz.yml.erb
+    SrcPathEnd: varz.yml.erb
+  - DstPathEnd: config/log4j.properties
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/log4j.properties.erb
+    SrcPathEnd: log4j.properties.erb
+  - DstPathEnd: config/tomcat/logging.properties
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/tomcat.logging.properties
+    SrcPathEnd: tomcat.logging.properties
+  - DstPathEnd: config/tomcat/server.xml
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/tomcat.server.xml.erb
+    SrcPathEnd: tomcat.server.xml.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/uaa.crt
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/uaa.crt.erb
+    SrcPathEnd: uaa.crt.erb
+  - DstPathEnd: bin/login_ctl
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/login_ctl.erb
+    SrcPathEnd: login_ctl.erb
+  - DstPathEnd: bin/login_cf-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/cf-registrar_ctl
+    SrcPathEnd: cf-registrar_ctl
+  - DstPathEnd: bin/install_crt
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/install_crt.erb
+    SrcPathEnd: install_crt.erb
+  - DstPathEnd: config/cf-registrar/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/cf-registrar.config.yml.erb
+    SrcPathEnd: cf-registrar.config.yml.erb
+  - DstPathEnd: config/tomcat/web.xml
+    Path: /mnt/tmp/tar-CmdExtractor286058818/templates/web.xml.erb
+    SrcPathEnd: web.xml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor658134980/monit
+    SrcPathEnd: monit
+  Name: metron_agent
+  Packages:
+  - Name: common
+  - Name: metron_agent
+  - Name: syslog_aggregator
+  Properties:
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: 3456
+    Description: Incoming port for legacy log messages
+    Example: null
+    Name: metron_agent.incoming_port
+  - Default: 3456
+    Description: Port where loggregator listens for legacy log messages
+    Example: null
+    Name: loggregator.incoming_port
+  - Default: null
+    Description: Shared secret used to verify cryptographically signed loggregator
+      messages
+    Example: null
+    Name: loggregator_endpoint.shared_secret
+  - Default: null
+    Description: IP addresses of Cloud Foundry NATS servers
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Name: etcd.machines
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: ""
+    Description: username used to log into varz endpoint
+    Example: null
+    Name: metron_agent.status.user
+  - Default: 5000
+    Description: Interval for querying ETCD for trafficcontroller heartbeats
+    Example: null
+    Name: metron_agent.etcd_query_interval_milliseconds
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: Metron Agent network information.
+    Example: null
+    Name: networks.apps
+  - Default: 10
+    Description: Number of concurrent requests to ETCD
+    Example: null
+    Name: etcd.maxconcurrentrequests
+  - Default: 3457
+    Description: Incoming port for dropsonde log messages
+    Example: null
+    Name: metron_agent.dropsonde_incoming_port
+  - Default: false
+    Description: boolean value to turn on verbose mode
+    Example: null
+    Name: metron_agent.debug
+  - Default: 0
+    Description: port used to run the varz endpoint
+    Example: null
+    Name: metron_agent.status.port
+  - Default: null
+    Description: Availability zone where this agent is running
+    Example: null
+    Name: metron_agent.zone
+  - Default: 3457
+    Description: Port where loggregator listens for dropsonde log messages
+    Example: null
+    Name: loggregator.dropsonde_incoming_port
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: ""
+    Description: password used to log into varz endpoint
+    Example: null
+    Name: metron_agent.status.password
+  Templates:
+  - DstPathEnd: bin/metron_agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor658134980/templates/metron_agent_ctl.erb
+    SrcPathEnd: metron_agent_ctl.erb
+  - DstPathEnd: config/metron_agent.json
+    Path: /mnt/tmp/tar-CmdExtractor658134980/templates/metron_agent.json.erb
+    SrcPathEnd: metron_agent.json.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor658134980/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor187855766/monit
+    SrcPathEnd: monit
+  Name: nats
+  Packages:
+  - Name: common
+  - Name: gnatsd
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: nats.port
+  - Default: 0
+    Description: Port for varz and connz monitoring. 0 means disabled.
+    Example: null
+    Name: nats.monitor_port
+  - Default: 0
+    Description: Port for pprof. 0 means disabled.
+    Example: null
+    Name: nats.prof_port
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: false
+    Description: Enable debug logging output.
+    Example: null
+    Name: nats.debug
+  - Default: null
+    Description: NATS network information
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: nats.password
+  - Default: 15
+    Description: After accepting a connection, wait up to this many seconds for credentials.
+    Example: null
+    Name: nats.authorization_timeout
+  - Default: false
+    Description: Enable trace logging output.
+    Example: null
+    Name: nats.trace
+  Templates:
+  - DstPathEnd: bin/nats_ctl
+    Path: /mnt/tmp/tar-CmdExtractor187855766/templates/nats_ctl.erb
+    SrcPathEnd: nats_ctl.erb
+  - DstPathEnd: config/nats.conf
+    Path: /mnt/tmp/tar-CmdExtractor187855766/templates/nats.conf.erb
+    SrcPathEnd: nats.conf.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor187855766/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor116349752/monit
+    SrcPathEnd: monit
+  Name: nats_stream_forwarder
+  Packages:
+  - Name: common
+  - Name: ruby
+  - Name: nats
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: NATS addresses
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: nats
+    Description: ""
+    Example: null
+    Name: nats_props
+  - Default: null
+    Description: Nats stream forwarder network information.
+    Example: null
+    Name: networks.apps
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Name: nats.password
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Name: nats.user
+  Templates:
+  - DstPathEnd: bin/nats_stream_forwarder.rb
+    Path: /mnt/tmp/tar-CmdExtractor116349752/templates/nats_stream_forwarder.rb
+    SrcPathEnd: nats_stream_forwarder.rb
+  - DstPathEnd: bin/nats_stream_forwarder_ctl
+    Path: /mnt/tmp/tar-CmdExtractor116349752/templates/nats_stream_forwarder_ctl.erb
+    SrcPathEnd: nats_stream_forwarder_ctl.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor116349752/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor504808746/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: common
+  - Name: postgres
+  Properties:
+  - Default: null
+    Description: The database scheme
+    Example: null
+    Name: databases.db_scheme
+  - Default: null
+    Description: The database port
+    Example: null
+    Name: databases.port
+  - Default: null
+    Description: The database address
+    Example: null
+    Name: databases.address
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: null
+    Name: databases.databases
+  - Default: null
+    Description: A list of database roles and associated properties to create
+    Example: null
+    Name: databases.roles
+  - Default: null
+    Description: Maximum number of database connections
+    Example: null
+    Name: databases.max_connections
+  Templates:
+  - DstPathEnd: bin/postgres_ctl
+    Path: /mnt/tmp/tar-CmdExtractor504808746/templates/postgres_ctl.erb
+    SrcPathEnd: postgres_ctl.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor504808746/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor504808746/templates/pg_hba.conf.erb
+    SrcPathEnd: pg_hba.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor680524268/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: golang1.3
+  - Name: cli
+  - Name: smoke-tests
+  Properties:
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Name: smoke_tests.skip_ssl_validation
+  - Default: null
+    Description: The Elastic Runtime Appliction Domain
+    Example: null
+    Name: smoke_tests.apps_domain
+  - Default: null
+    Description: The Elastic Runtime organization name to use when running tests
+    Example: null
+    Name: smoke_tests.org
+  - Default: false
+    Description: Toggles setup and cleanup of the Elastic Runtime space
+    Example: null
+    Name: smoke_tests.use_existing_space
+  - Default: ""
+    Description: The Elastic Runtime app name to use when running runtime tests
+    Example: null
+    Name: smoke_tests.runtime_app
+  - Default: null
+    Description: The Elastic Runtime space name to use when running tests
+    Example: null
+    Name: smoke_tests.space
+  - Default: false
+    Description: Toggles setup and cleanup of the Elastic Runtime organization
+    Example: null
+    Name: smoke_tests.use_existing_org
+  - Default: ""
+    Description: The Elastic Runtime app name to use when running logging tests
+    Example: null
+    Name: smoke_tests.logging_app
+  - Default: null
+    Description: Nats stream forwarder network information.
+    Example: null
+    Name: networks.apps
+  - Default: CF_SMOKE_TESTS
+    Description: A token used by the tests when creating Apps / Spaces
+    Example: null
+    Name: smoke_tests.suite_name
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Name: smoke_tests.api
+  - Default: null
+    Description: The Elastic Runtime API user
+    Example: null
+    Name: smoke_tests.user
+  - Default: null
+    Description: The Elastic Runtime API user's password
+    Example: null
+    Name: smoke_tests.password
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor680524268/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor680524268/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor583266814/monit
+    SrcPathEnd: monit
+  Name: syslog_aggregator
+  Packages:
+  - Name: common
+  - Name: syslog_aggregator
+  Properties:
+  - Default: null
+    Description: DNS domain for this Cloud Foundry deployment
+    Example: null
+    Name: domain
+  - Default: null
+    Description: From  email address
+    Example: null
+    Name: syslog_aggregator.log_email.from_email
+  - Default: null
+    Description: password for SMTP login
+    Example: null
+    Name: syslog_aggregator.log_email.from_password
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: Enable Email log
+    Example: null
+    Name: syslog_aggregator.log_email.enabled
+  - Default: null
+    Description: To email address
+    Example: null
+    Name: syslog_aggregator.log_email.to_email
+  - Default: null
+    Description: IP address of SMTP server
+    Example: null
+    Name: syslog_aggregator.log_email.smtp_server
+  - Default: null
+    Description: TCP port of SMTP server
+    Example: null
+    Name: syslog_aggregator.log_email.smtp_port
+  - Default: null
+    Description: SMTP email domain
+    Example: null
+    Name: syslog_aggregator.log_email.smtp_domain
+  - Default: null
+    Description: ""
+    Example: null
+    Name: syslog_aggregator.relay_host
+  - Default: null
+    Description: ""
+    Example: null
+    Name: syslog_aggregator.relay_host_port
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  Templates:
+  - DstPathEnd: bin/reap_old_logs
+    Path: /mnt/tmp/tar-CmdExtractor583266814/templates/reap_old_logs
+    SrcPathEnd: reap_old_logs
+  - DstPathEnd: bin/symlink_logs
+    Path: /mnt/tmp/tar-CmdExtractor583266814/templates/symlink_logs
+    SrcPathEnd: symlink_logs
+  - DstPathEnd: config/rsyslogd.conf
+    Path: /mnt/tmp/tar-CmdExtractor583266814/templates/rsyslogd.conf.erb
+    SrcPathEnd: rsyslogd.conf.erb
+  - DstPathEnd: config/syslog_aggregator.yml
+    Path: /mnt/tmp/tar-CmdExtractor583266814/templates/syslog_aggregator.yml.erb
+    SrcPathEnd: syslog_aggregator.yml.erb
+  - DstPathEnd: bin/syslog_aggregator_ctl
+    Path: /mnt/tmp/tar-CmdExtractor583266814/templates/syslog_aggregator_ctl
+    SrcPathEnd: syslog_aggregator_ctl
+  - DstPathEnd: bin/gzip_old_logs
+    Path: /mnt/tmp/tar-CmdExtractor583266814/templates/gzip_old_logs
+    SrcPathEnd: gzip_old_logs
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor834134496/monit
+    SrcPathEnd: monit
+  Name: uaa
+  Packages:
+  - Name: common
+  - Name: ruby
+  - Name: syslog_aggregator
+  - Name: uaa
+  Properties:
+  - Default: null
+    Description: Number of allowed failures before account is locked
+    Example: null
+    Name: uaa.authentication.policy.lockoutAfterFailures
+  - Default: -Xmx768m -XX:MaxPermSize=256m
+    Description: ""
+    Example: null
+    Name: uaa.catalina_opts
+  - Default: null
+    Description: The https_proxy accross the VMs
+    Example: null
+    Name: env.https_proxy
+  - Default: null
+    Description: The CloudController database Port
+    Example: null
+    Name: ccdb.port
+  - Default: userPassword
+    Description: Used with search-and-compare only. The name of the password attribute
+      in the LDAP directory
+    Example: null
+    Name: uaa.ldap.passwordAttributeName
+  - Default: "true"
+    Description: Set to true when profile_type=groups_as_scopes to auto create scopes
+      for a user. Ignored for other profiles.
+    Example: null
+    Name: uaa.ldap.groups.autoAdd
+  - Default: null
+    Description: The protocol that the Login Server uses. http/https
+    Example: null
+    Name: login.protocol
+  - Default: null
+    Description: Deprecated
+    Example: null
+    Name: uaa.batch.username
+  - Default: null
+    Description: TCP port of NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: Used with simple-bind only. A semi-colon separated lists of DN patterns
+      to construct a DN direct from the user ID without performing a search.
+    Example: null
+    Name: uaa.ldap.userDNPattern
+  - Default: ""
+    Description: Search start point for a user group membership search
+    Example: null
+    Name: uaa.ldap.groups.searchBase
+  - Default: null
+    Description: See uaa.ldap.userDNPattern - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.userDNPattern
+  - Default: ""
+    Description: See uaa.ldap.searchBase - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.searchBase
+  - Default: false
+    Description: ""
+    Example: null
+    Name: uaa.scim.userids_enabled
+  - Default: null
+    Description: The list of databases used in UAA database including tag/name
+    Example: null
+    Name: uaadb.databases
+  - Default: null
+    Description: The list of database Roles used in UAA database including tag/name/password
+    Example: null
+    Name: uaadb.roles
+  - Default: null
+    Description: Deprecated. Default login client secret if no login client is defined
+    Example: null
+    Name: uaa.login.client_secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa_client_auth_credentials.username
+  - Default: false
+    Description: Set to true to enable LDAP
+    Example: null
+    Name: uaa.ldap.enabled
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.scim.users
+  - Default: ""
+    Description: Defines an email pattern containing a {0} to generate an email address
+      for an LDAP user during authentication
+    Example: null
+    Name: uaa.ldap.mailSubstitute
+  - Default: null
+    Description: See uaa.ldap.userDN - login.ldap prefix is used for backwards compatibility
+      to enable ldap from login config
+    Example: null
+    Name: login.ldap.userDN
+  - Default: null
+    Description: Deprecated. Use 'uaa.ldap.enabled'. Sets the Spring profiles on the
+      UAA web application. This gets combined with the 'uaadb.db_scheme' property
+      if and only if the value is exactly 'ldap' in order to setup the database, for
+      example 'ldap,mysql'. If spring_profiles contains more than just 'ldap' it will
+      be used to overwrite spring_profiles and db_scheme ignored. See uaa.yml.erb.
+    Example: null
+    Name: uaa.spring_profiles
+  - Default: null
+    Description: See uaa.ldap.profile_type - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.profile_type
+  - Default: userPassword
+    Description: See uaa.ldap.passwordAttributeName - login.ldap prefix is used for
+      backwards compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.passwordAttributeName
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.client.autoapprove
+  - Default: null
+    Description: A list of external group mappings. Pipe delimited. A value may look
+      as '- internal.read|cn=developers,ou=scopes,dc=test,dc=com'
+    Example: null
+    Name: uaa.scim.external_groups
+  - Default: null
+    Description: The http_proxy accross the VMs
+    Example: null
+    Name: env.http_proxy
+  - Default: null
+    Description: Set No_Proxy accross the VMs
+    Example: null
+    Name: env.no_proxy
+  - Default: null
+    Description: Database scheme for UAA DB
+    Example: null
+    Name: uaadb.db_scheme
+  - Default: null
+    Description: The UAA database Port
+    Example: null
+    Name: uaadb.port
+  - Default: search-and-bind
+    Description: The file to be used for configuring the LDAP authentication. options
+      are simple-bind, search-and-bind and search-and-compare
+    Example: null
+    Name: uaa.ldap.profile_type
+  - Default: null
+    Description: 'Used with search-and-bind and search-and-compare. A valid LDAP ID
+      that has read permissions to perform a search of the LDAP tree for user information. '
+    Example: null
+    Name: uaa.ldap.userDN
+  - Default: null
+    Description: Used with groups-as-scopes, defines the attribute that holds the
+      scope name(s).
+    Example: null
+    Name: uaa.ldap.groups.groupRoleAttribute
+  - Default: "true"
+    Description: Boolean value, set to true to search below the search base
+    Example: null
+    Name: uaa.ldap.groups.searchSubtree
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: null
+    Description: Number of seconds to lock out an account when lockoutAfterFailures
+      failures is exceeded
+    Example: null
+    Name: uaa.authentication.policy.lockoutPeriodSeconds
+  - Default:
+    - openid
+    - scim.me
+    - cloud_controller.read
+    - cloud_controller.write
+    - cloud_controller_service_permissions.read
+    - password.write
+    - scim.userids
+    - uaa.user
+    - approvals.me
+    - oauth.approvals
+    Description: Contains a list of the default authorities/scopes assigned to a user.
+    Example: null
+    Name: uaa.user.authorities
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.jwt.verification_key
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.scim.user.override
+  - Default: null
+    Description: The list of databases used in CloudController database including
+      tag/name
+    Example: null
+    Name: ccdb.databases
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.require_https
+  - Default: ;
+    Description: The delimiter character in between user DN patterns for simple bind
+      authentication
+    Example: null
+    Name: uaa.ldap.userDNPatternDelimiter
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.admin.client_secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.cc.client_secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.clients
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.scim.user
+  - Default: null
+    Description: The UAA database IP address
+    Example: null
+    Name: uaadb.address
+  - Default: null
+    Description: See uaa.ldap.sslCertificate - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.sslCertificate
+  - Default: null
+    Description: Password for NATS login
+    Example: null
+    Name: nats.password
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Name: nats.machines
+  - Default: null
+    Description: The App network name
+    Example: null
+    Name: networks.apps
+  - Default: cn={0}
+    Description: Used with search-and-bind and search-and-compare. Search filter used.
+      Takes one parameter, user ID defined as {0}
+    Example: null
+    Name: uaa.ldap.searchFilter
+  - Default: mail
+    Description: The name of the LDAP attribute that contains the users email address
+    Example: null
+    Name: uaa.ldap.mailAttributeName
+  - Default: "1"
+    Description: Set to number of levels a nested group search should go. Set to 1
+      to disable nested groups (default)
+    Example: null
+    Name: uaa.ldap.groups.maxSearchDepth
+  - Default: org.cloudfoundry.identity.uaa.login.ldap.DynamicPasswordComparator
+    Description: See uaa.ldap.passwordEncoder - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.passwordEncoder
+  - Default: null
+    Description: The CloudController database IP address
+    Example: null
+    Name: ccdb.address
+  - Default: null
+    Description: Database scheme for CloudController DB
+    Example: null
+    Name: ccdb.db_scheme
+  - Default: null
+    Description: User name for NATS login
+    Example: null
+    Name: nats.user
+  - Default: ""
+    Description: Used with search-and-bind and search-and-compare. Define a base where
+      the search starts at.
+    Example: null
+    Name: uaa.ldap.searchBase
+  - Default: false
+    Description: Set to true if you wish to override an LDAP user email address with
+      a generated one
+    Example: null
+    Name: uaa.ldap.mailSubstituteOverridesLdap
+  - Default: null
+    Description: Number of seconds in which lockoutAfterFailures failures must occur
+      in order for account to be locked
+    Example: null
+    Name: uaa.authentication.policy.countFailuresWithinSeconds
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.cc.token_secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.port
+  - Default: null
+    Description: The list of database Roles used in CloudController database including
+      tag/name/password
+    Example: null
+    Name: ccdb.roles
+  - Default: null
+    Description: The domain name for this CloudFoundry deploy
+    Example: null
+    Name: domain
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.url
+  - Default: cn={0}
+    Description: See uaa.ldap.searchFilter - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.searchFilter
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.dump_requests
+  - Default: null
+    Description: Login client secret - overrides uaa.login.client_secret
+    Example: null
+    Name: uaa.clients.login.secret
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa_client_auth_credentials.password
+  - Default: null
+    Description: The URL to the ldap server, must start with ldap:// or ldaps://
+    Example: null
+    Name: uaa.ldap.url
+  - Default: org.cloudfoundry.identity.uaa.ldap.DynamicPasswordComparator
+    Description: Used with search-and-compare only. The encoder used to properly encode
+      user password to match the one in the LDAP directory.
+    Example: null
+    Name: uaa.ldap.passwordEncoder
+  - Default: null
+    Description: Used with ldaps:// URLs. The certificate, if self signed, to be trusted
+      by this connection.
+    Example: null
+    Name: uaa.ldap.sslCertificate
+  - Default: null
+    Description: Used with ldaps:// URLs. The certificate alias, to be trusted by
+      this connection and stored in the keystore.
+    Example: null
+    Name: uaa.ldap.sslCertificateAlias
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  - Default: no-groups
+    Description: What type of group integration should be used. Values are no-groups,
+      groups-as-scopes and groups-map-to-scopes
+    Example: null
+    Name: uaa.ldap.groups.profile_type
+  - Default: null
+    Description: See uaa.ldap.userPassword - login.ldap prefix is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.userPassword
+  - Default: "true"
+    Description: See uaa.ldap.localPasswordCompare - login.ldap prefix is used for
+      backwards compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.localPasswordCompare
+  - Default: null
+    Description: See uaa.ldap.sslCertificateAlias - login.ldap prefix is used for
+      backwards compatibility to enable ldap from login config
+    Example: null
+    Name: login.ldap.sslCertificateAlias
+  - Default: null
+    Description: See uaa.spring_profiles - login.spring_profiles is used for backwards
+      compatibility to enable ldap from login config
+    Example: null
+    Name: login.spring_profiles
+  - Default: false
+    Description: Define whether forwarders should send all their syslog data to our
+      aggregator.
+    Example: null
+    Name: syslog_aggregator.all
+  - Default: null
+    Description: Deprecated
+    Example: null
+    Name: uaa.batch.password
+  - Default: null
+    Description: ""
+    Example: null
+    Name: uaa.jwt.signing_key
+  - Default: false
+    Description: when true, uaa uses http, otherwise it uses https
+    Example: null
+    Name: uaa.no_ssl
+  - Default: null
+    Description: Used with search-and-bind and search-and-compare. Password for the
+      LDAP ID that performs a search of the LDAP tree for user information.
+    Example: null
+    Name: uaa.ldap.userPassword
+  - Default: "true"
+    Description: Used with search-and-compare only. Set to true if passwords are retrieved
+      by the search, and should be compared in the login server.
+    Example: null
+    Name: uaa.ldap.localPasswordCompare
+  - Default: member={0}
+    Description: Search query filter to find groups a user belongs to, or for a nested
+      search, groups that a group belongs to
+    Example: null
+    Name: uaa.ldap.groups.groupSearchFilter
+  - Default: null
+    Description: See uaa.ldap.url - login.ldap prefix is used for backwards compatibility
+      to enable ldap from login config
+    Example: null
+    Name: login.ldap.url
+  Templates:
+  - DstPathEnd: config/varz.yml
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/varz.yml.erb
+    SrcPathEnd: varz.yml.erb
+  - DstPathEnd: config/log4j.properties
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/log4j.properties.erb
+    SrcPathEnd: log4j.properties.erb
+  - DstPathEnd: config/tomcat/server.xml
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/tomcat.server.xml.erb
+    SrcPathEnd: tomcat.server.xml.erb
+  - DstPathEnd: bin/uaa_ctl
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/uaa_ctl.erb
+    SrcPathEnd: uaa_ctl.erb
+  - DstPathEnd: bin/uaa_cf-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/cf-registrar_ctl
+    SrcPathEnd: cf-registrar_ctl
+  - DstPathEnd: config/cf-registrar/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/cf-registrar.config.yml.erb
+    SrcPathEnd: cf-registrar.config.yml.erb
+  - DstPathEnd: config/uaa.yml
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/uaa.yml.erb
+    SrcPathEnd: uaa.yml.erb
+  - DstPathEnd: config/ldap.crt
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/ldap.crt.erb
+    SrcPathEnd: ldap.crt.erb
+  - DstPathEnd: bin/install_crt
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/install_crt.erb
+    SrcPathEnd: install_crt.erb
+  - DstPathEnd: config/varz.log4j.properties
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/varz.log4j.properties.erb
+    SrcPathEnd: varz.log4j.properties.erb
+  - DstPathEnd: config/tomcat/logging.properties
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/tomcat.logging.properties
+    SrcPathEnd: tomcat.logging.properties
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor834134496/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb

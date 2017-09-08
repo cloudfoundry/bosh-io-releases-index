@@ -1,0 +1,409 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor334286849/monit
+    SrcPathEnd: monit
+  Name: nfsbroker-bbr
+  Packages: null
+  Properties:
+  - Default: ""
+    Description: (optional) database port when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_port
+  - Default: ""
+    Description: (optional) database name when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_name
+  - Default: ""
+    Description: (optional) CA Cert to verify SSL connection, if not include, connection
+      will be plain
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_ca_cert
+  - Default: ""
+    Description: (optional) database driver name when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_driver
+  - Default: ""
+    Description: (optional) database username when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_username
+  - Default: ""
+    Description: (optional) database password when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_password
+  - Default: ""
+    Description: (optional) database hostname when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_hostname
+  Templates:
+  - DstPathEnd: bin/bbr/restore
+    Path: /mnt/tmp/tar-CmdExtractor334286849/templates/restore.sh.erb
+    SrcPathEnd: restore.sh.erb
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor334286849/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: bin/bbr/backup
+    Path: /mnt/tmp/tar-CmdExtractor334286849/templates/backup.sh.erb
+    SrcPathEnd: backup.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor650006491/monit
+    SrcPathEnd: monit
+  Name: nfsbroker
+  Packages:
+  - Name: golang-nfsvolume
+  - Name: nfsbroker
+  Properties:
+  - Default: ""
+    Description: (optional) database hostname when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_hostname
+  - Default: ""
+    Description: (optional) database name when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_name
+  - Default: 0.0.0.0:8999
+    Description: (optional) address nfsbroker listens on
+    Example: null
+    Examples: null
+    Name: nfsbroker.listen_addr
+  - Default: ""
+    Description: (optional) database driver name when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_driver
+  - Default: ""
+    Description: (optional) database port when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_port
+  - Default: ""
+    Description: (optional) CA Cert to verify SSL connection, if not include, connection
+      will be plain
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_ca_cert
+  - Default: uid,gid,auto_cache,username,password
+    Description: comma separated list of white-listed options that may be set during
+      create or bind operations.
+    Example: uid,gid,allow_root,allow_other,nfs_uid,nfs_gid,auto_cache,fsname,username,password
+    Examples: null
+    Name: nfsbroker.allowed_options
+  - Default: admin
+    Description: basic auth username to verify on incoming Service Broker requests
+    Example: null
+    Examples: null
+    Name: nfsbroker.username
+  - Default: nfs
+    Description: (optional) name of the service to be registered with cf
+    Example: null
+    Examples: null
+    Name: nfsbroker.service_name
+  - Default: nfs-service-guid
+    Description: (optional) Id of the service to be registered with cf
+    Example: null
+    Examples: null
+    Name: nfsbroker.service_id
+  - Default: /var/vcap/store/nfsbroker
+    Description: (optional) Directory on broker VM to persist instance and binding
+      state
+    Example: null
+    Examples: null
+    Name: nfsbroker.data_dir
+  - Default: ""
+    Description: (optional) database username when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_username
+  - Default: auto_cache:true
+    Description: comma separated list default values for options. If a default is
+      specified but the option is not in the allowed-options, then the default value
+      will be set and cannot be overridden.
+    Example: uid:1000,gid:1000,allow_root:false,allow_other:false,nfs_uid:2000,nfs_gid:2000,auto_cache:false
+    Examples: null
+    Name: nfsbroker.default_options
+  - Default: null
+    Description: basic auth password to verify on incoming Service Broker requests
+    Example: null
+    Examples: null
+    Name: nfsbroker.password
+  - Default: ""
+    Description: (optional) database password when using SQL to store broker state
+    Example: null
+    Examples: null
+    Name: nfsbroker.db_password
+  Templates:
+  - DstPathEnd: bin/nfsbroker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor650006491/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor088861381/monit
+    SrcPathEnd: monit
+  Name: nfsbrokerpush
+  Packages:
+  - Name: nfsbroker
+  - Name: golang-nfsvolume
+  - Name: cf_cli
+  Properties:
+  - Default: null
+    Description: Cloud Foundry System Domain
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.domain
+  - Default: mysql
+    Description: mysql or postgres
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.db.driver
+  - Default: null
+    Description: database username
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.db.username
+  - Default: null
+    Description: database password
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.db.password
+  - Default: false
+    Description: true if the broker should use ldap username/password bind config
+      instead of uid/gid
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.ldap_enabled
+  - Default: null
+    Description: Username of the CF admin user
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.cf.admin_user
+  - Default: 5
+    Description: CF CLI connection dial timeout
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.cf.dial_timeout
+  - Default: null
+    Description: Space that hosts the app
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.space
+  - Default: false
+    Description: true if the cf api uses test certs that should not be verified
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.skip_cert_verify
+  - Default: null
+    Description: Domain used to host the broker app
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.app_domain
+  - Default: null
+    Description: service broker username
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.username
+  - Default: null
+    Description: service broker password
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.password
+  - Default: null
+    Description: database host
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.db.host
+  - Default: null
+    Description: database name
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.db.name
+  - Default: null
+    Description: External log service URL
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.syslog_url
+  - Default: true
+    Description: Throw error on service misconfiguration during deployment
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.error_on_misconfiguration
+  - Default: null
+    Description: Password of the CF admin user
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.cf.admin_password
+  - Default: null
+    Description: Organization that hosts the app
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.organization
+  - Default: nfs
+    Description: service name in marketplace
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.service_name
+  - Default: 3306
+    Description: database port
+    Example: null
+    Examples: null
+    Name: nfsbrokerpush.db.port
+  Templates:
+  - DstPathEnd: manifest.yml
+    Path: /mnt/tmp/tar-CmdExtractor088861381/templates/manifest.yml.erb
+    SrcPathEnd: manifest.yml.erb
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor088861381/templates/deploy.sh.erb
+    SrcPathEnd: deploy.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor587557695/monit
+    SrcPathEnd: monit
+  Name: nfstestserver
+  Packages: null
+  Properties:
+  - Default: 10.0.0.0/8
+    Description: cidr range to use for nfs exports
+    Example: null
+    Examples: null
+    Name: nfstestserver.export_cidr
+  - Default: /var/vcap/store/nfstestserver
+    Description: NFS root path
+    Example: null
+    Examples: null
+    Name: nfstestserver.export_root_path
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor587557695/templates/install.erb
+    SrcPathEnd: install.erb
+  - DstPathEnd: bin/nfstestserver_ctl
+    Path: /mnt/tmp/tar-CmdExtractor587557695/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor401928137/monit
+    SrcPathEnd: monit
+  Name: nfsv3driver
+  Packages:
+  - Name: fuse-nfs
+  - Name: nfsv3driver
+  Properties:
+  - Default: 127.0.0.1:7689
+    Description: address nfsv3driver will serve debug info
+    Example: null
+    Examples: null
+    Name: nfsv3driver.debug_addr
+  - Default: /var/vcap/data/volumes/nfs
+    Description: path to mount volumes into on the cell
+    Example: null
+    Examples: null
+    Name: nfsv3driver.cell_mount_path
+  - Default: uid,gid
+    Description: Comma separated list of white-listed options that may be configured
+      in supported in the mount_config.source URL query params
+    Example: uid,gid,auto-traverse-mounts,dircache
+    Examples: null
+    Name: nfsv3driver.allowed-in-source
+  - Default: 389
+    Description: ldap server port (required for LDAP integration only)
+    Example: null
+    Examples: null
+    Name: nfsv3driver.ldap_port
+  - Default: 127.0.0.1:7589
+    Description: address nfsv3driver listens on
+    Example: null
+    Examples: null
+    Name: nfsv3driver.listen_addr
+  - Default: auto_cache:true
+    Description: Comma separated list default values for options that may be configured
+      in the mount_config options, formatted as 'option:default'. If an option is
+      not specified in the volume mount, or the option is not white-listed, then the
+      specified default value will be used instead.
+    Example: allow_root:false,nfs_uid:2000,nfs_gid:2000,auto_cache:true,sloppy_mount:true
+    Examples: null
+    Name: nfsv3driver.default-in-mount
+  - Default: ""
+    Description: ldap server host name or ip address (required for LDAP integration
+      only)
+    Example: null
+    Examples: null
+    Name: nfsv3driver.ldap_host
+  - Default: ""
+    Description: ldap fqdn for user records we will search against when looking up
+      user uids (required for LDAP integration only)
+    Example: cn=Users,dc=corp,dc=test,dc=com
+    Examples: null
+    Name: nfsv3driver.ldap_user_fqdn
+  - Default: 127.0.0.1:7590
+    Description: address nfsv3driver listens on for admin requests
+    Example: null
+    Examples: null
+    Name: nfsv3driver.admin_addr
+  - Default: /var/vcap/data/voldrivers
+    Description: path to place driver spec/json file for volman to discover
+    Example: null
+    Examples: null
+    Name: nfsv3driver.driver_path
+  - Default: info
+    Description: nfsv3driver log level
+    Example: null
+    Examples: null
+    Name: nfsv3driver.log_level
+  - Default: tcp
+    Description: ldap server protocol (required for LDAP integration only)
+    Example: null
+    Examples: null
+    Name: nfsv3driver.ldap_proto
+  - Default: false
+    Description: disable nfsv3driver
+    Example: null
+    Examples: null
+    Name: nfsv3driver.disable
+  - Default: ""
+    Description: Comma separated list of default values for options in the source
+      URL query params, formatted as 'option:default'. If an option is not specified
+      in the volume mount, or the option is not white-listed, then the specified default
+      value will be applied.
+    Example: uid:1000,gid=1000,auto-traverse-mounts=1
+    Examples: null
+    Name: nfsv3driver.default-in-source
+  - Default: auto_cache
+    Description: Comma separated list of white-listed options that may be accepted
+      in the mount_config options. Note a specific 'sloppy_mount:true' volume option
+      tells the driver to ignore non-white-listed options, while a 'sloppy_mount:false'
+      tells the driver to fail fast instead when receiving a non-white-listed option.
+    Example: allow_root,allow_other,nfs_uid,nfs_gid,auto_cache,sloppy_mount,fsname
+    Examples: null
+    Name: nfsv3driver.allowed-in-mount
+  - Default: ""
+    Description: ldap service account user name (required for LDAP integration only)
+    Example: null
+    Examples: null
+    Name: nfsv3driver.ldap_svc_user
+  - Default: ""
+    Description: ldap service account password (required for LDAP integration only)
+    Example: null
+    Examples: null
+    Name: nfsv3driver.ldap_svc_password
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor401928137/templates/install.erb
+    SrcPathEnd: install.erb
+  - DstPathEnd: bin/nfsv3driver_ctl
+    Path: /mnt/tmp/tar-CmdExtractor401928137/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor401928137/templates/drain.erb
+    SrcPathEnd: drain.erb

@@ -1,0 +1,125 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor226273585/monit
+    SrcPathEnd: monit
+  Name: warden_cpi
+  Packages:
+  - Name: warden_cpi
+  Properties:
+  - Default: null
+    Description: Connection type warden client will use to connect (tcp or unix)
+    Example: null
+    Examples: null
+    Name: warden_cpi.warden.connect_network
+  - Default: []
+    Description: NTP configuration used by deployed BOSH agents
+    Example: null
+    Examples: null
+    Name: warden_cpi.agent.ntp
+  - Default: /var/vcap/store/warden_cpi/ephemeral_bind_mounts_dir
+    Description: Directory with sub-directories at which ephemeral disks are mounted
+      on the host
+    Example: null
+    Examples: null
+    Name: warden_cpi.actions.host_ephemeral_bind_mounts_dir
+  - Default: /warden-cpi-dev
+    Description: Directory with sub-directories at which persistent disks are mounted
+      inside VMs
+    Example: null
+    Examples: null
+    Name: warden_cpi.actions.guest_persistent_bind_mounts_dir
+  - Default: ""
+    Description: Password for registry
+    Example: null
+    Examples: null
+    Name: registry.password
+  - Default: null
+    Description: IP address of the host that will be used by containers, must be the
+      same as mbus IP
+    Example: 10.254.50.4
+    Examples: null
+    Name: warden_cpi.host_ip
+  - Default: null
+    Description: Address warden client will use to connect (ip:port or sock path)
+    Example: null
+    Examples: null
+    Name: warden_cpi.warden.connect_address
+  - Default: null
+    Description: Mbus URL used by deployed BOSH agents
+    Example: nats://nats:nats-password@10.254.50.4:4222
+    Examples: null
+    Name: warden_cpi.agent.mbus
+  - Default: /var/vcap/data
+    Description: Path at which ephemeral disk is mounted inside VMs
+    Example: null
+    Examples: null
+    Name: warden_cpi.actions.guest_ephemeral_bind_mount_path
+  - Default: ""
+    Description: Hostname of registry
+    Example: null
+    Examples: null
+    Name: registry.host
+  - Default: ""
+    Description: Username for registry
+    Example: null
+    Examples: null
+    Name: registry.username
+  - Default: {}
+    Description: Options for the blobstore used by deployed BOSH agents
+    Example: null
+    Examples: null
+    Name: warden_cpi.agent.blobstore.options
+  - Default: /var/vcap/store/warden_cpi/stemcells
+    Description: Directory where stemcells are stored
+    Example: null
+    Examples: null
+    Name: warden_cpi.actions.stemcells_dir
+  - Default: /var/vcap/store/warden_cpi/persistent_bind_mounts_dir
+    Description: Directory with sub-directories at which persistent disks are mounted
+      on the host
+    Example: null
+    Examples: null
+    Name: warden_cpi.actions.host_persistent_bind_mounts_dir
+  - Default: false
+    Description: Enables use of registry
+    Example: null
+    Examples: null
+    Name: warden_cpi.enable_registry
+  - Default: null
+    Description: Range of loopback devices that will be used by the CPI for mounting
+      persistent disks (example shows /dev/loop100 to /dev/loop130)
+    Example:
+    - 100
+    - 130
+    Examples: null
+    Name: warden_cpi.loopback_range
+  - Default: dav
+    Description: Provider type for the blobstore used by deployed BOSH agents (e.g.
+      dav, s3)
+    Example: null
+    Examples: null
+    Name: warden_cpi.agent.blobstore.provider
+  - Default: /var/vcap/store/warden_cpi/disks
+    Description: Directory where disks are stored
+    Example: null
+    Examples: null
+    Name: warden_cpi.actions.disks_dir
+  - Default: 6901
+    Description: Port of registry
+    Example: null
+    Examples: null
+    Name: registry.port
+  Templates:
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor226273585/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: bin/cpi_ctl
+    Path: /mnt/tmp/tar-CmdExtractor226273585/templates/cpi_ctl.erb
+    SrcPathEnd: cpi_ctl.erb
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor226273585/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb
+  - DstPathEnd: config/sudoers
+    Path: /mnt/tmp/tar-CmdExtractor226273585/templates/sudoers
+    SrcPathEnd: sudoers

@@ -1,0 +1,1140 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor954897555/monit
+    SrcPathEnd: monit
+  Name: arbitrator
+  Packages:
+  - Name: mariadb
+  - Name: galera-healthcheck
+  - Name: cf-mysql-common
+  Properties:
+  - Default: 9200
+    Description: Port used by sidecar process to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.port
+  - Default: root
+    Description: Username for the MySQL server admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_username
+  - Default: null
+    Description: Password for the MySQL server admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_password
+  - Default: 3306
+    Description: Port the mysql server should bind to
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.port
+  - Default: 4567
+    Description: Port which garbd listens on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_port
+  - Default: null
+    Description: (Optional) List of nodes.  Must have the same number of ips as there
+      are nodes in the cluster
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_ips
+  - Default: galera-healthcheck
+    Description: Username used by the sidecar endpoints for Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_username
+  - Default: null
+    Description: Password used by the sidecar endpoints for Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_password
+  Templates:
+  - DstPathEnd: bin/garbd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor954897555/templates/garbd_ctl.erb
+    SrcPathEnd: garbd_ctl.erb
+  - DstPathEnd: config/garbd_config
+    Path: /mnt/tmp/tar-CmdExtractor954897555/templates/garbd_config.erb
+    SrcPathEnd: garbd_config.erb
+  - DstPathEnd: bin/galera-healthcheck_ctl
+    Path: /mnt/tmp/tar-CmdExtractor954897555/templates/galera-healthcheck_ctl.erb
+    SrcPathEnd: galera-healthcheck_ctl.erb
+  - DstPathEnd: config/galera_healthcheck_config.yaml
+    Path: /mnt/tmp/tar-CmdExtractor954897555/templates/galera_healthcheck_config.yaml.erb
+    SrcPathEnd: galera_healthcheck_config.yaml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor109079613/monit
+    SrcPathEnd: monit
+  Name: bootstrap
+  Packages:
+  - Name: bootstrap
+  Properties:
+  - Default: 9200
+    Description: Port used by healthcheck process to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.port
+  - Default: null
+    Description: IP addresses of all MySQL nodes
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_ips
+  - Default: galera-healthcheck
+    Description: Username used to contact the sidecar endpoints via Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_username
+  - Default: null
+    Description: Password used to contact the sidecar endpoints via Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_password
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor109079613/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor109079613/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor791369834/monit
+    SrcPathEnd: monit
+  Name: broker-registrar
+  Packages:
+  - Name: cli
+  Properties:
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: https://api.your-domain.example.com
+    Examples: null
+    Name: cf.api_url
+  - Default: false
+    Description: Skip SSL validation when connecting to Cloud Foundry API
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Examples: null
+    Name: cf_mysql.external_host
+  - Default: null
+    Description: Array of services, each service contains the list of plans the broker
+      of that service provides. Note - the broker-registrar errand only registers
+      the first service
+    Example: |
+      - name: REPLACE-WITH-SERVICE-NAME
+        plans:
+        - name: 100mb
+          id: REPLACE-WITH-A-UNIQUE-GUID
+          description: Shared MySQL Server
+          max_storage_mb: 100
+          max_user_connections: 20
+        - name: 1gb
+          id: REPLACE-WITH-A-UNIQUE-GUID
+          description: Shared MySQL Server
+          max_storage_mb: 1000
+          max_user_connections: 40
+    Examples: null
+    Name: cf_mysql.broker.services
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.port
+  - Default: admin
+    Description: Basic Auth username for the service broker
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.auth_username
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/de-registering
+      the broker
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.protocol
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.auth_password
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor791369834/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor689127724/monit
+    SrcPathEnd: monit
+  Name: cf-mysql-broker
+  Packages:
+  - Name: ruby
+  - Name: mysqlclient
+  - Name: cf-mysql-broker
+  - Name: cf-mysql-common
+  - Name: mariadb
+  - Name: syslog_aggregator
+  - Name: quota-enforcer
+  Properties:
+  - Default: null
+    Description: Size of the persistent disk allocated to the MySQL node for storage
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.persistent_disk
+  - Default: 512
+    Description: Cache size used by galera (maximum amount of data possible in an
+      IST), in MB
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.gcache_size
+  - Default: 1024
+    Description: Size of the ib_log_file used by innodb, in MB
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.ib_log_file_size
+  - Default: null
+    Description: The password for the cf-mysql-broker MySQL user
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.db_password
+  - Default: null
+    Description: A unique secret key, used to sign sessions
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.cookie_secret
+  - Default: null
+    Description: URL of the CloudFoundry Cloud Controller
+    Example: https://api.your-domain.example.com
+    Examples: null
+    Name: cf.api_url
+  - Default: false
+    Description: Determines whether dashboard verifies SSL certificates when communicating
+      with Cloud Controller and UAA
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: null
+    Description: Host used to register a route for the broker with the router in cf-release
+      via NATS. By registering the broker with Cloud Foundry using this route, and
+      using the router for load balancing, the broker can be horizontally scaled.
+      Domain is typically the same as system domain in cf-release.
+    Example: null
+    Examples: null
+    Name: cf_mysql.external_host
+  - Default: 40
+    Description: number of user connections to allow in a plan if not specified
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.max_user_connections_default
+  - Default: null
+    Description: Optional, The ip to be registered with the cf router for the broker.
+      Defaults to the ip of the vm
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.host
+  - Default: []
+    Description: Array of users that the quota enforcer will not enforce quotas on
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.quota_enforcer.ignored_users
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: Host (DNS) or IP address used by the broker and bound applications
+      to reach the service
+    Example: null
+    Examples: null
+    Name: cf_mysql.host
+  - Default: 3306
+    Description: Port used by the broker and bound applications to reach the service
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.port
+  - Default: root
+    Description: Username for the admin MySQL account
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_username
+  - Default: admin
+    Description: Broker's basic auth username
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.auth_username
+  - Default: null
+    Description: Array of services, each service contains the list of plans the broker
+      of that service provides
+    Example: |
+      - name: REPLACE-WITH-SERVICE-NAME
+        plans:
+        - name: 100mb
+          id: REPLACE-WITH-A-UNIQUE-GUID
+          description: Shared MySQL Server
+          max_storage_mb: 100
+          max_user_connections: 20
+        - name: 1gb
+          id: REPLACE-WITH-A-UNIQUE-GUID
+          description: Shared MySQL Server
+          max_storage_mb: 1000
+          max_user_connections: 40
+    Examples: null
+    Name: cf_mysql.broker.services
+  - Default: false
+    Description: Disable the Quota Enforcer process
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.disable_quota_enforcer
+  - Default: null
+    Description: The password for the quota-enforcer user
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.quota_enforcer.password
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.port
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.transport
+  - Default: null
+    Description: Password for the admin MySQL account
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_password
+  - Default: null
+    Description: Broker's basic auth password
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.auth_password
+  - Default: true
+    Description: Determines use of https in dashboard url and in callback uri for
+      calls to UAA
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.ssl_enabled
+  - Default: 8081
+    Description: Port for broker
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.port
+  - Default: 1
+    Description: In seconds, the interval that the Quota Enforcer pauses between checks
+      for violators and reformers
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.quota_enforcer.pause
+  Templates:
+  - DstPathEnd: config/quota_enforcer_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/quota_enforcer_config.yml.erb
+    SrcPathEnd: quota_enforcer_config.yml.erb
+  - DstPathEnd: config/quota_enforcer_setup.sql
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/quota_enforcer_setup.sql.erb
+    SrcPathEnd: quota_enforcer_setup.sql.erb
+  - DstPathEnd: bin/healthcheck.sh
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/healthcheck.sh.erb
+    SrcPathEnd: healthcheck.sh.erb
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/settings.yml.erb
+    SrcPathEnd: settings.yml.erb
+  - DstPathEnd: config/mylogin.cnf
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/mylogin.cnf.erb
+    SrcPathEnd: mylogin.cnf.erb
+  - DstPathEnd: bin/cf-mysql-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/cf-mysql-broker_ctl.erb
+    SrcPathEnd: cf-mysql-broker_ctl.erb
+  - DstPathEnd: config/cf_mysql_broker_setup.sql
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/cf_mysql_broker_setup.sql.erb
+    SrcPathEnd: cf_mysql_broker_setup.sql.erb
+  - DstPathEnd: config/unicorn.conf.rb
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/unicorn.conf.rb.erb
+    SrcPathEnd: unicorn.conf.rb.erb
+  - DstPathEnd: config/database.yml
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/database.yml.erb
+    SrcPathEnd: database.yml.erb
+  - DstPathEnd: bin/quota-enforcer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/quota-enforcer_ctl.erb
+    SrcPathEnd: quota-enforcer_ctl.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor689127724/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor057150782/monit
+    SrcPathEnd: monit
+  Name: deregister-and-purge-instances
+  Packages:
+  - Name: cli
+  Properties:
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Array of services. Note - the deregister-and-purge-instances errand
+      only deregisters the first service
+    Example: |
+      - name: REPLACE-WITH-SERVICE-NAME
+    Examples: null
+    Name: cf_mysql.broker.services
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: https://api.your-domain.example.com
+    Examples: null
+    Name: cf.api_url
+  - Default: false
+    Description: Skip SSL validation when connecting to Cloud Foundry API
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor057150782/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor666395936/monit
+    SrcPathEnd: monit
+  Name: mysql
+  Packages:
+  - Name: xtrabackup
+  - Name: mariadb
+  - Name: mariadb_ctrl
+  - Name: galera
+  - Name: galera-healthcheck
+  - Name: gra-log-purger
+  - Name: cf-mysql-common
+  - Name: cf-mysql-cluster-health-logger
+  - Name: syslog_aggregator
+  Properties:
+  - Default: 30
+    Description: Number of audit file rotations to keep
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.server_audit_file_rotations
+  - Default: true
+    Description: Enable binlogs across all nodes
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.binlog_enabled
+  - Default: 7
+    Description: Time in days to store binlogs before purging
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.binlog_expire_days
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.port
+  - Default: null
+    Description: Optional. Previous username of the MySQL server admin user to be
+      removed. Use this when changing the admin_username to avoid leaving around an
+      unused user with root access.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.previous_admin_username
+  - Default: null
+    Description: |
+      Optional. IP address used to reach mysql from other cluster members
+      If not provided, the IP is automatically determined.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.advertise_host
+  - Default: 1073741824
+    Description: Maximum permitted size in bytes per writeset.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.wsrep_max_ws_size
+  - Default: 16777216
+    Description: The maximum size (in rows) to which user-created MEMORY tables are
+      permitted to grow
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.max_heap_table_size
+  - Default: false
+    Description: Whether read only user is enabled
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.roadmin_enabled
+  - Default: null
+    Description: Password for the cluster logger health user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_health.password
+  - Default: 9200
+    Description: Port used by sidecar process to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.port
+  - Default: root
+    Description: Username for the MySQL server admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_username
+  - Default: 4567
+    Description: Port which Galera Cluster uses for communication across nodes
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_port
+  - Default: utf8_unicode_ci
+    Description: Default collation. Use SHOW COLLATION to view the valid collations
+      for your character set.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.collation_server
+  - Default: 256M
+    Description: The maximum size in bytes of a packet or a generated/intermediate
+      string
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.max_allowed_packet
+  - Default: ""
+    Description: Path to a binary to run when SST is prevented from running
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.interrupt_notify_cmd
+  - Default: true
+    Description: When disable_auto_sst is true, nodes unable to IST will be prevented
+      from automatically deleting their data and performing an SST
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.disable_auto_sst
+  - Default: false
+    Description: Enables user statistics, adding several new information schema tables
+      and new FLUSH and SHOW commands.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.userstat
+  - Default: 60
+    Description: Number of seconds that monit should wait for mysql to start before
+      giving up
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.startup_timeout
+  - Default: 3306
+    Description: Port the mysql server should bind to
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.port
+  - Default: 65536
+    Description: Configure this number to be comfortably larger than the maximum number
+      of tables you expect the database to support.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.max_open_files
+  - Default: null
+    Description: Optional, number of buffer pool instances for InnoDB used if innodb_buffer_pool_size
+      > 1GB
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.innodb_buffer_pool_instances
+  - Default: 100
+    Description: Size in MB of each audit log file
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.server_audit_file_rotate_size_in_mb
+  - Default: null
+    Description: Password for the MySQL server read-only admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.roadmin_password
+  - Default: null
+    Description: Enable audit logging and specify types of events that will be logged.
+      If null, then logging is disabled
+    Example: connect,query_ddl,query_dml,query_dcl
+    Examples: null
+    Name: cf_mysql.mysql.server_audit_events
+  - Default: []
+    Description: Other database users to exclude from audit logging
+    Example: |
+      - monitoring_user
+      - other_excluded_user
+      - bot_user
+    Examples: null
+    Name: cf_mysql.mysql.server_audit_excluded_users
+  - Default: "off"
+    Description: Events are named database objects containing SQL statements that
+      are to be executed at a later stage, either once off, or at regular intervals.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.event_scheduler
+  - Default: null
+    Description: Optional, the size in bytes of the memory buffer InnoDB uses to cache
+      data and indexes of its tables
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.innodb_buffer_pool_size
+  - Default: 1
+    Description: 'Optional, control balance between performance and full ACID compliance.
+      Valid values are: 0, 1, 2'
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.innodb_flush_log_at_trx_commit
+  - Default: galera-healthcheck
+    Description: Username used by the sidecar endpoints for Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_username
+  - Default: "off"
+    Description: When set to on, enables additional debugging output for the database
+      server error log.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.wsrep_debug
+  - Default: null
+    Description: Password used by the sidecar to connect to the database
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.db_password
+  - Default: false
+    Description: Queries that don't use an index, or that perform a full index scan
+      where the index doesn't limit the number of rows, will be logged to the slow
+      query log.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.log_queries_not_using_indexes
+  - Default: 1500
+    Description: Maximum total number of database connections for the node
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.max_connections
+  - Default: utf8
+    Description: Default character set. Note that while the MariaDB default is latin1,
+      we default to utf8.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.character_set_server
+  - Default: 0
+    Description: Maximum permitted number of rows per writeset.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.wsrep_max_ws_rows
+  - Default: null
+    Description: Password used by the sidecar endpoints for Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_password
+  - Default: 512
+    Description: Cache size used by galera (maximum amount of data possible in an
+      IST), in MB
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.gcache_size
+  - Default: 1024
+    Description: Size of the ib_log_file used by innodb, in MB
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.ib_log_file_size
+  - Default: {}
+    Description: Set of databases to seed
+    Example: |
+      - name: db1
+        username: user1
+        password: pw1
+      - name: db2
+        username: user2
+        password: pw2
+    Examples: null
+    Name: cf_mysql.mysql.seeded_databases
+  - Default: 30
+    Description: Time in seconds between log entries for cluster health
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_health.log_interval
+  - Default: null
+    Description: Password for the MySQL server admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_password
+  - Default: null
+    Description: Optional, time in seconds that an InnoDB transaction waits for an
+      InnoDB row lock
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.innodb_lock_wait_timeout
+  - Default: null
+    Description: Optional, list of nodes.  Must have the same number of ips as there
+      are nodes in the cluster
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_ips
+  - Default: 33554432
+    Description: The maximum size (in bytes) of internal in-memory temporary tables
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.tmp_table_size
+  - Default: true
+    Description: Defines whether the node logs additional information about conflicts.
+      The values that were in conflict are logged, so it is possible for user data
+      to end up in the logs.
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.log_conflicts
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.address
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.transport
+  - Default: true
+    Description: Do not restrict connections to database based on hostname
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.skip_name_resolve
+  Templates:
+  - DstPathEnd: bin/mariadb_ctl
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/mariadb_ctl.erb
+    SrcPathEnd: mariadb_ctl.erb
+  - DstPathEnd: config/mylogin.cnf
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/mylogin.cnf.erb
+    SrcPathEnd: mylogin.cnf.erb
+  - DstPathEnd: config/cluster_health_logger_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/cluster_health_logger_config.yml.erb
+    SrcPathEnd: cluster_health_logger_config.yml.erb
+  - DstPathEnd: bin/gra-log-purger.sh
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/gra-log-purger.sh.erb
+    SrcPathEnd: gra-log-purger.sh.erb
+  - DstPathEnd: bin/pre-start-execution
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/pre-start-execution.erb
+    SrcPathEnd: pre-start-execution.erb
+  - DstPathEnd: bin/cluster_health_logger_ctl
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/cluster_health_logger_ctl.erb
+    SrcPathEnd: cluster_health_logger_ctl.erb
+  - DstPathEnd: config/my.cnf
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/my.cnf.erb
+    SrcPathEnd: my.cnf.erb
+  - DstPathEnd: config/mariadb_init
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/mariadb_init.erb
+    SrcPathEnd: mariadb_init.erb
+  - DstPathEnd: bin/galera-healthcheck_ctl
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/galera-healthcheck_ctl.erb
+    SrcPathEnd: galera-healthcheck_ctl.erb
+  - DstPathEnd: bin/gra-log-purger_ctl
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/gra-log-purger_ctl.erb
+    SrcPathEnd: gra-log-purger_ctl.erb
+  - DstPathEnd: config/mariadb_ctl_config.yml
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/mariadb_ctl_config.yml.erb
+    SrcPathEnd: mariadb_ctl_config.yml.erb
+  - DstPathEnd: config/galera_healthcheck_config.yaml
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/galera_healthcheck_config.yaml.erb
+    SrcPathEnd: galera_healthcheck_config.yaml.erb
+  - DstPathEnd: config/galera_healthcheck_setup.sql
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/galera_healthcheck_setup.sql.erb
+    SrcPathEnd: galera_healthcheck_setup.sql.erb
+  - DstPathEnd: config/cluster_health_logger_setup.sql
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/cluster_health_logger_setup.sql.erb
+    SrcPathEnd: cluster_health_logger_setup.sql.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/pre-start-setup.erb
+    SrcPathEnd: pre-start-setup.erb
+  - DstPathEnd: config/mysql_audit_logs.logrotate
+    Path: /mnt/tmp/tar-CmdExtractor666395936/templates/mysql_audit_logs.logrotate.erb
+    SrcPathEnd: mysql_audit_logs.logrotate.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor978937682/monit
+    SrcPathEnd: monit
+  Name: proxy
+  Packages:
+  - Name: switchboard
+  - Name: cf-mysql-common
+  - Name: syslog_aggregator
+  Properties:
+  - Default: mysql
+    Description: |
+      If consul_enabled is true, switchboard will register with consul using this name
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.consul_service_name
+  - Default: false
+    Description: |
+      When set to true, the switchboard will listen on port 6060 and enable
+      profiling of the process
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.profiling_enabled
+  - Default: 8080
+    Description: Port for the proxy API to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_port
+  - Default: null
+    Description: Password for Basic Auth used to secure API
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_password
+  - Default: 1936
+    Description: Port for checking the health of the proxy process
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.health_port
+  - Default: proxy
+    Description: Username for Basic Auth used to secure API
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_username
+  - Default: null
+    Description: |
+      Optional, list of IP addresses for the arbitrator nodes of the MySQL cluster
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.arbitrator_ip
+  - Default: 0
+    Description: |
+      If using a load balancer above the proxies,
+      enter your load balancer's healthy total threshold time here in seconds.
+      E.g., if your LB polls every 30 seconds and requires 3 successful attempts,
+      then set this property to 90 seconds.
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.startup_delay
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.port
+  - Default: null
+    Description: Optional, list of nodes.  Must have the same number of ips as there
+      are nodes in the cluster
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_ips
+  - Default: null
+    Description: |
+      Optional, Base URI registered to the proxies.
+      Used by the proxy aggregator.
+    Example: proxy-cf-mysql.my-system-domain.com
+    Examples: null
+    Name: cf_mysql.proxy.api_uri
+  - Default: true
+    Description: Redirect all HTTP requests to the API to HTTPS
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_force_https
+  - Default: null
+    Description: Optional, list of IP addresses for all proxy jobs
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.proxy_ips
+  - Default: 3000
+    Description: |
+      Configure this number to be twice as large as mysql.max_connections
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.max_open_files
+  - Default: 0
+    Description: |
+      If using a load balancer above the proxies,
+      enter your load balancer's unhealthy total threshold time here in seconds.
+      E.g., if your LB polls every 30 seconds, and immediately fails over upon failure,
+      then set this property to 30 seconds.
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.shutdown_delay
+  - Default: tcp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Examples: null
+    Name: syslog_aggregator.transport
+  - Default: 3306
+    Description: Port for the proxy to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.port
+  - Default: 8082
+    Description: Port for the proxy aggregator API to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_aggregator_port
+  - Default: false
+    Description: |
+      Enable discovery of switchboard through consul
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.consul_enabled
+  - Default: 3306
+    Description: Port the mysql server listens on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.port
+  - Default: 9200
+    Description: Port galera_healthcheck sidecar process listens on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.port
+  - Default: 5000
+    Description: Timeout (milliseconds) before assuming a backend is unhealthy
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.healthcheck_timeout_millis
+  Templates:
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor978937682/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/switchboard.yml
+    Path: /mnt/tmp/tar-CmdExtractor978937682/templates/switchboard.yml.erb
+    SrcPathEnd: switchboard.yml.erb
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor978937682/templates/post-start.erb
+    SrcPathEnd: post-start.erb
+  - DstPathEnd: bin/switchboard_ctl
+    Path: /mnt/tmp/tar-CmdExtractor978937682/templates/switchboard_ctl.erb
+    SrcPathEnd: switchboard_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor656546388/monit
+    SrcPathEnd: monit
+  Name: rejoin-unsafe
+  Packages:
+  - Name: bootstrap
+  Properties:
+  - Default: null
+    Description: IP addresses of all MySQL nodes
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_ips
+  - Default: galera-healthcheck
+    Description: Username used by the sidecar endpoints for Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_username
+  - Default: null
+    Description: Password used by the sidecar endpoints for Basic Auth
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_password
+  - Default: 9200
+    Description: Port used by sidecar process to listen on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.port
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor656546388/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor656546388/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor597735078/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: golang
+  - Name: acceptance-tests
+  - Name: cli
+  Properties:
+  - Default: ""
+    Description: Full URL of Cloud Foundry API
+    Example: https://api.your-domain.example.com
+    Examples: null
+    Name: cf.api_url
+  - Default: 3306
+    Description: Port used to access MySQL
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.port
+  - Default: null
+    Description: Proxy API password
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_password
+  - Default: ""
+    Description: Hostname given for dashboard URLs (e.g. p-mysql.example.com)
+    Example: null
+    Examples: null
+    Name: cf_mysql.external_host
+  - Default: null
+    Description: Admin password used to access MySQL
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_password
+  - Default: true
+    Description: Expect proxy to force redirect to HTTPS
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_force_https
+  - Default: null
+    Description: List of shared domains for pushed apps (tests will use the first
+      domain)
+    Example: null
+    Examples: null
+    Name: cf.app_domains
+  - Default: false
+    Description: Whether to add --skip-ssl-validation for cf cli
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: ""
+    Description: Password for generated user to comply with CF password policy, if
+      exists.
+    Example: null
+    Examples: null
+    Name: cf_mysql.smoke_tests.password
+  - Default: 1
+    Description: scaling multiplier used to determine command timeouts
+    Example: null
+    Examples: null
+    Name: cf_mysql.smoke_tests.timeout_scale
+  - Default: proxy
+    Description: Proxy API username
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.api_username
+  - Default: ""
+    Description: Password of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_password
+  - Default: false
+    Description: Runs smoke test errand as an existing org. Creates a new org if false
+    Example: null
+    Examples: null
+    Name: cf.smoke_tests.use_existing_org
+  - Default: false
+    Description: Instead of running the full smoke test suite, only run a minimal
+      set of tests that do not require a running CF deployment
+    Example: null
+    Examples: null
+    Name: cf_mysql.smoke_tests.standalone_tests_only
+  - Default: root
+    Description: Admin username used to access MySQL
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_username
+  - Default: null
+    Description: Array of Services the broker provides
+    Example: null
+    Examples: null
+    Name: cf_mysql.broker.services
+  - Default: null
+    Description: Use to construct an array of proxy dashboard url (e.g. https://proxy-INDEX-EXTERNAL_HOST)
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.proxy_ips
+  - Default: ""
+    Description: Username of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_username
+  - Default: ""
+    Description: The name of the Org to run acceptance tests against
+    Example: null
+    Examples: null
+    Name: cf.smoke_tests.org
+  - Default: null
+    Description: |
+      Hostname given to apps by the broker, usually a Load Balancer address or the IP of the first proxy.
+      Used only by the standalone tests, and is optional.
+      If omitted, and `standalone_tests_only` is true, either `cluster_ips` must be provided,
+      or mysql links must be provided.
+    Example: null
+    Examples: null
+    Name: cf_mysql.host
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor597735078/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor597735078/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor920786120/monit
+    SrcPathEnd: monit
+  Name: verify-cluster-schemas
+  Packages:
+  - Name: mariadb
+  - Name: ruby
+  - Name: cluster-schema-verifier
+  Properties:
+  - Default: null
+    Description: Password used to authenticate with galera healthcheck
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_password
+  - Default: null
+    Description: IP addresses of all MySQL nodes
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.cluster_ips
+  - Default: null
+    Description: IP address of the arbitrator if it exists
+    Example: null
+    Examples: null
+    Name: cf_mysql.proxy.arbitrator_ip
+  - Default: 3306
+    Description: Port the mysql servers are running on
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.port
+  - Default: root
+    Description: Username for the MySQL server admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_username
+  - Default: null
+    Description: Password for the MySQL server admin user
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.admin_password
+  - Default: 9200
+    Description: Port used to access galera healthcheck
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.port
+  - Default: galera-healthcheck
+    Description: Username used to authenticate with galera healthcheck
+    Example: null
+    Examples: null
+    Name: cf_mysql.mysql.galera_healthcheck.endpoint_username
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor920786120/templates/run.rb.erb
+    SrcPathEnd: run.rb.erb

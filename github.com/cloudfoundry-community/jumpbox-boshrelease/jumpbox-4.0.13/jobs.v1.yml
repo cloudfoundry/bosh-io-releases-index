@@ -1,0 +1,46 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor673114182/monit
+    SrcPathEnd: monit
+  Name: jumpbox
+  Packages:
+  - Name: ruby-gems
+  - Name: cf
+  - Name: spruce
+  - Name: genesis
+  - Name: safe
+  - Name: yaml2json
+  - Name: golang
+  - Name: bosh-init
+  - Name: shield
+  - Name: spiff
+  - Name: vault
+  Properties:
+  - Default: jumpbox.local
+    Description: Hostname to set on the jumpbox
+    Example: null
+    Examples: null
+    Name: jumpbox.hostname
+  - Default: []
+    Description: A list of entries to append to /etc/hosts
+    Example: null
+    Examples: null
+    Name: jumpbox.hosts
+  - Default: []
+    Description: |-
+      List of users to create
+      - name: jhunt
+        shell: /bin/bash
+        env: https://github.com/jhunt/devbox-env.git  # specifies a git environment to clone
+        setup_script: /path/to/setup/script           # runs a script as the user, after cloning the above repo
+        ssh_keys:
+          - ssh-rsa AAAAB3NzaC1yabcd
+          - ssh-rsa AAAAB3NzaC1y1234
+    Example: null
+    Examples: null
+    Name: jumpbox.users
+  Templates:
+  - DstPathEnd: bin/jumpbox_ctl
+    Path: /mnt/tmp/tar-CmdExtractor673114182/templates/bin/jumpbox_ctl
+    SrcPathEnd: bin/jumpbox_ctl

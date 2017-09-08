@@ -1,0 +1,52 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor661315066/monit
+    SrcPathEnd: monit
+  Name: rackhd-cpi
+  Packages:
+  - Name: rackhd-cpi
+  Properties:
+  - Default: []
+    Description: NTP configuration used by deployed BOSH agents
+    Example: null
+    Examples: null
+    Name: rackhd-cpi.agent.ntp
+  - Default: dav
+    Description: Provider type for the blobstore used by deployed BOSH agents (e.g.
+      dav, s3)
+    Example: null
+    Examples: null
+    Name: rackhd-cpi.agent.blobstore.provider
+  - Default: {}
+    Description: Options for the blobstore used by deployed BOSH agents
+    Example: null
+    Examples: null
+    Name: rackhd-cpi.agent.blobstore.options
+  - Default: 5
+    Description: maximum number of attempts to create a vm
+    Example: null
+    Examples: null
+    Name: rackhd-cpi.max_create_vm_attempts
+  - Default: 1200
+    Description: timeout for running a workflow in seconds
+    Example: null
+    Examples: null
+    Name: rackhd-cpi.run_workflow_timeout
+  - Default: null
+    Description: API endpoint ip
+    Example: 10.10.10.10
+    Examples: null
+    Name: rackhd-cpi.apiserver
+  - Default: null
+    Description: Mbus URL used by deployed BOSH agents
+    Example: nats://nats:nats-password@10.254.50.4:4222
+    Examples: null
+    Name: rackhd-cpi.agent.mbus
+  Templates:
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor661315066/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor661315066/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb

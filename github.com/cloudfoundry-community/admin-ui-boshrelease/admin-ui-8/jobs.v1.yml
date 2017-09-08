@@ -1,0 +1,287 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor597412344/monit
+    SrcPathEnd: monit
+  Name: admin_ui
+  Packages:
+  - Name: admin_ui
+  - Name: ruby
+  - Name: libyaml
+  - Name: libpq
+  - Name: mysqlclient
+  - Name: common
+  Properties:
+  - Default: null
+    Description: IP address of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.address
+  - Default: null
+    Description: Full url of the Cloud Controller api
+    Example: null
+    Examples: null
+    Name: admin_ui.cloud_controller_uri
+  - Default: null
+    Description: UAA db port
+    Example: null
+    Examples: null
+    Name: admin_ui.uaadb.port
+  - Default: null
+    Description: UAA db username
+    Example: null
+    Examples: null
+    Name: admin_ui.uaadb.password
+  - Default: null
+    Description: CC db username
+    Example: null
+    Examples: null
+    Name: admin_ui.ccdb.password
+  - Default:
+    - admin_ui.user
+    Description: Array of uaa OAuth scopes of admin-ui users
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.scopes.user
+  - Default: null
+    Description: Password for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: Uri to register with the router, also requires the apps network to
+      be set
+    Example: null
+    Examples: null
+    Name: admin_ui.uri
+  - Default: uaadb
+    Description: UAA db database name
+    Example: null
+    Examples: null
+    Name: admin_ui.uaadb.database
+  - Default: null
+    Description: UAA db username
+    Example: null
+    Examples: null
+    Name: admin_ui.uaadb.username
+  - Default: postgres
+    Description: CC db scheme
+    Example: null
+    Examples: null
+    Name: admin_ui.ccdb.scheme
+  - Default: null
+    Description: CC db port
+    Example: null
+    Examples: null
+    Name: admin_ui.ccdb.port
+  - Default: null
+    Description: Uaa OAuth client secret
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.client.secret
+  - Default: null
+    Description: Username for cc client to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: IP addresses of Cloud Foundry NATS servers
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: false
+    Description: Disable ssl verify
+    Example: null
+    Examples: null
+    Name: admin_ui.cloud_controller_ssl_verify_none
+  - Default: null
+    Description: UAA db address
+    Example: null
+    Examples: null
+    Name: admin_ui.uaadb.address
+  - Default: ccdb
+    Description: CC db database name
+    Example: null
+    Examples: null
+    Name: admin_ui.ccdb.database
+  - Default: null
+    Description: Uaa OAuth client id
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.client.id
+  - Default:
+    - admin_ui.admin
+    Description: Array of uaa OAuth scopes of admin-ui admins
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.scopes.admin
+  - Default: 1 Gb
+    Description: Maximum memory for the admin ui process. Monit restarts process if
+      limit is reached.
+    Example: null
+    Examples: null
+    Name: admin_ui.max_memory
+  - Default: null
+    Description: The App network name
+    Example: null
+    Examples: null
+    Name: networks.apps
+  - Default: postgres
+    Description: UAA db scheme
+    Example: null
+    Examples: null
+    Name: admin_ui.uaadb.scheme
+  - Default: null
+    Description: CC db address
+    Example: null
+    Examples: null
+    Name: admin_ui.ccdb.address
+  - Default: null
+    Description: CC db username
+    Example: null
+    Examples: null
+    Name: admin_ui.ccdb.username
+  Templates:
+  - DstPathEnd: config/admin_ui.yml
+    Path: /mnt/tmp/tar-CmdExtractor597412344/templates/admin_ui.yml.erb
+    SrcPathEnd: admin_ui.yml.erb
+  - DstPathEnd: bin/admin_ui_ctl
+    Path: /mnt/tmp/tar-CmdExtractor597412344/templates/admin_ui_ctl.erb
+    SrcPathEnd: admin_ui_ctl.erb
+  - DstPathEnd: bin/admin_ui_cf-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor597412344/templates/cf-registrar_ctl.erb
+    SrcPathEnd: cf-registrar_ctl.erb
+  - DstPathEnd: config/cf-registrar/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor597412344/templates/cf-registrar.config.yml.erb
+    SrcPathEnd: cf-registrar.config.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor006476778/monit
+    SrcPathEnd: monit
+  Name: deregister_admin_ui
+  Packages:
+  - Name: ruby
+  - Name: uaac
+  Properties:
+  - Default: null
+    Description: Uaa url
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.url
+  - Default: null
+    Description: Uaa admin client secret
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.admin_client_secret
+  - Default: null
+    Description: Uaa OAuth client id
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.client.id
+  - Default: null
+    Description: Uaa OAuth client secret
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.client.secret
+  - Default:
+    - admin_ui.admin
+    Description: Array of uaa OAuth scopes of admin-ui admins
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.scopes.admin
+  - Default:
+    - admin_ui.user
+    Description: Array of uaa OAuth scopes of admin-ui users
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.scopes.user
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor006476778/templates/bin/run
+    SrcPathEnd: bin/run
+  - DstPathEnd: bin/deregister_admin_ui
+    Path: /mnt/tmp/tar-CmdExtractor006476778/templates/bin/deregister_admin_ui
+    SrcPathEnd: bin/deregister_admin_ui
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor006476778/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor006476778/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor006476778/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor544730284/monit
+    SrcPathEnd: monit
+  Name: register_admin_ui
+  Packages:
+  - Name: ruby
+  - Name: uaac
+  Properties:
+  - Default: []
+    Description: Array of uaa users with scopes.admin memberships
+    Example: null
+    Examples: null
+    Name: admin_ui.admins
+  - Default: []
+    Description: Array of uaa users with scopes.user memberships
+    Example: null
+    Examples: null
+    Name: admin_ui.users
+  - Default: null
+    Description: Uaa url
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.url
+  - Default: null
+    Description: Uaa admin client secret
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.admin_client_secret
+  - Default: null
+    Description: Uaa OAuth client id
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.client.id
+  - Default: null
+    Description: Uaa OAuth client secret
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.client.secret
+  - Default:
+    - admin_ui.admin
+    Description: Array of uaa OAuth scopes of admin-ui admins
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.scopes.admin
+  - Default:
+    - admin_ui.user
+    Description: Array of uaa OAuth scopes of admin-ui users
+    Example: null
+    Examples: null
+    Name: admin_ui.uaa.scopes.user
+  Templates:
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor544730284/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor544730284/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor544730284/templates/bin/run
+    SrcPathEnd: bin/run
+  - DstPathEnd: bin/register_admin_ui
+    Path: /mnt/tmp/tar-CmdExtractor544730284/templates/bin/register_admin_ui
+    SrcPathEnd: bin/register_admin_ui
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor544730284/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh

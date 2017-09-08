@@ -1,0 +1,63 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor552319296/monit
+    SrcPathEnd: monit
+  Name: docker_cpi
+  Packages:
+  - Name: docker_cpi
+  Properties:
+  - Default: []
+    Description: NTP configuration used by deployed BOSH agents
+    Example: null
+    Examples: null
+    Name: docker_cpi.agent.ntp
+  - Default: dav
+    Description: Provider type for the blobstore used by deployed BOSH agents (e.g.
+      dav, s3)
+    Example: null
+    Examples: null
+    Name: docker_cpi.agent.blobstore.provider
+  - Default: {}
+    Description: Options for the blobstore used by deployed BOSH agents
+    Example: null
+    Examples: null
+    Name: docker_cpi.agent.blobstore.options
+  - Default: null
+    Description: IP address of the host that will be used by containers, must be the
+      same as mbus IP
+    Example: 10.254.50.4
+    Examples: null
+    Name: docker_cpi.host_ip
+  - Default: null
+    Description: Docker host will use to connect (tcp or unix)
+    Example: tcp://10.10.0.62:32768
+    Examples: null
+    Name: docker_cpi.docker.host
+  - Default: "1.22"
+    Description: Expected Docker API version
+    Example: null
+    Examples: null
+    Name: docker_cpi.docker.api_version
+  - Default: null
+    Description: |
+      Mutual TLS client certificate for connecting to Docker daemon.
+      Optional with unix:// host, otherwise required.
+    Example: null
+    Examples: null
+    Name: docker_cpi.docker.tls
+  - Default: null
+    Description: Mbus URL used by deployed BOSH agents
+    Example: nats://nats:nats-password@10.254.50.4:4222
+    Examples: null
+    Name: docker_cpi.agent.mbus
+  Templates:
+  - DstPathEnd: bin/cpi_ctl
+    Path: /mnt/tmp/tar-CmdExtractor552319296/templates/cpi_ctl.erb
+    SrcPathEnd: cpi_ctl.erb
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor552319296/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor552319296/templates/cpi.erb
+    SrcPathEnd: cpi.erb

@@ -1,0 +1,42 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor447083181/monit
+    SrcPathEnd: monit
+  Name: influxdb
+  Packages:
+  - Name: influxdb
+  - Name: bootstrapper
+  Properties:
+  - Default: null
+    Description: database name in influxdb to create
+    Example: null
+    Examples: null
+    Name: influxdb.database
+  - Default: root
+    Description: influx user
+    Example: null
+    Examples: null
+    Name: influxdb.user
+  - Default: root
+    Description: influx user's password
+    Example: null
+    Examples: null
+    Name: influxdb.password
+  - Default: 14d
+    Description: default retention period for database
+    Example: null
+    Examples: null
+    Name: influxdb.retention
+  - Default: "1"
+    Description: default replication count for database
+    Example: null
+    Examples: null
+    Name: influxdb.replication
+  Templates:
+  - DstPathEnd: config/influxdb.conf
+    Path: /mnt/tmp/tar-CmdExtractor447083181/templates/influxdb.conf.erb
+    SrcPathEnd: influxdb.conf.erb
+  - DstPathEnd: bin/influxd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor447083181/templates/influxd_ctl.erb
+    SrcPathEnd: influxd_ctl.erb

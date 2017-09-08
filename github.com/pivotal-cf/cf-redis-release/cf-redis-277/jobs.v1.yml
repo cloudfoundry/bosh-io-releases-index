@@ -1,0 +1,323 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor000223174/monit
+    SrcPathEnd: monit
+  Name: broker-registrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Name: broker.protocol
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Name: broker.host
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor000223174/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor404667624/monit
+    SrcPathEnd: monit
+  Name: broker-deregistrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Name: broker.protocol
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Name: broker.host
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor404667624/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor483394650/monit
+    SrcPathEnd: monit
+  Name: syslog-configurator
+  Packages:
+  - Name: common
+  Properties:
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: udp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  Templates:
+  - DstPathEnd: bin/syslog-configurator_ctl
+    Path: /mnt/tmp/tar-CmdExtractor483394650/templates/syslog-configurator_ctl.erb
+    SrcPathEnd: syslog-configurator_ctl.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor483394650/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor802638492/monit
+    SrcPathEnd: monit
+  Name: dedicated-node
+  Packages:
+  - Name: redis
+  - Name: common
+  - Name: redis-agent
+  Properties:
+  - Default: 6379
+    Description: The port used by the redis instances
+    Example: null
+    Name: redis.broker.dedicated_port
+  - Default: ""
+    Description: The name of the obfuscated redis CONFIG command.
+    Example: null
+    Name: redis.config_command
+  Templates:
+  - DstPathEnd: bin/redis_ctl
+    Path: /mnt/tmp/tar-CmdExtractor802638492/templates/redis_ctl.erb
+    SrcPathEnd: redis_ctl.erb
+  - DstPathEnd: bin/redis-agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor802638492/templates/redis-agent_ctl.erb
+    SrcPathEnd: redis-agent_ctl.erb
+  - DstPathEnd: config/agent.yml
+    Path: /mnt/tmp/tar-CmdExtractor802638492/templates/agent.yml
+    SrcPathEnd: agent.yml
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor802638492/templates/redis.conf.erb
+    SrcPathEnd: redis.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor139949614/monit
+    SrcPathEnd: monit
+  Name: cf-redis-broker
+  Packages:
+  - Name: common
+  - Name: nginx
+  - Name: redis
+  - Name: cf-redis-broker
+  - Name: s3gof3r
+  Properties:
+  - Default: /var/vcap/store/cf-redis-broker/statefile.json
+    Description: Path to the broker statefile
+    Example: null
+    Name: redis.statefile_path
+  - Default: null
+    Description: This host which the Redis server runs on
+    Example: null
+    Name: redis.host
+  - Default: ""
+    Description: The name of the obfuscated redis SAVE command.
+    Example: null
+    Name: redis.save_command
+  - Default: null
+    Description: The maximum number of instances allowed
+    Example: null
+    Name: redis.broker.service_instance_limit
+  - Default: null
+    Description: SSL Certificate for broker (PEM encoded)
+    Example: null
+    Name: redis.broker.ssl.cert
+  - Default: null
+    Description: SSL private key for broker (PEM encoded)
+    Example: null
+    Name: redis.broker.ssl.key
+  - Default: ""
+    Description: HTTP(S) endpoint of the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.endpoint_url
+  - Default: null
+    Description: The name of the obfuscated redis CONFIG command.
+    Example: null
+    Name: redis.config_command
+  - Default: ""
+    Description: Path within the above bucket to which backups will be uploaded
+    Example: null
+    Name: redis.broker.backups.path
+  - Default: 10
+    Description: Maximum wait time in seconds for Redis to start up
+    Example: null
+    Name: redis.broker.start_redis_timeout
+  - Default: admin
+    Description: The username for HTTP Basic Auth on the Broker
+    Example: null
+    Name: redis.broker.auth.username
+  - Default: 6379
+    Description: The port used by the redis instances
+    Example: null
+    Name: redis.broker.dedicated_port
+  - Default: /var/vcap/sys/log/redis
+    Description: The directory which stores the redis server logs
+    Example: null
+    Name: redis.log_directory
+  - Default: admin
+    Description: The password for HTTP Basic Auth on the Broker
+    Example: null
+    Name: redis.broker.auth.password
+  - Default: []
+    Description: List of node IPs for the dedicated plan
+    Example: null
+    Name: redis.broker.dedicated_nodes
+  - Default: ""
+    Description: Secret Access Key for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.secret_access_key
+  - Default: 10
+    Description: Interval in seconds between checks for dead processes
+    Example: null
+    Name: redis.broker.process_check_interval
+  - Default: ""
+    Description: Access Key ID for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.access_key_id
+  - Default: /var/vcap/jobs/cf-redis-broker/config/redis.conf
+    Description: The shared conf file for all Redis instances
+    Example: null
+    Name: redis.conf_path
+  - Default: 3600
+    Description: Timeout in seconds for Redis background save to complete when backing
+      up instance
+    Example: null
+    Name: redis.broker.backups.bg_save_timeout
+  - Default: 10001
+    Description: The port for the broker unicorn process to run on
+    Example: null
+    Name: redis.broker.backend_port
+  - Default: redis
+    Description: Name of the broker, to be used in cf commandline operations and by
+      the broker-registrar
+    Example: null
+    Name: redis.broker.name
+  - Default: ""
+    Description: Name of the bucket into which backups will be uploaded
+    Example: null
+    Name: redis.broker.backups.bucket_name
+  - Default: ""
+    Description: Security Token for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.security_token
+  - Default: /var/vcap/store/cf-redis-broker/redis-data
+    Description: The directory which stores the persisted broker data
+    Example: null
+    Name: redis.data_directory
+  - Default: 524288000
+    Description: The maximum memory (in bytes) that Redis will use before evicting
+      old data
+    Example: null
+    Name: redis.maxmemory
+  - Default: ""
+    Description: The name of the obfuscated redis BGSAVE command.
+    Example: null
+    Name: redis.bg_save_command
+  - Default: ""
+    Description: S3 region for the S3-compatible blob store that backups will be uploaded
+      to
+    Example: null
+    Name: redis.broker.backups.s3_region
+  Templates:
+  - DstPathEnd: bin/cf-redis-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/cf-redis-broker_ctl.erb
+    SrcPathEnd: cf-redis-broker_ctl.erb
+  - DstPathEnd: bin/process-watcher_ctl
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/process-watcher_ctl.erb
+    SrcPathEnd: process-watcher_ctl.erb
+  - DstPathEnd: config/broker.yml
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/broker.yml.erb
+    SrcPathEnd: broker.yml.erb
+  - DstPathEnd: config/ssl/cf-redis-broker.key
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/cf-redis-broker.key.erb
+    SrcPathEnd: cf-redis-broker.key.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/drain.sh
+    SrcPathEnd: drain.sh
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/nginx_ctl.erb
+    SrcPathEnd: nginx_ctl.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/redis.conf.erb
+    SrcPathEnd: redis.conf.erb
+  - DstPathEnd: config/ssl/cf-redis-broker.pem
+    Path: /mnt/tmp/tar-CmdExtractor139949614/templates/cf-redis-broker.pem.erb
+    SrcPathEnd: cf-redis-broker.pem.erb

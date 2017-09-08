@@ -1,0 +1,239 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor551461044/monit
+    SrcPathEnd: monit
+  Name: acceptance_tests
+  Packages:
+  - Name: golang_1.4
+  - Name: acceptance_tests
+  - Name: golang_1.4
+  - Name: tcp_emitter
+  Properties:
+  - Default: false
+    Description: Whether to pass the -v flag to router acceptance tests
+    Example: null
+    Name: router.acceptance_tests.verbose
+  - Default: 9999
+    Description: Router API IP Port
+    Example: null
+    Name: router.acceptance_tests.router_api_port
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Name: router.acceptance_tests.bbs.ca_cert
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Name: router.acceptance_tests.bbs.client_cert
+  - Default: "8080"
+    Description: Port on which UAA is running.
+    Example: null
+    Name: router.acceptance_tests.uaa_port
+  - Default: null
+    Description: Password for UAA client for the gorouter.
+    Example: null
+    Name: router.acceptance_tests.gorouter_secret
+  - Default: 4
+    Description: The number of parallel test executors to spawn. The larger the number
+      the higher the stress on the system.
+    Example: null
+    Name: router.acceptance_tests.nodes
+  - Default:
+    - 10.244.8.2
+    Description: Router API IP Address
+    Example: null
+    Name: router.acceptance_tests.router_api_addresses
+  - Default: https://bbs.service.cf.internal:8889
+    Description: Diego BBS Server endpoint url
+    Example: null
+    Name: router.acceptance_tests.bbs.api_location
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Name: router.acceptance_tests.bbs.client_key
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Name: router.acceptance_tests.bbs.require_ssl
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor551461044/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor551461044/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor551461044/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor551461044/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor551461044/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+- Description: The tcp proxy layer used by router to achieve tcp routing functionality.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor734138374/monit
+    SrcPathEnd: monit
+  Name: haproxy
+  Packages:
+  - Name: pid_utils
+  - Name: haproxy
+  Properties:
+  - Default: 300
+    Description: Server and client timeouts in seconds
+    Example: null
+    Name: router.haproxy.request_timeout_in_seconds
+  - Default: 1234
+    Description: Port that HAProxy listens on when it comes up for first time to make
+      sure HAProxy process is started
+    Example: null
+    Name: router.haproxy.faux_port
+  Templates:
+  - DstPathEnd: config/haproxy.conf
+    Path: /mnt/tmp/tar-CmdExtractor734138374/templates/haproxy.conf.erb
+    SrcPathEnd: haproxy.conf.erb
+  - DstPathEnd: config/haproxy.conf.template
+    Path: /mnt/tmp/tar-CmdExtractor734138374/templates/haproxy.conf.template.erb
+    SrcPathEnd: haproxy.conf.template.erb
+  - DstPathEnd: bin/haproxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor734138374/templates/haproxy_ctl
+    SrcPathEnd: haproxy_ctl
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor192073512/monit
+    SrcPathEnd: monit
+  Name: router_configurer
+  Packages:
+  - Name: pid_utils
+  - Name: router_configurer
+  Properties:
+  - Default: /var/vcap/jobs/haproxy/config/haproxy.conf
+    Description: Config file of underlying tcp proxy
+    Example: null
+    Name: router.router_configurer.tcp_config_file
+  - Default: "3000"
+    Description: Port of routing api
+    Example: null
+    Name: router.router_configurer.routing_api_port
+  - Default: false
+    Description: auth disabled setting of routing api
+    Example: null
+    Name: router.router_configurer.routing_api_auth_disabled
+  - Default: null
+    Description: Password for UAA client for the gorouter.
+    Example: null
+    Name: router.router_configurer.gorouter_secret
+  - Default: "8080"
+    Description: Port on which UAA is running.
+    Example: null
+    Name: router.router_configurer.uaa_port
+  - Default: 0.0.0.0:17014
+    Description: Address at which to serve debug info
+    Example: null
+    Name: router.router_configurer.debug_addr
+  - Default: info
+    Description: Log level
+    Example: null
+    Name: router.router_configurer.log_level
+  - Default: /var/vcap/jobs/haproxy/config/haproxy.conf.template
+    Description: Base Config file of underlying tcp proxy
+    Example: null
+    Name: router.router_configurer.tcp_config_file_template
+  Templates:
+  - DstPathEnd: bin/router_configurer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor192073512/templates/router_configurer_ctl.erb
+    SrcPathEnd: router_configurer_ctl.erb
+  - DstPathEnd: config/router_configurer.yml
+    Path: /mnt/tmp/tar-CmdExtractor192073512/templates/router_configurer.yml.erb
+    SrcPathEnd: router_configurer.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor722773146/monit
+    SrcPathEnd: monit
+  Name: tcp_emitter
+  Packages:
+  - Name: pid_utils
+  - Name: tcp_emitter
+  - Name: router_configurer
+  Properties:
+  - Default: http://bbs.service.cf.internal:8889
+    Description: Diego BBS Server endpoint url
+    Example: null
+    Name: router.tcp_emitter.bbs.api_location
+  - Default: 10s
+    Description: TTL for service lock
+    Example: null
+    Name: router.tcp_emitter.lock_ttl
+  - Default: tcp-emitter
+    Description: consul session name
+    Example: null
+    Name: router.tcp_emitter.session_name
+  - Default: "8080"
+    Description: Port on which UAA is running.
+    Example: null
+    Name: router.tcp_emitter.uaa_port
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Name: router.tcp_emitter.bbs.ca_cert
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Name: router.tcp_emitter.bbs.client_cert
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Name: router.tcp_emitter.bbs.client_key
+  - Default: null
+    Description: Password for UAA client for the gorouter.
+    Example: null
+    Name: router.tcp_emitter.gorouter_secret
+  - Default: 5s
+    Description: interval to wait before retrying a failed lock acquisition
+    Example: null
+    Name: router.tcp_emitter.lock_retry_interval
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Name: router.tcp_emitter.bbs.require_ssl
+  - Default: "3000"
+    Description: Port of routing api
+    Example: null
+    Name: router.tcp_emitter.routing_api_port
+  - Default: false
+    Description: auth disabled setting of routing api
+    Example: null
+    Name: router.tcp_emitter.routing_api_auth_disabled
+  - Default: 0.0.0.0:17016
+    Description: Address at which to serve debug info
+    Example: null
+    Name: router.tcp_emitter.debug_addr
+  - Default: info
+    Description: Log level
+    Example: null
+    Name: router.tcp_emitter.log_level
+  - Default: http://127.0.0.1:8500
+    Description: comma-separated list of consul server URLs (scheme://ip:port)
+    Example: null
+    Name: router.tcp_emitter.consul_cluster
+  Templates:
+  - DstPathEnd: bin/tcp_emitter_ctl
+    Path: /mnt/tmp/tar-CmdExtractor722773146/templates/tcp_emitter_ctl.erb
+    SrcPathEnd: tcp_emitter_ctl.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor722773146/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor722773146/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor722773146/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+  - DstPathEnd: config/tcp_emitter.yml
+    Path: /mnt/tmp/tar-CmdExtractor722773146/templates/tcp_emitter.yml.erb
+    SrcPathEnd: tcp_emitter.yml.erb

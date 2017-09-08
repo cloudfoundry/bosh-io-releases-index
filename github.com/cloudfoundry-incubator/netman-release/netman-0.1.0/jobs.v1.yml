@@ -1,0 +1,349 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor118799721/monit
+    SrcPathEnd: monit
+  Name: cni-flannel
+  Packages:
+  - Name: flannel
+  - Name: runc-cni
+  - Name: flannel-watchdog
+  Properties:
+  - Default: true
+    Description: Enable GBP on VXLAN devices
+    Example: null
+    Examples: null
+    Name: cni-flannel.flannel.Backend.GBP
+  - Default: cni-flannel0
+    Description: name of cni bridge on host
+    Example: null
+    Examples: null
+    Name: flannel-watchdog.config.bridge_name
+  - Default: /run/flannel/subnet.env
+    Description: file that flannel writes out the subnet environment
+    Example: null
+    Examples: null
+    Name: flannel-watchdog.config.flannel_subnet_file
+  - Default: []
+    Description: a list of etcd endpoints
+    Example: null
+    Examples: null
+    Name: cni-flannel.etcd_endpoints
+  - Default: 10.255.0.0/16
+    Description: CIDR block for overlay network.  Should be /16
+    Example: null
+    Examples: null
+    Name: cni-flannel.flannel.Network
+  - Default: vxlan
+    Description: Flannel backend to use
+    Example: null
+    Examples: null
+    Name: cni-flannel.flannel.Backend.Type
+  - Default: 1
+    Description: VXLAN Virtual Network Identifier to use
+    Example: null
+    Examples: null
+    Name: cni-flannel.flannel.Backend.VNI
+  - Default: 8472
+    Description: UDP port to use for VXLAN Tunnel Endpoints
+    Example: null
+    Examples: null
+    Name: cni-flannel.flannel.Backend.Port
+  Templates:
+  - DstPathEnd: config/cni/30-flannel.conf
+    Path: /mnt/tmp/tar-CmdExtractor118799721/templates/30-flannel.conf.erb
+    SrcPathEnd: 30-flannel.conf.erb
+  - DstPathEnd: bin/flannel-watchdog_ctl
+    Path: /mnt/tmp/tar-CmdExtractor118799721/templates/flannel-watchdog_ctl.erb
+    SrcPathEnd: flannel-watchdog_ctl.erb
+  - DstPathEnd: config/flannel-watchdog.json
+    Path: /mnt/tmp/tar-CmdExtractor118799721/templates/flannel-watchdog.json.erb
+    SrcPathEnd: flannel-watchdog.json.erb
+  - DstPathEnd: bin/flanneld_ctl
+    Path: /mnt/tmp/tar-CmdExtractor118799721/templates/flanneld_ctl.erb
+    SrcPathEnd: flanneld_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor876052355/monit
+    SrcPathEnd: monit
+  Name: garden-cni
+  Packages:
+  - Name: runc-cni
+  Properties:
+  - Default: 5000
+    Description: Total number of host ports that may be allocated to containers
+    Example: null
+    Examples: null
+    Name: garden-cni.total_ports
+  - Default: null
+    Description: Directory containing CNI plugins.
+    Example: null
+    Examples: null
+    Name: garden-cni.cni_plugin_dir
+  - Default: null
+    Description: Directory to store CNI config files.  Other jobs may write files
+      into here.
+    Example: null
+    Examples: null
+    Name: garden-cni.cni_config_dir
+  - Default: /var/vcap/data/garden-cni/container-netns
+    Description: The CNI adapter will bind-mount network namespaces in this directory
+    Example: null
+    Examples: null
+    Name: garden-cni.bind_mount_dir
+  - Default: 10.255.0.0/16
+    Description: IP range used by the container network
+    Example: null
+    Examples: null
+    Name: garden-cni.overlay_network
+  - Default: /var/vcap/data/garden-cni/external-networker-state.json
+    Description: Path to file that will hold the state persisted by the external networker
+      binary
+    Example: null
+    Examples: null
+    Name: garden-cni.state_file
+  - Default: 60000
+    Description: Starting value for allocating host ports to containers
+    Example: null
+    Examples: null
+    Name: garden-cni.start_port
+  Templates:
+  - DstPathEnd: config/adapter.json
+    Path: /mnt/tmp/tar-CmdExtractor876052355/templates/adapter.json.erb
+    SrcPathEnd: adapter.json.erb
+  - DstPathEnd: config/cni/30-bridge.conf
+    Path: /mnt/tmp/tar-CmdExtractor876052355/templates/30-bridge.conf.erb
+    SrcPathEnd: 30-bridge.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor234893485/monit
+    SrcPathEnd: monit
+  Name: netmon
+  Packages:
+  - Name: netmon
+  Properties:
+  - Default: 127.0.0.1:3457
+    Description: Forward metrics to this metron agent
+    Example: null
+    Examples: null
+    Name: netmon.metron_address
+  - Default: 30
+    Description: Gather and report metrics at this interval, in seconds
+    Example: null
+    Examples: null
+    Name: netmon.poll_interval
+  Templates:
+  - DstPathEnd: bin/netmon_ctl
+    Path: /mnt/tmp/tar-CmdExtractor234893485/templates/netmon_ctl.erb
+    SrcPathEnd: netmon_ctl.erb
+  - DstPathEnd: config/netmon.json
+    Path: /mnt/tmp/tar-CmdExtractor234893485/templates/netmon.json.erb
+    SrcPathEnd: netmon.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor458566503/monit
+    SrcPathEnd: monit
+  Name: policy-server
+  Packages:
+  - Name: policy-server
+  Properties:
+  - Default: 4002
+    Description: Port where the policy server will serve its API
+    Example: null
+    Examples: null
+    Name: policy-server.server.listen_port
+  - Default: false
+    Description: skip verifying ssl certs
+    Example: null
+    Examples: null
+    Name: policy-server.server.skip_ssl_validation
+  - Default: 127.0.0.1
+    Description: Host of database server, DNS or IP address
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.host
+  - Default: 5432
+    Description: Port number for database server
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.port
+  - Default: https://uaa.bosh-lite.com
+    Description: address of uaa server
+    Example: null
+    Examples: null
+    Name: policy-server.server.uaa_url
+  - Default: postgres
+    Description: 'Type of database: postgres or mysql'
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.type
+  - Default: policy_server
+    Description: Name of database to use on the server
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.name
+  - Default: disable
+    Description: SSL mode for use in Postgres
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.ssl_mode
+  - Default: 2
+    Description: Length in bytes of the packet tags to generate for policy sources
+      and destinations. Must be greater than 0 and less than 4.
+    Example: null
+    Examples: null
+    Name: policy-server.server.tag_length
+  - Default: network-policy
+    Description: uaa client name
+    Example: null
+    Examples: null
+    Name: policy-server.server.uaa_client
+  - Default: network-policy-secret
+    Description: uaa client secret
+    Example: null
+    Examples: null
+    Name: policy-server.server.uaa_client_secret
+  - Default: 0.0.0.0
+    Description: Host where the policy server will serve its API
+    Example: null
+    Examples: null
+    Name: policy-server.server.listen_host
+  - Default: policy_server
+    Description: Username for policy server connecting to database
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.username
+  - Default: some-password
+    Description: Password for policy server user connecting to database
+    Example: null
+    Examples: null
+    Name: policy-server.server.database.password
+  Templates:
+  - DstPathEnd: bin/policy-server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor458566503/templates/policy-server_ctl.erb
+    SrcPathEnd: policy-server_ctl.erb
+  - DstPathEnd: config/policy-server.json
+    Path: /mnt/tmp/tar-CmdExtractor458566503/templates/policy-server.json.erb
+    SrcPathEnd: policy-server.json.erb
+- Description: The Postgres server provides a single instance Postgres database that
+    can be used with the Cloud Controller or the UAA. It does not provide highly-available
+    configuration.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor913653809/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: netman-common
+  - Name: postgres
+  Properties:
+  - Default: false
+    Description: Enable the `pg_stat_statements` extension and collect statement execution
+      statistics
+    Example: null
+    Examples: null
+    Name: policy-server.database.collect_statement_statistics
+  - Default: null
+    Description: The database address
+    Example: null
+    Examples: null
+    Name: policy-server.database.address
+  - Default: null
+    Description: Maximum number of database connections
+    Example: null
+    Examples: null
+    Name: policy-server.database.max_connections
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: null
+    Examples: null
+    Name: policy-server.database.databases
+  - Default: null
+    Description: A list of database roles and associated properties to create
+    Example: null
+    Examples: null
+    Name: policy-server.database.roles
+  - Default: '%m: '
+    Description: The postgres `printf` style string that is output at the beginning
+      of each log line
+    Example: null
+    Examples: null
+    Name: policy-server.database.log_line_prefix
+  - Default: null
+    Description: A map of additional key/value pairs to include as extra configuration
+      properties
+    Example: null
+    Examples: null
+    Name: policy-server.database.additional_config
+  - Default: null
+    Description: The database scheme
+    Example: null
+    Examples: null
+    Name: policy-server.database.db_scheme
+  - Default: null
+    Description: The database port
+    Example: null
+    Examples: null
+    Name: policy-server.database.port
+  Templates:
+  - DstPathEnd: bin/postgres_ctl
+    Path: /mnt/tmp/tar-CmdExtractor913653809/templates/postgres_ctl.erb
+    SrcPathEnd: postgres_ctl.erb
+  - DstPathEnd: bin/postgres_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor913653809/templates/postgres_start.sh.erb
+    SrcPathEnd: postgres_start.sh.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor913653809/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor913653809/templates/pg_hba.conf.erb
+    SrcPathEnd: pg_hba.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor588241291/monit
+    SrcPathEnd: monit
+  Name: vxlan-policy-agent
+  Packages:
+  - Name: vxlan-policy-agent
+  Properties:
+  - Default: /run/flannel/subnet.env
+    Description: File path to look for flannel's subnet.env file
+    Example: null
+    Examples: null
+    Name: vxlan-policy-agent.flannel_subnet_file
+  - Default: /var/vcap/data/garden/garden.sock
+    Description: Address of garden server
+    Example: null
+    Examples: null
+    Name: vxlan-policy-agent.garden_address
+  - Default: unix
+    Description: Protocol of garden server
+    Example: null
+    Examples: null
+    Name: vxlan-policy-agent.garden_protocol
+  - Default: null
+    Description: URL where the policy server can be reached
+    Example: null
+    Examples: null
+    Name: vxlan-policy-agent.policy_server_url
+  - Default: 5
+    Description: Query the policy server on this interval, in seconds
+    Example: null
+    Examples: null
+    Name: vxlan-policy-agent.poll_interval
+  - Default: 1
+    Description: VXLAN VNI
+    Example: null
+    Examples: null
+    Name: vxlan-policy-agent.vni
+  Templates:
+  - DstPathEnd: bin/vxlan-policy-agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor588241291/templates/vxlan-policy-agent_ctl.erb
+    SrcPathEnd: vxlan-policy-agent_ctl.erb
+  - DstPathEnd: config/vxlan-policy-agent.json
+    Path: /mnt/tmp/tar-CmdExtractor588241291/templates/vxlan-policy-agent.json.erb
+    SrcPathEnd: vxlan-policy-agent.json.erb

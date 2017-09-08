@@ -1,0 +1,137 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor198741554/monit
+    SrcPathEnd: monit
+  Name: openvpn
+  Packages:
+  - Name: openvpn
+  Properties:
+  - Default: null
+    Description: Certificate Revocation List
+    Example: null
+    Examples: null
+    Name: openvpn.crl_pem
+  - Default: "1.0"
+    Description: The minimum TLS version accepted from peers
+    Example: null
+    Examples: null
+    Name: openvpn.tls_version_min
+  - Default: null
+    Description: Server Certificate
+    Example: null
+    Examples: null
+    Name: openvpn.server_crt
+  - Default: null
+    Description: Server Key
+    Example: null
+    Examples: null
+    Name: openvpn.server_key
+  - Default: 256
+    Description: Size of cipher key in bits
+    Example: null
+    Examples: null
+    Name: openvpn.keysize
+  - Default: null
+    Description: A colon-separated list of allowable TLS ciphers
+    Example: DEFAULT:!EXP:!LOW:!MEDIUM
+    Examples: null
+    Name: openvpn.tls_cipher
+  - Default: []
+    Description: IPTable rules to manage
+    Example:
+    - POSTROUTING -t nat -s 192.0.2.0/24 -d 10.10.1.0/24 -j MASQUERADE -m comment
+      --comment 'vpn -> private lan'
+    - POSTROUTING -t nat -s 192.0.2.0/24 -d 10.10.2.100/32 -j MASQUERADE -m comment
+      --comment 'vpn -> internal backup server'
+    Examples: null
+    Name: openvpn.iptables
+  - Default: []
+    Description: A list of Client Configuration Connections
+    Example: null
+    Examples: null
+    Name: openvpn.client_config
+  - Default: 1194
+    Description: Bind Port for the server
+    Example: null
+    Examples: null
+    Name: openvpn.port
+  - Default: []
+    Description: Routes to push to connecting clients
+    Example: null
+    Examples: null
+    Name: openvpn.push_routes
+  - Default: BF-CBC
+    Description: Cipher for encrypting packets
+    Example: null
+    Examples: null
+    Name: openvpn.cipher
+  - Default: null
+    Description: Diffie-Hellmann Key
+    Example: null
+    Examples: null
+    Name: openvpn.dh_pem
+  - Default: []
+    Description: A list of Client Configuration Directives
+    Example: null
+    Examples: null
+    Name: openvpn.ccd
+  - Default: 0.0.0.0
+    Description: Bind IP for the server
+    Example: null
+    Examples: null
+    Name: openvpn.local
+  - Default: null
+    Description: VPN IP and netmask
+    Example: null
+    Examples: null
+    Name: openvpn.server
+  - Default: []
+    Description: Routes for the local routing table
+    Example: null
+    Examples: null
+    Name: openvpn.routes
+  - Default: null
+    Description: Custom OpenVPN configuration statements
+    Example: null
+    Examples: null
+    Name: openvpn.extra_config
+  - Default: null
+    Description: CA Certificate
+    Example: null
+    Examples: null
+    Name: openvpn.ca_crt
+  Templates:
+  - DstPathEnd: etc/crl.pem
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/etc/crl.pem.erb
+    SrcPathEnd: etc/crl.pem.erb
+  - DstPathEnd: etc/server.key
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/etc/server.key.erb
+    SrcPathEnd: etc/server.key.erb
+  - DstPathEnd: bin/apply-iptables
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/bin/apply-iptables.erb
+    SrcPathEnd: bin/apply-iptables.erb
+  - DstPathEnd: bin/write-ccd
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/bin/write-ccd.erb
+    SrcPathEnd: bin/write-ccd.erb
+  - DstPathEnd: bin/control-client
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/bin/control-client
+    SrcPathEnd: bin/control-client
+  - DstPathEnd: etc/dh.pem
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/etc/dh.pem.erb
+    SrcPathEnd: etc/dh.pem.erb
+  - DstPathEnd: etc/openvpn.conf
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/etc/openvpn.conf.erb
+    SrcPathEnd: etc/openvpn.conf.erb
+  - DstPathEnd: etc/server.crt
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/etc/server.crt.erb
+    SrcPathEnd: etc/server.crt.erb
+  - DstPathEnd: bin/write-clients
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/bin/write-clients.erb
+    SrcPathEnd: bin/write-clients.erb
+  - DstPathEnd: bin/control
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/bin/control
+    SrcPathEnd: bin/control
+  - DstPathEnd: etc/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor198741554/templates/etc/ca.crt.erb
+    SrcPathEnd: etc/ca.crt.erb

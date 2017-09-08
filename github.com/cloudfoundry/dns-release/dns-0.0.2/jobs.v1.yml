@@ -1,0 +1,309 @@
+- Description: errand to run the shared acceptance tests
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor069378993/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: golang
+  - Name: acceptance-tests
+  Properties:
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: bosh_client
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: bosh_environment
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: bosh_deployment
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: bosh_ca_cert
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: bosh_client_secret
+  Templates:
+  - DstPathEnd: ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor069378993/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor069378993/templates/run.erb
+    SrcPathEnd: run.erb
+- Description: errand to run the windows specific acceptance tests
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor819613451/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests-windows
+  Packages:
+  - Name: golang-windows
+  - Name: acceptance-tests-windows
+  Properties:
+  - Default: .
+    Description: Suites to execute within acceptance_tests/windows
+    Example: null
+    Examples: null
+    Name: suites
+  Templates:
+  - DstPathEnd: bin/run.ps1
+    Path: /mnt/tmp/tar-CmdExtractor819613451/templates/run.ps1
+    SrcPathEnd: run.ps1
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor530017141/monit
+    SrcPathEnd: monit
+  Name: dns
+  Packages:
+  - Name: dns
+  Properties:
+  - Default: /var/vcap/instance/dns/records.json
+    Description: Path to the file containing information that the DNS server will
+      use to create DNS records
+    Example: null
+    Examples: null
+    Name: records_file
+  - Default: true
+    Description: Configure ourselves as the system nameserver (e.g. /etc/resolv.conf
+      will be watched and overwritten)
+    Example: null
+    Examples: null
+    Name: override_nameserver
+  - Default: null
+    Description: Root CA for the health service.
+    Example: null
+    Examples: null
+    Name: health.ca_tls_cert
+  - Default: 169.254.0.2
+    Description: Address that will be added by default
+    Example: null
+    Examples: null
+    Name: aliased_address
+  - Default: []
+    Description: Addresses of upstream DNS servers used for recursively resolving
+      queries
+    Example: null
+    Examples: null
+    Name: recursors
+  - Default:
+    - healthcheck.bosh-dns.
+    - consul.service.cf.internal.
+    Description: Domain names that the dns server should respond to with successful
+      answers. Answer ip will always be 127.0.0.1
+    Example: null
+    Examples: null
+    Name: healthcheck_domains
+  - Default: false
+    Description: Enable healthchecks for DNS resolution
+    Example: null
+    Examples: null
+    Name: health.enabled
+  - Default: 8080
+    Description: Port to run healthchecks server on
+    Example: null
+    Examples: null
+    Name: health.server_port
+  - Default: 169.254.0.2
+    Description: Address in which the DNS server will bind
+    Example: null
+    Examples: null
+    Name: address
+  - Default: 53
+    Description: Port that the DNS server will bind to
+    Example: null
+    Examples: null
+    Name: port
+  - Default: null
+    Description: Private key for the health daemon's TLS cert.
+    Example: null
+    Examples: null
+    Name: health.server_tls_key
+  - Default: null
+    Description: Hash of domain key to target domains array for aliased DNS lookups
+    Example:
+      cc.cf.consul:
+      - one
+      - two
+      - '...'
+      third.internal:
+      - four
+    Examples: null
+    Name: aliases
+  - Default: /var/vcap/jobs/*/dns/aliases.json
+    Description: Glob for any files to look for DNS alias information
+    Example: null
+    Examples: null
+    Name: alias_files_glob
+  - Default: 2s
+    Description: A timeout value for when dialing, writing and reading from the configured
+      recursors
+    Example: null
+    Examples: null
+    Name: recursor_timeout
+  - Default: null
+    Description: The health daemon's TLS cert.
+    Example: null
+    Examples: null
+    Name: health.server_tls_cert
+  Templates:
+  - DstPathEnd: dns/aliases.json
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/aliases.json.erb
+    SrcPathEnd: aliases.json.erb
+  - DstPathEnd: bin/dns_resolvconf_ctl
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/dns_resolvconf_ctl.erb
+    SrcPathEnd: dns_resolvconf_ctl.erb
+  - DstPathEnd: bin/dns_healthcheck_ctl
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/dns_healthcheck_ctl.erb
+    SrcPathEnd: dns_healthcheck_ctl.erb
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/post-start.erb
+    SrcPathEnd: post-start.erb
+  - DstPathEnd: config/certs/server.pem
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/server.pem.erb
+    SrcPathEnd: server.pem.erb
+  - DstPathEnd: config/certs/ca.pem
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/ca.pem.erb
+    SrcPathEnd: ca.pem.erb
+  - DstPathEnd: bin/dns_ctl
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/dns_ctl.erb
+    SrcPathEnd: dns_ctl.erb
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: config/healthcheck_server_config.json
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/healthcheck_server_config.json.erb
+    SrcPathEnd: healthcheck_server_config.json.erb
+  - DstPathEnd: config/certs/server.key
+    Path: /mnt/tmp/tar-CmdExtractor530017141/templates/server.key.erb
+    SrcPathEnd: server.key.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor842693487/monit
+    SrcPathEnd: monit
+  Name: dns-windows
+  Packages:
+  - Name: dns-windows
+  Properties:
+  - Default: null
+    Description: Root CA for the health service.
+    Example: null
+    Examples: null
+    Name: health.ca_tls_cert
+  - Default: null
+    Description: Hash of domain key to target domains array for aliased DNS lookups
+    Example:
+      cc.cf.consul:
+      - one
+      - two
+      - '...'
+      third.internal:
+      - four
+    Examples: null
+    Name: aliases
+  - Default: C:\var\vcap\jobs\*\dns\aliases.json
+    Description: Glob for any files to look for DNS alias information
+    Example: null
+    Examples: null
+    Name: alias_files_glob
+  - Default: []
+    Description: Addresses of upstream DNS servers used for recursively resolving
+      queries
+    Example: null
+    Examples: null
+    Name: recursors
+  - Default: 2s
+    Description: A timeout value for when dialing, writing and reading from the configured
+      recursors
+    Example: null
+    Examples: null
+    Name: recursor_timeout
+  - Default: 8080
+    Description: Port to run healthchecks server on
+    Example: null
+    Examples: null
+    Name: health.server_port
+  - Default: null
+    Description: Private key for the health daemon's TLS cert.
+    Example: null
+    Examples: null
+    Name: health.server_tls_key
+  - Default: null
+    Description: The health daemon's TLS cert.
+    Example: null
+    Examples: null
+    Name: health.server_tls_cert
+  - Default: 169.254.0.2
+    Description: Address that will be added by default
+    Example: null
+    Examples: null
+    Name: aliased_address
+  - Default: C:\var\vcap\instance\dns\records.json
+    Description: Path to the file containing information that the DNS server will
+      use to create DNS records
+    Example: null
+    Examples: null
+    Name: records_file
+  - Default: true
+    Description: Configure ourselves as the system nameserver (e.g. network server
+      addresses will be watched and overwritten)
+    Example: null
+    Examples: null
+    Name: override_nameserver
+  - Default:
+    - healthcheck.bosh-dns.
+    - consul.service.cf.internal.
+    Description: Domain names that the dns server should respond to with successful
+      answers. Answer ip will always be 127.0.0.1
+    Example: null
+    Examples: null
+    Name: healthcheck_domains
+  - Default: false
+    Description: Enable healthchecks for DNS resolution
+    Example: null
+    Examples: null
+    Name: health.enabled
+  - Default: 169.254.0.2
+    Description: Address in which the DNS server will bind
+    Example: null
+    Examples: null
+    Name: address
+  Templates:
+  - DstPathEnd: config/certs/server.pem
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/server.pem.erb
+    SrcPathEnd: server.pem.erb
+  - DstPathEnd: dns/aliases.json
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/aliases.json.erb
+    SrcPathEnd: aliases.json.erb
+  - DstPathEnd: bin/dns_ctl.ps1
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/dns_ctl.ps1.erb
+    SrcPathEnd: dns_ctl.ps1.erb
+  - DstPathEnd: bin/post-start.ps1
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/post-start.ps1.erb
+    SrcPathEnd: post-start.ps1.erb
+  - DstPathEnd: bin/pre-start.ps1
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/pre-start.ps1.erb
+    SrcPathEnd: pre-start.ps1.erb
+  - DstPathEnd: config/healthcheck_server_config.json
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/healthcheck_server_config.json.erb
+    SrcPathEnd: healthcheck_server_config.json.erb
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: config/certs/server.key
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/server.key.erb
+    SrcPathEnd: server.key.erb
+  - DstPathEnd: config/certs/ca.pem
+    Path: /mnt/tmp/tar-CmdExtractor842693487/templates/ca.pem.erb
+    SrcPathEnd: ca.pem.erb

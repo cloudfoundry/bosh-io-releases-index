@@ -1,0 +1,1049 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor165338546/monit
+    SrcPathEnd: monit
+  Name: doppler
+  Packages:
+  - Name: loggregator_common
+  - Name: doppler
+  Properties:
+  - Default: false
+    Description: Enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.require_ssl
+  - Default: 0.0.0.0
+    Description: Host for websocket server
+    Example: null
+    Examples: null
+    Name: doppler.websocket_host
+  - Default: null
+    Description: Blacklist for IPs that should not be used as syslog drains, e.g.
+      internal ip addresses.
+    Example: null
+    Examples: null
+    Name: doppler.blacklisted_syslog_ranges
+  - Default: 3458
+    Description: The port used to emit grpc messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.grpc_port
+  - Default: ""
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: doppler.etcd.client_cert
+  - Default: 8081
+    Description: Port for outgoing log messages via websockets
+    Example: null
+    Examples: null
+    Name: doppler.outgoing_port
+  - Default: 1
+    Description: Dial timeout for sinks
+    Example: null
+    Examples: null
+    Name: doppler.sink_dial_timeout_seconds
+  - Default: ""
+    Description: Zone of the doppler server
+    Example: null
+    Examples: null
+    Name: doppler.zone
+  - Default: ""
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.ca_cert
+  - Default: ""
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: doppler.etcd.client_key
+  - Default: true
+    Description: When connecting over TLS, don't verify certificates for syslog sink
+    Example: null
+    Examples: null
+    Name: doppler.syslog_skip_cert_verify
+  - Default: 10000
+    Description: Size of the internal buffer used by doppler to store messages for
+      output to firehose or 'cf logs'. If the buffer gets full doppler will drop the
+      messages.
+    Example: null
+    Examples: null
+    Name: doppler.message_drain_buffer_size
+  - Default: []
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.machines
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 100
+    Description: number of log messages to retain per application
+    Example: null
+    Examples: null
+    Name: doppler.maxRetainedLogMessages
+  - Default: null
+    Description: TLS certificate for doppler
+    Example: null
+    Examples: null
+    Name: loggregator.tls.doppler.cert
+  - Default: 0
+    Description: The pprof port for runtime profiling data
+    Example: null
+    Examples: null
+    Name: doppler.pprof_port
+  - Default: 3600
+    Description: Interval before removing a sink due to inactivity
+    Example: null
+    Examples: null
+    Name: doppler.sink_inactivity_timeout_seconds
+  - Default: null
+    Description: Shared secret used to verify cryptographically signed dropsonde messages
+    Example: null
+    Examples: null
+    Name: doppler_endpoint.shared_secret
+  - Default: false
+    Description: |
+      Disable syslog drain capability in Loggregator. This is meant to be used
+      when migrating to scalable-syslog-release.
+    Example: null
+    Examples: null
+    Name: loggregator.disable_syslog_drains
+  - Default: 5
+    Description: Number of parallel unmarshallers to run within Doppler
+    Example: null
+    Examples: null
+    Name: doppler.unmarshaller_count
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.dropsonde_port
+  - Default: false
+    Description: Disable doppler announcing via etcd
+    Example: null
+    Examples: null
+    Name: doppler.disable_announce
+  - Default: 60
+    Description: Interval before a websocket write is aborted if it does not succeed
+    Example: null
+    Examples: null
+    Name: doppler.websocket_write_timeout_seconds
+  - Default: 120
+    Description: TTL (in seconds) for container usage metrics
+    Example: null
+    Examples: null
+    Name: doppler.container_metric_ttl_seconds
+  - Default: localhost:14825
+    Description: The host:port to expose health metrics for doppler
+    Example: null
+    Examples: null
+    Name: doppler.health_addr
+  - Default: null
+    Description: CA root required for key/cert verification
+    Example: null
+    Examples: null
+    Name: loggregator.tls.ca_cert
+  - Default: null
+    Description: TLS key for doppler
+    Example: null
+    Examples: null
+    Name: loggregator.tls.doppler.key
+  - Default: 60
+    Description: I/O Timeout on sinks
+    Example: null
+    Examples: null
+    Name: doppler.sink_io_timeout_seconds
+  - Default: unlimited
+    Description: Size (KB) of shell's locked memory limit. Set to 'kernel' to use
+      the kernel's default. Non-numeric values other than 'kernel', 'soft', 'hard',
+      and 'unlimited' will result in an error.
+    Example: null
+    Examples: null
+    Name: doppler.locked_memory_limit
+  - Default: 3457
+    Description: Port for incoming udp messages
+    Example: null
+    Examples: null
+    Name: doppler.dropsonde_incoming_port
+  - Default: 8082
+    Description: Port for outgoing log messages via GRPC
+    Example: null
+    Examples: null
+    Name: doppler.grpc_port
+  Templates:
+  - DstPathEnd: config/doppler.json
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/doppler.json.erb
+    SrcPathEnd: doppler.json.erb
+  - DstPathEnd: config/certs/doppler.crt
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/doppler.crt.erb
+    SrcPathEnd: doppler.crt.erb
+  - DstPathEnd: config/certs/doppler.key
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/doppler.key.erb
+    SrcPathEnd: doppler.key.erb
+  - DstPathEnd: config/certs/loggregator_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/loggregator_ca.crt.erb
+    SrcPathEnd: loggregator_ca.crt.erb
+  - DstPathEnd: config/certs/etcd-client.key
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/etcd-client.key.erb
+    SrcPathEnd: etcd-client.key.erb
+  - DstPathEnd: bin/doppler_ctl
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/doppler_ctl.erb
+    SrcPathEnd: doppler_ctl.erb
+  - DstPathEnd: config/certs/etcd-client.crt
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/etcd-client.crt.erb
+    SrcPathEnd: etcd-client.crt.erb
+  - DstPathEnd: config/certs/etcd-ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/etcd-ca.crt.erb
+    SrcPathEnd: etcd-ca.crt.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor165338546/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+- Description: The loggregator acceptance tests.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor983047604/monit
+    SrcPathEnd: monit
+  Name: loggregator-acceptance-tests
+  Packages:
+  - Name: golang1.8.3
+  - Name: loggregator-acceptance-tests
+  Properties:
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: loggregator_acceptance_tests.admin_password
+  - Default: []
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.machines
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: ssl.skip_cert_verify
+  - Default: null
+    Description: port for tests to send metrics to metron
+    Example: null
+    Examples: null
+    Name: metron_agent.dropsonde_incoming_port
+  - Default: ""
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: loggregator_acceptance_tests.etcd.cert
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: loggregator_acceptance_tests.admin_user
+  - Default: false
+    Description: Disable UAA/CC auth in traffic controller.  This **MUST** be set
+      to true in the manifest for LATs to work.
+    Example: null
+    Examples: null
+    Name: traffic_controller.disable_access_control
+  - Default: false
+    Description: Enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.require_ssl
+  - Default: ""
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.ca_cert
+  - Default: ""
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: loggregator_acceptance_tests.etcd.key
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: loggregator_endpoint.shared_secret
+  - Default: null
+    Description: ""
+    Example: null
+    Examples: null
+    Name: loggregator_acceptance_tests.login_required
+  Templates:
+  - DstPathEnd: config/certs/etcd-client.crt
+    Path: /mnt/tmp/tar-CmdExtractor983047604/templates/etcd-client.crt.erb
+    SrcPathEnd: etcd-client.crt.erb
+  - DstPathEnd: config/certs/etcd-client.key
+    Path: /mnt/tmp/tar-CmdExtractor983047604/templates/etcd-client.key.erb
+    SrcPathEnd: etcd-client.key.erb
+  - DstPathEnd: config/certs/etcd-ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor983047604/templates/etcd-ca.crt.erb
+    SrcPathEnd: etcd-ca.crt.erb
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor983047604/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor983047604/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor374220038/monit
+    SrcPathEnd: monit
+  Name: loggregator_trafficcontroller
+  Packages:
+  - Name: loggregator_common
+  - Name: loggregator_trafficcontroller
+  Properties:
+  - Default: ""
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: traffic_controller.etcd.client_cert
+  - Default: ""
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: traffic_controller.etcd.client_key
+  - Default: false
+    Description: Enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.require_ssl
+  - Default: 8081
+    Description: Port for outgoing doppler messages
+    Example: null
+    Examples: null
+    Name: doppler.outgoing_port
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 10
+    Description: Number of concurrent requests to ETCD
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.maxconcurrentrequests
+  - Default: localhost:14825
+    Description: The host:port to expose health metrics for trafficcontroller
+    Example: null
+    Examples: null
+    Name: traffic_controller.health_addr
+  - Default: 8081
+    Description: Port for outgoing dropsonde messages
+    Example: null
+    Examples: null
+    Name: loggregator.outgoing_dropsonde_port
+  - Default: 8082
+    Description: Port for outgoing log messages via GRPC
+    Example: null
+    Examples: null
+    Name: doppler.grpc_port
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.machines
+  - Default: ""
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.ca_cert
+  - Default: https
+    Description: Protocol to use to connect to UAA (used in case uaa.url is not set)
+    Example: null
+    Examples: null
+    Name: login.protocol
+  - Default: null
+    Description: TLS key for trafficcontroller
+    Example: null
+    Examples: null
+    Name: loggregator.tls.trafficcontroller.key
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Examples: null
+    Name: system_domain
+  - Default: false
+    Description: when connecting over https, ignore bad ssl certificates
+    Example: null
+    Examples: null
+    Name: ssl.skip_cert_verify
+  - Default: doppler
+    Description: Doppler's client id to connect to UAA
+    Example: null
+    Examples: null
+    Name: loggregator.uaa.client
+  - Default: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+    Description: An ordered list of golang supported standard SSL cipher suites containing
+      golang tls constants (https://github.com/golang/go/blob/release-branch.go1.7/src/crypto/tls/cipher_suites.go#L269-L285)
+      separated by colons. The cipher suite will be chosen according to this order
+      during SSL handshake
+    Example: null
+    Examples: null
+    Name: router.cipher_suites
+  - Default: null
+    Description: URL of UAA
+    Example: null
+    Examples: null
+    Name: uaa.url
+  - Default: null
+    Description: CA root required for key/cert verification
+    Example: null
+    Examples: null
+    Name: loggregator.tls.ca_cert
+  - Default: 1m
+    Description: The interval that metrics are emitted to the metron.
+    Example: null
+    Examples: null
+    Name: metric_emitter.interval
+  - Default: false
+    Description: Traffic controller bypasses authentication with the UAA and CC
+    Example: null
+    Examples: null
+    Name: traffic_controller.disable_access_control
+  - Default: false
+    Description: Enable logging of all requests made to the Traffic Controller in
+      CEF format
+    Example: null
+    Examples: null
+    Name: traffic_controller.security_event_logging.enabled
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.dropsonde_port
+  - Default: 0
+    Description: The pprof port for runtime profiling data
+    Example: null
+    Examples: null
+    Name: traffic_controller.pprof_port
+  - Default: null
+    Description: API URI of cloud controller
+    Example: null
+    Examples: null
+    Name: cc.srv_api_uri
+  - Default: ""
+    Description: DEPRECATED in favor of loggregator.uaa.client.
+    Example: null
+    Examples: null
+    Name: loggregator.uaa_client_id
+  - Default: unlimited
+    Description: Size (KB) of shell's locked memory limit. Set to 'kernel' to use
+      the kernel's default. Non-numeric values other than 'kernel', 'soft', 'hard',
+      and 'unlimited' will result in an error.
+    Example: null
+    Examples: null
+    Name: traffic_controller.locked_memory_limit
+  - Default: null
+    Description: TLS certificate for trafficcontroller
+    Example: null
+    Examples: null
+    Name: loggregator.tls.trafficcontroller.cert
+  - Default: 3458
+    Description: The port used to emit grpc messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.grpc_port
+  - Default: null
+    Description: Doppler's client secret to connect to UAA
+    Example: null
+    Examples: null
+    Name: loggregator.uaa.client_secret
+  Templates:
+  - DstPathEnd: config/certs/loggregator_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/loggregator_ca.crt.erb
+    SrcPathEnd: loggregator_ca.crt.erb
+  - DstPathEnd: config/certs/etcd-ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/etcd-ca.crt.erb
+    SrcPathEnd: etcd-ca.crt.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: config/loggregator_trafficcontroller.json
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/loggregator_trafficcontroller.json.erb
+    SrcPathEnd: loggregator_trafficcontroller.json.erb
+  - DstPathEnd: config/certs/trafficcontroller.crt
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/trafficcontroller.crt.erb
+    SrcPathEnd: trafficcontroller.crt.erb
+  - DstPathEnd: config/certs/trafficcontroller.key
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/trafficcontroller.key.erb
+    SrcPathEnd: trafficcontroller.key.erb
+  - DstPathEnd: bin/loggregator_trafficcontroller_ctl
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/loggregator_trafficcontroller_ctl.erb
+    SrcPathEnd: loggregator_trafficcontroller_ctl.erb
+  - DstPathEnd: config/certs/etcd-client.crt
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/etcd-client.crt.erb
+    SrcPathEnd: etcd-client.crt.erb
+  - DstPathEnd: config/certs/etcd-client.key
+    Path: /mnt/tmp/tar-CmdExtractor374220038/templates/etcd-client.key.erb
+    SrcPathEnd: etcd-client.key.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor920309800/monit
+    SrcPathEnd: monit
+  Name: metron_agent
+  Packages:
+  - Name: loggregator_common
+  - Name: metron_agent
+  Properties:
+  - Default: null
+    Description: TLS certificate for metron
+    Example: null
+    Examples: null
+    Name: loggregator.tls.metron.cert
+  - Default: ""
+    Description: Availability zone where this agent is running
+    Example: null
+    Examples: null
+    Name: metron_agent.zone
+  - Default: 5
+    Description: The frequency in minutes which logrotate will rotate VM logs
+    Example: null
+    Examples: null
+    Name: metron_agent.logrotate.freq_min
+  - Default: 7
+    Description: The number of files that logrotate will keep around on the VM
+    Example: null
+    Examples: null
+    Name: metron_agent.logrotate.rotate
+  - Default: 0
+    Description: The pprof port for runtime profiling data
+    Example: null
+    Examples: null
+    Name: metron_agent.pprof_port
+  - Default: 14824
+    Description: The port for the health endpoint
+    Example: null
+    Examples: null
+    Name: metron_agent.health_port
+  - Default: 4k
+    Description: maximum message size to be sent
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.max_message_size
+  - Default: false
+    Description: Disable incoming UDP
+    Example: null
+    Examples: null
+    Name: metron_agent.disable_udp
+  - Default: null
+    Description: TLS key for metron
+    Example: null
+    Examples: null
+    Name: loggregator.tls.metron.key
+  - Default: {}
+    Description: Collection of tags to add on all outgoing v2 envelopes. Bosh deployment,
+      job, index and IP will be merged with this property if they are not provided
+    Example:
+      deployment: cf
+    Examples: null
+    Name: metron_agent.tags
+  - Default: ""
+    Description: IP address for syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.address
+  - Default: 3457
+    Description: Port the metron agent is listening on to receive dropsonde log messages
+    Example: null
+    Examples: null
+    Name: metron_agent.listening_port
+  - Default: doppler.service.cf.internal
+    Description: DNS name for doppler. This needs to be round robbin DNS if you want
+      metron to communicate with multiple dopplers.
+    Example: null
+    Examples: null
+    Name: doppler.addr
+  - Default: 8082
+    Description: Port for outgoing log messages via GRPC
+    Example: null
+    Examples: null
+    Name: doppler.grpc_port
+  - Default: ""
+    Description: Name of deployment (added as tag on all outgoing v1 envelopes)
+    Example: null
+    Examples: null
+    Name: metron_agent.deployment
+  - Default: 50M
+    Description: The size at which logrotate will decide to rotate the log file
+    Example: null
+    Examples: null
+    Name: metron_agent.logrotate.size
+  - Default: []
+    Description: 'Addresses of fallback servers to be used if the primary syslog server
+      is down. Only tcp or relp are supported. Each list entry should consist of "address",
+      "transport" and "port" keys. '
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.fallback_addresses
+  - Default: ""
+    Description: Custom rule for syslog forward daemon
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.custom_rule
+  - Default: udp
+    Description: Transport to be used when forwarding logs (tcp|udp).
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.transport
+  - Default: 127.0.0.1
+    Description: Address the metron agent is listening on to receive dropsonde log
+      messages provided for BOSH links and should not be overwritten
+    Example: null
+    Examples: null
+    Name: metron_agent.listening_address
+  - Default: 3458
+    Description: Port the metron agent is listening on to receive gRPC log envelopes
+    Example: null
+    Examples: null
+    Name: metron_agent.grpc_port
+  - Default: 3457
+    Description: Port for outgoing log messages via UDP
+    Example: null
+    Examples: null
+    Name: doppler.udp_port
+  - Default: null
+    Description: CA root required for key/cert verification
+    Example: null
+    Examples: null
+    Name: loggregator.tls.ca_cert
+  - Default: true
+    Description: Enable or disable rsyslog configuration for forwarding syslog messages
+      into metron
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.enable
+  - Default: ""
+    Description: Port of syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.port
+  Templates:
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/logrotate.conf.erb
+    SrcPathEnd: logrotate.conf.erb
+  - DstPathEnd: config/certs/metron_agent.crt
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/metron_agent.crt.erb
+    SrcPathEnd: metron_agent.crt.erb
+  - DstPathEnd: config/certs/metron_agent.key
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/metron_agent.key.erb
+    SrcPathEnd: metron_agent.key.erb
+  - DstPathEnd: config/certs/loggregator_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/loggregator_ca.crt.erb
+    SrcPathEnd: loggregator_ca.crt.erb
+  - DstPathEnd: bin/metron_agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/metron_agent_ctl.erb
+    SrcPathEnd: metron_agent_ctl.erb
+  - DstPathEnd: config/metron_agent.json
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/metron_agent.json.erb
+    SrcPathEnd: metron_agent.json.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb
+  - DstPathEnd: config/metron_agent_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor920309800/templates/metron_agent_logrotate.cron.erb
+    SrcPathEnd: metron_agent_logrotate.cron.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor095889818/monit
+    SrcPathEnd: monit
+  Name: metron_agent_windows
+  Packages:
+  - Name: metron_agent_windows
+  Properties:
+  - Default: null
+    Description: CA root required for key/cert verification
+    Example: null
+    Examples: null
+    Name: loggregator.tls.ca_cert
+  - Default: {}
+    Description: Collection of tags to add on all outgoing v2 envelopes. Bosh deployment,
+      job, index and IP will be merged with this property if they are not provided
+    Example:
+      deployment: cf
+    Examples: null
+    Name: metron_agent.tags
+  - Default: 5
+    Description: The frequency in minutes which logrotate will rotate VM logs
+    Example: null
+    Examples: null
+    Name: metron_agent.logrotate.freq_min
+  - Default: 50M
+    Description: The size at which logrotate will decide to rotate the log file
+    Example: null
+    Examples: null
+    Name: metron_agent.logrotate.size
+  - Default: 127.0.0.1
+    Description: Address the metron agent is listening on to receive dropsonde log
+      messages provided for BOSH links and should not be overwritten
+    Example: null
+    Examples: null
+    Name: metron_agent.listening_address
+  - Default: ""
+    Description: IP address for syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.address
+  - Default: ""
+    Description: Port of syslog aggregator
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.port
+  - Default: udp
+    Description: Transport to be used when forwarding logs (tcp|udp).
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.transport
+  - Default: 4k
+    Description: maximum message size to be sent
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.max_message_size
+  - Default: 3458
+    Description: Port the metron agent is listening on to receive gRPC log envelopes
+    Example: null
+    Examples: null
+    Name: metron_agent.grpc_port
+  - Default: ""
+    Description: Availability zone where this agent is running
+    Example: null
+    Examples: null
+    Name: metron_agent.zone
+  - Default: 0
+    Description: The pprof port for runtime profiling data
+    Example: null
+    Examples: null
+    Name: metron_agent.pprof_port
+  - Default: true
+    Description: Enable or disable rsyslog configuration for forwarding syslog messages
+      into metron
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.enable
+  - Default: 14824
+    Description: The port for the health endpoint
+    Example: null
+    Examples: null
+    Name: metron_agent.health_port
+  - Default: ""
+    Description: Custom rule for syslog forward daemon
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.custom_rule
+  - Default: false
+    Description: Disable incoming UDP
+    Example: null
+    Examples: null
+    Name: metron_agent.disable_udp
+  - Default: 3457
+    Description: Port the metron agent is listening on to receive dropsonde log messages
+    Example: null
+    Examples: null
+    Name: metron_agent.listening_port
+  - Default: 8082
+    Description: Port for outgoing log messages via GRPC
+    Example: null
+    Examples: null
+    Name: doppler.grpc_port
+  - Default: 3457
+    Description: Port for outgoing log messages via UDP
+    Example: null
+    Examples: null
+    Name: doppler.udp_port
+  - Default: null
+    Description: TLS certificate for metron
+    Example: null
+    Examples: null
+    Name: loggregator.tls.metron.cert
+  - Default: ""
+    Description: Name of deployment (added as tag on all outgoing v1 envelopes)
+    Example: null
+    Examples: null
+    Name: metron_agent.deployment
+  - Default: []
+    Description: 'Addresses of fallback servers to be used if the primary syslog server
+      is down. Only tcp or relp are supported. Each list entry should consist of "address",
+      "transport" and "port" keys. '
+    Example: null
+    Examples: null
+    Name: syslog_daemon_config.fallback_addresses
+  - Default: 7
+    Description: The number of files that logrotate will keep around on the VM
+    Example: null
+    Examples: null
+    Name: metron_agent.logrotate.rotate
+  - Default: null
+    Description: TLS key for metron
+    Example: null
+    Examples: null
+    Name: loggregator.tls.metron.key
+  - Default: doppler.service.cf.internal
+    Description: DNS name for doppler. This needs to be round robbin DNS if you want
+      metron to communicate with multiple dopplers.
+    Example: null
+    Examples: null
+    Name: doppler.addr
+  Templates:
+  - DstPathEnd: config/certs/metron_agent.key
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/metron_agent.key.erb
+    SrcPathEnd: metron_agent.key.erb
+  - DstPathEnd: config/certs/loggregator_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/loggregator_ca.crt.erb
+    SrcPathEnd: loggregator_ca.crt.erb
+  - DstPathEnd: bin/pre-start.ps1
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/pre-start.ps1.erb
+    SrcPathEnd: pre-start.ps1.erb
+  - DstPathEnd: config/metron_agent.json
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/metron_agent.json.erb
+    SrcPathEnd: metron_agent.json.erb
+  - DstPathEnd: config/metron_agent_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/metron_agent_logrotate.cron.erb
+    SrcPathEnd: metron_agent_logrotate.cron.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/logrotate.conf.erb
+    SrcPathEnd: logrotate.conf.erb
+  - DstPathEnd: config/certs/metron_agent.crt
+    Path: /mnt/tmp/tar-CmdExtractor095889818/templates/metron_agent.crt.erb
+    SrcPathEnd: metron_agent.crt.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor188361180/monit
+    SrcPathEnd: monit
+  Name: reverse_log_proxy
+  Packages:
+  - Name: reverse_log_proxy
+  Properties:
+  - Default: 8082
+    Description: The port of Loggregator's v2 API
+    Example: null
+    Examples: null
+    Name: reverse_log_proxy.egress.port
+  - Default: 0
+    Description: ""
+    Example: null
+    Examples: null
+    Name: reverse_log_proxy.pprof.port
+  - Default: localhost:33333
+    Description: The host:port to expose health metrics for reverse log proxy
+    Example: null
+    Examples: null
+    Name: reverse_log_proxy.health_addr
+  - Default: null
+    Description: TLS certificate for the reverse log proxy
+    Example: null
+    Examples: null
+    Name: loggregator.tls.reverse_log_proxy.cert
+  - Default: []
+    Description: The addresses of Dopplers (alternative to doppler link)
+    Example: null
+    Examples: null
+    Name: loggregator.doppler.addrs
+  - Default: 8082
+    Description: The grpc port for Doppler (alternative to doppler link)
+    Example: null
+    Examples: null
+    Name: loggregator.doppler.grpc_port
+  - Default: 3458
+    Description: The port used to emit grpc messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.grpc_port
+  - Default: null
+    Description: CA root required for key/cert verification
+    Example: null
+    Examples: null
+    Name: loggregator.tls.ca_cert
+  - Default: null
+    Description: TLS key for the reverse log proxy
+    Example: null
+    Examples: null
+    Name: loggregator.tls.reverse_log_proxy.key
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 1m
+    Description: The interval that metrics are emitted to the metron.
+    Example: null
+    Examples: null
+    Name: metric_emitter.interval
+  Templates:
+  - DstPathEnd: bin/reverse_log_proxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor188361180/templates/reverse_log_proxy_ctl.erb
+    SrcPathEnd: reverse_log_proxy_ctl.erb
+  - DstPathEnd: config/certs/reverse_log_proxy.crt
+    Path: /mnt/tmp/tar-CmdExtractor188361180/templates/reverse_log_proxy.crt.erb
+    SrcPathEnd: reverse_log_proxy.crt.erb
+  - DstPathEnd: config/certs/reverse_log_proxy.key
+    Path: /mnt/tmp/tar-CmdExtractor188361180/templates/reverse_log_proxy.key.erb
+    SrcPathEnd: reverse_log_proxy.key.erb
+  - DstPathEnd: config/certs/mutual_tls_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor188361180/templates/mutual_tls_ca.crt.erb
+    SrcPathEnd: mutual_tls_ca.crt.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor188361180/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor188361180/templates/drain.erb
+    SrcPathEnd: drain.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor721306478/monit
+    SrcPathEnd: monit
+  Name: syslog_drain_binder
+  Packages:
+  - Name: loggregator_common
+  - Name: syslog_drain_binder
+  Properties:
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent
+    Example: null
+    Examples: null
+    Name: metron_endpoint.dropsonde_port
+  - Default: null
+    Description: TLS certificate for syslogdrainbinder
+    Example: null
+    Examples: null
+    Name: loggregator.tls.syslogdrainbinder.cert
+  - Default: false
+    Description: Enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.require_ssl
+  - Default: ""
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.ca_cert
+  - Default: ""
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: syslog_drain_binder.etcd.client_cert
+  - Default: null
+    Description: Domain reserved for CF operator, base URL where the login, uaa, and
+      other non-user apps listen
+    Example: null
+    Examples: null
+    Name: system_domain
+  - Default: 15
+    Description: Interval on which to poll cloud controller in seconds
+    Example: null
+    Examples: null
+    Name: syslog_drain_binder.update_interval_seconds
+  - Default: 9023
+    Description: Port for internal TLS communication
+    Example: null
+    Examples: null
+    Name: cc.tls_port
+  - Default: cloud-controller-ng.service.cf.internal
+    Description: Internal hostname used to resolve the address of the Cloud Controller
+    Example: null
+    Examples: null
+    Name: cc.internal_service_hostname
+  - Default: false
+    Description: |
+      Disable syslog drain capability in Loggregator. This is meant to be used
+      when migrating to scalable-syslog-release.
+    Example: null
+    Examples: null
+    Name: loggregator.disable_syslog_drains
+  - Default: 10
+    Description: Number of concurrent requests to ETCD
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.maxconcurrentrequests
+  - Default: 1000
+    Description: Batch size for the poll from cloud controller
+    Example: null
+    Examples: null
+    Name: syslog_drain_binder.polling_batch_size
+  - Default: false
+    Description: When connecting over https, ignore bad ssl certificates
+    Example: null
+    Examples: null
+    Name: ssl.skip_cert_verify
+  - Default: null
+    Description: TLS key for syslogdrainbinder
+    Example: null
+    Examples: null
+    Name: loggregator.tls.syslogdrainbinder.key
+  - Default: null
+    Description: PEM-encoded CA certificate for secure, mutually authenticated TLS
+      communication
+    Example: null
+    Examples: null
+    Name: cc.mutual_tls.ca_cert
+  - Default: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+    Description: An ordered list of golang supported standard SSL cipher suites containing
+      golang tls constants (https://github.com/golang/go/blob/release-branch.go1.7/src/crypto/tls/cipher_suites.go#L269-L285)
+      separated by colons. The cipher suite will be chosen according to this order
+      during SSL handshake
+    Example: null
+    Examples: null
+    Name: router.cipher_suites
+  - Default: ""
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: syslog_drain_binder.etcd.client_key
+  - Default: null
+    Description: IPs pointing to the ETCD cluster
+    Example: null
+    Examples: null
+    Name: loggregator.etcd.machines
+  - Default: 60
+    Description: Time to live for drain urls in seconds
+    Example: null
+    Examples: null
+    Name: syslog_drain_binder.drain_url_ttl_seconds
+  - Default: unlimited
+    Description: Size (KB) of shell's locked memory limit. Set to 'kernel' to use
+      the kernel's default. Non-numeric values other than 'kernel', 'soft', 'hard',
+      and 'unlimited' will result in an error.
+    Example: null
+    Examples: null
+    Name: syslog_drain_binder.locked_memory_limit
+  Templates:
+  - DstPathEnd: bin/syslog_drain_binder_ctl
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/syslog_drain_binder_ctl.erb
+    SrcPathEnd: syslog_drain_binder_ctl.erb
+  - DstPathEnd: config/syslog_drain_binder.json
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/syslog_drain_binder.json.erb
+    SrcPathEnd: syslog_drain_binder.json.erb
+  - DstPathEnd: config/certs/syslogdrainbinder.crt
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/syslogdrainbinder.crt.erb
+    SrcPathEnd: syslogdrainbinder.crt.erb
+  - DstPathEnd: config/certs/syslogdrainbinder.key
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/syslogdrainbinder.key.erb
+    SrcPathEnd: syslogdrainbinder.key.erb
+  - DstPathEnd: config/certs/mutual_tls_ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/mutual_tls_ca.crt.erb
+    SrcPathEnd: mutual_tls_ca.crt.erb
+  - DstPathEnd: config/certs/etcd-client.crt
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/etcd-client.crt.erb
+    SrcPathEnd: etcd-client.crt.erb
+  - DstPathEnd: config/certs/etcd-client.key
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/etcd-client.key.erb
+    SrcPathEnd: etcd-client.key.erb
+  - DstPathEnd: config/certs/etcd-ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor721306478/templates/etcd-ca.crt.erb
+    SrcPathEnd: etcd-ca.crt.erb

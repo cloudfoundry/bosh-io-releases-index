@@ -1,0 +1,161 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor667747675/monit
+    SrcPathEnd: monit
+  Name: sawmill
+  Packages:
+  - Name: nginx
+  - Name: eventlog
+  - Name: syslog-ng
+  Properties:
+  - Default: null
+    Description: SSL Certificate nginx will use (pem encoded)
+    Example: null
+    Examples: null
+    Name: sawmill.ssl_crt
+  - Default: null
+    Description: Private key for nginx's SSL certificate (pem encoded)
+    Example: null
+    Examples: null
+    Name: sawmill.ssl_key
+  - Default: 8192
+    Description: Number of nginx connections per worker
+    Example: null
+    Examples: null
+    Name: sawmill.nginx.worker_connections
+  - Default: 514
+    Description: Port syslog will be listening on to receive log messages
+    Example: null
+    Examples: null
+    Name: sawmill.syslog.port
+  - Default: []
+    Description: List of users to access sawmill with
+    Example: |
+      users:
+      - name: user1
+        pass: password
+    Examples: null
+    Name: sawmill.users
+  - Default: false
+    Description: Should we ignore self-signed/invalid certs when sending syslog messages
+      to nginx?
+    Example: null
+    Examples: null
+    Name: sawmill.skip_ssl_verify
+  - Default: false
+    Description: Enable debugging of syslog messages (writes all messages to disk)
+    Example: null
+    Examples: null
+    Name: sawmill.debug
+  - Default: 7200
+    Description: Timeout for reusing the previously negotiated cryptographic parameters
+    Example: null
+    Examples: null
+    Name: sawmill.nginx.ssl_timeout
+  - Default: 443
+    Description: Port nginx will be listening on to provide websocket access to log
+      messages
+    Example: null
+    Examples: null
+    Name: sawmill.nginx.port
+  - Default: 2
+    Description: Number of nginx workers
+    Example: null
+    Examples: null
+    Name: sawmill.nginx.worker_processes
+  Templates:
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/bin/nginx_ctl
+    SrcPathEnd: bin/nginx_ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/config/nginx.conf.erb
+    SrcPathEnd: config/nginx.conf.erb
+  - DstPathEnd: config/ssl_key
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/config/ssl_key.erb
+    SrcPathEnd: config/ssl_key.erb
+  - DstPathEnd: config/syslog-ng.conf
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/config/syslog-ng.conf.erb
+    SrcPathEnd: config/syslog-ng.conf.erb
+  - DstPathEnd: bin/syslog-ng_ctl
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/bin/syslog-ng_ctl
+    SrcPathEnd: bin/syslog-ng_ctl
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: config/sawmill.htpass
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/config/sawmill.htpass.erb
+    SrcPathEnd: config/sawmill.htpass.erb
+  - DstPathEnd: config/ssl_crt
+    Path: /mnt/tmp/tar-CmdExtractor667747675/templates/config/ssl_crt.erb
+    SrcPathEnd: config/ssl_crt.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor192176709/monit
+    SrcPathEnd: monit
+  Name: just_install_packages
+  Packages:
+  - Name: nginx
+  - Name: syslog-ng
+  Properties: null
+  Templates:
+  - DstPathEnd: ignoreme
+    Path: /mnt/tmp/tar-CmdExtractor192176709/templates/ignoreme
+    SrcPathEnd: ignoreme
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor655590591/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: go
+  - Name: sawmill-smoke-tests
+  Properties:
+  - Default: []
+    Description: List of users to access sawmill with
+    Example: |
+      users:
+      - name: user1
+        pass: password
+    Examples: null
+    Name: sawmill.users
+  - Default: false
+    Description: Enable debugging of syslog messages (writes all messages to disk)
+    Example: null
+    Examples: null
+    Name: sawmill.debug
+  - Default: false
+    Description: Should we ignore self-signed/invalid certs when sending syslog messages
+      to nginx?
+    Example: null
+    Examples: null
+    Name: sawmill.skip_ssl_verify
+  - Default: 443
+    Description: Port nginx will be listening on to provide websocket access to log
+      messages
+    Example: null
+    Examples: null
+    Name: sawmill.nginx.port
+  - Default: 514
+    Description: Port syslog will be listening on to receive log messages
+    Example: null
+    Examples: null
+    Name: sawmill.syslog.port
+  Templates:
+  - DstPathEnd: config/smoke-tests.json
+    Path: /mnt/tmp/tar-CmdExtractor655590591/templates/config/smoke-tests.json
+    SrcPathEnd: config/smoke-tests.json
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor655590591/templates/bin/run
+    SrcPathEnd: bin/run

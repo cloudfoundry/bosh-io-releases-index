@@ -1,0 +1,650 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor296778844/monit
+    SrcPathEnd: monit
+  Name: broker-deregistrar
+  Packages:
+  - Name: cf-cli
+  Properties:
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: p-redis
+    Description: Service name
+    Example: null
+    Name: redis.broker.service_name
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor296778844/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor758253038/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: go
+  - Name: cf-redis-smoke-tests
+  - Name: cf-cli
+  Properties:
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: App domain for Cloud Foundry
+    Example: null
+    Name: cf.apps_domain
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: p-redis
+    Description: Service name displayed in the catalog metadata
+    Example: null
+    Name: redis.broker.service_name
+  - Default: null
+    Description: The maximum number of instances allowed
+    Example: null
+    Name: redis.broker.service_instance_limit
+  - Default: []
+    Description: List of node IPs for the dedicated plan
+    Example: null
+    Name: redis.broker.dedicated_nodes
+  Templates:
+  - DstPathEnd: config.json
+    Path: /mnt/tmp/tar-CmdExtractor758253038/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor758253038/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor313998672/monit
+    SrcPathEnd: monit
+  Name: cf-redis-broker
+  Packages:
+  - Name: cf-redis-broker
+  - Name: common
+  - Name: nginx
+  - Name: redis
+  - Name: route-registrar
+  - Name: python
+  - Name: aws-cli
+  Properties:
+  - Default: []
+    Description: List of node IPs for the dedicated plan
+    Example: null
+    Name: redis.broker.dedicated_nodes
+  - Default: ""
+    Description: Secret Access Key for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.secret_access_key
+  - Default: null
+    Description: Hostname/IP of NATS
+    Example: null
+    Name: cf.nats.host
+  - Default: null
+    Description: The user to use when authenticating with NATS
+    Example: null
+    Name: cf.nats.username
+  - Default: null
+    Description: The password to use when authenticating with NATS
+    Example: null
+    Name: cf.nats.password
+  - Default:
+    - 900 1
+    - 300 10
+    - 60 10000
+    Description: save <seconds> <changes>; Will save the DB if both the given number
+      of seconds and the given number of write operations against the DB occurred.
+    Example: null
+    Name: redis.snapshotting.save
+  - Default: 600
+    Description: Maximum wait time in seconds for Redis to start up
+    Example: null
+    Name: redis.broker.start_redis_timeout
+  - Default: null
+    Description: Domain shared by the UAA and CF API eg '10.244.0.34.xip.io'
+    Example: null
+    Name: cf.apps_domain
+  - Default: C210CA06-E7E5-4F5D-A5AA-7A2C51CC290E
+    Description: Shared-VM plan id displayed in the catalog metadata
+    Example: null
+    Name: redis.broker.shared_vm_plan_id
+  - Default: 74E8984C-5F8C-11E4-86BE-07807B3B2589
+    Description: Dedicated-VM plan id displayed in the catalog metadata
+    Example: null
+    Name: redis.broker.dedicated_vm_plan_id
+  - Default: "yes"
+    Description: RDB files created with checksum disabled have a checksum of zero
+      that will tell the loading code to skip the check.
+    Example: null
+    Name: redis.snapshotting.rdb_checksum
+  - Default: "no"
+    Description: Set TCP_NODELAY on the slave socket after SYNC.
+    Example: null
+    Name: redis.replication.repl_disable_tcp_nodelay
+  - Default: 100
+    Description: The slave priority is an integer number published by Redis in the
+      INFO output. It is used by Redis Sentinel in order to select a slave to promote
+      into a master if the master is no longer working correctly.
+    Example: null
+    Name: redis.replication.slave_priority
+  - Default: 10
+    Description: Interval in seconds between checks for dead processes
+    Example: null
+    Name: redis.broker.process_check_interval
+  - Default: null
+    Description: The maximum number of instances allowed
+    Example: null
+    Name: redis.broker.service_instance_limit
+  - Default: admin
+    Description: The username for HTTP Basic Auth on the Broker, also used for the
+      agent
+    Example: null
+    Name: redis.broker.auth.username
+  - Default: null
+    Description: This host which the Redis server runs on
+    Example: null
+    Name: redis.host
+  - Default: /var/vcap/jobs/cf-redis-broker/config/redis.conf
+    Description: The shared conf file for all Redis instances
+    Example: null
+    Name: redis.conf_path
+  - Default: ""
+    Description: Name of the bucket into which backups will be uploaded
+    Example: null
+    Name: redis.broker.backups.bucket_name
+  - Default: 3600
+    Description: Timeout in seconds for Redis background save to complete when backing
+      up instance
+    Example: null
+    Name: redis.broker.backups.bg_save_timeout
+  - Default: 0
+    Description: TCP keepalive
+    Example: null
+    Name: redis.tcp_keep_alive
+  - Default: "yes"
+    Description: Configure a slave instance to accept writes or not.
+    Example: null
+    Name: redis.replication.slave_read_only
+  - Default: 5000
+    Description: Max execution time of a Lua script in milliseconds.
+    Example: null
+    Name: redis.lua_time_limit
+  - Default: https://s3.amazonaws.com
+    Description: HTTP(S) endpoint of the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.endpoint_url
+  - Default: /var/vcap/store/cf-redis-broker/statefile.json
+    Description: Path to the broker statefile
+    Example: null
+    Name: redis.statefile_path
+  - Default: ""
+    Description: The name of the obfuscated redis BGSAVE command.
+    Example: null
+    Name: redis.bg_save_command
+  - Default: notice
+    Description: Specify the server log verbosity level (debug, verbose, notice, warning)
+    Example: null
+    Name: redis.log_level
+  - Default: "yes"
+    Description: Master-Slave replication. Use slaveof to make a Redis instance a
+      copy of another Redis server.
+    Example: null
+    Name: redis.replication.slave_serve_stale_data
+  - Default: localhost
+    Description: The port for the broker unicorn process to run on
+    Example: null
+    Name: redis.broker.backend_host
+  - Default: ""
+    Description: Access Key ID for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.access_key_id
+  - Default: null
+    Description: Port that NATS listens on
+    Example: null
+    Name: cf.nats.port
+  - Default: /var/vcap/store/cf-redis-broker/redis-data
+    Description: The directory which stores the persisted broker data
+    Example: null
+    Name: redis.data_directory
+  - Default: 0
+    Description: Close the connection after a client is idle for N seconds (0 to disable)
+    Example: null
+    Name: redis.client_timeout
+  - Default: p-redis
+    Description: Service name displayed in the catalog metadata
+    Example: null
+    Name: redis.broker.service_name
+  - Default: admin
+    Description: The password for HTTP Basic Auth on the Broker, also used for the
+      agent
+    Example: null
+    Name: redis.broker.auth.password
+  - Default: 6379
+    Description: The port used by the redis instances
+    Example: null
+    Name: redis.broker.dedicated_port
+  - Default: ""
+    Description: Path within the above bucket to which backups will be uploaded
+    Example: null
+    Name: redis.broker.backups.path
+  - Default: 524288000
+    Description: The maximum memory (in bytes) that Redis will use before evicting
+      old data
+    Example: null
+    Name: redis.maxmemory
+  - Default: 128
+    Description: The length of the slow log. There is no limit to this length. Just
+      be aware that it will consume memory. You can reclaim memory used by the slow
+      log with SLOWLOG RESET.
+    Example: null
+    Name: redis.slow_log.max_len
+  - Default: "yes"
+    Description: Compress string objects using LZF when dump .rdb databases
+    Example: null
+    Name: redis.snapshotting.rdb_compression
+  - Default: 10000
+    Description: the execution time, in microseconds, to exceed in order for the command
+      to get logged
+    Example: null
+    Name: redis.slow_log.log_slower_than
+  - Default: 10005
+    Description: The port for the broker unicorn process to run on
+    Example: null
+    Name: redis.broker.backend_port
+  - Default: null
+    Description: The name of the network that the redis broker runs on.
+    Example: null
+    Name: redis.broker.network
+  - Default: /var/vcap/sys/log/redis
+    Description: The directory which stores the redis server logs
+    Example: null
+    Name: redis.log_directory
+  - Default: 16
+    Description: Set the number of databases. The default database is DB 0.
+    Example: null
+    Name: redis.databases
+  - Default: "yes"
+    Description: This will make the user aware (in an hard way) that data is not persisting
+      on disk properly
+    Example: null
+    Name: redis.snapshotting.stop_writes_on_bgsave_error
+  - Default: EEA47C3A-569C-4C24-869D-0ADB5B337A4C
+    Description: Service id displayed in the catalog metadata
+    Example: null
+    Name: redis.broker.service_id
+  - Default: redis
+    Description: Name of the broker, to be used in cf commandline operations and by
+      the broker-registrar
+    Example: null
+    Name: redis.broker.name
+  - Default: null
+    Description: The name of the obfuscated redis CONFIG command.
+    Example: null
+    Name: redis.config_command
+  - Default: ""
+    Description: The name of the obfuscated redis SAVE command.
+    Example: null
+    Name: redis.save_command
+  Templates:
+  - DstPathEnd: config/restore.yml
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/restore.yml.erb
+    SrcPathEnd: restore.yml.erb
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/redis.conf.erb
+    SrcPathEnd: redis.conf.erb
+  - DstPathEnd: config/registrar_settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/registrar_settings.yml.erb
+    SrcPathEnd: registrar_settings.yml.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/drain.sh
+    SrcPathEnd: drain.sh
+  - DstPathEnd: config/backup.yml
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/backup.yml.erb
+    SrcPathEnd: backup.yml.erb
+  - DstPathEnd: bin/process-watcher_ctl
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/process-watcher_ctl.erb
+    SrcPathEnd: process-watcher_ctl.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/nginx_ctl.erb
+    SrcPathEnd: nginx_ctl.erb
+  - DstPathEnd: bin/route-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/route-registrar_ctl
+    SrcPathEnd: route-registrar_ctl
+  - DstPathEnd: config/broker.yml
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/broker.yml.erb
+    SrcPathEnd: broker.yml.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/cf-redis-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor313998672/templates/cf-redis-broker_ctl.erb
+    SrcPathEnd: cf-redis-broker_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor468770050/monit
+    SrcPathEnd: monit
+  Name: dedicated-node
+  Packages:
+  - Name: redis
+  - Name: common
+  - Name: nginx
+  - Name: cf-redis-broker
+  - Name: python
+  - Name: aws-cli
+  Properties:
+  - Default: ""
+    Description: Secret Access Key for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.secret_access_key
+  - Default: "yes"
+    Description: Compress string objects using LZF when dump .rdb databases
+    Example: null
+    Name: redis.snapshotting.rdb_compression
+  - Default: "yes"
+    Description: RDB files created with checksum disabled have a checksum of zero
+      that will tell the loading code to skip the check.
+    Example: null
+    Name: redis.snapshotting.rdb_checksum
+  - Default: "yes"
+    Description: Master-Slave replication. Use slaveof to make a Redis instance a
+      copy of another Redis server.
+    Example: null
+    Name: redis.replication.slave_serve_stale_data
+  - Default: 60
+    Description: Sets a timeout for both Bulk transfer I/O timeout and master data
+      or ping response timeout.
+    Example: null
+    Name: redis.replication.repl_timeout
+  - Default: 0
+    Description: TCP keepalive
+    Example: null
+    Name: redis.tcp_keep_alive
+  - Default: 128
+    Description: The length of the slow log. There is no limit to this length. Just
+      be aware that it will consume memory. You can reclaim memory used by the slow
+      log with SLOWLOG RESET.
+    Example: null
+    Name: redis.slow_log.max_len
+  - Default: "yes"
+    Description: Configure a slave instance to accept writes or not.
+    Example: null
+    Name: redis.replication.slave_read_only
+  - Default: 10
+    Description: Configure interval time in seconds that slaves send PINGs to server.
+    Example: null
+    Name: redis.replication.repl_ping_slave_period
+  - Default: 6379
+    Description: The port used by the redis instances
+    Example: null
+    Name: redis.broker.dedicated_port
+  - Default: ""
+    Description: The name of the obfuscated redis CONFIG command.
+    Example: null
+    Name: redis.config_command
+  - Default: redis-server
+    Description: Specify the syslog identity.
+    Example: null
+    Name: redis.syslog_ident
+  - Default: local0
+    Description: Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.
+    Example: null
+    Name: redis.syslog_facility
+  - Default: 16
+    Description: Set the number of databases. The default database is DB 0.
+    Example: null
+    Name: redis.databases
+  - Default:
+    - 900 1
+    - 300 10
+    - 60 10000
+    Description: save <seconds> <changes>; Will save the DB if both the given number
+      of seconds and the given number of write operations against the DB occurred.
+    Example: null
+    Name: redis.snapshotting.save
+  - Default: "yes"
+    Description: This will make the user aware (in an hard way) that data is not persisting
+      on disk properly
+    Example: null
+    Name: redis.snapshotting.stop_writes_on_bgsave_error
+  - Default: 10000
+    Description: the execution time, in microseconds, to exceed in order for the command
+      to get logged
+    Example: null
+    Name: redis.slow_log.log_slower_than
+  - Default: 10000
+    Description: Set the max number of connected clients at the same time
+    Example: null
+    Name: redis.limits.maxclients
+  - Default: ""
+    Description: Access Key ID for the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.access_key_id
+  - Default: 3600
+    Description: Timeout in seconds for Redis background save to complete when backing
+      up instance
+    Example: null
+    Name: redis.broker.backups.bg_save_timeout
+  - Default: "no"
+    Description: Set TCP_NODELAY on the slave socket after SYNC.
+    Example: null
+    Name: redis.replication.repl_disable_tcp_nodelay
+  - Default: null
+    Description: Require clients to issue AUTH PASSWORD before processing any other
+      commands.
+    Example: null
+    Name: redis.security.require_pass
+  - Default: null
+    Description: The port for the broker unicorn process to run on
+    Example: null
+    Name: redis.broker.backend_host
+  - Default: 600
+    Description: Maximum wait time in seconds for Redis to start up
+    Example: null
+    Name: redis.broker.start_redis_timeout
+  - Default: ""
+    Description: Path within the above bucket to which backups will be uploaded
+    Example: null
+    Name: redis.broker.backups.path
+  - Default: 0
+    Description: Close the connection after a client is idle for N seconds (0 to disable)
+    Example: null
+    Name: redis.client_timeout
+  - Default: 100
+    Description: The slave priority is an integer number published by Redis in the
+      INFO output. It is used by Redis Sentinel in order to select a slave to promote
+      into a master if the master is no longer working correctly.
+    Example: null
+    Name: redis.replication.slave_priority
+  - Default: admin
+    Description: The username for HTTP Basic Auth on the agent, also used for the
+      broker
+    Example: null
+    Name: redis.broker.auth.username
+  - Default: ""
+    Description: HTTP(S) endpoint of the S3-compatible blob store that backups will
+      be uploaded to
+    Example: null
+    Name: redis.broker.backups.endpoint_url
+  - Default: notice
+    Description: Specify the server log verbosity level (debug, verbose, notice, warning)
+    Example: null
+    Name: redis.log_level
+  - Default: "yes"
+    Description: Enable/Disable logging to the system logger
+    Example: null
+    Name: redis.syslog_enabled
+  - Default: admin
+    Description: The password for HTTP Basic Auth on the agent, also used for the
+      broker
+    Example: null
+    Name: redis.broker.auth.password
+  - Default: 9876
+    Description: The backend port for the redis-agent process to listen on
+    Example: null
+    Name: redis.agent.backend_port
+  - Default: 5000
+    Description: Max execution time of a Lua script in milliseconds.
+    Example: null
+    Name: redis.lua_time_limit
+  - Default: null
+    Description: SSL Certificate for broker (PEM encoded)
+    Example: null
+    Name: redis.broker.ssl.pem
+  - Default: null
+    Description: SSL private key for broker (PEM encoded)
+    Example: null
+    Name: redis.broker.ssl.key
+  - Default: ""
+    Description: Name of the bucket into which backups will be uploaded
+    Example: null
+    Name: redis.broker.backups.bucket_name
+  Templates:
+  - DstPathEnd: bin/redis-agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/redis-agent_ctl.erb
+    SrcPathEnd: redis-agent_ctl.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/nginx_ctl.erb
+    SrcPathEnd: nginx_ctl.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/drain-redis.sh
+    SrcPathEnd: drain-redis.sh
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/redis.conf.erb
+    SrcPathEnd: redis.conf.erb
+  - DstPathEnd: config/restore.yml
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/restore.yml.erb
+    SrcPathEnd: restore.yml.erb
+  - DstPathEnd: config/backup.yml
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/backup.yml.erb
+    SrcPathEnd: backup.yml.erb
+  - DstPathEnd: bin/redis_ctl
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/redis_ctl.erb
+    SrcPathEnd: redis_ctl.erb
+  - DstPathEnd: config/ssl/redis-agent.pem
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/redis-agent.pem.erb
+    SrcPathEnd: redis-agent.pem.erb
+  - DstPathEnd: config/ssl/redis-agent.key
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/redis-agent.key.erb
+    SrcPathEnd: redis-agent.key.erb
+  - DstPathEnd: config/agent.yml
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/agent.yml.erb
+    SrcPathEnd: agent.yml.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor468770050/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor582843268/monit
+    SrcPathEnd: monit
+  Name: broker-registrar
+  Packages:
+  - Name: cf-cli
+  Properties:
+  - Default: http
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Name: broker.protocol
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Name: broker.host
+  - Default: 80
+    Description: Port for the service broker
+    Example: null
+    Name: broker.port
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Name: broker.username
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Name: broker.password
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Name: cf.admin_password
+  - Default: p-redis
+    Description: Service name
+    Example: null
+    Name: redis.broker.service_name
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Name: broker.name
+  - Default: true
+    Description: Enable service access to all
+    Example: null
+    Name: redis.broker.enable_service_access
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor582843268/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor799679318/monit
+    SrcPathEnd: monit
+  Name: syslog-configurator
+  Packages:
+  - Name: common
+  Properties:
+  - Default: null
+    Description: IP address for syslog aggregator
+    Example: null
+    Name: syslog_aggregator.address
+  - Default: null
+    Description: TCP port of syslog aggregator
+    Example: null
+    Name: syslog_aggregator.port
+  - Default: udp
+    Description: Transport to be used when forwarding logs (tcp|udp|relp).
+    Example: null
+    Name: syslog_aggregator.transport
+  Templates:
+  - DstPathEnd: bin/syslog-configurator_ctl
+    Path: /mnt/tmp/tar-CmdExtractor799679318/templates/syslog-configurator_ctl.erb
+    SrcPathEnd: syslog-configurator_ctl.erb
+  - DstPathEnd: config/syslog_forwarder.conf
+    Path: /mnt/tmp/tar-CmdExtractor799679318/templates/syslog_forwarder.conf.erb
+    SrcPathEnd: syslog_forwarder.conf.erb

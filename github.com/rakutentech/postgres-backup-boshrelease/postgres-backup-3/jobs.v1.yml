@@ -1,0 +1,93 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor879979636/monit
+    SrcPathEnd: monit
+  Name: boshdb_backup
+  Packages: null
+  Properties:
+  - Default: null
+    Description: Password clients must use to access Postgres
+    Example: null
+    Name: postgres.password
+  - Default: 0.0.0.0
+    Description: IP address Postgres listens on
+    Example: null
+    Name: postgres.listen_address
+  - Default: 5432
+    Description: TCP port Postgres listens on
+    Example: null
+    Name: postgres.port
+  - Default: bosh
+    Description: Default Postgres database (it will be created during the startup
+      process)
+    Example: null
+    Name: postgres.database
+  - Default: 3
+    Description: Number of last n backups to be stored on local disk
+    Example: null
+    Name: boshdb_backup.keep_duration
+  - Default: 4
+    Description: Number of Hours on which backup should be done
+    Example: null
+    Name: boshdb_backup.cron_duration
+  - Default: bosh
+    Description: Username clients must use to access Postgres
+    Example: null
+    Name: postgres.user
+  Templates:
+  - DstPathEnd: config/backup-db.cron
+    Path: /mnt/tmp/tar-CmdExtractor879979636/templates/config/backup-db.cron
+    SrcPathEnd: config/backup-db.cron
+  - DstPathEnd: bin/db_backup
+    Path: /mnt/tmp/tar-CmdExtractor879979636/templates/bin/db_backup.erb
+    SrcPathEnd: bin/db_backup.erb
+  - DstPathEnd: bin/boshdb_backup_ctl
+    Path: /mnt/tmp/tar-CmdExtractor879979636/templates/bin/boshdb_backup_ctl.erb
+    SrcPathEnd: bin/boshdb_backup_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor681232326/monit
+    SrcPathEnd: monit
+  Name: cfdb_backup
+  Packages: null
+  Properties:
+  - Default: 3
+    Description: Number of last n backups to be stored on local disk
+    Example: null
+    Name: cfdb_backup.keep_duration
+  - Default: 4
+    Description: Number of Hours on which backup should be done
+    Example: null
+    Name: cfdb_backup.cron_duration
+  - Default: null
+    Description: The database scheme
+    Example: null
+    Name: databases.db_scheme
+  - Default: null
+    Description: The database port
+    Example: null
+    Name: databases.port
+  - Default: null
+    Description: The database address
+    Example: null
+    Name: databases.address
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: null
+    Name: databases.databases
+  - Default: null
+    Description: A list of database roles and associated properties to create
+    Example: null
+    Name: databases.roles
+  Templates:
+  - DstPathEnd: bin/db_backup
+    Path: /mnt/tmp/tar-CmdExtractor681232326/templates/bin/db_backup.erb
+    SrcPathEnd: bin/db_backup.erb
+  - DstPathEnd: bin/cfdb_backup_ctl
+    Path: /mnt/tmp/tar-CmdExtractor681232326/templates/bin/cfdb_backup_ctl.erb
+    SrcPathEnd: bin/cfdb_backup_ctl.erb
+  - DstPathEnd: config/backup-db.cron
+    Path: /mnt/tmp/tar-CmdExtractor681232326/templates/config/backup-db.cron
+    SrcPathEnd: config/backup-db.cron

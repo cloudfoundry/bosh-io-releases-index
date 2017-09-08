@@ -1,0 +1,268 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor272788511/monit
+    SrcPathEnd: monit
+  Name: rabbitmq-haproxy
+  Packages:
+  - Name: haproxy
+  - Name: rabbitmq-common
+  Properties:
+  - Default: null
+    Description: Admin username to access HaProxy stats dashboard
+    Example: null
+    Examples: null
+    Name: rabbitmq-haproxy.stats.username
+  - Default: null
+    Description: Admin password to access HaProxy stats dashboard
+    Example: null
+    Examples: null
+    Name: rabbitmq-haproxy.stats.password
+  - Default: false
+    Description: The haproxy_syslog.conf file will not be configured (can be used
+      if you configure syslog-release)
+    Example: null
+    Examples: null
+    Name: rabbitmq-haproxy.do-not-configure-syslog
+  Templates:
+  - DstPathEnd: bin/rabbitmq-haproxy.init
+    Path: /mnt/tmp/tar-CmdExtractor272788511/templates/rabbitmq-haproxy.init.erb
+    SrcPathEnd: rabbitmq-haproxy.init.erb
+  - DstPathEnd: haproxy.config
+    Path: /mnt/tmp/tar-CmdExtractor272788511/templates/haproxy.config.erb
+    SrcPathEnd: haproxy.config.erb
+  - DstPathEnd: bin/known-packages.bash
+    Path: /mnt/tmp/tar-CmdExtractor272788511/templates/known-packages.bash
+    SrcPathEnd: known-packages.bash
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor272788511/templates/pre-start.bash.erb
+    SrcPathEnd: pre-start.bash.erb
+  - DstPathEnd: config/haproxy_syslog.conf
+    Path: /mnt/tmp/tar-CmdExtractor272788511/templates/haproxy_syslog.conf
+    SrcPathEnd: haproxy_syslog.conf
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor372368297/monit
+    SrcPathEnd: monit
+  Name: rabbitmq-server
+  Packages:
+  - Name: erlang
+  - Name: rabbitmq-server
+  - Name: rabbitmq-common
+  - Name: rabbitmq-cluster-migration-tool
+  - Name: rabbitmq-upgrade-preparation
+  Properties:
+  - Default: 5
+    Description: Peer verification depth used by RabbitMQ server
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.verification_depth
+  - Default: false
+    Description: Peer verification method used by RabbitMQ server
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.verify
+  - Default: null
+    Description: List of RabbitMQ plugins
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.plugins
+  - Default: W10u
+    Description: RabbitMQ configuration (base64 encoded)
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.config
+  - Default: pause_minority
+    Description: 'Cluster partition recover mode property. Valid values are: pause_minority,
+      autoheal'
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.cluster_partition_handling
+  - Default: null
+    Description: RabbitMQ server CA certificate
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.cacert
+  - Default: null
+    Description: RabbitMQ server certificate
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.cert
+  - Default: false
+    Description: Should RabbitMQ server use the native clustering intead of clusterer
+      plugin
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.use_native_clustering_formation
+  - Default: null
+    Description: List of ports on which the RabbitMQ cluster accepts connections
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ports
+  - Default: null
+    Description: RabbitMQ admin password for broker
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.administrators.broker.password
+  - Default: 300000
+    Description: The file descriptor limit for the RabbitMQ process
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.fd_limit
+  - Default: null
+    Description: RabbitMQ server private key
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.key
+  - Default: []
+    Description: SSL security options (currently only 'enable_tls1_0')
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.security_options
+  - Default: false
+    Description: Should RabbitMQ server reject connection if there is no peer cert
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.ssl.fail_if_no_peer_cert
+  - Default: null
+    Description: RabbitMQ admin username for broker
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.administrators.broker.username
+  - Default: null
+    Description: RabbitMQ admin username for operator
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.administrators.management.username
+  - Default: null
+    Description: RabbitMQ admin password for operator
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.administrators.management.password
+  - Default: null
+    Description: Erlang cookie used by RabbitMQ nodes and rabbitmqctl
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.cookie
+  - Default: '{mem_relative,0.4}'
+    Description: The threshold in bytes of free disk space at which rabbitmq will
+      raise an alarm
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.disk_alarm_threshold
+  - Default: false
+    Description: This property is for support cases only. Leave as false unless you
+      are prepared to get your cluster in an unrecoverable state, including complete
+      data loss.
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.force-unsafe-upgrade.disable-version-checking
+  - Default: null
+    Description: Schedule of when to restart the RabbitMQ StatsDB.
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.restart_statsdb_cron_schedule
+  - Default: null
+    Description: Definitions to be loaded by RabbitMQ at startup
+    Example: null
+    Examples: null
+    Name: rabbitmq-server.load_definitions
+  Templates:
+  - DstPathEnd: bin/rabbitmq-server.init
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/rabbitmq-server.init.bash
+    SrcPathEnd: rabbitmq-server.init.bash
+  - DstPathEnd: etc/cacert.pem
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/cacert.pem.erb
+    SrcPathEnd: cacert.pem.erb
+  - DstPathEnd: etc/definitions.json
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/definitions.json.erb
+    SrcPathEnd: definitions.json.erb
+  - DstPathEnd: bin/cleanup-http-logs
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/cleanup-http-logs.bash
+    SrcPathEnd: cleanup-http-logs.bash
+  - DstPathEnd: lib/delete_old_files.bash
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/delete_old_files.bash
+    SrcPathEnd: delete_old_files.bash
+  - DstPathEnd: bin/node_name_migration.sh
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/node_name_migration.sh
+    SrcPathEnd: node_name_migration.sh
+  - DstPathEnd: etc/cert.pem
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/cert.pem.erb
+    SrcPathEnd: cert.pem.erb
+  - DstPathEnd: bin/add-rabbitmqctl-to-path
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/add-rabbitmqctl-to-path.bash
+    SrcPathEnd: add-rabbitmqctl-to-path.bash
+  - DstPathEnd: bin/plugins.sh
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/plugins.sh.erb
+    SrcPathEnd: plugins.sh.erb
+  - DstPathEnd: bin/post-deploy
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/post-deploy.bash
+    SrcPathEnd: post-deploy.bash
+  - DstPathEnd: etc/key.pem
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/key.pem.erb
+    SrcPathEnd: key.pem.erb
+  - DstPathEnd: etc/rabbitmq.config
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/rabbitmq.config.erb
+    SrcPathEnd: rabbitmq.config.erb
+  - DstPathEnd: bin/ensure-rabbitmq-statsdb-restart-cron
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/ensure-rabbitmq-statsdb-restart-cron.erb
+    SrcPathEnd: ensure-rabbitmq-statsdb-restart-cron.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/pre-start.bash
+    SrcPathEnd: pre-start.bash
+  - DstPathEnd: bin/setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/setup.sh.erb
+    SrcPathEnd: setup.sh.erb
+  - DstPathEnd: bin/node-check
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/node-check.bash.erb
+    SrcPathEnd: node-check.bash.erb
+  - DstPathEnd: etc/config
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/config.erb
+    SrcPathEnd: config.erb
+  - DstPathEnd: etc/users
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/users.erb
+    SrcPathEnd: users.erb
+  - DstPathEnd: lib/prepare-for-upgrade.bash
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/prepare-for-upgrade.bash
+    SrcPathEnd: prepare-for-upgrade.bash
+  - DstPathEnd: bin/cluster-check
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/cluster-check.bash
+    SrcPathEnd: cluster-check.bash
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/drain.bash
+    SrcPathEnd: drain.bash
+  - DstPathEnd: bin/kill-with-fire
+    Path: /mnt/tmp/tar-CmdExtractor372368297/templates/kill-with-fire.bash
+    SrcPathEnd: kill-with-fire.bash
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor030378435/monit
+    SrcPathEnd: monit
+  Name: rabbitmq-server-test
+  Packages:
+  - Name: basht
+  - Name: rabbitmq-server
+  Properties:
+  - Default: false
+    Description: Verify that the current deployment is using native cluster formation
+    Example: null
+    Examples: null
+    Name: rabbitmq-server-test.use_native_clustering_formation
+  Templates:
+  - DstPathEnd: bin/post-deploy
+    Path: /mnt/tmp/tar-CmdExtractor030378435/templates/post-deploy.bash
+    SrcPathEnd: post-deploy.bash
+  - DstPathEnd: bin/rabbitmq-server-test.init
+    Path: /mnt/tmp/tar-CmdExtractor030378435/templates/rabbitmq-server-test.init.bash
+    SrcPathEnd: rabbitmq-server-test.init.bash
+  - DstPathEnd: bin/run-basht-tests
+    Path: /mnt/tmp/tar-CmdExtractor030378435/templates/run-basht-tests.bash
+    SrcPathEnd: run-basht-tests.bash
+  - DstPathEnd: bin/check-cluster-mechanism
+    Path: /mnt/tmp/tar-CmdExtractor030378435/templates/check-cluster-mechanism.bash.erb
+    SrcPathEnd: check-cluster-mechanism.bash.erb
+  - DstPathEnd: bin/test_helpers
+    Path: /mnt/tmp/tar-CmdExtractor030378435/templates/test_helpers.bash
+    SrcPathEnd: test_helpers.bash

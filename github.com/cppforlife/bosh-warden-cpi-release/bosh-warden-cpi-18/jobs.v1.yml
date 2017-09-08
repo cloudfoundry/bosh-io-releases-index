@@ -1,0 +1,144 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor079563293/monit
+    SrcPathEnd: monit
+  Name: cpi
+  Packages:
+  - Name: cpi
+  Properties:
+  - Default: null
+    Description: IP address of the host that will be used by containers, must be the
+      same as mbus IP
+    Example: 10.254.50.4
+    Name: cpi.host_ip
+  - Default: null
+    Description: Connection type warden client will use to connect (tcp or unix)
+    Example: null
+    Name: cpi.warden.connect_network
+  - Default: dav
+    Description: Provider type for the blobstore used by deployed BOSH agents (e.g.
+      dav, s3)
+    Example: null
+    Name: cpi.agent.blobstore.provider
+  - Default: /var/vcap/store/cpi/persistent_bind_mounts_dir
+    Description: Directory with sub-directories at which persistent disks are mounted
+      on the host
+    Example: null
+    Name: cpi.actions.host_persistent_bind_mounts_dir
+  - Default: file
+    Description: Type of Agent Env Service to use, e.g. registry or file
+    Example: null
+    Name: cpi.actions.agent_env_service
+  - Default: ""
+    Description: Hostname of registry
+    Example: null
+    Name: cpi.actions.registry.host
+  - Default: []
+    Description: NTP configuration used by deployed BOSH agents
+    Example: null
+    Name: cpi.agent.ntp
+  - Default: /var/vcap/data
+    Description: Path at which ephemeral disk is mounted inside VMs
+    Example: null
+    Name: cpi.actions.guest_ephemeral_bind_mount_path
+  - Default: ""
+    Description: Username for registry
+    Example: null
+    Name: cpi.actions.registry.username
+  - Default: null
+    Description: Address warden client will use to connect (ip:port or sock path)
+    Example: null
+    Name: cpi.warden.connect_address
+  - Default: null
+    Description: Mbus URL used by deployed BOSH agents
+    Example: nats://nats:nats-password@10.254.50.4:4222
+    Name: cpi.agent.mbus
+  - Default: /var/vcap/store/cpi/ephemeral_bind_mounts_dir
+    Description: Directory with sub-directories at which ephemeral disks are mounted
+      on the host
+    Example: null
+    Name: cpi.actions.host_ephemeral_bind_mounts_dir
+  - Default: 6301
+    Description: Port of registry
+    Example: null
+    Name: cpi.actions.registry.port
+  - Default: {}
+    Description: Options for the blobstore used by deployed BOSH agents
+    Example: null
+    Name: cpi.agent.blobstore.options
+  - Default: /var/vcap/store/cpi/stemcells
+    Description: Directory where stemcells are stored
+    Example: null
+    Name: cpi.actions.stemcells_dir
+  - Default: /var/vcap/store/cpi/disks
+    Description: Directory where disks are stored
+    Example: null
+    Name: cpi.actions.disks_dir
+  - Default: /warden-cpi-dev
+    Description: Directory with sub-directories at which persistent disks are mounted
+      inside VMs
+    Example: null
+    Name: cpi.actions.guest_persistent_bind_mounts_dir
+  - Default: ""
+    Description: Password for registry
+    Example: null
+    Name: cpi.actions.registry.password
+  Templates:
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor079563293/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: bin/cpi_ctl
+    Path: /mnt/tmp/tar-CmdExtractor079563293/templates/cpi_ctl.erb
+    SrcPathEnd: cpi_ctl.erb
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor079563293/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb
+  - DstPathEnd: config/sudoers
+    Path: /mnt/tmp/tar-CmdExtractor079563293/templates/sudoers
+    SrcPathEnd: sudoers
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor243904087/monit
+    SrcPathEnd: monit
+  Name: warden
+  Packages:
+  - Name: warden-linux
+  - Name: pid_utils
+  - Name: iptables
+  - Name: shadow
+  Properties:
+  - Default: 10.254.0.0/16
+    Description: Network pool CIDR for containers; each container will get a /30
+    Example: null
+    Name: warden.network_pool
+  - Default: true
+    Description: enable or disable kernel network tuning; disable for Warden CPI
+    Example: null
+    Name: warden.kernel_network_tuning_enabled
+  - Default: unix
+    Description: Warden server connection mode (tcp or unix).
+    Example: null
+    Name: warden.listen_network
+  - Default: /var/vcap/data/warden/warden.sock
+    Description: Warden server listening address.
+    Example: null
+    Name: warden.listen_address
+  - Default: true
+    Description: Enforce disk quotas.
+    Example: null
+    Name: warden.disk_quota_enabled
+  - Default: []
+    Description: List of CIDR blocks to which containers will be denied access.
+    Example: null
+    Name: warden.deny_networks
+  - Default: []
+    Description: List of CIDR blocks to which containers will be allowed access (applied
+      after deny).
+    Example: null
+    Name: warden.allow_networks
+  Templates:
+  - DstPathEnd: bin/warden_ctl
+    Path: /mnt/tmp/tar-CmdExtractor243904087/templates/warden_ctl.erb
+    SrcPathEnd: warden_ctl.erb

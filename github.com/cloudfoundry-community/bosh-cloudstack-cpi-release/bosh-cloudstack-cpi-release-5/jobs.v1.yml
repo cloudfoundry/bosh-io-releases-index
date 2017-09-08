@@ -1,0 +1,173 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor517343176/monit
+    SrcPathEnd: monit
+  Name: cpi
+  Packages:
+  - Name: cpi-common
+  - Name: openjdk
+  - Name: cpi-core
+  Properties:
+  - Default: null
+    Description: password to authent on the proxy
+    Example: null
+    Name: cloudstack.proxy_password
+  - Default: /var/vcap/store/cpi/webdav
+    Description: webdav filesystem dir. defaults to persistent disk location
+    Example: null
+    Name: cpi.webdav_directory
+  - Default: agent
+    Description: agent user for blobstore
+    Example: null
+    Name: cpi.blobstore.agent.user
+  - Default: null
+    Description: key name for ssh access (unused)
+    Example: null
+    Name: cloudstack.default_key_name
+  - Default: null
+    Description: default disk offering to use if not specified (ie not disk_pool,
+      just persistent tag
+    Example: null
+    Name: cpi.default_ephemeral_disk_offering
+  - Default: http://127.0.0.1:8080
+    Description: host the bosh registry is listening on. must be the IP of the director
+      to be reached from bosh agents
+    Example: null
+    Name: cpi.registry.endpoint
+  - Default: /var/vcap/micro_bosh/data/cache
+    Description: path for local provider
+    Example: null
+    Name: cpi.blobstore.path
+  - Default: 0.0.0.0
+    Description: ip of blobstore
+    Example: null
+    Name: cpi.blobstore.address
+  - Default: agent-password
+    Description: password user for blobstore
+    Example: null
+    Name: cpi.blobstore.agent.password
+  - Default: 1200
+    Description: cloudstack api timeout
+    Example: null
+    Name: cloudstack.state_timeout
+  - Default: 8080
+    Description: webdav port to offer template to cloudstack api
+    Example: null
+    Name: cpi.webdav_port
+  - Default: null
+    Description: default disk offering to use if not specified (ie not disk_pool,
+      just persistent tag
+    Example: null
+    Name: cpi.default_disk_offering
+  - Default: local
+    Description: local for micro bosh and bosh-init or dav provider for full bosh
+    Example: null
+    Name: cpi.blobstore.provider
+  - Default: true
+    Description: must stemcell template be public ?
+    Example: null
+    Name: cloudstack.stemcell_public_visibility
+  - Default: ""
+    Description: host to the proxy e.g. 192.168.1.1. Usefull to reach cloudstack api
+      behind proxy. No proxy if no set
+    Example: null
+    Name: cloudstack.proxy_host
+  - Default: 512M
+    Description: cpi jvm sizing
+    Example: null
+    Name: cpi.heap_size
+  - Default: admin
+    Description: user for bosh registry
+    Example: null
+    Name: cpi.registry.user
+  - Default: null
+    Description: cloudstack api secret
+    Example: null
+    Name: cloudstack.secret_access_key
+  - Default: null
+    Description: CloudStack Iaas ZONE to use
+    Example: null
+    Name: cloudstack.default_zone
+  - Default: 8080
+    Description: port the cpi core rest server is listening on
+    Example: null
+    Name: cpi.port
+  - Default: 127.0.0.1
+    Description: webdav server to offer template to cloudstack api. Should be set
+      to bosh server ip address
+    Example: null
+    Name: cpi.webdav_host
+  - Default: false
+    Description: Should the CPI use a mock predefined stemcell (use full for troubleshooting
+      / dev)
+    Example: null
+    Name: cpi.mock_create_stemcell
+  - Default: bosh-stemcell-3033-po4.vhd.bz2
+    Description: The cloudstack template name the CPI should use, if mock mode is
+      true
+    Example: null
+    Name: cpi.existing_template_name
+  - Default: 30
+    Description: delay (in seconds) the cpi will wait after vm deletion. Should match
+      cloudstack expunge delay to prevent ip reuse conflicts
+    Example: null
+    Name: cpi.vm_expunge_delay
+  - Default: null
+    Description: cloudstack api endpoint
+    Example: null
+    Name: cloudstack.endpoint
+  - Default: null
+    Description: private key for ssh access (unused)
+    Example: null
+    Name: cloudstack.private_key
+  - Default: 1200
+    Description: cloudstack volume api timout
+    Example: null
+    Name: cloudstack.state_timeout_volume
+  - Default: 8080
+    Description: port to the proxy
+    Example: null
+    Name: cloudstack.proxy_port
+  - Default: 127.0.0.1
+    Description: host the cpi-core rest server is listening on. use full for debugging
+      rest server out of bosh deployment
+    Example: null
+    Name: cpi.host
+  - Default: 0
+    Description: port of blobstore
+    Example: null
+    Name: cpi.blobstore.port
+  - Default: null
+    Description: 'ntp server list (same as director) eg : [10.234.50.245 ,10.234.50.246]'
+    Example: null
+    Name: cpi.ntp
+  - Default: null
+    Description: cloudstack api key
+    Example: null
+    Name: cloudstack.api_key
+  - Default: null
+    Description: user to authent on the proxy
+    Example: null
+    Name: cloudstack.proxy_user
+  - Default: admin
+    Description: password for bosh registry
+    Example: null
+    Name: cpi.registry.password
+  - Default: null
+    Description: 'director nats url eg : nats://nats:nats-password@10.234.228.157:4222 '
+    Example: null
+    Name: cpi.agent.mbus
+  Templates:
+  - DstPathEnd: bin/cpi-core
+    Path: /mnt/tmp/tar-CmdExtractor517343176/templates/cpi-core.erb
+    SrcPathEnd: cpi-core.erb
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor517343176/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: config/application.yml
+    Path: /mnt/tmp/tar-CmdExtractor517343176/templates/application.yml.erb
+    SrcPathEnd: application.yml.erb
+  - DstPathEnd: config/logback.xml
+    Path: /mnt/tmp/tar-CmdExtractor517343176/templates/logback.xml.erb
+    SrcPathEnd: logback.xml.erb

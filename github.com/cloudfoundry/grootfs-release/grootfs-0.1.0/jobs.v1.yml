@@ -1,0 +1,31 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor916779037/monit
+    SrcPathEnd: monit
+  Name: grootfs
+  Packages:
+  - Name: uidmap
+  - Name: btrfs-progs
+  - Name: grootfs
+  Properties:
+  - Default: /var/vcap/data/grootfs/store
+    Description: The path to the grootfs store
+    Example: null
+    Examples: null
+    Name: grootfs.store_path
+  - Default: 10737418240
+    Description: The size of the grootfs store
+    Example: null
+    Examples: null
+    Name: grootfs.store_size_bytes
+  Templates:
+  - DstPathEnd: bin/btrfs-setup
+    Path: /mnt/tmp/tar-CmdExtractor916779037/templates/btrfs-setup.erb
+    SrcPathEnd: btrfs-setup.erb
+  - DstPathEnd: bin/drax-setup
+    Path: /mnt/tmp/tar-CmdExtractor916779037/templates/drax-setup.erb
+    SrcPathEnd: drax-setup.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor916779037/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb

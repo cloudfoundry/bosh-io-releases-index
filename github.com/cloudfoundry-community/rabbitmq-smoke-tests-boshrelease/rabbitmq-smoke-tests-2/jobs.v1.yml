@@ -1,0 +1,60 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor720159206/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: go
+  - Name: cf-cli
+  - Name: cf-rabbitmq-smoke-tests
+  Properties:
+  - Default: null
+    Description: Cloud Foundry administrator username
+    Example: null
+    Examples: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Cloud Foundry administrator password
+    Example: null
+    Examples: null
+    Name: cf.admin_password
+  - Default: rabbitmq
+    Description: Name of the RabbitMQ service in the Cloud Foundry catalog / marketplace
+    Example: null
+    Examples: null
+    Name: rabbitmq.service_name
+  - Default: null
+    Description: Name of the RabbitMQ plans to test for the service named by <rabbitmq.service_name>
+    Example: null
+    Examples: null
+    Name: rabbitmq.plan_names
+  - Default: false
+    Description: true if the tests should skip ssl validation when creating a RabbitMQ
+      agent. false otherwise
+    Example: null
+    Examples: null
+    Name: rabbitmq.skip_ssl
+  - Default: "false"
+    Description: Enable debug output, can be "true" or "false" (default).
+    Example: null
+    Examples: null
+    Name: smoke_tests.debug
+  - Default: null
+    Description: Cloud Foundry API URL, for setting up org, space, user and the test
+      app
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: Domain where Cloud Foundry applications are bound
+    Example: null
+    Examples: null
+    Name: cf.apps_domain
+  Templates:
+  - DstPathEnd: config/smoke-tests.json
+    Path: /mnt/tmp/tar-CmdExtractor720159206/templates/config/smoke-tests.json
+    SrcPathEnd: config/smoke-tests.json
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor720159206/templates/bin/run
+    SrcPathEnd: bin/run

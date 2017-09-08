@@ -1,0 +1,457 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor124293883/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: acceptance-tests
+  - Name: etcd
+  - Name: golang1.8
+  Properties:
+  - Default: https://192.168.50.4:25555
+    Description: Location of the BOSH Director to target when deploying etcd
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.bosh.target
+  - Default: admin
+    Description: BOSH Director username
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.bosh.username
+  - Default: admin
+    Description: BOSH Director password
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.bosh.password
+  - Default: ""
+    Description: BOSH Director CA Cert
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.bosh.director_ca_cert
+  - Default: 1
+    Description: Number of parallel nodes to use for tests
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.parallel_nodes
+  - Default: latest
+    Description: The default etcd-release version number to deploy
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.etcd_release_version
+  - Default: latest
+    Description: The latest bosh.io etcd-release version number to deploy
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.latest_etcd_release_version
+  - Default: false
+    Description: Run tests in turbulence package
+    Example: null
+    Examples: null
+    Name: etcd.acceptance_tests.enable_turbulence_tests
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor124293883/templates/test.sh.erb
+    SrcPathEnd: test.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor349289189/monit
+    SrcPathEnd: monit
+  Name: etcd
+  Packages:
+  - Name: etcd-common
+  - Name: etcd
+  - Name: etcdfab
+  - Name: etcd-dns-checker
+  - Name: etcd-consistency-checker
+  Properties:
+  - Default: true
+    Description: enable ssl between etcd peers
+    Example: null
+    Examples: null
+    Name: etcd.peer_require_ssl
+  - Default: consul.service.cf.internal
+    Description: Host to ping for confirmation of DNS resolution
+    Example: null
+    Examples: null
+    Name: etcd.dns_health_check_host
+  - Default: null
+    Description: DNS suffix for all nodes in the etcd cluster
+    Example: null
+    Examples: null
+    Name: etcd.advertise_urls_dns_suffix
+  - Default: false
+    Description: Enables etcd's debug logging
+    Example: null
+    Examples: null
+    Name: etcd.enable_debug_logging
+  - Default: 50
+    Description: Interval between heartbeats in milliseconds. See https://coreos.com/etcd/docs/2.2.5/tuning.html
+    Example: null
+    Examples: null
+    Name: etcd.heartbeat_interval_in_milliseconds
+  - Default: null
+    Description: (if not using links) Addresses of etcd machines
+    Example: null
+    Examples: null
+    Name: etcd.machines
+  - Default: true
+    Description: enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: etcd.require_ssl
+  - Default: null
+    Description: PEM-encoded server key
+    Example: null
+    Examples: null
+    Name: etcd.server_key
+  - Default: true
+    Description: Enable network diagnostics for etcd
+    Example: null
+    Examples: null
+    Name: etcd.enable_network_diagnostics
+  - Default: 1000
+    Description: Time without receiving a heartbeat before peer should attempt to
+      become leader in milliseconds. See https://coreos.com/etcd/docs/2.2.5/tuning.html
+    Example: null
+    Examples: null
+    Name: etcd.election_timeout_in_milliseconds
+  - Default: null
+    Description: PEM-encoded server certificate
+    Example: null
+    Examples: null
+    Name: etcd.server_cert
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: etcd.client_cert
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: etcd.client_key
+  - Default: null
+    Description: PEM-encoded peer CA certificate
+    Example: null
+    Examples: null
+    Name: etcd.peer_ca_cert
+  - Default: 0.0.0.0
+    Description: IP for etcd peer
+    Example: null
+    Examples: null
+    Name: etcd.peer_ip
+  - Default: 300
+    Description: Time in seconds that network diagnostic logs will be collected at
+      startup
+    Example: null
+    Examples: null
+    Name: etcd.network_diagnostics_duration_in_seconds
+  - Default: null
+    Description: Information about etcd cluster
+    Example: null
+    Examples: null
+    Name: etcd.cluster
+  - Default: null
+    Description: PEM-encoded peer certificate
+    Example: null
+    Examples: null
+    Name: etcd.peer_cert
+  - Default: null
+    Description: PEM-encoded peer key
+    Example: null
+    Examples: null
+    Name: etcd.peer_key
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: etcd.ca_cert
+  - Default: 0.0.0.0
+    Description: IP for etcd client
+    Example: null
+    Examples: null
+    Name: etcd.client_ip
+  Templates:
+  - DstPathEnd: config/certs/server.crt
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/server.crt.erb
+    SrcPathEnd: server.crt.erb
+  - DstPathEnd: config/certs/server.key
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/server.key.erb
+    SrcPathEnd: server.key.erb
+  - DstPathEnd: config/certs/peer-ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/peer-ca.crt.erb
+    SrcPathEnd: peer-ca.crt.erb
+  - DstPathEnd: config/etcdfab.json
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcdfab.json.erb
+    SrcPathEnd: etcdfab.json.erb
+  - DstPathEnd: bin/etcd_ctl_wrapper
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_ctl_wrapper.erb
+    SrcPathEnd: etcd_ctl_wrapper.erb
+  - DstPathEnd: config/certs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/client.key.erb
+    SrcPathEnd: client.key.erb
+  - DstPathEnd: config/certs/peer.crt
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/peer.crt.erb
+    SrcPathEnd: peer.crt.erb
+  - DstPathEnd: bin/etcd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_ctl.erb
+    SrcPathEnd: etcd_ctl.erb
+  - DstPathEnd: bin/etcd_network_diagnostics_run_ctl.sh
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_network_diagnostics_run_ctl.sh.erb
+    SrcPathEnd: etcd_network_diagnostics_run_ctl.sh.erb
+  - DstPathEnd: config/certs/server-ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/server-ca.crt.erb
+    SrcPathEnd: server-ca.crt.erb
+  - DstPathEnd: config/certs/peer.key
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/peer.key.erb
+    SrcPathEnd: peer.key.erb
+  - DstPathEnd: bin/etcd_bosh_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_bosh_utils.sh.erb
+    SrcPathEnd: etcd_bosh_utils.sh.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/drain
+    SrcPathEnd: drain
+  - DstPathEnd: bin/etcd_consistency_checker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_consistency_checker_ctl.sh.erb
+    SrcPathEnd: etcd_consistency_checker_ctl.sh.erb
+  - DstPathEnd: bin/etcd_network_diagnostics_run.sh
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_network_diagnostics_run.sh.erb
+    SrcPathEnd: etcd_network_diagnostics_run.sh.erb
+  - DstPathEnd: config/etcd_link.json
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/etcd_link.json.erb
+    SrcPathEnd: etcd_link.json.erb
+  - DstPathEnd: config/certs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/client.crt.erb
+    SrcPathEnd: client.crt.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor349289189/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+- Description: The etcd Metrics Server is meant to be collocated with the etcd server
+    to collect and expose runtime statistics for the Collector.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor465705567/monit
+    SrcPathEnd: monit
+  Name: etcd_metrics_server
+  Packages:
+  - Name: etcd-common
+  - Name: etcd_metrics_server
+  Properties:
+  - Default: 5678
+    Description: listening port for metrics server
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.status.port
+  - Default: ""
+    Description: basic auth username for metrics server (leave empty for generated)
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.status.username
+  - Default: ""
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.ca_cert
+  - Default: ""
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.client_key
+  - Default: false
+    Description: enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.require_ssl
+  - Default: 127.0.0.1
+    Description: |
+      Address of any etcd server to instrument.
+      Target etcd server does not need to be colocated with this etcd_metrics_server.
+      This address must be an IP or a domain name that resolves to a single etcd server.
+      This property is only used if 'etcd_metrics_server.etcd.require_ssl' is 'false'.
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.machine
+  - Default: 4001
+    Description: port of etcd server to instrument
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.port
+  - Default: ""
+    Description: basic auth password for metrics server (leave empty for generated)
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.status.password
+  - Default: ""
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.client_cert
+  - Default: null
+    Description: |
+      DNS suffix of the etcd server to instrument.
+      Target etcd server must be colocated with this etcd_metrics_server.
+      This property is only used if 'etcd_metrics_server.etcd.require_ssl' is 'true'."
+    Example: null
+    Examples: null
+    Name: etcd_metrics_server.etcd.dns_suffix
+  Templates:
+  - DstPathEnd: bin/etcd_metrics_server_ctl
+    Path: /mnt/tmp/tar-CmdExtractor465705567/templates/etcd_metrics_server_ctl.erb
+    SrcPathEnd: etcd_metrics_server_ctl.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor465705567/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: certs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor465705567/templates/client.crt.erb
+    SrcPathEnd: client.crt.erb
+  - DstPathEnd: certs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor465705567/templates/client.key.erb
+    SrcPathEnd: client.key.erb
+  - DstPathEnd: certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor465705567/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+- Description: etcd http proxy server
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor548188649/monit
+    SrcPathEnd: monit
+  Name: etcd_proxy
+  Packages:
+  - Name: etcd-common
+  - Name: etcd_proxy
+  Properties:
+  - Default: 4001
+    Description: port of proxy server
+    Example: null
+    Examples: null
+    Name: etcd_proxy.port
+  - Default: 0.0.0.0
+    Description: IP of proxy server
+    Example: null
+    Examples: null
+    Name: etcd_proxy.ip
+  - Default: etcd.service.cf.internal
+    Description: dns suffix of etcd server
+    Example: null
+    Examples: null
+    Name: etcd_proxy.etcd.dns_suffix
+  - Default: 4001
+    Description: port of the etcd server
+    Example: null
+    Examples: null
+    Name: etcd_proxy.etcd.port
+  - Default: ""
+    Description: etcd ca certificate
+    Example: null
+    Examples: null
+    Name: etcd_proxy.etcd.ca_cert
+  - Default: ""
+    Description: etcd client certificate
+    Example: null
+    Examples: null
+    Name: etcd_proxy.etcd.client_cert
+  - Default: ""
+    Description: etcd client key
+    Example: null
+    Examples: null
+    Name: etcd_proxy.etcd.client_key
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor548188649/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: bin/etcd_proxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor548188649/templates/etcd_proxy_ctl.erb
+    SrcPathEnd: etcd_proxy_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor083139587/monit
+    SrcPathEnd: monit
+  Name: etcd_testconsumer
+  Packages:
+  - Name: acceptance-tests
+  - Name: etcd-dns-checker
+  Properties:
+  - Default: false
+    Description: enable ssl for all communication with etcd
+    Example: null
+    Examples: null
+    Name: etcd_testconsumer.etcd.require_ssl
+  - Default: null
+    Description: Addresses of etcd machines
+    Example: null
+    Examples: null
+    Name: etcd_testconsumer.etcd.machines
+  - Default: ""
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: etcd_testconsumer.etcd.ca_cert
+  - Default: ""
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: etcd_testconsumer.etcd.client_cert
+  - Default: ""
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: etcd_testconsumer.etcd.client_key
+  - Default: consul.service.cf.internal
+    Description: Host to ping for confirmation of DNS resolution
+    Example: null
+    Examples: null
+    Name: etcd_testconsumer.etcd.dns_health_check_host
+  Templates:
+  - DstPathEnd: config/certs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor083139587/templates/client.key.erb
+    SrcPathEnd: client.key.erb
+  - DstPathEnd: bin/etcd_testconsumer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor083139587/templates/etcd_testconsumer_ctl.sh.erb
+    SrcPathEnd: etcd_testconsumer_ctl.sh.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor083139587/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: config/certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor083139587/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: config/certs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor083139587/templates/client.crt.erb
+    SrcPathEnd: client.crt.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor072062253/monit
+    SrcPathEnd: monit
+  Name: iptables_agent
+  Packages:
+  - Name: acceptance-tests
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/iptables_agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor072062253/templates/iptables_agent_ctl.erb
+    SrcPathEnd: iptables_agent_ctl.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor072062253/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor087992295/monit
+    SrcPathEnd: monit
+  Name: monit_agent
+  Packages:
+  - Name: acceptance-tests
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/monit_agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor087992295/templates/monit_agent_ctl.erb
+    SrcPathEnd: monit_agent_ctl.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor087992295/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb

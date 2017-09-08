@@ -1,0 +1,367 @@
+- Description: The HAProxy server can be used to terminate SSL in front of the Routers.
+    Each HAProxy instance should point to multiple Routers.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor337526462/monit
+    SrcPathEnd: monit
+  Name: haproxy
+  Packages:
+  - Name: haproxy
+  - Name: ttar
+  Properties:
+  - Default: false
+    Description: Enables port 4443 for backwards compatibility with WSS-based apps
+      using the old CF haproxy
+    Example: null
+    Examples: null
+    Name: ha_proxy.enable_4443
+  - Default: false
+    Description: Disable TLS 1.0 in HA Proxy
+    Example: null
+    Examples: null
+    Name: ha_proxy.disable_tls_10
+  - Default: false
+    Description: Disable TLS 1.1 in HA Proxy
+    Example: null
+    Examples: null
+    Name: ha_proxy.disable_tls_11
+  - Default: 30
+    Description: Timeout waiting for data from a client (in seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.client_timeout
+  - Default: ""
+    Description: If this property is set, gzip compression will be activated for the
+      mime types named in this property. definition like 'text/html text/plain text/css'
+    Example: null
+    Examples: null
+    Name: ha_proxy.compress_types
+  - Default: false
+    Description: Enables HSTS(Strict-Transport-Security Header) for all the SSL/TLS
+      listeners
+    Example: null
+    Examples: null
+    Name: ha_proxy.hsts_enable
+  - Default: false
+    Description: This enables the includeSubDomains flag for HSTS.
+    Example: null
+    Examples: null
+    Name: ha_proxy.hsts_include_subdomains
+  - Default: false
+    Description: This enables the preload flag for HSTS
+    Example: null
+    Examples: null
+    Name: ha_proxy.hsts_preload
+  - Default: true
+    Description: Improve (Perfect) Forward Secrecy by disabling TLS tickets
+    Example: null
+    Examples: null
+    Name: ha_proxy.disable_tls_tickets
+  - Default: null
+    Description: User name to authenticate haproxy stats
+    Example: null
+    Examples: null
+    Name: ha_proxy.stats_user
+  - Default: []
+    Description: Array of the router IPs acting as the HTTP/TCP backends (should include
+      servers all Availability Zones being used)
+    Example: null
+    Examples: null
+    Name: ha_proxy.backend_servers
+  - Default: null
+    Description: Hash of custom headers you wish you have set on each request. Spaces
+      are automatically escaped, but any other haproxy delimiters will need to be
+      escaped manually
+    Example: |
+      rsp_headers:
+        X-Application-ID: my-custom-header
+        MyCustomHeader: 3
+    Examples: null
+    Name: ha_proxy.rsp_headers
+  - Default: null
+    Description: List of DNS servers
+    Example:
+      resolvers:
+        private: 10.0.0.2
+        public: 8.8.8.8
+    Examples: null
+    Name: ha_proxy.resolvers
+  - Default: []
+    Description: Array of domains for internal-only apps/services (not hostnames for
+      the apps/services)
+    Example: null
+    Examples: null
+    Name: ha_proxy.internal_only_domains
+  - Default: false
+    Description: If true, haproxy will enable a socket for stats. You can see the
+      stats on haproxy_ip:9000/haproxy_stats
+    Example: null
+    Examples: null
+    Name: ha_proxy.stats_enable
+  - Default: haproxy_stats
+    Description: URI used to access the stats UI.
+    Example: null
+    Examples: null
+    Name: ha_proxy.stats_uri
+  - Default: "off"
+    Description: Optionally enable SSL verification for backend servers, one of `verify`,
+      `noverify`, any other value assumes no ssl backend.  Setting `verify` requires
+      `ha_proxy.backend_ca_file` key to be set.
+    Example: null
+    Examples: null
+    Name: ha_proxy.backend_ssl
+  - Default: 80
+    Description: Listening port for Router
+    Example: null
+    Examples: null
+    Name: ha_proxy.backend_port
+  - Default: null
+    Description: Hash of custom headers you wish you have set on each request. Spaces
+      are automatically escaped, but any other haproxy delimiters will need to be
+      escaped manually
+    Example: |
+      headers:
+        X-Application-ID: my-custom-header
+        MyCustomHeader: 3
+    Examples: null
+    Name: ha_proxy.headers
+  - Default: false
+    Description: Allow accept proxy
+    Example: null
+    Examples: null
+    Name: ha_proxy.accept_proxy
+  - Default: ""
+    Description: If there are multiple ethernet interfaces, specify which one to bind
+    Example: null
+    Examples: null
+    Name: ha_proxy.binding_ip
+  - Default: 127.0.0.1
+    Description: An IPv4 address optionally followed by a colon and a UDP port. It
+      can also be an IPv6 address or filesystem path to a UNIX domain socket.
+    Example: null
+    Examples: null
+    Name: ha_proxy.syslog_server
+  - Default: 5
+    Description: Timeout waiting for connections to establish to a server (in seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.connect_timeout
+  - Default: 1
+    Description: Timeout waiting for new HTTP requests under http keep-alive mode
+      (in seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.keepalive_timeout
+  - Default: null
+    Description: Port haproxy should listen on when using the tcp_backend link
+    Example: null
+    Examples: null
+    Name: ha_proxy.tcp_link_port
+  - Default: false
+    Description: If this is set to 'true', a https redirect rule for all http calls
+      will be put in the config file
+    Example: null
+    Examples: null
+    Name: ha_proxy.https_redirect_all
+  - Default: ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS
+    Description: List of SSL Ciphers that are passed to HAProxy
+    Example: null
+    Examples: null
+    Name: ha_proxy.ssl_ciphers
+  - Default: 2048
+    Description: Maximum size of DH params when generating epmehmeral keys during
+      key exchange
+    Example: null
+    Examples: null
+    Name: ha_proxy.default_dh_param
+  - Default: null
+    Description: Password to authenticate haproxy stats
+    Example: null
+    Examples: null
+    Name: ha_proxy.stats_password
+  - Default: null
+    Description: Optional hostname to verify in the x509 certificate subject for SSL-enabled
+      backend servers.  Requires `ha_proxy.backend_ssl` is set to `verify` when using
+      this.
+    Example: null
+    Examples: null
+    Name: ha_proxy.backend_ssl_verifyhost
+  - Default: 10s
+    Description: DNS Hold time
+    Example: null
+    Examples: null
+    Name: ha_proxy.dns_hold
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: ha_proxy.log_level
+  - Default: []
+    Description: For each domain in this array, a HTTPS redirect rule will be put
+      in the config file. Redirect will be applied for all subdomains
+    Example: null
+    Examples: null
+    Name: ha_proxy.https_redirect_domains
+  - Default: 31536000
+    Description: max-age value for the Strict-Transport-Security header
+    Example: null
+    Examples: null
+    Name: ha_proxy.hsts_max_age
+  - Default: 30
+    Description: Timeout waiting for data from a server (in seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.server_timeout
+  - Default: []
+    Description: List of mappings to perform tcp-based proxying on. See example for
+      mapping datastructure and keys
+    Example:
+      tcp:
+      - backend_port: 80
+        backend_servers:
+        - 10.20.10.10
+        - 10.20.10.11
+        backend_ssl: verify
+        backend_verifyhost: example.com
+        name: wss
+        port: 4443
+        ssl: true
+    Examples: null
+    Name: ha_proxy.tcp
+  - Default: false
+    Description: Disable port 80 traffic
+    Example: null
+    Examples: null
+    Name: ha_proxy.disable_http
+  - Default: 3600
+    Description: Timeout for websocket/tunnel traffic (in seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.websocket_timeout
+  - Default: 30
+    Description: Maximum HTTP request length (in seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.request_timeout
+  - Default: '*:9000'
+    Description: Define one or several listening addresses and/or ports in a frontend.
+    Example: null
+    Examples: null
+    Name: ha_proxy.stats_bind
+  - Default: 0.0.0.0/32
+    Description: Trusted ip range that can access the stats UI
+    Example: null
+    Examples: null
+    Name: ha_proxy.trusted_stats_cidrs
+  - Default: {}
+    Description: Hash of the URL prefixes -> array of the router IPs acting as the
+      HTTP/TCP backends (should include servers all Availability Zones being used)
+    Example:
+      routed_backend_servers:
+        /images:
+          backend_ssl: verify
+          backend_verifyhost: example.com
+          port: 4443
+          servers:
+          - 10.0.0.2
+          - 10.0.0.3
+    Examples: null
+    Name: ha_proxy.routed_backend_servers
+  - Default: 0.0.0.0/32
+    Description: Space separated trusted cidr blocks for internal_only_domains
+    Example: null
+    Examples: null
+    Name: ha_proxy.trusted_domain_cidrs
+  - Default: null
+    Description: SSL certificate (PEM file), or an array of SSL certificates (PEM
+      files)
+    Example: null
+    Examples: null
+    Name: ha_proxy.ssl_pem
+  - Default: null
+    Description: Optional SSL CA certificate chain (PEM file) concatenated together
+      for backend SSL servers, only used when one of the `backend_ssl` options is
+      set to `verify`
+    Example: null
+    Examples: null
+    Name: ha_proxy.backend_ca_file
+  - Default: 30
+    Description: Timeout for requests queued waiting for free connection slots (in
+      seconds)
+    Example: null
+    Examples: null
+    Name: ha_proxy.queue_timeout
+  Templates:
+  - DstPathEnd: bin/haproxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/haproxy_ctl
+    SrcPathEnd: haproxy_ctl
+  - DstPathEnd: config/ssl_redirect.map
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/ssl_redirect.map.erb
+    SrcPathEnd: ssl_redirect.map.erb
+  - DstPathEnd: config/backend-ca-certs.pem
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/backend-ca-certs.erb
+    SrcPathEnd: backend-ca-certs.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: config/haproxy.config
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/haproxy.config.erb
+    SrcPathEnd: haproxy.config.erb
+  - DstPathEnd: config/certs.ttar
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/certs.ttar.erb
+    SrcPathEnd: certs.ttar.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/properties.sh.erb
+    SrcPathEnd: properties.sh.erb
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor337526462/templates/monit_debugger
+    SrcPathEnd: monit_debugger
+- Description: The keepalived job can be used to add a VRRP IP address to enforce
+    HA on haproxy release
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor962845856/monit
+    SrcPathEnd: monit
+  Name: keepalived
+  Packages:
+  - Name: keepalived
+  Properties:
+  - Default: null
+    Description: Virtual IP V4 address that will be given to master
+    Example: null
+    Examples: null
+    Name: keepalived.vip
+  - Default: check_haproxy
+    Description: label displayed for the health check. Will appear in keepalive traces
+      e.g. "Keepalived_vrrp[4558] VRRP_Script(check_haproxy) failed"
+    Example: null
+    Examples: null
+    Name: keepalived.healthcheck_name
+  - Default: killall -0 haproxy
+    Description: when health check fails, this triggers a fail over. The default command
+      checks the haproxy process is still alive.
+    Example: null
+    Examples: null
+    Name: keepalived.healthcheck_command
+  - Default: auto
+    Description: interface keepalived will use to mount the VIP. If set to 'auto',
+      uses the default interface on the VM
+    Example: null
+    Examples: null
+    Name: keepalived.interface
+  - Default: 1
+    Description: Specifies the VRRP virtual router identifier (VRID)(numerical from
+      1 to 255). A unique VRID value is needed for each VRRP cluster
+    Example: null
+    Examples: null
+    Name: keepalived.virtual_router_id
+  Templates:
+  - DstPathEnd: bin/keepalived_ctl
+    Path: /mnt/tmp/tar-CmdExtractor962845856/templates/keepalived_ctl
+    SrcPathEnd: keepalived_ctl
+  - DstPathEnd: config/keepalived.config.template
+    Path: /mnt/tmp/tar-CmdExtractor962845856/templates/keepalived.config.erb
+    SrcPathEnd: keepalived.config.erb

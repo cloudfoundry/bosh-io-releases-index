@@ -1,0 +1,571 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor830436137/monit
+    SrcPathEnd: monit
+  Name: agent-mysql
+  Packages:
+  - Name: shield-mysql
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor830436137/templates/ignore
+    SrcPathEnd: ignore
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor714626883/monit
+    SrcPathEnd: monit
+  Name: agent-pgtools
+  Packages:
+  - Name: postgres-9.4
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor714626883/templates/ignore
+    SrcPathEnd: ignore
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor490666093/monit
+    SrcPathEnd: monit
+  Name: mariadb
+  Packages:
+  - Name: common
+  - Name: mariadb
+  Properties:
+  - Default: 3306
+    Description: MySQL port to bind.
+    Example: null
+    Examples: null
+    Name: databases.port
+  - Default: null
+    Description: |
+      A list of databases to provision.
+      Each entry in the list must be a map with the 'name' key set, i.e.:
+        databases:
+          databases:
+            - name: shielddb
+    Example: null
+    Examples: null
+    Name: databases.databases
+  - Default: null
+    Description: |
+      A list of database users (roles) to create.  All users created will have full access to all databases.
+      Each entry in the list must be a map with 'name' and 'password' keys, a la:
+        databases:
+          roles:
+            - name:     shieldadmin
+              password: its-a-secret
+    Example: null
+    Examples: null
+    Name: databases.roles
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor490666093/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/mariadb_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor490666093/templates/bin/mariadb_start.sh
+    SrcPathEnd: bin/mariadb_start.sh
+  - DstPathEnd: config/my.cnf
+    Path: /mnt/tmp/tar-CmdExtractor490666093/templates/config/my.cnf
+    SrcPathEnd: config/my.cnf
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor911897895/monit
+    SrcPathEnd: monit
+  Name: mongo-tools3.2
+  Packages:
+  - Name: mongo-tools3.2
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor911897895/templates/ignore
+    SrcPathEnd: ignore
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor540555249/monit
+    SrcPathEnd: monit
+  Name: mongo-tools3.4
+  Packages:
+  - Name: mongo-tools3.4
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor540555249/templates/ignore
+    SrcPathEnd: ignore
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor755638091/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: common
+  - Name: postgres-9.4
+  Properties:
+  - Default: ERROR
+    Description: PostgreSQL log level, one of DEBUG{1..5}, LOG, NOTICE, WARNING, ERROR,
+      FATAL or PANIC.
+    Example: null
+    Examples: null
+    Name: log_level
+  - Default: null
+    Description: |
+      A list of database users (roles) to create.
+      Each entry in the list must be a map containing at least the 'name' and 'password' keys.
+      An optional 'permissions' key can be set as a list of rights to assign the user.
+      Example:
+        databases:
+          roles:
+            - name:     shieldadmin
+              password: its-a-secret
+    Example: null
+    Examples: null
+    Name: roles
+  - Default: null
+    Description: |
+      A list of databases and associated properties to create.
+      Each entry in the list must have a 'name' key defined.
+      If the 'citext' key is set to a true value, the PostgreSQL citext extension will be installed.
+      The optional 'run_on_every_startup' parameter can be set to a valid SQL query to run everytime the monit job starts.
+      Example:
+        databases:
+          databases:
+            - name:   shielddb
+              citext: true
+    Example: null
+    Examples: null
+    Name: databases
+  - Default: 5432
+    Description: Port to listen on
+    Example: null
+    Examples: null
+    Name: port
+  - Default: postgres
+    Description: Link property to declare it as postgres://
+    Example: null
+    Examples: null
+    Name: db_scheme
+  - Default: null
+    Description: Maximum number of database connections
+    Example: null
+    Examples: null
+    Name: max_connections
+  - Default: '%m: '
+    Description: The postgres `printf` style string that is output at the beginning
+      of each log line
+    Example: null
+    Examples: null
+    Name: log_line_prefix
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor755638091/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/postgres_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor755638091/templates/bin/postgres_start.sh
+    SrcPathEnd: bin/postgres_start.sh
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor755638091/templates/config/postgresql.conf
+    SrcPathEnd: config/postgresql.conf
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor755638091/templates/config/pg_hba.conf
+    SrcPathEnd: config/pg_hba.conf
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor402580917/monit
+    SrcPathEnd: monit
+  Name: shield-agent
+  Packages:
+  - Name: shield
+  - Name: bsdtar
+  - Name: plugins
+  - Name: utils
+  Properties:
+  - Default: null
+    Description: SSH Public Key used by the shield-daemon job to permit access to
+      this agent.  You must at least specify this property, or the autoprovision property.
+    Example: null
+    Examples: null
+    Name: daemon_public_key
+  - Default: null
+    Description: A map of key-values that will be converted to JSON, representing
+      the target plugin configration
+    Example: null
+    Examples: null
+    Name: recovery.target_config
+  - Default: null
+    Description: |
+      A list of Stores to autoprovision in SHIELD, keyed by name.
+      You can optionally override the name of the store with a 'name' attribute.
+      For example:
+        stores:
+          amazon:
+            plugin: s3
+            config:
+              secret_key: foo
+              bucket:     my-backups
+    Example: null
+    Examples: null
+    Name: stores
+  - Default: null
+    Description: |
+      A list of Retention policies to autoprovision in SHIELD, keyed by name.
+      For example:
+        retention-policies:
+          Short-term:  90d
+          Long-term:  180d
+    Example: null
+    Examples: null
+    Name: retention-policies
+  - Default: null
+    Description: IP address that the agent can be contacted at.  Normally, this can
+      be automatically detected, but for certain circumstances (i.e. bosh-init deployments),
+      you must specify it.
+    Example: null
+    Examples: null
+    Name: ip
+  - Default: null
+    Description: Optional. Either 'true' to autoprovision via shield-daemon link;
+      HTTP API of the SHIELD API to automatically retrieve the shield-daemon SSH Public
+      Key from.  You must at least specify this property, or the daemon_public_key
+      property.
+    Example: null
+    Examples: null
+    Name: autoprovision
+  - Default: info
+    Description: Log level for shield processes
+    Example: null
+    Examples: null
+    Name: log_level
+  - Default: null
+    Description: Target plugin to use in emergency-recovery-mode
+    Example: null
+    Examples: null
+    Name: recovery.target_plugin
+  - Default: null
+    Description: Store plugin to use in emergency-recovery-mode
+    Example: null
+    Examples: null
+    Name: recovery.store_plugin
+  - Default: null
+    Description: A map of key-values that will be converted to JSON, representing
+      the store plugin configration
+    Example: null
+    Examples: null
+    Name: recovery.store_config
+  - Default: null
+    Description: Map of paths that the binary of the plugins can be found
+    Example: |
+      plugin_paths:
+        atmos: /var/vcap/packages/atmos-plugin/bin
+    Examples: null
+    Name: plugin_paths
+  - Default: null
+    Description: |
+      A list of Jobs to autoprovision in SHIELD, keyed by name.
+      You can optionally override the name of the job with a 'name' attribute.
+      For example:
+        jobs:
+          my-backups:
+            target:     localdb
+            store:      amazon
+            retention:  longterm
+            schedule:   weekly
+    Example: null
+    Examples: null
+    Name: jobs
+  - Default: null
+    Description: |
+      A list of Schedules to autoprovision in SHIELD, keyed by name.
+      For example:
+        schedules:
+          Daily: daily 4am
+          Weekly: weekly on monday 3am
+    Example: null
+    Examples: null
+    Name: schedules
+  - Default: 5444
+    Description: port to run agent
+    Example: null
+    Examples: null
+    Name: port
+  - Default: null
+    Description: API Key to use when provisioning jobs, or targets. Required if target
+      or job have data
+    Example: null
+    Examples: null
+    Name: provisioning_key
+  - Default: true
+    Description: Boolean to determine if SSL certs will be ignored when provisioning
+      SHIELD data
+    Example: null
+    Examples: null
+    Name: skip_ssl_verify
+  - Default: null
+    Description: |
+      A list of Targets to autoprovision in SHIELD, keyed by name.
+      You can optionally override the name of the target with a 'name' attribute.
+      For example:
+        targets:
+          localdb:
+            plugin: postgres
+            config:
+              pg_host: 10.0.0.6
+              pg_port: 5524
+              # etc.
+    Example: null
+    Examples: null
+    Name: targets
+  Templates:
+  - DstPathEnd: bin/post-start
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/bin/post-start
+    SrcPathEnd: bin/post-start
+  - DstPathEnd: bin/emergency-recovery
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/bin/emergency-recovery
+    SrcPathEnd: bin/emergency-recovery
+  - DstPathEnd: config/shield-agent.conf
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/config/shield-agent.conf
+    SrcPathEnd: config/shield-agent.conf
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor402580917/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor403962287/monit
+    SrcPathEnd: monit
+  Name: shield-daemon
+  Packages:
+  - Name: shield
+  - Name: utils
+  - Name: nginx
+  Properties:
+  - Default: null
+    Description: List of organizations that users must be members of to access SHIELD.
+      This MUST* be specified or no one will be able to access SHIELD.
+    Example: null
+    Examples: null
+    Name: auth.oauth.authorization.orgs
+  - Default: null
+    Description: Name of the database to use for storing session data.
+    Example: null
+    Examples: null
+    Name: auth.oauth.sessions.db.name
+  - Default: admin
+    Description: Username to use with basic auth for SHIELD (disabled if oauth is
+      enabled)
+    Example: null
+    Examples: null
+    Name: auth.username
+  - Default: info
+    Description: Log level for shield processes
+    Example: null
+    Examples: null
+    Name: log_level
+  - Default: 8192
+    Description: Number of nginx connections per worker
+    Example: null
+    Examples: null
+    Name: nginx.worker_connections
+  - Default: null
+    Description: Type of database backend to use ('postgres' or 'mysql').
+    Example: null
+    Examples: null
+    Name: database.type
+  - Default: null
+    Description: Hostname or IP address of the backend database server.
+    Example: null
+    Examples: null
+    Name: database.host
+  - Default: null
+    Description: Name of the SHIELD database
+    Example: null
+    Examples: null
+    Name: database.db
+  - Default: null
+    Description: Password to use with basic auth for SHIELD (disabled if oauth is
+      enabled)
+    Example: null
+    Examples: null
+    Name: auth.password
+  - Default: null
+    Description: TLS private key (PEM encoded)
+    Example: null
+    Examples: null
+    Name: ssl.key
+  - Default: null
+    Description: TLS Certificate (PEM encoded)
+    Example: null
+    Examples: null
+    Name: ssl.crt
+  - Default: 12
+    Description: Duration in hours after which a running task is timed out.
+    Example: null
+    Examples: null
+    Name: max_timeout
+  - Default: null
+    Description: SSH private key to use for communicating with the shield-agent.
+    Example: null
+    Examples: null
+    Name: ssh_private_key
+  - Default: null
+    Description: TCP port that the database server is listening on.
+    Example: null
+    Examples: null
+    Name: database.port
+  - Default: null
+    Description: Username to use for accessing the database.
+    Example: null
+    Examples: null
+    Name: database.username
+  - Default: null
+    Description: Auth Key/Client ID to use with the OAuth2 provider
+    Example: null
+    Examples: null
+    Name: auth.oauth.key
+  - Default: null
+    Description: Fully-qualified domain name (or IP address) of your SHIELD installation
+    Example: null
+    Examples: null
+    Name: domain
+  - Default: 5
+    Description: Max number of concurrent tasks in running state.
+    Example: null
+    Examples: null
+    Name: workers
+  - Default: 443
+    Description: Incoming port to bind for HTTPS API and Web UI requests
+    Example: null
+    Examples: null
+    Name: port
+  - Default: null
+    Description: Username to use for accessing the session database.
+    Example: null
+    Examples: null
+    Name: auth.oauth.sessions.db.username
+  - Default: 75 20
+    Description: Timeout for keep-alive connections
+    Example: null
+    Examples: null
+    Name: nginx.keepalive_timeout
+  - Default: null
+    Description: Password to use for accessing the session database.
+    Example: null
+    Examples: null
+    Name: auth.oauth.sessions.db.password
+  - Default: null
+    Description: Map of API keys to grant script-level access to SHIELD (keys are
+      names of keys, values are keys themselves)
+    Example: |
+      api_keys:
+        my_script: AwB6iMPhTHiE7V2ngLNv
+        autoprovision: KTocoRDwtasU22kiA3Go
+    Examples: null
+    Name: auth.api_keys
+  - Default: null
+    Description: Auth Secret/Client Secret to use with the OAuth2 provider
+    Example: null
+    Examples: null
+    Name: auth.oauth.secret
+  - Default: null
+    Description: TCP port that the database server is listening on.
+    Example: null
+    Examples: null
+    Name: auth.oauth.sessions.db.port
+  - Default: 2
+    Description: Number of nginx workers
+    Example: null
+    Examples: null
+    Name: nginx.worker_processes
+  - Default: (none)
+    Description: The name of your SHIELD installation (to display to `shield status'
+      calls).
+    Example: null
+    Examples: null
+    Name: name
+  - Default: null
+    Description: Password to use for accessing the database.
+    Example: null
+    Examples: null
+    Name: database.password
+  - Default: 7200
+    Description: Timeout for reusing the previously negotiated cryptographic parameters
+    Example: null
+    Examples: null
+    Name: ssl.timeout
+  - Default: null
+    Description: Hostname or IP address of the database server.
+    Example: null
+    Examples: null
+    Name: auth.oauth.sessions.db.host
+  - Default: null
+    Description: 'OAuth2 provider to use with SHIELD (supported values: ''github''
+      and ''cloudfoundry'')'
+    Example: null
+    Examples: null
+    Name: auth.oauth.provider
+  - Default: 2592000
+    Description: Maximum age for an authenticated session (in seconds).
+    Example: null
+    Examples: null
+    Name: auth.oauth.sessions.max_age
+  Templates:
+  - DstPathEnd: nginx/config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/nginx/config/mime.types
+    SrcPathEnd: nginx/config/mime.types
+  - DstPathEnd: nginx/config/ssl_crt
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/nginx/config/ssl_crt
+    SrcPathEnd: nginx/config/ssl_crt
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: config/shieldd.conf
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/config/shieldd.conf
+    SrcPathEnd: config/shieldd.conf
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: nginx/config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/nginx/config/nginx.conf
+    SrcPathEnd: nginx/config/nginx.conf
+  - DstPathEnd: nginx/config/ssl_key
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/nginx/config/ssl_key
+    SrcPathEnd: nginx/config/ssl_key
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: shared/id_rsa
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/shared/id_rsa
+    SrcPathEnd: shared/id_rsa
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor403962287/templates/nginx/bin/ctl
+    SrcPathEnd: nginx/bin/ctl
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor085038521/monit
+    SrcPathEnd: monit
+  Name: xtrabackup
+  Packages:
+  - Name: shield-xtrabackup
+  Properties: null
+  Templates:
+  - DstPathEnd: ignore
+    Path: /mnt/tmp/tar-CmdExtractor085038521/templates/ignore
+    SrcPathEnd: ignore

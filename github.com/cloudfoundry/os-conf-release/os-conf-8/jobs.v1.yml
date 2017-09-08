@@ -1,0 +1,122 @@
+- Description: |
+    This job is not recommended. Firstly, it blindly copies in a configuration
+    file with no error-checking, potentially causing deployment failures.
+    Secondly, it encourages the increase of system limits to work around
+    broken BOSH jobs, when effort is better spent fixing the BOSH jobs (e.g.
+    increasing `nofile` to get around a faulty long-running BOSH job that leaks file
+    descriptors and finally fails).
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor569448901/monit
+    SrcPathEnd: monit
+  Name: limits_not_recommended
+  Packages: null
+  Properties:
+  - Default: ""
+    Description: |
+      Linux `limits.conf` file https://linux.die.net/man/5/limits.conf'
+      Does not overwrite the existing limits.conf file; instead, it installs
+      a secondary limits.conf file in `/etc/security/limits.d/`.
+    Example: |
+      vcap  soft  nofile  16384
+      vcap  hard  nofile  16384
+    Examples: null
+    Name: limits_conf
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor569448901/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+  - DstPathEnd: etc/limits.conf
+    Path: /mnt/tmp/tar-CmdExtractor569448901/templates/limits.conf.erb
+    SrcPathEnd: limits.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor567014463/monit
+    SrcPathEnd: monit
+  Name: login_banner
+  Packages: null
+  Properties:
+  - Default: null
+    Description: Login banner text
+    Example: null
+    Examples: null
+    Name: login_banner.text
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor567014463/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor993939145/monit
+    SrcPathEnd: monit
+  Name: search_domain
+  Packages: null
+  Properties:
+  - Default: null
+    Description: Set resolv.conf search domain
+    Example: pivotal.io
+    Examples: null
+    Name: search_domain
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor993939145/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor015136739/monit
+    SrcPathEnd: monit
+  Name: tcp_keepalive
+  Packages: null
+  Properties:
+  - Default: 120
+    Description: The interval between the last data packet sent and the first keepalive
+      probe (seconds).
+    Example: null
+    Examples: null
+    Name: tcp_keepalive.time
+  - Default: 30
+    Description: The interval between subsequential keepalive probes, regardless of
+      what the connection has exchanged in the meantime (seconds).
+    Example: null
+    Examples: null
+    Name: tcp_keepalive.interval
+  - Default: 8
+    Description: The number of unacknowledged probes to send before considering the
+      connection dead and notifying the application layer.
+    Example: null
+    Examples: null
+    Name: tcp_keepalive.probes
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor015136739/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor840509453/monit
+    SrcPathEnd: monit
+  Name: user_add
+  Packages: null
+  Properties:
+  - Default: null
+    Description: |
+      Array of user hashes. Each user should specify a `name` attribute, and one of
+      either `crypted_password` or `public_key`. Users will not be deleted if
+      they are removed from this list after a successful update. All of the
+      authorized keys for the users will be overwritten with the public key you
+      specify.
+    Example:
+      users:
+      - name: user1
+        public_key: ssh-rsa AAAA ...
+      - crypted_password: $6$saltysalt$eF06vmEKaMhOr8jcnyfJJGuaU/Khq3DpH4M/7T.ziGNjhEEv3o9tgaX5VciMGAbgfE0CH9XrcpHi9kgmVv1Z2.
+        name: user2
+    Examples: null
+    Name: users
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor840509453/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb

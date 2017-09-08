@@ -1,0 +1,369 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor044584293/monit
+    SrcPathEnd: monit
+  Name: openstack_cpi
+  Packages:
+  - Name: ruby_openstack_cpi
+  - Name: bosh_openstack_cpi
+  Properties:
+  - Default: null
+    Description: Message bus endpoint for the agent to start accepting agent requests
+    Example: https://user:password@192.168.0.1:5000
+    Examples: null
+    Name: agent.mbus
+  - Default: null
+    Description: Host of agent blobstore server used by simple blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.host
+  - Default: null
+    Description: Host of blobstore server used by simple blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.host
+  - Default: true
+    Description: Whether the simple blobstore plugin should use SSL to connect to
+      the blobstore server
+    Example: null
+    Examples: null
+    Name: blobstore.use_ssl
+  - Default: null
+    Description: Signature version used to connect to an s3 blobstore
+    Example: null
+    Examples: null
+    Name: blobstore.s3_signature_version
+  - Default: null
+    Description: OpenStack project name (required for Keystone API V3)
+    Example: null
+    Examples: null
+    Name: openstack.project
+  - Default: 5
+    Description: Changes the delay (in seconds) between each status check to OpenStack
+      when creating a resource (optional, by default 5)
+    Example: null
+    Examples: null
+    Name: openstack.wait_resource_poll_interval
+  - Default: null
+    Description: secret_access_key for agent used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.secret_access_key
+  - Default: null
+    Description: S3 Bucket used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.bucket_name
+  - Default: null
+    Description: NATS address used by agent to subscribe to agent requests
+    Example: null
+    Examples: null
+    Name: nats.address
+  - Default: null
+    Description: Username agent uses to connect to blobstore used by 'simple' blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: blobstore.agent.user
+  - Default: null
+    Description: access_key_id used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.access_key_id
+  - Default: null
+    Description: URL of the OpenStack Identity endpoint to connect to (required)
+    Example: null
+    Examples:
+    - Description: Keystone V2 endpoint
+      Value: http://192.168.0.1:5000/v2.0
+    - Description: Keystone V3 endpoint
+      Value: http://192.168.0.1:5000/v3
+    Name: openstack.auth_url
+  - Default: null
+    Description: OpenStack region (optional)
+    Example: nova
+    Examples: null
+    Name: openstack.region
+  - Default: false
+    Description: When creating a disk, do not use the availability zone of the server,
+      fall back to Openstacks default
+    Example: null
+    Examples: null
+    Name: openstack.ignore_server_availability_zone
+  - Default: null
+    Description: Full URL for the registry endpoint that may include basic auth credentials
+    Example: http://admin:admin-password@some-ip:port
+    Examples: null
+    Name: registry.endpoint
+  - Default: null
+    Description: Whether the agent blobstore plugin should verify its peer when using
+      SSL
+    Example: null
+    Examples: null
+    Name: agent.blobstore.ssl_verify_peer
+  - Default: null
+    Description: Signature version used to connect to an s3 blobstore
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_signature_version
+  - Default: 4222
+    Description: NATS port used by agent to subscribe to agent requests
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: NATS username used by agent to subscribe to agent requests
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: false
+    Description: Set public visibility for stemcells
+    Example: null
+    Examples: null
+    Name: openstack.stemcell_public_visibility
+  - Default: null
+    Description: Config drive device (cdrom or disk) to use as metadata service on
+      OpenStack (optional)
+    Example: cdrom
+    Examples: null
+    Name: openstack.config_drive
+  - Default: false
+    Description: When creating a VM, use the job name as VM name if true. Otherwise
+      use a generated UUID as name. If this parameter is set to true, the registry.endpoint
+      parameter has to be set.
+    Example: null
+    Examples: null
+    Name: openstack.human_readable_vm_names
+  - Default: null
+    Description: Username to access the Registry
+    Example: null
+    Examples: null
+    Name: registry.username
+  - Default: null
+    Description: Whether the agent blobstore plugin will always use path style for
+      bucket access
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_force_path_style
+  - Default: false
+    Description: Whether s3 blobstore plugin will always use path style for bucket
+      access
+    Example: null
+    Examples: null
+    Name: blobstore.s3_force_path_style
+  - Default: null
+    Description: Default OpenStack keypair to use when spinning up new VMs (required)
+    Example: bosh
+    Examples: null
+    Name: openstack.default_key_name
+  - Default: null
+    Description: AWS region for agent used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_region
+  - Default: null
+    Description: Agent blobstore threshold for multipart uploads
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_multipart_threshold
+  - Default: null
+    Description: AWS region used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.s3_region
+  - Default: null
+    Description: No proxy environment variable
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: true
+    Description: Verify the SSL certificate used on the blobstore?
+    Example: null
+    Examples: null
+    Name: blobstore.ssl_verify_peer
+  - Default: null
+    Description: NATS password used by agent to subscribe to agent requests
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: Hash containing additional connection parameters (optional)
+    Example: null
+    Examples:
+    - Description: Provide all required custom CA certificates
+      Value:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MII...
+          -----END CERTIFICATE-----
+    - Description: Disable SSL verification for DevStack
+      Value:
+        ssl_verify_peer: false
+    - Description: Any other excon [connection option](https://github.com/excon/excon#options),
+        e.g. setting the read timeout
+      Value:
+        read_timeout: 360
+    Name: openstack.connection_options
+  - Default: null
+    Description: Default OpenStack security groups to use when spinning up new VMs
+      (required)
+    Example:
+    - bosh-grp
+    Examples: null
+    Name: openstack.default_security_groups
+  - Default: null
+    Description: access_key_id for agent used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.access_key_id
+  - Default: null
+    Description: Address for agent to connect to blobstore server used by simple blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.address
+  - Default: null
+    Description: Http proxy to connect to cloud API's
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: null
+    Description: Address of the Registry to connect to (required)
+    Example: null
+    Examples: null
+    Name: registry.host
+  - Default: null
+    Description: Port for agent to connect to blobstore server used by 'simple' blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: blobstore.port
+  - Default: null
+    Description: Password agent uses to connect to blobstore used by 'simple' blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: blobstore.agent.password
+  - Default: null
+    Description: Path used by 'local' blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.path
+  - Default: 443
+    Description: Port of blobstore server used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.s3_port
+  - Default: null
+    Description: Password to access the Registry
+    Example: null
+    Examples: null
+    Name: registry.password
+  - Default: null
+    Description: OpenStack tenant name (required for Keystone API V2)
+    Example: null
+    Examples: null
+    Name: openstack.tenant
+  - Default: false
+    Description: Boot from volume
+    Example: null
+    Examples: null
+    Name: openstack.boot_from_volume
+  - Default: null
+    Description: Whether the agent blobstore plugin should use SSL to connect to the
+      blobstore server
+    Example: null
+    Examples: null
+    Name: agent.blobstore.use_ssl
+  - Default: null
+    Description: Https proxy to connect to cloud API's
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: 25777
+    Description: Port of the Registry for CPI and agent to connect to
+    Example: null
+    Examples: null
+    Name: registry.port
+  - Default: null
+    Description: OpenStack user name (required)
+    Example: null
+    Examples: null
+    Name: openstack.username
+  - Default: null
+    Description: OpenStack domain (required for Keystone API V3)
+    Example: null
+    Examples: null
+    Name: openstack.domain
+  - Default: null
+    Description: Port of agent blobstore server used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_port
+  - Default: null
+    Description: Address for agent to connect to blobstore server used by 'simple'
+      blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.address
+  - Default: null
+    Description: Provider of the blobstore used by director and agent (simple|local)
+    Example: null
+    Examples: null
+    Name: blobstore.provider
+  - Default: null
+    Description: OpenStack API key (required)
+    Example: null
+    Examples: null
+    Name: openstack.api_key
+  - Default: 300
+    Description: Timeout (in seconds) for OpenStack resources desired state
+    Example: null
+    Examples: null
+    Name: openstack.state_timeout
+  - Default: []
+    Description: List of NTP servers
+    Example:
+    - 0.us.pool.ntp.org
+    - 1.us.pool.ntp.org
+    Examples: null
+    Name: ntp
+  - Default: publicURL
+    Description: OpenStack endpoint type
+    Example: null
+    Examples: null
+    Name: openstack.endpoint_type
+  - Default: true
+    Description: Whether to use DHCP when configuring networking on VM (for both manual
+      and dynamic)
+    Example: null
+    Examples: null
+    Name: openstack.use_dhcp
+  - Default: false
+    Description: 'Use Nova networking APIs instead of Neutron APIs. Note: Nova networking
+      APIs are deprecated with the Newton release, hence this switch will likely not
+      work in future releases.'
+    Example: null
+    Examples: null
+    Name: openstack.use_nova_networking
+  - Default: null
+    Description: secret_access_key used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.secret_access_key
+  - Default: null
+    Description: Simple blobstore threshold for multipart uploads
+    Example: null
+    Examples: null
+    Name: blobstore.s3_multipart_threshold
+  Templates:
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor044584293/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor044584293/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb
+  - DstPathEnd: config/cacert.pem
+    Path: /mnt/tmp/tar-CmdExtractor044584293/templates/cacert.pem.erb
+    SrcPathEnd: cacert.pem.erb

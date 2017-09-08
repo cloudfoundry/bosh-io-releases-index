@@ -1,0 +1,54 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor957313720/monit
+    SrcPathEnd: monit
+  Name: grootfs
+  Packages:
+  - Name: idmapper
+  - Name: btrfs-progs
+  - Name: grootfs
+  Properties:
+  - Default: 10737418240
+    Description: The size of the grootfs store
+    Example: null
+    Examples: null
+    Name: grootfs.store_size_bytes
+  - Default: info
+    Description: Log level for grootfs - can be debug, info, error or fatal
+    Example: null
+    Examples: null
+    Name: grootfs.log_level
+  - Default: null
+    Description: Local metron agent's port
+    Example: null
+    Examples: null
+    Name: grootfs.dropsonde_port
+  - Default: []
+    Description: A list of IP:PORT tuples that we allow pulling docker images from
+      using self-signed certificates.
+    Example: null
+    Examples: null
+    Name: grootfs.insecure_docker_registry_list
+  - Default: []
+    Description: List of base images (directories or Docker URLs) which will never
+      be deleted during cleanup.
+    Example: null
+    Examples: null
+    Name: grootfs.persistent_image_list
+  Templates:
+  - DstPathEnd: bin/drax-setup
+    Path: /mnt/tmp/tar-CmdExtractor957313720/templates/drax-setup.erb
+    SrcPathEnd: drax-setup.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor957313720/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: bin/grootfs_wrapper
+    Path: /mnt/tmp/tar-CmdExtractor957313720/templates/grootfs_wrapper.erb
+    SrcPathEnd: grootfs_wrapper.erb
+  - DstPathEnd: config.yml
+    Path: /mnt/tmp/tar-CmdExtractor957313720/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+  - DstPathEnd: bin/btrfs-setup
+    Path: /mnt/tmp/tar-CmdExtractor957313720/templates/btrfs-setup.erb
+    SrcPathEnd: btrfs-setup.erb

@@ -1,0 +1,1067 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor581458989/monit
+    SrcPathEnd: monit
+  Name: broker
+  Packages:
+  - Name: dingo-postgresql-broker
+  - Name: dingo-postgresql-clusterdata-backup
+  - Name: ruby
+  - Name: cf-cli
+  - Name: python
+  - Name: awscli
+  Properties:
+  - Default: containers
+    Description: basic auth username to access each HTTP cf-container-broker backend
+    Example: null
+    Examples: null
+    Name: servicebroker.backends.username
+  - Default: containers
+    Description: basic auth password to access each HTTP cf-container-broker backend
+    Example: null
+    Examples: null
+    Name: servicebroker.backends.password
+  - Default: null
+    Description: The CF service broker catalog of services/plans
+    Example: null
+    Examples: null
+    Name: servicebroker.services
+  - Default: null
+    Description: Amazon S3 API access key
+    Example: null
+    Examples: null
+    Name: backups.database_storage.aws_access_key_id
+  - Default: null
+    Description: Bucket name
+    Example: null
+    Examples: null
+    Name: backups.database_storage.bucket_name
+  - Default: null
+    Description: Username for Cloud Foundry API access allow lookup of user-provided
+      service names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.password
+  - Default: false
+    Description: Set to true if Cloud Foundry API is using self-signed SSL certificate
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: 8889
+    Description: Bind port for inbound API requests
+    Example: null
+    Examples: null
+    Name: servicebroker.port
+  - Default: null
+    Description: Hostname to advertise in binding credentials for routers
+    Example: null
+    Examples: null
+    Name: servicebroker.router.hostname
+  - Default: null
+    Description: 'Hash of {z1: backend broker hostnames:port (NOTE: also becomes permanent
+      GUID at the moment)}'
+    Example: null
+    Examples: null
+    Name: servicebroker.backends.machines
+  - Default: null
+    Description: Amazon S3 API access key
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.aws_access_key_id
+  - Default: null
+    Description: Amazon S3 region
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.region
+  - Default: null
+    Description: Amazon S3 region
+    Example: null
+    Examples: null
+    Name: backups.database_storage.region
+  - Default: null
+    Description: hostnames for etcd servers
+    Example: null
+    Examples: null
+    Name: etcd.machines
+  - Default: starkandwayne
+    Description: Basic auth username for broker
+    Example: null
+    Examples: null
+    Name: servicebroker.username
+  - Default: starkandwayne
+    Description: Basic auth password for broker
+    Example: null
+    Examples: null
+    Name: servicebroker.password
+  - Default: null
+    Description: Amazon S3 API secret key
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.aws_secret_access_key
+  - Default: null
+    Description: Bucket name
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.bucket_name
+  - Default: null
+    Description: Amazon S3 API secret key
+    Example: null
+    Examples: null
+    Name: backups.database_storage.aws_secret_access_key
+  - Default: null
+    Description: URI for Cloud Foundry API to allow lookup of user-provided service
+      names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username for Cloud Foundry API access allow lookup of user-provided
+      service names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.username
+  Templates:
+  - DstPathEnd: config/backup-fog.yml
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/config/backup-fog.yml.erb
+    SrcPathEnd: config/backup-fog.yml.erb
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: bin/clusterdata_callback_restore.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/bin/clusterdata_callback_restore.sh
+    SrcPathEnd: bin/clusterdata_callback_restore.sh
+  - DstPathEnd: config/broker.yml
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/config/broker.yml.erb
+    SrcPathEnd: config/broker.yml.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: bin/clusterdata_callback_backup.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/bin/clusterdata_callback_backup.sh
+    SrcPathEnd: bin/clusterdata_callback_backup.sh
+  - DstPathEnd: bin/clusterdata_callback_find_by_name.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/bin/clusterdata_callback_find_by_name.sh
+    SrcPathEnd: bin/clusterdata_callback_find_by_name.sh
+  - DstPathEnd: bin/backups_copy.sh
+    Path: /mnt/tmp/tar-CmdExtractor581458989/templates/bin/backups_copy.sh
+    SrcPathEnd: bin/backups_copy.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor731697383/monit
+    SrcPathEnd: monit
+  Name: cf-containers-broker
+  Packages:
+  - Name: bosh-helpers
+  - Name: cf-containers-broker
+  - Name: ruby
+  Properties:
+  - Default: true
+    Description: Restart all containers with latest configuration/image on restart
+    Example: null
+    Examples: null
+    Name: broker.update_containers
+  - Default: null
+    Description: Username for broker to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: List of comma-separated hosts to skip connecting to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: null
+    Description: An endpoint to call in a drain script
+    Example: null
+    Examples: null
+    Name: broker.drain_endpoint
+  - Default: null
+    Description: A unique secret key, used to sign sessions
+    Example: null
+    Examples: null
+    Name: broker.cookie_secret
+  - Default: "86400"
+    Description: Session expiry time of the session
+    Example: null
+    Examples: null
+    Name: broker.session_expiry
+  - Default: null
+    Description: External IP address used to register the broker
+    Example: null
+    Examples: null
+    Name: broker.external_ip
+  - Default: true
+    Description: Allocate Docker host ports when creating a container
+    Example: null
+    Examples: null
+    Name: broker.allocate_docker_host_ports
+  - Default: null
+    Description: Password for broker to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: Array of IPs of each NATS cluster member
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: "1"
+    Description: Unicorn worker processes. If the number of worker processes > 1 then
+      you must disable the broker.allocate_docker_host_ports property
+    Example: null
+    Examples: null
+    Name: broker.unicorn.worker_processes
+  - Default: "80"
+    Description: Unicorn listen port
+    Example: null
+    Examples: null
+    Name: broker.unicorn.port
+  - Default: null
+    Description: Broker's basic auth username
+    Example: null
+    Examples: null
+    Name: broker.username
+  - Default: "0"
+    Description: Max number of containers
+    Example: null
+    Examples: null
+    Name: broker.max_containers
+  - Default: /var/vcap/store/cf-containers-broker/envdir
+    Description: Directory of files that will become environment variables for all
+      containers
+    Example: null
+    Examples: null
+    Name: broker.container_env_var_dir
+  - Default: false
+    Description: Determines use of https in dashboard url and in callback uri for
+      calls to UAA
+    Example: null
+    Examples: null
+    Name: broker.ssl_enabled
+  - Default: unix:///var/vcap/sys/run/docker/docker.sock
+    Description: Docker URL (IP/Socket)
+    Example: null
+    Examples: null
+    Name: broker.docker_url
+  - Default: true
+    Description: Fetch new/updated container images on restart
+    Example: null
+    Examples: null
+    Name: broker.fetch_images
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Examples: null
+    Name: broker.services
+  - Default: null
+    Description: HTTPS proxy
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: null
+    Description: Broker's basic auth password
+    Example: null
+    Examples: null
+    Name: broker.password
+  - Default: null
+    Description: Host used to register the broker
+    Example: null
+    Examples: null
+    Name: broker.host
+  - Default: true
+    Description: Determines whether dashboard verifies SSL certificates when communicating
+      with Cloud Controller and UAA
+    Example: null
+    Examples: null
+    Name: broker.skip_ssl_validation
+  - Default: 4222
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: HTTP proxy
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  Templates:
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor731697383/templates/config/settings.yml.erb
+    SrcPathEnd: config/settings.yml.erb
+  - DstPathEnd: config/unicorn.conf.rb
+    Path: /mnt/tmp/tar-CmdExtractor731697383/templates/config/unicorn.conf.rb.erb
+    SrcPathEnd: config/unicorn.conf.rb.erb
+  - DstPathEnd: bin/cf-containers-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor731697383/templates/bin/cf-containers-broker_ctl
+    SrcPathEnd: bin/cf-containers-broker_ctl
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor731697383/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor731697383/templates/bin/demote-cell.sh.erb
+    SrcPathEnd: bin/demote-cell.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor573331889/monit
+    SrcPathEnd: monit
+  Name: container-env-vars
+  Packages: null
+  Properties:
+  - Default: /var/vcap/store/cf-containers-broker/envdir
+    Description: Directory of files that will become environment variables for all
+      containers
+    Example: null
+    Examples: null
+    Name: broker.container_env_var_dir
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor573331889/templates/bin/ctl.erb
+    SrcPathEnd: bin/ctl.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor573331889/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor573331889/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor573331889/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor985107211/monit
+    SrcPathEnd: monit
+  Name: disaster-recovery
+  Packages:
+  - Name: cf-cli
+  - Name: jq
+  Properties:
+  - Default: []
+    Description: Fixed list of Service Instance IDs to restore instead of looking
+      them up from Cloud Foundry
+    Example: null
+    Examples: null
+    Name: restore.service_instance_ids
+  - Default: admin
+    Description: Name of the Cloud Foundry user for who to perform disaster recovery
+    Example: null
+    Examples: null
+    Name: cf.username
+  - Default: null
+    Description: Password of the Cloud Foundry user
+    Example: null
+    Examples: null
+    Name: cf.password
+  - Default: null
+    Description: Basic auth password for service broker
+    Example: null
+    Examples: null
+    Name: servicebroker.password
+  - Default: null
+    Description: Basic auth username for service broker
+    Example: null
+    Examples: null
+    Name: servicebroker.username
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: Set if target CF uses self-signed certificates
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: null
+    Description: If dynamically looking up Instane IDs from Cloud Foundry
+    Example: null
+    Examples: null
+    Name: servicebroker.service_id
+  - Default: null
+    Description: Host for service broker
+    Example: null
+    Examples: null
+    Name: servicebroker.host
+  - Default: null
+    Description: Port for service broker
+    Example: null
+    Examples: null
+    Name: servicebroker.port
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor985107211/templates/bin/run
+    SrcPathEnd: bin/run
+  - DstPathEnd: bin/restore_service_instance
+    Path: /mnt/tmp/tar-CmdExtractor985107211/templates/bin/restore_service_instance
+    SrcPathEnd: bin/restore_service_instance
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor443329909/monit
+    SrcPathEnd: monit
+  Name: docker
+  Packages:
+  - Name: bosh-helpers
+  - Name: docker
+  Properties:
+  - Default: null
+    Description: Array of insecure registries (no certificate verification for HTTPS
+      and enable HTTP fallback)
+    Example: null
+    Examples: null
+    Name: docker.insecure_registries
+  - Default: false
+    Description: Enable IPv6 networking
+    Example: null
+    Examples: null
+    Name: docker.ipv6
+  - Default: null
+    Description: Trust only remotes providing a certificate signed by the CA given
+      here
+    Example: null
+    Examples: null
+    Name: docker.tls_cacert
+  - Default: null
+    Description: Name of the network bridge to attach containers (defaults to docker0)
+    Example: null
+    Examples: null
+    Name: docker.bridge
+  - Default: true
+    Description: Allow unrestricted inter-container and Docker daemon host communication
+    Example: null
+    Examples: null
+    Name: docker.icc
+  - Default: null
+    Description: HTTPS proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: null
+    Description: Array of DNS options to be used
+    Example: null
+    Examples: null
+    Name: docker.dns_options
+  - Default: false
+    Description: Use TLS
+    Example: null
+    Examples: null
+    Name: docker.tls
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Examples: null
+    Name: docker.debug
+  - Default: null
+    Description: Array of exec driver options
+    Example: null
+    Examples: null
+    Name: docker.exec_options
+  - Default: true
+    Description: Enable IP masquerading
+    Example: null
+    Examples: null
+    Name: docker.ip_masq
+  - Default: null
+    Description: Array of key=value labels for the daemon
+    Example: null
+    Examples: null
+    Name: docker.labels
+  - Default: null
+    Description: 'Set the containers network MTU (if no value is provided: default
+      to the default route MTU or 1500 if no default route is available)'
+    Example: null
+    Examples: null
+    Name: docker.mtu
+  - Default: null
+    Description: Array of storage driver options
+    Example: null
+    Examples: null
+    Name: docker.storage_options
+  - Default: "4243"
+    Description: TCP port where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: docker.tcp_port
+  - Default: false
+    Description: Set CORS headers in the remote API
+    Example: null
+    Examples: null
+    Name: docker.api_cors_header
+  - Default: null
+    Description: List of comma-separated hosts that Docker should skip connecting
+      to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: null
+    Description: Array of DNS search domains to be used
+    Example: null
+    Examples: null
+    Name: docker.dns_search
+  - Default: null
+    Description: Array of log driver options
+    Example: null
+    Examples: null
+    Name: docker.log_options
+  - Default: null
+    Description: Use a specific storage driver
+    Example: null
+    Examples: null
+    Name: docker.storage_driver
+  - Default: 127.0.0.1
+    Description: TCP address where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: docker.tcp_address
+  - Default: null
+    Description: Array of default ulimits for containers
+    Example: null
+    Examples: null
+    Name: docker.default_ulimits
+  - Default: null
+    Description: TLS key file
+    Example: null
+    Examples: null
+    Name: docker.tls_key
+  - Default: null
+    Description: Default IP when binding container ports
+    Example: null
+    Examples: null
+    Name: docker.ip
+  - Default: null
+    Description: TLS certificate file
+    Example: null
+    Examples: null
+    Name: docker.tls_cert
+  - Default: null
+    Description: HTTP proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: null
+    Description: Array of DNS servers to be used
+    Example: null
+    Examples: null
+    Name: docker.dns_servers
+  - Default: 8192
+    Description: Maximum number of open files
+    Example: null
+    Examples: null
+    Name: docker.ulimit.nofile
+  - Default: true
+    Description: Enable net.ipv4.ip_forward and IPv6 forwarding
+    Example: null
+    Examples: null
+    Name: docker.ip_forward
+  - Default: info
+    Description: Set the logging level (debug, info, warn, error, fatal)
+    Example: null
+    Examples: null
+    Name: docker.log_level
+  - Default: null
+    Description: CIDR notation prefix (first 2 octets) for the network bridges IP
+    Example: null
+    Examples: null
+    Name: docker.cidr_prefix
+  - Default: false
+    Description: Do not contact legacy registries
+    Example: null
+    Examples: null
+    Name: docker.disable_legacy_registry
+  - Default: true
+    Description: Enable Docker's addition of iptables rules
+    Example: null
+    Examples: null
+    Name: docker.iptables
+  - Default: null
+    Description: Default driver for container logs
+    Example: null
+    Examples: null
+    Name: docker.log_driver
+  - Default: null
+    Description: Array of preferred Docker registry mirrors
+    Example: null
+    Examples: null
+    Name: docker.registry_mirrors
+  - Default: false
+    Description: Enable selinux support
+    Example: null
+    Examples: null
+    Name: docker.selinux_enable
+  - Default: false
+    Description: Use TLS and verify the remote
+    Example: null
+    Examples: null
+    Name: docker.tls_verify
+  - Default: true
+    Description: Use userland proxy for loopback traffic
+    Example: null
+    Examples: null
+    Name: docker.userland_proxy
+  - Default: null
+    Description: Container default gateway IPv4 address
+    Example: null
+    Examples: null
+    Name: docker.default_gateway
+  - Default: null
+    Description: Container default gateway IPv6 address
+    Example: null
+    Examples: null
+    Name: docker.default_gateway_v6
+  Templates:
+  - DstPathEnd: config/docker.cert
+    Path: /mnt/tmp/tar-CmdExtractor443329909/templates/config/docker.cert.erb
+    SrcPathEnd: config/docker.cert.erb
+  - DstPathEnd: config/docker.key
+    Path: /mnt/tmp/tar-CmdExtractor443329909/templates/config/docker.key.erb
+    SrcPathEnd: config/docker.key.erb
+  - DstPathEnd: bin/cgroupfs-mount
+    Path: /mnt/tmp/tar-CmdExtractor443329909/templates/bin/cgroupfs-mount
+    SrcPathEnd: bin/cgroupfs-mount
+  - DstPathEnd: bin/docker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor443329909/templates/bin/docker_ctl
+    SrcPathEnd: bin/docker_ctl
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor443329909/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: config/docker.cacert
+    Path: /mnt/tmp/tar-CmdExtractor443329909/templates/config/docker.cacert.erb
+    SrcPathEnd: config/docker.cacert.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor408278895/monit
+    SrcPathEnd: monit
+  Name: dpg-cli
+  Packages:
+  - Name: dpg-cli
+  - Name: jq
+  - Name: cf-cli
+  - Name: postgresql-9.4
+  Properties:
+  - Default: null
+    Description: Username for Cloud Foundry API access allow lookup of user-provided
+      service names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.username
+  - Default: null
+    Description: Username for Cloud Foundry API access allow lookup of user-provided
+      service names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.password
+  - Default: null
+    Description: hostnames for service broker servers
+    Example: null
+    Examples: null
+    Name: servicebroker.machines
+  - Default: null
+    Description: hostnames for etcd servers
+    Example: null
+    Examples: null
+    Name: etcd.machines
+  - Default: null
+    Description: password for service brokers to connect to
+    Example: null
+    Examples: null
+    Name: servicebroker.password
+  - Default: null
+    Description: URI for Cloud Foundry API to allow lookup of user-provided service
+      names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: false
+    Description: Set to true if Cloud Foundry API is using self-signed SSL certificate
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: null
+    Description: port for service brokers to connect to
+    Example: null
+    Examples: null
+    Name: servicebroker.port
+  - Default: null
+    Description: username for service brokers to connect to
+    Example: null
+    Examples: null
+    Name: servicebroker.username
+  Templates:
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor408278895/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor408278895/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/dpg_wrapper
+    Path: /mnt/tmp/tar-CmdExtractor408278895/templates/bin/dpg_wrapper
+    SrcPathEnd: bin/dpg_wrapper
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor408278895/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor408278895/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor408278895/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor654861689/monit
+    SrcPathEnd: monit
+  Name: embedded-images
+  Packages: null
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor654861689/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: bin/install_ctl
+    Path: /mnt/tmp/tar-CmdExtractor654861689/templates/bin/install_ctl
+    SrcPathEnd: bin/install_ctl
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor654861689/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor654861689/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor968789011/monit
+    SrcPathEnd: monit
+  Name: integration-test
+  Packages:
+  - Name: jq
+  - Name: postgresql-9.4
+  - Name: cf-cli
+  Properties:
+  - Default: null
+    Description: URI for Cloud Foundry API to allow lookup of user-provided service
+      names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: Username for Cloud Foundry API access allow lookup of user-provided
+      service names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.username
+  - Default: null
+    Description: Username for Cloud Foundry API access allow lookup of user-provided
+      service names after provisioning
+    Example: null
+    Examples: null
+    Name: cf.password
+  - Default: false
+    Description: Set to true if Cloud Foundry API is using self-signed SSL certificate
+    Example: null
+    Examples: null
+    Name: cf.skip_ssl_validation
+  - Default: system
+    Description: Organization to use for Cloud Foundry integration test
+    Example: null
+    Examples: null
+    Name: cf.integration_test.organization
+  - Default: dingo-postgresql-integration-test
+    Description: Organization to use for Cloud Foundry integration test
+    Example: null
+    Examples: null
+    Name: cf.integration_test.space
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/bin/run
+    SrcPathEnd: bin/run
+  - DstPathEnd: bin/cf-create-service
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/bin/cf-create-service
+    SrcPathEnd: bin/cf-create-service
+  - DstPathEnd: bin/test-storage
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/bin/test-storage
+    SrcPathEnd: bin/test-storage
+  - DstPathEnd: bin/test-clone-from-latest-by-name
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/bin/test-clone-from-latest-by-name
+    SrcPathEnd: bin/test-clone-from-latest-by-name
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: helpers/test_helpers.sh
+    Path: /mnt/tmp/tar-CmdExtractor968789011/templates/helpers/test_helpers.sh
+    SrcPathEnd: helpers/test_helpers.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor667289021/monit
+    SrcPathEnd: monit
+  Name: registrator
+  Packages: null
+  Properties:
+  - Default: vcap
+    Description: Group which will own the Docker services
+    Example: null
+    Examples: null
+    Name: docker.group
+  - Default: null
+    Description: protocol://host:port to consul/etcd/skydns2 for registrator updates
+    Example: null
+    Examples: null
+    Name: registrator.backend_uri
+  - Default: root
+    Description: User which will own the Docker services
+    Example: null
+    Examples: null
+    Name: docker.user
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor667289021/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor667289021/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor667289021/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor667289021/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor667289021/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor423180535/monit
+    SrcPathEnd: monit
+  Name: router
+  Packages:
+  - Name: haproxy
+  - Name: confd
+  - Name: jq
+  Properties:
+  - Default: null
+    Description: hostnames for etcd servers
+    Example: null
+    Examples: null
+    Name: etcd.machines
+  - Default: null
+    Description: hostnames for broker servers
+    Example: null
+    Examples: null
+    Name: servicebroker.machines
+  - Default: 8888
+    Description: port to expose broker to router users
+    Example: null
+    Examples: null
+    Name: servicebroker.public_port
+  - Default: 8889
+    Description: broker process runs on this port
+    Example: null
+    Examples: null
+    Name: servicebroker.port
+  - Default: null
+    Description: Endpoint for sending haproxy logs
+    Example: null
+    Examples: null
+    Name: haproxy.syslog
+  Templates:
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: confd/confd.toml
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/confd/confd.toml
+    SrcPathEnd: confd/confd.toml
+  - DstPathEnd: confd/conf.d/router.toml
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/confd/conf.d/router.toml
+    SrcPathEnd: confd/conf.d/router.toml
+  - DstPathEnd: confd/templates/haproxy.tmpl
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/confd/templates/haproxy.tmpl
+    SrcPathEnd: confd/templates/haproxy.tmpl
+  - DstPathEnd: bin/confd_ctl
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/bin/confd_ctl
+    SrcPathEnd: bin/confd_ctl
+  - DstPathEnd: bin/haproxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/bin/haproxy_ctl
+    SrcPathEnd: bin/haproxy_ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor423180535/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor630687809/monit
+    SrcPathEnd: monit
+  Name: sanity-test
+  Packages:
+  - Name: jq
+  - Name: postgresql-9.4
+  - Name: ruby
+  - Name: dingo-postgresql-fog-check
+  Properties:
+  - Default: null
+    Description: Amazon S3 API secret key
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.aws_secret_access_key
+  - Default: null
+    Description: Amazon S3 region
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.region
+  - Default: null
+    Description: Bucket name
+    Example: null
+    Examples: null
+    Name: backups.database_storage.bucket_name
+  - Default: null
+    Description: Amazon S3 region
+    Example: null
+    Examples: null
+    Name: backups.database_storage.region
+  - Default: null
+    Description: username for service brokers to connect to
+    Example: null
+    Examples: null
+    Name: servicebroker.username
+  - Default: null
+    Description: password for service brokers to connect to
+    Example: null
+    Examples: null
+    Name: servicebroker.password
+  - Default: null
+    Description: hostnames for etcd servers
+    Example: null
+    Examples: null
+    Name: etcd.machines
+  - Default: null
+    Description: Bucket name
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.bucket_name
+  - Default: null
+    Description: Amazon S3 API access key
+    Example: null
+    Examples: null
+    Name: backups.database_storage.aws_access_key_id
+  - Default: null
+    Description: Amazon S3 API secret key
+    Example: null
+    Examples: null
+    Name: backups.database_storage.aws_secret_access_key
+  - Default: null
+    Description: hostnames for service broker servers
+    Example: null
+    Examples: null
+    Name: servicebroker.machines
+  - Default: null
+    Description: port for service brokers to connect to
+    Example: null
+    Examples: null
+    Name: servicebroker.port
+  - Default: null
+    Description: Amazon S3 API access key
+    Example: null
+    Examples: null
+    Name: backups.clusterdata.aws_access_key_id
+  Templates:
+  - DstPathEnd: bin/delete-service
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/delete-service
+    SrcPathEnd: bin/delete-service
+  - DstPathEnd: config/fog-clusterdata.yml
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/config/fog-clusterdata.yml.erb
+    SrcPathEnd: config/fog-clusterdata.yml.erb
+  - DstPathEnd: bin/test-failure-recovery
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/test-failure-recovery
+    SrcPathEnd: bin/test-failure-recovery
+  - DstPathEnd: bin/create-service
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/create-service
+    SrcPathEnd: bin/create-service
+  - DstPathEnd: helpers/test_helpers.sh
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/helpers/test_helpers.sh
+    SrcPathEnd: helpers/test_helpers.sh
+  - DstPathEnd: bin/check-object-store
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/check-object-store
+    SrcPathEnd: bin/check-object-store
+  - DstPathEnd: bin/test-storage
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/test-storage
+    SrcPathEnd: bin/test-storage
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: bin/test-move
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/test-move
+    SrcPathEnd: bin/test-move
+  - DstPathEnd: bin/update-service
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/update-service
+    SrcPathEnd: bin/update-service
+  - DstPathEnd: config/fog-databasestorage.yml
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/config/fog-databasestorage.yml.erb
+    SrcPathEnd: config/fog-databasestorage.yml.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/run
+    SrcPathEnd: bin/run
+  - DstPathEnd: bin/check-etcd
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/check-etcd
+    SrcPathEnd: bin/check-etcd
+  - DstPathEnd: bin/test-replication
+    Path: /mnt/tmp/tar-CmdExtractor630687809/templates/bin/test-replication
+    SrcPathEnd: bin/test-replication
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor847804443/monit
+    SrcPathEnd: monit
+  Name: upstream-images
+  Packages: null
+  Properties:
+  - Default: latest
+    Description: The tag of the images to pull
+    Example: null
+    Examples: null
+    Name: upstream_images.tag
+  - Default: null
+    Description: Pass the ever-changing bosh release version and will force job to
+      reload upstream images
+    Example: null
+    Examples: null
+    Name: release_version
+  Templates:
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor847804443/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor847804443/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor847804443/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor847804443/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor847804443/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb

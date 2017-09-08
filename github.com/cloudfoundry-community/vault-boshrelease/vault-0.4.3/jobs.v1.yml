@@ -1,0 +1,382 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor319105686/monit
+    SrcPathEnd: monit
+  Name: sanity-test
+  Packages:
+  - Name: jq
+  - Name: vault
+  Properties:
+  - Default: null
+    Description: The hostname for accessing the vault broker
+    Example: null
+    Examples: null
+    Name: vault.broker.host
+  - Default: null
+    Description: The port for accessing the vault broker
+    Example: null
+    Examples: null
+    Name: vault.broker.port
+  - Default: vault
+    Description: The username for authenticating interaction with Cloud Foundry.
+    Example: null
+    Examples: null
+    Name: vault.broker.username
+  - Default: vault
+    Description: The password for authenticating interaction with Cloud Foundry.
+    Example: null
+    Examples: null
+    Name: vault.broker.password
+  - Default: null
+    Description: The token that the service broker will use when interacting with
+      the Vault. If 'TODO' then skip tests.
+    Example: null
+    Examples: null
+    Name: vault.broker.backend.token
+  - Default: null
+    Description: The address to use when accessing the Vault to set up new policies
+      and manage provisioned services.
+    Example: null
+    Examples: null
+    Name: vault.broker.backend.address
+  Templates:
+  - DstPathEnd: bin/delete-service
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/bin/delete-service
+    SrcPathEnd: bin/delete-service
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/bin/run
+    SrcPathEnd: bin/run
+  - DstPathEnd: bin/run-vault-tests.sh
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/bin/run-vault-tests.sh
+    SrcPathEnd: bin/run-vault-tests.sh
+  - DstPathEnd: bin/run-broker-tests.sh
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/bin/run-broker-tests.sh
+    SrcPathEnd: bin/run-broker-tests.sh
+  - DstPathEnd: bin/create-service
+    Path: /mnt/tmp/tar-CmdExtractor319105686/templates/bin/create-service
+    SrcPathEnd: bin/create-service
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor778630200/monit
+    SrcPathEnd: monit
+  Name: vault-broker
+  Packages:
+  - Name: vault-broker
+  Properties:
+  - Default: ""
+    Description: A unique GUID to use for this service broker inside of Cloud Foundry.
+    Example: null
+    Examples: null
+    Name: vault.broker.guid
+  - Default: vault
+    Description: The password for authenticating interaction with Cloud Foundry.
+    Example: null
+    Examples: null
+    Name: vault.broker.password
+  - Default: vault
+    Description: Name of the service, as shown in the marketplace.
+    Example: null
+    Examples: null
+    Name: vault.broker.service.name
+  - Default: Vault Secure Storage
+    Description: A description of the service, also for the marketplace.
+    Example: null
+    Examples: null
+    Name: vault.broker.service.description
+  - Default: []
+    Description: A list of tags to apply to the service.
+    Example: null
+    Examples: null
+    Name: vault.broker.service.tags
+  - Default: null
+    Description: The address to use when accessing the Vault to set up new policies
+      and manage provisioned services.
+    Example: null
+    Examples: null
+    Name: vault.broker.backend.address
+  - Default: ""
+    Description: The address to hand out to bound applications, along with their credentials.  Defaults
+      to `vault.broker.backend.address`.
+    Example: null
+    Examples: null
+    Name: vault.broker.backend.advertise
+  - Default: vault
+    Description: The username for authenticating interaction with Cloud Foundry.
+    Example: null
+    Examples: null
+    Name: vault.broker.username
+  - Default: null
+    Description: The token that the service broker will use when interacting with
+      the Vault.
+    Example: null
+    Examples: null
+    Name: vault.broker.backend.token
+  - Default: false
+    Description: Instructs the broker to ignore SSL/TLS certificate problems (self-signedness,
+      domain mismatch, expiration, etc.). Set this at your own risk.
+    Example: null
+    Examples: null
+    Name: vault.broker.backend.skip_verify
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor778630200/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor778630200/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor778630200/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor778630200/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor778630200/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor781282346/monit
+    SrcPathEnd: monit
+  Name: vault
+  Packages:
+  - Name: vault
+  Properties:
+  - Default: null
+    Description: Datacenter for Consul
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.datacenter
+  - Default: false
+    Description: Indicates whether host verification should be disabled.
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.tls.skip_verify
+  - Default: null
+    Description: AWS session token
+    Example: null
+    Examples: null
+    Name: vault.backend.s3.session_token
+  - Default: 0.0.0.0
+    Description: Address for TCP connection
+    Example: null
+    Examples: null
+    Name: vault.listener.tcp.address
+  - Default: null
+    Description: Contents of the PEM-encoded TLS server certificate
+    Example: null
+    Examples: null
+    Name: vault.listener.tcp.tls.certificate
+  - Default: "true"
+    Description: This controls whether clustering features (currently, request forwarding)
+      are enabled
+    Example: null
+    Examples: null
+    Name: vault.ha.disable_clustering
+  - Default: null
+    Description: S3 bucket name
+    Example: null
+    Examples: null
+    Name: vault.backend.s3.bucket
+  - Default: null
+    Description: AWS access key
+    Example: null
+    Examples: null
+    Name: vault.backend.s3.access_key
+  - Default: us-east-1
+    Description: AWS region
+    Example: null
+    Examples: null
+    Name: vault.backend.s3.region
+  - Default: 8200
+    Description: Port for TCP connection
+    Example: null
+    Examples: null
+    Name: vault.listener.tcp.port
+  - Default: false
+    Description: Use In Memory backend
+    Example: null
+    Examples: null
+    Name: vault.backend.use_inmem
+  - Default: /var/vcap/store/
+    Description: Path for File backend
+    Example: null
+    Examples: null
+    Name: vault.backend.file.path
+  - Default: null
+    Description: Contents of the PEM-encoded TLS CA certificate
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.tls.ca_certificate
+  - Default: null
+    Description: Contents of the PEM-encoded TLS server certificate
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.tls.certificate
+  - Default: null
+    Description: Contents of the PEM-encoded TLS server private key
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.tls.key
+  - Default: null
+    Description: AWS S3 endpoint
+    Example: null
+    Examples: null
+    Name: vault.backend.s3.endpoint
+  - Default: null
+    Description: Address for statsite
+    Example: null
+    Examples: null
+    Name: vault.statsite_addr
+  - Default: null
+    Description: Address for StatsD
+    Example: null
+    Examples: null
+    Name: vault.statsd_addr
+  - Default: null
+    Description: Access Token for Consul
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.token
+  - Default: null
+    Description: Address for Consul
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.address
+  - Default: 128
+    Description: The maximum number of concurrent requests to Consul.
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.max_parallel
+  - Default: false
+    Description: Use S3 backend
+    Example: null
+    Examples: null
+    Name: vault.backend.use_s3
+  - Default: null
+    Description: AWS secret key
+    Example: null
+    Examples: null
+    Name: vault.backend.s3.secret_key
+  - Default: tls12
+    Description: Minimum TLS version to use
+    Example: null
+    Examples: null
+    Name: vault.listener.tcp.tls.min_version
+  - Default: 8201
+    Description: Port for cluster address required for server-to-server connection
+    Example: null
+    Examples: null
+    Name: vault.listener.cluster.port
+  - Default: null
+    Description: The DNS domain name to advertise in HA configuration.  If unspecified,
+      advertise_addr will not be set.
+    Example: null
+    Examples: null
+    Name: vault.ha.domain
+  - Default: 5s
+    Description: The check interval used to send health check information to consul.
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.check_timeout
+  - Default: null
+    Description: Contents of the PEM-encoded TLS server private key
+    Example: null
+    Examples: null
+    Name: vault.listener.tcp.tls.key
+  - Default: (deployment)-(index)
+    Description: The DNS hostname to advertise in HA configuration.  The keywords
+      (deployment) and (index) will be replaced by the configured deployment and instance
+      index (i.e. 'prod-vault' and '3')
+    Example: null
+    Examples: null
+    Name: vault.ha.name
+  - Default: null
+    Description: This is the address to advertise to other Vault servers in the cluster
+      for request forwarding.
+    Example: null
+    Examples: null
+    Name: vault.ha.cluster_address
+  - Default: false
+    Description: Use Cosul for data store
+    Example: null
+    Examples: null
+    Name: vault.backend.use_consul
+  - Default: vault/
+    Description: Path for Consul
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.path
+  - Default: tls12
+    Description: Minimum TLS version to use
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.tls.min_version
+  - Default: 0.0.0.0
+    Description: Address to bind to for cluster server-to-server requests
+    Example: null
+    Examples: null
+    Name: vault.listener.cluster.address
+  - Default: null
+    Description: This is the address to advertise to other Vault servers in the cluster
+      for client redirection
+    Example: null
+    Examples: null
+    Name: vault.ha.redirect_address
+  - Default: false
+    Description: Disable mlock if you're crazy
+    Example: null
+    Examples: null
+    Name: vault.disable_mlock
+  - Default: null
+    Description: Scheme for Consul
+    Example: null
+    Examples: null
+    Name: vault.backend.consul.scheme
+  - Default: false
+    Description: Use File backend
+    Example: null
+    Examples: null
+    Name: vault.backend.use_file
+  Templates:
+  - DstPathEnd: bin/vault_ctl
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/bin/vault_ctl
+    SrcPathEnd: bin/vault_ctl
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: config/server.hcl
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/config/vault.conf.erb
+    SrcPathEnd: config/vault.conf.erb
+  - DstPathEnd: ssl/certificate.pem
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/ssl/certificate.pem
+    SrcPathEnd: ssl/certificate.pem
+  - DstPathEnd: ssl/consul_key.pem
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/ssl/consul_key.pem
+    SrcPathEnd: ssl/consul_key.pem
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: ssl/key.pem
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/ssl/key.pem
+    SrcPathEnd: ssl/key.pem
+  - DstPathEnd: ssl/ca_certificate.pem
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/ssl/ca_certificate.pem
+    SrcPathEnd: ssl/ca_certificate.pem
+  - DstPathEnd: ssl/consul_certificate.pem
+    Path: /mnt/tmp/tar-CmdExtractor781282346/templates/ssl/consul_certificate.pem
+    SrcPathEnd: ssl/consul_certificate.pem

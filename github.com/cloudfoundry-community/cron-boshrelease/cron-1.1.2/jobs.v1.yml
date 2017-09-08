@@ -1,0 +1,70 @@
+- Description: |
+    This BOSH job creates a customized crontab, and installs it for the host OS's cron
+    process to manage. Upon stopping, it should clean up after itself
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor655179567/monit
+    SrcPathEnd: monit
+  Name: cron
+  Packages: null
+  Properties:
+  - Default: null
+    Description: A key-value map of environment variables that should be set in the
+      crontab
+    Example:
+      HOME: /home/vcap
+      PATH: /var/vcap/package/mypackage/bin:/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/bin
+    Examples: null
+    Name: cron.variables
+  - Default: null
+    Description: |
+      A list of key-value objects representing cron entries. Each entry must contain
+      properties for 'minute', 'hour', 'day', 'month', 'wday', 'user', and 'command'. These
+      properties are directly injected into the crontab, and should follow cron syntax
+      conventions.
+
+      If command is specified, that path is executed by cron and must already exist.
+      If script is specified, the contents of that key are written out to disk and executed by cron.
+
+      If command and script are specified for the same entry, the contents of script will be executed, and command ignored
+
+      If lock is specified, the cronjob will be wrapped by flock(1) -n ensuring only one instance runs at a time.
+    Example:
+    - command: /var/vcap/packages/mypackage/bin/myhourlyscript
+      day: '*'
+      hour: '*'
+      lock: /var/vcap/sys/run/cron/myhourly.lock
+      minute: 0
+      month: '*'
+      script:
+        contents: |
+          #!/bin/bash
+
+          touch /tmp/i-am-running
+        name: touch.sh
+      user: root
+      wday: '*'
+    Examples: null
+    Name: cron.entries
+  Templates:
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/cron_ctl
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/bin/cron_ctl
+    SrcPathEnd: bin/cron_ctl
+  - DstPathEnd: bin/sleeper
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/bin/sleeper
+    SrcPathEnd: bin/sleeper
+  - DstPathEnd: bin/setup_crontab
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/bin/setup_crontab.erb
+    SrcPathEnd: bin/setup_crontab.erb
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor655179567/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb

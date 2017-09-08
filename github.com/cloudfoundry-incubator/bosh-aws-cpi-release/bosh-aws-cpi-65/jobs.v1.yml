@@ -1,0 +1,338 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor735036202/monit
+    SrcPathEnd: monit
+  Name: aws_cpi
+  Packages:
+  - Name: ruby_aws_cpi
+  - Name: bosh_aws_cpi
+  Properties:
+  - Default: null
+    Description: Host of agent blobstore server used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.host
+  - Default: null
+    Description: Address of the nats server
+    Example: null
+    Examples: null
+    Name: agent.nats.address
+  - Default: null
+    Description: All required custom CA certificates
+    Example: '-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----'
+    Examples: null
+    Name: aws.connection_options.ca_cert
+  - Default: null
+    Description: User to access the Registry
+    Example: null
+    Examples: null
+    Name: registry.username
+  - Default: null
+    Description: AWS kernel id used by aws cpi
+    Example: null
+    Examples: null
+    Name: aws.stemcell.kernel_id
+  - Default:
+    - 0.pool.ntp.org
+    - 1.pool.ntp.org
+    Description: List of ntp server IPs. pool.ntp.org attempts to return IPs closest
+      to your location, but you can still specify if needed.
+    Example: null
+    Examples: null
+    Name: ntp
+  - Default: null
+    Description: Where to get AWS credentials for the aws cpi. This can be set to
+      `static` for to use an `access_key_id` and `secret_access_key` or `env_or_profile`
+      to get the credentials from environment variables or an EC2 instance profile.
+    Example: null
+    Examples: null
+    Name: agent.blobstore.credentials_source
+  - Default: null
+    Description: AWS KMS key ID to use for object encryption. All GET and PUT requests
+      for an object protected by AWS KMS will fail if not made via SSL or using SigV4.
+    Example: null
+    Examples: null
+    Name: blobstore.sse_kms_key_id
+  - Default: null
+    Description: Username agent uses to connect to blobstore used by dav blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: blobstore.agent.user
+  - Default: 25777
+    Description: Port of the Registry to connect to
+    Example: null
+    Examples: null
+    Name: registry.port
+  - Default: dav
+    Description: Provider of the blobstore used by director and agent (dav|local|s3)
+    Example: null
+    Examples: null
+    Name: blobstore.provider
+  - Default: null
+    Description: AWS S3 Bucket used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.bucket_name
+  - Default: null
+    Description: Whether the s3 blobstore plugin should verify its peer when using
+      SSL
+    Example: null
+    Examples: null
+    Name: blobstore.ssl_verify_peer
+  - Default: null
+    Description: Port of agent blobstore server used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_port
+  - Default: null
+    Description: Whether the agent blobstore plugin should verify its peer when using
+      SSL
+    Example: null
+    Examples: null
+    Name: agent.blobstore.ssl_verify_peer
+  - Default: static
+    Description: Where to get AWS credentials for the aws cpi. This can be set to
+      `static` for to use an `access_key_id` and `secret_access_key` or `env_or_profile`
+      to get the credentials from environment variables or an EC2 instance profile.
+    Example: null
+    Examples: null
+    Name: blobstore.credentials_source
+  - Default: null
+    Description: Agent mbus
+    Example: null
+    Examples: null
+    Name: agent.mbus
+  - Default: null
+    Description: Http proxy to connect to cloud API's
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: null
+    Description: Default AWS iam_instance_profile for the aws cpi
+    Example: null
+    Examples: null
+    Name: aws.default_iam_instance_profile
+  - Default: null
+    Description: Password to access the Registry
+    Example: null
+    Examples: null
+    Name: registry.password
+  - Default: null
+    Description: Address for agent to connect to blobstore server used by dav blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: agent.blobstore.address
+  - Default: null
+    Description: Address of blobstore server used by dav blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.address
+  - Default: nats
+    Description: Username to connect to nats with
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: static
+    Description: Where to get AWS credentials for the aws cpi. This can be set to
+      `static` to use an `access_key_id` and `secret_access_key` or `env_or_profile`
+      to get the credentials from environment variables or an EC2 instance profile.
+    Example: null
+    Examples: null
+    Name: aws.credentials_source
+  - Default: null
+    Description: Address of the Registry to connect to
+    Example: null
+    Examples: null
+    Name: registry.host
+  - Default: null
+    Description: AWS KMS key ID to use for object encryption. All GET and PUT requests
+      for an object protected by AWS KMS will fail if not made via SSL or using SigV4.
+    Example: null
+    Examples: null
+    Name: agent.blobstore.sse_kms_key_id
+  - Default: null
+    Description: 'AWS ELB service endpoint, without protocol/scheme (Optional: default
+      endpoint will be constructed from region if not specified)'
+    Example: elasticloadbalancing.us-east-1.amazonaws.com
+    Examples: null
+    Name: aws.elb_endpoint
+  - Default: null
+    Description: local blobstore path
+    Example: null
+    Examples: null
+    Name: blobstore.path
+  - Default: null
+    Description: Password agent uses to connect to blobstore used by dav blobstore
+      plugin
+    Example: null
+    Examples: null
+    Name: blobstore.agent.password
+  - Default: 4222
+    Description: Port that the nats server listens on
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: 'AWS EC2 service endpoint, without protocol/scheme (Optional: default
+      endpoint will be constructed from region if not specified)'
+    Example: ec2.us-east-1.amazonaws.com
+    Examples: null
+    Name: aws.ec2_endpoint
+  - Default: null
+    Description: Host of blobstore server used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.host
+  - Default: null
+    Description: AWS access_key_id for the aws cpi (Required when aws.credentials_source
+      is set to `static`)
+    Example: null
+    Examples: null
+    Name: aws.access_key_id
+  - Default: null
+    Description: AWS access_key_id used by s3 blobstore plugin (Required when blobstore.credentials_source
+      is set to `static`)
+    Example: null
+    Examples: null
+    Name: blobstore.access_key_id
+  - Default: null
+    Description: Server-side encryption algorithm used when storing blobs in S3 (Optional
+      - "AES256"|"aws:kms")
+    Example: null
+    Examples: null
+    Name: blobstore.server_side_encryption
+  - Default: null
+    Description: Default security groups for new VMs (required)
+    Example:
+    - bosh-grp
+    Examples: null
+    Name: aws.default_security_groups
+  - Default: null
+    Description: AWS region name (Required unless both ec2_endpoint and elb_endpoint
+      are specified)
+    Example: us-east-1
+    Examples: null
+    Name: aws.region
+  - Default: null
+    Description: AWS secret_access_key for agent used by s3 blobstore plugin (Required
+      when blobstore.credentials_source is set to `static`)
+    Example: null
+    Examples: null
+    Name: agent.blobstore.secret_access_key
+  - Default: null
+    Description: AWS region for agent used by s3 blobstore plugin (Required when blobstore.credentials_source
+      is set to `static`)
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_region
+  - Default: true
+    Description: Whether the s3 blobstore plugin should use SSL to connect to the
+      blobstore server
+    Example: null
+    Examples: null
+    Name: blobstore.use_ssl
+  - Default: null
+    Description: AWS secret_access_key for the aws cpi (Required when aws.credentials_source
+      is set to `static`)
+    Example: null
+    Examples: null
+    Name: aws.secret_access_key
+  - Default: null
+    Description: Server-side encryption algorithm used when storing blobs in S3 (Optional
+      - "AES256"|"aws:kms")
+    Example: null
+    Examples: null
+    Name: agent.blobstore.server_side_encryption
+  - Default: null
+    Description: Signature version used to connect to an s3 blobstore
+    Example: null
+    Examples: null
+    Name: blobstore.s3_signature_version
+  - Default: null
+    Description: Password to connect to nats with
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: Default SSH keypair used for new VMs (required)
+    Example:
+    - bosh
+    Examples: null
+    Name: aws.default_key_name
+  - Default: null
+    Description: AWS secret_access_key used by s3 blobstore plugin (Required when
+      blobstore.credentials_source is set to `static`)
+    Example: null
+    Examples: null
+    Name: blobstore.secret_access_key
+  - Default: null
+    Description: AWS access_key_id for agent used by s3 blobstore plugin (Required
+      when blobstore.credentials_source is set to `static`)
+    Example: null
+    Examples: null
+    Name: agent.blobstore.access_key_id
+  - Default: null
+    Description: Whether the agent blobstore plugin should use SSL to connect to the
+      blobstore server
+    Example: null
+    Examples: null
+    Name: agent.blobstore.use_ssl
+  - Default: null
+    Description: Address of the nats server
+    Example: null
+    Examples: null
+    Name: nats.address
+  - Default: null
+    Description: Https proxy to connect to cloud API's
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: 8
+    Description: The maximum number of times AWS service errors and throttling errors
+      should be retried. There is an exponential backoff in between retries, so the
+      more retries the longer it can take to fail.
+    Example: null
+    Examples: null
+    Name: aws.max_retries
+  - Default: 25250
+    Description: Port of blobstore server used by dav blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.port
+  - Default: null
+    Description: No proxy environment variable
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: null
+    Description: Signature version used to connect to an s3 blobstore
+    Example: null
+    Examples: null
+    Name: agent.blobstore.s3_signature_version
+  - Default: null
+    Description: AWS region used by s3 blobstore plugin (Required when blobstore.credentials_source
+      is set to `static`)
+    Example: null
+    Examples: null
+    Name: blobstore.s3_region
+  - Default: 443
+    Description: Port of blobstore server used by s3 blobstore plugin
+    Example: null
+    Examples: null
+    Name: blobstore.s3_port
+  Templates:
+  - DstPathEnd: bin/cpi
+    Path: /mnt/tmp/tar-CmdExtractor735036202/templates/cpi.erb
+    SrcPathEnd: cpi.erb
+  - DstPathEnd: config/cpi.json
+    Path: /mnt/tmp/tar-CmdExtractor735036202/templates/cpi.json.erb
+    SrcPathEnd: cpi.json.erb
+  - DstPathEnd: config/cacert.pem
+    Path: /mnt/tmp/tar-CmdExtractor735036202/templates/cacert.pem.erb
+    SrcPathEnd: cacert.pem.erb
+  - DstPathEnd: bin/cpi_ctl
+    Path: /mnt/tmp/tar-CmdExtractor735036202/templates/cpi_ctl.erb
+    SrcPathEnd: cpi_ctl.erb

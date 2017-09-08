@@ -1,0 +1,1419 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor872056058/monit
+    SrcPathEnd: monit
+  Name: health_monitor
+  Packages:
+  - Name: health_monitor
+  - Name: ruby
+  Properties:
+  - Default: null
+    Description: Port of the SMTP server to connect to
+    Example: null
+    Name: hm.smtp.port
+  - Default: false
+    Description: Enable PagerDuty plugin
+    Example: null
+    Name: hm.pagerduty_enabled
+  - Default: null
+    Description: PagerDuty service API key
+    Example: null
+    Name: hm.pagerduty.service_key
+  - Default: null
+    Description: HTTP proxy to connect to PagerDuty (optional)
+    Example: null
+    Name: hm.pagerduty.http_proxy
+  - Default: null
+    Description: Address of the Bosh Director to connect to
+    Example: null
+    Name: director.address
+  - Default: 25555
+    Description: Port of the Bosh Director to connect to
+    Example: null
+    Name: director.port
+  - Default: ""
+    Description: UAA client secret to access Bosh Director
+    Example: null
+    Name: hm.director_account.client_secret
+  - Default: null
+    Description: Port of TSDB to connect to
+    Example: null
+    Name: hm.tsdb.port
+  - Default: null
+    Description: Password for event NATS message bus connection
+    Example: null
+    Name: event_nats.password
+  - Default: null
+    Description: SMTP EHLO domain
+    Example: null
+    Name: hm.smtp.domain
+  - Default: false
+    Description: Enable DataDog plugin
+    Example: null
+    Name: hm.datadog_enabled
+  - Default: 25923
+    Description: TCP port Health Monitor daemon listens on
+    Example: null
+    Name: hm.http.port
+  - Default: info
+    Description: Level of log messages (fatal, error, warn, info, debug)
+    Example: null
+    Name: hm.loglevel
+  - Default: http
+    Description: http/https
+    Example: null
+    Name: hm.consul_event_forwarder.protocol
+  - Default: 60
+    Description: Interval (in seconds) to analyze the status of agents
+    Example: null
+    Name: hm.intervals.analyze_agents
+  - Default: ""
+    Description: UAA client id to access Bosh Director
+    Example: null
+    Name: hm.director_account.client_id
+  - Default: null
+    Description: Address of the event NATS message bus to connect to
+    Example: null
+    Name: event_nats.address
+  - Default: null
+    Description: Email of recipients (Array)
+    Example: null
+    Name: hm.email_recipients
+  - Default: null
+    Description: Address of the SMTP server to connect to
+    Example: null
+    Name: hm.smtp.host
+  - Default: null
+    Description: Address of TSDB to connect to
+    Example: null
+    Name: hm.tsdb.address
+  - Default: null
+    Description: AWS secret access key
+    Example: null
+    Name: aws.secret_access_key
+  - Default: null
+    Description: Service name to alert in PagerDuty upon HM events
+    Example: null
+    Name: hm.datadog.pagerduty_service_name
+  - Default: null
+    Description: Username clients must use to access Health Monitor via HTTP Basic
+      Auth
+    Example: null
+    Name: hm.http.user
+  - Default: 30
+    Description: Interval (in seconds) between discovering managed VMs and analyzing
+      their status
+    Example: null
+    Name: hm.intervals.poll_grace_period
+  - Default: null
+    Description: Graphite address
+    Example: null
+    Name: hm.graphite.address
+  - Default: null
+    Description: Password clients must use to access Health Monitor via HTTP Basic
+      Auth
+    Example: null
+    Name: hm.http.password
+  - Default: null
+    Description: Use STARTTLS (optional)
+    Example: null
+    Name: hm.smtp.tls
+  - Default: null
+    Description: Prefix that will be added to all metrics sent to Graphite
+    Example: null
+    Name: hm.graphite.prefix
+  - Default: false
+    Description: Whether or not to use the events api
+    Example: null
+    Name: hm.consul_event_forwarder.events
+  - Default: null
+    Description: User for the NATS message bus connection
+    Example: null
+    Name: nats.user
+  - Default: false
+    Description: Enable email notifications plugin
+    Example: null
+    Name: hm.email_notifications
+  - Default: false
+    Description: Should we treat all heartbeats as alerts as well?
+    Example: null
+    Name: hm.consul_event_forwarder.heartbeats_as_alerts
+  - Default: ""
+    Description: Password to access Bosh Director
+    Example: null
+    Name: hm.director_account.password
+  - Default: false
+    Description: Enable event NATS message bus plugin
+    Example: null
+    Name: event_nats_enabled
+  - Default: null
+    Description: Interval (in seconds) to deliver alerts by email (optional)
+    Example: null
+    Name: hm.email_interval
+  - Default: false
+    Description: Enable TSDB plugin
+    Example: null
+    Name: hm.tsdb_enabled
+  - Default: false
+    Description: Enable varz plugin
+    Example: null
+    Name: hm.varz_enabled
+  - Default: null
+    Description: Location of Consul Cluster or agent
+    Example: null
+    Name: hm.consul_event_forwarder.host
+  - Default: 60
+    Description: Interval (in seconds) to consider an agent has timed out
+    Example: null
+    Name: hm.intervals.agent_timeout
+  - Default: null
+    Description: Port of the event NATS message bus port to connect to
+    Example: null
+    Name: event_nats.port
+  - Default: 8500
+    Description: Consul Port
+    Example: null
+    Name: hm.consul_event_forwarder.port
+  - Default: null
+    Description: Email of sender
+    Example: null
+    Name: hm.smtp.from
+  - Default: null
+    Description: User for SMTP Authentication (optional, use in conjuction with hm.smtp.auth)
+    Example: null
+    Name: hm.smtp.user
+  - Default: false
+    Description: Enable AWS CloudWatch Plugin
+    Example: null
+    Name: hm.cloud_watch_enabled
+  - Default: 0.2
+    Description: Percentage of total jobs in a deployment that must be down for the
+      resurrector to to stop sending recreate-job requests. Used in 'meltdown' situations
+      so resurrector will not try to recreate the world.
+    Example: null
+    Name: hm.resurrector.percent_threshold
+  - Default: 600
+    Description: Time (in seconds) for which an alert in the resurrector is considered
+      'current'; alerts older than this are ignored when deciding to recreate a job.
+    Example: null
+    Name: hm.resurrector.time_threshold
+  - Default: null
+    Description: Health Monitor Application Key for DataDog
+    Example: null
+    Name: hm.datadog.application_key
+  - Default: false
+    Description: Enable Graphite plugin
+    Example: null
+    Name: hm.graphite_enabled
+  - Default: null
+    Description: A namespace for handling multiples of the same release
+    Example: null
+    Name: hm.consul_event_forwarder.namespace
+  - Default: 60
+    Description: Interval (in seconds) to log Health Monitor statistics
+    Example: null
+    Name: hm.intervals.log_stats
+  - Default: 4222
+    Description: Port of the NATS message bus port to connect to
+    Example: null
+    Name: nats.port
+  - Default: ""
+    Description: User to access Bosh Director
+    Example: null
+    Name: hm.director_account.user
+  - Default: 60
+    Description: Interval (in seconds) to get the list of managed VMs from Bosh Director
+    Example: null
+    Name: hm.intervals.poll_director
+  - Default: 120
+    Description: Interval (in seconds) to consider an agent as rogue (an agent that
+      is no part of any deployment)
+    Example: null
+    Name: hm.intervals.rogue_agent_alert
+  - Default: null
+    Description: Password for NATS message bus connection
+    Example: null
+    Name: nats.password
+  - Default: false
+    Description: Enable VM resurrector plugin
+    Example: null
+    Name: hm.resurrector_enabled
+  - Default: null
+    Description: API Key for DataDog
+    Example: null
+    Name: hm.datadog.api_key
+  - Default: Automatically Registered by Bosh-Monitor
+    Description: A note for ttl checks
+    Example: null
+    Name: hm.consul_event_forwarder.ttl_note
+  - Default: null
+    Description: Address of the NATS message bus to connect to
+    Example: null
+    Name: nats.address
+  - Default: null
+    Description: SMTP Authentication type (optional, only "plain" is supported)
+    Example: null
+    Name: hm.smtp.auth
+  - Default: null
+    Description: Graphite port
+    Example: null
+    Name: hm.graphite.port
+  - Default: false
+    Description: Enable Consul Plugin
+    Example: null
+    Name: hm.consul_event_forwarder_enabled
+  - Default: null
+    Description: Params for url can be used for passing ACL token
+    Example: null
+    Name: hm.consul_event_forwarder.params
+  - Default: null
+    Description: A ttl time for ttl checks, if set ttl checks will be used
+    Example: null
+    Name: hm.consul_event_forwarder.ttl
+  - Default: null
+    Description: User for the event NATS message bus connection
+    Example: null
+    Name: event_nats.user
+  - Default: null
+    Description: Password for SMTP Authentication (optional, use in conjuction with
+      hm.smtp.auth)
+    Example: null
+    Name: hm.smtp.password
+  - Default: null
+    Description: AWS access key id
+    Example: null
+    Name: aws.access_key_id
+  - Default: 5
+    Description: If the total number of down jobs in a deployment is below this threshold,
+      the resurrector will always request a down job be recreated
+    Example: null
+    Name: hm.resurrector.minimum_down_jobs
+  - Default: 30
+    Description: Interval (in seconds) to prune received events
+    Example: null
+    Name: hm.intervals.prune_events
+  - Default: ""
+    Description: Certificate to verify UAA endpoint
+    Example: null
+    Name: hm.director_account.ca_cert
+  Templates:
+  - DstPathEnd: bin/health_monitor_ctl
+    Path: /mnt/tmp/tar-CmdExtractor872056058/templates/health_monitor_ctl
+    SrcPathEnd: health_monitor_ctl
+  - DstPathEnd: config/health_monitor.yml
+    Path: /mnt/tmp/tar-CmdExtractor872056058/templates/health_monitor.yml.erb
+    SrcPathEnd: health_monitor.yml.erb
+  - DstPathEnd: config/uaa.pem
+    Path: /mnt/tmp/tar-CmdExtractor872056058/templates/uaa.pem.erb
+    SrcPathEnd: uaa.pem.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor441997884/monit
+    SrcPathEnd: monit
+  Name: registry
+  Packages:
+  - Name: registry
+  - Name: libpq
+  - Name: mysql
+  - Name: ruby
+  Properties:
+  - Default: 5432
+    Description: Port of the registry database
+    Example: null
+    Name: registry.db.port
+  - Default: null
+    Description: AWS EC2 Region
+    Example: null
+    Name: aws.region
+  - Default: 2
+    Description: Max number of retries to connect to AWS
+    Example: null
+    Name: aws.max_retries
+  - Default: null
+    Description: The path the a CA cert directory
+    Example: null
+    Name: aws.ssl_ca_path
+  - Default: null
+    Description: OpenStack API key
+    Example: null
+    Name: openstack.api_key
+  - Default: bosh
+    Description: Username used for the registry database
+    Example: null
+    Name: registry.db.user
+  - Default: null
+    Description: The service endpoint for Amazon Elastic Load Balancing (optional,
+      if not supplied default region endpoint will be used)
+    Example: null
+    Name: aws.elb_endpoint
+  - Default: null
+    Description: OpenStack user name
+    Example: null
+    Name: openstack.username
+  - Default: publicURL
+    Description: OpenStack endpoint type (optional, by default publicURL)
+    Example: null
+    Name: openstack.endpoint_type
+  - Default: null
+    Description: AWS IAM Access Key ID
+    Example: null
+    Name: aws.access_key_id
+  - Default: null
+    Description: AWS IAM Secret Access Key
+    Example: null
+    Name: aws.secret_access_key
+  - Default: null
+    Description: The service endpoint for Amazon EC2 (optional, if not supplied default
+      region endpoint will be used)
+    Example: null
+    Name: aws.ec2_endpoint
+  - Default: null
+    Description: URL of the OpenStack Identity endpoint to connect to
+    Example: null
+    Name: openstack.auth_url
+  - Default: null
+    Description: OpenStack region (optional)
+    Example: null
+    Name: openstack.region
+  - Default: null
+    Description: Hash containing optional connection parameters to the OpenStack API
+    Example: null
+    Name: openstack.connection_options
+  - Default: null
+    Description: Password used for the registry database
+    Example: null
+    Name: registry.db.password
+  - Default: null
+    Description: Username clients must use to access Registry via HTTP Basic Auth
+    Example: null
+    Name: registry.http.user
+  - Default: null
+    Description: Password clients must use to access Registry via HTTP Basic Auth
+    Example: null
+    Name: registry.http.password
+  - Default: postgres
+    Description: The type of database used
+    Example: null
+    Name: registry.db.adapter
+  - Default: null
+    Description: Address of the registry database
+    Example: null
+    Name: registry.db.host
+  - Default: bosh_registry
+    Description: Name of the registry database
+    Example: null
+    Name: registry.db.database
+  - Default:
+      max_connections: 32
+      pool_timeout: 10
+    Description: Additional options for the database
+    Example: null
+    Name: registry.db.connection_options
+  - Default: null
+    Description: The path to a CA cert bundle in PEM format
+    Example: null
+    Name: aws.ssl_ca_file
+  - Default: 25777
+    Description: TCP port Registry daemon listens on
+    Example: null
+    Name: registry.http.port
+  - Default: null
+    Description: OpenStack tenant name
+    Example: null
+    Name: openstack.tenant
+  - Default: null
+    Description: When true the HTTP handler validate server certificates for HTTPS
+      requests
+    Example: null
+    Name: aws.ssl_verify_peer
+  Templates:
+  - DstPathEnd: bin/registry_ctl
+    Path: /mnt/tmp/tar-CmdExtractor441997884/templates/registry_ctl
+    SrcPathEnd: registry_ctl
+  - DstPathEnd: config/registry.yml
+    Path: /mnt/tmp/tar-CmdExtractor441997884/templates/registry.yml.erb
+    SrcPathEnd: registry.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor069748430/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: postgres
+  Properties:
+  - Default: bosh
+    Description: Username clients must use to access Postgres
+    Example: null
+    Name: postgres.user
+  - Default: null
+    Description: Password clients must use to access Postgres
+    Example: null
+    Name: postgres.password
+  - Default: 0.0.0.0
+    Description: IP address Postgres listens on
+    Example: null
+    Name: postgres.listen_address
+  - Default: 5432
+    Description: TCP port Postgres listens on
+    Example: null
+    Name: postgres.port
+  - Default: bosh
+    Description: Default Postgres database (it will be created during the startup
+      process)
+    Example: null
+    Name: postgres.database
+  Templates:
+  - DstPathEnd: bin/postgres_ctl
+    Path: /mnt/tmp/tar-CmdExtractor069748430/templates/postgres_ctl.erb
+    SrcPathEnd: postgres_ctl.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor069748430/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor223597872/monit
+    SrcPathEnd: monit
+  Name: blobstore
+  Packages:
+  - Name: nginx
+  Properties:
+  - Default: 25250
+    Description: TCP port blobstore server (ngnix) listens on
+    Example: null
+    Name: blobstore.port
+  - Default: 25251
+    Description: TCP port backend blobstore server (simple blobstore) listens on
+    Example: null
+    Name: blobstore.backend_port
+  - Default: null
+    Description: Username director must use to access blobstore via HTTP Basic
+    Example: null
+    Name: blobstore.director.user
+  - Default: null
+    Description: Password director must use to access blobstore via HTTP Basic
+    Example: null
+    Name: blobstore.director.password
+  - Default: null
+    Description: Username agents must use to access blobstore via HTTP Basic
+    Example: null
+    Name: blobstore.agent.user
+  - Default: null
+    Description: Password agents must use to access blobstore via HTTP Basic
+    Example: null
+    Name: blobstore.agent.password
+  - Default: 5000m
+    Description: Max allowed file size for upload
+    Example: null
+    Name: blobstore.max_upload_size
+  Templates:
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor223597872/templates/nginx_ctl
+    SrcPathEnd: nginx_ctl
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor223597872/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: config/sites/blobstore.conf
+    Path: /mnt/tmp/tar-CmdExtractor223597872/templates/blobstore.conf.erb
+    SrcPathEnd: blobstore.conf.erb
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor223597872/templates/mime.types
+    SrcPathEnd: mime.types
+  - DstPathEnd: config/read_users
+    Path: /mnt/tmp/tar-CmdExtractor223597872/templates/read_users.erb
+    SrcPathEnd: read_users.erb
+  - DstPathEnd: config/write_users
+    Path: /mnt/tmp/tar-CmdExtractor223597872/templates/write_users.erb
+    SrcPathEnd: write_users.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor454176738/monit
+    SrcPathEnd: monit
+  Name: director
+  Packages:
+  - Name: director
+  - Name: nginx
+  - Name: genisoimage
+  - Name: libpq
+  - Name: postgres
+  - Name: mysql
+  - Name: ruby
+  Properties:
+  - Default: null
+    Description: Address of the redis server
+    Example: null
+    Name: redis.address
+  - Default: null
+    Description: Password to connect to nats with
+    Example: null
+    Name: nats.password
+  - Default: true
+    Description: Whether the simple blobstore plugin should use SSL to connect to
+      the blobstore server
+    Example: null
+    Name: compiled_package_cache.options.use_ssl
+  - Default: 25777
+    Description: Port of the Registry to connect to
+    Example: null
+    Name: registry.http.port
+  - Default: null
+    Description: AWS secret_access_key for aws cpi
+    Example: null
+    Name: aws.secret_access_key
+  - Default: null
+    Description: When true the HTTP handler validate server certificates for HTTPS
+      requests
+    Example: null
+    Name: aws.ssl_verify_peer
+  - Default: null
+    Description: List of comma-separated hosts that should skip connecting to the
+      proxy in the director, scheduler and workers
+    Example: null
+    Name: director.env.no_proxy
+  - Default: 25555
+    Description: Port that the director nginx listens on
+    Example: null
+    Name: director.port
+  - Default: null
+    Description: The user name of the target vCloud Director
+    Example: null
+    Name: vcd.user
+  - Default: false
+    Description: Enable/Disable agent-director encryption (true|false)
+    Example: null
+    Name: director.encryption
+  - Default: info
+    Description: Level of log messages for Redis connections (fatal, error, warn,
+      info, debug)
+    Example: null
+    Name: redis.loglevel
+  - Default: null
+    Description: AWS secret_access_key used for the compiled package cache
+    Example: null
+    Name: compiled_package_cache.options.secret_access_key
+  - Default: 25250
+    Description: Port of blobstore server used for compiled package cache
+    Example: null
+    Name: compiled_package_cache.options.port
+  - Default: 16777216
+    Description: Byte threshold at which blob uploads should be broken into multi-part
+      FORM uploads instead of single PUT
+    Example: null
+    Name: agent.blobstore.s3_multipart_threshold
+  - Default: dav
+    Description: Provider of the blobstore used by director and agent (dav|simple|s3)
+    Example: null
+    Name: blobstore.provider
+  - Default: null
+    Description: AWS S3 Bucket used by s3 blobstore plugin
+    Example: null
+    Name: blobstore.bucket_name
+  - Default: 7200
+    Description: Timeout for connection from bosh CLI to nginx
+    Example: null
+    Name: director.timeout
+  - Default: null
+    Description: Password to access the Registry
+    Example: null
+    Name: registry.http.password
+  - Default: null
+    Description: Default ssh keypair used by aws cpi when creating vms
+    Example: null
+    Name: aws.default_key_name
+  - Default: null
+    Description: Address of vCenter server used by vsphere cpi
+    Example: null
+    Name: vcenter.address
+  - Default: null
+    Description: User to connect to vCenter server used by vsphere cpi
+    Example: null
+    Name: vcenter.user
+  - Default: 25556
+    Description: Port that the director listens on
+    Example: null
+    Name: director.backend_port
+  - Default: TLSv1 TLSv1.1 TLSv1.2
+    Description: SSL/TLS protocols to allow
+    Example: null
+    Name: director.nginx.ssl_protocols
+  - Default: 5432
+    Description: Port that the powerdns database listens on
+    Example: null
+    Name: dns.db.port
+  - Default: null
+    Description: Default OpenStack keypair to use when spinning up new vms
+    Example: null
+    Name: openstack.default_key_name
+  - Default: null
+    Description: Uaa URL
+    Example: null
+    Name: director.user_management.uaa.url
+  - Default: null
+    Description: Password of the redis server
+    Example: null
+    Name: redis.password
+  - Default: bosh
+    Description: Name of the director database
+    Example: null
+    Name: director.db.database
+  - Default: null
+    Description: The path the a CA cert directory
+    Example: null
+    Name: aws.ssl_ca_path
+  - Default: null
+    Description: RufusScheduler cron formatted schedule for backups
+    Example: null
+    Name: director.backup_schedule
+  - Default: 25255
+    Description: Port that the redis server listens on
+    Example: null
+    Name: redis.port
+  - Default: null
+    Description: HP Object Storage Project ID
+    Example: null
+    Name: compiled_package_cache.options.hp_tenant_id
+  - Default: ""
+    Description: Cerfiticates that VMs created by this director should trust in addition
+      to those packaged with the stemcell (PEM encoded; zero or more certs allowed)
+    Example: null
+    Name: director.trusted_certs
+  - Default: null
+    Description: AWS access_key_id for aws cpi
+    Example: null
+    Name: aws.access_key_id
+  - Default: true
+    Description: Prefer server's cipher priority instead of client's (true for On,
+      false for Off)
+    Example: null
+    Name: director.nginx.ssl_prefer_server_ciphers
+  - Default: null
+    Description: AWS access_key_id used for the compiled package cache
+    Example: null
+    Name: compiled_package_cache.options.access_key_id
+  - Default: false
+    Description: Whether s3 blobstore plugin will always use path style for bucket
+      access
+    Example: null
+    Name: blobstore.s3_force_path_style
+  - Default: null
+    Description: AWS Region used by aws cpi
+    Example: null
+    Name: aws.region
+  - Default: vcd-cf
+    Description: The key name of VM metadata
+    Example: null
+    Name: vcd.entities.vm_metadata_key
+  - Default: 500
+    Description: Max number of tasks to keep in disk
+    Example: null
+    Name: director.max_tasks
+  - Default: null
+    Description: List of users that can authenticate with director in non-Uaa mode
+    Example: null
+    Name: director.user_management.local.users
+  - Default: null
+    Description: Hash containing optional connection parameters to the OpenStack API
+    Example: null
+    Name: openstack.connection_options
+  - Default: null
+    Description: The name of the calalog for media files
+    Example: null
+    Name: vcd.entities.media_catalog
+  - Default: null
+    Description: HTTP proxy that the director, scheduler and workers should use
+    Example: null
+    Name: director.env.http_proxy
+  - Default: 0 0 6 * * * UTC
+    Description: RufusScheduler cron formatted schedule for self snapshots
+    Example: null
+    Name: director.self_snapshot_schedule
+  - Default: null
+    Description: HP Object Storage Secret Key
+    Example: null
+    Name: compiled_package_cache.options.hp_secret_key
+  - Default: null
+    Description: The service endpoint for Amazon EC2 (optional, if not supplied default
+      region endpoint will be used)
+    Example: null
+    Name: aws.ec2_endpoint
+  - Default: false
+    Description: Boot from volume (optional, false by default)
+    Example: null
+    Name: openstack.boot_from_volume
+  - Default: null
+    Description: HTTPS proxy that the director, scheduler and workers should use
+    Example: null
+    Name: director.env.https_proxy
+  - Default: 4222
+    Description: Port that the nats server listens on
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: HP Object Storage Access Key
+    Example: null
+    Name: compiled_package_cache.options.hp_access_key
+  - Default: null
+    Description: Address for agent to connect to blobstore server used by simple blobstore
+      plugin
+    Example: null
+    Name: agent.blobstore.address
+  - Default: null
+    Description: The organization name
+    Example: null
+    Name: vcd.entities.organization
+  - Default: bosh
+    Description: DNS Database user
+    Example: null
+    Name: dns.db.user
+  - Default: null
+    Description: Password agent uses to connect to blobstore used by simple blobstore
+      plugin
+    Example: null
+    Name: blobstore.agent.password
+  - Default: 443
+    Description: Port of blobstore server used by s3 blobstore plugin
+    Example: null
+    Name: blobstore.s3_port
+  - Default: null
+    Description: AWS S3 Bucket used for the compiled package cache
+    Example: null
+    Name: compiled_package_cache.options.bucket_name
+  - Default: null
+    Description: OpenStack API key
+    Example: null
+    Name: compiled_package_cache.options.openstack_api_key
+  - Default: null
+    Description: Address of the powerdns server
+    Example: null
+    Name: dns.address
+  - Default: null
+    Description: Host of blobstore server used by simple blobstore plugin
+    Example: null
+    Name: blobstore.host
+  - Default: null
+    Description: Host of blobstore server used by simple blobstore plugin
+    Example: null
+    Name: agent.blobstore.host
+  - Default: null
+    Description: OpenStack tenant name
+    Example: null
+    Name: openstack.tenant
+  - Default: publicURL
+    Description: OpenStack endpoint type (optional, by default publicURL)
+    Example: null
+    Name: openstack.endpoint_type
+  - Default: 5
+    Description: Changes the delay (in seconds) between each status check to OpenStack
+      when creating a resource (optional, by default 5)
+    Example: null
+    Name: openstack.wait_resource_poll_interval
+  - Default: postgres
+    Description: The type of database used
+    Example: null
+    Name: director.db.adapter
+  - Default:
+      max_connections: 32
+      pool_timeout: 10
+    Description: Additional options for the database
+    Example: null
+    Name: director.db.connection_options
+  - Default: null
+    Description: The password of the target vCloud Director
+    Example: null
+    Name: vcd.password
+  - Default: ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
+    Description: 'List of SSL ciphers to allow (format: https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT)'
+    Example: null
+    Name: director.nginx.ssl_ciphers
+  - Default: null
+    Description: Symmetric key to verify Uaa token
+    Example: null
+    Name: director.user_management.uaa.symmetric_key
+  - Default: true
+    Description: Verify the SSL certificate used on the blobstore?
+    Example: null
+    Name: blobstore.ssl_verify_peer
+  - Default: null
+    Description: URL of the OpenStack Identity endpoint to connect to
+    Example: null
+    Name: compiled_package_cache.options.openstack_auth_url
+  - Default: true
+    Description: Whether the simple blobstore plugin should use SSL to connect to
+      the blobstore server
+    Example: null
+    Name: agent.blobstore.use_ssl
+  - Default: null
+    Description: Name of the director
+    Example: null
+    Name: director.name
+  - Default: null
+    Description: Address of the nats server
+    Example: null
+    Name: nats.address
+  - Default: s3
+    Description: Provider of the blobstore used for the compiled package cache
+    Example: null
+    Name: compiled_package_cache.provider
+  - Default: null
+    Description: Name of cpi job (null to use bundled cpi gems)
+    Example: null
+    Name: director.cpi_job
+  - Default: true
+    Description: Enable/Disable auto resolution for stateful nodes for scan_and_fix
+      (true|false)
+    Example: null
+    Name: director.auto_fix_stateful_nodes
+  - Default: null
+    Description: Username agent uses to connect to blobstore used by simple blobstore
+      plugin
+    Example: null
+    Name: blobstore.agent.user
+  - Default: null
+    Description: Rackspace Cloud Files API Key
+    Example: null
+    Name: compiled_package_cache.options.rackspace_api_key
+  - Default: null
+    Description: Rackspace Cloud Files Region (optional, dfw or ord)
+    Example: null
+    Name: compiled_package_cache.options.rackspace_region
+  - Default: null
+    Description: Port for agent to connect to blobstore server used by simple blobstore
+      plugin
+    Example: null
+    Name: agent.blobstore.port
+  - Default: false
+    Description: When true aws cpi will log all wire traces
+    Example: null
+    Name: aws.http_wire_trace
+  - Default: true
+    Description: Whether the simple blobstore plugin should use SSL to connect to
+      the blobstore server
+    Example: null
+    Name: blobstore.use_ssl
+  - Default: 16777216
+    Description: Byte threshold at which blob uploads should be broken into multi-part
+      FORM uploads instead of single PUT
+    Example: null
+    Name: compiled_package_cache.options.s3_multipart_threshold
+  - Default: null
+    Description: The name of the calalog for vapp template
+    Example: null
+    Name: vcd.entities.vapp_catalog
+  - Default: vcd-cf
+    Description: Text associated with the VMs
+    Example: null
+    Name: vcd.entities.description
+  - Default: postgres
+    Description: DNS Database adapter
+    Example: null
+    Name: dns.db.adapter
+  - Default: false
+    Description: When creating disks do not use the servers AZ, default to openstack
+      default
+    Example: null
+    Name: openstack.ignore_server_availability_zone
+  - Default: 16777216
+    Description: Byte threshold at which blob uploads should be broken into multi-part
+      FORM uploads instead of single PUT
+    Example: null
+    Name: blobstore.s3_multipart_threshold
+  - Default: 443
+    Description: Port of blobstore server used by s3 blobstore plugin
+    Example: null
+    Name: compiled_package_cache.options.s3_port
+  - Default: null
+    Description: AWS kernel id used by aws cpi
+    Example: null
+    Name: aws.stemcell.kernel_id
+  - Default: null
+    Description: OpenStack region (optional)
+    Example: null
+    Name: openstack.region
+  - Default: local
+    Description: User management implementation (local|uaa)
+    Example: null
+    Name: director.user_management.provider
+  - Default: null
+    Description: DNS Database password
+    Example: null
+    Name: dns.db.password
+  - Default: null
+    Description: OpenStack user name
+    Example: null
+    Name: compiled_package_cache.options.openstack_username
+  - Default: 60
+    Description: The number of seconds before the aws cpi should timeout while waiting
+      for response
+    Example: null
+    Name: aws.http_read_timeout
+  - Default: 5
+    Description: Max retries when creating VMs
+    Example: null
+    Name: director.max_vm_create_tries
+  - Default: null
+    Description: Address of the director database
+    Example: null
+    Name: director.db.host
+  - Default: 900
+    Description: Timeout for proxy connection from nginx to director
+    Example: null
+    Name: director.proxy_timeout
+  - Default: null
+    Description: HP Object Storage Availability Zone (region-a.geo-1 or region-b.geo-1)
+    Example: null
+    Name: compiled_package_cache.options.hp_avl_zone
+  - Default: null
+    Description: OpenStack Swift provider (supported providers are hp, openstack and
+      rackspace)
+    Example: null
+    Name: compiled_package_cache.options.swift_provider
+  - Default: null
+    Description: OpenStack region (optional)
+    Example: null
+    Name: compiled_package_cache.options.openstack_region
+  - Default:
+    - 0.pool.ntp.org
+    - 1.pool.ntp.org
+    Description: List of ntp server IPs. pool.ntp.org attempts to return IPs closest
+      to your location, but you can still specify if needed.
+    Example: null
+    Name: ntp
+  - Default: null
+    Description: OpenStack user name
+    Example: null
+    Name: openstack.username
+  - Default: 2
+    Description: Number of nginx workers for director
+    Example: null
+    Name: director.nginx.workers
+  - Default: null
+    Description: DNS Database host
+    Example: null
+    Name: dns.db.host
+  - Default: 300
+    Description: Timeout (in seconds) for OpenStack resources desired state (optional,
+      by default 300)
+    Example: null
+    Name: openstack.state_timeout
+  - Default: null
+    Description: AWS access_key_id for agent used by s3 blobstore plugin
+    Example: null
+    Name: agent.blobstore.access_key_id
+  - Default: null
+    Description: Address for agent to connect to nats
+    Example: null
+    Name: agent.nats.address
+  - Default: null
+    Description: Password director uses to connect to blobstore used by simple blobstore
+      plugin
+    Example: null
+    Name: blobstore.director.password
+  - Default: null
+    Description: OpenStack tenant name
+    Example: null
+    Name: compiled_package_cache.options.openstack_tenant
+  - Default: null
+    Description: The path to a CA cert bundle in PEM format
+    Example: null
+    Name: aws.ssl_ca_file
+  - Default: null
+    Description: Default OpenStack security groups to use when spinning up new vms
+    Example: null
+    Name: openstack.default_security_groups
+  - Default: null
+    Description: Datacenters in vCenter to use (value is an array of Hashes representing
+      datacenters and clusters, See director.yml.erb.erb)
+    Example: null
+    Name: vcenter.datacenters
+  - Default: null
+    Description: SSL private key for director (PEM encoded)
+    Example: null
+    Name: director.ssl.key
+  - Default: 32
+    Description: Max number of director concurrent threads
+    Example: null
+    Name: director.max_threads
+  - Default: null
+    Description: The service endpoint for Amazon Elastic Load Balancing (optional,
+      if not supplied default region endpoint will be used)
+    Example: null
+    Name: aws.elb_endpoint
+  - Default: 10000m
+    Description: Max allowed file size for upload
+    Example: null
+    Name: director.max_upload_size
+  - Default: null
+    Description: Configuration of the blobstore used by director for backups (dav|simple|s3)
+    Example: null
+    Name: director.backup_destination
+  - Default: null
+    Description: Address of blobstore server used by simple blobstore plugin
+    Example: null
+    Name: blobstore.address
+  - Default: true
+    Description: Verify the SSL certificate used on the blobstore?
+    Example: null
+    Name: compiled_package_cache.options.ssl_verify_peer
+  - Default: null
+    Description: Name of the container
+    Example: null
+    Name: compiled_package_cache.options.container_name
+  - Default: null
+    Description: AWS secret_access_key for agent used by s3 blobstore plugin
+    Example: null
+    Name: agent.blobstore.secret_access_key
+  - Default: null
+    Description: URL of the OpenStack Identity endpoint to connect to
+    Example: null
+    Name: openstack.auth_url
+  - Default: null
+    Description: OpenStack API key
+    Example: null
+    Name: openstack.api_key
+  - Default: nats
+    Description: Username to connect to nats with
+    Example: null
+    Name: nats.user
+  - Default: bosh
+    Description: Name of the powerdns database
+    Example: null
+    Name: dns.db.database
+  - Default: null
+    Description: Host of blobstore server used for compiled package cache
+    Example: null
+    Name: compiled_package_cache.options.host
+  - Default: null
+    Description: User to access the Registry
+    Example: null
+    Name: registry.http.user
+  - Default: null
+    Description: Public key to verify Uaa token when token is encoded with asymmetric
+      encryption
+    Example: null
+    Name: director.user_management.uaa.public_key
+  - Default: null
+    Description: AWS access_key_id used by s3 blobstore plugin
+    Example: null
+    Name: blobstore.access_key_id
+  - Default: null
+    Description: Config drive device (cdrom or disk) to use as metadata service on
+      OpenStack (optional, nil by default)
+    Example: null
+    Name: openstack.config_drive
+  - Default: null
+    Description: SSL Certificate for director (PEM encoded)
+    Example: null
+    Name: director.ssl.cert
+  - Default: null
+    Description: Address of the Registry to connect to
+    Example: null
+    Name: registry.address
+  - Default: null
+    Description: Password used for the director database
+    Example: null
+    Name: director.db.password
+  - Default: 5432
+    Description: Port of the director database
+    Example: null
+    Name: director.db.port
+  - Default: null
+    Description: Rackspace Cloud Files Username
+    Example: null
+    Name: compiled_package_cache.options.rackspace_username
+  - Default: true
+    Description: Verify the SSL certificate used on the blobstore?
+    Example: null
+    Name: agent.blobstore.ssl_verify_peer
+  - Default: false
+    Description: Enable/Disable snapshots for persistent disks (true|false)
+    Example: null
+    Name: director.enable_snapshots
+  - Default: bosh
+    Description: Username used for the director database
+    Example: null
+    Name: director.db.user
+  - Default: 25250
+    Description: Port of blobstore server used by simple blobstore plugin
+    Example: null
+    Name: blobstore.port
+  - Default: null
+    Description: Default security group used by aws cpi
+    Example: null
+    Name: aws.default_security_groups
+  - Default: null
+    Description: The virtual data center name in vCloud Director
+    Example: null
+    Name: vcd.entities.virtual_datacenter
+  - Default: 0 0 7 * * * UTC
+    Description: RufusScheduler cron formatted schedule for snapshots
+    Example: null
+    Name: director.snapshot_schedule
+  - Default: bosh
+    Description: TLD of the dns zone used by bosh
+    Example: null
+    Name: dns.domain_name
+  - Default: 2
+    Description: Max number of retries to connect to AWS
+    Example: null
+    Name: aws.max_retries
+  - Default: null
+    Description: Volume type for the boot volume (optional)
+    Example: null
+    Name: openstack.boot_volume_cloud_properties.type
+  - Default: null
+    Description: AWS secret_access_key used by s3 blobstore plugin
+    Example: null
+    Name: blobstore.secret_access_key
+  - Default: false
+    Description: Whether s3 blobstore plugin will always use path style for bucket
+      access
+    Example: null
+    Name: compiled_package_cache.options.s3_force_path_style
+  - Default: false
+    Description: Whether s3 blobstore plugin will always use path style for bucket
+      access
+    Example: null
+    Name: agent.blobstore.s3_force_path_style
+  - Default: false
+    Description: Set public visibility for stemcells (optional, false by default)
+    Example: null
+    Name: openstack.stemcell_public_visibility
+  - Default: null
+    Description: Password to connect to vCenter server used by vspher cpi
+    Example: null
+    Name: vcenter.password
+  - Default: null
+    Description: The endpoint of the target vCloud Director
+    Example: null
+    Name: vcd.url
+  - Default:
+      max_connections: 32
+      pool_timeout: 10
+    Description: Additional options for the powerdns database
+    Example: null
+    Name: dns.db.connection_options
+  - Default: null
+    Description: Username director uses to connect to blobstore used by simple blobstore
+      plugin
+    Example: null
+    Name: blobstore.director.user
+  Templates:
+  - DstPathEnd: bin/scheduler_ctl
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/scheduler_ctl.erb
+    SrcPathEnd: scheduler_ctl.erb
+  - DstPathEnd: config/director.yml.erb
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/director.yml.erb.erb
+    SrcPathEnd: director.yml.erb.erb
+  - DstPathEnd: config/task_logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/task_logrotate.cron
+    SrcPathEnd: task_logrotate.cron
+  - DstPathEnd: config/ssl/director.key
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/director.key.erb
+    SrcPathEnd: director.key.erb
+  - DstPathEnd: config/nginx.conf
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/nginx.conf.erb
+    SrcPathEnd: nginx.conf.erb
+  - DstPathEnd: bin/nginx_ctl
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/nginx_ctl
+    SrcPathEnd: nginx_ctl
+  - DstPathEnd: bin/worker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/worker_ctl.erb
+    SrcPathEnd: worker_ctl.erb
+  - DstPathEnd: config/sudoers
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/sudoers
+    SrcPathEnd: sudoers
+  - DstPathEnd: bin/stemcell-copy
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/stemcell-copy.sh
+    SrcPathEnd: stemcell-copy.sh
+  - DstPathEnd: bin/drain
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/drain
+    SrcPathEnd: drain
+  - DstPathEnd: config/ssl/director.pem
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/director.pem.erb
+    SrcPathEnd: director.pem.erb
+  - DstPathEnd: bin/director_ctl
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/director_ctl.erb
+    SrcPathEnd: director_ctl.erb
+  - DstPathEnd: bin/task_logrotate
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/task_logrotate.sh
+    SrcPathEnd: task_logrotate.sh
+  - DstPathEnd: config/mime.types
+    Path: /mnt/tmp/tar-CmdExtractor454176738/templates/mime.types
+    SrcPathEnd: mime.types
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor098689892/monit
+    SrcPathEnd: monit
+  Name: redis
+  Packages:
+  - Name: redis
+  Properties:
+  - Default: null
+    Description: Password clients must use to access Redis server
+    Example: null
+    Name: redis.password
+  - Default: 25255
+    Description: TCP port Redis server listens on
+    Example: null
+    Name: redis.port
+  - Default: null
+    Description: IP address Redis server listens on (optional)
+    Example: null
+    Name: redis.listen_address
+  Templates:
+  - DstPathEnd: bin/redis_ctl
+    Path: /mnt/tmp/tar-CmdExtractor098689892/templates/redis_ctl
+    SrcPathEnd: redis_ctl
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor098689892/templates/redis.conf.erb
+    SrcPathEnd: redis.conf.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor089407542/monit
+    SrcPathEnd: monit
+  Name: powerdns
+  Packages:
+  - Name: powerdns
+  Properties:
+  - Default: null
+    Description: Password for the PowerDNS database connection
+    Example: null
+    Name: dns.db.password
+  - Default: 2
+    Description: Number of sockets the powerdns process will open
+    Example: null
+    Name: dns.receiver_threads
+  - Default: null
+    Description: Address of the primary PowerDNS instance
+    Example: null
+    Name: dns.address
+  - Default: null
+    Description: Address for the PowerDNS database
+    Example: null
+    Name: dns.db.host
+  - Default: 5432
+    Description: Port for the PowerDNS database connection
+    Example: null
+    Name: dns.db.port
+  - Default: null
+    Description: If recursion is desired, IP address of a recursing nameserver (optional)
+    Example: null
+    Name: dns.recursor
+  - Default: 8081
+    Description: TCP port PowerDNS webserver listens on (optional)
+    Example: null
+    Name: dns.webserver.port
+  - Default: bosh
+    Description: Database for the PowerDNS database connection
+    Example: null
+    Name: dns.db.database
+  - Default: null
+    Description: IP address to use as a source address for sending queries (optional;
+      useful with multiple IP addresses)
+    Example: null
+    Name: dns.query_local_address
+  - Default: 0.0.0.0
+    Description: IP address PowerDNS webserver listens on (optional)
+    Example: null
+    Name: dns.webserver.address
+  - Default: postgres
+    Description: Adapter for the PowerDNS database connection
+    Example: null
+    Name: dns.db.adapter
+  - Default: bosh
+    Description: User for the PowerDNS database connection
+    Example: null
+    Name: dns.db.user
+  - Default: 2
+    Description: Number of threads to query the backend, for each receiver thread
+    Example: null
+    Name: dns.distributor_threads
+  - Default: null
+    Description: IP address to which to bind to (optional; useful with multiple IP
+      addresses)
+    Example: null
+    Name: dns.local_address
+  - Default: null
+    Description: Password clients must use to access PowerDNS webserver (optional)
+    Example: null
+    Name: dns.webserver.password
+  Templates:
+  - DstPathEnd: config/pdns.conf
+    Path: /mnt/tmp/tar-CmdExtractor089407542/templates/pdns.conf.erb
+    SrcPathEnd: pdns.conf.erb
+  - DstPathEnd: bin/powerdns_ctl
+    Path: /mnt/tmp/tar-CmdExtractor089407542/templates/powerdns_ctl.erb
+    SrcPathEnd: powerdns_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor982333656/monit
+    SrcPathEnd: monit
+  Name: nats
+  Packages:
+  - Name: nats
+  - Name: ruby
+  Properties:
+  - Default: 2
+    Description: Maximum number of pings before declaring a client unresponsive
+    Example: null
+    Name: nats.ping_max_outstanding
+  - Default: null
+    Description: Username clients must use to access nats mbus
+    Example: null
+    Name: nats.user
+  - Default: null
+    Description: Password clients must use to access nats mbus
+    Example: null
+    Name: nats.password
+  - Default: 1
+    Description: Timeout (in seconds) for clients to send auth credentials
+    Example: null
+    Name: nats.auth_timeout
+  - Default: null
+    Description: Username clients must use to access nats mbus via HTTP connection
+      (optional)
+    Example: null
+    Name: nats.http.user
+  - Default: 4222
+    Description: TCP port nats mbus listens on
+    Example: null
+    Name: nats.port
+  - Default: false
+    Description: Disable epoll (Linux)
+    Example: null
+    Name: nats.no_epoll
+  - Default: true
+    Description: Disable kqueue (MacOSX and BSD)
+    Example: null
+    Name: nats.no_kqueue
+  - Default: 5
+    Description: Time interval (in seconds) pings from server
+    Example: null
+    Name: nats.ping_interval
+  - Default: 9222
+    Description: TCP port NATS listens on for HTTP connections (optional)
+    Example: null
+    Name: nats.http.port
+  - Default: null
+    Description: Password clients must use to access nats mbus via HTTP connection
+      (optional)
+    Example: null
+    Name: nats.http.password
+  - Default: 0.0.0.0
+    Description: IP address nats mbus listens on
+    Example: null
+    Name: nats.listen_address
+  Templates:
+  - DstPathEnd: bin/nats_ctl
+    Path: /mnt/tmp/tar-CmdExtractor982333656/templates/nats_ctl.erb
+    SrcPathEnd: nats_ctl.erb
+  - DstPathEnd: config/nats.yml
+    Path: /mnt/tmp/tar-CmdExtractor982333656/templates/nats.yml.erb
+    SrcPathEnd: nats.yml.erb

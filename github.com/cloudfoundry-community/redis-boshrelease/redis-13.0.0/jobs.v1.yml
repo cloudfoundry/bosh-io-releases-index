@@ -1,0 +1,77 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor243393160/monit
+    SrcPathEnd: monit
+  Name: redis
+  Packages:
+  - Name: redis
+  Properties:
+  - Default: 98
+    Description: Percentage of persistent disk full to trigger critial health alert
+    Example: null
+    Examples: null
+    Name: health.disk.critical
+  - Default: 50
+    Description: Percentage of persistent disk full to trigger warning health alert
+    Example: null
+    Examples: null
+    Name: health.disk.warning
+  - Default: 6379
+    Description: Port to listen for requests to redis server
+    Example: null
+    Examples: null
+    Name: port
+  - Default: null
+    Description: Password to access redis server
+    Example: null
+    Examples: null
+    Name: password
+  - Default: /var/vcap/store/redis
+    Description: Base dir for storing database files
+    Example: null
+    Examples: null
+    Name: base_dir
+  - Default: null
+    Description: Name for advertising/discovering this service over consul (defaults
+      to deployment name)
+    Example: null
+    Examples: null
+    Name: consul.service.name
+  - Default: 20s
+    Description: Interval for consul to perform health checks
+    Example: null
+    Examples: null
+    Name: health.interval
+  Templates:
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor243393160/templates/config/redis.conf.erb
+    SrcPathEnd: config/redis.conf.erb
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor243393160/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/health_check
+    Path: /mnt/tmp/tar-CmdExtractor243393160/templates/bin/health_check
+    SrcPathEnd: bin/health_check
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor243393160/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor243393160/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor243393160/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor714126586/monit
+    SrcPathEnd: monit
+  Name: sanity-tests
+  Packages:
+  - Name: redis
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor714126586/templates/bin/run
+    SrcPathEnd: bin/run

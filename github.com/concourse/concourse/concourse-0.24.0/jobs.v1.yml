@@ -1,0 +1,280 @@
+- Description: |
+    ATC (Air Traffic Controller) provides UI and API access.
+    It is responsible for scheduling builds. To configure the pipeline specify
+    the `atc.pipeline` property.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor053676793/monit
+    SrcPathEnd: monit
+  Name: atc
+  Packages:
+  - Name: pid_utils
+  - Name: atc
+  Properties:
+  - Default: null
+    Description: static pipeline configuration containing jobs and resources. omit
+      to manage config via the API.
+    Example:
+      jobs:
+      - config:
+          image: docker:///busybox
+          run:
+            args:
+            - Hello
+            - world!
+            path: echo
+        name: dummy
+      resources:
+      - name: concourse
+        source:
+          uri: https://github.com/concource/concourse
+        type: git
+    Name: atc.pipeline
+  - Default: atc
+    Description: name of role to connect with
+    Example: null
+    Name: atc.postgresql.role.name
+  - Default: 0.0.0.0
+    Description: address for the web server to listen on
+    Example: null
+    Name: atc.web_listen_address
+  - Default: false
+    Description: loosen up security for development purposes
+    Example: null
+    Name: atc.development_mode
+  - Default: null
+    Description: password to use when connecting
+    Example: null
+    Name: atc.postgresql.role.password
+  - Default: ""
+    Description: bcrypt encrypted password for http basic auth
+    Example: null
+    Name: atc.basic_auth_encrypted_password
+  - Default: postgresql.service.dc1.consul:5432
+    Description: address of the PostgreSQL server
+    Example: null
+    Name: atc.postgresql.address
+  - Default: atc
+    Description: name of the database to use
+    Example: null
+    Name: atc.postgresql.database
+  - Default: 8080
+    Description: port for the web server to listen on
+    Example: null
+    Name: atc.web_listen_port
+  - Default: ""
+    Description: username for http basic auth
+    Example: null
+    Name: atc.basic_auth_username
+  - Default: 1m
+    Description: how often to check for new versions of resources. keep rate limiting
+      in mind.
+    Example: null
+    Name: atc.default_check_interval
+  - Default:
+    - /var/vcap/sys/log/atc/atc.stdout.log
+    - /var/vcap/sys/log/atc/atc.stderr.log
+    Description: files whose contents blackbox will emit to its syslog drain
+    Example: null
+    Name: blackbox.sources.atc
+  - Default: false
+    Description: allow public viewing; destructive operations still require auth
+    Example: null
+    Name: atc.publicly_viewable
+  - Default: turbine.service.dc1.consul:4637
+    Description: address of turbine server to use to run builds
+    Example: null
+    Name: atc.turbine.address
+  Templates:
+  - DstPathEnd: bin/atc_ctl
+    Path: /mnt/tmp/tar-CmdExtractor053676793/templates/atc_ctl.erb
+    SrcPathEnd: atc_ctl.erb
+  - DstPathEnd: config/pipeline.yml
+    Path: /mnt/tmp/tar-CmdExtractor053676793/templates/pipeline.yml.erb
+    SrcPathEnd: pipeline.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor274123155/monit
+    SrcPathEnd: monit
+  Name: consul-agent
+  Packages:
+  - Name: consul_0.4
+  Properties:
+  - Default: []
+    Description: list of services to configure
+    Example: null
+    Name: consul.agent.services
+  - Default:
+    - /var/vcap/sys/log/consul-agent/consul-agent.stdout.log
+    - /var/vcap/sys/log/consul-agent/consul-agent.stderr.log
+    Description: files whose contents blackbox will emit to its syslog drain
+    Example: null
+    Name: blackbox.sources.consul
+  - Default: client
+    Description: mode to run the agent in. (client or server)
+    Example: null
+    Name: consul.agent.mode
+  - Default: []
+    Description: LAN server addresses to join on start
+    Example: null
+    Name: consul.agent.servers.lan
+  - Default: []
+    Description: WAN server addresses to join
+    Example: null
+    Name: consul.agent.servers.wan
+  - Default: info
+    Description: agent log level
+    Example: null
+    Name: consul.agent.log_level
+  - Default: dc1
+    Description: name of the agent's datacenter
+    Example: null
+    Name: consul.agent.datacenter
+  Templates:
+  - DstPathEnd: bin/agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor274123155/templates/agent_ctl.sh.erb
+    SrcPathEnd: agent_ctl.sh.erb
+  - DstPathEnd: bin/join_ctl
+    Path: /mnt/tmp/tar-CmdExtractor274123155/templates/join_ctl.sh.erb
+    SrcPathEnd: join_ctl.sh.erb
+  - DstPathEnd: config/config.json
+    Path: /mnt/tmp/tar-CmdExtractor274123155/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor894531389/monit
+    SrcPathEnd: monit
+  Name: postgresql
+  Packages:
+  - Name: pid_utils
+  - Name: postgresql_9.3
+  Properties:
+  - Default: 0.0.0.0
+    Description: listening host of the PostgreSQL service
+    Example: null
+    Name: postgresql.listen_host
+  - Default: 5432
+    Description: listening port of the PostgreSQL service
+    Example: null
+    Name: postgresql.listen_port
+  - Default: null
+    Description: a list of databases to create, e.g. [{name:foo}]
+    Example: null
+    Name: postgresql.databases
+  - Default: null
+    Description: a list of roles to create, e.g. [{name:foo,password:bar}]
+    Example: null
+    Name: postgresql.roles
+  - Default: 500
+    Description: maximum number of open database connections
+    Example: null
+    Name: postgresql.max_connections
+  - Default:
+    - /var/vcap/sys/log/postgresql/postgresql.stdout.log
+    - /var/vcap/sys/log/postgresql/postgresql.stderr.log
+    Description: files whose contents blackbox will emit to its syslog drain
+    Example: null
+    Name: blackbox.sources.postgresql
+  Templates:
+  - DstPathEnd: bin/postgresql_ctl
+    Path: /mnt/tmp/tar-CmdExtractor894531389/templates/postgresql_ctl.erb
+    SrcPathEnd: postgresql_ctl.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor894531389/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor894531389/templates/pg_hba.conf.erb
+    SrcPathEnd: pg_hba.conf.erb
+- Description: |
+    Turbine is responsible for accepting builds from the ATC and executing them
+    concurrently. By increasing the number of Turbine instances, more builds can
+    run in parallel.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor363790967/monit
+    SrcPathEnd: monit
+  Name: turbine
+  Packages:
+  - Name: pid_utils
+  - Name: turbine
+  - Name: archive_resource
+  - Name: docker_image_resource
+  - Name: git_resource
+  - Name: s3_resource
+  - Name: semver_resource
+  - Name: time_resource
+  - Name: tracker_resource
+  - Name: vagrant_cloud_resource
+  Properties:
+  - Default:
+    - /var/vcap/sys/log/turbine/turbine.stdout.log
+    - /var/vcap/sys/log/turbine/turbine.stderr.log
+    Description: files whose contents blackbox will emit to its syslog drain
+    Example: null
+    Name: blackbox.sources.turbine
+  - Default:
+    - /var/vcap/sys/log/garden/garden.stdout.log
+    - /var/vcap/sys/log/garden/garden.stderr.log
+    Description: files whose contents blackbox will emit to its syslog drain
+    Example: null
+    Name: blackbox.sources.garden
+  - Default: 0.0.0.0:4637
+    Description: listening TCP address of the server
+    Example: null
+    Name: turbine.listen_address
+  - Default: unix
+    Description: network type for the garden server connection (tcp or unix)
+    Example: null
+    Name: turbine.garden.network
+  - Default: /var/vcap/data/garden/garden.sock
+    Description: garden server connection address
+    Example: null
+    Name: turbine.garden.address
+  - Default:
+      archive: /var/vcap/packages/archive_resource
+      docker-image: /var/vcap/packages/docker_image_resource
+      git: /var/vcap/packages/git_resource
+      s3: /var/vcap/packages/s3_resource
+      semver: /var/vcap/packages/semver_resource
+      time: /var/vcap/packages/time_resource
+      tracker: /var/vcap/packages/tracker_resource
+      vagrant-cloud: /var/vcap/packages/vagrant_cloud_resource
+    Description: the mapping from known resource types to their container rootfs
+    Example: null
+    Name: turbine.resource_types
+  Templates:
+  - DstPathEnd: bin/turbine_ctl
+    Path: /mnt/tmp/tar-CmdExtractor363790967/templates/turbine_ctl.erb
+    SrcPathEnd: turbine_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor783976897/monit
+    SrcPathEnd: monit
+  Name: blackbox
+  Packages:
+  - Name: pid_utils
+  - Name: blackbox
+  Properties:
+  - Default: null
+    Description: address for syslog drain (including port)
+    Example: null
+    Name: blackbox.destination.address
+  - Default: udp
+    Description: transport protocol for syslog drain (udp/tcp/tls)
+    Example: null
+    Name: blackbox.destination.transport
+  - Default: {}
+    Description: |
+      files whose contents will be emitted to the destination. the format is `{ "tag" => ["/path/to/log"] }`.
+    Example: null
+    Name: blackbox.sources
+  Templates:
+  - DstPathEnd: bin/blackbox_ctl
+    Path: /mnt/tmp/tar-CmdExtractor783976897/templates/blackbox_ctl
+    SrcPathEnd: blackbox_ctl
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor783976897/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb

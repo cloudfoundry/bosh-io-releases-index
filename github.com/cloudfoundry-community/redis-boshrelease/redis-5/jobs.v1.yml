@@ -1,0 +1,61 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor322211245/monit
+    SrcPathEnd: monit
+  Name: redis
+  Packages:
+  - Name: redis
+  Properties:
+  - Default: 6379
+    Description: Port to listen for requests to redis server
+    Example: null
+    Name: redis.port
+  - Default: r3d!s
+    Description: Password to access redis server
+    Example: null
+    Name: redis.password
+  - Default: null
+    Description: IP address or hostname of the Redis master node
+    Example: null
+    Name: redis.master
+  - Default: 20s
+    Description: Interval for consul to perform health checks
+    Example: null
+    Name: health.interval
+  - Default: 98
+    Description: Percentage of persistent disk full to trigger critial health alert
+    Example: null
+    Name: health.disk.critical
+  - Default: 50
+    Description: Percentage of persistent disk full to trigger warning health alert
+    Example: null
+    Name: health.disk.warning
+  Templates:
+  - DstPathEnd: bin/redis_ctl
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/bin/redis_ctl
+    SrcPathEnd: bin/redis_ctl
+  - DstPathEnd: bin/health_check
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/bin/health_check
+    SrcPathEnd: bin/health_check
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: config/redis.conf
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/config/redis.conf.erb
+    SrcPathEnd: config/redis.conf.erb
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: consul/redis.json
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/consul/redis.json.erb
+    SrcPathEnd: consul/redis.json.erb
+  - DstPathEnd: consul/redis-disk-level.json
+    Path: /mnt/tmp/tar-CmdExtractor322211245/templates/consul/redis-disk-level.json.erb
+    SrcPathEnd: consul/redis-disk-level.json.erb

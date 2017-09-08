@@ -1,0 +1,82 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor224599252/monit
+    SrcPathEnd: monit
+  Name: datadog-firehose-nozzle
+  Packages:
+  - Name: datadog-firehose-nozzle
+  Properties:
+  - Default: null
+    Description: Name of deployment (added as tag on all outgoing metrics)
+    Example: null
+    Examples: null
+    Name: nozzle.deployment
+  - Default: https://app.datadoghq.com/api/v1/series
+    Description: The REST API Endpoint for datadog
+    Example: null
+    Examples: null
+    Name: datadog.api_url
+  - Default: null
+    Description: The datadog API key to use while submitting requests
+    Example: null
+    Examples: null
+    Name: datadog.api_key
+  - Default: 15
+    Description: The duration in seconds between flushes to datadog
+    Example: null
+    Examples: null
+    Name: datadog.flush_duration_seconds
+  - Default: null
+    Description: URL for the UAA server
+    Example: null
+    Examples: null
+    Name: uaa.url
+  - Default: null
+    Description: Skip verifying SSL certificate
+    Example: null
+    Examples: null
+    Name: nozzle.insecure_ssl_skip_verify
+  - Default: 60
+    Description: Number of seconds to wait before timing out the read to the firehose,
+      if there are no messages
+    Example: null
+    Examples: null
+    Name: nozzle.idle_timeout_seconds
+  - Default: false
+    Description: Datadog Nozzle bypasses authentication with the UAA
+    Example: null
+    Examples: null
+    Name: nozzle.disable_access_control
+  - Default: null
+    Description: Traffic controller URL
+    Example: null
+    Examples: null
+    Name: loggregator.traffic_controller_url
+  - Default: datadog.nozzle.
+    Description: Text which will be prepended to each metric name submitted to datadog
+    Example: null
+    Examples: null
+    Name: datadog.metric_prefix
+  - Default: null
+    Description: The user who has access to the loggregator firehose
+    Example: null
+    Examples: null
+    Name: uaa.username
+  - Default: null
+    Description: The password for the user
+    Example: null
+    Examples: null
+    Name: uaa.password
+  - Default: null
+    Description: The subscription id to be used for the firehose
+    Example: null
+    Examples: null
+    Name: nozzle.subscription_id
+  Templates:
+  - DstPathEnd: bin/datadog-firehose-nozzle-ctl
+    Path: /mnt/tmp/tar-CmdExtractor224599252/templates/datadog-firehose-nozzle-ctl.erb
+    SrcPathEnd: datadog-firehose-nozzle-ctl.erb
+  - DstPathEnd: config/datadog-firehose-nozzle.json
+    Path: /mnt/tmp/tar-CmdExtractor224599252/templates/datadog-firehose-nozzle.json.erb
+    SrcPathEnd: datadog-firehose-nozzle.json.erb

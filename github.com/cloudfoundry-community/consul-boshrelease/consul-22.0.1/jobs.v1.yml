@@ -1,0 +1,209 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor002580763/monit
+    SrcPathEnd: monit
+  Name: consul-snapshot
+  Packages:
+  - Name: consul-snapshot
+  Properties:
+  - Default: null
+    Description: the secret key used to access the bucket
+    Example: null
+    Examples: null
+    Name: consul-snapshot.aws_secret_access_key
+  - Default: null
+    Description: how often you want the backup to run in seconds
+    Example: null
+    Examples: null
+    Name: consul-snapshot.backupinterval
+  - Default: null
+    Description: sets a password for encrypting and decrypting backups
+    Example: null
+    Examples: null
+    Name: consul-snapshot.crypto_password
+  - Default: backups
+    Description: an arbitrary prefix to be prepended to the name of each uploaded
+      object, e.g., consul-dc1. default is backups
+    Example: null
+    Examples: null
+    Name: consul-snapshot.consul_snapshot_upload_prefix
+  - Default: null
+    Description: optional kms key id, if server-side encryption is used, and aws:kms
+      is used for the encryption algorithm
+    Example: null
+    Examples: null
+    Name: consul-snapshot.consul_snapshot_s3_sse_kms_key_id
+  - Default: null
+    Description: the s3 bucket where backups should be delivered
+    Example: null
+    Examples: null
+    Name: consul-snapshot.s3bucket
+  - Default: null
+    Description: the region the s3 bucket is located
+    Example: null
+    Examples: null
+    Name: consul-snapshot.s3region
+  - Default: null
+    Description: the access key id used to access the bucket
+    Example: null
+    Examples: null
+    Name: consul-snapshot.aws_access_key_id
+  - Default: /tmp
+    Description: sets the directory for temporary files, defaults to "/tmp"
+    Example: null
+    Examples: null
+    Name: consul-snapshot.snapshot_tmp_dir
+  - Default: null
+    Description: optional server-side encryption algorithm, e.g., aes256 or aws:kms
+    Example: null
+    Examples: null
+    Name: consul-snapshot.consul_snapshot_s3_sse
+  Templates:
+  - DstPathEnd: bin/consul-snapshot_ctl
+    Path: /mnt/tmp/tar-CmdExtractor002580763/templates/bin/consul-snapshot_ctl
+    SrcPathEnd: bin/consul-snapshot_ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor002580763/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor002580763/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor558467077/monit
+    SrcPathEnd: monit
+  Name: consul
+  Packages:
+  - Name: consul
+  - Name: consul-ui
+  - Name: consul-template
+  - Name: envconsul
+  Properties:
+  - Default: null
+    Description: The content of the key file
+    Example: null
+    Examples: null
+    Name: consul.ssl_key
+  - Default: null
+    Description: A key to encrypt the traffic between the consul agents (use consul
+      keygen)
+    Example: null
+    Examples: null
+    Name: consul.encrypt
+  - Default: true
+    Description: Should the agent run in server or client mode
+    Example: null
+    Examples: null
+    Name: consul.server
+  - Default: consul
+    Description: All DNS queries for this domain will be handled by consul.
+    Example: null
+    Examples: null
+    Name: consul.domain
+  - Default: null
+    Description: a map of service configurations, keyed by service name
+    Example: null
+    Examples: null
+    Name: consul.services
+  - Default: false
+    Description: Force the host to use only the local consul agent for dns.
+    Example: null
+    Examples: null
+    Name: consul.resolvconf_override
+  - Default: null
+    Description: The content of the cert file
+    Example: null
+    Examples: null
+    Name: consul.ssl_cert
+  - Default: null
+    Description: override hash for the consul agent.json configuration
+    Example: null
+    Examples: null
+    Name: consul.agent_config
+  - Default: 8.8.8.8
+    Description: DNS recursor to use if BOSH not providing DNS
+    Example: null
+    Examples: null
+    Name: consul.default_recursor
+  - Default: false
+    Description: If enabled, gracefully leave the cluster when the process shuts down.
+    Example: null
+    Examples: null
+    Name: consul.leave_on_terminate
+  - Default: null
+    Description: The IP to use for client communication
+    Example: null
+    Examples: null
+    Name: consul.client_addr
+  - Default: null
+    Description: Deployment's internal name for the network interface to discover
+      own IP
+    Example: null
+    Examples: null
+    Name: networks.apps
+  - Default: vcap
+    Description: User that consul is ran under
+    Example: null
+    Examples: null
+    Name: consul.user
+  - Default: null
+    Description: The content of the ca file
+    Example: null
+    Examples: null
+    Name: consul.ssl_ca
+  Templates:
+  - DstPathEnd: bin/consul_ctl
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/bin/consul_ctl
+    SrcPathEnd: bin/consul_ctl
+  - DstPathEnd: consul/agent.json
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/consul/agent.json.erb
+    SrcPathEnd: consul/agent.json.erb
+  - DstPathEnd: consul/ca.cert
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/consul/ca.cert.erb
+    SrcPathEnd: consul/ca.cert.erb
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: consul/consul.key
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/consul/consul.key.erb
+    SrcPathEnd: consul/consul.key.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: consul/consul.cert
+    Path: /mnt/tmp/tar-CmdExtractor558467077/templates/consul/consul.cert.erb
+    SrcPathEnd: consul/consul.cert.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor194779775/monit
+    SrcPathEnd: monit
+  Name: vm-consul
+  Packages: null
+  Properties:
+  - Default: vm-node
+    Description: Name for advertising/discovering this service over consul
+    Example: null
+    Examples: null
+    Name: consul.service.name
+  Templates:
+  - DstPathEnd: bin/check_mem.pl
+    Path: /mnt/tmp/tar-CmdExtractor194779775/templates/bin/check_mem.pl
+    SrcPathEnd: bin/check_mem.pl
+  - DstPathEnd: bin/check_disk.pl
+    Path: /mnt/tmp/tar-CmdExtractor194779775/templates/bin/check_disk.pl
+    SrcPathEnd: bin/check_disk.pl
+  - DstPathEnd: consul/check_mem.json
+    Path: /mnt/tmp/tar-CmdExtractor194779775/templates/consul/check_mem.json
+    SrcPathEnd: consul/check_mem.json
+  - DstPathEnd: consul/check_disk.json
+    Path: /mnt/tmp/tar-CmdExtractor194779775/templates/consul/check_disk.json
+    SrcPathEnd: consul/check_disk.json

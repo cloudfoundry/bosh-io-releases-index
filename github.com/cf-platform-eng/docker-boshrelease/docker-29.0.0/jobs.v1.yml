@@ -1,0 +1,860 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor374210698/monit
+    SrcPathEnd: monit
+  Name: broker-deregistrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Examples: null
+    Name: broker.name
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Examples: null
+    Name: broker.protocol
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Examples: null
+    Name: broker.host
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Examples: null
+    Name: broker.username
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Examples: null
+    Name: broker.password
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_password
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Examples: null
+    Name: broker.port
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor374210698/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor770601548/monit
+    SrcPathEnd: monit
+  Name: broker-registrar
+  Packages:
+  - Name: ruby
+  - Name: broker-registrar
+  Properties:
+  - Default: null
+    Description: Basic Auth password for the service broker
+    Example: null
+    Examples: null
+    Name: broker.password
+  - Default: null
+    Description: Username of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_username
+  - Default: null
+    Description: Password of the admin user
+    Example: null
+    Examples: null
+    Name: cf.admin_password
+  - Default: null
+    Description: Name of the service broker
+    Example: null
+    Examples: null
+    Name: broker.name
+  - Default: https
+    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
+      the broker
+    Example: null
+    Examples: null
+    Name: broker.protocol
+  - Default: 443
+    Description: Port for the service broker
+    Example: null
+    Examples: null
+    Name: broker.port
+  - Default: null
+    Description: Basic Auth username for the service broker
+    Example: null
+    Examples: null
+    Name: broker.username
+  - Default: null
+    Description: Full URL of Cloud Foundry API
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: Host address of the service broker
+    Example: null
+    Examples: null
+    Name: broker.host
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor770601548/templates/errand.sh.erb
+    SrcPathEnd: errand.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor630024030/monit
+    SrcPathEnd: monit
+  Name: cf-containers-broker
+  Packages:
+  - Name: bosh-helpers
+  - Name: cf-containers-broker
+  - Name: route-registrar
+  - Name: ruby
+  Properties:
+  - Default: false
+    Description: Determines use of https in dashboard url and in callback uri for
+      calls to UAA
+    Example: null
+    Examples: null
+    Name: broker.ssl_enabled
+  - Default: true
+    Description: Restart all containers with latest configuration/image on restart
+    Example: null
+    Examples: null
+    Name: broker.update_containers
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Examples: null
+    Name: broker.services
+  - Default: 4222
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: Array of IPs of each NATS cluster member
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: null
+    Description: HTTP proxy
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: null
+    Description: Password for broker to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: HTTPS proxy
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: "1"
+    Description: Unicorn worker processes. If the number of worker processes > 1 then
+      you must disable the broker.allocate_docker_host_ports property
+    Example: null
+    Examples: null
+    Name: broker.unicorn.worker_processes
+  - Default: "80"
+    Description: Unicorn listen port
+    Example: null
+    Examples: null
+    Name: broker.unicorn.port
+  - Default: null
+    Description: Broker's basic auth password
+    Example: null
+    Examples: null
+    Name: broker.password
+  - Default: true
+    Description: Determines whether dashboard verifies SSL certificates when communicating
+      with Cloud Controller and UAA
+    Example: null
+    Examples: null
+    Name: broker.skip_ssl_validation
+  - Default: true
+    Description: Fetch new/updated container images on restart
+    Example: null
+    Examples: null
+    Name: broker.fetch_images
+  - Default: null
+    Description: Username for broker to connect to NATS
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: Broker's basic auth username
+    Example: null
+    Examples: null
+    Name: broker.username
+  - Default: "86400"
+    Description: Session expiry time of the session
+    Example: null
+    Examples: null
+    Name: broker.session_expiry
+  - Default: null
+    Description: Host used to register the broker
+    Example: null
+    Examples: null
+    Name: broker.host
+  - Default: null
+    Description: URL of the CloudFoundry Cloud Controller
+    Example: null
+    Examples: null
+    Name: cf.api_url
+  - Default: null
+    Description: A unique secret key, used to sign sessions
+    Example: null
+    Examples: null
+    Name: broker.cookie_secret
+  - Default: null
+    Description: External IP address used to register the broker
+    Example: null
+    Examples: null
+    Name: broker.external_ip
+  - Default: unix:///var/vcap/sys/run/docker/docker.sock
+    Description: Docker URL (IP/Socket)
+    Example: null
+    Examples: null
+    Name: broker.docker_url
+  - Default: "0"
+    Description: Max number of containers
+    Example: null
+    Examples: null
+    Name: broker.max_containers
+  - Default: true
+    Description: Allocate Docker host ports when creating a container
+    Example: null
+    Examples: null
+    Name: broker.allocate_docker_host_ports
+  - Default: null
+    Description: List of comma-separated hosts to skip connecting to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  Templates:
+  - DstPathEnd: config/route-registrar.yml
+    Path: /mnt/tmp/tar-CmdExtractor630024030/templates/config/route-registrar.yml.erb
+    SrcPathEnd: config/route-registrar.yml.erb
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor630024030/templates/config/settings.yml.erb
+    SrcPathEnd: config/settings.yml.erb
+  - DstPathEnd: config/unicorn.conf.rb
+    Path: /mnt/tmp/tar-CmdExtractor630024030/templates/config/unicorn.conf.rb.erb
+    SrcPathEnd: config/unicorn.conf.rb.erb
+  - DstPathEnd: bin/cf-containers-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor630024030/templates/bin/cf-containers-broker_ctl
+    SrcPathEnd: bin/cf-containers-broker_ctl
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor630024030/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: bin/route-registrar_ctl
+    Path: /mnt/tmp/tar-CmdExtractor630024030/templates/bin/route-registrar_ctl.erb
+    SrcPathEnd: bin/route-registrar_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor156440640/monit
+    SrcPathEnd: monit
+  Name: containers
+  Packages:
+  - Name: bosh-helpers
+  Properties:
+  - Default: null
+    Description: Containers Array (see below for details)
+    Example: |
+      containers.name: String containing the name of the container
+      containers.image: String containing the name of the image to create/run
+      containers.command: Optional String containing the command to the run (including arguments)
+      containers.blkio_weight: Optional string containg the Block IO (relative weight)
+      containers.cap_adds: Optional array of Linux capabilities to add
+      containers.cap_drops: Optional array of Linux capabilities to drop
+      containers.cpu_period: Optional string containg the CPU CFS (Completely Fair Scheduler) period limit
+      containers.cpu_quota: Optional string containg the CPU CFS (Completely Fair Scheduler) quota limit
+      containers.cpu_shares: Optional string containg the CPU shares to assign to the container (relative weight)
+      containers.depends_on: Optional array of names of others containers in the same job that this container depends on
+      containers.devices: Optional array of host devices to add to the container
+      containers.disable_content_trust: Optional boolean to skip image verification
+      containers.dns: Optional array of strings to set custom DNS servers
+      containers.dns_options: Optional array of strings to set custom DNS servers
+      containers.dns_search: Optional array of strings to set custom DNS search domains
+      containers.entrypoint: Optional string containing the entrypoint (only if you want to override the default entrypoint set by the image)
+      containers.env_file: Optional paths to files of environment variables to pass to the container
+      containers.env_vars: Optional array of environment variables to pass to the container
+      containers.expose_ports: Optional array of network port to expose from the container without publishing it to your host
+      containers.group_adds: Optional array of additional groups to join
+      containers.hostname: Optional string containing the container host name
+      containers.kernel_memory: Optional string containing the kernel memory limit
+      containers.labels: Optional array of container labels meta data
+      containers.links: Optional array of links to another containers (name:alias)
+      containers.log_driver: Optional string containing the log driver for the container
+      containers.log_options: Optional array of log driver options
+      containers.lxc_options: Optional array of custom lxc options
+      containers.mac_address: Optional string containing the container MAC address
+      containers.memory: Optional string containing the memory limit to assign to the container (format: <number><optional unit>, where unit = b, k, m or g)
+      containers.memory_reservation: Optional string containing the memory soft limit
+      containers.memory_swap: Optional string containing the total memory usage (memory + swap), set '-1' to disable swap (format: <number><optional unit>, where unit = b, k, m or g)
+      containers.memory_swappiness: Optional string containing the tuning container memory swappiness
+      containers.net: Optional string containing the network for the container
+      containers.oom_kill_disable: Optional boolean to disable OOM Killer
+      containers.privileged: Optional boolean to enable/disable extended privileges to this container
+      containers.bind_ports: Optional array of network ports to map to the container
+      containers.read_only: Optional boolean to mount the container's root filesystem as read only
+      containers.restart: Optional string containing the restart policy to apply when a container exits (no, on-failure, always)
+      containers.security_options: Optional array of security options
+      containers.stop_signal: Optional string containing the signal to stop a container, SIGTERM by default
+      containers.ulimits: Optional array of Ulimit options
+      containers.user: Optional string containing the username or UID to run the first process
+      containers.volumes: Optional array of volumes to bind mount
+      containers.bind_volumes: Optional array of container mountpoints to bind to a host directory
+      containers.volumes_from: Optional array of mount volumes from the specified container(s)
+      containers.volume_driver: Optional string containing the volume driver for the container
+      containers.workdir: Optional string containing the working directory inside the container
+    Examples: null
+    Name: containers
+  Templates:
+  - DstPathEnd: bin/containers_ctl
+    Path: /mnt/tmp/tar-CmdExtractor156440640/templates/bin/containers_ctl.erb
+    SrcPathEnd: bin/containers_ctl.erb
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor156440640/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor208925042/monit
+    SrcPathEnd: monit
+  Name: docker
+  Packages:
+  - Name: bosh-helpers
+  - Name: docker
+  Properties:
+  - Default: true
+    Description: Allow unrestricted inter-container and Docker daemon host communication
+    Example: null
+    Examples: null
+    Name: docker.icc
+  - Default: null
+    Description: Container default gateway IPv6 address
+    Example: null
+    Examples: null
+    Name: docker.default_gateway_v6
+  - Default: false
+    Description: Enable IPv6 networking
+    Example: null
+    Examples: null
+    Name: docker.ipv6
+  - Default: null
+    Description: 'Set the containers network MTU (if no value is provided: default
+      to the default route MTU or 1500 if no default route is available)'
+    Example: null
+    Examples: null
+    Name: docker.mtu
+  - Default: info
+    Description: Set the logging level (debug, info, warn, error, fatal)
+    Example: null
+    Examples: null
+    Name: docker.log_level
+  - Default: true
+    Description: Use userland proxy for loopback traffic
+    Example: null
+    Examples: null
+    Name: docker.userland_proxy
+  - Default: "4243"
+    Description: TCP port where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: docker.tcp_port
+  - Default: null
+    Description: Array of DNS search domains to be used
+    Example: null
+    Examples: null
+    Name: docker.dns_search
+  - Default: null
+    Description: Array of exec driver options
+    Example: null
+    Examples: null
+    Name: docker.exec_options
+  - Default: true
+    Description: Enable Docker's addition of iptables rules
+    Example: null
+    Examples: null
+    Name: docker.iptables
+  - Default: null
+    Description: TLS certificate file
+    Example: null
+    Examples: null
+    Name: docker.tls_cert
+  - Default: false
+    Description: Do not contact legacy registries
+    Example: null
+    Examples: null
+    Name: docker.disable_legacy_registry
+  - Default: null
+    Description: Array of log driver options
+    Example: null
+    Examples: null
+    Name: docker.log_options
+  - Default: null
+    Description: Array of preferred Docker registry mirrors
+    Example: null
+    Examples: null
+    Name: docker.registry_mirrors
+  - Default: false
+    Description: Enable selinux support
+    Example: null
+    Examples: null
+    Name: docker.selinux_enable
+  - Default: false
+    Description: Use TLS
+    Example: null
+    Examples: null
+    Name: docker.tls
+  - Default: null
+    Description: TLS key file
+    Example: null
+    Examples: null
+    Name: docker.tls_key
+  - Default: false
+    Description: Use TLS and verify the remote
+    Example: null
+    Examples: null
+    Name: docker.tls_verify
+  - Default: null
+    Description: Array of default ulimits for containers
+    Example: null
+    Examples: null
+    Name: docker.default_ulimits
+  - Default: null
+    Description: Array of insecure registries (no certificate verification for HTTPS
+      and enable HTTP fallback)
+    Example: null
+    Examples: null
+    Name: docker.insecure_registries
+  - Default: null
+    Description: Default IP when binding container ports
+    Example: null
+    Examples: null
+    Name: docker.ip
+  - Default: null
+    Description: Default driver for container logs
+    Example: null
+    Examples: null
+    Name: docker.log_driver
+  - Default: 8192
+    Description: Maximum number of open files
+    Example: null
+    Examples: null
+    Name: docker.ulimit.nofile
+  - Default: 127.0.0.1
+    Description: TCP address where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: docker.tcp_address
+  - Default: null
+    Description: Container default gateway IPv4 address
+    Example: null
+    Examples: null
+    Name: docker.default_gateway
+  - Default: null
+    Description: Array of DNS options to be used
+    Example: null
+    Examples: null
+    Name: docker.dns_options
+  - Default: null
+    Description: Use a specific storage driver
+    Example: null
+    Examples: null
+    Name: docker.storage_driver
+  - Default: null
+    Description: HTTPS proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: null
+    Description: List of comma-separated hosts that Docker should skip connecting
+      to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: null
+    Description: Name of the network bridge to attach containers (defaults to docker0)
+    Example: null
+    Examples: null
+    Name: docker.bridge
+  - Default: null
+    Description: CIDR notation prefix (first 2 octets) for the network bridges IP
+    Example: null
+    Examples: null
+    Name: docker.cidr_prefix
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Examples: null
+    Name: docker.debug
+  - Default: null
+    Description: Array of DNS servers to be used
+    Example: null
+    Examples: null
+    Name: docker.dns_servers
+  - Default: true
+    Description: Enable net.ipv4.ip_forward and IPv6 forwarding
+    Example: null
+    Examples: null
+    Name: docker.ip_forward
+  - Default: true
+    Description: Enable IP masquerading
+    Example: null
+    Examples: null
+    Name: docker.ip_masq
+  - Default: null
+    Description: Array of key=value labels for the daemon
+    Example: null
+    Examples: null
+    Name: docker.labels
+  - Default: null
+    Description: Array of storage driver options
+    Example: null
+    Examples: null
+    Name: docker.storage_options
+  - Default: null
+    Description: Trust only remotes providing a certificate signed by the CA given
+      here
+    Example: null
+    Examples: null
+    Name: docker.tls_cacert
+  - Default: false
+    Description: Enable flannel support
+    Example: null
+    Examples: null
+    Name: docker.flannel
+  - Default: null
+    Description: HTTP proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  Templates:
+  - DstPathEnd: config/docker.key
+    Path: /mnt/tmp/tar-CmdExtractor208925042/templates/config/docker.key.erb
+    SrcPathEnd: config/docker.key.erb
+  - DstPathEnd: bin/cgroupfs-mount
+    Path: /mnt/tmp/tar-CmdExtractor208925042/templates/bin/cgroupfs-mount
+    SrcPathEnd: bin/cgroupfs-mount
+  - DstPathEnd: bin/docker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor208925042/templates/bin/docker_ctl
+    SrcPathEnd: bin/docker_ctl
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor208925042/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: config/docker.cacert
+    Path: /mnt/tmp/tar-CmdExtractor208925042/templates/config/docker.cacert.erb
+    SrcPathEnd: config/docker.cacert.erb
+  - DstPathEnd: config/docker.cert
+    Path: /mnt/tmp/tar-CmdExtractor208925042/templates/config/docker.cert.erb
+    SrcPathEnd: config/docker.cert.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor367568244/monit
+    SrcPathEnd: monit
+  Name: fetch-containers-images
+  Packages:
+  - Name: ruby
+  - Name: cf-containers-broker
+  Properties:
+  - Default: null
+    Description: Docker URL (IP/Socket)
+    Example: null
+    Examples: null
+    Name: fetch_containers_images.docker_url
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Examples: null
+    Name: broker.services
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor367568244/templates/bin/run.erb
+    SrcPathEnd: bin/run.erb
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor367568244/templates/config/settings.yml.erb
+    SrcPathEnd: config/settings.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor246348998/monit
+    SrcPathEnd: monit
+  Name: flannel
+  Packages:
+  - Name: flannel
+  Properties:
+  - Default: null
+    Description: ip of api server
+    Example: null
+    Examples: null
+    Name: apiserver.ip
+  - Default: null
+    Description: ip range of flannel overlay network
+    Example: null
+    Examples: null
+    Name: flannel.ip-range
+  Templates:
+  - DstPathEnd: data/properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor246348998/templates/data/properties.sh.erb
+    SrcPathEnd: data/properties.sh.erb
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor246348998/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor246348998/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor246348998/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor246348998/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor449022440/monit
+    SrcPathEnd: monit
+  Name: swarm_agent
+  Packages:
+  - Name: bosh-helpers
+  - Name: swarm
+  Properties:
+  - Default: []
+    Description: Swarm discovery options
+    Example: null
+    Examples: null
+    Name: swarm.discovery_options
+  - Default: info
+    Description: 'Log level (options: debug, info, warn, error, fatal, panic)'
+    Example: null
+    Examples: null
+    Name: swarm_agent.log_level
+  - Default: 60s
+    Description: Sets the expiration of an ephemeral node
+    Example: null
+    Examples: null
+    Name: swarm_agent.ttl
+  - Default: 20s
+    Description: Time in second between each heartbeat
+    Example: null
+    Examples: null
+    Name: swarm_agent.heartbeat
+  - Default: null
+    Description: 'Swarm discovery string (ie: consul://<ip>/<path>, etcd://<ip1>,<ip2>/<path>,
+      zk://<ip1>,<ip2>/<path>, [nodes://]<ip1>,<ip2>'
+    Example: null
+    Examples: null
+    Name: swarm.discovery
+  - Default: "4243"
+    Description: TCP port where Docker daemon will listen to (if not set, TCP will
+      not be available)
+    Example: null
+    Examples: null
+    Name: docker.tcp_port
+  - Default: null
+    Description: HTTP proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: null
+    Description: HTTPS proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: null
+    Description: List of comma-separated hosts that Docker should skip connecting
+      to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Examples: null
+    Name: swarm_agent.debug
+  - Default: null
+    Description: Address of the Docker Engine joining the cluster. Swarm manager(s)
+      MUST be able to reach the Docker Engine at this address.
+    Example: null
+    Examples: null
+    Name: swarm_agent.advertise
+  Templates:
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor449022440/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: bin/swarm_agent_ctl
+    Path: /mnt/tmp/tar-CmdExtractor449022440/templates/bin/swarm_agent_ctl
+    SrcPathEnd: bin/swarm_agent_ctl
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor984978266/monit
+    SrcPathEnd: monit
+  Name: swarm_manager
+  Packages:
+  - Name: bosh-helpers
+  - Name: swarm
+  Properties:
+  - Default: null
+    Description: Address of the Swarm Manager joining the cluster. Other Swarm Manager(s)
+      MUST be able to reach the Swarm Manager at this address.
+    Example: null
+    Examples: null
+    Name: swarm_manager.advertise
+  - Default: "0.5"
+    Description: Overcommit to apply on resources
+    Example: null
+    Examples: null
+    Name: swarm_manager.overcommit
+  - Default: null
+    Description: 'Swarm discovery string (ie: consul://<ip>/<path>, etcd://<ip1>,<ip2>/<path>,
+      zk://<ip1>,<ip2>/<path>, [nodes://]<ip1>,<ip2>'
+    Example: null
+    Examples: null
+    Name: swarm.discovery
+  - Default: null
+    Description: Trust only remotes providing a certificate signed by the CA given
+      here
+    Example: null
+    Examples: null
+    Name: docker.tls_cacert
+  - Default: null
+    Description: HTTPS proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.https_proxy
+  - Default: false
+    Description: Enable debug mode
+    Example: null
+    Examples: null
+    Name: swarm_manager.debug
+  - Default: 0.0.0.0
+    Description: Listen address
+    Example: null
+    Examples: null
+    Name: swarm_manager.listen_address
+  - Default: 30s
+    Description: Leader lock release time on failure
+    Example: null
+    Examples: null
+    Name: swarm_manager.replication_ttl
+  - Default: null
+    Description: List of comma-separated hosts that Docker should skip connecting
+      to the proxy
+    Example: null
+    Examples: null
+    Name: env.no_proxy
+  - Default: info
+    Description: 'Log level (options: debug, info, warn, error, fatal, panic)'
+    Example: null
+    Examples: null
+    Name: swarm_manager.log_level
+  - Default: false
+    Description: Enable Swarm manager replication
+    Example: null
+    Examples: null
+    Name: swarm_manager.replication
+  - Default: false
+    Description: Use TLS and verify the remote
+    Example: null
+    Examples: null
+    Name: docker.tls_verify
+  - Default: null
+    Description: HTTP proxy that Docker should use
+    Example: null
+    Examples: null
+    Name: env.http_proxy
+  - Default: 20s
+    Description: Time in second between each heartbeat
+    Example: null
+    Examples: null
+    Name: swarm_manager.heartbeat
+  - Default: false
+    Description: Enable CORS headers in the remote API
+    Example: null
+    Examples: null
+    Name: swarm_manager.api_enable_cors
+  - Default: null
+    Description: TLS key file
+    Example: null
+    Examples: null
+    Name: docker.tls_key
+  - Default: []
+    Description: Swarm discovery options
+    Example: null
+    Examples: null
+    Name: swarm.discovery_options
+  - Default: false
+    Description: Use TLS
+    Example: null
+    Examples: null
+    Name: docker.tls
+  - Default: null
+    Description: TLS certificate file
+    Example: null
+    Examples: null
+    Name: docker.tls_cert
+  - Default: "2375"
+    Description: Listen port
+    Example: null
+    Examples: null
+    Name: swarm_manager.port
+  - Default: spread
+    Description: Placement strategy to use [spread, binpack, random]
+    Example: null
+    Examples: null
+    Name: swarm_manager.strategy
+  - Default:
+    - health
+    - port
+    - dependency
+    - affinity
+    - constraint
+    Description: Filters to use [health, port, dependency, affinity, constraint]
+    Example: null
+    Examples: null
+    Name: swarm_manager.filters
+  Templates:
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor984978266/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: bin/swarm_manager_ctl
+    Path: /mnt/tmp/tar-CmdExtractor984978266/templates/bin/swarm_manager_ctl
+    SrcPathEnd: bin/swarm_manager_ctl
+  - DstPathEnd: config/docker.cacert
+    Path: /mnt/tmp/tar-CmdExtractor984978266/templates/config/docker.cacert.erb
+    SrcPathEnd: config/docker.cacert.erb
+  - DstPathEnd: config/docker.cert
+    Path: /mnt/tmp/tar-CmdExtractor984978266/templates/config/docker.cert.erb
+    SrcPathEnd: config/docker.cert.erb
+  - DstPathEnd: config/docker.key
+    Path: /mnt/tmp/tar-CmdExtractor984978266/templates/config/docker.key.erb
+    SrcPathEnd: config/docker.key.erb

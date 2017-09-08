@@ -1,0 +1,161 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor278893738/monit
+    SrcPathEnd: monit
+  Name: gateway
+  Packages: null
+  Properties:
+  - Default: null
+    Description: Default gateway
+    Example: null
+    Examples: null
+    Name: networking.gateway.default
+  Templates:
+  - DstPathEnd: bin/gateway_ctl
+    Path: /mnt/tmp/tar-CmdExtractor278893738/templates/bin/gateway_ctl.erb
+    SrcPathEnd: bin/gateway_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor699112300/monit
+    SrcPathEnd: monit
+  Name: iptables
+  Packages: null
+  Properties:
+  - Default: {}
+    Description: Map of rules per chain per table to apply in iptables
+    Example:
+      nat:
+        POSTROUTING:
+        - -s 10.244.0.0/24 -j MASQUERADE
+    Examples: null
+    Name: iptables
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor699112300/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/enable.sh
+    Path: /mnt/tmp/tar-CmdExtractor699112300/templates/bin/enable.sh
+    SrcPathEnd: bin/enable.sh
+  - DstPathEnd: bin/disable.sh
+    Path: /mnt/tmp/tar-CmdExtractor699112300/templates/bin/disable.sh
+    SrcPathEnd: bin/disable.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor390144894/monit
+    SrcPathEnd: monit
+  Name: multi_home
+  Packages: null
+  Properties:
+  - Default: 2
+    Description: Enable kernel to accept asymmetrically routed packets. See http://engineering.pivotal.io/post/multi-homed-bosh-director
+      for more details.
+    Example: null
+    Examples: null
+    Name: multi_home.rp_filter
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor390144894/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor231632736/monit
+    SrcPathEnd: monit
+  Name: nat
+  Packages: null
+  Properties:
+  - Default: eth0
+    Description: Input interface to forward packets
+    Example: null
+    Examples: null
+    Name: networking.nat.in_interface
+  - Default: eth1
+    Description: Output interface to forward packets
+    Example: null
+    Examples: null
+    Name: networking.nat.out_interface
+  Templates:
+  - DstPathEnd: bin/nat_ctl
+    Path: /mnt/tmp/tar-CmdExtractor231632736/templates/bin/nat_ctl.erb
+    SrcPathEnd: bin/nat_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor143993746/monit
+    SrcPathEnd: monit
+  Name: port_forwarding
+  Packages: null
+  Properties:
+  - Default: []
+    Description: List of rules that describes the ports to be forwarded. Defaults
+      `internal_ip` to '127.0.0.1'.
+    Example:
+    - external_port: 80
+      internal_ip: 10.10.0.34
+      internal_port: 8080
+    - external_port: 443
+      internal_ip: 10.10.0.34
+      internal_port: 4443
+    Examples: null
+    Name: networking.port_forwarding
+  Templates:
+  - DstPathEnd: bin/unforward_ports.sh
+    Path: /mnt/tmp/tar-CmdExtractor143993746/templates/bin/unforward_ports.sh.erb
+    SrcPathEnd: bin/unforward_ports.sh.erb
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor143993746/templates/bin/ctl
+    SrcPathEnd: bin/ctl
+  - DstPathEnd: bin/forward_ports.sh
+    Path: /mnt/tmp/tar-CmdExtractor143993746/templates/bin/forward_ports.sh.erb
+    SrcPathEnd: bin/forward_ports.sh.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor964877972/monit
+    SrcPathEnd: monit
+  Name: routes
+  Packages: null
+  Properties:
+  - Default: null
+    Description: List of routes to be added
+    Example:
+    - gateway: 10.10.0.2
+      host: null
+      interface: eth1
+      irtt: null
+      metric: null
+      mss: null
+      net: 10.9.9.0
+      netmask: 255.255.255.0
+      window: null
+    Examples: null
+    Name: networking.routes
+  Templates:
+  - DstPathEnd: bin/routes_ctl
+    Path: /mnt/tmp/tar-CmdExtractor964877972/templates/bin/routes_ctl.erb
+    SrcPathEnd: bin/routes_ctl.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor527132902/monit
+    SrcPathEnd: monit
+  Name: set_mtu
+  Packages: null
+  Properties:
+  - Default: eth0
+    Description: Network interface name.
+    Example: null
+    Examples: null
+    Name: networking.set_mtu.interface
+  - Default: 1500
+    Description: MTU (Maximum Transmission Unit) value in bytes
+    Example: null
+    Examples: null
+    Name: networking.set_mtu.mtu
+  Templates:
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor527132902/templates/pre-start.sh.erb
+    SrcPathEnd: pre-start.sh.erb

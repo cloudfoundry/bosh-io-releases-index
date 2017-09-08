@@ -1,0 +1,106 @@
+- Description: The smoke tests errand can be configured to run quick set of tests
+    against a specific Cloud Foundry API endpoint to determine is basic push-application
+    functionality works. Consider running the acceptance tests errand for a more extensive
+    set of tests.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor335203712/monit
+    SrcPathEnd: monit
+  Name: smoke_tests
+  Packages:
+  - Name: golang1.7
+  - Name: cli
+  - Name: smoke_tests
+  Properties:
+  - Default: CF_SMOKE_TESTS
+    Description: A token used by the tests when creating Apps / Spaces
+    Example: null
+    Examples: null
+    Name: smoke_tests.suite_name
+  - Default: null
+    Description: The Elastic Runtime Application Domain
+    Example: null
+    Examples: null
+    Name: smoke_tests.apps_domain
+  - Default: false
+    Description: Toggles setup and cleanup of the Elastic Runtime space
+    Example: null
+    Examples: null
+    Name: smoke_tests.use_existing_space
+  - Default: ""
+    Description: The Elastic Runtime app name to use when running runtime tests
+    Example: null
+    Examples: null
+    Name: smoke_tests.runtime_app
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Examples: null
+    Name: smoke_tests.api
+  - Default: null
+    Description: The Elastic Runtime API user
+    Example: null
+    Examples: null
+    Name: smoke_tests.user
+  - Default: false
+    Description: Toggles setup and cleanup of the Elastic Runtime organization
+    Example: null
+    Examples: null
+    Name: smoke_tests.use_existing_org
+  - Default: ""
+    Description: The Elastic Runtime app name to use when running logging tests
+    Example: null
+    Examples: null
+    Name: smoke_tests.logging_app
+  - Default: null
+    Description: The directory in which to store test CF_TRACE output.
+    Example: null
+    Examples: null
+    Name: smoke_tests.artifacts_directory
+  - Default: ""
+    Description: Defines the backend to be used. ('dea', 'diego', '' (default))
+    Example: null
+    Examples: null
+    Name: smoke_tests.backend
+  - Default: null
+    Description: The Elastic Runtime API user's password
+    Example: null
+    Examples: null
+    Name: smoke_tests.password
+  - Default: null
+    Description: The Elastic Runtime organization name to use when running tests
+    Example: null
+    Examples: null
+    Name: smoke_tests.org
+  - Default: null
+    Description: The Elastic Runtime space name to use when running tests
+    Example: null
+    Examples: null
+    Name: smoke_tests.space
+  - Default: null
+    Description: Sets the cli timeout (CF_DIAL_TIMEOUT)
+    Example: null
+    Examples: null
+    Name: smoke_tests.cf_dial_timeout_in_seconds
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Examples: null
+    Name: smoke_tests.skip_ssl_validation
+  - Default: ""
+    Description: Ginkgo options for the smoke tests
+    Example: null
+    Examples: null
+    Name: smoke_tests.ginkgo_opts
+  - Default: false
+    Description: Toggles a portion of the suite that exercises Windows platform support
+    Example: null
+    Examples: null
+    Name: smoke_tests.enable_windows_tests
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor335203712/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor335203712/templates/config.json.erb
+    SrcPathEnd: config.json.erb

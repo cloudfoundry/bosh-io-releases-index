@@ -1,0 +1,454 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor744490858/monit
+    SrcPathEnd: monit
+  Name: acceptance_tests
+  Packages:
+  - Name: golang1.5
+  - Name: acceptance_tests
+  - Name: tcp_emitter
+  - Name: rtr
+  - Name: cf-cli
+  Properties:
+  - Default: false
+    Description: Flag for using HTTP when making api and application requests rather
+      than the default HTTPS
+    Example: null
+    Examples: null
+    Name: acceptance_tests.use_http
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: acceptance_tests.bbs.ca_cert
+  - Default: null
+    Description: Password for UAA client for the tcp emitter.
+    Example: null
+    Examples: null
+    Name: acceptance_tests.tcp_emitter_secret
+  - Default: "false"
+    Description: Skip OAuth TLS verification when communicating with UAA
+    Example: null
+    Examples: null
+    Name: acceptance_tests.skip_oauth_tls_verification
+  - Default: 4
+    Description: The number of parallel test executors to spawn. The larger the number
+      the higher the stress on the system.
+    Example: null
+    Examples: null
+    Name: acceptance_tests.nodes
+  - Default: null
+    Description: The Elastic Runtime Application Domain
+    Example: null
+    Examples: null
+    Name: acceptance_tests.apps_domain
+  - Default: false
+    Description: Toggles cli verification of the Elastic Runtime API SSL certificate
+    Example: null
+    Examples: null
+    Name: acceptance_tests.skip_ssl_validation
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: acceptance_tests.bbs.client_cert
+  - Default: https://bbs.service.cf.internal:8889
+    Description: Diego BBS Server endpoint url
+    Example: null
+    Examples: null
+    Name: acceptance_tests.bbs.api_location
+  - Default: "8080"
+    Description: Port on which UAA is running.
+    Example: null
+    Examples: null
+    Name: acceptance_tests.uaa_port
+  - Default: false
+    Description: Whether to pass the -v flag to router acceptance tests
+    Example: null
+    Examples: null
+    Name: acceptance_tests.verbose
+  - Default:
+    - 10.244.14.2
+    Description: A list of addresses which will be checked for TCP connectivity and
+      features
+    Example: null
+    Examples: null
+    Name: acceptance_tests.addresses
+  - Default: null
+    Description: The Elastic Runtime API endpoint URL
+    Example: null
+    Examples: null
+    Name: acceptance_tests.api
+  - Default: null
+    Description: The Elastic Runtime API admin user's password
+    Example: null
+    Examples: null
+    Name: acceptance_tests.admin_password
+  - Default: null
+    Description: The Elastic Runtime API admin user
+    Example: null
+    Examples: null
+    Name: acceptance_tests.admin_user
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: acceptance_tests.bbs.client_key
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Examples: null
+    Name: acceptance_tests.bbs.require_ssl
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor744490858/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor744490858/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor744490858/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor744490858/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor744490858/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+- Description: The tcp proxy layer used by router to achieve tcp routing functionality.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor384321068/monit
+    SrcPathEnd: monit
+  Name: haproxy
+  Packages:
+  - Name: pid_utils
+  - Name: haproxy
+  Properties:
+  - Default: 300
+    Description: Server and client timeouts in seconds
+    Example: null
+    Examples: null
+    Name: router.haproxy.request_timeout_in_seconds
+  - Default: 80
+    Description: Port that is used to check the health of HA-proxy
+    Example: null
+    Examples: null
+    Name: router.haproxy.health_check_port
+  Templates:
+  - DstPathEnd: config/haproxy.conf
+    Path: /mnt/tmp/tar-CmdExtractor384321068/templates/haproxy.conf.erb
+    SrcPathEnd: haproxy.conf.erb
+  - DstPathEnd: config/haproxy.conf.template
+    Path: /mnt/tmp/tar-CmdExtractor384321068/templates/haproxy.conf.template.erb
+    SrcPathEnd: haproxy.conf.template.erb
+  - DstPathEnd: bin/haproxy_ctl
+    Path: /mnt/tmp/tar-CmdExtractor384321068/templates/haproxy_ctl
+    SrcPathEnd: haproxy_ctl
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor165112894/monit
+    SrcPathEnd: monit
+  Name: router_configurer
+  Packages:
+  - Name: pid_utils
+  - Name: router_configurer
+  Properties:
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: router.router_configurer.log_level
+  - Default: /var/vcap/jobs/haproxy/config/haproxy.conf
+    Description: Config file of underlying tcp proxy
+    Example: null
+    Examples: null
+    Name: router.router_configurer.tcp_config_file
+  - Default: /var/vcap/jobs/haproxy/config/haproxy.sock
+    Description: Unix socket exposed by the the underlying tcp proxy to gather statistic
+      metrics from
+    Example: null
+    Examples: null
+    Name: router.router_configurer.tcp_stats_unix_socket
+  - Default: 1m
+    Description: 'String representing interval for collecting statistic metrics from
+      tcp proxy. Units: ms, s, m h'
+    Example: null
+    Examples: null
+    Name: router.router_configurer.tcp_stats_collection_interval
+  - Default: false
+    Description: auth disabled setting of routing api
+    Example: null
+    Examples: null
+    Name: router.router_configurer.routing_api_auth_disabled
+  - Default: null
+    Description: Password for UAA client for tcp router.
+    Example: null
+    Examples: null
+    Name: router.router_configurer.tcp_router_secret
+  - Default: "8080"
+    Description: Port on which UAA is running.
+    Example: null
+    Examples: null
+    Name: router.router_configurer.uaa_port
+  - Default: null
+    Description: Secure Port on which UAA is running.
+    Example: null
+    Examples: null
+    Name: router.router_configurer.uaa_ssl_port
+  - Default: consul.service.cf.internal
+    Description: Host to ping for confirmation of DNS resolution
+    Example: null
+    Examples: null
+    Name: dns_health_check_host
+  - Default: 0.0.0.0:17014
+    Description: Address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: router.router_configurer.debug_addr
+  - Default: /var/vcap/jobs/haproxy/config/haproxy.conf.template
+    Description: Base Config file of underlying tcp proxy
+    Example: null
+    Examples: null
+    Name: router.router_configurer.tcp_config_file_template
+  - Default: "3000"
+    Description: Port of routing api
+    Example: null
+    Examples: null
+    Name: router.router_configurer.routing_api_port
+  - Default: false
+    Description: Skip TLS verification when talking to UAA
+    Example: null
+    Examples: null
+    Name: router.router_configurer.skip_oauth_tls_verification
+  Templates:
+  - DstPathEnd: bin/router_configurer_ctl
+    Path: /mnt/tmp/tar-CmdExtractor165112894/templates/router_configurer_ctl.erb
+    SrcPathEnd: router_configurer_ctl.erb
+  - DstPathEnd: config/router_configurer.yml
+    Path: /mnt/tmp/tar-CmdExtractor165112894/templates/router_configurer.yml.erb
+    SrcPathEnd: router_configurer.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor297483296/monit
+    SrcPathEnd: monit
+  Name: routing-api
+  Packages:
+  - Name: routing-api
+  - Name: common
+  Properties:
+  - Default: 3000
+    Description: The port to run the routing api on
+    Example: null
+    Examples: null
+    Name: routing-api.port
+  - Default: 25
+    Description: Maximum number of concurrent ETCD requests
+    Example: null
+    Examples: null
+    Name: routing-api.max_concurrent_etcd_requests
+  - Default: null
+    Description: The IPs of etcd hosts
+    Example: null
+    Examples: null
+    Name: routing-api.etcd_machines
+  - Default: null
+    Description: Secure Port on which UAA is running.
+    Example: null
+    Examples: null
+    Name: routing-api.uaa_ssl_port
+  - Default: consul.service.cf.internal
+    Description: Host to ping for confirmation of DNS resolution
+    Example: null
+    Examples: null
+    Name: dns_health_check_host
+  - Default: 60
+    Description: The maximum ttl
+    Example: null
+    Examples: null
+    Name: routing-api.max_ttl
+  - Default: null
+    Description: Domain reserved for CF operator; base URL where the UAA, Cloud Controller,
+      and other non-user apps listen
+    Example: null
+    Examples: null
+    Name: routing-api.system_domain
+  - Default: false
+    Description: Skip TLS verification when talking to UAA
+    Example: null
+    Examples: null
+    Name: routing-api.skip_oauth_tls_verification
+  - Default: localhost:8125
+    Description: The endpoint for the statsd server, defaults to the local metron
+      agent
+    Example: null
+    Examples: null
+    Name: routing-api.statsd_endpoint
+  - Default: null
+    Description: Array of router groups that will be seeded into routing-api database
+      upon first startup. Changes to router_groups after they have been seeded will
+      not take affect
+    Example: null
+    Examples: null
+    Name: routing-api.router_groups
+  - Default: false
+    Description: Disables UAA authentication
+    Example: null
+    Examples: null
+    Name: routing-api.auth_disabled
+  - Default: 30s
+    Description: 'String representing interval for reporting metrics. Units: ms, s,
+      m h'
+    Example: null
+    Examples: null
+    Name: routing-api.metrics_reporting_interval
+  - Default: 0.0.0.0:17002
+    Description: Address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: routing-api.debug_address
+  - Default: 300ms
+    Description: Buffered statsd client flush interval
+    Example: null
+    Examples: null
+    Name: routing-api.statsd_client_flush_interval
+  - Default: 127.0.0.1
+    Description: The host used to emit messages to the Metron agent.
+    Example: null
+    Examples: null
+    Name: metron_endpoint.host
+  - Default: 3457
+    Description: The port used to emit dropsonde messages to the Metron agent.
+    Example: null
+    Examples: null
+    Name: metron_endpoint.dropsonde_port
+  Templates:
+  - DstPathEnd: bin/routing-api_ctl
+    Path: /mnt/tmp/tar-CmdExtractor297483296/templates/routing-api_ctl.erb
+    SrcPathEnd: routing-api_ctl.erb
+  - DstPathEnd: bin/dns_health_check
+    Path: /mnt/tmp/tar-CmdExtractor297483296/templates/dns_health_check.erb
+    SrcPathEnd: dns_health_check.erb
+  - DstPathEnd: config/routing-api.yml
+    Path: /mnt/tmp/tar-CmdExtractor297483296/templates/routing-api.yml.erb
+    SrcPathEnd: routing-api.yml.erb
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor386665042/monit
+    SrcPathEnd: monit
+  Name: tcp_emitter
+  Packages:
+  - Name: pid_utils
+  - Name: tcp_emitter
+  - Name: router_configurer
+  Properties:
+  - Default: true
+    Description: enable ssl for all communication with the bbs
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.bbs.require_ssl
+  - Default: 5s
+    Description: interval to wait before retrying a failed lock acquisition
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.lock_retry_interval
+  - Default: tcp-emitter
+    Description: consul session name
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.session_name
+  - Default: false
+    Description: Skip TLS verification when talking to UAA
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.skip_oauth_tls_verification
+  - Default: http://127.0.0.1:8500
+    Description: comma-separated list of consul server URLs (scheme://ip:port)
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.consul_cluster
+  - Default: info
+    Description: Log level
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.log_level
+  - Default: null
+    Description: PEM-encoded CA certificate
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.bbs.ca_cert
+  - Default: null
+    Description: PEM-encoded client certificate
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.bbs.client_cert
+  - Default: null
+    Description: PEM-encoded client key
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.bbs.client_key
+  - Default: "3000"
+    Description: Port of routing api
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.routing_api_port
+  - Default: false
+    Description: auth disabled setting of routing api
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.routing_api_auth_disabled
+  - Default: "8080"
+    Description: Port on which UAA is running.
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.uaa_port
+  - Default: consul.service.cf.internal
+    Description: Host to ping for confirmation of DNS resolution
+    Example: null
+    Examples: null
+    Name: dns_health_check_host
+  - Default: null
+    Description: Secure Port on which UAA is running.
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.uaa_ssl_port
+  - Default: 0.0.0.0:17016
+    Description: Address at which to serve debug info
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.debug_addr
+  - Default: http://bbs.service.cf.internal:8889
+    Description: Diego BBS Server endpoint url
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.bbs.api_location
+  - Default: null
+    Description: Password for UAA client for tcp emitter.
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.tcp_emitter_secret
+  - Default: 10s
+    Description: TTL for service lock
+    Example: null
+    Examples: null
+    Name: router.tcp_emitter.lock_ttl
+  Templates:
+  - DstPathEnd: bin/tcp_emitter_ctl
+    Path: /mnt/tmp/tar-CmdExtractor386665042/templates/tcp_emitter_ctl.erb
+    SrcPathEnd: tcp_emitter_ctl.erb
+  - DstPathEnd: config/certs/bbs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor386665042/templates/bbs_ca.crt.erb
+    SrcPathEnd: bbs_ca.crt.erb
+  - DstPathEnd: config/certs/bbs/client.crt
+    Path: /mnt/tmp/tar-CmdExtractor386665042/templates/bbs_client.crt.erb
+    SrcPathEnd: bbs_client.crt.erb
+  - DstPathEnd: config/certs/bbs/client.key
+    Path: /mnt/tmp/tar-CmdExtractor386665042/templates/bbs_client.key.erb
+    SrcPathEnd: bbs_client.key.erb
+  - DstPathEnd: config/tcp_emitter.yml
+    Path: /mnt/tmp/tar-CmdExtractor386665042/templates/tcp_emitter.yml.erb
+    SrcPathEnd: tcp_emitter.yml.erb

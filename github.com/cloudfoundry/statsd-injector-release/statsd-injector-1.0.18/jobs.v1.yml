@@ -1,0 +1,52 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor458528020/monit
+    SrcPathEnd: monit
+  Name: statsd_injector
+  Packages:
+  - Name: statsd_injector
+  Properties:
+  - Default: 3458
+    Description: The port on which metron is running
+    Example: null
+    Examples: null
+    Name: statsd_injector.metron_port
+  - Default: 8125
+    Description: The port on which the injector should listen for statsd messages
+    Example: null
+    Examples: null
+    Name: statsd_injector.statsd_port
+  - Default: null
+    Description: The name of the deployment, used to tag envelopes
+    Example: null
+    Examples: null
+    Name: statsd_injector.deployment
+  - Default: null
+    Description: File path to the CA certificate
+    Example: null
+    Examples: null
+    Name: loggregator.tls.ca_cert
+  - Default: null
+    Description: File path to the client TLS cert
+    Example: null
+    Examples: null
+    Name: loggregator.tls.statsd_injector.cert
+  - Default: null
+    Description: File path to the client TLS private key
+    Example: null
+    Examples: null
+    Name: loggregator.tls.statsd_injector.key
+  Templates:
+  - DstPathEnd: certs/statsd_injector.key
+    Path: /mnt/tmp/tar-CmdExtractor458528020/templates/statsd_injector.key.erb
+    SrcPathEnd: statsd_injector.key.erb
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor458528020/templates/ctl.erb
+    SrcPathEnd: ctl.erb
+  - DstPathEnd: certs/ca.crt
+    Path: /mnt/tmp/tar-CmdExtractor458528020/templates/ca.crt.erb
+    SrcPathEnd: ca.crt.erb
+  - DstPathEnd: certs/statsd_injector.crt
+    Path: /mnt/tmp/tar-CmdExtractor458528020/templates/statsd_injector.crt.erb
+    SrcPathEnd: statsd_injector.crt.erb

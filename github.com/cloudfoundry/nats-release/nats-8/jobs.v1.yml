@@ -1,0 +1,149 @@
+- Description: The NATS server provides publish-subscribe messaging system for the
+    Cloud Controller, the DEA , HM9000, and other Cloud Foundry components.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor065910953/monit
+    SrcPathEnd: monit
+  Name: nats
+  Packages:
+  - Name: nats-common
+  - Name: gnatsd
+  Properties:
+  - Default: false
+    Description: Enable trace logging output.
+    Example: null
+    Examples: null
+    Name: nats.trace
+  - Default: 0
+    Description: Port for varz and connz monitoring. 0 means disabled.
+    Example: null
+    Examples: null
+    Name: nats.monitor_port
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: 15
+    Description: After accepting a connection, wait up to this many seconds for credentials.
+    Example: null
+    Examples: null
+    Name: nats.authorization_timeout
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: false
+    Description: Enable debug logging output.
+    Example: null
+    Examples: null
+    Name: nats.debug
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: 0
+    Description: Port for pprof. 0 means disabled.
+    Example: null
+    Examples: null
+    Name: nats.prof_port
+  Templates:
+  - DstPathEnd: bin/nats_ctl
+    Path: /mnt/tmp/tar-CmdExtractor065910953/templates/nats_ctl.erb
+    SrcPathEnd: nats_ctl.erb
+  - DstPathEnd: config/nats.conf
+    Path: /mnt/tmp/tar-CmdExtractor065910953/templates/nats.conf.erb
+    SrcPathEnd: nats.conf.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor065910953/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+- Description: The NATS Stream Forwarder listens to a configured NATS server and logs
+    all messages.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor190523075/monit
+    SrcPathEnd: monit
+  Name: nats_stream_forwarder
+  Packages:
+  - Name: nats-common
+  - Name: ruby-2.2.5
+  - Name: nats
+  Properties:
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: NATS addresses
+    Example: null
+    Examples: null
+    Name: nats.machines
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Examples: null
+    Name: nats.port
+  Templates:
+  - DstPathEnd: bin/nats_stream_forwarder.rb
+    Path: /mnt/tmp/tar-CmdExtractor190523075/templates/nats_stream_forwarder.rb
+    SrcPathEnd: nats_stream_forwarder.rb
+  - DstPathEnd: bin/nats_stream_forwarder_ctl
+    Path: /mnt/tmp/tar-CmdExtractor190523075/templates/nats_stream_forwarder_ctl.erb
+    SrcPathEnd: nats_stream_forwarder_ctl.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor190523075/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+- Description: The smoke tests errand run a simple check that NATs is accessible and
+    relaying messages properly
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor282935277/monit
+    SrcPathEnd: monit
+  Name: smoke-tests
+  Packages:
+  - Name: ruby-2.2.5
+  - Name: nats
+  Properties:
+  - Default: null
+    Description: Username for server authentication.
+    Example: null
+    Examples: null
+    Name: nats.user
+  - Default: null
+    Description: Password for server authentication.
+    Example: null
+    Examples: null
+    Name: nats.password
+  - Default: null
+    Description: The port for the NATS server to listen on.
+    Example: null
+    Examples: null
+    Name: nats.port
+  - Default: null
+    Description: IP of each NATS cluster member.
+    Example: null
+    Examples: null
+    Name: nats.machines
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor282935277/templates/run.erb
+    SrcPathEnd: run.erb
+  - DstPathEnd: bin/config.json
+    Path: /mnt/tmp/tar-CmdExtractor282935277/templates/config.json.erb
+    SrcPathEnd: config.json.erb
+  - DstPathEnd: bin/smoke-tests.rb
+    Path: /mnt/tmp/tar-CmdExtractor282935277/templates/smoke-tests.rb
+    SrcPathEnd: smoke-tests.rb

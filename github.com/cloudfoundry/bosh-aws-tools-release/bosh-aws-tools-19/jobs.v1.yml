@@ -1,0 +1,32 @@
+- Description: Backs up all Route53 zones to persistent disk
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor230936629/monit
+    SrcPathEnd: monit
+  Name: route53_backup
+  Packages:
+  - Name: cli53_0.4.0
+  - Name: python_2.7.6
+  Properties:
+  - Default: null
+    Description: AWS Secret Access Key used to make API calls to Route53
+    Example: null
+    Name: route53_backup.aws_secret_access_key
+  - Default: 0 0 * * *
+    Description: Schedule for the backup (in cron format)
+    Example: null
+    Name: route53_backup.schedule
+  - Default: null
+    Description: AWS Access Key Id used to make API calls to Route53
+    Example: null
+    Name: route53_backup.aws_access_key_id
+  Templates:
+  - DstPathEnd: bin/ctl
+    Path: /mnt/tmp/tar-CmdExtractor230936629/templates/ctl
+    SrcPathEnd: ctl
+  - DstPathEnd: bin/backup
+    Path: /mnt/tmp/tar-CmdExtractor230936629/templates/backup.erb
+    SrcPathEnd: backup.erb
+  - DstPathEnd: config/backup.cron
+    Path: /mnt/tmp/tar-CmdExtractor230936629/templates/backup.cron.erb
+    SrcPathEnd: backup.cron.erb

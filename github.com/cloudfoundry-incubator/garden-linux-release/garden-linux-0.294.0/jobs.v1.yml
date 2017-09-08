@@ -1,0 +1,106 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor275105150/monit
+    SrcPathEnd: monit
+  Name: garden
+  Packages:
+  - Name: garden-linux
+  - Name: iptables
+  - Name: shadow
+  - Name: busybox
+  - Name: btrfs-progs
+  Properties:
+  - Default: 1500
+    Description: Maximum network transmission unit length in bytes.
+    Example: null
+    Name: garden.network_mtu
+  - Default: []
+    Description: List of CIDR blocks to which containers will be denied access.
+    Example: null
+    Name: garden.deny_networks
+  - Default: /var/vcap/packages/busybox
+    Description: path to the rootfs to use when a container specifies no rootfs
+    Example: null
+    Name: garden.default_container_rootfs
+  - Default: false
+    Description: destroy existing containers when the server starts up
+    Example: null
+    Name: garden.destroy_containers_on_start
+  - Default: null
+    Description: A string identifier that will be used when reporting metrics to Dropsonde.
+    Example: null
+    Name: garden.dropsonde.origin
+  - Default: null
+    Description: A list of IP:PORT tuples that we allow pulling docker images from
+      using self-signed certificates.
+    Example: null
+    Name: garden.insecure_docker_registry_list
+  - Default: unix
+    Description: Garden server connection mode (tcp or unix).
+    Example: null
+    Name: garden.listen_network
+  - Default: []
+    Description: List of CIDR blocks to which containers will be allowed access (applied
+      after deny).
+    Example: null
+    Name: garden.allow_networks
+  - Default: null
+    Description: A string that is a server-wide identifier used for 'global' configuration.
+    Example: null
+    Name: garden.tag
+  - Default: 0.0.0.0:17013
+    Description: tcp address on which to serve debug info
+    Example: null
+    Name: garden.debug_listen_address
+  - Default: null
+    Description: An integer port number used to denote where ports should start being
+      allocated for Net In calls. Uses the Garden default if not set.
+    Example: null
+    Name: garden.port_pool.start
+  - Default: -1
+    Description: Size in MB of the BTRFS backing store for graph storage (-1 to use
+      all available space)
+    Example: null
+    Name: garden.btrfs_store_size_mb
+  - Default: true
+    Description: Enforce disk quotas. Disable for nested Garden.
+    Example: null
+    Name: garden.disk_quota_enabled
+  - Default: null
+    Description: An URL pointing to the Docker registry to use to fetch Docker images.
+      If unset, this will default to the Docker default.
+    Example: null
+    Name: garden.docker_registry_endpoint
+  - Default: 5m
+    Description: duration after which to reap idle containers
+    Example: null
+    Name: garden.default_container_grace_time
+  - Default: null
+    Description: An integer used to denote how many ports are avaliable for Net In
+      calls. Uses the Garden default if not set.
+    Example: null
+    Name: garden.port_pool.size
+  - Default: true
+    Description: If true, garden should create a btrfs-formatted loopback device for
+      graph storage
+    Example: null
+    Name: garden.mount_btrfs_loopback
+  - Default: /var/vcap/data/garden/garden.sock
+    Description: Garden server listening address.
+    Example: null
+    Name: garden.listen_address
+  - Default: false
+    Description: A boolean stating whether or not containers started on this host
+      should be able to reach this host.
+    Example: null
+    Name: garden.allow_host_access
+  - Default: null
+    Description: A URL that points at the Metron agent to which metrics are forwarded.
+      By default, it matches with the default of Metron.
+    Example: null
+    Name: garden.dropsonde.destination
+  Templates:
+  - DstPathEnd: bin/garden_ctl
+    Path: /mnt/tmp/tar-CmdExtractor275105150/templates/garden_ctl.erb
+    SrcPathEnd: garden_ctl.erb

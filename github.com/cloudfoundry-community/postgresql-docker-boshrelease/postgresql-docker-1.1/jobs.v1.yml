@@ -1,0 +1,183 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor608827053/monit
+    SrcPathEnd: monit
+  Name: frodenas_postgresql_image
+  Packages:
+  - Name: postgresql-image
+  Properties: null
+  Templates:
+  - DstPathEnd: bin/monit_debugger
+    Path: /mnt/tmp/tar-CmdExtractor608827053/templates/bin/monit_debugger
+    SrcPathEnd: bin/monit_debugger
+  - DstPathEnd: bin/install_ctl
+    Path: /mnt/tmp/tar-CmdExtractor608827053/templates/bin/install_ctl
+    SrcPathEnd: bin/install_ctl
+  - DstPathEnd: helpers/ctl_setup.sh
+    Path: /mnt/tmp/tar-CmdExtractor608827053/templates/helpers/ctl_setup.sh
+    SrcPathEnd: helpers/ctl_setup.sh
+  - DstPathEnd: helpers/ctl_utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor608827053/templates/helpers/ctl_utils.sh
+    SrcPathEnd: helpers/ctl_utils.sh
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor369582951/monit
+    SrcPathEnd: monit
+  Name: pg-cf-containers-broker
+  Packages:
+  - Name: pg-bosh-helpers
+  - Name: pg-ruby
+  - Name: pg-cf-containers-broker
+  - Name: pg-remote_syslog
+  Properties:
+  - Default: false
+    Description: Determines use of https in dashboard url and in callback uri for
+      calls to UAA
+    Example: null
+    Name: cfcontainersbroker.ssl_enabled
+  - Default: 0 * * * *
+    Description: Frequency to run logrotate for Docker daemon log files (crontab five
+      time and date fields)
+    Example: null
+    Name: cfcontainersbroker.logrotate.frequency
+  - Default: "7"
+    Description: 'Number of times Docker daemon log files are rotated before being
+      removed '
+    Example: null
+    Name: cfcontainersbroker.logrotate.rotate
+  - Default: root
+    Description: User which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.user
+  - Default: null
+    Description: IP address for Remote Syslog
+    Example: null
+    Name: remote_syslog.address
+  - Default: udp
+    Description: Protocol to be used when forwarding logs to a Remote Syslog (tcp|udp|tls)
+    Example: null
+    Name: remote_syslog.protocol
+  - Default: null
+    Description: Password for broker to connect to NATS
+    Example: null
+    Name: nats.password
+  - Default: "80"
+    Description: Unicorn listen port
+    Example: null
+    Name: cfcontainersbroker.unicorn.port
+  - Default: "86400"
+    Description: Session expiry time of the session
+    Example: null
+    Name: cfcontainersbroker.session_expiry
+  - Default: null
+    Description: URL of the CloudFoundry Cloud Controller
+    Example: null
+    Name: cfcontainersbroker.cc_api_uri
+  - Default: null
+    Description: Services and plans offered by the broker
+    Example: null
+    Name: cfcontainersbroker.services
+  - Default: null
+    Description: Host used to register the broker
+    Example: null
+    Name: cfcontainersbroker.external_host
+  - Default: true
+    Description: Determines whether dashboard verifies SSL certificates when communicating
+      with Cloud Controller and UAA
+    Example: null
+    Name: cfcontainersbroker.skip_ssl_validation
+  - Default: null
+    Description: Username for broker to connect to NATS
+    Example: null
+    Name: nats.user
+  - Default: false
+    Description: Write a debug file
+    Example: null
+    Name: remote_syslog.debug
+  - Default: "4"
+    Description: Unicorn worker processes
+    Example: null
+    Name: cfcontainersbroker.unicorn.worker_processes
+  - Default: true
+    Description: Fetch new/updated container images on restart
+    Example: null
+    Name: cfcontainersbroker.fetch_images
+  - Default: root
+    Description: User which will own the CF-Containers-Broker services
+    Example: null
+    Name: cfcontainersbroker.user
+  - Default: "0"
+    Description: Max number of containers
+    Example: null
+    Name: cfcontainersbroker.max_containers
+  - Default: vcap
+    Description: Group which will own the Remote Syslog services
+    Example: null
+    Name: remote_syslog.group
+  - Default: "514"
+    Description: TCP port of Remote Syslog
+    Example: null
+    Name: remote_syslog.port
+  - Default: 10s
+    Description: How often to check for new files
+    Example: null
+    Name: remote_syslog.new_file_check_interval
+  - Default: vcap
+    Description: Group which will own the CF-Containers-Broker services
+    Example: null
+    Name: cfcontainersbroker.group
+  - Default: null
+    Description: Broker's basic auth username
+    Example: null
+    Name: cfcontainersbroker.auth_username
+  - Default: cf-containers-broker
+    Description: Component name used to register the broker
+    Example: null
+    Name: cfcontainersbroker.component_name
+  - Default: 2M
+    Description: Size before Docker daemon log files are rotateds
+    Example: null
+    Name: cfcontainersbroker.logrotate.size
+  - Default: null
+    Description: Broker's basic auth password
+    Example: null
+    Name: cfcontainersbroker.auth_password
+  - Default: null
+    Description: A unique secret key, used to sign sessions
+    Example: null
+    Name: cfcontainersbroker.cookie_secret
+  - Default: null
+    Description: IP port of Cloud Foundry NATS server
+    Example: null
+    Name: nats.port
+  - Default: null
+    Description: Array of IPs of each NATS cluster member
+    Example: null
+    Name: nats.machines
+  Templates:
+  - DstPathEnd: config/settings.yml
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/config/settings.yml.erb
+    SrcPathEnd: config/settings.yml.erb
+  - DstPathEnd: config/unicorn.conf.rb
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/config/unicorn.conf.rb.erb
+    SrcPathEnd: config/unicorn.conf.rb.erb
+  - DstPathEnd: bin/cf-containers-broker_ctl
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/bin/cf-containers-broker_ctl
+    SrcPathEnd: bin/cf-containers-broker_ctl
+  - DstPathEnd: bin/job_properties.sh
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/bin/job_properties.sh.erb
+    SrcPathEnd: bin/job_properties.sh.erb
+  - DstPathEnd: bin/remote_syslog_ctl
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/bin/remote_syslog_ctl
+    SrcPathEnd: bin/remote_syslog_ctl
+  - DstPathEnd: config/logrotate.cron
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/config/logrotate.cron.erb
+    SrcPathEnd: config/logrotate.cron.erb
+  - DstPathEnd: config/logrotate.conf
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/config/logrotate.conf.erb
+    SrcPathEnd: config/logrotate.conf.erb
+  - DstPathEnd: config/remote_syslog.yml
+    Path: /mnt/tmp/tar-CmdExtractor369582951/templates/config/remote_syslog.yml.erb
+    SrcPathEnd: config/remote_syslog.yml.erb

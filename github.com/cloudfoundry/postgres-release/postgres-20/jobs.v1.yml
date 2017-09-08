@@ -1,0 +1,188 @@
+- Description: ""
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor551203720/monit
+    SrcPathEnd: monit
+  Name: acceptance-tests
+  Packages:
+  - Name: acceptance-tests
+  - Name: golang1.7
+  Properties:
+  - Default: 10GB
+    Description: Persistent disk type used by acceptance tests while deploying
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.cloud_configs.default_persistent_disk_type
+  - Default: m3.medium
+    Description: VM type used by acceptance tests while deploying
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.cloud_configs.default_vm_type
+  - Default: current
+    Description: The PostgreSQL version that is expected to be deployed. If not specified,
+      we expect that the one in the latest published postgres-release is deployed.
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.postgresql_version
+  - Default: 192.168.50.4
+    Description: Location of the BOSH Director to target when deploying postgres
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.bosh.target
+  - Default: ""
+    Description: BOSH Director CA Cert
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.bosh.director_ca_cert
+  - Default:
+    - z1
+    Description: List of availability zones used by acceptance tests while deploying
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.cloud_configs.default_azs
+  - Default:
+    - name: private
+    Description: List of networks used by acceptance tests while deploying
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.cloud_configs.default_networks
+  - Default: latest
+    Description: The postgres-release version to test. If not specified, the latest
+      uploaded to the director is used.
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.postgres_release_version
+  - Default: admin
+    Description: BOSH Director username
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.bosh.username
+  - Default: admin
+    Description: BOSH Director password
+    Example: null
+    Examples: null
+    Name: postgres.acceptance_tests.bosh.password
+  Templates:
+  - DstPathEnd: bin/run
+    Path: /mnt/tmp/tar-CmdExtractor551203720/templates/test.sh.erb
+    SrcPathEnd: test.sh.erb
+  - DstPathEnd: config/config.yml
+    Path: /mnt/tmp/tar-CmdExtractor551203720/templates/config.yml.erb
+    SrcPathEnd: config.yml.erb
+- Description: The Postgres server provides a single instance Postgres database that
+    can be used with the Cloud Controller or the UAA. It does not provide highly-available
+    configuration.
+  MonitTemplate:
+    DstPathEnd: monit
+    Path: /mnt/tmp/tar-CmdExtractor336988154/monit
+    SrcPathEnd: monit
+  Name: postgres
+  Packages:
+  - Name: postgres-common
+  - Name: postgres-9.6.4
+  Properties:
+  - Default: ""
+    Description: PEM-encoded key for secure TLS communication
+    Example: null
+    Examples: null
+    Name: databases.tls.private_key
+  - Default: null
+    Description: A list of databases and associated properties to create
+    Example: |
+      - name: sandbox
+        citext: true
+      - name: sandbox2
+        citext: false
+    Examples: null
+    Name: databases.databases
+  - Default: null
+    Description: Maximum number of database connections
+    Example: null
+    Examples: null
+    Name: databases.max_connections
+  - Default: '%m: '
+    Description: The postgres `printf` style string that is output at the beginning
+      of each log line
+    Example: null
+    Examples: null
+    Name: databases.log_line_prefix
+  - Default: false
+    Description: Enable the `pg_stat_statements` extension and collect statement execution
+      statistics
+    Example: null
+    Examples: null
+    Name: databases.collect_statement_statistics
+  - Default: null
+    Description: A map of additional key/value pairs to include as extra configuration
+      properties
+    Example: |
+      shared_buffers: 4GB
+      checkpoint_segments: 10
+    Examples: null
+    Name: databases.additional_config
+  - Default: 90
+    Description: Monit timout in seconds for the postgres job start. If not specified,
+      no timeout statement will be added so that the global monit timeout applies.
+    Example: null
+    Examples: null
+    Name: databases.monit_timeout
+  - Default: null
+    Description: The database port
+    Example: null
+    Examples: null
+    Name: databases.port
+  - Default: null
+    Description: A list of database roles and associated properties to create
+    Example: |
+      - name: pgadmin
+        password: passwd
+        permissions:
+        - "CONNECTION LIMIT 33"
+      - name: bud_spencer
+        common_name: "Carlo Pedersoli"
+    Examples: null
+    Name: databases.roles
+  - Default: ""
+    Description: PEM-encoded certification authority for secure TLS communication
+    Example: null
+    Examples: null
+    Name: databases.tls.ca
+  - Default: ""
+    Description: PEM-encoded certificate for secure TLS communication
+    Example: null
+    Examples: null
+    Name: databases.tls.certificate
+  Templates:
+  - DstPathEnd: config/certificates/server.ca_cert
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/server.ca_cert.erb
+    SrcPathEnd: server.ca_cert.erb
+  - DstPathEnd: bin/pre-start
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/pre-start.erb
+    SrcPathEnd: pre-start.erb
+  - DstPathEnd: config/postgresql.conf
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/postgresql.conf.erb
+    SrcPathEnd: postgresql.conf.erb
+  - DstPathEnd: config/pg_hba.conf
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/pg_hba.conf.erb
+    SrcPathEnd: pg_hba.conf.erb
+  - DstPathEnd: bin/utils.sh
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/utils.sh.erb
+    SrcPathEnd: utils.sh.erb
+  - DstPathEnd: config/pg_ident.conf
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/pg_ident.conf.erb
+    SrcPathEnd: pg_ident.conf.erb
+  - DstPathEnd: config/certificates/server.private_key
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/server.private_key.erb
+    SrcPathEnd: server.private_key.erb
+  - DstPathEnd: config/certificates/server.public_cert
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/server.public_cert.erb
+    SrcPathEnd: server.public_cert.erb
+  - DstPathEnd: bin/postgres_ctl
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/postgres_ctl.erb
+    SrcPathEnd: postgres_ctl.erb
+  - DstPathEnd: bin/postgres_start.sh
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/postgres_start.sh.erb
+    SrcPathEnd: postgres_start.sh.erb
+  - DstPathEnd: bin/pgconfig.sh
+    Path: /mnt/tmp/tar-CmdExtractor336988154/templates/pgconfig.sh.erb
+    SrcPathEnd: pgconfig.sh.erb
