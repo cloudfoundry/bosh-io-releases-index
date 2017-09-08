@@ -1,137 +1,188 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor151206073/monit
-    SrcPathEnd: monit
-  Name: garden
-  Packages:
-  - Name: garden-linux
-  - Name: iptables
-  - Name: shadow
-  - Name: busybox
-  Properties:
-  - Default: 0.0.0.0:17013
-    Description: tcp address on which to serve debug info
-    Example: null
-    Examples: null
-    Name: garden.debug_listen_address
-  - Default: 10.254.0.0/22
-    Description: A CIDR subnet mask specifying the range of subnets available to be
-      assigned to containers.
-    Example: null
-    Examples: null
-    Name: garden.network_pool
-  - Default: null
-    Description: An integer port number used to denote where ports should start being
-      allocated for Net In calls. Uses the Garden default if not set.
-    Example: null
-    Examples: null
-    Name: garden.port_pool.start
-  - Default: []
-    Description: An array of IP:PORT tuples and CIDR subnet masks. Pulling from docker
-      registries with self signed certificates will not be permitted if the registry's
-      address is not listed here.
-    Example: null
-    Examples: null
-    Name: garden.insecure_docker_registry_list
-  - Default: null
-    Description: Http proxy that Garden process should use
-    Example: null
-    Examples: null
-    Name: garden.http_proxy
-  - Default: null
-    Description: List of comma-separated hosts that should skip connecting to the
-      proxy
-    Example: null
-    Examples: null
-    Name: garden.no_proxy
-  - Default: []
-    Description: List of CIDR blocks to which containers will be allowed access (applied
-      after deny).
-    Example: null
-    Examples: null
-    Name: garden.allow_networks
-  - Default: null
-    Description: An URL pointing to the Docker registry to use to fetch Docker images.
-      If unset, this will default to the Docker default.
-    Example: null
-    Examples: null
-    Name: garden.docker_registry_endpoint
-  - Default: 1500
-    Description: Maximum network transmission unit length in bytes.
-    Example: null
-    Examples: null
-    Name: garden.network_mtu
-  - Default: false
-    Description: A boolean stating whether or not containers started on this host
-      should be able to reach this host.
-    Example: null
-    Examples: null
-    Name: garden.allow_host_access
-  - Default: null
-    Description: A string that is a server-wide identifier used for 'global' configuration.
-    Example: null
-    Examples: null
-    Name: garden.tag
-  - Default: /var/vcap/packages/busybox
-    Description: path to the rootfs to use when a container specifies no rootfs
-    Example: null
-    Examples: null
-    Name: garden.default_container_rootfs
-  - Default: false
-    Description: destroy existing containers when the server starts up
-    Example: null
-    Examples: null
-    Name: garden.destroy_containers_on_start
-  - Default: null
-    Description: A string identifier that will be used when reporting metrics to Dropsonde.
-    Example: null
-    Examples: null
-    Name: garden.dropsonde.origin
-  - Default: unix
-    Description: Garden server connection mode (tcp or unix).
-    Example: null
-    Examples: null
-    Name: garden.listen_network
-  - Default: /var/vcap/data/garden/garden.sock
-    Description: Garden server listening address.
-    Example: null
-    Examples: null
-    Name: garden.listen_address
-  - Default: null
-    Description: Https proxy that Garden process should use
-    Example: null
-    Examples: null
-    Name: garden.https_proxy
-  - Default: null
-    Description: An integer used to denote how many ports are avaliable for Net In
-      calls. Uses the Garden default if not set.
-    Example: null
-    Examples: null
-    Name: garden.port_pool.size
-  - Default: null
-    Description: A URL that points at the Metron agent to which metrics are forwarded.
-      By default, it matches with the default of Metron.
-    Example: null
-    Examples: null
-    Name: garden.dropsonde.destination
-  - Default: null
-    Description: Log level of the Garden server. Can be one of debug, info, error
-      or fatal
-    Example: null
-    Examples: null
-    Name: garden.log_level
-  - Default: []
-    Description: List of CIDR blocks to which containers will be denied access.
-    Example: null
-    Examples: null
-    Name: garden.deny_networks
-  - Default: 5m
-    Description: duration after which to reap idle containers
-    Example: null
-    Examples: null
-    Name: garden.default_container_grace_time
-  Templates:
-  - DstPathEnd: bin/garden_ctl
-    Path: /mnt/tmp/tar-CmdExtractor151206073/templates/garden_ctl.erb
-    SrcPathEnd: garden_ctl.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor151206073/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "garden",
+    "Packages": [
+      {
+        "Name": "garden-linux"
+      },
+      {
+        "Name": "iptables"
+      },
+      {
+        "Name": "shadow"
+      },
+      {
+        "Name": "busybox"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "0.0.0.0:17013",
+        "Description": "tcp address on which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.debug_listen_address"
+      },
+      {
+        "Default": "10.254.0.0/22",
+        "Description": "A CIDR subnet mask specifying the range of subnets available to be assigned to containers.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.network_pool"
+      },
+      {
+        "Default": null,
+        "Description": "An integer port number used to denote where ports should start being allocated for Net In calls. Uses the Garden default if not set.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.port_pool.start"
+      },
+      {
+        "Default": [],
+        "Description": "An array of IP:PORT tuples and CIDR subnet masks. Pulling from docker registries with self signed certificates will not be permitted if the registry's address is not listed here.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.insecure_docker_registry_list"
+      },
+      {
+        "Default": null,
+        "Description": "Http proxy that Garden process should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.http_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "List of comma-separated hosts that should skip connecting to the proxy",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.no_proxy"
+      },
+      {
+        "Default": [],
+        "Description": "List of CIDR blocks to which containers will be allowed access (applied after deny).",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.allow_networks"
+      },
+      {
+        "Default": null,
+        "Description": "An URL pointing to the Docker registry to use to fetch Docker images. If unset, this will default to the Docker default.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.docker_registry_endpoint"
+      },
+      {
+        "Default": 1500,
+        "Description": "Maximum network transmission unit length in bytes.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.network_mtu"
+      },
+      {
+        "Default": false,
+        "Description": "A boolean stating whether or not containers started on this host should be able to reach this host.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.allow_host_access"
+      },
+      {
+        "Default": null,
+        "Description": "A string that is a server-wide identifier used for 'global' configuration.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.tag"
+      },
+      {
+        "Default": "/var/vcap/packages/busybox",
+        "Description": "path to the rootfs to use when a container specifies no rootfs",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.default_container_rootfs"
+      },
+      {
+        "Default": false,
+        "Description": "destroy existing containers when the server starts up",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.destroy_containers_on_start"
+      },
+      {
+        "Default": null,
+        "Description": "A string identifier that will be used when reporting metrics to Dropsonde.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.dropsonde.origin"
+      },
+      {
+        "Default": "unix",
+        "Description": "Garden server connection mode (tcp or unix).",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.listen_network"
+      },
+      {
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Description": "Garden server listening address.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.listen_address"
+      },
+      {
+        "Default": null,
+        "Description": "Https proxy that Garden process should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.https_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "An integer used to denote how many ports are avaliable for Net In calls. Uses the Garden default if not set.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.port_pool.size"
+      },
+      {
+        "Default": null,
+        "Description": "A URL that points at the Metron agent to which metrics are forwarded. By default, it matches with the default of Metron.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.dropsonde.destination"
+      },
+      {
+        "Default": null,
+        "Description": "Log level of the Garden server. Can be one of debug, info, error or fatal",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.log_level"
+      },
+      {
+        "Default": [],
+        "Description": "List of CIDR blocks to which containers will be denied access.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.deny_networks"
+      },
+      {
+        "Default": "5m",
+        "Description": "duration after which to reap idle containers",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.default_container_grace_time"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/garden_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor151206073/templates/garden_ctl.erb",
+        "SrcPathEnd": "garden_ctl.erb"
+      }
+    ]
+  }
+]

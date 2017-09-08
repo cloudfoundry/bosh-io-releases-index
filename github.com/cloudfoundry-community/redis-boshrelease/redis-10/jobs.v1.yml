@@ -1,112 +1,175 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor999603980/monit
-    SrcPathEnd: monit
-  Name: acceptance-tests
-  Packages:
-  - Name: redis-server
-  Properties:
-  - Default: r3d!s
-    Description: Password to access redis server
-    Example: null
-    Examples: null
-    Name: redis.password
-  - Default: null
-    Description: IP address or hostname of the Redis master node
-    Example: null
-    Examples: null
-    Name: redis.master
-  - Default: null
-    Description: IP address or hostname of a Redis slave node
-    Example: null
-    Examples: null
-    Name: redis.slave
-  - Default: 6379
-    Description: Port to listen for requests to redis server
-    Example: null
-    Examples: null
-    Name: redis.port
-  Templates:
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor999603980/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor999603980/templates/bin/run
-    SrcPathEnd: bin/run
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor999603980/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor999603980/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor830856222/monit
-    SrcPathEnd: monit
-  Name: redis
-  Packages:
-  - Name: redis-server
-  Properties:
-  - Default: r3d!s
-    Description: Password to access redis server
-    Example: null
-    Examples: null
-    Name: redis.password
-  - Default: null
-    Description: IP address or hostname of the Redis master node
-    Example: null
-    Examples: null
-    Name: redis.master
-  - Default: null
-    Description: Name for advertising/discovering this service over consul (defaults
-      to deployment name)
-    Example: null
-    Examples: null
-    Name: consul.service.name
-  - Default: 20s
-    Description: Interval for consul to perform health checks
-    Example: null
-    Examples: null
-    Name: health.interval
-  - Default: 98
-    Description: Percentage of persistent disk full to trigger critial health alert
-    Example: null
-    Examples: null
-    Name: health.disk.critical
-  - Default: 50
-    Description: Percentage of persistent disk full to trigger warning health alert
-    Example: null
-    Examples: null
-    Name: health.disk.warning
-  - Default: 6379
-    Description: Port to listen for requests to redis server
-    Example: null
-    Examples: null
-    Name: redis.port
-  Templates:
-  - DstPathEnd: bin/initialize_kv
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/bin/initialize_kv
-    SrcPathEnd: bin/initialize_kv
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/redis.conf
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/config/redis.conf.erb
-    SrcPathEnd: config/redis.conf.erb
-  - DstPathEnd: bin/redis_ctl
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/bin/redis_ctl
-    SrcPathEnd: bin/redis_ctl
-  - DstPathEnd: bin/health_check
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/bin/health_check
-    SrcPathEnd: bin/health_check
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor830856222/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor999603980/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance-tests",
+    "Packages": [
+      {
+        "Name": "redis-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "r3d!s",
+        "Description": "Password to access redis server",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.password"
+      },
+      {
+        "Default": null,
+        "Description": "IP address or hostname of the Redis master node",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.master"
+      },
+      {
+        "Default": null,
+        "Description": "IP address or hostname of a Redis slave node",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.slave"
+      },
+      {
+        "Default": 6379,
+        "Description": "Port to listen for requests to redis server",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor999603980/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor999603980/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor999603980/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor999603980/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor830856222/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "redis",
+    "Packages": [
+      {
+        "Name": "redis-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "r3d!s",
+        "Description": "Password to access redis server",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.password"
+      },
+      {
+        "Default": null,
+        "Description": "IP address or hostname of the Redis master node",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.master"
+      },
+      {
+        "Default": null,
+        "Description": "Name for advertising/discovering this service over consul (defaults to deployment name)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.service.name"
+      },
+      {
+        "Default": "20s",
+        "Description": "Interval for consul to perform health checks",
+        "Example": null,
+        "Examples": null,
+        "Name": "health.interval"
+      },
+      {
+        "Default": 98,
+        "Description": "Percentage of persistent disk full to trigger critial health alert",
+        "Example": null,
+        "Examples": null,
+        "Name": "health.disk.critical"
+      },
+      {
+        "Default": 50,
+        "Description": "Percentage of persistent disk full to trigger warning health alert",
+        "Example": null,
+        "Examples": null,
+        "Name": "health.disk.warning"
+      },
+      {
+        "Default": 6379,
+        "Description": "Port to listen for requests to redis server",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/initialize_kv",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/bin/initialize_kv",
+        "SrcPathEnd": "bin/initialize_kv"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/redis.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/config/redis.conf.erb",
+        "SrcPathEnd": "config/redis.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/redis_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/bin/redis_ctl",
+        "SrcPathEnd": "bin/redis_ctl"
+      },
+      {
+        "DstPathEnd": "bin/health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/bin/health_check",
+        "SrcPathEnd": "bin/health_check"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor830856222/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      }
+    ]
+  }
+]

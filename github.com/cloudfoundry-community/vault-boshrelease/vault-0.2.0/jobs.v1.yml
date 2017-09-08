@@ -1,164 +1,242 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor157244754/monit
-    SrcPathEnd: monit
-  Name: vault
-  Packages:
-  - Name: vault
-  Properties:
-  - Default: us-east-1
-    Description: AWS region
-    Example: null
-    Examples: null
-    Name: vault.backend.s3.region
-  - Default: null
-    Description: Address for StatsD
-    Example: null
-    Examples: null
-    Name: vault.statsd_addr
-  - Default: vault/
-    Description: Path for Consul
-    Example: null
-    Examples: null
-    Name: vault.backend.consul.path
-  - Default: null
-    Description: Scheme for Consul
-    Example: null
-    Examples: null
-    Name: vault.backend.consul.scheme
-  - Default: false
-    Description: Use In Memory backend
-    Example: null
-    Examples: null
-    Name: vault.backend.use_inmem
-  - Default: false
-    Description: Use S3 backend
-    Example: null
-    Examples: null
-    Name: vault.backend.use_s3
-  - Default: null
-    Description: S3 bucket name
-    Example: null
-    Examples: null
-    Name: vault.backend.s3.bucket
-  - Default: localhost:2181
-    Description: Address for Zookeeper
-    Example: null
-    Examples: null
-    Name: vault.backend.zookeeper.address
-  - Default: false
-    Description: Use File backend
-    Example: null
-    Examples: null
-    Name: vault.backend.use_file
-  - Default: 8200
-    Description: Port for TCP connection
-    Example: null
-    Examples: null
-    Name: vault.listener.tcp.port
-  - Default: null
-    Description: Contents of the PEM-encoded TLS server certificate
-    Example: null
-    Examples: null
-    Name: vault.listener.tcp.tls.certificate
-  - Default: false
-    Description: Disable mlock if you're crazy
-    Example: null
-    Examples: null
-    Name: vault.disable_mlock
-  - Default: false
-    Description: Use Cosul for data store
-    Example: null
-    Examples: null
-    Name: vault.backend.use_consul
-  - Default: null
-    Description: Datacenter for Consul
-    Example: null
-    Examples: null
-    Name: vault.backend.consul.datacenter
-  - Default: false
-    Description: Use Zookeeper as data store
-    Example: null
-    Examples: null
-    Name: vault.backend.use_zookeeper
-  - Default: null
-    Description: Address for Consul
-    Example: null
-    Examples: null
-    Name: vault.backend.consul.address
-  - Default: null
-    Description: AWS secret key
-    Example: null
-    Examples: null
-    Name: vault.backend.s3.secret_key
-  - Default: null
-    Description: AWS access key
-    Example: null
-    Examples: null
-    Name: vault.backend.s3.access_key
-  - Default: null
-    Description: AWS S3 endpoint
-    Example: null
-    Examples: null
-    Name: vault.backend.s3.endpoint
-  - Default: 0.0.0.0
-    Description: Address for TCP connection
-    Example: null
-    Examples: null
-    Name: vault.listener.tcp.address
-  - Default: null
-    Description: Contents of the PEM-encoded TLS server private key
-    Example: null
-    Examples: null
-    Name: vault.listener.tcp.tls.key
-  - Default: null
-    Description: Address for statsite
-    Example: null
-    Examples: null
-    Name: vault.statsite_addr
-  - Default: null
-    Description: Access Token for Consul
-    Example: null
-    Examples: null
-    Name: vault.backend.consul.token
-  - Default: vault/
-    Description: Path for Zookeeper
-    Example: null
-    Examples: null
-    Name: vault.backend.zookeeper.path
-  - Default: /var/vcap/store/
-    Description: Path for File backend
-    Example: null
-    Examples: null
-    Name: vault.backend.file.path
-  - Default: null
-    Description: AWS session token
-    Example: null
-    Examples: null
-    Name: vault.backend.s3.session_token
-  Templates:
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/server.hcl
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/config/vault.conf.erb
-    SrcPathEnd: config/vault.conf.erb
-  - DstPathEnd: ssl/certificate.pem
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/ssl/certificate.pem
-    SrcPathEnd: ssl/certificate.pem
-  - DstPathEnd: ssl/key.pem
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/ssl/key.pem
-    SrcPathEnd: ssl/key.pem
-  - DstPathEnd: bin/vault_ctl
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/bin/vault_ctl
-    SrcPathEnd: bin/vault_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor157244754/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor157244754/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "vault",
+    "Packages": [
+      {
+        "Name": "vault"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "us-east-1",
+        "Description": "AWS region",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.s3.region"
+      },
+      {
+        "Default": null,
+        "Description": "Address for StatsD",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.statsd_addr"
+      },
+      {
+        "Default": "vault/",
+        "Description": "Path for Consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.consul.path"
+      },
+      {
+        "Default": null,
+        "Description": "Scheme for Consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.consul.scheme"
+      },
+      {
+        "Default": false,
+        "Description": "Use In Memory backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.use_inmem"
+      },
+      {
+        "Default": false,
+        "Description": "Use S3 backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.use_s3"
+      },
+      {
+        "Default": null,
+        "Description": "S3 bucket name",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.s3.bucket"
+      },
+      {
+        "Default": "localhost:2181",
+        "Description": "Address for Zookeeper",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.zookeeper.address"
+      },
+      {
+        "Default": false,
+        "Description": "Use File backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.use_file"
+      },
+      {
+        "Default": 8200,
+        "Description": "Port for TCP connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.listener.tcp.port"
+      },
+      {
+        "Default": null,
+        "Description": "Contents of the PEM-encoded TLS server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.listener.tcp.tls.certificate"
+      },
+      {
+        "Default": false,
+        "Description": "Disable mlock if you're crazy",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.disable_mlock"
+      },
+      {
+        "Default": false,
+        "Description": "Use Cosul for data store",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.use_consul"
+      },
+      {
+        "Default": null,
+        "Description": "Datacenter for Consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.consul.datacenter"
+      },
+      {
+        "Default": false,
+        "Description": "Use Zookeeper as data store",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.use_zookeeper"
+      },
+      {
+        "Default": null,
+        "Description": "Address for Consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.consul.address"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret key",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.s3.secret_key"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access key",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.s3.access_key"
+      },
+      {
+        "Default": null,
+        "Description": "AWS S3 endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.s3.endpoint"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "Address for TCP connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.listener.tcp.address"
+      },
+      {
+        "Default": null,
+        "Description": "Contents of the PEM-encoded TLS server private key",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.listener.tcp.tls.key"
+      },
+      {
+        "Default": null,
+        "Description": "Address for statsite",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.statsite_addr"
+      },
+      {
+        "Default": null,
+        "Description": "Access Token for Consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.consul.token"
+      },
+      {
+        "Default": "vault/",
+        "Description": "Path for Zookeeper",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.zookeeper.path"
+      },
+      {
+        "Default": "/var/vcap/store/",
+        "Description": "Path for File backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.file.path"
+      },
+      {
+        "Default": null,
+        "Description": "AWS session token",
+        "Example": null,
+        "Examples": null,
+        "Name": "vault.backend.s3.session_token"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/server.hcl",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/config/vault.conf.erb",
+        "SrcPathEnd": "config/vault.conf.erb"
+      },
+      {
+        "DstPathEnd": "ssl/certificate.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/ssl/certificate.pem",
+        "SrcPathEnd": "ssl/certificate.pem"
+      },
+      {
+        "DstPathEnd": "ssl/key.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/ssl/key.pem",
+        "SrcPathEnd": "ssl/key.pem"
+      },
+      {
+        "DstPathEnd": "bin/vault_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/bin/vault_ctl",
+        "SrcPathEnd": "bin/vault_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor157244754/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      }
+    ]
+  }
+]

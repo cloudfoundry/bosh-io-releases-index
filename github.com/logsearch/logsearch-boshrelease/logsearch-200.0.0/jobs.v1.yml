@@ -1,1116 +1,1669 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor566020048/monit
-    SrcPathEnd: monit
-  Name: api
-  Packages:
-  - Name: nginx
-  Properties:
-  - Default: 127.0.0.1:5601
-    Description: IP address and port of kibana host proxy kibana requests for (eg,
-      127.0.0.1:5601).
-    Example: null
-    Examples: null
-    Name: api.kibana.host
-  - Default: 127.0.0.1:9200
-    Description: IP address and port of elasticsearch host to proxy requests for (eg,
-      127.0.0.1:9200)
-    Example: null
-    Examples: null
-    Name: api.elasticsearch_host
-  - Default: 80
-    Description: The port the api should listen on (eg, 80)
-    Example: null
-    Examples: null
-    Name: api.port
-  - Default: 80
-    Description: The port the kibana proxy should listen on (can be the same as api.port
-      if api.kibana.host_header is set)
-    Example: null
-    Examples: null
-    Name: api.kibana.port
-  - Default: kibana
-    Description: The host header used for the kibana virtual host
-    Example: null
-    Examples: null
-    Name: api.kibana.host_header
-  Templates:
-  - DstPathEnd: logsearch/metric-collector/lag/collector
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/logsearch/metric-collector/lag/collector
-    SrcPathEnd: logsearch/metric-collector/lag/collector
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: logsearch/logs.yml
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/logsearch/logs.yml
-    SrcPathEnd: logsearch/logs.yml
-  - DstPathEnd: bin/nginx_ctl
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/bin/nginx_ctl
-    SrcPathEnd: bin/nginx_ctl
-  - DstPathEnd: config/nginx.conf
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/config/nginx.conf.erb
-    SrcPathEnd: config/nginx.conf.erb
-  - DstPathEnd: config/mime.types
-    Path: /mnt/tmp/tar-CmdExtractor566020048/templates/config/mime.types
-    SrcPathEnd: config/mime.types
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor393114498/monit
-    SrcPathEnd: monit
-  Name: archiver
-  Packages:
-  - Name: logstash
-  - Name: java8
-  Properties:
-  - Default: ""
-    Description: S3 Access Key ID
-    Example: null
-    Examples: null
-    Name: archiver.s3.access_key_id
-  - Default: 22
-    Description: Port of the remote host
-    Example: null
-    Examples: null
-    Name: archiver.scp.port
-  - Default: s3
-    Description: Select the method for archiving
-    Example: null
-    Examples: null
-    Name: archiver.method
-  - Default: s3.amazonaws.com
-    Description: S3 Endpoint
-    Example: null
-    Examples: null
-    Name: archiver.s3.endpoint
-  - Default: ""
-    Description: S3 Secret Access Key
-    Example: null
-    Examples: null
-    Name: archiver.s3.secret_access_key
-  - Default: ""
-    Description: Destination directory for the tranferred log files
-    Example: null
-    Examples: null
-    Name: archiver.scp.destination
-  - Default: auto
-    Description: 'The number of worker threads that logstash should use (default:
-      auto = one per CPU)'
-    Example: null
-    Examples: null
-    Name: archiver.workers
-  - Default: ""
-    Description: S3 Prefix
-    Example: null
-    Examples: null
-    Name: archiver.s3.prefix
-  - Default: ""
-    Description: Host to transfer the log files to
-    Example: null
-    Examples: null
-    Name: archiver.scp.host
-  - Default: ""
-    Description: Private ssh key in PEM format (file contents, not a path)
-    Example: null
-    Examples: null
-    Name: archiver.scp.ssh_key
-  - Default: /var/vcap/store/archiver
-    Description: Directory for dumping log files
-    Example: null
-    Examples: null
-    Name: archiver.data_dir
-  - Default: null
-    Description: Redis host of queue
-    Example: null
-    Examples: null
-    Name: redis.host
-  - Default: 6379
-    Description: Redis port of queue
-    Example: null
-    Examples: null
-    Name: redis.port
-  - Default: logstash
-    Description: Name of queue to pull messages from
-    Example: null
-    Examples: null
-    Name: redis.key
-  - Default: ""
-    Description: S3 Bucket
-    Example: null
-    Examples: null
-    Name: archiver.s3.bucket
-  - Default: root
-    Description: If your remote username differs from the default root one
-    Example: null
-    Examples: null
-    Name: archiver.scp.username
-  - Default: '*/30 * * * *'
-    Description: Schedule for pausing the archiver to upload log files
-    Example: null
-    Examples: null
-    Name: archiver.cron_schedule
-  Templates:
-  - DstPathEnd: bin/logstash.process
-    Path: /mnt/tmp/tar-CmdExtractor393114498/templates/bin/logstash.process.erb
-    SrcPathEnd: bin/logstash.process.erb
-  - DstPathEnd: bin/s3upload.cron
-    Path: /mnt/tmp/tar-CmdExtractor393114498/templates/bin/s3upload.cron.erb
-    SrcPathEnd: bin/s3upload.cron.erb
-  - DstPathEnd: bin/scpupload.cron
-    Path: /mnt/tmp/tar-CmdExtractor393114498/templates/bin/scpupload.cron.erb
-    SrcPathEnd: bin/scpupload.cron.erb
-  - DstPathEnd: config/logstash.conf
-    Path: /mnt/tmp/tar-CmdExtractor393114498/templates/config/logstash.conf.erb
-    SrcPathEnd: config/logstash.conf.erb
-  - DstPathEnd: logsearch/metric-collector/files/collector
-    Path: /mnt/tmp/tar-CmdExtractor393114498/templates/logsearch/metric-collector/files/collector
-    SrcPathEnd: logsearch/metric-collector/files/collector
-  - DstPathEnd: config/scpupload.pem
-    Path: /mnt/tmp/tar-CmdExtractor393114498/templates/config/scpupload.pem.erb
-    SrcPathEnd: config/scpupload.pem.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor766693892/monit
-    SrcPathEnd: monit
-  Name: curator
-  Packages:
-  - Name: curator
-  - Name: python3
-  Properties:
-  - Default: 127.0.0.1
-    Description: IP address of elasticsearch host to proxy requests for (eg, 127.0.0.1)
-    Example: null
-    Examples: null
-    Name: curator.elasticsearch_host
-  - Default: 9200
-    Description: Port address of elasticsearch host to proxy requests for (eg, 9200)
-    Example: null
-    Examples: null
-    Name: curator.elasticsearch_port
-  - Default: 30
-    Description: Days that logs will be retained
-    Example: null
-    Examples: null
-    Name: curator.purge_logs.retention_period
-  Templates:
-  - DstPathEnd: config/purge_logs.cron
-    Path: /mnt/tmp/tar-CmdExtractor766693892/templates/config/purge_logs.cron
-    SrcPathEnd: config/purge_logs.cron
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor766693892/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor766693892/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor766693892/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor766693892/templates/bin/run
-    SrcPathEnd: bin/run
-  - DstPathEnd: bin/curator_ctl
-    Path: /mnt/tmp/tar-CmdExtractor766693892/templates/bin/curator_ctl
-    SrcPathEnd: bin/curator_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor148289494/monit
-    SrcPathEnd: monit
-  Name: elasticsearch
-  Packages:
-  - Name: elasticsearch
-  - Name: elasticsearch-plugins-kopf
-  - Name: java8
-  Properties:
-  - Default: null
-    Description: A hash of additional tags for the node
-    Example: null
-    Examples: null
-    Name: elasticsearch.node.tags
-  - Default: 1
-    Description: The minimum number of master eligible nodes a node should "see" in
-      order to operate within the cluster. Recommended to set it to a higher value
-      than 1 when running more than 2 nodes in the cluster.
-    Example: null
-    Examples: null
-    Name: elasticsearch.discovery.minimum_master_nodes
-  - Default: []
-    Description: 'Plugins to run elasticsearch with (array[] = { plugin-name: install-source
-      }; e.g. [ { kopf: ''lmenezes/elasticsearch-kopf'' } ])'
-    Example: null
-    Examples: null
-    Name: elasticsearch.plugins
-  - Default: INFO
-    Description: The default logging level (e.g. WARN, DEBUG, INFO)
-    Example: null
-    Examples: null
-    Name: elasticsearch.log_level
-  - Default: null
-    Description: A hash of additional environment variables for the process
-    Example: null
-    Examples: null
-    Name: elasticsearch.exec.environment
-  - Default: 30d
-    Description: 'Default ttl for new documents. Time units: d (days), m (minutes),
-      h (hours), ms (milliseconds) or w (weeks)'
-    Example: null
-    Examples: null
-    Name: elasticsearch.indices.ttl_default
-  - Default: null
-    Description: Additional options to append to elasticsearch's config.yml (YAML
-      format).
-    Example: null
-    Examples: null
-    Name: elasticsearch.config_options
-  - Default: null
-    Description: Additional options to append to elasticsearch's logging.yml (YAML
-      format).
-    Example: null
-    Examples: null
-    Name: elasticsearch.logging_options
-  - Default: true
-    Description: Allow node to become master? (true / false)
-    Example: null
-    Examples: null
-    Name: elasticsearch.node.allow_master
-  - Default: true
-    Description: Allow node to store data? (true / false)
-    Example: null
-    Examples: null
-    Name: elasticsearch.node.allow_data
-  - Default: []
-    Description: An array of additional options to pass when starting elasticsearch
-    Example: null
-    Examples: null
-    Name: elasticsearch.exec.options
-  - Default: false
-    Description: Whether to use the built-in drain features to improve deployment
-      reliability
-    Example: null
-    Examples: null
-    Name: elasticsearch.drain
-  - Default: null
-    Description: The list of elasticsearch master node IPs
-    Example: null
-    Examples: null
-    Name: elasticsearch.master_hosts
-  - Default: null
-    Description: The name of the elastic search cluster
-    Example: null
-    Examples: null
-    Name: elasticsearch.cluster_name
-  Templates:
-  - DstPathEnd: bin/undrain
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/bin/undrain.erb
-    SrcPathEnd: bin/undrain.erb
-  - DstPathEnd: bin/elasticsearch_ctl
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/bin/elasticsearch_ctl
-    SrcPathEnd: bin/elasticsearch_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/bin/drain.erb
-    SrcPathEnd: bin/drain.erb
-  - DstPathEnd: config/elasticsearch.yml
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/config/config.yml.erb
-    SrcPathEnd: config/config.yml.erb
-  - DstPathEnd: config/logging.yml
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/config/logging.yml.erb
-    SrcPathEnd: config/logging.yml.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: logsearch/metric-collector/elasticsearch/collector
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/logsearch/metric-collector/elasticsearch/collector
-    SrcPathEnd: logsearch/metric-collector/elasticsearch/collector
-  - DstPathEnd: logsearch/logs.yml
-    Path: /mnt/tmp/tar-CmdExtractor148289494/templates/logsearch/logs.yml
-    SrcPathEnd: logsearch/logs.yml
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor192881016/monit
-    SrcPathEnd: monit
-  Name: elasticsearch_config
-  Packages:
-  - Name: elasticsearch
-  - Name: java8
-  - Name: logsearch-config
-  Properties:
-  - Default: null
-    Description: The elasticsearch master node hostname
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.elasticsearch.host
-  - Default: 9200
-    Description: the elasticsearch master node port
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.elasticsearch.port
-  - Default: []
-    Description: An array with key-value hashes; keys being template name, value being
-      template content
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.templates
-  - Default: []
-    Description: An array with key-value hashes; keys being doc path, value being
-      doc source
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.docs
-  - Default: []
-    Description: An array of file paths whose content will be uploaded as bulk data
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.bulk_data_files
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor192881016/templates/bin/run.erb
-    SrcPathEnd: bin/run.erb
-  - DstPathEnd: bin/job.process
-    Path: /mnt/tmp/tar-CmdExtractor192881016/templates/bin/job.process
-    SrcPathEnd: bin/job.process
-- Description: The HAProxy.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor827247978/monit
-    SrcPathEnd: monit
-  Name: haproxy
-  Packages:
-  - Name: haproxy
-  Properties:
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: haproxy.log_level
-  - Default: 5
-    Description: Timeout waiting for connections to establish to a server (in seconds)
-    Example: null
-    Examples: null
-    Name: haproxy.connect_timeout
-  - Default: 30
-    Description: Timeout waiting for data from a server (in seconds)
-    Example: null
-    Examples: null
-    Name: haproxy.server_timeout
-  - Default: 30
-    Description: Timeout for requests queued waiting for free connection slots (in
-      seconds)
-    Example: null
-    Examples: null
-    Name: haproxy.queue_timeout
-  - Default: 5514
-    Description: The port number the ingestors are listening on
-    Example: null
-    Examples: null
-    Name: haproxy.backend_port
-  - Default: 127.0.0.1
-    Description: An IPv4 address optionally followed by a colon and a UDP port. It
-      can also be an IPv6 address or filesystem path to a UNIX domain socket.
-    Example: null
-    Examples: null
-    Name: haproxy.syslog_server
-  - Default: null
-    Description: SSL certificate (PEM file).  Omit if you don't want to use SSL
-    Example: null
-    Examples: null
-    Name: haproxy.ssl_pem
-  - Default: 30
-    Description: Timeout waiting for data from a client (in seconds)
-    Example: null
-    Examples: null
-    Name: haproxy.client_timeout
-  - Default: 5514
-    Description: The port the proxy server is listening on
-    Example: null
-    Examples: null
-    Name: haproxy.inbound_port
-  - Default: []
-    Description: Array of the ingestor IPs
-    Example: null
-    Examples: null
-    Name: haproxy.backend_servers
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/monit_debugger
-    SrcPathEnd: monit_debugger
-  - DstPathEnd: config/cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/cert.pem.erb
-    SrcPathEnd: cert.pem.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/properties.sh.erb
-    SrcPathEnd: properties.sh.erb
-  - DstPathEnd: config/haproxy.config
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/haproxy.config.erb
-    SrcPathEnd: haproxy.config.erb
-  - DstPathEnd: bin/haproxy_ctl
-    Path: /mnt/tmp/tar-CmdExtractor827247978/templates/haproxy_ctl
-    SrcPathEnd: haproxy_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor008087596/monit
-    SrcPathEnd: monit
-  Name: ingestor_archiver
-  Packages:
-  - Name: logstash
-  - Name: java8
-  Properties:
-  - Default: ""
-    Description: Filters to execute on the ingestors
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.filters
-  - Default: false
-    Description: Debug level logging
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.debug
-  - Default: null
-    Description: Redis host of queue
-    Example: null
-    Examples: null
-    Name: redis.host
-  - Default: 6379
-    Description: Redis port of queue
-    Example: null
-    Examples: null
-    Name: redis.port
-  - Default: null
-    Description: Name of queue to pull messages from
-    Example: null
-    Examples: null
-    Name: redis.key
-  - Default: /var/vcap/data/archiver-restorer
-    Description: Path to store imported log files and state
-    Example: null
-    Examples: null
-    Name: ingestor_archiver.data_dir
-  - Default: NONE
-    Description: Whether to include additional metadata throughout the event lifecycle.
-      NONE = disabled, DEBUG = fully enabled
-    Example: null
-    Examples: null
-    Name: logstash.metadata_level
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: bin/reload
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/bin/reload
-    SrcPathEnd: bin/reload
-  - DstPathEnd: bin/wait-until-loaded
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/bin/wait-until-loaded.erb
-    SrcPathEnd: bin/wait-until-loaded.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/archiver_to_redis.conf
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/config/archiver_to_redis.conf.erb
-    SrcPathEnd: config/archiver_to_redis.conf.erb
-  - DstPathEnd: bin/ingestor_archiver_ctl
-    Path: /mnt/tmp/tar-CmdExtractor008087596/templates/bin/ingestor_archiver_ctl
-    SrcPathEnd: bin/ingestor_archiver_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor458906686/monit
-    SrcPathEnd: monit
-  Name: ingestor_relp
-  Packages:
-  - Name: logstash
-  - Name: java8
-  Properties:
-  - Default: ""
-    Description: Filters to execute on the ingestors
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.filters
-  - Default: false
-    Description: Debug level logging
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.debug
-  - Default: 2514
-    Description: Port to listen for RELP messages
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.relp.port
-  - Default: null
-    Description: Redis host of queue
-    Example: null
-    Examples: null
-    Name: redis.host
-  - Default: 6379
-    Description: Redis port of queue
-    Example: null
-    Examples: null
-    Name: redis.port
-  - Default: logstash
-    Description: Name of queue to pull messages from
-    Example: null
-    Examples: null
-    Name: redis.key
-  - Default: false
-    Description: ""
-    Example: null
-    Examples: null
-    Name: archiver.enabled
-  - Default: NONE
-    Description: Whether to include additional metadata throughout the event lifecycle.
-      NONE = disabled, DEBUG = fully enabled
-    Example: null
-    Examples: null
-    Name: logstash.metadata_level
-  Templates:
-  - DstPathEnd: bin/ingestor_relp_ctl
-    Path: /mnt/tmp/tar-CmdExtractor458906686/templates/bin/ingestor_relp_ctl
-    SrcPathEnd: bin/ingestor_relp_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor458906686/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor458906686/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor458906686/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor458906686/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/relp_to_redis.conf
-    Path: /mnt/tmp/tar-CmdExtractor458906686/templates/config/relp_to_redis.conf.erb
-    SrcPathEnd: config/relp_to_redis.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor094655008/monit
-    SrcPathEnd: monit
-  Name: ingestor_syslog
-  Packages:
-  - Name: logstash
-  - Name: java8
-  Properties:
-  - Default: NONE
-    Description: Whether to include additional metadata throughout the event lifecycle.
-      NONE = disabled, DEBUG = fully enabled
-    Example: null
-    Examples: null
-    Name: logstash.metadata_level
-  - Default: false
-    Description: Debug level logging
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.debug
-  - Default: null
-    Description: Syslog-TLS SSL certificate (file contents, not a path) - required
-      if logstash_ingestor.syslog_tls.port set
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.syslog_tls.ssl_cert
-  - Default: null
-    Description: Syslog-TLS SSL key (file contents, not a path) - required if logstash_ingestor.syslog_tls.port
-      set
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.syslog_tls.ssl_key
-  - Default: 6379
-    Description: Redis port of queue
-    Example: null
-    Examples: null
-    Name: redis.port
-  - Default: ""
-    Description: Filters to execute on the ingestors
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.filters
-  - Default: 5514
-    Description: Port to listen for syslog messages
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.syslog.port
-  - Default: null
-    Description: Port to listen for syslog-TLS messages (omit to disable)
-    Example: null
-    Examples: null
-    Name: logstash_ingestor.syslog_tls.port
-  - Default: null
-    Description: Redis host of queue
-    Example: null
-    Examples: null
-    Name: redis.host
-  - Default: logstash
-    Description: Name of queue to pull messages from
-    Example: null
-    Examples: null
-    Name: redis.key
-  - Default: false
-    Description: ""
-    Example: null
-    Examples: null
-    Name: archiver.enabled
-  Templates:
-  - DstPathEnd: bin/ingestor_syslog_ctl
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/bin/ingestor_syslog_ctl
-    SrcPathEnd: bin/ingestor_syslog_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/syslog_tls.crt
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/config/syslog_tls.crt.erb
-    SrcPathEnd: config/syslog_tls.crt.erb
-  - DstPathEnd: config/syslog_tls.key
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/config/syslog_tls.key.erb
-    SrcPathEnd: config/syslog_tls.key.erb
-  - DstPathEnd: config/syslog_to_redis.conf
-    Path: /mnt/tmp/tar-CmdExtractor094655008/templates/config/syslog_to_redis.conf.erb
-    SrcPathEnd: config/syslog_to_redis.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor654910546/monit
-    SrcPathEnd: monit
-  Name: kibana
-  Packages:
-  - Name: kibana
-  Properties:
-  - Default: 127.0.0.1:80
-    Description: IP address and port of api host to send elasticsearch requests to
-      (eg, 127.0.0.1:80)
-    Example: null
-    Examples: null
-    Name: kibana.elasticsearch
-  - Default: discover
-    Description: The default application to load.
-    Example: null
-    Examples: null
-    Name: kibana.default_app_id
-  - Default: .kibana
-    Description: Kibana uses an index in Elasticsearch to store saved searches, visualizations
-      and dashboards
-    Example: null
-    Examples: null
-    Name: kibana.kibana_index
-  - Default: 5601
-    Description: Kibana is served by a back end server. This controls which port to
-      use.
-    Example: null
-    Examples: null
-    Name: kibana.port
-  - Default: 300000
-    Description: Time in milliseconds to wait for responses from the back end or elasticsearch.  This
-      must be > 0
-    Example: null
-    Examples: null
-    Name: kibana.request_timeout
-  - Default: 30000
-    Description: Time in milliseconds for Elasticsearch to wait for responses from
-      shards. Set to 0 to disable
-    Example: null
-    Examples: null
-    Name: kibana.shard_timeout
-  Templates:
-  - DstPathEnd: bin/kibana_ctl
-    Path: /mnt/tmp/tar-CmdExtractor654910546/templates/bin/kibana_ctl
-    SrcPathEnd: bin/kibana_ctl
-  - DstPathEnd: config/kibana.conf
-    Path: /mnt/tmp/tar-CmdExtractor654910546/templates/config/kibana.conf.erb
-    SrcPathEnd: config/kibana.conf.erb
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor654910546/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor654910546/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor654910546/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor654910546/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor474847060/monit
-    SrcPathEnd: monit
-  Name: nats_to_syslog
-  Packages:
-  - Name: nats_to_syslog
-  Properties:
-  - Default: null
-    Description: The port of the syslog endpoint
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.syslog.port
-  - Default: nats
-    Description: Username for server authentication.
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.nats.user
-  - Default: null
-    Description: Password for server authentication.
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.nats.password
-  - Default: 4222
-    Description: The port of the NATS server to connect to.
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.nats.port
-  - Default: null
-    Description: IP of each NATS cluster member to connect to. Only the first one
-      is used.
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.nats.machines
-  - Default: '>'
-    Description: NATS subject to subscribe to
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.nats.subject
-  - Default: false
-    Description: Enable debug logging output.
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.debug
-  - Default: null
-    Description: The host of the syslog endpoint
-    Example: null
-    Examples: null
-    Name: nats_to_syslog.syslog.host
-  Templates:
-  - DstPathEnd: bin/nats_to_syslog_ctl
-    Path: /mnt/tmp/tar-CmdExtractor474847060/templates/bin/nats_to_syslog_ctl
-    SrcPathEnd: bin/nats_to_syslog_ctl
-  - DstPathEnd: helpers/utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor474847060/templates/helpers/utils.sh
-    SrcPathEnd: helpers/utils.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor238429606/monit
-    SrcPathEnd: monit
-  Name: parser
-  Packages:
-  - Name: logstash
-  - Name: logsearch-config
-  - Name: elasticsearch
-  - Name: java8
-  Properties:
-  - Default: null
-    Description: The configuration to embed into the logstash outputs section
-    Example: null
-    Examples: null
-    Name: logstash_parser.outputs
-  - Default: auto
-    Description: 'The number of worker threads that logstash should use (default:
-      auto = one per CPU)'
-    Example: null
-    Examples: null
-    Name: logstash_parser.workers
-  - Default: '%{@type}'
-    Description: The specific, dynamic index type name to write events to.
-    Example: null
-    Examples: null
-    Name: logstash_parser.elasticsearch_index_type
-  - Default: 1
-    Description: Logs with timestamps greater than this many hours in the future won't
-      be parsed and will get tagged with fail/timecop
-    Example: null
-    Examples: null
-    Name: logstash_parser.timecop.reject_greater_than_hours
-  - Default: false
-    Description: Debug level logging
-    Example: null
-    Examples: null
-    Name: logstash_parser.debug
-  - Default: ""
-    Description: The configuration to embed into the logstash filters section
-    Example: null
-    Examples: null
-    Name: logstash_parser.filters
-  - Default: null
-    Description: How frequently to flush events if the output queue is not full.
-    Example: null
-    Examples: null
-    Name: logstash_parser.idle_flush_time
-  - Default: []
-    Description: 'Plugins to run logstash with (array[] = { plugin-name: install-source
-      }; e.g. [ { logstash-filter-cityindex-acctlookup: ''https://s3.amazonaws.com/.../logstash-filter-cityindex-acctlookup-1.2.9.gem''
-      } ])'
-    Example: null
-    Examples: null
-    Name: logstash_parser.plugins
-  - Default: NONE
-    Description: Whether to include additional metadata throughout the event lifecycle.
-      NONE = disabled, DEBUG = fully enabled
-    Example: null
-    Examples: null
-    Name: logstash.metadata_level
-  - Default:
-    - options: {}
-      plugin: redis
-    Description: |
-      A list of input plugins, with a hash of options for each of them. Please refer to example below.
-    Example:
-      inputs:
-      - options:
-          host: 192.168.1.1
-          password: c1oudbunny
-          user: logsearch
-        plugin: rabbitmq
-    Examples: null
-    Name: logstash_parser.inputs
-  - Default: INFO
-    Description: The default logging level (e.g. WARN, DEBUG, INFO)
-    Example: null
-    Examples: null
-    Name: elasticsearch.log_level
-  - Default: null
-    Description: Redis host of queue
-    Example: null
-    Examples: null
-    Name: redis.host
-  - Default: logstash
-    Description: Name of queue to pull messages from
-    Example: null
-    Examples: null
-    Name: redis.key
-  - Default: 1048576
-    Description: 'Maximum log message length.  Anything larger is truncated (TODO:
-      move this to ingestor?)'
-    Example: null
-    Examples: null
-    Name: logstash_parser.message_max_size
-  - Default: null
-    Description: The name of the elastic search cluster
-    Example: null
-    Examples: null
-    Name: elasticsearch.cluster_name
-  - Default: 500
-    Description: Controls how many logs will be buffered and sent to Elasticsearch
-      for bulk indexing
-    Example: null
-    Examples: null
-    Name: elasticsearch.flush_size
-  - Default: 1
-    Description: The minimum number of master eligible nodes a node should "see" in
-      order to operate within the cluster. Recommended to set it to a higher value
-      than 1 when running more than 2 nodes in the cluster.
-    Example: null
-    Examples: null
-    Name: elasticsearch.discovery.minimum_master_nodes
-  - Default: 6379
-    Description: Redis port of queue
-    Example: null
-    Examples: null
-    Name: redis.port
-  - Default: null
-    Description: Use a specific, dynamic ID rather than an auto-generated identifier.
-    Example: null
-    Examples: null
-    Name: logstash_parser.elasticsearch_document_id
-  - Default: null
-    Description: The list of elasticsearch master node IPs
-    Example: null
-    Examples: null
-    Name: elasticsearch.master_hosts
-  - Default: null
-    Description: Additional options to append to elasticsearch's logging.yml (YAML
-      format).
-    Example: null
-    Examples: null
-    Name: elasticsearch.logging_options
-  - Default: null
-    Description: Additional options to append to elasticsearch's config.yml (YAML
-      format).
-    Example: null
-    Examples: null
-    Name: elasticsearch.config_options
-  - Default: logstash-%{+YYYY.MM.dd}
-    Description: The specific, dynamic index name to write events to.
-    Example: null
-    Examples: null
-    Name: logstash_parser.elasticsearch_index
-  - Default: 24
-    Description: Logs with timestamps less than this many hours in the past won't
-      be parsed and will get tagged with fail/timecop
-    Example: null
-    Examples: null
-    Name: logstash_parser.timecop.reject_less_than_hours
-  - Default: null
-    Description: A hash of additional tags for the node
-    Example: null
-    Examples: null
-    Name: elasticsearch.node.tags
-  - Default: true
-    Description: Run a local elasticsearch client node
-    Example: null
-    Examples: null
-    Name: logstash_parser.use_local_elasticsearch
-  - Default: null
-    Description: The list of elasticsearch data node IPs
-    Example: null
-    Examples: null
-    Name: elasticsearch.data_hosts
-  Templates:
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/elasticsearch/logging.yml
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/elasticsearch/logging.yml.erb
-    SrcPathEnd: config/elasticsearch/logging.yml.erb
-  - DstPathEnd: config/filters_post.conf
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/filters_post.conf.erb
-    SrcPathEnd: config/filters_post.conf.erb
-  - DstPathEnd: config/timecop.conf
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/timecop.conf
-    SrcPathEnd: config/timecop.conf
-  - DstPathEnd: config/filters_override.conf
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/filters_override.conf.erb
-    SrcPathEnd: config/filters_override.conf.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: logsearch/logs.yml
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/logsearch/logs.yml
-    SrcPathEnd: logsearch/logs.yml
-  - DstPathEnd: bin/elasticsearch_ctl
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/bin/elasticsearch_ctl
-    SrcPathEnd: bin/elasticsearch_ctl
-  - DstPathEnd: config/elasticsearch/elasticsearch.yml
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/elasticsearch/config.yml.erb
-    SrcPathEnd: config/elasticsearch/config.yml.erb
-  - DstPathEnd: config/filters_pre.conf
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/filters_pre.conf.erb
-    SrcPathEnd: config/filters_pre.conf.erb
-  - DstPathEnd: config/if_it_looks_like_json.conf
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/if_it_looks_like_json.conf
-    SrcPathEnd: config/if_it_looks_like_json.conf
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: config/input_and_output.conf
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/config/input_and_output.conf.erb
-    SrcPathEnd: config/input_and_output.conf.erb
-  - DstPathEnd: bin/parser_ctl
-    Path: /mnt/tmp/tar-CmdExtractor238429606/templates/bin/parser_ctl
-    SrcPathEnd: bin/parser_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor959690184/monit
-    SrcPathEnd: monit
-  Name: queue
-  Packages:
-  - Name: redis
-  Properties:
-  - Default: 6379
-    Description: Redis port of queue
-    Example: null
-    Examples: null
-    Name: redis.port
-  - Default: logstash
-    Description: Name of queue to pull messages from
-    Example: null
-    Examples: null
-    Name: redis.key
-  Templates:
-  - DstPathEnd: bin/redis_ctl
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/bin/redis_ctl
-    SrcPathEnd: bin/redis_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/redis.conf
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/config/redis.conf.erb
-    SrcPathEnd: config/redis.conf.erb
-  - DstPathEnd: logsearch/metric-collector/redis/collector
-    Path: /mnt/tmp/tar-CmdExtractor959690184/templates/logsearch/metric-collector/redis/collector
-    SrcPathEnd: logsearch/metric-collector/redis/collector
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor638368314/monit
-    SrcPathEnd: monit
-  Name: test_e2e_errand
-  Packages:
-  - Name: java8
-  - Name: logstash
-  - Name: test-data
-  Properties:
-  - Default: null
-    Description: Syslog host for pushing test messages into
-    Example: null
-    Examples: null
-    Name: test_e2e_errand.syslog_host
-  - Default: null
-    Description: Syslog port for pushing test messages into
-    Example: null
-    Examples: null
-    Name: test_e2e_errand.syslog_port
-  - Default: null
-    Description: Direct access to an elasticsearch instance for executing requests
-    Example: null
-    Examples: null
-    Name: test_e2e_errand.elasticsearch_hostport
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor638368314/templates/bin/run.erb
-    SrcPathEnd: bin/run.erb
-  - DstPathEnd: config/repo-commits.conf
-    Path: /mnt/tmp/tar-CmdExtractor638368314/templates/config/repo-commits.conf.erb
-    SrcPathEnd: config/repo-commits.conf.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor566020048/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "api",
+    "Packages": [
+      {
+        "Name": "nginx"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1:5601",
+        "Description": "IP address and port of kibana host proxy kibana requests for (eg, 127.0.0.1:5601).",
+        "Example": null,
+        "Examples": null,
+        "Name": "api.kibana.host"
+      },
+      {
+        "Default": "127.0.0.1:9200",
+        "Description": "IP address and port of elasticsearch host to proxy requests for (eg, 127.0.0.1:9200)",
+        "Example": null,
+        "Examples": null,
+        "Name": "api.elasticsearch_host"
+      },
+      {
+        "Default": 80,
+        "Description": "The port the api should listen on (eg, 80)",
+        "Example": null,
+        "Examples": null,
+        "Name": "api.port"
+      },
+      {
+        "Default": 80,
+        "Description": "The port the kibana proxy should listen on (can be the same as api.port if api.kibana.host_header is set)",
+        "Example": null,
+        "Examples": null,
+        "Name": "api.kibana.port"
+      },
+      {
+        "Default": "kibana",
+        "Description": "The host header used for the kibana virtual host",
+        "Example": null,
+        "Examples": null,
+        "Name": "api.kibana.host_header"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "logsearch/metric-collector/lag/collector",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/logsearch/metric-collector/lag/collector",
+        "SrcPathEnd": "logsearch/metric-collector/lag/collector"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "logsearch/logs.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/logsearch/logs.yml",
+        "SrcPathEnd": "logsearch/logs.yml"
+      },
+      {
+        "DstPathEnd": "bin/nginx_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/bin/nginx_ctl",
+        "SrcPathEnd": "bin/nginx_ctl"
+      },
+      {
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/config/nginx.conf.erb",
+        "SrcPathEnd": "config/nginx.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/mime.types",
+        "Path": "/mnt/tmp/tar-CmdExtractor566020048/templates/config/mime.types",
+        "SrcPathEnd": "config/mime.types"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor393114498/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "archiver",
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "java8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "S3 Access Key ID",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.s3.access_key_id"
+      },
+      {
+        "Default": 22,
+        "Description": "Port of the remote host",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.scp.port"
+      },
+      {
+        "Default": "s3",
+        "Description": "Select the method for archiving",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.method"
+      },
+      {
+        "Default": "s3.amazonaws.com",
+        "Description": "S3 Endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.s3.endpoint"
+      },
+      {
+        "Default": "",
+        "Description": "S3 Secret Access Key",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.s3.secret_access_key"
+      },
+      {
+        "Default": "",
+        "Description": "Destination directory for the tranferred log files",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.scp.destination"
+      },
+      {
+        "Default": "auto",
+        "Description": "The number of worker threads that logstash should use (default: auto = one per CPU)",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.workers"
+      },
+      {
+        "Default": "",
+        "Description": "S3 Prefix",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.s3.prefix"
+      },
+      {
+        "Default": "",
+        "Description": "Host to transfer the log files to",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.scp.host"
+      },
+      {
+        "Default": "",
+        "Description": "Private ssh key in PEM format (file contents, not a path)",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.scp.ssh_key"
+      },
+      {
+        "Default": "/var/vcap/store/archiver",
+        "Description": "Directory for dumping log files",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.data_dir"
+      },
+      {
+        "Default": null,
+        "Description": "Redis host of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.host"
+      },
+      {
+        "Default": 6379,
+        "Description": "Redis port of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      },
+      {
+        "Default": "logstash",
+        "Description": "Name of queue to pull messages from",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.key"
+      },
+      {
+        "Default": "",
+        "Description": "S3 Bucket",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.s3.bucket"
+      },
+      {
+        "Default": "root",
+        "Description": "If your remote username differs from the default root one",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.scp.username"
+      },
+      {
+        "Default": "*/30 * * * *",
+        "Description": "Schedule for pausing the archiver to upload log files",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.cron_schedule"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/logstash.process",
+        "Path": "/mnt/tmp/tar-CmdExtractor393114498/templates/bin/logstash.process.erb",
+        "SrcPathEnd": "bin/logstash.process.erb"
+      },
+      {
+        "DstPathEnd": "bin/s3upload.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor393114498/templates/bin/s3upload.cron.erb",
+        "SrcPathEnd": "bin/s3upload.cron.erb"
+      },
+      {
+        "DstPathEnd": "bin/scpupload.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor393114498/templates/bin/scpupload.cron.erb",
+        "SrcPathEnd": "bin/scpupload.cron.erb"
+      },
+      {
+        "DstPathEnd": "config/logstash.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor393114498/templates/config/logstash.conf.erb",
+        "SrcPathEnd": "config/logstash.conf.erb"
+      },
+      {
+        "DstPathEnd": "logsearch/metric-collector/files/collector",
+        "Path": "/mnt/tmp/tar-CmdExtractor393114498/templates/logsearch/metric-collector/files/collector",
+        "SrcPathEnd": "logsearch/metric-collector/files/collector"
+      },
+      {
+        "DstPathEnd": "config/scpupload.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor393114498/templates/config/scpupload.pem.erb",
+        "SrcPathEnd": "config/scpupload.pem.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor766693892/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "curator",
+    "Packages": [
+      {
+        "Name": "curator"
+      },
+      {
+        "Name": "python3"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address of elasticsearch host to proxy requests for (eg, 127.0.0.1)",
+        "Example": null,
+        "Examples": null,
+        "Name": "curator.elasticsearch_host"
+      },
+      {
+        "Default": 9200,
+        "Description": "Port address of elasticsearch host to proxy requests for (eg, 9200)",
+        "Example": null,
+        "Examples": null,
+        "Name": "curator.elasticsearch_port"
+      },
+      {
+        "Default": 30,
+        "Description": "Days that logs will be retained",
+        "Example": null,
+        "Examples": null,
+        "Name": "curator.purge_logs.retention_period"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/purge_logs.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor766693892/templates/config/purge_logs.cron",
+        "SrcPathEnd": "config/purge_logs.cron"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor766693892/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor766693892/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor766693892/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor766693892/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      },
+      {
+        "DstPathEnd": "bin/curator_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor766693892/templates/bin/curator_ctl",
+        "SrcPathEnd": "bin/curator_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor148289494/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "elasticsearch",
+    "Packages": [
+      {
+        "Name": "elasticsearch"
+      },
+      {
+        "Name": "elasticsearch-plugins-kopf"
+      },
+      {
+        "Name": "java8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "A hash of additional tags for the node",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.node.tags"
+      },
+      {
+        "Default": 1,
+        "Description": "The minimum number of master eligible nodes a node should \"see\" in order to operate within the cluster. Recommended to set it to a higher value than 1 when running more than 2 nodes in the cluster.",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.discovery.minimum_master_nodes"
+      },
+      {
+        "Default": [],
+        "Description": "Plugins to run elasticsearch with (array[] = { plugin-name: install-source }; e.g. [ { kopf: 'lmenezes/elasticsearch-kopf' } ])",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.plugins"
+      },
+      {
+        "Default": "INFO",
+        "Description": "The default logging level (e.g. WARN, DEBUG, INFO)",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "A hash of additional environment variables for the process",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.exec.environment"
+      },
+      {
+        "Default": "30d",
+        "Description": "Default ttl for new documents. Time units: d (days), m (minutes), h (hours), ms (milliseconds) or w (weeks)",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.indices.ttl_default"
+      },
+      {
+        "Default": null,
+        "Description": "Additional options to append to elasticsearch's config.yml (YAML format).",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.config_options"
+      },
+      {
+        "Default": null,
+        "Description": "Additional options to append to elasticsearch's logging.yml (YAML format).",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.logging_options"
+      },
+      {
+        "Default": true,
+        "Description": "Allow node to become master? (true / false)",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.node.allow_master"
+      },
+      {
+        "Default": true,
+        "Description": "Allow node to store data? (true / false)",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.node.allow_data"
+      },
+      {
+        "Default": [],
+        "Description": "An array of additional options to pass when starting elasticsearch",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.exec.options"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to use the built-in drain features to improve deployment reliability",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.drain"
+      },
+      {
+        "Default": null,
+        "Description": "The list of elasticsearch master node IPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.master_hosts"
+      },
+      {
+        "Default": null,
+        "Description": "The name of the elastic search cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.cluster_name"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/undrain",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/bin/undrain.erb",
+        "SrcPathEnd": "bin/undrain.erb"
+      },
+      {
+        "DstPathEnd": "bin/elasticsearch_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/bin/elasticsearch_ctl",
+        "SrcPathEnd": "bin/elasticsearch_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/bin/drain.erb",
+        "SrcPathEnd": "bin/drain.erb"
+      },
+      {
+        "DstPathEnd": "config/elasticsearch.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/config/config.yml.erb",
+        "SrcPathEnd": "config/config.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/logging.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/config/logging.yml.erb",
+        "SrcPathEnd": "config/logging.yml.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "logsearch/metric-collector/elasticsearch/collector",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/logsearch/metric-collector/elasticsearch/collector",
+        "SrcPathEnd": "logsearch/metric-collector/elasticsearch/collector"
+      },
+      {
+        "DstPathEnd": "logsearch/logs.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor148289494/templates/logsearch/logs.yml",
+        "SrcPathEnd": "logsearch/logs.yml"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor192881016/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "elasticsearch_config",
+    "Packages": [
+      {
+        "Name": "elasticsearch"
+      },
+      {
+        "Name": "java8"
+      },
+      {
+        "Name": "logsearch-config"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "The elasticsearch master node hostname",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.elasticsearch.host"
+      },
+      {
+        "Default": 9200,
+        "Description": "the elasticsearch master node port",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.elasticsearch.port"
+      },
+      {
+        "Default": [],
+        "Description": "An array with key-value hashes; keys being template name, value being template content",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.templates"
+      },
+      {
+        "Default": [],
+        "Description": "An array with key-value hashes; keys being doc path, value being doc source",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.docs"
+      },
+      {
+        "Default": [],
+        "Description": "An array of file paths whose content will be uploaded as bulk data",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.bulk_data_files"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor192881016/templates/bin/run.erb",
+        "SrcPathEnd": "bin/run.erb"
+      },
+      {
+        "DstPathEnd": "bin/job.process",
+        "Path": "/mnt/tmp/tar-CmdExtractor192881016/templates/bin/job.process",
+        "SrcPathEnd": "bin/job.process"
+      }
+    ]
+  },
+  {
+    "Description": "The HAProxy.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor827247978/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "haproxy",
+    "Packages": [
+      {
+        "Name": "haproxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.log_level"
+      },
+      {
+        "Default": 5,
+        "Description": "Timeout waiting for connections to establish to a server (in seconds)",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.connect_timeout"
+      },
+      {
+        "Default": 30,
+        "Description": "Timeout waiting for data from a server (in seconds)",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.server_timeout"
+      },
+      {
+        "Default": 30,
+        "Description": "Timeout for requests queued waiting for free connection slots (in seconds)",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.queue_timeout"
+      },
+      {
+        "Default": 5514,
+        "Description": "The port number the ingestors are listening on",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.backend_port"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "An IPv4 address optionally followed by a colon and a UDP port. It can also be an IPv6 address or filesystem path to a UNIX domain socket.",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.syslog_server"
+      },
+      {
+        "Default": null,
+        "Description": "SSL certificate (PEM file).  Omit if you don't want to use SSL",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.ssl_pem"
+      },
+      {
+        "Default": 30,
+        "Description": "Timeout waiting for data from a client (in seconds)",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.client_timeout"
+      },
+      {
+        "Default": 5514,
+        "Description": "The port the proxy server is listening on",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.inbound_port"
+      },
+      {
+        "Default": [],
+        "Description": "Array of the ingestor IPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.backend_servers"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/monit_debugger",
+        "SrcPathEnd": "monit_debugger"
+      },
+      {
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/cert.pem.erb",
+        "SrcPathEnd": "cert.pem.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/properties.sh.erb",
+        "SrcPathEnd": "properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/haproxy.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/haproxy.config.erb",
+        "SrcPathEnd": "haproxy.config.erb"
+      },
+      {
+        "DstPathEnd": "bin/haproxy_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor827247978/templates/haproxy_ctl",
+        "SrcPathEnd": "haproxy_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor008087596/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ingestor_archiver",
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "java8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Filters to execute on the ingestors",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.filters"
+      },
+      {
+        "Default": false,
+        "Description": "Debug level logging",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.debug"
+      },
+      {
+        "Default": null,
+        "Description": "Redis host of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.host"
+      },
+      {
+        "Default": 6379,
+        "Description": "Redis port of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      },
+      {
+        "Default": null,
+        "Description": "Name of queue to pull messages from",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.key"
+      },
+      {
+        "Default": "/var/vcap/data/archiver-restorer",
+        "Description": "Path to store imported log files and state",
+        "Example": null,
+        "Examples": null,
+        "Name": "ingestor_archiver.data_dir"
+      },
+      {
+        "Default": "NONE",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash.metadata_level"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "bin/reload",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/bin/reload",
+        "SrcPathEnd": "bin/reload"
+      },
+      {
+        "DstPathEnd": "bin/wait-until-loaded",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/bin/wait-until-loaded.erb",
+        "SrcPathEnd": "bin/wait-until-loaded.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/archiver_to_redis.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/config/archiver_to_redis.conf.erb",
+        "SrcPathEnd": "config/archiver_to_redis.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/ingestor_archiver_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor008087596/templates/bin/ingestor_archiver_ctl",
+        "SrcPathEnd": "bin/ingestor_archiver_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor458906686/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ingestor_relp",
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "java8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Filters to execute on the ingestors",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.filters"
+      },
+      {
+        "Default": false,
+        "Description": "Debug level logging",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.debug"
+      },
+      {
+        "Default": 2514,
+        "Description": "Port to listen for RELP messages",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.relp.port"
+      },
+      {
+        "Default": null,
+        "Description": "Redis host of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.host"
+      },
+      {
+        "Default": 6379,
+        "Description": "Redis port of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      },
+      {
+        "Default": "logstash",
+        "Description": "Name of queue to pull messages from",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.key"
+      },
+      {
+        "Default": false,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.enabled"
+      },
+      {
+        "Default": "NONE",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash.metadata_level"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/ingestor_relp_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor458906686/templates/bin/ingestor_relp_ctl",
+        "SrcPathEnd": "bin/ingestor_relp_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor458906686/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor458906686/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor458906686/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor458906686/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/relp_to_redis.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor458906686/templates/config/relp_to_redis.conf.erb",
+        "SrcPathEnd": "config/relp_to_redis.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor094655008/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ingestor_syslog",
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "java8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "NONE",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash.metadata_level"
+      },
+      {
+        "Default": false,
+        "Description": "Debug level logging",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.debug"
+      },
+      {
+        "Default": null,
+        "Description": "Syslog-TLS SSL certificate (file contents, not a path) - required if logstash_ingestor.syslog_tls.port set",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.syslog_tls.ssl_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Syslog-TLS SSL key (file contents, not a path) - required if logstash_ingestor.syslog_tls.port set",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.syslog_tls.ssl_key"
+      },
+      {
+        "Default": 6379,
+        "Description": "Redis port of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      },
+      {
+        "Default": "",
+        "Description": "Filters to execute on the ingestors",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.filters"
+      },
+      {
+        "Default": 5514,
+        "Description": "Port to listen for syslog messages",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.syslog.port"
+      },
+      {
+        "Default": null,
+        "Description": "Port to listen for syslog-TLS messages (omit to disable)",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_ingestor.syslog_tls.port"
+      },
+      {
+        "Default": null,
+        "Description": "Redis host of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.host"
+      },
+      {
+        "Default": "logstash",
+        "Description": "Name of queue to pull messages from",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.key"
+      },
+      {
+        "Default": false,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "archiver.enabled"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/ingestor_syslog_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/bin/ingestor_syslog_ctl",
+        "SrcPathEnd": "bin/ingestor_syslog_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/syslog_tls.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/config/syslog_tls.crt.erb",
+        "SrcPathEnd": "config/syslog_tls.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/syslog_tls.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/config/syslog_tls.key.erb",
+        "SrcPathEnd": "config/syslog_tls.key.erb"
+      },
+      {
+        "DstPathEnd": "config/syslog_to_redis.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor094655008/templates/config/syslog_to_redis.conf.erb",
+        "SrcPathEnd": "config/syslog_to_redis.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor654910546/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "kibana",
+    "Packages": [
+      {
+        "Name": "kibana"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1:80",
+        "Description": "IP address and port of api host to send elasticsearch requests to (eg, 127.0.0.1:80)",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana.elasticsearch"
+      },
+      {
+        "Default": "discover",
+        "Description": "The default application to load.",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana.default_app_id"
+      },
+      {
+        "Default": ".kibana",
+        "Description": "Kibana uses an index in Elasticsearch to store saved searches, visualizations and dashboards",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana.kibana_index"
+      },
+      {
+        "Default": 5601,
+        "Description": "Kibana is served by a back end server. This controls which port to use.",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana.port"
+      },
+      {
+        "Default": 300000,
+        "Description": "Time in milliseconds to wait for responses from the back end or elasticsearch.  This must be \u003e 0",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana.request_timeout"
+      },
+      {
+        "Default": 30000,
+        "Description": "Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana.shard_timeout"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/kibana_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor654910546/templates/bin/kibana_ctl",
+        "SrcPathEnd": "bin/kibana_ctl"
+      },
+      {
+        "DstPathEnd": "config/kibana.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor654910546/templates/config/kibana.conf.erb",
+        "SrcPathEnd": "config/kibana.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor654910546/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor654910546/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor654910546/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor654910546/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor474847060/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "nats_to_syslog",
+    "Packages": [
+      {
+        "Name": "nats_to_syslog"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "The port of the syslog endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.syslog.port"
+      },
+      {
+        "Default": "nats",
+        "Description": "Username for server authentication.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password for server authentication.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.nats.password"
+      },
+      {
+        "Default": 4222,
+        "Description": "The port of the NATS server to connect to.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "IP of each NATS cluster member to connect to. Only the first one is used.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.nats.machines"
+      },
+      {
+        "Default": "\u003e",
+        "Description": "NATS subject to subscribe to",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.nats.subject"
+      },
+      {
+        "Default": false,
+        "Description": "Enable debug logging output.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.debug"
+      },
+      {
+        "Default": null,
+        "Description": "The host of the syslog endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats_to_syslog.syslog.host"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/nats_to_syslog_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor474847060/templates/bin/nats_to_syslog_ctl",
+        "SrcPathEnd": "bin/nats_to_syslog_ctl"
+      },
+      {
+        "DstPathEnd": "helpers/utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor474847060/templates/helpers/utils.sh",
+        "SrcPathEnd": "helpers/utils.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor238429606/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "parser",
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "logsearch-config"
+      },
+      {
+        "Name": "elasticsearch"
+      },
+      {
+        "Name": "java8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "The configuration to embed into the logstash outputs section",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.outputs"
+      },
+      {
+        "Default": "auto",
+        "Description": "The number of worker threads that logstash should use (default: auto = one per CPU)",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.workers"
+      },
+      {
+        "Default": "%{@type}",
+        "Description": "The specific, dynamic index type name to write events to.",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.elasticsearch_index_type"
+      },
+      {
+        "Default": 1,
+        "Description": "Logs with timestamps greater than this many hours in the future won't be parsed and will get tagged with fail/timecop",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.timecop.reject_greater_than_hours"
+      },
+      {
+        "Default": false,
+        "Description": "Debug level logging",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.debug"
+      },
+      {
+        "Default": "",
+        "Description": "The configuration to embed into the logstash filters section",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.filters"
+      },
+      {
+        "Default": null,
+        "Description": "How frequently to flush events if the output queue is not full.",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.idle_flush_time"
+      },
+      {
+        "Default": [],
+        "Description": "Plugins to run logstash with (array[] = { plugin-name: install-source }; e.g. [ { logstash-filter-cityindex-acctlookup: 'https://s3.amazonaws.com/.../logstash-filter-cityindex-acctlookup-1.2.9.gem' } ])",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.plugins"
+      },
+      {
+        "Default": "NONE",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash.metadata_level"
+      },
+      {
+        "Default": [
+          {
+            "options": {},
+            "plugin": "redis"
+          }
+        ],
+        "Description": "A list of input plugins, with a hash of options for each of them. Please refer to example below.\n",
+        "Example": {
+          "inputs": [
+            {
+              "options": {
+                "host": "192.168.1.1",
+                "password": "c1oudbunny",
+                "user": "logsearch"
+              },
+              "plugin": "rabbitmq"
+            }
+          ]
+        },
+        "Examples": null,
+        "Name": "logstash_parser.inputs"
+      },
+      {
+        "Default": "INFO",
+        "Description": "The default logging level (e.g. WARN, DEBUG, INFO)",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "Redis host of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.host"
+      },
+      {
+        "Default": "logstash",
+        "Description": "Name of queue to pull messages from",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.key"
+      },
+      {
+        "Default": 1048576,
+        "Description": "Maximum log message length.  Anything larger is truncated (TODO: move this to ingestor?)",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.message_max_size"
+      },
+      {
+        "Default": null,
+        "Description": "The name of the elastic search cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.cluster_name"
+      },
+      {
+        "Default": 500,
+        "Description": "Controls how many logs will be buffered and sent to Elasticsearch for bulk indexing",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.flush_size"
+      },
+      {
+        "Default": 1,
+        "Description": "The minimum number of master eligible nodes a node should \"see\" in order to operate within the cluster. Recommended to set it to a higher value than 1 when running more than 2 nodes in the cluster.",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.discovery.minimum_master_nodes"
+      },
+      {
+        "Default": 6379,
+        "Description": "Redis port of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      },
+      {
+        "Default": null,
+        "Description": "Use a specific, dynamic ID rather than an auto-generated identifier.",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.elasticsearch_document_id"
+      },
+      {
+        "Default": null,
+        "Description": "The list of elasticsearch master node IPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.master_hosts"
+      },
+      {
+        "Default": null,
+        "Description": "Additional options to append to elasticsearch's logging.yml (YAML format).",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.logging_options"
+      },
+      {
+        "Default": null,
+        "Description": "Additional options to append to elasticsearch's config.yml (YAML format).",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.config_options"
+      },
+      {
+        "Default": "logstash-%{+YYYY.MM.dd}",
+        "Description": "The specific, dynamic index name to write events to.",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.elasticsearch_index"
+      },
+      {
+        "Default": 24,
+        "Description": "Logs with timestamps less than this many hours in the past won't be parsed and will get tagged with fail/timecop",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.timecop.reject_less_than_hours"
+      },
+      {
+        "Default": null,
+        "Description": "A hash of additional tags for the node",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.node.tags"
+      },
+      {
+        "Default": true,
+        "Description": "Run a local elasticsearch client node",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.use_local_elasticsearch"
+      },
+      {
+        "Default": null,
+        "Description": "The list of elasticsearch data node IPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.data_hosts"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/elasticsearch/logging.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/elasticsearch/logging.yml.erb",
+        "SrcPathEnd": "config/elasticsearch/logging.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/filters_post.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/filters_post.conf.erb",
+        "SrcPathEnd": "config/filters_post.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/timecop.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/timecop.conf",
+        "SrcPathEnd": "config/timecop.conf"
+      },
+      {
+        "DstPathEnd": "config/filters_override.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/filters_override.conf.erb",
+        "SrcPathEnd": "config/filters_override.conf.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "logsearch/logs.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/logsearch/logs.yml",
+        "SrcPathEnd": "logsearch/logs.yml"
+      },
+      {
+        "DstPathEnd": "bin/elasticsearch_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/bin/elasticsearch_ctl",
+        "SrcPathEnd": "bin/elasticsearch_ctl"
+      },
+      {
+        "DstPathEnd": "config/elasticsearch/elasticsearch.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/elasticsearch/config.yml.erb",
+        "SrcPathEnd": "config/elasticsearch/config.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/filters_pre.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/filters_pre.conf.erb",
+        "SrcPathEnd": "config/filters_pre.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/if_it_looks_like_json.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/if_it_looks_like_json.conf",
+        "SrcPathEnd": "config/if_it_looks_like_json.conf"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "config/input_and_output.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/config/input_and_output.conf.erb",
+        "SrcPathEnd": "config/input_and_output.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/parser_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor238429606/templates/bin/parser_ctl",
+        "SrcPathEnd": "bin/parser_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor959690184/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "queue",
+    "Packages": [
+      {
+        "Name": "redis"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 6379,
+        "Description": "Redis port of queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.port"
+      },
+      {
+        "Default": "logstash",
+        "Description": "Name of queue to pull messages from",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/redis_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/bin/redis_ctl",
+        "SrcPathEnd": "bin/redis_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/redis.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/config/redis.conf.erb",
+        "SrcPathEnd": "config/redis.conf.erb"
+      },
+      {
+        "DstPathEnd": "logsearch/metric-collector/redis/collector",
+        "Path": "/mnt/tmp/tar-CmdExtractor959690184/templates/logsearch/metric-collector/redis/collector",
+        "SrcPathEnd": "logsearch/metric-collector/redis/collector"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor638368314/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "test_e2e_errand",
+    "Packages": [
+      {
+        "Name": "java8"
+      },
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "test-data"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Syslog host for pushing test messages into",
+        "Example": null,
+        "Examples": null,
+        "Name": "test_e2e_errand.syslog_host"
+      },
+      {
+        "Default": null,
+        "Description": "Syslog port for pushing test messages into",
+        "Example": null,
+        "Examples": null,
+        "Name": "test_e2e_errand.syslog_port"
+      },
+      {
+        "Default": null,
+        "Description": "Direct access to an elasticsearch instance for executing requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "test_e2e_errand.elasticsearch_hostport"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor638368314/templates/bin/run.erb",
+        "SrcPathEnd": "bin/run.erb"
+      },
+      {
+        "DstPathEnd": "config/repo-commits.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor638368314/templates/config/repo-commits.conf.erb",
+        "SrcPathEnd": "config/repo-commits.conf.erb"
+      }
+    ]
+  }
+]

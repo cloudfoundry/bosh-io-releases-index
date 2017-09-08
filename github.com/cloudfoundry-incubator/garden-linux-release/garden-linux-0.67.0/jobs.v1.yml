@@ -1,57 +1,94 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor493696198/monit
-    SrcPathEnd: monit
-  Name: garden
-  Packages:
-  - Name: garden-linux
-  - Name: iptables
-  - Name: shadow
-  - Name: busybox
-  Properties:
-  - Default: []
-    Description: List of CIDR blocks to which containers will be denied access.
-    Example: null
-    Name: garden.deny_networks
-  - Default: 0.0.0.0:17013
-    Description: tcp address on which to serve debug info
-    Example: null
-    Name: garden.debug_listen_address
-  - Default: /var/vcap/packages/busybox
-    Description: path to the rootfs to use when a container specifies no rootfs
-    Example: null
-    Name: garden.default_container_rootfs
-  - Default: 1500
-    Description: Maximum network transmission unit length in bytes.
-    Example: null
-    Name: garden.network_mtu
-  - Default: /var/vcap/data/garden/garden.sock
-    Description: Garden server listening address.
-    Example: null
-    Name: garden.listen_address
-  - Default: true
-    Description: Enforce disk quotas. Disable for nested Garden.
-    Example: null
-    Name: garden.disk_quota_enabled
-  - Default: []
-    Description: List of CIDR blocks to which containers will be allowed access (applied
-      after deny).
-    Example: null
-    Name: garden.allow_networks
-  - Default: 5m
-    Description: duration after which to reap idle containers
-    Example: null
-    Name: garden.default_container_grace_time
-  - Default: false
-    Description: destroy existing containers when the server starts up
-    Example: null
-    Name: garden.destroy_containers_on_start
-  - Default: unix
-    Description: Garden server connection mode (tcp or unix).
-    Example: null
-    Name: garden.listen_network
-  Templates:
-  - DstPathEnd: bin/garden_ctl
-    Path: /mnt/tmp/tar-CmdExtractor493696198/templates/garden_ctl.erb
-    SrcPathEnd: garden_ctl.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor493696198/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "garden",
+    "Packages": [
+      {
+        "Name": "garden-linux"
+      },
+      {
+        "Name": "iptables"
+      },
+      {
+        "Name": "shadow"
+      },
+      {
+        "Name": "busybox"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "List of CIDR blocks to which containers will be denied access.",
+        "Example": null,
+        "Name": "garden.deny_networks"
+      },
+      {
+        "Default": "0.0.0.0:17013",
+        "Description": "tcp address on which to serve debug info",
+        "Example": null,
+        "Name": "garden.debug_listen_address"
+      },
+      {
+        "Default": "/var/vcap/packages/busybox",
+        "Description": "path to the rootfs to use when a container specifies no rootfs",
+        "Example": null,
+        "Name": "garden.default_container_rootfs"
+      },
+      {
+        "Default": 1500,
+        "Description": "Maximum network transmission unit length in bytes.",
+        "Example": null,
+        "Name": "garden.network_mtu"
+      },
+      {
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Description": "Garden server listening address.",
+        "Example": null,
+        "Name": "garden.listen_address"
+      },
+      {
+        "Default": true,
+        "Description": "Enforce disk quotas. Disable for nested Garden.",
+        "Example": null,
+        "Name": "garden.disk_quota_enabled"
+      },
+      {
+        "Default": [],
+        "Description": "List of CIDR blocks to which containers will be allowed access (applied after deny).",
+        "Example": null,
+        "Name": "garden.allow_networks"
+      },
+      {
+        "Default": "5m",
+        "Description": "duration after which to reap idle containers",
+        "Example": null,
+        "Name": "garden.default_container_grace_time"
+      },
+      {
+        "Default": false,
+        "Description": "destroy existing containers when the server starts up",
+        "Example": null,
+        "Name": "garden.destroy_containers_on_start"
+      },
+      {
+        "Default": "unix",
+        "Description": "Garden server connection mode (tcp or unix).",
+        "Example": null,
+        "Name": "garden.listen_network"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/garden_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor493696198/templates/garden_ctl.erb",
+        "SrcPathEnd": "garden_ctl.erb"
+      }
+    ]
+  }
+]

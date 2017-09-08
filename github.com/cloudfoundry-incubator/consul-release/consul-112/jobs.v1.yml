@@ -1,248 +1,369 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor438872673/monit
-    SrcPathEnd: monit
-  Name: acceptance-tests
-  Packages:
-  - Name: acceptance-tests
-  - Name: consul
-  - Name: golang1.6
-  Properties:
-  - Default: 127.0.0.1
-    Description: Host for the BOSH registry
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.registry.host
-  - Default: admin
-    Description: Username for the BOSH registry
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.registry.username
-  - Default: admin
-    Description: BOSH Director password
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.password
-  - Default: ""
-    Description: Subnet ID for AWS deployments
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.subnets
-  - Default: ""
-    Description: Subnet ID for AWS deployments utilizing the Cloud Config
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.cloud_config_subnets
-  - Default: ""
-    Description: Secret Access Key for AWS deployments
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.secret_access_key
-  - Default: us-east-1
-    Description: Region for AWS deployments
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.region
-  - Default: 25777
-    Description: Port for the BOSH registry
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.registry.port
-  - Default: 1
-    Description: Number of parallel nodes to use for tests
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.parallel_nodes
-  - Default: latest
-    Description: The default consul-release version number to deploy
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.consul_release_version
-  - Default: 192.168.50.4
-    Description: Location of the BOSH Director to target when deploying consul
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.target
-  - Default: ""
-    Description: Key ID for AWS deployments
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.access_key_id
-  - Default: bosh
-    Description: Default Key Name for AWS deployments
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.default_key_name
-  - Default: []
-    Description: Security groups for AWS deployments
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.aws.default_security_groups
-  - Default: admin
-    Description: BOSH Director username
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.username
-  - Default: ""
-    Description: BOSH Director CA Cert
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.director_ca_cert
-  - Default: password
-    Description: Password for the BOSH registry
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.registry.password
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor438872673/templates/test.sh.erb
-    SrcPathEnd: test.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor331878203/monit
-    SrcPathEnd: monit
-  Name: consul-test-consumer
-  Packages:
-  - Name: acceptance-tests
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor331878203/templates/run.sh.erb
-    SrcPathEnd: run.sh.erb
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor331878203/templates/dns_health_check
-    SrcPathEnd: dns_health_check
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor126534949/monit
-    SrcPathEnd: monit
-  Name: consul_agent
-  Packages:
-  - Name: consul
-  - Name: confab
-  Properties:
-  - Default: client
-    Description: Mode to run the agent in. (client or server)
-    Example: null
-    Examples: null
-    Name: consul.agent.mode
-  - Default: []
-    Description: LAN server addresses to join on start.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.lan
-  - Default: []
-    Description: WAN server addresses to join.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.wan
-  - Default: 2
-    Description: The Consul protocol to use.
-    Example: null
-    Examples: null
-    Name: consul.agent.protocol_version
-  - Default: 5s
-    Description: When allow_stale is specified, this is used to limit how stale results
-      are allowed to be.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.max_stale
-  - Default: null
-    Description: PEM-encoded agent certificate
-    Example: null
-    Examples: null
-    Name: consul.agent_cert
-  - Default: false
-    Description: Enables a stale query for DNS information. This allows any Consul
-      server, rather than only the leader, to service the request.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.allow_stale
-  - Default: null
-    Description: Domain suffix for DNS
-    Example: null
-    Examples: null
-    Name: consul.agent.domain
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Examples: null
-    Name: consul.server_cert
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Examples: null
-    Name: consul.server_key
-  - Default: dc1
-    Description: Name of the agent's datacenter.
-    Example: null
-    Examples: null
-    Name: consul.agent.datacenter
-  - Default: {}
-    Description: Map of consul service definitions.
-    Example: null
-    Examples: null
-    Name: consul.agent.services
-  - Default: 53
-    Description: DNS server port
-    Example: null
-    Examples: null
-    Name: consul.agent.ports.dns
-  - Default: true
-    Description: When set to true this property will rewrite the resolv.conf file
-      and add 127.0.0.1 as the first entry
-    Example: null
-    Examples: null
-    Name: consul.rewrite_resolv
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: consul.ca_cert
-  - Default: info
-    Description: Agent log level.
-    Example: null
-    Examples: null
-    Name: consul.agent.log_level
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: consul.agent_key
-  - Default: null
-    Description: A list of passphrases that will be converted into encryption keys,
-      the first key in the list is the active one
-    Example: null
-    Examples: null
-    Name: consul.encrypt_keys
-  Templates:
-  - DstPathEnd: bin/agent_ctl
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/agent_ctl.sh.erb
-    SrcPathEnd: agent_ctl.sh.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: confab.json
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/confab.json.erb
-    SrcPathEnd: confab.json.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: config/certs/agent.key
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/agent.key.erb
-    SrcPathEnd: agent.key.erb
-  - DstPathEnd: bin/join_ctl
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/join_ctl.sh.erb
-    SrcPathEnd: join_ctl.sh.erb
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/server.crt.erb
-    SrcPathEnd: server.crt.erb
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/server.key.erb
-    SrcPathEnd: server.key.erb
-  - DstPathEnd: config/certs/agent.crt
-    Path: /mnt/tmp/tar-CmdExtractor126534949/templates/agent.crt.erb
-    SrcPathEnd: agent.crt.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor438872673/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance-tests",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      },
+      {
+        "Name": "consul"
+      },
+      {
+        "Name": "golang1.6"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1",
+        "Description": "Host for the BOSH registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.registry.host"
+      },
+      {
+        "Default": "admin",
+        "Description": "Username for the BOSH registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.registry.username"
+      },
+      {
+        "Default": "admin",
+        "Description": "BOSH Director password",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.password"
+      },
+      {
+        "Default": "",
+        "Description": "Subnet ID for AWS deployments",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.subnets"
+      },
+      {
+        "Default": "",
+        "Description": "Subnet ID for AWS deployments utilizing the Cloud Config",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.cloud_config_subnets"
+      },
+      {
+        "Default": "",
+        "Description": "Secret Access Key for AWS deployments",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.secret_access_key"
+      },
+      {
+        "Default": "us-east-1",
+        "Description": "Region for AWS deployments",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.region"
+      },
+      {
+        "Default": 25777,
+        "Description": "Port for the BOSH registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.registry.port"
+      },
+      {
+        "Default": 1,
+        "Description": "Number of parallel nodes to use for tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.parallel_nodes"
+      },
+      {
+        "Default": "latest",
+        "Description": "The default consul-release version number to deploy",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.consul_release_version"
+      },
+      {
+        "Default": "192.168.50.4",
+        "Description": "Location of the BOSH Director to target when deploying consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.target"
+      },
+      {
+        "Default": "",
+        "Description": "Key ID for AWS deployments",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.access_key_id"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Default Key Name for AWS deployments",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.default_key_name"
+      },
+      {
+        "Default": [],
+        "Description": "Security groups for AWS deployments",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.aws.default_security_groups"
+      },
+      {
+        "Default": "admin",
+        "Description": "BOSH Director username",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.username"
+      },
+      {
+        "Default": "",
+        "Description": "BOSH Director CA Cert",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.director_ca_cert"
+      },
+      {
+        "Default": "password",
+        "Description": "Password for the BOSH registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.registry.password"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor438872673/templates/test.sh.erb",
+        "SrcPathEnd": "test.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor331878203/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul-test-consumer",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor331878203/templates/run.sh.erb",
+        "SrcPathEnd": "run.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor331878203/templates/dns_health_check",
+        "SrcPathEnd": "dns_health_check"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor126534949/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul_agent",
+    "Packages": [
+      {
+        "Name": "consul"
+      },
+      {
+        "Name": "confab"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "client",
+        "Description": "Mode to run the agent in. (client or server)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.mode"
+      },
+      {
+        "Default": [],
+        "Description": "LAN server addresses to join on start.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.lan"
+      },
+      {
+        "Default": [],
+        "Description": "WAN server addresses to join.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.wan"
+      },
+      {
+        "Default": 2,
+        "Description": "The Consul protocol to use.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.protocol_version"
+      },
+      {
+        "Default": "5s",
+        "Description": "When allow_stale is specified, this is used to limit how stale results are allowed to be.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.max_stale"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded agent certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_cert"
+      },
+      {
+        "Default": false,
+        "Description": "Enables a stale query for DNS information. This allows any Consul server, rather than only the leader, to service the request.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.allow_stale"
+      },
+      {
+        "Default": null,
+        "Description": "Domain suffix for DNS",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.domain"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server_key"
+      },
+      {
+        "Default": "dc1",
+        "Description": "Name of the agent's datacenter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.datacenter"
+      },
+      {
+        "Default": {},
+        "Description": "Map of consul service definitions.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.services"
+      },
+      {
+        "Default": 53,
+        "Description": "DNS server port",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.ports.dns"
+      },
+      {
+        "Default": true,
+        "Description": "When set to true this property will rewrite the resolv.conf file and add 127.0.0.1 as the first entry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.rewrite_resolv"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ca_cert"
+      },
+      {
+        "Default": "info",
+        "Description": "Agent log level.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_key"
+      },
+      {
+        "Default": null,
+        "Description": "A list of passphrases that will be converted into encryption keys, the first key in the list is the active one",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.encrypt_keys"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/agent_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/agent_ctl.sh.erb",
+        "SrcPathEnd": "agent_ctl.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "confab.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/confab.json.erb",
+        "SrcPathEnd": "confab.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/agent.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/agent.key.erb",
+        "SrcPathEnd": "agent.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/join_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/join_ctl.sh.erb",
+        "SrcPathEnd": "join_ctl.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/server.crt.erb",
+        "SrcPathEnd": "server.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/server.key.erb",
+        "SrcPathEnd": "server.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/agent.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor126534949/templates/agent.crt.erb",
+        "SrcPathEnd": "agent.crt.erb"
+      }
+    ]
+  }
+]

@@ -1,251 +1,348 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor867438356/monit
-    SrcPathEnd: monit
-  Name: auditd
-  Packages: null
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor867438356/templates/pre-start
-    SrcPathEnd: pre-start
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor025099622/monit
-    SrcPathEnd: monit
-  Name: ca_certs
-  Packages: null
-  Properties:
-  - Default: ""
-    Description: Concatenated set of certificates in PEM format
-    Example: |
-      -----BEGIN CERTIFICATE-----
-      MIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAk...
-      -----END CERTIFICATE-----
-      -----BEGIN CERTIFICATE-----
-      MIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAk...
-      -----END CERTIFICATE-----
-    Examples: null
-    Name: certs
-  Templates:
-  - DstPathEnd: config/certs.crt
-    Path: /mnt/tmp/tar-CmdExtractor025099622/templates/certs.erb
-    SrcPathEnd: certs.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor025099622/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor242286472/monit
-    SrcPathEnd: monit
-  Name: disable_agent
-  Packages: null
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor242286472/templates/post-start
-    SrcPathEnd: post-start
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor815473146/monit
-    SrcPathEnd: monit
-  Name: enable_ipv6
-  Packages: null
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor815473146/templates/ctl.erb
-    SrcPathEnd: ctl.erb
-  - DstPathEnd: etc/sysctl.d/61-bosh-enable_ipv6-release.conf
-    Path: /mnt/tmp/tar-CmdExtractor815473146/templates/sysctl.conf.erb
-    SrcPathEnd: sysctl.conf.erb
-- Description: |
-    This job is not recommended. Firstly, it blindly copies in a configuration
-    file with no error-checking, potentially causing deployment failures.
-    Secondly, it encourages the increase of system limits to work around
-    broken BOSH jobs, when effort is better spent fixing the BOSH jobs (e.g.
-    increasing `nofile` to get around a faulty long-running BOSH job that leaks file
-    descriptors and finally fails).
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor044003132/monit
-    SrcPathEnd: monit
-  Name: limits_not_recommended
-  Packages: null
-  Properties:
-  - Default: ""
-    Description: |
-      Linux `limits.conf` file https://linux.die.net/man/5/limits.conf'
-      Does not overwrite the existing limits.conf file; instead, it installs
-      a secondary limits.conf file in `/etc/security/limits.d/`.
-    Example: |
-      vcap  soft  nofile  16384
-      vcap  hard  nofile  16384
-    Examples: null
-    Name: limits_conf
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor044003132/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
-  - DstPathEnd: etc/limits.conf
-    Path: /mnt/tmp/tar-CmdExtractor044003132/templates/limits.conf.erb
-    SrcPathEnd: limits.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor128591822/monit
-    SrcPathEnd: monit
-  Name: login_banner
-  Packages: null
-  Properties:
-  - Default: null
-    Description: Login banner text
-    Example: null
-    Examples: null
-    Name: login_banner.text
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor128591822/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor020060720/monit
-    SrcPathEnd: monit
-  Name: monit
-  Packages: null
-  Properties:
-  - Default: false
-    Description: Reload monit to potentially resolve monit flakiness during startup
-    Example: null
-    Examples: null
-    Name: reload_after_start
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor020060720/templates/pre-start
-    SrcPathEnd: pre-start
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor594357474/monit
-    SrcPathEnd: monit
-  Name: ntpdate
-  Packages: null
-  Properties:
-  - Default: false
-    Description: Direct ntpdate to use an unprivileged port for outgoing packets.
-    Example: null
-    Examples: null
-    Name: unprivileged_port
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor594357474/templates/pre-start
-    SrcPathEnd: pre-start
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor501738596/monit
-    SrcPathEnd: monit
-  Name: search_domain
-  Packages: null
-  Properties:
-  - Default: null
-    Description: Set resolv.conf search domain
-    Example: pivotal.io
-    Examples: null
-    Name: search_domain
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor501738596/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor973504822/monit
-    SrcPathEnd: monit
-  Name: sysctl
-  Packages: null
-  Properties:
-  - Default: null
-    Description: Array of sysctls to be applied; each sysctl should be in the form
-      "sysctlname=value"
-    Example:
-    - vm.swappiness=10
-    - net.core.somaxconn=1024
-    Examples: null
-    Name: sysctl
-  - Default: "71"
-    Description: Prefix to be used for the file placed in /etc/sysctl.d. Can be used
-      to change the priority of the applied sysctls
-    Example: null
-    Examples: null
-    Name: sysctl_conf_prefix
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor973504822/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor165338584/monit
-    SrcPathEnd: monit
-  Name: tcp_keepalive
-  Packages: null
-  Properties:
-  - Default: 120
-    Description: The interval between the last data packet sent and the first keepalive
-      probe (seconds).
-    Example: null
-    Examples: null
-    Name: tcp_keepalive.time
-  - Default: 30
-    Description: The interval between subsequential keepalive probes, regardless of
-      what the connection has exchanged in the meantime (seconds).
-    Example: null
-    Examples: null
-    Name: tcp_keepalive.interval
-  - Default: 8
-    Description: The number of unacknowledged probes to send before considering the
-      connection dead and notifying the application layer.
-    Example: null
-    Examples: null
-    Name: tcp_keepalive.probes
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor165338584/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor606827210/monit
-    SrcPathEnd: monit
-  Name: user_add
-  Packages: null
-  Properties:
-  - Default: null
-    Description: |
-      Array of user hashes. Each user should specify a `name` attribute, and one of
-      either `crypted_password` or `public_key`. Users will not be deleted if
-      they are removed from this list after a successful update. All of the
-      authorized keys for the users will be overwritten with the public key you
-      specify.
-    Example:
-      users:
-      - name: user1
-        public_key: ssh-rsa AAAA ...
-      - crypted_password: $6$saltysalt$eF06vmEKaMhOr8jcnyfJJGuaU/Khq3DpH4M/7T.ziGNjhEEv3o9tgaX5VciMGAbgfE0CH9XrcpHi9kgmVv1Z2.
-        name: user2
-      - name: rbash
-        shell: /bin/rbash
-      - name: nosudo
-        sudo: false
-    Examples: null
-    Name: users
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor606827210/templates/pre-start.sh.erb
-    SrcPathEnd: pre-start.sh.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor867438356/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "auditd",
+    "Packages": null,
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor867438356/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor025099622/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ca_certs",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Concatenated set of certificates in PEM format",
+        "Example": "-----BEGIN CERTIFICATE-----\nMIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAk...\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAk...\n-----END CERTIFICATE-----\n",
+        "Examples": null,
+        "Name": "certs"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor025099622/templates/certs.erb",
+        "SrcPathEnd": "certs.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor025099622/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor242286472/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "disable_agent",
+    "Packages": null,
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor242286472/templates/post-start",
+        "SrcPathEnd": "post-start"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor815473146/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "enable_ipv6",
+    "Packages": null,
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor815473146/templates/ctl.erb",
+        "SrcPathEnd": "ctl.erb"
+      },
+      {
+        "DstPathEnd": "etc/sysctl.d/61-bosh-enable_ipv6-release.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor815473146/templates/sysctl.conf.erb",
+        "SrcPathEnd": "sysctl.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "This job is not recommended. Firstly, it blindly copies in a configuration\nfile with no error-checking, potentially causing deployment failures.\nSecondly, it encourages the increase of system limits to work around\nbroken BOSH jobs, when effort is better spent fixing the BOSH jobs (e.g.\nincreasing `nofile` to get around a faulty long-running BOSH job that leaks file\ndescriptors and finally fails).\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor044003132/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "limits_not_recommended",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Linux `limits.conf` file https://linux.die.net/man/5/limits.conf'\nDoes not overwrite the existing limits.conf file; instead, it installs\na secondary limits.conf file in `/etc/security/limits.d/`.\n",
+        "Example": "vcap  soft  nofile  16384\nvcap  hard  nofile  16384\n",
+        "Examples": null,
+        "Name": "limits_conf"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor044003132/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      },
+      {
+        "DstPathEnd": "etc/limits.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor044003132/templates/limits.conf.erb",
+        "SrcPathEnd": "limits.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor128591822/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "login_banner",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Login banner text",
+        "Example": null,
+        "Examples": null,
+        "Name": "login_banner.text"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor128591822/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor020060720/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "monit",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Reload monit to potentially resolve monit flakiness during startup",
+        "Example": null,
+        "Examples": null,
+        "Name": "reload_after_start"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor020060720/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor594357474/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ntpdate",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Direct ntpdate to use an unprivileged port for outgoing packets.",
+        "Example": null,
+        "Examples": null,
+        "Name": "unprivileged_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor594357474/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor501738596/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "search_domain",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Set resolv.conf search domain",
+        "Example": "pivotal.io",
+        "Examples": null,
+        "Name": "search_domain"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor501738596/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor973504822/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "sysctl",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Array of sysctls to be applied; each sysctl should be in the form \"sysctlname=value\"",
+        "Example": [
+          "vm.swappiness=10",
+          "net.core.somaxconn=1024"
+        ],
+        "Examples": null,
+        "Name": "sysctl"
+      },
+      {
+        "Default": "71",
+        "Description": "Prefix to be used for the file placed in /etc/sysctl.d. Can be used to change the priority of the applied sysctls",
+        "Example": null,
+        "Examples": null,
+        "Name": "sysctl_conf_prefix"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor973504822/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor165338584/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "tcp_keepalive",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": 120,
+        "Description": "The interval between the last data packet sent and the first keepalive probe (seconds).",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_keepalive.time"
+      },
+      {
+        "Default": 30,
+        "Description": "The interval between subsequential keepalive probes, regardless of what the connection has exchanged in the meantime (seconds).",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_keepalive.interval"
+      },
+      {
+        "Default": 8,
+        "Description": "The number of unacknowledged probes to send before considering the connection dead and notifying the application layer.",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_keepalive.probes"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor165338584/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor606827210/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "user_add",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Array of user hashes. Each user should specify a `name` attribute, and one of\neither `crypted_password` or `public_key`. Users will not be deleted if\nthey are removed from this list after a successful update. All of the\nauthorized keys for the users will be overwritten with the public key you\nspecify.\n",
+        "Example": {
+          "users": [
+            {
+              "name": "user1",
+              "public_key": "ssh-rsa AAAA ..."
+            },
+            {
+              "crypted_password": "$6$saltysalt$eF06vmEKaMhOr8jcnyfJJGuaU/Khq3DpH4M/7T.ziGNjhEEv3o9tgaX5VciMGAbgfE0CH9XrcpHi9kgmVv1Z2.",
+              "name": "user2"
+            },
+            {
+              "name": "rbash",
+              "shell": "/bin/rbash"
+            },
+            {
+              "name": "nosudo",
+              "sudo": false
+            }
+          ]
+        },
+        "Examples": null,
+        "Name": "users"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor606827210/templates/pre-start.sh.erb",
+        "SrcPathEnd": "pre-start.sh.erb"
+      }
+    ]
+  }
+]

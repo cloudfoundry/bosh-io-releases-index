@@ -1,241 +1,384 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor108738726/monit
-    SrcPathEnd: monit
-  Name: agent-mysql
-  Packages:
-  - Name: shield-mysql
-  Properties: null
-  Templates:
-  - DstPathEnd: ignore
-    Path: /mnt/tmp/tar-CmdExtractor108738726/templates/ignore
-    SrcPathEnd: ignore
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor729067720/monit
-    SrcPathEnd: monit
-  Name: agent-pgtools
-  Packages:
-  - Name: postgres-9.4
-  Properties: null
-  Templates:
-  - DstPathEnd: ignore
-    Path: /mnt/tmp/tar-CmdExtractor729067720/templates/ignore
-    SrcPathEnd: ignore
-- Description: The Postgres server provides a single instance Postgres database that
-    can be used with the Cloud Controller or the UAA. It does not provide highly-available
-    configuration.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor727651130/monit
-    SrcPathEnd: monit
-  Name: postgres
-  Packages:
-  - Name: common
-  - Name: postgres-9.4
-  Properties:
-  - Default: null
-    Description: The database scheme
-    Example: null
-    Examples: null
-    Name: databases.db_scheme
-  - Default: null
-    Description: The database port
-    Example: null
-    Examples: null
-    Name: databases.port
-  - Default: null
-    Description: The database address
-    Example: null
-    Examples: null
-    Name: databases.address
-  - Default: null
-    Description: A list of databases and associated properties to create
-    Example: null
-    Examples: null
-    Name: databases.databases
-  - Default: null
-    Description: A list of database roles and associated properties to create
-    Example: null
-    Examples: null
-    Name: databases.roles
-  - Default: null
-    Description: Maximum number of database connections
-    Example: null
-    Examples: null
-    Name: databases.max_connections
-  - Default: '%m: '
-    Description: The postgres `printf` style string that is output at the beginning
-      of each log line
-    Example: null
-    Examples: null
-    Name: databases.log_line_prefix
-  Templates:
-  - DstPathEnd: bin/postgres_ctl
-    Path: /mnt/tmp/tar-CmdExtractor727651130/templates/postgres_ctl.erb
-    SrcPathEnd: postgres_ctl.erb
-  - DstPathEnd: bin/postgres_start.sh
-    Path: /mnt/tmp/tar-CmdExtractor727651130/templates/postgres_start.sh.erb
-    SrcPathEnd: postgres_start.sh.erb
-  - DstPathEnd: config/postgresql.conf
-    Path: /mnt/tmp/tar-CmdExtractor727651130/templates/postgresql.conf.erb
-    SrcPathEnd: postgresql.conf.erb
-  - DstPathEnd: config/pg_hba.conf
-    Path: /mnt/tmp/tar-CmdExtractor727651130/templates/pg_hba.conf.erb
-    SrcPathEnd: pg_hba.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor228038780/monit
-    SrcPathEnd: monit
-  Name: shield-agent
-  Packages:
-  - Name: shield
-  - Name: bsdtar
-  - Name: plugins
-  - Name: generated_daemon_key
-  - Name: generated_agent_key
-  - Name: elasticsearch-cloud-aws-plugin
-  Properties:
-  - Default: true
-    Description: permit access via generated worker key, local to deployment
-    Example: null
-    Examples: null
-    Name: shield.agent.authorize_generated_daemon_key
-  - Default: null
-    Description: HTTP API of the Shield installation to automatically provision authorized
-      keys from
-    Example: null
-    Examples: null
-    Name: shield.agent.autoprovision
-  - Default: info
-    Description: Log level for shield processes
-    Example: null
-    Examples: null
-    Name: shield.log_level
-  - Default: 5444
-    Description: port to run agent
-    Example: null
-    Examples: null
-    Name: shield.agent.port
-  - Default: []
-    Description: public keys to permit
-    Example: null
-    Examples: null
-    Name: shield.agent.authorized_keys
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor228038780/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: config/shield-agent.conf
-    Path: /mnt/tmp/tar-CmdExtractor228038780/templates/config/shield-agent.conf.erb
-    SrcPathEnd: config/shield-agent.conf.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor228038780/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor228038780/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor228038780/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor228038780/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor782069006/monit
-    SrcPathEnd: monit
-  Name: shield-daemon
-  Packages:
-  - Name: shield
-  - Name: utils
-  - Name: generated_daemon_key
-  - Name: generated_agent_key
-  Properties:
-  - Default: ""
-    Description: |
-      private key to use for the SSH client. if not specified, a deployment-scoped default is used.
-    Example: null
-    Examples: null
-    Name: shield.daemon.host_key
-  - Default: null
-    Description: host for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.host
-  - Default: null
-    Description: password for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.password
-  - Default: (none)
-    Description: name to display to `shield status' calls
-    Example: null
-    Examples: null
-    Name: shield.daemon.name
-  - Default: 8080
-    Description: port to run daemon
-    Example: null
-    Examples: null
-    Name: shield.daemon.port
-  - Default: null
-    Description: port for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.port
-  - Default: null
-    Description: username for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.username
-  - Default: null
-    Description: db for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.db
-  - Default: info
-    Description: Log level for shield processes
-    Example: null
-    Examples: null
-    Name: shield.log_level
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: config/shieldd.conf
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/config/shieldd.conf.erb
-    SrcPathEnd: config/shieldd.conf.erb
-  - DstPathEnd: shared/id_rsa
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/shared/id_rsa
-    SrcPathEnd: shared/id_rsa
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor782069006/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-- Description: |
-    The shield tests errand runs tests for shield
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor986987888/monit
-    SrcPathEnd: monit
-  Name: smoke-tests
-  Packages:
-  - Name: shield
-  - Name: utils
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor986987888/templates/bin/run
-    SrcPathEnd: bin/run
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor108738726/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "agent-mysql",
+    "Packages": [
+      {
+        "Name": "shield-mysql"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "ignore",
+        "Path": "/mnt/tmp/tar-CmdExtractor108738726/templates/ignore",
+        "SrcPathEnd": "ignore"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor729067720/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "agent-pgtools",
+    "Packages": [
+      {
+        "Name": "postgres-9.4"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "ignore",
+        "Path": "/mnt/tmp/tar-CmdExtractor729067720/templates/ignore",
+        "SrcPathEnd": "ignore"
+      }
+    ]
+  },
+  {
+    "Description": "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor727651130/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "postgres",
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "postgres-9.4"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "The database scheme",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.db_scheme"
+      },
+      {
+        "Default": null,
+        "Description": "The database port",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.port"
+      },
+      {
+        "Default": null,
+        "Description": "The database address",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.address"
+      },
+      {
+        "Default": null,
+        "Description": "A list of databases and associated properties to create",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.databases"
+      },
+      {
+        "Default": null,
+        "Description": "A list of database roles and associated properties to create",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.roles"
+      },
+      {
+        "Default": null,
+        "Description": "Maximum number of database connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.max_connections"
+      },
+      {
+        "Default": "%m: ",
+        "Description": "The postgres `printf` style string that is output at the beginning of each log line",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.log_line_prefix"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor727651130/templates/postgres_ctl.erb",
+        "SrcPathEnd": "postgres_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgres_start.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor727651130/templates/postgres_start.sh.erb",
+        "SrcPathEnd": "postgres_start.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor727651130/templates/postgresql.conf.erb",
+        "SrcPathEnd": "postgresql.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor727651130/templates/pg_hba.conf.erb",
+        "SrcPathEnd": "pg_hba.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor228038780/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shield-agent",
+    "Packages": [
+      {
+        "Name": "shield"
+      },
+      {
+        "Name": "bsdtar"
+      },
+      {
+        "Name": "plugins"
+      },
+      {
+        "Name": "generated_daemon_key"
+      },
+      {
+        "Name": "generated_agent_key"
+      },
+      {
+        "Name": "elasticsearch-cloud-aws-plugin"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": true,
+        "Description": "permit access via generated worker key, local to deployment",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.authorize_generated_daemon_key"
+      },
+      {
+        "Default": null,
+        "Description": "HTTP API of the Shield installation to automatically provision authorized keys from",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.autoprovision"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level for shield processes",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.log_level"
+      },
+      {
+        "Default": 5444,
+        "Description": "port to run agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.port"
+      },
+      {
+        "Default": [],
+        "Description": "public keys to permit",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.authorized_keys"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor228038780/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "config/shield-agent.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor228038780/templates/config/shield-agent.conf.erb",
+        "SrcPathEnd": "config/shield-agent.conf.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor228038780/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor228038780/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor228038780/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor228038780/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor782069006/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shield-daemon",
+    "Packages": [
+      {
+        "Name": "shield"
+      },
+      {
+        "Name": "utils"
+      },
+      {
+        "Name": "generated_daemon_key"
+      },
+      {
+        "Name": "generated_agent_key"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "private key to use for the SSH client. if not specified, a deployment-scoped default is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.host_key"
+      },
+      {
+        "Default": null,
+        "Description": "host for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.host"
+      },
+      {
+        "Default": null,
+        "Description": "password for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.password"
+      },
+      {
+        "Default": "(none)",
+        "Description": "name to display to `shield status' calls",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.name"
+      },
+      {
+        "Default": 8080,
+        "Description": "port to run daemon",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.port"
+      },
+      {
+        "Default": null,
+        "Description": "port for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.port"
+      },
+      {
+        "Default": null,
+        "Description": "username for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.username"
+      },
+      {
+        "Default": null,
+        "Description": "db for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.db"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level for shield processes",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.log_level"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "config/shieldd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/config/shieldd.conf.erb",
+        "SrcPathEnd": "config/shieldd.conf.erb"
+      },
+      {
+        "DstPathEnd": "shared/id_rsa",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/shared/id_rsa",
+        "SrcPathEnd": "shared/id_rsa"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor782069006/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      }
+    ]
+  },
+  {
+    "Description": "The shield tests errand runs tests for shield\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor986987888/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "smoke-tests",
+    "Packages": [
+      {
+        "Name": "shield"
+      },
+      {
+        "Name": "utils"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor986987888/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      }
+    ]
+  }
+]

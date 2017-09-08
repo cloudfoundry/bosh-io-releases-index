@@ -1,238 +1,321 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor506329837/monit
-    SrcPathEnd: monit
-  Name: grafana
-  Packages:
-  - Name: grafana
-  Properties:
-  - Default: null
-    Description: GitHub OAuth client ID.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.client_id
-  - Default: https://accounts.google.com/o/oauth2/auth
-    Description: Google OAuth authorization endpoint.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.auth_url
-  - Default: null
-    Description: Handle authentication in a http reverse proxy
-    Example: null
-    Examples: null
-    Name: grafana.auth.proxy.enabled
-  - Default: Viewer
-    Description: The role for new users when automatically added to the default organization.
-    Example: null
-    Examples: null
-    Name: grafana.users.auto_assign_organization_role
-  - Default: https://www.googleapis.com/oauth2/v1/userinfo
-    Description: Google users API endpoint.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.api_url
-  - Default: []
-    Description: E-mail address domains to allow. If empty, all are allowed.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.allowed_email_domains
-  - Default: []
-    Description: GitHub organizations to allow. If empty, all are allowed.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.allowed_organizations
-  - Default: null
-    Description: Google OAuth client ID.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.client_id
-  - Default: null
-    Description: Google OAuth client secret.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.client_secret
-  - Default: null
-    Description: Grafana datasource; see http://docs.grafana.org/http_api/data_source/
-      for details
-    Example: null
-    Examples: null
-    Name: grafana.datasource
-  - Default: []
-    Description: |
-      List of grafana dasboards, converted to YAML
-    Example: |
-      - name: frontend (without extension)
-        content: <minified JSON content>
-    Examples: null
-    Name: grafana.dashboards
-  - Default: null
-    Description: SSL cert to use for HTTPS. If not specified, the server will listen
-      in plaintext.
-    Example: null
-    Examples: null
-    Name: grafana.ssl.cert
-  - Default: null
-    Description: Username for the initial admin user.
-    Example: null
-    Examples: null
-    Name: grafana.admin_username
-  - Default: null
-    Description: Whether the header contains a user name or an email address (allowed
-      values are 'username' or 'email').
-    Example: null
-    Examples: null
-    Name: grafana.auth.proxy.header_property
-  - Default: Main Org.
-    Description: The organization that should be used for unauthenticated users.
-    Example: null
-    Examples: null
-    Name: grafana.auth.anonymous.organization
-  - Default: []
-    Description: |
-      * If you want to configure multiple datasources, you can define an array of hashes here. Each hash must have 'name', 'url', 'type', 'user', 'password' and 'database' defined.
-      * These datasources will be created in addition to the datasource defined in 'grafana.datasource'. The latter property is for backwards compatibility.
-      * See http://docs.grafana.org/http_api/data_source/ for details
-    Example: |
-      - name: influxdb
-        url: http://1.2.3.4:8086
-        type: influxdb
-        user: admin
-        password: admin123
-        database: metrics
-    Examples: null
-    Name: grafana.datasources
-  - Default: true
-    Description: Permit users to register via GitHub OAuth.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.allow_sign_up
-  - Default: https://github.com/login/oauth/access_token
-    Description: GitHub OAuth access token endpoint.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.token_url
-  - Default: null
-    Description: SSL private key to use for HTTPS. If not specified, the server will
-      listen in plaintext.
-    Example: null
-    Examples: null
-    Name: grafana.ssl.key
-  - Default: false
-    Description: If enabled, users do not have to log in.
-    Example: null
-    Examples: null
-    Name: grafana.auth.anonymous.enabled
-  - Default: false
-    Description: Permit users to authenticate via GitHub OAuth.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.enabled
-  - Default: null
-    Description: GitHub OAuth client secret.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.client_secret
-  - Default: []
-    Description: GitHub team IDs to allow. If empty, all are allowed.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.team_ids
-  - Default: []
-    Description: E-mail address domains to allow. If empty, all are allowed.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.allowed_email_domains
-  - Default: 3000
-    Description: TCP port on which the Grafana server should listen.
-    Example: null
-    Examples: null
-    Name: grafana.listen_port
-  - Default: Viewer
-    Description: The role to assume for anonymous users.
-    Example: null
-    Examples: null
-    Name: grafana.auth.anonymous.organization_role
-  - Default: false
-    Description: Permit users to authenticate via Google OAuth.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.enabled
-  - Default: https://accounts.google.com/o/oauth2/token
-    Description: Google OAuth access token endpoint.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.token_url
-  - Default: null
-    Description: The full root URL for the instance. Used for OAuth callbacks.
-    Example: null
-    Examples: null
-    Name: grafana.root_url
-  - Default: https://api.github.com/user
-    Description: GitHub users API endpoint.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.api_url
-  - Default: false
-    Description: If enabled, non-admin users can create organizations.
-    Example: null
-    Examples: null
-    Name: grafana.users.allow_organization_creation
-  - Default: true
-    Description: If enabled, new users will be automatically added to the default
-      organization (id 1).
-    Example: null
-    Examples: null
-    Name: grafana.users.auto_assign_organization
-  - Default: https://github.com/login/oauth/authorize
-    Description: GitHub OAuth authorization endpoint.
-    Example: null
-    Examples: null
-    Name: grafana.auth.github.auth_url
-  - Default: true
-    Description: Permit users to register via Google OAuth.
-    Example: null
-    Examples: null
-    Name: grafana.auth.google.allow_sign_up
-  - Default: null
-    Description: The name of the http header used to forward authenticated user
-    Example: null
-    Examples: null
-    Name: grafana.auth.proxy.header_name
-  - Default: null
-    Description: Enable sign up of users who do not exist in Grafana DB
-    Example: null
-    Examples: null
-    Name: grafana.auth.proxy.auto_sign_up
-  - Default: null
-    Description: Password for the initial admin user.
-    Example: null
-    Examples: null
-    Name: grafana.admin_password
-  - Default: false
-    Description: If enabled, users can create their own accounts.
-    Example: null
-    Examples: null
-    Name: grafana.users.allow_sign_up
-  Templates:
-  - DstPathEnd: bin/create-update-dashboards
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/create-update-dashboards.erb
-    SrcPathEnd: create-update-dashboards.erb
-  - DstPathEnd: config/config.ini
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/config.ini.erb
-    SrcPathEnd: config.ini.erb
-  - DstPathEnd: config/ssl.key
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/ssl.key.erb
-    SrcPathEnd: ssl.key.erb
-  - DstPathEnd: config/ssl.crt
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/ssl.crt.erb
-    SrcPathEnd: ssl.crt.erb
-  - DstPathEnd: bin/grafana_ctl
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/grafana_ctl
-    SrcPathEnd: grafana_ctl
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/post-start
-    SrcPathEnd: post-start
-  - DstPathEnd: bin/create-update-datasources
-    Path: /mnt/tmp/tar-CmdExtractor506329837/templates/create-update-datasources.erb
-    SrcPathEnd: create-update-datasources.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor506329837/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "grafana",
+    "Packages": [
+      {
+        "Name": "grafana"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "GitHub OAuth client ID.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.client_id"
+      },
+      {
+        "Default": "https://accounts.google.com/o/oauth2/auth",
+        "Description": "Google OAuth authorization endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.auth_url"
+      },
+      {
+        "Default": null,
+        "Description": "Handle authentication in a http reverse proxy",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.proxy.enabled"
+      },
+      {
+        "Default": "Viewer",
+        "Description": "The role for new users when automatically added to the default organization.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.users.auto_assign_organization_role"
+      },
+      {
+        "Default": "https://www.googleapis.com/oauth2/v1/userinfo",
+        "Description": "Google users API endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.api_url"
+      },
+      {
+        "Default": [],
+        "Description": "E-mail address domains to allow. If empty, all are allowed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.allowed_email_domains"
+      },
+      {
+        "Default": [],
+        "Description": "GitHub organizations to allow. If empty, all are allowed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.allowed_organizations"
+      },
+      {
+        "Default": null,
+        "Description": "Google OAuth client ID.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.client_id"
+      },
+      {
+        "Default": null,
+        "Description": "Google OAuth client secret.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.client_secret"
+      },
+      {
+        "Default": null,
+        "Description": "Grafana datasource; see http://docs.grafana.org/http_api/data_source/ for details",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.datasource"
+      },
+      {
+        "Default": [],
+        "Description": "List of grafana dasboards, converted to YAML\n",
+        "Example": "- name: frontend (without extension)\n  content: \u003cminified JSON content\u003e\n",
+        "Examples": null,
+        "Name": "grafana.dashboards"
+      },
+      {
+        "Default": null,
+        "Description": "SSL cert to use for HTTPS. If not specified, the server will listen in plaintext.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.ssl.cert"
+      },
+      {
+        "Default": null,
+        "Description": "Username for the initial admin user.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the header contains a user name or an email address (allowed values are 'username' or 'email').",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.proxy.header_property"
+      },
+      {
+        "Default": "Main Org.",
+        "Description": "The organization that should be used for unauthenticated users.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.anonymous.organization"
+      },
+      {
+        "Default": [],
+        "Description": "* If you want to configure multiple datasources, you can define an array of hashes here. Each hash must have 'name', 'url', 'type', 'user', 'password' and 'database' defined.\n* These datasources will be created in addition to the datasource defined in 'grafana.datasource'. The latter property is for backwards compatibility.\n* See http://docs.grafana.org/http_api/data_source/ for details\n",
+        "Example": "- name: influxdb\n  url: http://1.2.3.4:8086\n  type: influxdb\n  user: admin\n  password: admin123\n  database: metrics\n",
+        "Examples": null,
+        "Name": "grafana.datasources"
+      },
+      {
+        "Default": true,
+        "Description": "Permit users to register via GitHub OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.allow_sign_up"
+      },
+      {
+        "Default": "https://github.com/login/oauth/access_token",
+        "Description": "GitHub OAuth access token endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.token_url"
+      },
+      {
+        "Default": null,
+        "Description": "SSL private key to use for HTTPS. If not specified, the server will listen in plaintext.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.ssl.key"
+      },
+      {
+        "Default": false,
+        "Description": "If enabled, users do not have to log in.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.anonymous.enabled"
+      },
+      {
+        "Default": false,
+        "Description": "Permit users to authenticate via GitHub OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.enabled"
+      },
+      {
+        "Default": null,
+        "Description": "GitHub OAuth client secret.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.client_secret"
+      },
+      {
+        "Default": [],
+        "Description": "GitHub team IDs to allow. If empty, all are allowed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.team_ids"
+      },
+      {
+        "Default": [],
+        "Description": "E-mail address domains to allow. If empty, all are allowed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.allowed_email_domains"
+      },
+      {
+        "Default": 3000,
+        "Description": "TCP port on which the Grafana server should listen.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.listen_port"
+      },
+      {
+        "Default": "Viewer",
+        "Description": "The role to assume for anonymous users.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.anonymous.organization_role"
+      },
+      {
+        "Default": false,
+        "Description": "Permit users to authenticate via Google OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.enabled"
+      },
+      {
+        "Default": "https://accounts.google.com/o/oauth2/token",
+        "Description": "Google OAuth access token endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.token_url"
+      },
+      {
+        "Default": null,
+        "Description": "The full root URL for the instance. Used for OAuth callbacks.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.root_url"
+      },
+      {
+        "Default": "https://api.github.com/user",
+        "Description": "GitHub users API endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.api_url"
+      },
+      {
+        "Default": false,
+        "Description": "If enabled, non-admin users can create organizations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.users.allow_organization_creation"
+      },
+      {
+        "Default": true,
+        "Description": "If enabled, new users will be automatically added to the default organization (id 1).",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.users.auto_assign_organization"
+      },
+      {
+        "Default": "https://github.com/login/oauth/authorize",
+        "Description": "GitHub OAuth authorization endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.github.auth_url"
+      },
+      {
+        "Default": true,
+        "Description": "Permit users to register via Google OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.google.allow_sign_up"
+      },
+      {
+        "Default": null,
+        "Description": "The name of the http header used to forward authenticated user",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.proxy.header_name"
+      },
+      {
+        "Default": null,
+        "Description": "Enable sign up of users who do not exist in Grafana DB",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.auth.proxy.auto_sign_up"
+      },
+      {
+        "Default": null,
+        "Description": "Password for the initial admin user.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.admin_password"
+      },
+      {
+        "Default": false,
+        "Description": "If enabled, users can create their own accounts.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grafana.users.allow_sign_up"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/create-update-dashboards",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/create-update-dashboards.erb",
+        "SrcPathEnd": "create-update-dashboards.erb"
+      },
+      {
+        "DstPathEnd": "config/config.ini",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/config.ini.erb",
+        "SrcPathEnd": "config.ini.erb"
+      },
+      {
+        "DstPathEnd": "config/ssl.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/ssl.key.erb",
+        "SrcPathEnd": "ssl.key.erb"
+      },
+      {
+        "DstPathEnd": "config/ssl.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/ssl.crt.erb",
+        "SrcPathEnd": "ssl.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/grafana_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/grafana_ctl",
+        "SrcPathEnd": "grafana_ctl"
+      },
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/post-start",
+        "SrcPathEnd": "post-start"
+      },
+      {
+        "DstPathEnd": "bin/create-update-datasources",
+        "Path": "/mnt/tmp/tar-CmdExtractor506329837/templates/create-update-datasources.erb",
+        "SrcPathEnd": "create-update-datasources.erb"
+      }
+    ]
+  }
+]

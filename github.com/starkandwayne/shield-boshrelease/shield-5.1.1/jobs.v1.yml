@@ -1,354 +1,545 @@
-- Description: |
-    The shield tests errand runs tests for shield
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor384312532/monit
-    SrcPathEnd: monit
-  Name: smoke-tests
-  Packages:
-  - Name: shield
-  - Name: utils
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor384312532/templates/bin/run
-    SrcPathEnd: bin/run
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor102798118/monit
-    SrcPathEnd: monit
-  Name: agent-pgtools
-  Packages:
-  - Name: postgres-9.4
-  Properties: null
-  Templates:
-  - DstPathEnd: ignore
-    Path: /mnt/tmp/tar-CmdExtractor102798118/templates/ignore
-    SrcPathEnd: ignore
-- Description: The Postgres server provides a single instance Postgres database that
-    can be used with the Cloud Controller or the UAA. It does not provide highly-available
-    configuration.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor419033416/monit
-    SrcPathEnd: monit
-  Name: postgres
-  Packages:
-  - Name: common
-  - Name: postgres-9.4
-  Properties:
-  - Default: null
-    Description: The database scheme
-    Example: null
-    Examples: null
-    Name: databases.db_scheme
-  - Default: null
-    Description: The database port
-    Example: null
-    Examples: null
-    Name: databases.port
-  - Default: null
-    Description: The database address
-    Example: null
-    Examples: null
-    Name: databases.address
-  - Default: null
-    Description: A list of databases and associated properties to create
-    Example: null
-    Examples: null
-    Name: databases.databases
-  - Default: null
-    Description: A list of database roles and associated properties to create
-    Example: null
-    Examples: null
-    Name: databases.roles
-  - Default: null
-    Description: Maximum number of database connections
-    Example: null
-    Examples: null
-    Name: databases.max_connections
-  - Default: '%m: '
-    Description: The postgres `printf` style string that is output at the beginning
-      of each log line
-    Example: null
-    Examples: null
-    Name: databases.log_line_prefix
-  Templates:
-  - DstPathEnd: bin/postgres_ctl
-    Path: /mnt/tmp/tar-CmdExtractor419033416/templates/postgres_ctl.erb
-    SrcPathEnd: postgres_ctl.erb
-  - DstPathEnd: bin/postgres_start.sh
-    Path: /mnt/tmp/tar-CmdExtractor419033416/templates/postgres_start.sh.erb
-    SrcPathEnd: postgres_start.sh.erb
-  - DstPathEnd: config/postgresql.conf
-    Path: /mnt/tmp/tar-CmdExtractor419033416/templates/postgresql.conf.erb
-    SrcPathEnd: postgresql.conf.erb
-  - DstPathEnd: config/pg_hba.conf
-    Path: /mnt/tmp/tar-CmdExtractor419033416/templates/pg_hba.conf.erb
-    SrcPathEnd: pg_hba.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor411145658/monit
-    SrcPathEnd: monit
-  Name: agent-mysql
-  Packages:
-  - Name: shield-mysql
-  Properties: null
-  Templates:
-  - DstPathEnd: ignore
-    Path: /mnt/tmp/tar-CmdExtractor411145658/templates/ignore
-    SrcPathEnd: ignore
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor804036348/monit
-    SrcPathEnd: monit
-  Name: shield-agent
-  Packages:
-  - Name: shield
-  - Name: bsdtar
-  - Name: plugins
-  - Name: generated_daemon_key
-  - Name: generated_agent_key
-  - Name: elasticsearch-cloud-aws-plugin
-  Properties:
-  - Default: 5444
-    Description: port to run agent
-    Example: null
-    Examples: null
-    Name: shield.agent.port
-  - Default: null
-    Description: Target plugin to use in emergency-recovery-mode
-    Example: null
-    Examples: null
-    Name: shield.agent.recovery.target_plugin
-  - Default: null
-    Description: Hash of config information
-    Example: null
-    Examples: null
-    Name: shield.target.config
-  - Default: []
-    Description: public keys to permit
-    Example: null
-    Examples: null
-    Name: shield.agent.authorized_keys
-  - Default: info
-    Description: Log level for shield processes
-    Example: null
-    Examples: null
-    Name: shield.log_level
-  - Default: null
-    Description: Plugin type
-    Example: null
-    Examples: null
-    Name: shield.target.plugin
-  - Default: null
-    Description: Name of job schedule
-    Example: null
-    Examples: null
-    Name: shield.job.schedule
-  - Default: null
-    Description: Name of job store
-    Example: null
-    Examples: null
-    Name: shield.job.store
-  - Default: true
-    Description: permit access via generated worker key, local to deployment
-    Example: null
-    Examples: null
-    Name: shield.agent.authorize_generated_daemon_key
-  - Default: null
-    Description: Optional HTTP API of the Shield installation to automatically provision
-      authorized keys from
-    Example: null
-    Examples: null
-    Name: shield.agent.autoprovision
-  - Default: null
-    Description: Target name
-    Example: null
-    Examples: null
-    Name: shield.target.name
-  - Default: null
-    Description: Job name
-    Example: null
-    Examples: null
-    Name: shield.job.name
-  - Default: null
-    Description: Name of job retention
-    Example: null
-    Examples: null
-    Name: shield.job.retention
-  - Default: null
-    Description: A map of key-values that will be converted to JSON, representing
-      the target plugin configration
-    Example: null
-    Examples: null
-    Name: shield.agent.recovery.target_config
-  - Default: null
-    Description: Store plugin to use in emergency-recovery-mode
-    Example: null
-    Examples: null
-    Name: shield.agent.recovery.store_plugin
-  - Default: null
-    Description: A map of key-values that will be converted to JSON, representing
-      the store plugin configration
-    Example: null
-    Examples: null
-    Name: shield.agent.recovery.store_config
-  Templates:
-  - DstPathEnd: config/target.json
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/config/target.json.erb
-    SrcPathEnd: config/target.json.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: bin/emergency-recovery
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/bin/emergency-recovery.erb
-    SrcPathEnd: bin/emergency-recovery.erb
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/bin/post-start.erb
-    SrcPathEnd: bin/post-start.erb
-  - DstPathEnd: config/shield-agent.conf
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/config/shield-agent.conf.erb
-    SrcPathEnd: config/shield-agent.conf.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor804036348/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor992005518/monit
-    SrcPathEnd: monit
-  Name: shield-daemon
-  Packages:
-  - Name: shield
-  - Name: utils
-  - Name: generated_daemon_key
-  - Name: generated_agent_key
-  Properties:
-  - Default: (none)
-    Description: name to display to `shield status' calls
-    Example: null
-    Examples: null
-    Name: shield.daemon.name
-  - Default: info
-    Description: Log level for shield processes
-    Example: null
-    Examples: null
-    Name: shield.log_level
-  - Default: ""
-    Description: |
-      private key to use for the SSH client. if not specified, a deployment-scoped default is used.
-    Example: null
-    Examples: null
-    Name: shield.daemon.host_key
-  - Default: null
-    Description: username for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.username
-  - Default: null
-    Description: store name
-    Example: null
-    Examples: null
-    Name: shield.store.name
-  - Default: null
-    Description: host for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.host
-  - Default: null
-    Description: password for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.password
-  - Default: null
-    Description: schedule when
-    Example: null
-    Examples: null
-    Name: shield.schedule.when
-  - Default: null
-    Description: store config
-    Example: null
-    Examples: null
-    Name: shield.store.config
-  - Default: 8080
-    Description: port to run daemon
-    Example: null
-    Examples: null
-    Name: shield.daemon.port
-  - Default: null
-    Description: port for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.port
-  - Default: null
-    Description: db for postgres database
-    Example: null
-    Examples: null
-    Name: shield.daemon.database.db
-  - Default: null
-    Description: schedule name
-    Example: null
-    Examples: null
-    Name: shield.schedule.name
-  - Default: null
-    Description: retention name
-    Example: null
-    Examples: null
-    Name: shield.retention.name
-  - Default: null
-    Description: expires
-    Example: null
-    Examples: null
-    Name: shield.retention.expires
-  - Default: null
-    Description: store plugin
-    Example: null
-    Examples: null
-    Name: shield.store.plugin
-  Templates:
-  - DstPathEnd: config/retention.json
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/config/retention.json.erb
-    SrcPathEnd: config/retention.json.erb
-  - DstPathEnd: shared/id_rsa
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/shared/id_rsa
-    SrcPathEnd: shared/id_rsa
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/bin/post-start.erb
-    SrcPathEnd: bin/post-start.erb
-  - DstPathEnd: config/schedule.json
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/config/schedule.json.erb
-    SrcPathEnd: config/schedule.json.erb
-  - DstPathEnd: config/shieldd.conf
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/config/shieldd.conf.erb
-    SrcPathEnd: config/shieldd.conf.erb
-  - DstPathEnd: config/store.json
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/config/store.json.erb
-    SrcPathEnd: config/store.json.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor992005518/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
+[
+  {
+    "Description": "The shield tests errand runs tests for shield\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor384312532/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "smoke-tests",
+    "Packages": [
+      {
+        "Name": "shield"
+      },
+      {
+        "Name": "utils"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor384312532/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor102798118/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "agent-pgtools",
+    "Packages": [
+      {
+        "Name": "postgres-9.4"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "ignore",
+        "Path": "/mnt/tmp/tar-CmdExtractor102798118/templates/ignore",
+        "SrcPathEnd": "ignore"
+      }
+    ]
+  },
+  {
+    "Description": "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor419033416/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "postgres",
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "postgres-9.4"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "The database scheme",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.db_scheme"
+      },
+      {
+        "Default": null,
+        "Description": "The database port",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.port"
+      },
+      {
+        "Default": null,
+        "Description": "The database address",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.address"
+      },
+      {
+        "Default": null,
+        "Description": "A list of databases and associated properties to create",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.databases"
+      },
+      {
+        "Default": null,
+        "Description": "A list of database roles and associated properties to create",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.roles"
+      },
+      {
+        "Default": null,
+        "Description": "Maximum number of database connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.max_connections"
+      },
+      {
+        "Default": "%m: ",
+        "Description": "The postgres `printf` style string that is output at the beginning of each log line",
+        "Example": null,
+        "Examples": null,
+        "Name": "databases.log_line_prefix"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor419033416/templates/postgres_ctl.erb",
+        "SrcPathEnd": "postgres_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgres_start.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor419033416/templates/postgres_start.sh.erb",
+        "SrcPathEnd": "postgres_start.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor419033416/templates/postgresql.conf.erb",
+        "SrcPathEnd": "postgresql.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor419033416/templates/pg_hba.conf.erb",
+        "SrcPathEnd": "pg_hba.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor411145658/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "agent-mysql",
+    "Packages": [
+      {
+        "Name": "shield-mysql"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "ignore",
+        "Path": "/mnt/tmp/tar-CmdExtractor411145658/templates/ignore",
+        "SrcPathEnd": "ignore"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor804036348/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shield-agent",
+    "Packages": [
+      {
+        "Name": "shield"
+      },
+      {
+        "Name": "bsdtar"
+      },
+      {
+        "Name": "plugins"
+      },
+      {
+        "Name": "generated_daemon_key"
+      },
+      {
+        "Name": "generated_agent_key"
+      },
+      {
+        "Name": "elasticsearch-cloud-aws-plugin"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 5444,
+        "Description": "port to run agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.port"
+      },
+      {
+        "Default": null,
+        "Description": "Target plugin to use in emergency-recovery-mode",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.recovery.target_plugin"
+      },
+      {
+        "Default": null,
+        "Description": "Hash of config information",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.target.config"
+      },
+      {
+        "Default": [],
+        "Description": "public keys to permit",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.authorized_keys"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level for shield processes",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "Plugin type",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.target.plugin"
+      },
+      {
+        "Default": null,
+        "Description": "Name of job schedule",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.job.schedule"
+      },
+      {
+        "Default": null,
+        "Description": "Name of job store",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.job.store"
+      },
+      {
+        "Default": true,
+        "Description": "permit access via generated worker key, local to deployment",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.authorize_generated_daemon_key"
+      },
+      {
+        "Default": null,
+        "Description": "Optional HTTP API of the Shield installation to automatically provision authorized keys from",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.autoprovision"
+      },
+      {
+        "Default": null,
+        "Description": "Target name",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.target.name"
+      },
+      {
+        "Default": null,
+        "Description": "Job name",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.job.name"
+      },
+      {
+        "Default": null,
+        "Description": "Name of job retention",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.job.retention"
+      },
+      {
+        "Default": null,
+        "Description": "A map of key-values that will be converted to JSON, representing the target plugin configration",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.recovery.target_config"
+      },
+      {
+        "Default": null,
+        "Description": "Store plugin to use in emergency-recovery-mode",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.recovery.store_plugin"
+      },
+      {
+        "Default": null,
+        "Description": "A map of key-values that will be converted to JSON, representing the store plugin configration",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.agent.recovery.store_config"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/target.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/config/target.json.erb",
+        "SrcPathEnd": "config/target.json.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "bin/emergency-recovery",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/bin/emergency-recovery.erb",
+        "SrcPathEnd": "bin/emergency-recovery.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/bin/post-start.erb",
+        "SrcPathEnd": "bin/post-start.erb"
+      },
+      {
+        "DstPathEnd": "config/shield-agent.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/config/shield-agent.conf.erb",
+        "SrcPathEnd": "config/shield-agent.conf.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor804036348/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor992005518/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shield-daemon",
+    "Packages": [
+      {
+        "Name": "shield"
+      },
+      {
+        "Name": "utils"
+      },
+      {
+        "Name": "generated_daemon_key"
+      },
+      {
+        "Name": "generated_agent_key"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "(none)",
+        "Description": "name to display to `shield status' calls",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.name"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level for shield processes",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.log_level"
+      },
+      {
+        "Default": "",
+        "Description": "private key to use for the SSH client. if not specified, a deployment-scoped default is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.host_key"
+      },
+      {
+        "Default": null,
+        "Description": "username for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.username"
+      },
+      {
+        "Default": null,
+        "Description": "store name",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.store.name"
+      },
+      {
+        "Default": null,
+        "Description": "host for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.host"
+      },
+      {
+        "Default": null,
+        "Description": "password for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.password"
+      },
+      {
+        "Default": null,
+        "Description": "schedule when",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.schedule.when"
+      },
+      {
+        "Default": null,
+        "Description": "store config",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.store.config"
+      },
+      {
+        "Default": 8080,
+        "Description": "port to run daemon",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.port"
+      },
+      {
+        "Default": null,
+        "Description": "port for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.port"
+      },
+      {
+        "Default": null,
+        "Description": "db for postgres database",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.daemon.database.db"
+      },
+      {
+        "Default": null,
+        "Description": "schedule name",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.schedule.name"
+      },
+      {
+        "Default": null,
+        "Description": "retention name",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.retention.name"
+      },
+      {
+        "Default": null,
+        "Description": "expires",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.retention.expires"
+      },
+      {
+        "Default": null,
+        "Description": "store plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "shield.store.plugin"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/retention.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/config/retention.json.erb",
+        "SrcPathEnd": "config/retention.json.erb"
+      },
+      {
+        "DstPathEnd": "shared/id_rsa",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/shared/id_rsa",
+        "SrcPathEnd": "shared/id_rsa"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/bin/post-start.erb",
+        "SrcPathEnd": "bin/post-start.erb"
+      },
+      {
+        "DstPathEnd": "config/schedule.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/config/schedule.json.erb",
+        "SrcPathEnd": "config/schedule.json.erb"
+      },
+      {
+        "DstPathEnd": "config/shieldd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/config/shieldd.conf.erb",
+        "SrcPathEnd": "config/shieldd.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/store.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/config/store.json.erb",
+        "SrcPathEnd": "config/store.json.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor992005518/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      }
+    ]
+  }
+]

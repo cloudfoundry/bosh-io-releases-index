@@ -1,140 +1,213 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor959780091/monit
-    SrcPathEnd: monit
-  Name: consul
-  Packages:
-  - Name: consul
-  - Name: consul-ui
-  - Name: consul-template
-  - Name: envconsul
-  Properties:
-  - Default: 8.8.8.8
-    Description: DNS recursor to use if BOSH not provising DNS
-    Example: null
-    Examples: null
-    Name: consul.default_recursor
-  - Default: false
-    Description: If enabled, gracefully leave the cluster when the process shuts down.
-    Example: null
-    Examples: null
-    Name: consul.leave_on_terminate
-  - Default: null
-    Description: The content of the key file
-    Example: null
-    Examples: null
-    Name: consul.ssl_key
-  - Default: consul
-    Description: All DNS queries for this domain will be handled by consul.
-    Example: null
-    Examples: null
-    Name: consul.domain
-  - Default: null
-    Description: The IP to use for client communication
-    Example: null
-    Examples: null
-    Name: consul.client_addr
-  - Default: null
-    Description: override hash for the consul agent.json configuration
-    Example: null
-    Examples: null
-    Name: consul.agent_config
-  - Default: null
-    Description: Deployment's internal name for the network interface to discover
-      own IP
-    Example: null
-    Examples: null
-    Name: networks.apps
-  - Default: vcap
-    Description: User that consul is ran under
-    Example: null
-    Examples: null
-    Name: consul.user
-  - Default: null
-    Description: Hostnames/IPs representing all initial consul servers. Use this or
-      consul.join_host / consul.size
-    Example: null
-    Examples: null
-    Name: consul.join_hosts
-  - Default: null
-    Description: The content of the ca file
-    Example: null
-    Examples: null
-    Name: consul.ssl_ca
-  - Default: null
-    Description: A key to encrypt the traffic between the consul agents (use consul
-      keygen)
-    Example: null
-    Examples: null
-    Name: consul.encrypt
-  - Default: null
-    Description: Hostname/IP for initial cluster node for other consul servers to
-      join.
-    Example: null
-    Examples: null
-    Name: consul.join_host
-  - Default: null
-    Description: The content of the cert file
-    Example: null
-    Examples: null
-    Name: consul.ssl_cert
-  - Default: true
-    Description: Should the agent run in server or client mode
-    Example: null
-    Examples: null
-    Name: consul.server
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: consul/ca.cert
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/consul/ca.cert.erb
-    SrcPathEnd: consul/ca.cert.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/consul_ctl
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/bin/consul_ctl
-    SrcPathEnd: bin/consul_ctl
-  - DstPathEnd: consul/agent.json
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/consul/agent.json.erb
-    SrcPathEnd: consul/agent.json.erb
-  - DstPathEnd: consul/consul.cert
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/consul/consul.cert.erb
-    SrcPathEnd: consul/consul.cert.erb
-  - DstPathEnd: consul/consul.key
-    Path: /mnt/tmp/tar-CmdExtractor959780091/templates/consul/consul.key.erb
-    SrcPathEnd: consul/consul.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor821675749/monit
-    SrcPathEnd: monit
-  Name: vm-consul
-  Packages: null
-  Properties:
-  - Default: vm-node
-    Description: Name for advertising/discovering this service over consul
-    Example: null
-    Examples: null
-    Name: consul.service.name
-  Templates:
-  - DstPathEnd: bin/check_disk.pl
-    Path: /mnt/tmp/tar-CmdExtractor821675749/templates/bin/check_disk.pl
-    SrcPathEnd: bin/check_disk.pl
-  - DstPathEnd: consul/check_mem.json
-    Path: /mnt/tmp/tar-CmdExtractor821675749/templates/consul/check_mem.json
-    SrcPathEnd: consul/check_mem.json
-  - DstPathEnd: consul/check_disk.json
-    Path: /mnt/tmp/tar-CmdExtractor821675749/templates/consul/check_disk.json
-    SrcPathEnd: consul/check_disk.json
-  - DstPathEnd: bin/check_mem.pl
-    Path: /mnt/tmp/tar-CmdExtractor821675749/templates/bin/check_mem.pl
-    SrcPathEnd: bin/check_mem.pl
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor959780091/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul",
+    "Packages": [
+      {
+        "Name": "consul"
+      },
+      {
+        "Name": "consul-ui"
+      },
+      {
+        "Name": "consul-template"
+      },
+      {
+        "Name": "envconsul"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "8.8.8.8",
+        "Description": "DNS recursor to use if BOSH not provising DNS",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.default_recursor"
+      },
+      {
+        "Default": false,
+        "Description": "If enabled, gracefully leave the cluster when the process shuts down.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.leave_on_terminate"
+      },
+      {
+        "Default": null,
+        "Description": "The content of the key file",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ssl_key"
+      },
+      {
+        "Default": "consul",
+        "Description": "All DNS queries for this domain will be handled by consul.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.domain"
+      },
+      {
+        "Default": null,
+        "Description": "The IP to use for client communication",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.client_addr"
+      },
+      {
+        "Default": null,
+        "Description": "override hash for the consul agent.json configuration",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_config"
+      },
+      {
+        "Default": null,
+        "Description": "Deployment's internal name for the network interface to discover own IP",
+        "Example": null,
+        "Examples": null,
+        "Name": "networks.apps"
+      },
+      {
+        "Default": "vcap",
+        "Description": "User that consul is ran under",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.user"
+      },
+      {
+        "Default": null,
+        "Description": "Hostnames/IPs representing all initial consul servers. Use this or consul.join_host / consul.size",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.join_hosts"
+      },
+      {
+        "Default": null,
+        "Description": "The content of the ca file",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ssl_ca"
+      },
+      {
+        "Default": null,
+        "Description": "A key to encrypt the traffic between the consul agents (use consul keygen)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.encrypt"
+      },
+      {
+        "Default": null,
+        "Description": "Hostname/IP for initial cluster node for other consul servers to join.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.join_host"
+      },
+      {
+        "Default": null,
+        "Description": "The content of the cert file",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ssl_cert"
+      },
+      {
+        "Default": true,
+        "Description": "Should the agent run in server or client mode",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "consul/ca.cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/consul/ca.cert.erb",
+        "SrcPathEnd": "consul/ca.cert.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/consul_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/bin/consul_ctl",
+        "SrcPathEnd": "bin/consul_ctl"
+      },
+      {
+        "DstPathEnd": "consul/agent.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/consul/agent.json.erb",
+        "SrcPathEnd": "consul/agent.json.erb"
+      },
+      {
+        "DstPathEnd": "consul/consul.cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/consul/consul.cert.erb",
+        "SrcPathEnd": "consul/consul.cert.erb"
+      },
+      {
+        "DstPathEnd": "consul/consul.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor959780091/templates/consul/consul.key.erb",
+        "SrcPathEnd": "consul/consul.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor821675749/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "vm-consul",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": "vm-node",
+        "Description": "Name for advertising/discovering this service over consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.service.name"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/check_disk.pl",
+        "Path": "/mnt/tmp/tar-CmdExtractor821675749/templates/bin/check_disk.pl",
+        "SrcPathEnd": "bin/check_disk.pl"
+      },
+      {
+        "DstPathEnd": "consul/check_mem.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor821675749/templates/consul/check_mem.json",
+        "SrcPathEnd": "consul/check_mem.json"
+      },
+      {
+        "DstPathEnd": "consul/check_disk.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor821675749/templates/consul/check_disk.json",
+        "SrcPathEnd": "consul/check_disk.json"
+      },
+      {
+        "DstPathEnd": "bin/check_mem.pl",
+        "Path": "/mnt/tmp/tar-CmdExtractor821675749/templates/bin/check_mem.pl",
+        "SrcPathEnd": "bin/check_mem.pl"
+      }
+    ]
+  }
+]

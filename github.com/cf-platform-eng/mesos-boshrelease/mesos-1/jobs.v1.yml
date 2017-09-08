@@ -1,897 +1,1397 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor763670836/monit
-    SrcPathEnd: monit
-  Name: cassandra
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: sasl
-  - Name: mesos
-  - Name: cassandra
-  Properties:
-  - Default: vcap
-    Description: Group which will own the Apache Cassandra services
-    Example: null
-    Name: cassandra.group
-  - Default: Cassandra Cluster
-    Description: Human readable name for the Apache Cassandra cluster
-    Example: null
-    Name: cassandra.cluster_name
-  - Default: http://downloads.mesosphere.io/cassandra/cassandra-mesos-2.0.5-1.tgz
-    Description: Apache Cassandra on Mesos download location
-    Example: null
-    Name: cassandra.mesos.executor_uri
-  - Default: 1000
-    Description: Mesos disk consumable resources
-    Example: null
-    Name: cassandra.mesos.resource_disk
-  - Default: mesos
-    Description: Path in ZooKeeper for storing Mesos state
-    Example: null
-    Name: mesos.zk_state
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: root
-    Description: User which will own the Apache Cassandra services
-    Example: null
-    Name: cassandra.user
-  - Default: 2048m
-    Description: Java Heap Size for Apache Cassandra
-    Example: null
-    Name: cassandra.java_heap_size
-  - Default: 1
-    Description: No of HW nodes we want it to run on
-    Example: null
-    Name: cassandra.hw_nodes
-  - Default: 0.1
-    Description: Mesos cpus consumable resources
-    Example: null
-    Name: cassandra.mesos.resource_cpus
-  - Default: 2048
-    Description: Mesos memory consumable resources
-    Example: null
-    Name: cassandra.mesos.resource_mem
-  - Default: 2181
-    Description: Port at which the clients will connect to Apache Zookeeper
-    Example: null
-    Name: zookeeper.client_port
-  Templates:
-  - DstPathEnd: conf/cassandra-env.sh
-    Path: /mnt/tmp/tar-CmdExtractor763670836/templates/conf/cassandra-env.sh
-    SrcPathEnd: conf/cassandra-env.sh
-  - DstPathEnd: conf/log4j-server.properties
-    Path: /mnt/tmp/tar-CmdExtractor763670836/templates/conf/log4j-server.properties
-    SrcPathEnd: conf/log4j-server.properties
-  - DstPathEnd: conf/mesos.yaml
-    Path: /mnt/tmp/tar-CmdExtractor763670836/templates/conf/mesos.yaml.erb
-    SrcPathEnd: conf/mesos.yaml.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor763670836/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/cassandra_ctl
-    Path: /mnt/tmp/tar-CmdExtractor763670836/templates/bin/cassandra_ctl.erb
-    SrcPathEnd: bin/cassandra_ctl.erb
-  - DstPathEnd: conf/cassandra.yaml
-    Path: /mnt/tmp/tar-CmdExtractor763670836/templates/conf/cassandra.yaml.erb
-    SrcPathEnd: conf/cassandra.yaml.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor629774982/monit
-    SrcPathEnd: monit
-  Name: chronos
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: sasl
-  - Name: mesos
-  - Name: chronos
-  Properties:
-  - Default: null
-    Description: Mail password (for auth)
-    Example: null
-    Name: chronos.mail_password
-  - Default: 0
-    Description: Disables a job after this many failures have occurred
-    Example: null
-    Name: chronos.disable_after_failures
-  - Default: 1200
-    Description: The failover timeout in seconds for Mesos
-    Example: null
-    Name: chronos.failover_timeout
-  - Default: null
-    Description: Host and port for Ganglia
-    Example: null
-    Name: chronos.ganglia_host_port
-  - Default: null
-    Description: Ganglia reporting interval (seconds)
-    Example: null
-    Name: chronos.ganglia_reporting_interval
-  - Default: 5000
-    Description: The look-ahead time for scheduling tasks in milliseconds
-    Example: null
-    Name: chronos.leader_max_idle_time
-  - Default: vcap
-    Description: The mesos user to run the processes under
-    Example: null
-    Name: chronos.mesos_user
-  - Default: chronos
-    Description: Path in ZooKeeper for storing Chronos state
-    Example: null
-    Name: chronos.zk_state
-  - Default: null
-    Description: Group prefix for Ganglia
-    Example: null
-    Name: chronos.ganglia_group_prefix
-  - Default: true
-    Description: Enable checkpointing
-    Example: null
-    Name: chronos.enable_checkpoint
-  - Default: 256
-    Description: Amount of disk capacity to request from Mesos for each task (MB)
-    Example: null
-    Name: chronos.mesos_task_disk
-  - Default: null
-    Description: Mail SSL
-    Example: null
-    Name: chronos.mail_ssl
-  - Default: Chronos
-    Description: The framework name
-    Example: null
-    Name: chronos.mesos_framework_name
-  - Default: 0.1
-    Description: Number of CPUs to request from Mesos for each task
-    Example: null
-    Name: chronos.mesos_task_cpu
-  - Default: 10000
-    Description: The timeout for ZooKeeper in milliseconds
-    Example: null
-    Name: chronos.zk_timeout
-  - Default: root
-    Description: User which will own the Chronos services
-    Example: null
-    Name: chronos.user
-  - Default: 60000
-    Description: Number of ms between retries
-    Example: null
-    Name: chronos.failure_retry
-  - Default: 443
-    Description: The port Chronos will listen on for HTTPS requests
-    Example: null
-    Name: chronos.https_port
-  - Default: 60
-    Description: The look-ahead time for scheduling tasks in seconds
-    Example: null
-    Name: chronos.schedule_horizon
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: 2048m
-    Description: Java Heap Size for Chronos
-    Example: null
-    Name: chronos.java_heap_size
-  - Default: chronos:chronos
-    Description: Credentials for accessing the Chronos http service (username:password
-      format)
-    Example: null
-    Name: chronos.http_credentials
-  - Default: 128
-    Description: Amount of memory to request from Mesos for each task (MB)
-    Example: null
-    Name: chronos.mesos_task_mem
-  - Default: '*'
-    Description: The Mesos role to run tasks under
-    Example: null
-    Name: chronos.mesos_role
-  - Default: mesos
-    Description: Path in ZooKeeper for storing Mesos state
-    Example: null
-    Name: mesos.zk_state
-  - Default: 2181
-    Description: Port at which the clients will connect to Apache Zookeeper
-    Example: null
-    Name: zookeeper.client_port
-  - Default: bosh@cloudfoundry.com
-    Description: Job Owner
-    Example: null
-    Name: chronos.default_job_owner
-  - Default: 80
-    Description: The port Chronos will listen on for HTTP requests
-    Example: null
-    Name: chronos.http_port
-  - Default: null
-    Description: Address of the mailserver
-    Example: null
-    Name: chronos.mail_server
-  - Default: vcap
-    Description: Group which will own the Chronos services
-    Example: null
-    Name: chronos.group
-  - Default: null
-    Description: Mail user (for auth)
-    Example: null
-    Name: chronos.mail_user
-  - Default: null
-    Description: Mail from field
-    Example: null
-    Name: chronos.mail_from
-  Templates:
-  - DstPathEnd: config/zoo_hosts.cfg
-    Path: /mnt/tmp/tar-CmdExtractor629774982/templates/config/zoo_hosts.cfg.erb
-    SrcPathEnd: config/zoo_hosts.cfg.erb
-  - DstPathEnd: config/zoo_mesos.cfg
-    Path: /mnt/tmp/tar-CmdExtractor629774982/templates/config/zoo_mesos.cfg.erb
-    SrcPathEnd: config/zoo_mesos.cfg.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor629774982/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/chronos_ctl
-    Path: /mnt/tmp/tar-CmdExtractor629774982/templates/bin/chronos_ctl.erb
-    SrcPathEnd: bin/chronos_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor911766440/monit
-    SrcPathEnd: monit
-  Name: jenkins
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: sasl
-  - Name: mesos
-  - Name: nginx
-  - Name: jenkins
-  Properties:
-  - Default: 512
-    Description: Jenkins Slave Memory in MB
-    Example: null
-    Name: jenkins.mesos.slave_mem
-  - Default: 2
-    Description: Number of nginx workers
-    Example: null
-    Name: jenkins.nginx.worker_processes
-  - Default: true
-    Description: Enable only HTTPS requests
-    Example: null
-    Name: jenkins.nginx.ssl_only
-  - Default: root
-    Description: User which will own the Jenkins services
-    Example: null
-    Name: jenkins.user
-  - Default: jenkins
-    Description: Jenkins admin password
-    Example: null
-    Name: jenkins.admin_password
-  - Default: true
-    Description: Enable checkpointing of Jenkins tasks
-    Example: null
-    Name: jenkins.mesos.enable_checkpoint
-  - Default: 7200
-    Description: Timeout for reusing the previously negotiated cryptographic parameters
-    Example: null
-    Name: jenkins.nginx.https.ssl_timeout
-  - Default: vcap
-    Description: Group which will own the Jenkins services
-    Example: null
-    Name: jenkins.group
-  - Default: root
-    Description: User which will own the Nginx services
-    Example: null
-    Name: jenkins.nginx.user
-  - Default: 7200
-    Description: Timeout for keep-alive connections
-    Example: null
-    Name: jenkins.nginx.keepalive_timeout
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: jenkins
-    Description: Jenkins admin user
-    Example: null
-    Name: jenkins.admin_user
-  - Default: Jenkins on Mesos Cluster
-    Description: Human readable name for the Jenkins Mesos cluster
-    Example: null
-    Name: jenkins.mesos.cluster_name
-  - Default: vcap
-    Description: Group which will own the Nginx services
-    Example: null
-    Name: jenkins.nginx.group
-  - Default: 2181
-    Description: Port at which the clients will connect to Apache Zookeeper
-    Example: null
-    Name: zookeeper.client_port
-  - Default: 8080
-    Description: Port Jenkins will listen using standard http protocol
-    Example: null
-    Name: jenkins.port
-  - Default: 8192
-    Description: Number of nginx connections per worker
-    Example: null
-    Name: jenkins.nginx.worker_connections
-  - Default: 120
-    Description: Timeout for read queries to the upstream server
-    Example: null
-    Name: jenkins.nginx.proxy_read_timeout
-  - Default: 5000m
-    Description: File upload maximum size
-    Example: null
-    Name: jenkins.nginx.max_upload_size
-  - Default: 80
-    Description: Port that proxy listen on for HTTP connections
-    Example: null
-    Name: jenkins.nginx.http.port
-  - Default: 2048m
-    Description: Java Heap Size for Jenkins
-    Example: null
-    Name: jenkins.java_heap_size
-  - Default: 0.1
-    Description: Jenkins Executor CPUs
-    Example: null
-    Name: jenkins.mesos.executor_cpus
-  - Default: 3
-    Description: Idle Termination Minutes
-    Example: null
-    Name: jenkins.mesos.idle_termination
-  - Default: mesos
-    Description: Path in ZooKeeper for storing Mesos state
-    Example: null
-    Name: mesos.zk_state
-  - Default: 8009
-    Description: Port Jenkins will listen using standard AJP13 protocol
-    Example: null
-    Name: jenkins.ajp_port
-  - Default: 2
-    Description: Maximum number of Executors per Slave
-    Example: null
-    Name: jenkins.mesos.max_executors
-  - Default: 128
-    Description: Jenkins Executor Memory in MB
-    Example: null
-    Name: jenkins.mesos.executor_mem
-  - Default: ""
-    Description: Prefix to append to Jenkins URL
-    Example: null
-    Name: jenkins.prefix
-  - Default: Jenkins Scheduler
-    Description: Mesos Framework name
-    Example: null
-    Name: jenkins.mesos.framework_name
-  - Default: 120
-    Description: Timeout for send queries to the upstream server
-    Example: null
-    Name: jenkins.nginx.proxy_send_timeout
-  - Default: 443
-    Description: Port that proxy listen on for HTTPS connections
-    Example: null
-    Name: jenkins.nginx.https.port
-  - Default: 300
-    Description: Timeout for the connection to the upstream server
-    Example: null
-    Name: jenkins.nginx.proxy_connect_timeout
-  - Default: null
-    Description: SSL private key (PEM encoded)
-    Example: null
-    Name: jenkins.nginx.https.ssl_key
-  - Default: null
-    Description: SSL Certificate (PEM encoded)
-    Example: null
-    Name: jenkins.nginx.https.ssl_cert
-  - Default: 127.0.0.1
-    Description: IP address where to bind Jenkins using standard http protocol
-    Example: null
-    Name: jenkins.listen_address
-  - Default: 127.0.0.1
-    Description: IP address where to bind Jenkins using standard AJP13 protocol
-    Example: null
-    Name: jenkins.ajp_listen_address
-  - Default: 0.1
-    Description: Jenkins Slave CPUs
-    Example: null
-    Name: jenkins.mesos.slave_cpus
-  Templates:
-  - DstPathEnd: bin/nginx_jenkins_ctl
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/bin/nginx_jenkins_ctl.erb
-    SrcPathEnd: bin/nginx_jenkins_ctl.erb
-  - DstPathEnd: config/config.xml
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/config/config.xml.erb
-    SrcPathEnd: config/config.xml.erb
-  - DstPathEnd: config/mime.types
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/config/mime.types
-    SrcPathEnd: config/mime.types
-  - DstPathEnd: bin/jenkins_ctl
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/bin/jenkins_ctl.erb
-    SrcPathEnd: bin/jenkins_ctl.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: config/jenkins.key
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/config/jenkins.key.erb
-    SrcPathEnd: config/jenkins.key.erb
-  - DstPathEnd: config/jenkins.pem
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/config/jenkins.pem.erb
-    SrcPathEnd: config/jenkins.pem.erb
-  - DstPathEnd: config/jenkins_location.conf
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/config/jenkins_location.conf.erb
-    SrcPathEnd: config/jenkins_location.conf.erb
-  - DstPathEnd: config/nginx.conf
-    Path: /mnt/tmp/tar-CmdExtractor911766440/templates/config/nginx.conf.erb
-    SrcPathEnd: config/nginx.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor845021978/monit
-    SrcPathEnd: monit
-  Name: marathon
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: sasl
-  - Name: mesos
-  - Name: marathon
-  Properties:
-  - Default: 20000
-    Description: Max port number to use when Marathon assigns ports to apps
-    Example: null
-    Name: marathon.local_port_max
-  - Default: mesos
-    Description: Path in ZooKeeper for storing Apache Mesos state
-    Example: null
-    Name: mesos.zk_state
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: 2181
-    Description: Port at which the clients will connect to Apache Zookeeper
-    Example: null
-    Name: zookeeper.client_port
-  - Default: vcap
-    Description: Group which will own the Marathon services
-    Example: null
-    Name: marathon.group
-  - Default: 80
-    Description: The port Marathon will listen on for HTTP requests
-    Example: null
-    Name: marathon.http_port
-  - Default: 443
-    Description: The port Marathon will listen on for HTTPS requests
-    Example: null
-    Name: marathon.https_port
-  - Default: 30000
-    Description: This is the length of time, in milliseconds, before Marathon begins
-      to periodically perform task reconciliation operations
-    Example: null
-    Name: marathon.reconciliation_initial_delay
-  - Default: 60000
-    Description: This is the time window within which instances may be launched for
-      a given app
-    Example: null
-    Name: marathon.task_rate_limit
-  - Default: true
-    Description: Enable checkpointing of tasks
-    Example: null
-    Name: marathon.enable_checkpoint
-  - Default: true
-    Description: Enable running Marathon in HA mode with leader election
-    Example: null
-    Name: marathon.enable_ha
-  - Default: marathon:marathon
-    Description: Credentials for accessing the Marathon http service (username:password
-      format)
-    Example: null
-    Name: marathon.http_credentials
-  - Default: 10000
-    Description: Min port number to use when Marathon assigns ports to apps
-    Example: null
-    Name: marathon.local_port_min
-  - Default: root
-    Description: User which will own the Marathon services
-    Example: null
-    Name: marathon.user
-  - Default: 604800
-    Description: The failover_timeout for Apache Mesos in seconds
-    Example: null
-    Name: marathon.failover_timeout
-  - Default: '*'
-    Description: Mesos role for this framework
-    Example: null
-    Name: marathon.mesos_role
-  - Default: 30000
-    Description: This is the length of time, in milliseconds, between task reconciliation
-      operations
-    Example: null
-    Name: marathon.reconciliation_frequency
-  - Default: 60000
-    Description: Time, in milliseconds, to wait for a task to enter the TASK_RUNNING
-      state before killing it
-    Example: null
-    Name: marathon.task_launch_timeout
-  - Default: marathon
-    Description: Path in ZooKeeper for storing Marathon state
-    Example: null
-    Name: marathon.zk_state
-  - Default: 10000
-    Description: The timeout for ZooKeeper in milliseconds
-    Example: null
-    Name: marathon.zk_timeout
-  - Default: 512m
-    Description: Java Heap Size for Marathon
-    Example: null
-    Name: marathon.java_heap_size
-  Templates:
-  - DstPathEnd: config/zoo_mesos.cfg
-    Path: /mnt/tmp/tar-CmdExtractor845021978/templates/config/zoo_mesos.cfg.erb
-    SrcPathEnd: config/zoo_mesos.cfg.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor845021978/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/marathon_ctl
-    Path: /mnt/tmp/tar-CmdExtractor845021978/templates/bin/marathon_ctl.erb
-    SrcPathEnd: bin/marathon_ctl.erb
-  - DstPathEnd: config/zoo_hosts.cfg
-    Path: /mnt/tmp/tar-CmdExtractor845021978/templates/config/zoo_hosts.cfg.erb
-    SrcPathEnd: config/zoo_hosts.cfg.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor814132572/monit
-    SrcPathEnd: monit
-  Name: mesos-master
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: sasl
-  - Name: mesos
-  Properties:
-  - Default: Mesos Cluster
-    Description: Human readable name for the Apache Mesos cluster
-    Example: null
-    Name: mesos.cluster_name
-  - Default: []
-    Description: Array of credentials. Each item contains a 'principal' and 'secret'
-      separated by whitespace
-    Example: null
-    Name: mesos.framework_credentials
-  - Default: 1secs
-    Description: Amount of time to wait between performing (batch) allocations
-    Example: null
-    Name: mesos.master.allocation_interval
-  - Default: 80
-    Description: Port where Apache Mesos Master will listen on
-    Example: null
-    Name: mesos.master.port
-  - Default: true
-    Description: Can root submit frameworks?
-    Example: null
-    Name: mesos.master.root_submissions
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: root
-    Description: User which will own the Apache Mesos Master services
-    Example: null
-    Name: mesos.master.user
-  - Default: vcap
-    Description: Group which will own the Apache Mesos Master services
-    Example: null
-    Name: mesos.master.group
-  - Default: false
-    Description: Only authenticated frameworks are allowed to register?
-    Example: null
-    Name: mesos.master.authenticate
-  - Default: ""
-    Description: A comma seperated list of the allocation roles that frameworks in
-      this cluster may belong to
-    Example: null
-    Name: mesos.master.roles
-  - Default: ""
-    Description: A comma seperated list of role/weight pairs of the form 'role=weight,role=weight'
-    Example: null
-    Name: mesos.master.weights
-  - Default: 2181
-    Description: Port at which the clients will connect to Apache Zookeeper
-    Example: null
-    Name: zookeeper.client_port
-  - Default: 0.0.0.0
-    Description: IP address where Apache Mesos Master will listen on
-    Example: null
-    Name: mesos.master.listen_address
-  - Default: 0
-    Description: How many seconds to buffer log messages for
-    Example: null
-    Name: mesos.master.logbufsecs
-  - Default: drf
-    Description: Policy to use for allocating resources between users
-    Example: null
-    Name: mesos.master.user_sorter
-  - Default: mesos
-    Description: Path in ZooKeeper for storing Apache Mesos state
-    Example: null
-    Name: mesos.zk_state
-  - Default: drf
-    Description: Policy to use for allocating resources between a given user's frameworks
-    Example: null
-    Name: mesos.master.framework_sorter
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor814132572/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/master_ctl
-    Path: /mnt/tmp/tar-CmdExtractor814132572/templates/bin/master_ctl.erb
-    SrcPathEnd: bin/master_ctl.erb
-  - DstPathEnd: config/framework_credentials.cfg
-    Path: /mnt/tmp/tar-CmdExtractor814132572/templates/config/framework_credentials.cfg.erb
-    SrcPathEnd: config/framework_credentials.cfg.erb
-  - DstPathEnd: config/zoo_mesos.cfg
-    Path: /mnt/tmp/tar-CmdExtractor814132572/templates/config/zoo_mesos.cfg.erb
-    SrcPathEnd: config/zoo_mesos.cfg.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor976510702/monit
-    SrcPathEnd: monit
-  Name: mesos-slave
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: node
-  - Name: ruby
-  - Name: scala
-  - Name: git
-  - Name: sasl
-  - Name: mesos
-  Properties:
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: root
-    Description: User which will own the Apache Mesos Slave services
-    Example: null
-    Name: mesos.slave.user
-  - Default: vcap
-    Description: Group which will own the Apache Mesos Slave services
-    Example: null
-    Name: mesos.slave.group
-  - Default: 5secs
-    Description: Amount of time to wait for an executor to shut down
-    Example: null
-    Name: mesos.slave.executor_shutdown_grace_period
-  - Default: process
-    Description: Apache Mesos Slave isolation mechanism (process, cgroups)
-    Example: null
-    Name: mesos.slave.isolation
-  - Default: 5051
-    Description: Port where Apache Mesos Slave will listen on
-    Example: null
-    Name: mesos.slave.port
-  - Default: reconnect
-    Description: Whether to recover Apache Mesos Slaves status updates and reconnect
-      with old executors (reconnect, cleanup)
-    Example: null
-    Name: mesos.slave.recover
-  - Default: mesos
-    Description: Path in ZooKeeper for storing Apache Mesos state
-    Example: null
-    Name: mesos.zk_state
-  - Default: cpu,memory,freezer
-    Description: List of subsystems to enable (e.g., 'cpu,freezer')
-    Example: null
-    Name: mesos.slave.cgroups_subsystems
-  - Default: true
-    Description: Whether to checkpoint Apache Mesos Slaves and Frameworks information
-      to disk
-    Example: null
-    Name: mesos.slave.checkpoint
-  - Default: 1mins
-    Description: Amount of time to wait for an executor to register with the slave
-      before considering it hung and shutting it down
-    Example: null
-    Name: mesos.slave.executor_registration_timeout
-  - Default: 0.0.0.0
-    Description: IP address where Apache Mesos Slave will listen on
-    Example: null
-    Name: mesos.slave.listen_address
-  - Default: 15mins
-    Description: Amount of time alloted for the Apache Mesos Slaves to recover
-    Example: null
-    Name: mesos.slave.recovery_timeout
-  - Default: ""
-    Description: Attributes of machine
-    Example: null
-    Name: mesos.slave.attributes
-  - Default: true
-    Description: Whether to do Apache Mesos Slaves recovery in strict mode
-    Example: null
-    Name: mesos.slave.strict
-  - Default: 2181
-    Description: Port at which the clients will connect to Apache Zookeeper
-    Example: null
-    Name: zookeeper.client_port
-  - Default: 0
-    Description: How many seconds to buffer log messages for
-    Example: null
-    Name: mesos.slave.logbufsecs
-  - Default: 1secs
-    Description: Periodic time interval for monitoring executor resource usage
-    Example: null
-    Name: mesos.slave.resource_monitoring_interval
-  - Default: false
-    Description: Cgroups feature flag to enable hard limits on CPU resources via the
-      CFS bandwidth limiting subfeature
-    Example: null
-    Name: mesos.slave.cgroups_enable_cfs
-  - Default: /cgroup
-    Description: The path to the cgroups hierarchy root
-    Example: null
-    Name: mesos.slave.cgroups_hierarchy
-  - Default: mesos
-    Description: Name of the root cgroup
-    Example: null
-    Name: mesos.slave.cgroups_root
-  - Default: '*'
-    Description: Default role
-    Example: null
-    Name: mesos.slave.default_role
-  - Default: 1mins
-    Description: Periodic time interval (e.g., 10secs, 2mins, etc) to check the disk
-      usage
-    Example: null
-    Name: mesos.slave.disk_watch_interval
-  - Default: 1weeks
-    Description: Maximum amount of time to wait before cleaning up executor directories
-    Example: null
-    Name: mesos.slave.gc_delay
-  - Default: ""
-    Description: Total consumable resources per slave, in the form 'name(role):value;name(role):value...'
-    Example: null
-    Name: mesos.slave.resources
-  - Default: false
-    Description: Whether to run tasks as the user who submitted them rather than the
-      user running the slave
-    Example: null
-    Name: mesos.slave.switch_user
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor976510702/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/slave_ctl
-    Path: /mnt/tmp/tar-CmdExtractor976510702/templates/bin/slave_ctl.erb
-    SrcPathEnd: bin/slave_ctl.erb
-  - DstPathEnd: config/zoo_mesos.cfg
-    Path: /mnt/tmp/tar-CmdExtractor976510702/templates/config/zoo_mesos.cfg.erb
-    SrcPathEnd: config/zoo_mesos.cfg.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor886753360/monit
-    SrcPathEnd: monit
-  Name: zookeeper
-  Packages:
-  - Name: bosh-helpers
-  - Name: java
-  - Name: zookeeper
-  Properties:
-  - Default: 1000
-    Description: Throttle outstanding client requests
-    Example: null
-    Name: zookeeper.global_outstanding_limit
-  - Default: "yes"
-    Description: Leader accepts client connections
-    Example: null
-    Name: zookeeper.leader_serves
-  - Default: 40000
-    Description: the maximum session timeout in milliseconds that the server will
-      allow the client to negotiate
-    Example: null
-    Name: zookeeper.max_session_timeout
-  - Default: vcap
-    Description: Group which will own the Apache ZooKeeper services
-    Example: null
-    Name: zookeeper.group
-  - Default: null
-    Description: List of all Apache Zookeeper server host IP/hostnames
-    Example: null
-    Name: zookeeper.servers
-  - Default: 2888
-    Description: Apache Zookeeper Client quorum port
-    Example: null
-    Name: zookeeper.quorum_port
-  - Default: 3
-    Description: Number of most recent snapshots to retain
-    Example: null
-    Name: zookeeper.autopurge_snap_retain_count
-  - Default: 0.0.0.0
-    Description: The address to listen for client connections
-    Example: null
-    Name: zookeeper.listen_address
-  - Default: 4000
-    Description: the minimum session timeout in milliseconds that the server will
-      allow the client to negotiate
-    Example: null
-    Name: zookeeper.min_session_timeout
-  - Default: 2000
-    Description: The length of a single tick, which is the basic time unit used by
-      ZooKeeper, as measured in milliseconds
-    Example: null
-    Name: zookeeper.tick_time
-  - Default: 1000
-    Description: A warning message will be output to the log whenever an fsync in
-      the Transactional Log (WAL) takes longer than this value
-    Example: null
-    Name: zookeeper.warning_threshold_ms
-  - Default: 100000
-    Description: Number of transactions before a snapshot is started and a new transaction
-      log file is created
-    Example: null
-    Name: zookeeper.snap_count
-  - Default: zookeeper
-    Description: User which will own the Apache ZooKeeper services
-    Example: null
-    Name: zookeeper.user
-  - Default: 3888
-    Description: Apache Zookeeper Client leader election port
-    Example: null
-    Name: zookeeper.leader_election_port
-  - Default: 24
-    Description: The time interval in hours for which the purge task has to be triggered
-    Example: null
-    Name: zookeeper.purge_interval
-  - Default: 5
-    Description: Sets the timeout value for opening connections for leader election
-      notifications
-    Example: null
-    Name: zookeeper.cnx_timeout
-  - Default: 3
-    Description: Election implementation to use
-    Example: null
-    Name: zookeeper.election_algorim
-  - Default: 5
-    Description: Amount of time, in ticks, to allow followers to connect and sync
-      to a leader
-    Example: null
-    Name: zookeeper.init_limit
-  - Default: 60
-    Description: Limits the number of concurrent connections that a single client
-      may make to a single member of the ZooKeeper ensemble
-    Example: null
-    Name: zookeeper.max_client_connections
-  - Default: 64M
-    Description: preAllocSize kilobytes for transaction log blocks
-    Example: null
-    Name: zookeeper.pre_allocation_size
-  - Default: 2181
-    Description: The port to listen for client connections
-    Example: null
-    Name: zookeeper.client_port
-  - Default: 2
-    Description: Amount of time, in ticks, to allow followers to sync with ZooKeeper
-    Example: null
-    Name: zookeeper.sync_limit
-  Templates:
-  - DstPathEnd: config/zoo.cfg
-    Path: /mnt/tmp/tar-CmdExtractor886753360/templates/config/zoo.cfg.erb
-    SrcPathEnd: config/zoo.cfg.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor886753360/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/zookeeper_ctl
-    Path: /mnt/tmp/tar-CmdExtractor886753360/templates/bin/zookeeper_ctl.erb
-    SrcPathEnd: bin/zookeeper_ctl.erb
-  - DstPathEnd: config/configuration.xsl
-    Path: /mnt/tmp/tar-CmdExtractor886753360/templates/config/configuration.xsl
-    SrcPathEnd: config/configuration.xsl
-  - DstPathEnd: config/log4j.properties
-    Path: /mnt/tmp/tar-CmdExtractor886753360/templates/config/log4j.properties
-    SrcPathEnd: config/log4j.properties
-  - DstPathEnd: config/myid
-    Path: /mnt/tmp/tar-CmdExtractor886753360/templates/config/myid.erb
-    SrcPathEnd: config/myid.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor763670836/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cassandra",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "sasl"
+      },
+      {
+        "Name": "mesos"
+      },
+      {
+        "Name": "cassandra"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Apache Cassandra services",
+        "Example": null,
+        "Name": "cassandra.group"
+      },
+      {
+        "Default": "Cassandra Cluster",
+        "Description": "Human readable name for the Apache Cassandra cluster",
+        "Example": null,
+        "Name": "cassandra.cluster_name"
+      },
+      {
+        "Default": "http://downloads.mesosphere.io/cassandra/cassandra-mesos-2.0.5-1.tgz",
+        "Description": "Apache Cassandra on Mesos download location",
+        "Example": null,
+        "Name": "cassandra.mesos.executor_uri"
+      },
+      {
+        "Default": 1000,
+        "Description": "Mesos disk consumable resources",
+        "Example": null,
+        "Name": "cassandra.mesos.resource_disk"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Path in ZooKeeper for storing Mesos state",
+        "Example": null,
+        "Name": "mesos.zk_state"
+      },
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Apache Cassandra services",
+        "Example": null,
+        "Name": "cassandra.user"
+      },
+      {
+        "Default": "2048m",
+        "Description": "Java Heap Size for Apache Cassandra",
+        "Example": null,
+        "Name": "cassandra.java_heap_size"
+      },
+      {
+        "Default": 1,
+        "Description": "No of HW nodes we want it to run on",
+        "Example": null,
+        "Name": "cassandra.hw_nodes"
+      },
+      {
+        "Default": 0.1,
+        "Description": "Mesos cpus consumable resources",
+        "Example": null,
+        "Name": "cassandra.mesos.resource_cpus"
+      },
+      {
+        "Default": 2048,
+        "Description": "Mesos memory consumable resources",
+        "Example": null,
+        "Name": "cassandra.mesos.resource_mem"
+      },
+      {
+        "Default": 2181,
+        "Description": "Port at which the clients will connect to Apache Zookeeper",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "conf/cassandra-env.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor763670836/templates/conf/cassandra-env.sh",
+        "SrcPathEnd": "conf/cassandra-env.sh"
+      },
+      {
+        "DstPathEnd": "conf/log4j-server.properties",
+        "Path": "/mnt/tmp/tar-CmdExtractor763670836/templates/conf/log4j-server.properties",
+        "SrcPathEnd": "conf/log4j-server.properties"
+      },
+      {
+        "DstPathEnd": "conf/mesos.yaml",
+        "Path": "/mnt/tmp/tar-CmdExtractor763670836/templates/conf/mesos.yaml.erb",
+        "SrcPathEnd": "conf/mesos.yaml.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor763670836/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/cassandra_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor763670836/templates/bin/cassandra_ctl.erb",
+        "SrcPathEnd": "bin/cassandra_ctl.erb"
+      },
+      {
+        "DstPathEnd": "conf/cassandra.yaml",
+        "Path": "/mnt/tmp/tar-CmdExtractor763670836/templates/conf/cassandra.yaml.erb",
+        "SrcPathEnd": "conf/cassandra.yaml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor629774982/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "chronos",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "sasl"
+      },
+      {
+        "Name": "mesos"
+      },
+      {
+        "Name": "chronos"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Mail password (for auth)",
+        "Example": null,
+        "Name": "chronos.mail_password"
+      },
+      {
+        "Default": 0,
+        "Description": "Disables a job after this many failures have occurred",
+        "Example": null,
+        "Name": "chronos.disable_after_failures"
+      },
+      {
+        "Default": 1200,
+        "Description": "The failover timeout in seconds for Mesos",
+        "Example": null,
+        "Name": "chronos.failover_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "Host and port for Ganglia",
+        "Example": null,
+        "Name": "chronos.ganglia_host_port"
+      },
+      {
+        "Default": null,
+        "Description": "Ganglia reporting interval (seconds)",
+        "Example": null,
+        "Name": "chronos.ganglia_reporting_interval"
+      },
+      {
+        "Default": 5000,
+        "Description": "The look-ahead time for scheduling tasks in milliseconds",
+        "Example": null,
+        "Name": "chronos.leader_max_idle_time"
+      },
+      {
+        "Default": "vcap",
+        "Description": "The mesos user to run the processes under",
+        "Example": null,
+        "Name": "chronos.mesos_user"
+      },
+      {
+        "Default": "chronos",
+        "Description": "Path in ZooKeeper for storing Chronos state",
+        "Example": null,
+        "Name": "chronos.zk_state"
+      },
+      {
+        "Default": null,
+        "Description": "Group prefix for Ganglia",
+        "Example": null,
+        "Name": "chronos.ganglia_group_prefix"
+      },
+      {
+        "Default": true,
+        "Description": "Enable checkpointing",
+        "Example": null,
+        "Name": "chronos.enable_checkpoint"
+      },
+      {
+        "Default": 256,
+        "Description": "Amount of disk capacity to request from Mesos for each task (MB)",
+        "Example": null,
+        "Name": "chronos.mesos_task_disk"
+      },
+      {
+        "Default": null,
+        "Description": "Mail SSL",
+        "Example": null,
+        "Name": "chronos.mail_ssl"
+      },
+      {
+        "Default": "Chronos",
+        "Description": "The framework name",
+        "Example": null,
+        "Name": "chronos.mesos_framework_name"
+      },
+      {
+        "Default": 0.1,
+        "Description": "Number of CPUs to request from Mesos for each task",
+        "Example": null,
+        "Name": "chronos.mesos_task_cpu"
+      },
+      {
+        "Default": 10000,
+        "Description": "The timeout for ZooKeeper in milliseconds",
+        "Example": null,
+        "Name": "chronos.zk_timeout"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Chronos services",
+        "Example": null,
+        "Name": "chronos.user"
+      },
+      {
+        "Default": 60000,
+        "Description": "Number of ms between retries",
+        "Example": null,
+        "Name": "chronos.failure_retry"
+      },
+      {
+        "Default": 443,
+        "Description": "The port Chronos will listen on for HTTPS requests",
+        "Example": null,
+        "Name": "chronos.https_port"
+      },
+      {
+        "Default": 60,
+        "Description": "The look-ahead time for scheduling tasks in seconds",
+        "Example": null,
+        "Name": "chronos.schedule_horizon"
+      },
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": "2048m",
+        "Description": "Java Heap Size for Chronos",
+        "Example": null,
+        "Name": "chronos.java_heap_size"
+      },
+      {
+        "Default": "chronos:chronos",
+        "Description": "Credentials for accessing the Chronos http service (username:password format)",
+        "Example": null,
+        "Name": "chronos.http_credentials"
+      },
+      {
+        "Default": 128,
+        "Description": "Amount of memory to request from Mesos for each task (MB)",
+        "Example": null,
+        "Name": "chronos.mesos_task_mem"
+      },
+      {
+        "Default": "*",
+        "Description": "The Mesos role to run tasks under",
+        "Example": null,
+        "Name": "chronos.mesos_role"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Path in ZooKeeper for storing Mesos state",
+        "Example": null,
+        "Name": "mesos.zk_state"
+      },
+      {
+        "Default": 2181,
+        "Description": "Port at which the clients will connect to Apache Zookeeper",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      },
+      {
+        "Default": "bosh@cloudfoundry.com",
+        "Description": "Job Owner",
+        "Example": null,
+        "Name": "chronos.default_job_owner"
+      },
+      {
+        "Default": 80,
+        "Description": "The port Chronos will listen on for HTTP requests",
+        "Example": null,
+        "Name": "chronos.http_port"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the mailserver",
+        "Example": null,
+        "Name": "chronos.mail_server"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Chronos services",
+        "Example": null,
+        "Name": "chronos.group"
+      },
+      {
+        "Default": null,
+        "Description": "Mail user (for auth)",
+        "Example": null,
+        "Name": "chronos.mail_user"
+      },
+      {
+        "Default": null,
+        "Description": "Mail from field",
+        "Example": null,
+        "Name": "chronos.mail_from"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/zoo_hosts.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor629774982/templates/config/zoo_hosts.cfg.erb",
+        "SrcPathEnd": "config/zoo_hosts.cfg.erb"
+      },
+      {
+        "DstPathEnd": "config/zoo_mesos.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor629774982/templates/config/zoo_mesos.cfg.erb",
+        "SrcPathEnd": "config/zoo_mesos.cfg.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor629774982/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/chronos_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor629774982/templates/bin/chronos_ctl.erb",
+        "SrcPathEnd": "bin/chronos_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor911766440/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "jenkins",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "sasl"
+      },
+      {
+        "Name": "mesos"
+      },
+      {
+        "Name": "nginx"
+      },
+      {
+        "Name": "jenkins"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 512,
+        "Description": "Jenkins Slave Memory in MB",
+        "Example": null,
+        "Name": "jenkins.mesos.slave_mem"
+      },
+      {
+        "Default": 2,
+        "Description": "Number of nginx workers",
+        "Example": null,
+        "Name": "jenkins.nginx.worker_processes"
+      },
+      {
+        "Default": true,
+        "Description": "Enable only HTTPS requests",
+        "Example": null,
+        "Name": "jenkins.nginx.ssl_only"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Jenkins services",
+        "Example": null,
+        "Name": "jenkins.user"
+      },
+      {
+        "Default": "jenkins",
+        "Description": "Jenkins admin password",
+        "Example": null,
+        "Name": "jenkins.admin_password"
+      },
+      {
+        "Default": true,
+        "Description": "Enable checkpointing of Jenkins tasks",
+        "Example": null,
+        "Name": "jenkins.mesos.enable_checkpoint"
+      },
+      {
+        "Default": 7200,
+        "Description": "Timeout for reusing the previously negotiated cryptographic parameters",
+        "Example": null,
+        "Name": "jenkins.nginx.https.ssl_timeout"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Jenkins services",
+        "Example": null,
+        "Name": "jenkins.group"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Nginx services",
+        "Example": null,
+        "Name": "jenkins.nginx.user"
+      },
+      {
+        "Default": 7200,
+        "Description": "Timeout for keep-alive connections",
+        "Example": null,
+        "Name": "jenkins.nginx.keepalive_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": "jenkins",
+        "Description": "Jenkins admin user",
+        "Example": null,
+        "Name": "jenkins.admin_user"
+      },
+      {
+        "Default": "Jenkins on Mesos Cluster",
+        "Description": "Human readable name for the Jenkins Mesos cluster",
+        "Example": null,
+        "Name": "jenkins.mesos.cluster_name"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Nginx services",
+        "Example": null,
+        "Name": "jenkins.nginx.group"
+      },
+      {
+        "Default": 2181,
+        "Description": "Port at which the clients will connect to Apache Zookeeper",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      },
+      {
+        "Default": 8080,
+        "Description": "Port Jenkins will listen using standard http protocol",
+        "Example": null,
+        "Name": "jenkins.port"
+      },
+      {
+        "Default": 8192,
+        "Description": "Number of nginx connections per worker",
+        "Example": null,
+        "Name": "jenkins.nginx.worker_connections"
+      },
+      {
+        "Default": 120,
+        "Description": "Timeout for read queries to the upstream server",
+        "Example": null,
+        "Name": "jenkins.nginx.proxy_read_timeout"
+      },
+      {
+        "Default": "5000m",
+        "Description": "File upload maximum size",
+        "Example": null,
+        "Name": "jenkins.nginx.max_upload_size"
+      },
+      {
+        "Default": 80,
+        "Description": "Port that proxy listen on for HTTP connections",
+        "Example": null,
+        "Name": "jenkins.nginx.http.port"
+      },
+      {
+        "Default": "2048m",
+        "Description": "Java Heap Size for Jenkins",
+        "Example": null,
+        "Name": "jenkins.java_heap_size"
+      },
+      {
+        "Default": 0.1,
+        "Description": "Jenkins Executor CPUs",
+        "Example": null,
+        "Name": "jenkins.mesos.executor_cpus"
+      },
+      {
+        "Default": 3,
+        "Description": "Idle Termination Minutes",
+        "Example": null,
+        "Name": "jenkins.mesos.idle_termination"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Path in ZooKeeper for storing Mesos state",
+        "Example": null,
+        "Name": "mesos.zk_state"
+      },
+      {
+        "Default": 8009,
+        "Description": "Port Jenkins will listen using standard AJP13 protocol",
+        "Example": null,
+        "Name": "jenkins.ajp_port"
+      },
+      {
+        "Default": 2,
+        "Description": "Maximum number of Executors per Slave",
+        "Example": null,
+        "Name": "jenkins.mesos.max_executors"
+      },
+      {
+        "Default": 128,
+        "Description": "Jenkins Executor Memory in MB",
+        "Example": null,
+        "Name": "jenkins.mesos.executor_mem"
+      },
+      {
+        "Default": "",
+        "Description": "Prefix to append to Jenkins URL",
+        "Example": null,
+        "Name": "jenkins.prefix"
+      },
+      {
+        "Default": "Jenkins Scheduler",
+        "Description": "Mesos Framework name",
+        "Example": null,
+        "Name": "jenkins.mesos.framework_name"
+      },
+      {
+        "Default": 120,
+        "Description": "Timeout for send queries to the upstream server",
+        "Example": null,
+        "Name": "jenkins.nginx.proxy_send_timeout"
+      },
+      {
+        "Default": 443,
+        "Description": "Port that proxy listen on for HTTPS connections",
+        "Example": null,
+        "Name": "jenkins.nginx.https.port"
+      },
+      {
+        "Default": 300,
+        "Description": "Timeout for the connection to the upstream server",
+        "Example": null,
+        "Name": "jenkins.nginx.proxy_connect_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "SSL private key (PEM encoded)",
+        "Example": null,
+        "Name": "jenkins.nginx.https.ssl_key"
+      },
+      {
+        "Default": null,
+        "Description": "SSL Certificate (PEM encoded)",
+        "Example": null,
+        "Name": "jenkins.nginx.https.ssl_cert"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address where to bind Jenkins using standard http protocol",
+        "Example": null,
+        "Name": "jenkins.listen_address"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address where to bind Jenkins using standard AJP13 protocol",
+        "Example": null,
+        "Name": "jenkins.ajp_listen_address"
+      },
+      {
+        "Default": 0.1,
+        "Description": "Jenkins Slave CPUs",
+        "Example": null,
+        "Name": "jenkins.mesos.slave_cpus"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/nginx_jenkins_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/bin/nginx_jenkins_ctl.erb",
+        "SrcPathEnd": "bin/nginx_jenkins_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/config.xml",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/config/config.xml.erb",
+        "SrcPathEnd": "config/config.xml.erb"
+      },
+      {
+        "DstPathEnd": "config/mime.types",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/config/mime.types",
+        "SrcPathEnd": "config/mime.types"
+      },
+      {
+        "DstPathEnd": "bin/jenkins_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/bin/jenkins_ctl.erb",
+        "SrcPathEnd": "bin/jenkins_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/jenkins.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/config/jenkins.key.erb",
+        "SrcPathEnd": "config/jenkins.key.erb"
+      },
+      {
+        "DstPathEnd": "config/jenkins.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/config/jenkins.pem.erb",
+        "SrcPathEnd": "config/jenkins.pem.erb"
+      },
+      {
+        "DstPathEnd": "config/jenkins_location.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/config/jenkins_location.conf.erb",
+        "SrcPathEnd": "config/jenkins_location.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor911766440/templates/config/nginx.conf.erb",
+        "SrcPathEnd": "config/nginx.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor845021978/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "marathon",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "sasl"
+      },
+      {
+        "Name": "mesos"
+      },
+      {
+        "Name": "marathon"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 20000,
+        "Description": "Max port number to use when Marathon assigns ports to apps",
+        "Example": null,
+        "Name": "marathon.local_port_max"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Path in ZooKeeper for storing Apache Mesos state",
+        "Example": null,
+        "Name": "mesos.zk_state"
+      },
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": 2181,
+        "Description": "Port at which the clients will connect to Apache Zookeeper",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Marathon services",
+        "Example": null,
+        "Name": "marathon.group"
+      },
+      {
+        "Default": 80,
+        "Description": "The port Marathon will listen on for HTTP requests",
+        "Example": null,
+        "Name": "marathon.http_port"
+      },
+      {
+        "Default": 443,
+        "Description": "The port Marathon will listen on for HTTPS requests",
+        "Example": null,
+        "Name": "marathon.https_port"
+      },
+      {
+        "Default": 30000,
+        "Description": "This is the length of time, in milliseconds, before Marathon begins to periodically perform task reconciliation operations",
+        "Example": null,
+        "Name": "marathon.reconciliation_initial_delay"
+      },
+      {
+        "Default": 60000,
+        "Description": "This is the time window within which instances may be launched for a given app",
+        "Example": null,
+        "Name": "marathon.task_rate_limit"
+      },
+      {
+        "Default": true,
+        "Description": "Enable checkpointing of tasks",
+        "Example": null,
+        "Name": "marathon.enable_checkpoint"
+      },
+      {
+        "Default": true,
+        "Description": "Enable running Marathon in HA mode with leader election",
+        "Example": null,
+        "Name": "marathon.enable_ha"
+      },
+      {
+        "Default": "marathon:marathon",
+        "Description": "Credentials for accessing the Marathon http service (username:password format)",
+        "Example": null,
+        "Name": "marathon.http_credentials"
+      },
+      {
+        "Default": 10000,
+        "Description": "Min port number to use when Marathon assigns ports to apps",
+        "Example": null,
+        "Name": "marathon.local_port_min"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Marathon services",
+        "Example": null,
+        "Name": "marathon.user"
+      },
+      {
+        "Default": 604800,
+        "Description": "The failover_timeout for Apache Mesos in seconds",
+        "Example": null,
+        "Name": "marathon.failover_timeout"
+      },
+      {
+        "Default": "*",
+        "Description": "Mesos role for this framework",
+        "Example": null,
+        "Name": "marathon.mesos_role"
+      },
+      {
+        "Default": 30000,
+        "Description": "This is the length of time, in milliseconds, between task reconciliation operations",
+        "Example": null,
+        "Name": "marathon.reconciliation_frequency"
+      },
+      {
+        "Default": 60000,
+        "Description": "Time, in milliseconds, to wait for a task to enter the TASK_RUNNING state before killing it",
+        "Example": null,
+        "Name": "marathon.task_launch_timeout"
+      },
+      {
+        "Default": "marathon",
+        "Description": "Path in ZooKeeper for storing Marathon state",
+        "Example": null,
+        "Name": "marathon.zk_state"
+      },
+      {
+        "Default": 10000,
+        "Description": "The timeout for ZooKeeper in milliseconds",
+        "Example": null,
+        "Name": "marathon.zk_timeout"
+      },
+      {
+        "Default": "512m",
+        "Description": "Java Heap Size for Marathon",
+        "Example": null,
+        "Name": "marathon.java_heap_size"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/zoo_mesos.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor845021978/templates/config/zoo_mesos.cfg.erb",
+        "SrcPathEnd": "config/zoo_mesos.cfg.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor845021978/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/marathon_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor845021978/templates/bin/marathon_ctl.erb",
+        "SrcPathEnd": "bin/marathon_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/zoo_hosts.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor845021978/templates/config/zoo_hosts.cfg.erb",
+        "SrcPathEnd": "config/zoo_hosts.cfg.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor814132572/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "mesos-master",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "sasl"
+      },
+      {
+        "Name": "mesos"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "Mesos Cluster",
+        "Description": "Human readable name for the Apache Mesos cluster",
+        "Example": null,
+        "Name": "mesos.cluster_name"
+      },
+      {
+        "Default": [],
+        "Description": "Array of credentials. Each item contains a 'principal' and 'secret' separated by whitespace",
+        "Example": null,
+        "Name": "mesos.framework_credentials"
+      },
+      {
+        "Default": "1secs",
+        "Description": "Amount of time to wait between performing (batch) allocations",
+        "Example": null,
+        "Name": "mesos.master.allocation_interval"
+      },
+      {
+        "Default": 80,
+        "Description": "Port where Apache Mesos Master will listen on",
+        "Example": null,
+        "Name": "mesos.master.port"
+      },
+      {
+        "Default": true,
+        "Description": "Can root submit frameworks?",
+        "Example": null,
+        "Name": "mesos.master.root_submissions"
+      },
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Apache Mesos Master services",
+        "Example": null,
+        "Name": "mesos.master.user"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Apache Mesos Master services",
+        "Example": null,
+        "Name": "mesos.master.group"
+      },
+      {
+        "Default": false,
+        "Description": "Only authenticated frameworks are allowed to register?",
+        "Example": null,
+        "Name": "mesos.master.authenticate"
+      },
+      {
+        "Default": "",
+        "Description": "A comma seperated list of the allocation roles that frameworks in this cluster may belong to",
+        "Example": null,
+        "Name": "mesos.master.roles"
+      },
+      {
+        "Default": "",
+        "Description": "A comma seperated list of role/weight pairs of the form 'role=weight,role=weight'",
+        "Example": null,
+        "Name": "mesos.master.weights"
+      },
+      {
+        "Default": 2181,
+        "Description": "Port at which the clients will connect to Apache Zookeeper",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address where Apache Mesos Master will listen on",
+        "Example": null,
+        "Name": "mesos.master.listen_address"
+      },
+      {
+        "Default": 0,
+        "Description": "How many seconds to buffer log messages for",
+        "Example": null,
+        "Name": "mesos.master.logbufsecs"
+      },
+      {
+        "Default": "drf",
+        "Description": "Policy to use for allocating resources between users",
+        "Example": null,
+        "Name": "mesos.master.user_sorter"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Path in ZooKeeper for storing Apache Mesos state",
+        "Example": null,
+        "Name": "mesos.zk_state"
+      },
+      {
+        "Default": "drf",
+        "Description": "Policy to use for allocating resources between a given user's frameworks",
+        "Example": null,
+        "Name": "mesos.master.framework_sorter"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor814132572/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/master_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor814132572/templates/bin/master_ctl.erb",
+        "SrcPathEnd": "bin/master_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/framework_credentials.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor814132572/templates/config/framework_credentials.cfg.erb",
+        "SrcPathEnd": "config/framework_credentials.cfg.erb"
+      },
+      {
+        "DstPathEnd": "config/zoo_mesos.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor814132572/templates/config/zoo_mesos.cfg.erb",
+        "SrcPathEnd": "config/zoo_mesos.cfg.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor976510702/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "mesos-slave",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "scala"
+      },
+      {
+        "Name": "git"
+      },
+      {
+        "Name": "sasl"
+      },
+      {
+        "Name": "mesos"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Apache Mesos Slave services",
+        "Example": null,
+        "Name": "mesos.slave.user"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Apache Mesos Slave services",
+        "Example": null,
+        "Name": "mesos.slave.group"
+      },
+      {
+        "Default": "5secs",
+        "Description": "Amount of time to wait for an executor to shut down",
+        "Example": null,
+        "Name": "mesos.slave.executor_shutdown_grace_period"
+      },
+      {
+        "Default": "process",
+        "Description": "Apache Mesos Slave isolation mechanism (process, cgroups)",
+        "Example": null,
+        "Name": "mesos.slave.isolation"
+      },
+      {
+        "Default": 5051,
+        "Description": "Port where Apache Mesos Slave will listen on",
+        "Example": null,
+        "Name": "mesos.slave.port"
+      },
+      {
+        "Default": "reconnect",
+        "Description": "Whether to recover Apache Mesos Slaves status updates and reconnect with old executors (reconnect, cleanup)",
+        "Example": null,
+        "Name": "mesos.slave.recover"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Path in ZooKeeper for storing Apache Mesos state",
+        "Example": null,
+        "Name": "mesos.zk_state"
+      },
+      {
+        "Default": "cpu,memory,freezer",
+        "Description": "List of subsystems to enable (e.g., 'cpu,freezer')",
+        "Example": null,
+        "Name": "mesos.slave.cgroups_subsystems"
+      },
+      {
+        "Default": true,
+        "Description": "Whether to checkpoint Apache Mesos Slaves and Frameworks information to disk",
+        "Example": null,
+        "Name": "mesos.slave.checkpoint"
+      },
+      {
+        "Default": "1mins",
+        "Description": "Amount of time to wait for an executor to register with the slave before considering it hung and shutting it down",
+        "Example": null,
+        "Name": "mesos.slave.executor_registration_timeout"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address where Apache Mesos Slave will listen on",
+        "Example": null,
+        "Name": "mesos.slave.listen_address"
+      },
+      {
+        "Default": "15mins",
+        "Description": "Amount of time alloted for the Apache Mesos Slaves to recover",
+        "Example": null,
+        "Name": "mesos.slave.recovery_timeout"
+      },
+      {
+        "Default": "",
+        "Description": "Attributes of machine",
+        "Example": null,
+        "Name": "mesos.slave.attributes"
+      },
+      {
+        "Default": true,
+        "Description": "Whether to do Apache Mesos Slaves recovery in strict mode",
+        "Example": null,
+        "Name": "mesos.slave.strict"
+      },
+      {
+        "Default": 2181,
+        "Description": "Port at which the clients will connect to Apache Zookeeper",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      },
+      {
+        "Default": 0,
+        "Description": "How many seconds to buffer log messages for",
+        "Example": null,
+        "Name": "mesos.slave.logbufsecs"
+      },
+      {
+        "Default": "1secs",
+        "Description": "Periodic time interval for monitoring executor resource usage",
+        "Example": null,
+        "Name": "mesos.slave.resource_monitoring_interval"
+      },
+      {
+        "Default": false,
+        "Description": "Cgroups feature flag to enable hard limits on CPU resources via the CFS bandwidth limiting subfeature",
+        "Example": null,
+        "Name": "mesos.slave.cgroups_enable_cfs"
+      },
+      {
+        "Default": "/cgroup",
+        "Description": "The path to the cgroups hierarchy root",
+        "Example": null,
+        "Name": "mesos.slave.cgroups_hierarchy"
+      },
+      {
+        "Default": "mesos",
+        "Description": "Name of the root cgroup",
+        "Example": null,
+        "Name": "mesos.slave.cgroups_root"
+      },
+      {
+        "Default": "*",
+        "Description": "Default role",
+        "Example": null,
+        "Name": "mesos.slave.default_role"
+      },
+      {
+        "Default": "1mins",
+        "Description": "Periodic time interval (e.g., 10secs, 2mins, etc) to check the disk usage",
+        "Example": null,
+        "Name": "mesos.slave.disk_watch_interval"
+      },
+      {
+        "Default": "1weeks",
+        "Description": "Maximum amount of time to wait before cleaning up executor directories",
+        "Example": null,
+        "Name": "mesos.slave.gc_delay"
+      },
+      {
+        "Default": "",
+        "Description": "Total consumable resources per slave, in the form 'name(role):value;name(role):value...'",
+        "Example": null,
+        "Name": "mesos.slave.resources"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to run tasks as the user who submitted them rather than the user running the slave",
+        "Example": null,
+        "Name": "mesos.slave.switch_user"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor976510702/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/slave_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor976510702/templates/bin/slave_ctl.erb",
+        "SrcPathEnd": "bin/slave_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/zoo_mesos.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor976510702/templates/config/zoo_mesos.cfg.erb",
+        "SrcPathEnd": "config/zoo_mesos.cfg.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor886753360/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "zookeeper",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "zookeeper"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 1000,
+        "Description": "Throttle outstanding client requests",
+        "Example": null,
+        "Name": "zookeeper.global_outstanding_limit"
+      },
+      {
+        "Default": "yes",
+        "Description": "Leader accepts client connections",
+        "Example": null,
+        "Name": "zookeeper.leader_serves"
+      },
+      {
+        "Default": 40000,
+        "Description": "the maximum session timeout in milliseconds that the server will allow the client to negotiate",
+        "Example": null,
+        "Name": "zookeeper.max_session_timeout"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Apache ZooKeeper services",
+        "Example": null,
+        "Name": "zookeeper.group"
+      },
+      {
+        "Default": null,
+        "Description": "List of all Apache Zookeeper server host IP/hostnames",
+        "Example": null,
+        "Name": "zookeeper.servers"
+      },
+      {
+        "Default": 2888,
+        "Description": "Apache Zookeeper Client quorum port",
+        "Example": null,
+        "Name": "zookeeper.quorum_port"
+      },
+      {
+        "Default": 3,
+        "Description": "Number of most recent snapshots to retain",
+        "Example": null,
+        "Name": "zookeeper.autopurge_snap_retain_count"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "The address to listen for client connections",
+        "Example": null,
+        "Name": "zookeeper.listen_address"
+      },
+      {
+        "Default": 4000,
+        "Description": "the minimum session timeout in milliseconds that the server will allow the client to negotiate",
+        "Example": null,
+        "Name": "zookeeper.min_session_timeout"
+      },
+      {
+        "Default": 2000,
+        "Description": "The length of a single tick, which is the basic time unit used by ZooKeeper, as measured in milliseconds",
+        "Example": null,
+        "Name": "zookeeper.tick_time"
+      },
+      {
+        "Default": 1000,
+        "Description": "A warning message will be output to the log whenever an fsync in the Transactional Log (WAL) takes longer than this value",
+        "Example": null,
+        "Name": "zookeeper.warning_threshold_ms"
+      },
+      {
+        "Default": 100000,
+        "Description": "Number of transactions before a snapshot is started and a new transaction log file is created",
+        "Example": null,
+        "Name": "zookeeper.snap_count"
+      },
+      {
+        "Default": "zookeeper",
+        "Description": "User which will own the Apache ZooKeeper services",
+        "Example": null,
+        "Name": "zookeeper.user"
+      },
+      {
+        "Default": 3888,
+        "Description": "Apache Zookeeper Client leader election port",
+        "Example": null,
+        "Name": "zookeeper.leader_election_port"
+      },
+      {
+        "Default": 24,
+        "Description": "The time interval in hours for which the purge task has to be triggered",
+        "Example": null,
+        "Name": "zookeeper.purge_interval"
+      },
+      {
+        "Default": 5,
+        "Description": "Sets the timeout value for opening connections for leader election notifications",
+        "Example": null,
+        "Name": "zookeeper.cnx_timeout"
+      },
+      {
+        "Default": 3,
+        "Description": "Election implementation to use",
+        "Example": null,
+        "Name": "zookeeper.election_algorim"
+      },
+      {
+        "Default": 5,
+        "Description": "Amount of time, in ticks, to allow followers to connect and sync to a leader",
+        "Example": null,
+        "Name": "zookeeper.init_limit"
+      },
+      {
+        "Default": 60,
+        "Description": "Limits the number of concurrent connections that a single client may make to a single member of the ZooKeeper ensemble",
+        "Example": null,
+        "Name": "zookeeper.max_client_connections"
+      },
+      {
+        "Default": "64M",
+        "Description": "preAllocSize kilobytes for transaction log blocks",
+        "Example": null,
+        "Name": "zookeeper.pre_allocation_size"
+      },
+      {
+        "Default": 2181,
+        "Description": "The port to listen for client connections",
+        "Example": null,
+        "Name": "zookeeper.client_port"
+      },
+      {
+        "Default": 2,
+        "Description": "Amount of time, in ticks, to allow followers to sync with ZooKeeper",
+        "Example": null,
+        "Name": "zookeeper.sync_limit"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/zoo.cfg",
+        "Path": "/mnt/tmp/tar-CmdExtractor886753360/templates/config/zoo.cfg.erb",
+        "SrcPathEnd": "config/zoo.cfg.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor886753360/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/zookeeper_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor886753360/templates/bin/zookeeper_ctl.erb",
+        "SrcPathEnd": "bin/zookeeper_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/configuration.xsl",
+        "Path": "/mnt/tmp/tar-CmdExtractor886753360/templates/config/configuration.xsl",
+        "SrcPathEnd": "config/configuration.xsl"
+      },
+      {
+        "DstPathEnd": "config/log4j.properties",
+        "Path": "/mnt/tmp/tar-CmdExtractor886753360/templates/config/log4j.properties",
+        "SrcPathEnd": "config/log4j.properties"
+      },
+      {
+        "DstPathEnd": "config/myid",
+        "Path": "/mnt/tmp/tar-CmdExtractor886753360/templates/config/myid.erb",
+        "SrcPathEnd": "config/myid.erb"
+      }
+    ]
+  }
+]

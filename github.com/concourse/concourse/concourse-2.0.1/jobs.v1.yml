@@ -1,701 +1,881 @@
-- Description: |
-    The ATC (Air Traffic Controller) provides UI and API access. It is
-    responsible for scheduling builds and detecting versions of your resources.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor058602936/monit
-    SrcPathEnd: monit
-  Name: atc
-  Packages:
-  - Name: pid_utils
-  - Name: atc
-  - Name: fly
-  - Name: generated_signing_key
-  Properties:
-  - Default: ""
-    Description: |
-      If configured, errors emitted to the logs will also be emitted to Yeller.
-      This is only really useful for Concourse developers.
-    Example: null
-    Examples: null
-    Name: yeller.api_key
-  - Default: ""
-    Description: Application client secret for enabling generic OAuth.
-    Example: null
-    Examples: null
-    Name: generic_oauth.client_secret
-  - Default: ""
-    Description: Generic OAuth provider authorization endpoint url.
-    Example: null
-    Examples: null
-    Name: generic_oauth.auth_url
-  - Default: 5m
-    Description: |
-      How long to cache the result of a get step after a newer version of the
-      resource is found. Use Go duration format (1m = 1 minute).
-    Example: null
-    Examples: null
-    Name: old_resource_grace_period
-  - Default: 8080
-    Description: |
-      Port on which the ATC should listen for HTTP traffic.
-    Example: null
-    Examples: null
-    Name: bind_port
-  - Default: null
-    Description: |
-      SSL cert to use for HTTPS.
-
-      If not specified, only HTTP will be enabled.
-    Example: null
-    Examples: null
-    Name: tls_cert
-  - Default: atc
-    Description: |
-      Name of the database to use.
-    Example: null
-    Examples: null
-    Name: postgresql.database
-  - Default: ""
-    Description: Generic OAuth provider token endpoint URL.
-    Example: null
-    Examples: null
-    Name: generic_oauth.token_url
-  - Default: null
-    Description: |
-      Password to use when connecting.
-    Example: null
-    Examples: null
-    Name: postgresql.role.password
-  - Default: 4443
-    Description: |
-      Port on which the ATC should listen for HTTPS traffic.
-    Example: null
-    Examples: null
-    Name: tls_bind_port
-  - Default: false
-    Description: |
-      Loosen up security for development purposes. This allows the ATC to be
-      configured with no authentication methods.
-    Example: null
-    Examples: null
-    Name: development_mode
-  - Default: ""
-    Description: |
-      GitHub client secret to use for OAuth.
-
-      The application must be configured with its callback URL as
-      `{external_url}/auth/github/callback` (replacing `{external_url}`
-      with the actual value).
-    Example: null
-    Examples: null
-    Name: github_auth.client_secret
-  - Default: null
-    Description: |
-      Override default API endpoint URL for Github Enterprise. Must end in a
-      trailing slash.
-    Example: https://github.example.com/api/v3/
-    Examples: null
-    Name: github_auth.api_url
-  - Default: []
-    Description: |
-      List of space GUIDs for Cloud Foundry spaces whose developers
-      will have access.
-    Example: null
-    Examples: null
-    Name: uaa_auth.cf_spaces
-  - Default: ""
-    Description: Cloud Foundry CA Certificate.
-    Example: null
-    Examples: null
-    Name: uaa_auth.cf_ca_cert
-  - Default: ""
-    Description: |
-      Environment name to specify for errors emitted to Yeller.
-    Example: null
-    Examples: null
-    Name: yeller.environment_name
-  - Default: null
-    Description: |
-      Address used internally to reach the ATC. This will be auto-generated
-      using the IP of each ATC VM if not specified.
-
-      Note that this refers to an *individual ATC*, not the whole cluster. This
-      property is only useful if you're deploying in a way that cannot
-      autodetect its own IP, e.g. a `bosh-init` deployment.
-
-      You should otherwise leave this value blank.
-    Example: null
-    Examples: null
-    Name: peer_url
-  - Default: false
-    Description: |
-      Allow self-signed certificates.
-    Example: null
-    Examples: null
-    Name: allow_self_signed_certificates
-  - Default: null
-    Description: |
-      Override default OAuth endpoint for Github Enterprise.
-    Example: https://github.example.com/login/oauth/authorize
-    Examples: null
-    Name: github_auth.auth_url
-  - Default: 0.0.0.0
-    Description: |
-      IP address on which the ATC should listen for HTTP traffic.
-    Example: null
-    Examples: null
-    Name: bind_ip
-  - Default: null
-    Description: |
-      Override default access token endpoint for Github Enterprise.
-    Example: https://github.example.com/login/oauth/access_token
-    Examples: null
-    Name: github_auth.token_url
-  - Default: atc
-    Description: |
-      Name of role to connect with.
-    Example: null
-    Examples: null
-    Name: postgresql.role.name
-  - Default: ""
-    Description: UAA client ID to use for OAuth.
-    Example: null
-    Examples: null
-    Name: uaa_auth.client_id
-  - Default: ""
-    Description: UAA authorization endpoint url to use for OAuth.
-    Example: null
-    Examples: null
-    Name: uaa_auth.auth_url
-  - Default: ""
-    Description: Application client ID for enabling generic OAuth.
-    Example: null
-    Examples: null
-    Name: generic_oauth.client_id
-  - Default: ""
-    Description: |
-      Password for HTTP basic auth, in plaintext.
-    Example: null
-    Examples: null
-    Name: basic_auth_password
-  - Default: ""
-    Description: |
-      GitHub client ID to use for OAuth.
-
-      The application must be configured with its callback URL as
-      `{external_url}/auth/github/callback` (replacing `{external_url}`
-      with the actual value).
-    Example: null
-    Examples: null
-    Name: github_auth.client_id
-  - Default: ""
-    Description: UAA client secret to use for OAuth.
-    Example: null
-    Examples: null
-    Name: uaa_auth.client_secret
-  - Default: ""
-    Description: UAA token endpoint url to use for OAuth.
-    Example: null
-    Examples: null
-    Name: uaa_auth.token_url
-  - Default: ""
-    Description: Cloud Foundry api endpoint url.
-    Example: null
-    Examples: null
-    Name: uaa_auth.cf_api_url
-  - Default: null
-    Description: |
-      SSL private key to use for encrypting HTTPS traffic.
-
-      If not specified, only HTTP will be enabled.
-    Example: null
-    Examples: null
-    Name: tls_key
-  - Default: null
-    Description: |
-      Externally reachable URL of the ATCs. Required for OAuth.
-
-      Typically this is the URL that you as a user would use to reach your CI.
-      For multiple ATCs it would go to some sort of load balancer.
-    Example: https://ci.concourse.ci
-    Examples: null
-    Name: external_url
-  - Default: ""
-    Description: |
-      Username for HTTP basic auth.
-    Example: null
-    Examples: null
-    Name: basic_auth_username
-  - Default: 30s
-    Description: |
-      The interval, in Go duration format (1m = 1 minute), on which to check
-      for and release old caches of resource versions.
-    Example: null
-    Examples: null
-    Name: resource_cache_cleanup_interval
-  - Default: null
-    Description: |
-      Name of the database to use from the `postgresql` link.
-    Example: null
-    Examples: null
-    Name: postgresql_database
-  - Default: ""
-    Description: |
-      If configured, detailed metrics will be emitted to the specified Riemann
-      server.
-    Example: null
-    Examples: null
-    Name: riemann.host
-  - Default: 1m
-    Description: |
-      The interval, in Go duration format (1m = 1 minute), on which to check
-      for new versions of resources.
-
-      This can also be specified on a per-resource basis by specifying
-      `check_every` on the resource config.
-    Example: null
-    Examples: null
-    Name: default_check_interval
-  - Default: null
-    Description: |
-      Address of a PostgreSQL server to connect to, in `HOST:PORT` format.
-
-      If not specified, one will be autodiscovered via BOSH links.
-    Example: null
-    Examples: null
-    Name: postgresql.address
-  - Default: 5555
-    Description: |
-      Port of the Riemann server to emit events to.
-    Example: null
-    Examples: null
-    Name: riemann.port
-  - Default: []
-    Description: |
-      An array of different criteria to check for when authorizing a GitHub
-      user. If empty, GitHub authorization is effectively disabled.
-    Example:
-    - organization: org1
-      teams: all
-    - organization: org2
-      teams:
-      - Team 1
-      - Team 2
-    - user: user1
-    - user: user2
-    Examples: null
-    Name: github_auth.authorize
-  - Default: {}
-    Description: |
-      List Parameter to pass to the authentication server authorization url.
-    Example:
-      param1: value1
-      param2: value2
-    Examples: null
-    Name: generic_oauth.auth_url_params
-  - Default: ""
-    Description: Name of the authentication method to be displayed on the Web UI
-    Example: null
-    Examples: null
-    Name: generic_oauth.display_name
-  Templates:
-  - DstPathEnd: config/tls_key
-    Path: /mnt/tmp/tar-CmdExtractor058602936/templates/tls_key.erb
-    SrcPathEnd: tls_key.erb
-  - DstPathEnd: config/cf_ca_cert
-    Path: /mnt/tmp/tar-CmdExtractor058602936/templates/cf_ca_cert.erb
-    SrcPathEnd: cf_ca_cert.erb
-  - DstPathEnd: bin/atc_ctl
-    Path: /mnt/tmp/tar-CmdExtractor058602936/templates/atc_ctl.erb
-    SrcPathEnd: atc_ctl.erb
-  - DstPathEnd: config/tls_cert
-    Path: /mnt/tmp/tar-CmdExtractor058602936/templates/tls_cert.erb
-    SrcPathEnd: tls_cert.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor763152810/monit
-    SrcPathEnd: monit
-  Name: baggageclaim
-  Packages:
-  - Name: pid_utils
-  - Name: btrfs_tools
-  - Name: baggageclaim
-  Properties:
-  - Default: 0.0.0.0
-    Description: |
-      IP address on which Baggageclaim should listen for HTTP traffic.
-    Example: null
-    Examples: null
-    Name: bind_ip
-  - Default: 7788
-    Description: |
-      Port on which Baggageclaim should listen for HTTP traffic.
-    Example: null
-    Examples: null
-    Name: bind_port
-  - Default: ""
-    Description: |
-      If configured, errors emitted to the logs will also be emitted to Yeller.
-      This is only really useful for Concourse developers.
-    Example: null
-    Examples: null
-    Name: yeller.api_key
-  - Default: ""
-    Description: |
-      Environment name to specify for errors emitted to Yeller.
-    Example: null
-    Examples: null
-    Name: yeller.environment_name
-  - Default: -1
-    Description: |
-      The size in megabytes of the volumes image to allocate. This is allocated
-      under /var/vcap/data, so should leave enough space for everything else.
-      Defaults to the filesystem size minus 10Gig.
-    Example: null
-    Examples: null
-    Name: volumes_image_size_mb
-  Templates:
-  - DstPathEnd: bin/baggageclaim_ctl
-    Path: /mnt/tmp/tar-CmdExtractor763152810/templates/baggageclaim_ctl.erb
-    SrcPathEnd: baggageclaim_ctl.erb
-  - DstPathEnd: bin/permit_device_control
-    Path: /mnt/tmp/tar-CmdExtractor763152810/templates/permit_device_control
-    SrcPathEnd: permit_device_control
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor129003628/monit
-    SrcPathEnd: monit
-  Name: blackbox
-  Packages:
-  - Name: pid_utils
-  - Name: blackbox
-  Properties:
-  - Default: null
-    Description: address for syslog drain (including port)
-    Example: null
-    Examples: null
-    Name: blackbox.syslog.destination.address
-  - Default: tls
-    Description: transport protocol for syslog drain (udp/tcp/tls)
-    Example: null
-    Examples: null
-    Name: blackbox.syslog.destination.transport
-  - Default: /var/vcap/sys/log
-    Description: |
-      directory with subdirectories containing log files. log lines will be tagged with subdirectory name.
-    Example: null
-    Examples: null
-    Name: blackbox.syslog.source_dir
-  Templates:
-  - DstPathEnd: bin/blackbox_ctl
-    Path: /mnt/tmp/tar-CmdExtractor129003628/templates/blackbox_ctl
-    SrcPathEnd: blackbox_ctl
-  - DstPathEnd: config/config.yml
-    Path: /mnt/tmp/tar-CmdExtractor129003628/templates/config.yml.erb
-    SrcPathEnd: config.yml.erb
-- Description: |
-    The ground crew registers a Garden worker with the ATC on an interval, advertises supported resource types, and cleans up ephemeral containers on shutdown.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor248590462/monit
-    SrcPathEnd: monit
-  Name: groundcrew
-  Packages:
-  - Name: pid_utils
-  - Name: generated_tsa_host_key
-  - Name: generated_worker_key
-  - Name: resource_discovery
-  - Name: archive_resource
-  - Name: bosh_deployment_resource
-  - Name: bosh_io_release_resource
-  - Name: bosh_io_stemcell_resource
-  - Name: cf_resource
-  - Name: docker_image_resource
-  - Name: git_resource
-  - Name: github_release_resource
-  - Name: hg_resource
-  - Name: pool_resource
-  - Name: s3_resource
-  - Name: semver_resource
-  - Name: time_resource
-  - Name: tracker_resource
-  - Name: vagrant_cloud_resource
-  Properties:
-  - Default: linux
-    Description: |
-      Platform to advertise for each worker.
-    Example: null
-    Examples: null
-    Name: platform
-  - Default: null
-    Description: |
-      Proxy to use for outgoing https requests from containers.
-    Example: null
-    Examples: null
-    Name: https_proxy_url
-  - Default: []
-    Description: |
-      A list domains and IPs with optional port for which the proxy should be bypassed, e.g. [localhost, 127.0.0.1, example.com, domain.com:8080]
-    Example: null
-    Examples: null
-    Name: no_proxy
-  - Default: []
-    Description: |
-      Additional resource types supported by the workers in `[{type: string, image: string}]` format.
-    Example: null
-    Examples: null
-    Name: additional_resource_types
-  - Default: ""
-    Description: |
-      API key to output errors from Concourse to Yeller.
-    Example: null
-    Examples: null
-    Name: yeller.api_key
-  - Default: null
-    Description: |
-      IP or DNS address of the TSA server to register with.
-
-      If not specified, the `tsa` link is used.
-    Example: null
-    Examples: null
-    Name: tsa.host
-  - Default: 2222
-    Description: |
-      Port of the TSA server to register with.
-
-      Only used when `tsa.host` is also specified. Otherwise the port is
-      autodiscovered via the `tsa` link.
-    Example: null
-    Examples: null
-    Name: tsa.port
-  - Default: ""
-    Description: |
-      Host key to verify for the TSA server.
-      If not specified, a deployment-scoped default is used.
-    Example: null
-    Examples: null
-    Name: tsa.host_public_key
-  - Default: ""
-    Description: |
-      Environment name you wish to group errors under in yeller.
-    Example: null
-    Examples: null
-    Name: yeller.environment_name
-  - Default: null
-    Description: |
-      Proxy to use for outgoing http requests from containers.
-    Example: null
-    Examples: null
-    Name: http_proxy_url
-  - Default: null
-    Description: |
-      Garden server connection address to advertise directly to the TSA.
-
-      If not specified, either the `garden` link is used, or
-      the instance's address is advertised if the link is not
-      found.
-    Example: null
-    Examples: null
-    Name: garden.address
-  - Default: null
-    Description: |
-      Garden server connection address to forward through SSH to the TSA.
-
-      If not specified, the Garden server address is registered directly.
-    Example: null
-    Examples: null
-    Name: garden.forward_address
-  - Default: ""
-    Description: |
-      Register the worker for a single team.
-
-      If not specified, the worker will be shared across all teams.
-    Example: null
-    Examples: null
-    Name: team
-  - Default: null
-    Description: |
-      Baggageclaim server connection address to forward through SSH to the TSA.
-
-      If not specified, the Baggageclaim server address is registered directly.
-    Example: null
-    Examples: null
-    Name: baggageclaim.forward_address
-  - Default: []
-    Description: |
-      An array of tags to advertise for each worker.
-    Example: null
-    Examples: null
-    Name: tags
-  - Default: ""
-    Description: |
-      Private key to use when authenticating with the TSA.
-      If not specified, a deployment-scoped default is used.
-    Example: null
-    Examples: null
-    Name: tsa.private_key
-  - Default: null
-    Description: |
-      Baggageclaim server URL to advertise directly to the
-      TSA.
-
-      If not specified, either the `baggageclaim` link is
-      used.
-    Example: null
-    Examples: null
-    Name: baggageclaim.url
-  Templates:
-  - DstPathEnd: config/static_known_hosts
-    Path: /mnt/tmp/tar-CmdExtractor248590462/templates/static_known_hosts.erb
-    SrcPathEnd: static_known_hosts.erb
-  - DstPathEnd: config/private_key
-    Path: /mnt/tmp/tar-CmdExtractor248590462/templates/private_key.erb
-    SrcPathEnd: private_key.erb
-  - DstPathEnd: config/worker.json
-    Path: /mnt/tmp/tar-CmdExtractor248590462/templates/worker.json.erb
-    SrcPathEnd: worker.json.erb
-  - DstPathEnd: bin/beacon_ctl
-    Path: /mnt/tmp/tar-CmdExtractor248590462/templates/beacon_ctl.erb
-    SrcPathEnd: beacon_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor711357536/monit
-    SrcPathEnd: monit
-  Name: postgresql
-  Packages:
-  - Name: pid_utils
-  - Name: postgresql_9.3
-  Properties:
-  - Default: 0.0.0.0
-    Description: |
-      IP address on which the PostgresSQL server will listen.
-    Example: null
-    Examples: null
-    Name: bind_ip
-  - Default: 5432
-    Description: |
-      Port on which the PostgresSQL server will listen.
-    Example: null
-    Examples: null
-    Name: bind_port
-  - Default: null
-    Description: |
-      List of databases to create, along with a role name and password of a role
-      to create for the database.
-    Example:
-    - name: my-database
-      password: my-db-password
-      role: my-db-role
-    - name: my-other-database
-      password: my-other-db-password
-      role: my-other-db-role
-    Examples: null
-    Name: databases
-  - Default: 500
-    Description: |
-      Maximum number of open database connections to support.
-    Example: null
-    Examples: null
-    Name: max_connections
-  Templates:
-  - DstPathEnd: config/pg_hba.conf
-    Path: /mnt/tmp/tar-CmdExtractor711357536/templates/pg_hba.conf.erb
-    SrcPathEnd: pg_hba.conf.erb
-  - DstPathEnd: bin/postgresql_ctl
-    Path: /mnt/tmp/tar-CmdExtractor711357536/templates/postgresql_ctl.erb
-    SrcPathEnd: postgresql_ctl.erb
-  - DstPathEnd: config/postgresql.conf
-    Path: /mnt/tmp/tar-CmdExtractor711357536/templates/postgresql.conf.erb
-    SrcPathEnd: postgresql.conf.erb
-- Description: |
-    TSA registers workers with the ATC via a SSH interface.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor734362770/monit
-    SrcPathEnd: monit
-  Name: tsa
-  Packages:
-  - Name: pid_utils
-  - Name: tsa
-  - Name: generated_signing_key
-  - Name: generated_tsa_host_key
-  - Name: generated_worker_key
-  Properties:
-  - Default: ""
-    Description: |
-      Private key to use for the SSH server.
-      If not specified, a deployment-scoped default is used.
-    Example: null
-    Examples: null
-    Name: host_key
-  - Default: ""
-    Description: |
-      Public key component of the host's key. This property is exported via the `tsa` link so that workers can discover it.
-    Example: null
-    Examples: null
-    Name: host_public_key
-  - Default: true
-    Description: |
-      Permit access via generated worker key, local to the deployment. Set to
-      `false` if you plan on only ever using explicitly configured and
-      authorized worker keys.
-    Example: null
-    Examples: null
-    Name: authorize_generated_worker_key
-  - Default: ""
-    Description: |
-      If configured, errors emitted to the logs will also be emitted to Yeller.
-      This is only really useful for Concourse developers.
-    Example: null
-    Examples: null
-    Name: yeller.api_key
-  - Default: http://127.0.0.1:8080
-    Description: |
-      ATC API endpoint to which workers will be advertised.
-      If not specified, it will be autodiscovered via BOSH links.
-    Example: null
-    Examples: null
-    Name: atc.url
-  - Default: 30s
-    Description: |
-      Interval on which to register workers with the ATC.
-    Example: null
-    Examples: null
-    Name: heartbeat_interval
-  - Default: null
-    Description: |
-      Address to advertise forwarded worker connections to.
-
-      If not specified, the instance's address is used.
-    Example: null
-    Examples: null
-    Name: forward_host
-  - Default: ""
-    Description: |
-      Environment name to specify for errors emitted to Yeller.
-    Example: null
-    Examples: null
-    Name: yeller.environment_name
-  - Default: 2222
-    Description: |
-      Port on which to listen for SSH connections.
-    Example: null
-    Examples: null
-    Name: bind_port
-  - Default: []
-    Description: |
-      Public keys to authorize for SSH connections.
-    Example: null
-    Examples: null
-    Name: authorized_keys
-  Templates:
-  - DstPathEnd: bin/tsa_ctl
-    Path: /mnt/tmp/tar-CmdExtractor734362770/templates/tsa_ctl.erb
-    SrcPathEnd: tsa_ctl.erb
-  - DstPathEnd: config/host_key
-    Path: /mnt/tmp/tar-CmdExtractor734362770/templates/host_key.erb
-    SrcPathEnd: host_key.erb
+[
+  {
+    "Description": "The ATC (Air Traffic Controller) provides UI and API access. It is\nresponsible for scheduling builds and detecting versions of your resources.\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor058602936/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "atc",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "atc"
+      },
+      {
+        "Name": "fly"
+      },
+      {
+        "Name": "generated_signing_key"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "If configured, errors emitted to the logs will also be emitted to Yeller.\nThis is only really useful for Concourse developers.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.api_key"
+      },
+      {
+        "Default": "",
+        "Description": "Application client secret for enabling generic OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "generic_oauth.client_secret"
+      },
+      {
+        "Default": "",
+        "Description": "Generic OAuth provider authorization endpoint url.",
+        "Example": null,
+        "Examples": null,
+        "Name": "generic_oauth.auth_url"
+      },
+      {
+        "Default": "5m",
+        "Description": "How long to cache the result of a get step after a newer version of the\nresource is found. Use Go duration format (1m = 1 minute).\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "old_resource_grace_period"
+      },
+      {
+        "Default": 8080,
+        "Description": "Port on which the ATC should listen for HTTP traffic.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_port"
+      },
+      {
+        "Default": null,
+        "Description": "SSL cert to use for HTTPS.\n\nIf not specified, only HTTP will be enabled.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tls_cert"
+      },
+      {
+        "Default": "atc",
+        "Description": "Name of the database to use.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgresql.database"
+      },
+      {
+        "Default": "",
+        "Description": "Generic OAuth provider token endpoint URL.",
+        "Example": null,
+        "Examples": null,
+        "Name": "generic_oauth.token_url"
+      },
+      {
+        "Default": null,
+        "Description": "Password to use when connecting.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgresql.role.password"
+      },
+      {
+        "Default": 4443,
+        "Description": "Port on which the ATC should listen for HTTPS traffic.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tls_bind_port"
+      },
+      {
+        "Default": false,
+        "Description": "Loosen up security for development purposes. This allows the ATC to be\nconfigured with no authentication methods.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "development_mode"
+      },
+      {
+        "Default": "",
+        "Description": "GitHub client secret to use for OAuth.\n\nThe application must be configured with its callback URL as\n`{external_url}/auth/github/callback` (replacing `{external_url}`\nwith the actual value).\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "github_auth.client_secret"
+      },
+      {
+        "Default": null,
+        "Description": "Override default API endpoint URL for Github Enterprise. Must end in a\ntrailing slash.\n",
+        "Example": "https://github.example.com/api/v3/",
+        "Examples": null,
+        "Name": "github_auth.api_url"
+      },
+      {
+        "Default": [],
+        "Description": "List of space GUIDs for Cloud Foundry spaces whose developers\nwill have access.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.cf_spaces"
+      },
+      {
+        "Default": "",
+        "Description": "Cloud Foundry CA Certificate.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.cf_ca_cert"
+      },
+      {
+        "Default": "",
+        "Description": "Environment name to specify for errors emitted to Yeller.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.environment_name"
+      },
+      {
+        "Default": null,
+        "Description": "Address used internally to reach the ATC. This will be auto-generated\nusing the IP of each ATC VM if not specified.\n\nNote that this refers to an *individual ATC*, not the whole cluster. This\nproperty is only useful if you're deploying in a way that cannot\nautodetect its own IP, e.g. a `bosh-init` deployment.\n\nYou should otherwise leave this value blank.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "peer_url"
+      },
+      {
+        "Default": false,
+        "Description": "Allow self-signed certificates.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "allow_self_signed_certificates"
+      },
+      {
+        "Default": null,
+        "Description": "Override default OAuth endpoint for Github Enterprise.\n",
+        "Example": "https://github.example.com/login/oauth/authorize",
+        "Examples": null,
+        "Name": "github_auth.auth_url"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address on which the ATC should listen for HTTP traffic.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_ip"
+      },
+      {
+        "Default": null,
+        "Description": "Override default access token endpoint for Github Enterprise.\n",
+        "Example": "https://github.example.com/login/oauth/access_token",
+        "Examples": null,
+        "Name": "github_auth.token_url"
+      },
+      {
+        "Default": "atc",
+        "Description": "Name of role to connect with.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgresql.role.name"
+      },
+      {
+        "Default": "",
+        "Description": "UAA client ID to use for OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.client_id"
+      },
+      {
+        "Default": "",
+        "Description": "UAA authorization endpoint url to use for OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.auth_url"
+      },
+      {
+        "Default": "",
+        "Description": "Application client ID for enabling generic OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "generic_oauth.client_id"
+      },
+      {
+        "Default": "",
+        "Description": "Password for HTTP basic auth, in plaintext.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "basic_auth_password"
+      },
+      {
+        "Default": "",
+        "Description": "GitHub client ID to use for OAuth.\n\nThe application must be configured with its callback URL as\n`{external_url}/auth/github/callback` (replacing `{external_url}`\nwith the actual value).\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "github_auth.client_id"
+      },
+      {
+        "Default": "",
+        "Description": "UAA client secret to use for OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.client_secret"
+      },
+      {
+        "Default": "",
+        "Description": "UAA token endpoint url to use for OAuth.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.token_url"
+      },
+      {
+        "Default": "",
+        "Description": "Cloud Foundry api endpoint url.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa_auth.cf_api_url"
+      },
+      {
+        "Default": null,
+        "Description": "SSL private key to use for encrypting HTTPS traffic.\n\nIf not specified, only HTTP will be enabled.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tls_key"
+      },
+      {
+        "Default": null,
+        "Description": "Externally reachable URL of the ATCs. Required for OAuth.\n\nTypically this is the URL that you as a user would use to reach your CI.\nFor multiple ATCs it would go to some sort of load balancer.\n",
+        "Example": "https://ci.concourse.ci",
+        "Examples": null,
+        "Name": "external_url"
+      },
+      {
+        "Default": "",
+        "Description": "Username for HTTP basic auth.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "basic_auth_username"
+      },
+      {
+        "Default": "30s",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor and release old caches of resource versions.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "resource_cache_cleanup_interval"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the database to use from the `postgresql` link.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgresql_database"
+      },
+      {
+        "Default": "",
+        "Description": "If configured, detailed metrics will be emitted to the specified Riemann\nserver.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.host"
+      },
+      {
+        "Default": "1m",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor new versions of resources.\n\nThis can also be specified on a per-resource basis by specifying\n`check_every` on the resource config.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "default_check_interval"
+      },
+      {
+        "Default": null,
+        "Description": "Address of a PostgreSQL server to connect to, in `HOST:PORT` format.\n\nIf not specified, one will be autodiscovered via BOSH links.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgresql.address"
+      },
+      {
+        "Default": 5555,
+        "Description": "Port of the Riemann server to emit events to.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.port"
+      },
+      {
+        "Default": [],
+        "Description": "An array of different criteria to check for when authorizing a GitHub\nuser. If empty, GitHub authorization is effectively disabled.\n",
+        "Example": [
+          {
+            "organization": "org1",
+            "teams": "all"
+          },
+          {
+            "organization": "org2",
+            "teams": [
+              "Team 1",
+              "Team 2"
+            ]
+          },
+          {
+            "user": "user1"
+          },
+          {
+            "user": "user2"
+          }
+        ],
+        "Examples": null,
+        "Name": "github_auth.authorize"
+      },
+      {
+        "Default": {},
+        "Description": "List Parameter to pass to the authentication server authorization url.\n",
+        "Example": {
+          "param1": "value1",
+          "param2": "value2"
+        },
+        "Examples": null,
+        "Name": "generic_oauth.auth_url_params"
+      },
+      {
+        "Default": "",
+        "Description": "Name of the authentication method to be displayed on the Web UI",
+        "Example": null,
+        "Examples": null,
+        "Name": "generic_oauth.display_name"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/tls_key",
+        "Path": "/mnt/tmp/tar-CmdExtractor058602936/templates/tls_key.erb",
+        "SrcPathEnd": "tls_key.erb"
+      },
+      {
+        "DstPathEnd": "config/cf_ca_cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor058602936/templates/cf_ca_cert.erb",
+        "SrcPathEnd": "cf_ca_cert.erb"
+      },
+      {
+        "DstPathEnd": "bin/atc_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor058602936/templates/atc_ctl.erb",
+        "SrcPathEnd": "atc_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/tls_cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor058602936/templates/tls_cert.erb",
+        "SrcPathEnd": "tls_cert.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor763152810/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "baggageclaim",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "btrfs_tools"
+      },
+      {
+        "Name": "baggageclaim"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address on which Baggageclaim should listen for HTTP traffic.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_ip"
+      },
+      {
+        "Default": 7788,
+        "Description": "Port on which Baggageclaim should listen for HTTP traffic.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_port"
+      },
+      {
+        "Default": "",
+        "Description": "If configured, errors emitted to the logs will also be emitted to Yeller.\nThis is only really useful for Concourse developers.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.api_key"
+      },
+      {
+        "Default": "",
+        "Description": "Environment name to specify for errors emitted to Yeller.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.environment_name"
+      },
+      {
+        "Default": -1,
+        "Description": "The size in megabytes of the volumes image to allocate. This is allocated\nunder /var/vcap/data, so should leave enough space for everything else.\nDefaults to the filesystem size minus 10Gig.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "volumes_image_size_mb"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/baggageclaim_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor763152810/templates/baggageclaim_ctl.erb",
+        "SrcPathEnd": "baggageclaim_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/permit_device_control",
+        "Path": "/mnt/tmp/tar-CmdExtractor763152810/templates/permit_device_control",
+        "SrcPathEnd": "permit_device_control"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor129003628/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "blackbox",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "blackbox"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "address for syslog drain (including port)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blackbox.syslog.destination.address"
+      },
+      {
+        "Default": "tls",
+        "Description": "transport protocol for syslog drain (udp/tcp/tls)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blackbox.syslog.destination.transport"
+      },
+      {
+        "Default": "/var/vcap/sys/log",
+        "Description": "directory with subdirectories containing log files. log lines will be tagged with subdirectory name.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "blackbox.syslog.source_dir"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/blackbox_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor129003628/templates/blackbox_ctl",
+        "SrcPathEnd": "blackbox_ctl"
+      },
+      {
+        "DstPathEnd": "config/config.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor129003628/templates/config.yml.erb",
+        "SrcPathEnd": "config.yml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The ground crew registers a Garden worker with the ATC on an interval, advertises supported resource types, and cleans up ephemeral containers on shutdown.\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor248590462/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "groundcrew",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "generated_tsa_host_key"
+      },
+      {
+        "Name": "generated_worker_key"
+      },
+      {
+        "Name": "resource_discovery"
+      },
+      {
+        "Name": "archive_resource"
+      },
+      {
+        "Name": "bosh_deployment_resource"
+      },
+      {
+        "Name": "bosh_io_release_resource"
+      },
+      {
+        "Name": "bosh_io_stemcell_resource"
+      },
+      {
+        "Name": "cf_resource"
+      },
+      {
+        "Name": "docker_image_resource"
+      },
+      {
+        "Name": "git_resource"
+      },
+      {
+        "Name": "github_release_resource"
+      },
+      {
+        "Name": "hg_resource"
+      },
+      {
+        "Name": "pool_resource"
+      },
+      {
+        "Name": "s3_resource"
+      },
+      {
+        "Name": "semver_resource"
+      },
+      {
+        "Name": "time_resource"
+      },
+      {
+        "Name": "tracker_resource"
+      },
+      {
+        "Name": "vagrant_cloud_resource"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "linux",
+        "Description": "Platform to advertise for each worker.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "platform"
+      },
+      {
+        "Default": null,
+        "Description": "Proxy to use for outgoing https requests from containers.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "https_proxy_url"
+      },
+      {
+        "Default": [],
+        "Description": "A list domains and IPs with optional port for which the proxy should be bypassed, e.g. [localhost, 127.0.0.1, example.com, domain.com:8080]\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "no_proxy"
+      },
+      {
+        "Default": [],
+        "Description": "Additional resource types supported by the workers in `[{type: string, image: string}]` format.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "additional_resource_types"
+      },
+      {
+        "Default": "",
+        "Description": "API key to output errors from Concourse to Yeller.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.api_key"
+      },
+      {
+        "Default": null,
+        "Description": "IP or DNS address of the TSA server to register with.\n\nIf not specified, the `tsa` link is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tsa.host"
+      },
+      {
+        "Default": 2222,
+        "Description": "Port of the TSA server to register with.\n\nOnly used when `tsa.host` is also specified. Otherwise the port is\nautodiscovered via the `tsa` link.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tsa.port"
+      },
+      {
+        "Default": "",
+        "Description": "Host key to verify for the TSA server.\nIf not specified, a deployment-scoped default is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tsa.host_public_key"
+      },
+      {
+        "Default": "",
+        "Description": "Environment name you wish to group errors under in yeller.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.environment_name"
+      },
+      {
+        "Default": null,
+        "Description": "Proxy to use for outgoing http requests from containers.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "http_proxy_url"
+      },
+      {
+        "Default": null,
+        "Description": "Garden server connection address to advertise directly to the TSA.\n\nIf not specified, either the `garden` link is used, or\nthe instance's address is advertised if the link is not\nfound.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.address"
+      },
+      {
+        "Default": null,
+        "Description": "Garden server connection address to forward through SSH to the TSA.\n\nIf not specified, the Garden server address is registered directly.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden.forward_address"
+      },
+      {
+        "Default": "",
+        "Description": "Register the worker for a single team.\n\nIf not specified, the worker will be shared across all teams.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "team"
+      },
+      {
+        "Default": null,
+        "Description": "Baggageclaim server connection address to forward through SSH to the TSA.\n\nIf not specified, the Baggageclaim server address is registered directly.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "baggageclaim.forward_address"
+      },
+      {
+        "Default": [],
+        "Description": "An array of tags to advertise for each worker.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tags"
+      },
+      {
+        "Default": "",
+        "Description": "Private key to use when authenticating with the TSA.\nIf not specified, a deployment-scoped default is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "tsa.private_key"
+      },
+      {
+        "Default": null,
+        "Description": "Baggageclaim server URL to advertise directly to the\nTSA.\n\nIf not specified, either the `baggageclaim` link is\nused.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "baggageclaim.url"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/static_known_hosts",
+        "Path": "/mnt/tmp/tar-CmdExtractor248590462/templates/static_known_hosts.erb",
+        "SrcPathEnd": "static_known_hosts.erb"
+      },
+      {
+        "DstPathEnd": "config/private_key",
+        "Path": "/mnt/tmp/tar-CmdExtractor248590462/templates/private_key.erb",
+        "SrcPathEnd": "private_key.erb"
+      },
+      {
+        "DstPathEnd": "config/worker.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor248590462/templates/worker.json.erb",
+        "SrcPathEnd": "worker.json.erb"
+      },
+      {
+        "DstPathEnd": "bin/beacon_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor248590462/templates/beacon_ctl.erb",
+        "SrcPathEnd": "beacon_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor711357536/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "postgresql",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "postgresql_9.3"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address on which the PostgresSQL server will listen.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_ip"
+      },
+      {
+        "Default": 5432,
+        "Description": "Port on which the PostgresSQL server will listen.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_port"
+      },
+      {
+        "Default": null,
+        "Description": "List of databases to create, along with a role name and password of a role\nto create for the database.\n",
+        "Example": [
+          {
+            "name": "my-database",
+            "password": "my-db-password",
+            "role": "my-db-role"
+          },
+          {
+            "name": "my-other-database",
+            "password": "my-other-db-password",
+            "role": "my-other-db-role"
+          }
+        ],
+        "Examples": null,
+        "Name": "databases"
+      },
+      {
+        "Default": 500,
+        "Description": "Maximum number of open database connections to support.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "max_connections"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor711357536/templates/pg_hba.conf.erb",
+        "SrcPathEnd": "pg_hba.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgresql_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor711357536/templates/postgresql_ctl.erb",
+        "SrcPathEnd": "postgresql_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor711357536/templates/postgresql.conf.erb",
+        "SrcPathEnd": "postgresql.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "TSA registers workers with the ATC via a SSH interface.\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor734362770/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "tsa",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "tsa"
+      },
+      {
+        "Name": "generated_signing_key"
+      },
+      {
+        "Name": "generated_tsa_host_key"
+      },
+      {
+        "Name": "generated_worker_key"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Private key to use for the SSH server.\nIf not specified, a deployment-scoped default is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "host_key"
+      },
+      {
+        "Default": "",
+        "Description": "Public key component of the host's key. This property is exported via the `tsa` link so that workers can discover it.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "host_public_key"
+      },
+      {
+        "Default": true,
+        "Description": "Permit access via generated worker key, local to the deployment. Set to\n`false` if you plan on only ever using explicitly configured and\nauthorized worker keys.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "authorize_generated_worker_key"
+      },
+      {
+        "Default": "",
+        "Description": "If configured, errors emitted to the logs will also be emitted to Yeller.\nThis is only really useful for Concourse developers.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.api_key"
+      },
+      {
+        "Default": "http://127.0.0.1:8080",
+        "Description": "ATC API endpoint to which workers will be advertised.\nIf not specified, it will be autodiscovered via BOSH links.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "atc.url"
+      },
+      {
+        "Default": "30s",
+        "Description": "Interval on which to register workers with the ATC.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "heartbeat_interval"
+      },
+      {
+        "Default": null,
+        "Description": "Address to advertise forwarded worker connections to.\n\nIf not specified, the instance's address is used.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "forward_host"
+      },
+      {
+        "Default": "",
+        "Description": "Environment name to specify for errors emitted to Yeller.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "yeller.environment_name"
+      },
+      {
+        "Default": 2222,
+        "Description": "Port on which to listen for SSH connections.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "bind_port"
+      },
+      {
+        "Default": [],
+        "Description": "Public keys to authorize for SSH connections.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "authorized_keys"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/tsa_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor734362770/templates/tsa_ctl.erb",
+        "SrcPathEnd": "tsa_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/host_key",
+        "Path": "/mnt/tmp/tar-CmdExtractor734362770/templates/host_key.erb",
+        "SrcPathEnd": "host_key.erb"
+      }
+    ]
+  }
+]

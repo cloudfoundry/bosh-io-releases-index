@@ -1,182 +1,276 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor279102996/monit
-    SrcPathEnd: monit
-  Name: riemann
-  Packages:
-  - Name: java
-  - Name: riemann
-  Properties:
-  - Default: null
-    Description: Mail to address
-    Example: null
-    Examples: null
-    Name: riemann.mailer.to
-  - Default: null
-    Description: SMTP Port
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-port
-  - Default: null
-    Description: SMTP Password
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-password
-  - Default: https://alert.victorops.com/integrations/generic/20131114/alert
-    Description: VictorOps API URL endpoint
-    Example: null
-    Examples: null
-    Name: riemann.victorops.apiendpoint
-  - Default: riemann
-    Description: VictorOps routing key
-    Example: null
-    Examples: null
-    Name: riemann.victorops.routingkey
-  - Default: 0.2
-    Description: CF available memory % before alerting (between 0 and 1)
-    Example: null
-    Examples: null
-    Name: riemann.cf.memory_ratio_alert
-  - Default: null
-    Description: Graphite hostname
-    Example: null
-    Examples: null
-    Name: riemann.graphite.host
-  - Default: null
-    Description: Mail from address
-    Example: null
-    Examples: null
-    Name: riemann.mailer.from
-  - Default: null
-    Description: VictorOps API key
-    Example: null
-    Examples: null
-    Name: riemann.victorops.apikey
-  - Default: null
-    Description: InfluxDB host
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.host
-  - Default: null
-    Description: InfluxDB database password
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.password
-  - Default: null
-    Description: Specifies the initial size of the memory allocation pool
-    Example: null
-    Examples: null
-    Name: riemann.java.xms
-  - Default: 100
-    Description: The number of connections to keep open to Graphite
-    Example: null
-    Examples: null
-    Name: riemann.graphite.pool
-  - Default: null
-    Description: InfluxDB database username
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.username
-  - Default: null
-    Description: InfluxDB database
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.db
-  - Default: null
-    Description: Specifies the maximum size of the memory allocation pool
-    Example: null
-    Examples: null
-    Name: riemann.java.xmx
-  - Default: 2003
-    Description: Graphite port
-    Example: null
-    Examples: null
-    Name: riemann.graphite.port
-  - Default: 100
-    Description: The maximum allowed number of threads for Riemann ThreadPool Service
-    Example: null
-    Examples: null
-    Name: riemann.graphite.threadpool.maxsize
-  - Default: 10000
-    Description: The queue size for Riemann ThreadPool Service
-    Example: null
-    Examples: null
-    Name: riemann.graphite.threadpool.queue
-  - Default: null
-    Description: SMTP Server
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-server
-  - Default: null
-    Description: SMTP User
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-user
-  - Default: 0
-    Description: Number of seconds an event state must remains the same before alerting
-    Example: null
-    Examples: null
-    Name: riemann.victorops.stable-time
-  - Default: 8086
-    Description: InfluxDB port
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.port
-  - Default: null
-    Description: Name of the CF Environment
-    Example: null
-    Examples: null
-    Name: riemann.cf.name
-  Templates:
-  - DstPathEnd: config/riemann.config
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/riemann.config.erb
-    SrcPathEnd: config/riemann.config.erb
-  - DstPathEnd: config/bosh.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/bosh.clj.erb
-    SrcPathEnd: config/bosh.clj.erb
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/cf.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/cf.clj.erb
-    SrcPathEnd: config/cf.clj.erb
-  - DstPathEnd: config/mailer.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/mailer.clj.erb
-    SrcPathEnd: config/mailer.clj.erb
-  - DstPathEnd: config/framefrog.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/framefrog.clj.erb
-    SrcPathEnd: config/framefrog.clj.erb
-  - DstPathEnd: config/victorops.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/victorops.clj.erb
-    SrcPathEnd: config/victorops.clj.erb
-  - DstPathEnd: config/malones.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/malones.clj.erb
-    SrcPathEnd: config/malones.clj.erb
-  - DstPathEnd: config/influxdb.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/influxdb.clj.erb
-    SrcPathEnd: config/influxdb.clj.erb
-  - DstPathEnd: bin/riemann_ctl
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/bin/riemann_ctl
-    SrcPathEnd: bin/riemann_ctl
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: config/alert.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/alert.clj.erb
-    SrcPathEnd: config/alert.clj.erb
-  - DstPathEnd: config/graphite.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/graphite.clj.erb
-    SrcPathEnd: config/graphite.clj.erb
-  - DstPathEnd: config/mongodb.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/mongodb.clj.erb
-    SrcPathEnd: config/mongodb.clj.erb
-  - DstPathEnd: config/cassandra.clj
-    Path: /mnt/tmp/tar-CmdExtractor279102996/templates/config/cassandra.clj.erb
-    SrcPathEnd: config/cassandra.clj.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor279102996/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "riemann",
+    "Packages": [
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "riemann"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Mail to address",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.to"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Port",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-port"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Password",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-password"
+      },
+      {
+        "Default": "https://alert.victorops.com/integrations/generic/20131114/alert",
+        "Description": "VictorOps API URL endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.apiendpoint"
+      },
+      {
+        "Default": "riemann",
+        "Description": "VictorOps routing key",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.routingkey"
+      },
+      {
+        "Default": 0.2,
+        "Description": "CF available memory % before alerting (between 0 and 1)",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.cf.memory_ratio_alert"
+      },
+      {
+        "Default": null,
+        "Description": "Graphite hostname",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.host"
+      },
+      {
+        "Default": null,
+        "Description": "Mail from address",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.from"
+      },
+      {
+        "Default": null,
+        "Description": "VictorOps API key",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.apikey"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB host",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.host"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB database password",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.password"
+      },
+      {
+        "Default": null,
+        "Description": "Specifies the initial size of the memory allocation pool",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.java.xms"
+      },
+      {
+        "Default": 100,
+        "Description": "The number of connections to keep open to Graphite",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.pool"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB database username",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.username"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB database",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.db"
+      },
+      {
+        "Default": null,
+        "Description": "Specifies the maximum size of the memory allocation pool",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.java.xmx"
+      },
+      {
+        "Default": 2003,
+        "Description": "Graphite port",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.port"
+      },
+      {
+        "Default": 100,
+        "Description": "The maximum allowed number of threads for Riemann ThreadPool Service",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.threadpool.maxsize"
+      },
+      {
+        "Default": 10000,
+        "Description": "The queue size for Riemann ThreadPool Service",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.threadpool.queue"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-server"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP User",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-user"
+      },
+      {
+        "Default": 0,
+        "Description": "Number of seconds an event state must remains the same before alerting",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.stable-time"
+      },
+      {
+        "Default": 8086,
+        "Description": "InfluxDB port",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.port"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the CF Environment",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.cf.name"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/riemann.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/riemann.config.erb",
+        "SrcPathEnd": "config/riemann.config.erb"
+      },
+      {
+        "DstPathEnd": "config/bosh.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/bosh.clj.erb",
+        "SrcPathEnd": "config/bosh.clj.erb"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/cf.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/cf.clj.erb",
+        "SrcPathEnd": "config/cf.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/mailer.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/mailer.clj.erb",
+        "SrcPathEnd": "config/mailer.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/framefrog.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/framefrog.clj.erb",
+        "SrcPathEnd": "config/framefrog.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/victorops.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/victorops.clj.erb",
+        "SrcPathEnd": "config/victorops.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/malones.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/malones.clj.erb",
+        "SrcPathEnd": "config/malones.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/influxdb.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/influxdb.clj.erb",
+        "SrcPathEnd": "config/influxdb.clj.erb"
+      },
+      {
+        "DstPathEnd": "bin/riemann_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/bin/riemann_ctl",
+        "SrcPathEnd": "bin/riemann_ctl"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/alert.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/alert.clj.erb",
+        "SrcPathEnd": "config/alert.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/graphite.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/graphite.clj.erb",
+        "SrcPathEnd": "config/graphite.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/mongodb.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/mongodb.clj.erb",
+        "SrcPathEnd": "config/mongodb.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/cassandra.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor279102996/templates/config/cassandra.clj.erb",
+        "SrcPathEnd": "config/cassandra.clj.erb"
+      }
+    ]
+  }
+]

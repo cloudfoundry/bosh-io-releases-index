@@ -1,206 +1,279 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor708752259/monit
-    SrcPathEnd: monit
-  Name: dex_overlord
-  Packages:
-  - Name: dex
-  Properties:
-  - Default: false
-    Description: log debug-level information
-    Example: null
-    Examples: null
-    Name: dex.overlord.log_debug
-  - Default: true
-    Description: prefix log lines with timestamps
-    Example: null
-    Examples: null
-    Name: dex.overlord.log_timestamps
-  - Default: null
-    Description: A base64-encoded 128 byte string which is used to protect the Admin
-      API
-    Example: null
-    Examples: null
-    Name: dex.overlord.admin_api_secret
-  - Default: 5557
-    Description: port for listening for administrative operation requests
-    Example: null
-    Examples: null
-    Name: dex.overlord.admin_port
-  - Default: null
-    Description: length of time between garbage collection runs
-    Example: null
-    Examples: null
-    Name: dex.overlord.gc_interval
-  - Default: null
-    Description: length of time for-which a given key will be valid
-    Example: null
-    Examples: null
-    Name: dex.overlord.key_period
-  - Default: null
-    Description: ID of the local connector
-    Example: null
-    Examples: null
-    Name: dex.overlord.local_connector
-  Templates:
-  - DstPathEnd: bin/dex_overlord_ctl
-    Path: /mnt/tmp/tar-CmdExtractor708752259/templates/bin/dex_overlord_ctl
-    SrcPathEnd: bin/dex_overlord_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor275673773/monit
-    SrcPathEnd: monit
-  Name: dex_worker
-  Packages:
-  - Name: dex
-  Properties:
-  - Default: |
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor708752259/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "dex_overlord",
+    "Packages": [
       {
-          "type": "fake",
-          "from": "noreply@example.com"
+        "Name": "dex"
       }
-    Description: Email configuration
-    Example: null
-    Examples: null
-    Name: dex.worker.emailer
-  - Default: null
-    Description: The name of this dex installation; will appear on most pages
-    Example: null
-    Examples: null
-    Name: dex.worker.issuer_name
-  - Default: 5556
-    Description: the port that the server will listen on
-    Example: null
-    Examples: null
-    Name: dex.worker.port
-  - Default: null
-    Description: the server's private key for TLS connection
-    Example: null
-    Examples: null
-    Name: dex.worker.tls_key
-  - Default: |
-      []
-    Description: Users configuration
-    Example: null
-    Examples: null
-    Name: dex.worker.users
-  - Default: |
-      []
-    Description: Clients configuration
-    Example: null
-    Examples: null
-    Name: dex.worker.clients
-  - Default: |
-      [
-        {
-          "type": "local",
-          "id": "local"
-        }
-      ]
-    Description: Connectors configuration
-    Example: null
-    Examples: null
-    Name: dex.worker.connectors
-  - Default: null
-    Description: maximum number of open connections to the database
-    Example: null
-    Examples: null
-    Name: dex.worker.db_max_open_conns
-  - Default: null
-    Description: URL of an image representing the issuer
-    Example: null
-    Examples: null
-    Name: dex.worker.issuer_logo_url
-  - Default: false
-    Description: manage entities in-process w/o any encryption, used only for single-node
-      testing
-    Example: null
-    Examples: null
-    Name: dex.worker.no_db
-  - Default: false
-    Description: log debug-level information
-    Example: null
-    Examples: null
-    Name: dex.worker.log_debug
-  - Default: false
-    Description: Allows users to self-register
-    Example: null
-    Examples: null
-    Name: dex.worker.enable_registration
-  - Default: true
-    Description: prefix log lines with timestamps
-    Example: null
-    Examples: null
-    Name: dex.worker.log_timestamps
-  - Default: null
-    Description: DSN-formatted database connection string
-    Example: null
-    Examples: null
-    Name: dex.worker.db_url
-  - Default: false
-    Description: When a user logs in through a federated identity service, automatically
-      register them if they don't have an account
-    Example: null
-    Examples: null
-    Name: dex.worker.enable_automatic_registration
-  - Default: false
-    Description: Allow dynamic registration of clients
-    Example: null
-    Examples: null
-    Name: dex.worker.enable_client_registration
-  - Default: null
-    Description: A comma-separated list of base64 encoded 32 byte strings used as
-      symmetric keys used to encrypt/decrypt signing key data in DB. The first key
-      is considered the active key and used for encryption, while the others are used
-      to decrypt
-    Example: null
-    Examples: null
-    Name: dex.worker.key_secrets
-  - Default: null
-    Description: the server's certificate for TLS connection
-    Example: null
-    Examples: null
-    Name: dex.worker.tls_cert
-  - Default: false
-    Description: Forces API to authenticate using client credentials instead of ID
-      token. Clients must be 'admin clients' to use the API
-    Example: null
-    Examples: null
-    Name: dex.worker.api_use_client_credentials
-  - Default: null
-    Description: maximum number of connections in the idle connection pool
-    Example: null
-    Examples: null
-    Name: dex.worker.db_max_idle_conns
-  - Default: null
-    Description: the issuer's host
-    Example: null
-    Examples: null
-    Name: dex.worker.issuer_host
-  Templates:
-  - DstPathEnd: config/tls_key.pem
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/config/tls_key.pem
-    SrcPathEnd: config/tls_key.pem
-  - DstPathEnd: config/users.json
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/config/users.json
-    SrcPathEnd: config/users.json
-  - DstPathEnd: bin/dex_worker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/bin/dex_worker_ctl
-    SrcPathEnd: bin/dex_worker_ctl
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/bin/post-start
-    SrcPathEnd: bin/post-start
-  - DstPathEnd: config/clients.json
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/config/clients.json
-    SrcPathEnd: config/clients.json
-  - DstPathEnd: config/connectors.json
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/config/connectors.json
-    SrcPathEnd: config/connectors.json
-  - DstPathEnd: config/emailer.json
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/config/emailer.json
-    SrcPathEnd: config/emailer.json
-  - DstPathEnd: config/tls_cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor275673773/templates/config/tls_cert.pem
-    SrcPathEnd: config/tls_cert.pem
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "log debug-level information",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.log_debug"
+      },
+      {
+        "Default": true,
+        "Description": "prefix log lines with timestamps",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.log_timestamps"
+      },
+      {
+        "Default": null,
+        "Description": "A base64-encoded 128 byte string which is used to protect the Admin API",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.admin_api_secret"
+      },
+      {
+        "Default": 5557,
+        "Description": "port for listening for administrative operation requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.admin_port"
+      },
+      {
+        "Default": null,
+        "Description": "length of time between garbage collection runs",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.gc_interval"
+      },
+      {
+        "Default": null,
+        "Description": "length of time for-which a given key will be valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.key_period"
+      },
+      {
+        "Default": null,
+        "Description": "ID of the local connector",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.overlord.local_connector"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/dex_overlord_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor708752259/templates/bin/dex_overlord_ctl",
+        "SrcPathEnd": "bin/dex_overlord_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor275673773/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "dex_worker",
+    "Packages": [
+      {
+        "Name": "dex"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "{\n    \"type\": \"fake\",\n    \"from\": \"noreply@example.com\"\n}\n",
+        "Description": "Email configuration",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.emailer"
+      },
+      {
+        "Default": null,
+        "Description": "The name of this dex installation; will appear on most pages",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.issuer_name"
+      },
+      {
+        "Default": 5556,
+        "Description": "the port that the server will listen on",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.port"
+      },
+      {
+        "Default": null,
+        "Description": "the server's private key for TLS connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.tls_key"
+      },
+      {
+        "Default": "[]\n",
+        "Description": "Users configuration",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.users"
+      },
+      {
+        "Default": "[]\n",
+        "Description": "Clients configuration",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.clients"
+      },
+      {
+        "Default": "[\n  {\n    \"type\": \"local\",\n    \"id\": \"local\"\n  }\n]\n",
+        "Description": "Connectors configuration",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.connectors"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of open connections to the database",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.db_max_open_conns"
+      },
+      {
+        "Default": null,
+        "Description": "URL of an image representing the issuer",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.issuer_logo_url"
+      },
+      {
+        "Default": false,
+        "Description": "manage entities in-process w/o any encryption, used only for single-node testing",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.no_db"
+      },
+      {
+        "Default": false,
+        "Description": "log debug-level information",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.log_debug"
+      },
+      {
+        "Default": false,
+        "Description": "Allows users to self-register",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.enable_registration"
+      },
+      {
+        "Default": true,
+        "Description": "prefix log lines with timestamps",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.log_timestamps"
+      },
+      {
+        "Default": null,
+        "Description": "DSN-formatted database connection string",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.db_url"
+      },
+      {
+        "Default": false,
+        "Description": "When a user logs in through a federated identity service, automatically register them if they don't have an account",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.enable_automatic_registration"
+      },
+      {
+        "Default": false,
+        "Description": "Allow dynamic registration of clients",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.enable_client_registration"
+      },
+      {
+        "Default": null,
+        "Description": "A comma-separated list of base64 encoded 32 byte strings used as symmetric keys used to encrypt/decrypt signing key data in DB. The first key is considered the active key and used for encryption, while the others are used to decrypt",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.key_secrets"
+      },
+      {
+        "Default": null,
+        "Description": "the server's certificate for TLS connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.tls_cert"
+      },
+      {
+        "Default": false,
+        "Description": "Forces API to authenticate using client credentials instead of ID token. Clients must be 'admin clients' to use the API",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.api_use_client_credentials"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of connections in the idle connection pool",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.db_max_idle_conns"
+      },
+      {
+        "Default": null,
+        "Description": "the issuer's host",
+        "Example": null,
+        "Examples": null,
+        "Name": "dex.worker.issuer_host"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/tls_key.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/config/tls_key.pem",
+        "SrcPathEnd": "config/tls_key.pem"
+      },
+      {
+        "DstPathEnd": "config/users.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/config/users.json",
+        "SrcPathEnd": "config/users.json"
+      },
+      {
+        "DstPathEnd": "bin/dex_worker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/bin/dex_worker_ctl",
+        "SrcPathEnd": "bin/dex_worker_ctl"
+      },
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/bin/post-start",
+        "SrcPathEnd": "bin/post-start"
+      },
+      {
+        "DstPathEnd": "config/clients.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/config/clients.json",
+        "SrcPathEnd": "config/clients.json"
+      },
+      {
+        "DstPathEnd": "config/connectors.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/config/connectors.json",
+        "SrcPathEnd": "config/connectors.json"
+      },
+      {
+        "DstPathEnd": "config/emailer.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/config/emailer.json",
+        "SrcPathEnd": "config/emailer.json"
+      },
+      {
+        "DstPathEnd": "config/tls_cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor275673773/templates/config/tls_cert.pem",
+        "SrcPathEnd": "config/tls_cert.pem"
+      }
+    ]
+  }
+]

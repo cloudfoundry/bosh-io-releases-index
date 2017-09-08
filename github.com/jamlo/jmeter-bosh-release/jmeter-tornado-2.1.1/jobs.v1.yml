@@ -1,205 +1,311 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor118939295/monit
-    SrcPathEnd: monit
-  Name: jmeter_storm
-  Packages:
-  - Name: jmeter
-  - Name: openjdk
-  - Name: ruby-jmeter
-  - Name: jmeter-dsl
-  Properties:
-  - Default: null
-    Description: List of targets to hit
-    Example: null
-    Examples: null
-    Name: wizard.targets
-  - Default: true
-    Description: Apply "--reportatendofloadtests" when running jmeter
-    Example: null
-    Examples: null
-    Name: generate_dashboard
-  - Default: 512m
-    Description: Xms value passed
-    Example: null
-    Examples: null
-    Name: jvm.xms
-  - Default: null
-    Description: Desired duration of the test run, in seconds
-    Example: null
-    Examples: null
-    Name: wizard.configuration.duration
-  - Default: null
-    Description: Test ramp up time in seconds
-    Example: null
-    Examples: null
-    Name: wizard.configuration.ramp_time
-  - Default: 512m
-    Description: Xmx value passed
-    Example: null
-    Examples: null
-    Name: jvm.xmx
-  - Default: null
-    Description: |
-      The JMeter test plan. Generate it using JMeter GUI. This is the contents of the .jmx file.
-      Either specify this field or use the wizard option.
-    Example: null
-    Examples: null
-    Name: raw_jmx_plan
-  - Default: null
-    Description: Number of threads JMeter will use to execute your test, per job instance.
-    Example: null
-    Examples: null
-    Name: wizard.configuration.users
-  - Default: -1
-    Description: Delay introduced between http requests, in milliseconds
-    Example: null
-    Examples: null
-    Name: wizard.configuration.simple_delay
-  - Default: -1
-    Description: Deviation in milliseconds.
-    Example: null
-    Examples: null
-    Name: wizard.configuration.gaussian_random_timer.deviation
-  - Default: -1
-    Description: Number of milliseconds to pause in addition to the random delay
-    Example: null
-    Examples: null
-    Name: wizard.configuration.gaussian_random_timer.constant_delay_offset
-  - Default: 2
-    Description: JAVA Max Tenuring Threshold
-    Example: null
-    Examples: null
-    Name: jvm.maxTenuringThreshold
-  Templates:
-  - DstPathEnd: config/validation.txt
-    Path: /mnt/tmp/tar-CmdExtractor118939295/templates/validation.txt.erb
-    SrcPathEnd: validation.txt.erb
-  - DstPathEnd: config/raw_test_plan.jmx
-    Path: /mnt/tmp/tar-CmdExtractor118939295/templates/raw_test_plan.jmx.erb
-    SrcPathEnd: raw_test_plan.jmx.erb
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor118939295/templates/run.erb
-    SrcPathEnd: run.erb
-  - DstPathEnd: config/settings.json
-    Path: /mnt/tmp/tar-CmdExtractor118939295/templates/settings.json.erb
-    SrcPathEnd: settings.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor392090665/monit
-    SrcPathEnd: monit
-  Name: jmeter_storm_worker
-  Packages:
-  - Name: jmeter
-  - Name: openjdk
-  Properties:
-  - Default: 512m
-    Description: -Xmx value passed
-    Example: null
-    Examples: null
-    Name: jvm.xmx
-  - Default: 2
-    Description: JAVA Max Tenuring Threshold
-    Example: null
-    Examples: null
-    Name: jvm.maxTenuringThreshold
-  - Default: 1099
-    Description: Port that the jmeter server will listen on
-    Example: null
-    Examples: null
-    Name: server_port
-  - Default: 512m
-    Description: Xms value passed
-    Example: null
-    Examples: null
-    Name: jvm.xms
-  Templates:
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor392090665/templates/ctl.erb
-    SrcPathEnd: ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor182996547/monit
-    SrcPathEnd: monit
-  Name: jmeter_tornado
-  Packages:
-  - Name: jmeter
-  - Name: openjdk
-  - Name: ruby-jmeter
-  - Name: jmeter-dsl
-  Properties:
-  - Default: 512m
-    Description: Xmx value passed
-    Example: null
-    Examples: null
-    Name: jvm.xmx
-  - Default: 2
-    Description: JAVA Max Tenuring Threshold
-    Example: null
-    Examples: null
-    Name: jvm.maxTenuringThreshold
-  - Default: null
-    Description: |
-      The JMeter test plan. Generate it using JMeter GUI. This is the contents of the .jmx file.
-      Either specify this field or use the wizard option.
-    Example: null
-    Examples: null
-    Name: raw_jmx_plan
-  - Default: -1
-    Description: Delay introduced between http requests, in milliseconds
-    Example: null
-    Examples: null
-    Name: wizard.configuration.simple_delay
-  - Default: -1
-    Description: Number of milliseconds to pause in addition to the random delay
-    Example: null
-    Examples: null
-    Name: wizard.configuration.gaussian_random_timer.constant_delay_offset
-  - Default: null
-    Description: Test ramp up time
-    Example: null
-    Examples: null
-    Name: wizard.configuration.ramp_time
-  - Default: false
-    Description: 'Not recommended. Set to true if you want to record the execution
-      plan results. Warning: logs can grow in size very quickly, resulting in full
-      disk.'
-    Example: null
-    Examples: null
-    Name: record_result
-  - Default: null
-    Description: List of targets to hits
-    Example: null
-    Examples: null
-    Name: wizard.targets
-  - Default: null
-    Description: Number of threads JMeter will use to execute your test, per job instance.
-    Example: null
-    Examples: null
-    Name: wizard.configuration.users
-  - Default: -1
-    Description: Deviation in milliseconds.
-    Example: null
-    Examples: null
-    Name: wizard.configuration.gaussian_random_timer.deviation
-  - Default: 512m
-    Description: Xms value passed
-    Example: null
-    Examples: null
-    Name: jvm.xms
-  Templates:
-  - DstPathEnd: config/raw_test_plan.jmx
-    Path: /mnt/tmp/tar-CmdExtractor182996547/templates/raw_test_plan.jmx.erb
-    SrcPathEnd: raw_test_plan.jmx.erb
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor182996547/templates/ctl.erb
-    SrcPathEnd: ctl.erb
-  - DstPathEnd: config/settings.json
-    Path: /mnt/tmp/tar-CmdExtractor182996547/templates/settings.json.erb
-    SrcPathEnd: settings.json.erb
-  - DstPathEnd: config/validation.txt
-    Path: /mnt/tmp/tar-CmdExtractor182996547/templates/validation.txt.erb
-    SrcPathEnd: validation.txt.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor118939295/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "jmeter_storm",
+    "Packages": [
+      {
+        "Name": "jmeter"
+      },
+      {
+        "Name": "openjdk"
+      },
+      {
+        "Name": "ruby-jmeter"
+      },
+      {
+        "Name": "jmeter-dsl"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "List of targets to hit",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.targets"
+      },
+      {
+        "Default": true,
+        "Description": "Apply \"--reportatendofloadtests\" when running jmeter",
+        "Example": null,
+        "Examples": null,
+        "Name": "generate_dashboard"
+      },
+      {
+        "Default": "512m",
+        "Description": "Xms value passed",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.xms"
+      },
+      {
+        "Default": null,
+        "Description": "Desired duration of the test run, in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.duration"
+      },
+      {
+        "Default": null,
+        "Description": "Test ramp up time in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.ramp_time"
+      },
+      {
+        "Default": "512m",
+        "Description": "Xmx value passed",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.xmx"
+      },
+      {
+        "Default": null,
+        "Description": "The JMeter test plan. Generate it using JMeter GUI. This is the contents of the .jmx file.\nEither specify this field or use the wizard option.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "raw_jmx_plan"
+      },
+      {
+        "Default": null,
+        "Description": "Number of threads JMeter will use to execute your test, per job instance.",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.users"
+      },
+      {
+        "Default": -1,
+        "Description": "Delay introduced between http requests, in milliseconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.simple_delay"
+      },
+      {
+        "Default": -1,
+        "Description": "Deviation in milliseconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.gaussian_random_timer.deviation"
+      },
+      {
+        "Default": -1,
+        "Description": "Number of milliseconds to pause in addition to the random delay",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.gaussian_random_timer.constant_delay_offset"
+      },
+      {
+        "Default": 2,
+        "Description": "JAVA Max Tenuring Threshold",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.maxTenuringThreshold"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/validation.txt",
+        "Path": "/mnt/tmp/tar-CmdExtractor118939295/templates/validation.txt.erb",
+        "SrcPathEnd": "validation.txt.erb"
+      },
+      {
+        "DstPathEnd": "config/raw_test_plan.jmx",
+        "Path": "/mnt/tmp/tar-CmdExtractor118939295/templates/raw_test_plan.jmx.erb",
+        "SrcPathEnd": "raw_test_plan.jmx.erb"
+      },
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor118939295/templates/run.erb",
+        "SrcPathEnd": "run.erb"
+      },
+      {
+        "DstPathEnd": "config/settings.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor118939295/templates/settings.json.erb",
+        "SrcPathEnd": "settings.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor392090665/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "jmeter_storm_worker",
+    "Packages": [
+      {
+        "Name": "jmeter"
+      },
+      {
+        "Name": "openjdk"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "512m",
+        "Description": "-Xmx value passed",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.xmx"
+      },
+      {
+        "Default": 2,
+        "Description": "JAVA Max Tenuring Threshold",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.maxTenuringThreshold"
+      },
+      {
+        "Default": 1099,
+        "Description": "Port that the jmeter server will listen on",
+        "Example": null,
+        "Examples": null,
+        "Name": "server_port"
+      },
+      {
+        "Default": "512m",
+        "Description": "Xms value passed",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.xms"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor392090665/templates/ctl.erb",
+        "SrcPathEnd": "ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor182996547/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "jmeter_tornado",
+    "Packages": [
+      {
+        "Name": "jmeter"
+      },
+      {
+        "Name": "openjdk"
+      },
+      {
+        "Name": "ruby-jmeter"
+      },
+      {
+        "Name": "jmeter-dsl"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "512m",
+        "Description": "Xmx value passed",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.xmx"
+      },
+      {
+        "Default": 2,
+        "Description": "JAVA Max Tenuring Threshold",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.maxTenuringThreshold"
+      },
+      {
+        "Default": null,
+        "Description": "The JMeter test plan. Generate it using JMeter GUI. This is the contents of the .jmx file.\nEither specify this field or use the wizard option.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "raw_jmx_plan"
+      },
+      {
+        "Default": -1,
+        "Description": "Delay introduced between http requests, in milliseconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.simple_delay"
+      },
+      {
+        "Default": -1,
+        "Description": "Number of milliseconds to pause in addition to the random delay",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.gaussian_random_timer.constant_delay_offset"
+      },
+      {
+        "Default": null,
+        "Description": "Test ramp up time",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.ramp_time"
+      },
+      {
+        "Default": false,
+        "Description": "Not recommended. Set to true if you want to record the execution plan results. Warning: logs can grow in size very quickly, resulting in full disk.",
+        "Example": null,
+        "Examples": null,
+        "Name": "record_result"
+      },
+      {
+        "Default": null,
+        "Description": "List of targets to hits",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.targets"
+      },
+      {
+        "Default": null,
+        "Description": "Number of threads JMeter will use to execute your test, per job instance.",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.users"
+      },
+      {
+        "Default": -1,
+        "Description": "Deviation in milliseconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "wizard.configuration.gaussian_random_timer.deviation"
+      },
+      {
+        "Default": "512m",
+        "Description": "Xms value passed",
+        "Example": null,
+        "Examples": null,
+        "Name": "jvm.xms"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/raw_test_plan.jmx",
+        "Path": "/mnt/tmp/tar-CmdExtractor182996547/templates/raw_test_plan.jmx.erb",
+        "SrcPathEnd": "raw_test_plan.jmx.erb"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor182996547/templates/ctl.erb",
+        "SrcPathEnd": "ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/settings.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor182996547/templates/settings.json.erb",
+        "SrcPathEnd": "settings.json.erb"
+      },
+      {
+        "DstPathEnd": "config/validation.txt",
+        "Path": "/mnt/tmp/tar-CmdExtractor182996547/templates/validation.txt.erb",
+        "SrcPathEnd": "validation.txt.erb"
+      }
+    ]
+  }
+]

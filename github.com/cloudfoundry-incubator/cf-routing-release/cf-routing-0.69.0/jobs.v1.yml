@@ -1,137 +1,231 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor394641769/monit
-    SrcPathEnd: monit
-  Name: tcp_emitter
-  Packages:
-  - Name: pid_utils
-  - Name: tcp_emitter
-  - Name: router_configurer
-  Properties:
-  - Default: 0.0.0.0:17016
-    Description: Address at which to serve debug info
-    Example: null
-    Name: router.tcp_emitter.debug_addr
-  - Default: info
-    Description: Log level
-    Example: null
-    Name: router.tcp_emitter.log_level
-  - Default: http://receptor.service.consul:8888
-    Description: Diego Receptor endpoint url
-    Example: null
-    Name: router.tcp_emitter.diego_api_url
-  - Default: http://router-configurer.service.consul:9999
-    Description: TCP router API endpoint url
-    Example: null
-    Name: router.tcp_emitter.tcp_router_api_url
-  Templates:
-  - DstPathEnd: bin/tcp_emitter_ctl
-    Path: /mnt/tmp/tar-CmdExtractor394641769/templates/tcp_emitter_ctl.erb
-    SrcPathEnd: tcp_emitter_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor652279683/monit
-    SrcPathEnd: monit
-  Name: router_configurer
-  Packages:
-  - Name: pid_utils
-  - Name: router_configurer
-  Properties:
-  - Default: 0.0.0.0:17014
-    Description: Address at which to serve debug info
-    Example: null
-    Name: router.router_configurer.debug_addr
-  - Default: info
-    Description: Log level
-    Example: null
-    Name: router.router_configurer.log_level
-  - Default: /var/vcap/jobs/haproxy/config/haproxy.conf.template
-    Description: Base Config file of underlying tcp proxy
-    Example: null
-    Name: router.router_configurer.tcp_config_file_template
-  - Default: /var/vcap/jobs/haproxy/config/haproxy.conf
-    Description: Config file of underlying tcp proxy
-    Example: null
-    Name: router.router_configurer.tcp_config_file
-  - Default: 0.0.0.0:9999
-    Description: Address at which to serve API requests
-    Example: null
-    Name: router.router_configurer.listen_addr
-  Templates:
-  - DstPathEnd: bin/router_configurer_ctl
-    Path: /mnt/tmp/tar-CmdExtractor652279683/templates/router_configurer_ctl.erb
-    SrcPathEnd: router_configurer_ctl.erb
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor652279683/templates/dns_health_check.erb
-    SrcPathEnd: dns_health_check.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor403849389/monit
-    SrcPathEnd: monit
-  Name: acceptance_tests
-  Packages:
-  - Name: golang_1.4
-  - Name: acceptance_tests
-  - Name: golang_1.4
-  - Name: tcp_emitter
-  Properties:
-  - Default: 4
-    Description: The number of parallel test executors to spawn. The larger the number
-      the higher the stress on the system.
-    Example: null
-    Name: router.acceptance_tests.nodes
-  - Default: false
-    Description: Whether to pass the -v flag to router acceptance tests
-    Example: null
-    Name: router.acceptance_tests.verbose
-  - Default: 10.244.8.2
-    Description: Router API IP Address
-    Example: null
-    Name: router.acceptance_tests.router_api_address
-  - Default: 9999
-    Description: Router API IP Port
-    Example: null
-    Name: router.acceptance_tests.router_api_port
-  - Default: http://receptor.service.consul:8888
-    Description: Diego Receptor API URL
-    Example: null
-    Name: router.acceptance_tests.diego_api_url
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor403849389/templates/run.erb
-    SrcPathEnd: run.erb
-  - DstPathEnd: bin/config.json
-    Path: /mnt/tmp/tar-CmdExtractor403849389/templates/config.json.erb
-    SrcPathEnd: config.json.erb
-- Description: The tcp proxy layer used by router to achieve tcp routing functionality.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor905492327/monit
-    SrcPathEnd: monit
-  Name: haproxy
-  Packages:
-  - Name: pid_utils
-  - Name: haproxy
-  Properties:
-  - Default: 300
-    Description: Server and client timeouts in seconds
-    Example: null
-    Name: router.haproxy.request_timeout_in_seconds
-  - Default: 1234
-    Description: Port that HAProxy listens on when it comes up for first time to make
-      sure HAProxy process is started
-    Example: null
-    Name: router.haproxy.faux_port
-  Templates:
-  - DstPathEnd: config/haproxy.conf
-    Path: /mnt/tmp/tar-CmdExtractor905492327/templates/haproxy.conf.erb
-    SrcPathEnd: haproxy.conf.erb
-  - DstPathEnd: config/haproxy.conf.template
-    Path: /mnt/tmp/tar-CmdExtractor905492327/templates/haproxy.conf.template.erb
-    SrcPathEnd: haproxy.conf.template.erb
-  - DstPathEnd: bin/haproxy_ctl
-    Path: /mnt/tmp/tar-CmdExtractor905492327/templates/haproxy_ctl
-    SrcPathEnd: haproxy_ctl
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor394641769/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "tcp_emitter",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "tcp_emitter"
+      },
+      {
+        "Name": "router_configurer"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "0.0.0.0:17016",
+        "Description": "Address at which to serve debug info",
+        "Example": null,
+        "Name": "router.tcp_emitter.debug_addr"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Name": "router.tcp_emitter.log_level"
+      },
+      {
+        "Default": "http://receptor.service.consul:8888",
+        "Description": "Diego Receptor endpoint url",
+        "Example": null,
+        "Name": "router.tcp_emitter.diego_api_url"
+      },
+      {
+        "Default": "http://router-configurer.service.consul:9999",
+        "Description": "TCP router API endpoint url",
+        "Example": null,
+        "Name": "router.tcp_emitter.tcp_router_api_url"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/tcp_emitter_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor394641769/templates/tcp_emitter_ctl.erb",
+        "SrcPathEnd": "tcp_emitter_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor652279683/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "router_configurer",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "router_configurer"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "0.0.0.0:17014",
+        "Description": "Address at which to serve debug info",
+        "Example": null,
+        "Name": "router.router_configurer.debug_addr"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Name": "router.router_configurer.log_level"
+      },
+      {
+        "Default": "/var/vcap/jobs/haproxy/config/haproxy.conf.template",
+        "Description": "Base Config file of underlying tcp proxy",
+        "Example": null,
+        "Name": "router.router_configurer.tcp_config_file_template"
+      },
+      {
+        "Default": "/var/vcap/jobs/haproxy/config/haproxy.conf",
+        "Description": "Config file of underlying tcp proxy",
+        "Example": null,
+        "Name": "router.router_configurer.tcp_config_file"
+      },
+      {
+        "Default": "0.0.0.0:9999",
+        "Description": "Address at which to serve API requests",
+        "Example": null,
+        "Name": "router.router_configurer.listen_addr"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/router_configurer_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor652279683/templates/router_configurer_ctl.erb",
+        "SrcPathEnd": "router_configurer_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor652279683/templates/dns_health_check.erb",
+        "SrcPathEnd": "dns_health_check.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor403849389/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance_tests",
+    "Packages": [
+      {
+        "Name": "golang_1.4"
+      },
+      {
+        "Name": "acceptance_tests"
+      },
+      {
+        "Name": "golang_1.4"
+      },
+      {
+        "Name": "tcp_emitter"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 4,
+        "Description": "The number of parallel test executors to spawn. The larger the number the higher the stress on the system.",
+        "Example": null,
+        "Name": "router.acceptance_tests.nodes"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to pass the -v flag to router acceptance tests",
+        "Example": null,
+        "Name": "router.acceptance_tests.verbose"
+      },
+      {
+        "Default": "10.244.8.2",
+        "Description": "Router API IP Address",
+        "Example": null,
+        "Name": "router.acceptance_tests.router_api_address"
+      },
+      {
+        "Default": 9999,
+        "Description": "Router API IP Port",
+        "Example": null,
+        "Name": "router.acceptance_tests.router_api_port"
+      },
+      {
+        "Default": "http://receptor.service.consul:8888",
+        "Description": "Diego Receptor API URL",
+        "Example": null,
+        "Name": "router.acceptance_tests.diego_api_url"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor403849389/templates/run.erb",
+        "SrcPathEnd": "run.erb"
+      },
+      {
+        "DstPathEnd": "bin/config.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor403849389/templates/config.json.erb",
+        "SrcPathEnd": "config.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The tcp proxy layer used by router to achieve tcp routing functionality.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor905492327/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "haproxy",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "haproxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 300,
+        "Description": "Server and client timeouts in seconds",
+        "Example": null,
+        "Name": "router.haproxy.request_timeout_in_seconds"
+      },
+      {
+        "Default": 1234,
+        "Description": "Port that HAProxy listens on when it comes up for first time to make sure HAProxy process is started",
+        "Example": null,
+        "Name": "router.haproxy.faux_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/haproxy.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor905492327/templates/haproxy.conf.erb",
+        "SrcPathEnd": "haproxy.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/haproxy.conf.template",
+        "Path": "/mnt/tmp/tar-CmdExtractor905492327/templates/haproxy.conf.template.erb",
+        "SrcPathEnd": "haproxy.conf.template.erb"
+      },
+      {
+        "DstPathEnd": "bin/haproxy_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor905492327/templates/haproxy_ctl",
+        "SrcPathEnd": "haproxy_ctl"
+      }
+    ]
+  }
+]

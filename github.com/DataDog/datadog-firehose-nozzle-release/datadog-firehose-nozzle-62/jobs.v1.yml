@@ -1,119 +1,173 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor565290850/monit
-    SrcPathEnd: monit
-  Name: datadog-firehose-nozzle
-  Packages:
-  - Name: datadog-firehose-nozzle
-  Properties:
-  - Default: https://app.datadoghq.com/api/v1/series
-    Description: The REST API Endpoint for datadog
-    Example: null
-    Examples: null
-    Name: datadog.api_url
-  - Default: 15
-    Description: The duration in seconds between flushes to datadog
-    Example: null
-    Examples: null
-    Name: datadog.flush_duration_seconds
-  - Default: 3
-    Description: The number of files that logrotate will keep around on the VM
-    Example: null
-    Examples: null
-    Name: datadog.logrotate.rotate
-  - Default: null
-    Description: URL for the UAA server
-    Example: null
-    Examples: null
-    Name: uaa.url
-  - Default: null
-    Description: Name of deployment (added as tag on all outgoing metrics)
-    Example: null
-    Examples: null
-    Name: nozzle.deployment
-  - Default: ""
-    Description: If set, this will filter out envelopes that do not match the deployment
-      name
-    Example: null
-    Examples: null
-    Name: nozzle.deployment_filter
-  - Default: null
-    Description: Traffic controller URL
-    Example: null
-    Examples: null
-    Name: loggregator.traffic_controller_url
-  - Default: null
-    Description: The datadog API key to use while submitting requests
-    Example: null
-    Examples: null
-    Name: datadog.api_key
-  - Default: 5
-    Description: The frequency in minutes which logrotate will rotate VM logs
-    Example: null
-    Examples: null
-    Name: datadog.logrotate.freq_min
-  - Default: 5
-    Description: The number of seconds to set the timeout for writes to Datadog
-    Example: null
-    Examples: null
-    Name: datadog.timeout_seconds
-  - Default: null
-    Description: Skip verifying SSL certificate
-    Example: null
-    Examples: null
-    Name: nozzle.insecure_ssl_skip_verify
-  - Default: cloudfoundry.nozzle.
-    Description: Text which will be prepended to each metric name submitted to datadog
-    Example: null
-    Examples: null
-    Name: datadog.metric_prefix
-  - Default: null
-    Description: The secret for the user
-    Example: null
-    Examples: null
-    Name: uaa.client_secret
-  - Default: false
-    Description: Datadog Nozzle bypasses authentication with the UAA
-    Example: null
-    Examples: null
-    Name: nozzle.disable_access_control
-  - Default: 57671680
-    Description: The maximum number of bytes to send per POST request
-    Example: null
-    Examples: null
-    Name: datadog.flush_max_bytes
-  - Default: 50M
-    Description: The size at which logrotate will decide to rotate the log file
-    Example: null
-    Examples: null
-    Name: datadog.logrotate.size
-  - Default: null
-    Description: The client that has access to the loggregator firehose
-    Example: null
-    Examples: null
-    Name: uaa.client
-  - Default: null
-    Description: The subscription id to be used for the firehose
-    Example: null
-    Examples: null
-    Name: nozzle.subscription_id
-  - Default: 60
-    Description: Number of seconds to wait before timing out the read to the firehose,
-      if there are no messages
-    Example: null
-    Examples: null
-    Name: nozzle.idle_timeout_seconds
-  Templates:
-  - DstPathEnd: config/datadog_logrotate.cron
-    Path: /mnt/tmp/tar-CmdExtractor565290850/templates/datadog_logrotate.cron.erb
-    SrcPathEnd: datadog_logrotate.cron.erb
-  - DstPathEnd: config/logrotate.conf
-    Path: /mnt/tmp/tar-CmdExtractor565290850/templates/logrotate.conf.erb
-    SrcPathEnd: logrotate.conf.erb
-  - DstPathEnd: bin/datadog-firehose-nozzle-ctl
-    Path: /mnt/tmp/tar-CmdExtractor565290850/templates/datadog-firehose-nozzle-ctl.erb
-    SrcPathEnd: datadog-firehose-nozzle-ctl.erb
-  - DstPathEnd: config/datadog-firehose-nozzle.json
-    Path: /mnt/tmp/tar-CmdExtractor565290850/templates/datadog-firehose-nozzle.json.erb
-    SrcPathEnd: datadog-firehose-nozzle.json.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor565290850/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "datadog-firehose-nozzle",
+    "Packages": [
+      {
+        "Name": "datadog-firehose-nozzle"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Description": "The REST API Endpoint for datadog",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.api_url"
+      },
+      {
+        "Default": 15,
+        "Description": "The duration in seconds between flushes to datadog",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.flush_duration_seconds"
+      },
+      {
+        "Default": 3,
+        "Description": "The number of files that logrotate will keep around on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.logrotate.rotate"
+      },
+      {
+        "Default": null,
+        "Description": "URL for the UAA server",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.url"
+      },
+      {
+        "Default": null,
+        "Description": "Name of deployment (added as tag on all outgoing metrics)",
+        "Example": null,
+        "Examples": null,
+        "Name": "nozzle.deployment"
+      },
+      {
+        "Default": "",
+        "Description": "If set, this will filter out envelopes that do not match the deployment name",
+        "Example": null,
+        "Examples": null,
+        "Name": "nozzle.deployment_filter"
+      },
+      {
+        "Default": null,
+        "Description": "Traffic controller URL",
+        "Example": null,
+        "Examples": null,
+        "Name": "loggregator.traffic_controller_url"
+      },
+      {
+        "Default": null,
+        "Description": "The datadog API key to use while submitting requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.api_key"
+      },
+      {
+        "Default": 5,
+        "Description": "The frequency in minutes which logrotate will rotate VM logs",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.logrotate.freq_min"
+      },
+      {
+        "Default": 5,
+        "Description": "The number of seconds to set the timeout for writes to Datadog",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.timeout_seconds"
+      },
+      {
+        "Default": null,
+        "Description": "Skip verifying SSL certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "nozzle.insecure_ssl_skip_verify"
+      },
+      {
+        "Default": "cloudfoundry.nozzle.",
+        "Description": "Text which will be prepended to each metric name submitted to datadog",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.metric_prefix"
+      },
+      {
+        "Default": null,
+        "Description": "The secret for the user",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.client_secret"
+      },
+      {
+        "Default": false,
+        "Description": "Datadog Nozzle bypasses authentication with the UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "nozzle.disable_access_control"
+      },
+      {
+        "Default": 57671680,
+        "Description": "The maximum number of bytes to send per POST request",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.flush_max_bytes"
+      },
+      {
+        "Default": "50M",
+        "Description": "The size at which logrotate will decide to rotate the log file",
+        "Example": null,
+        "Examples": null,
+        "Name": "datadog.logrotate.size"
+      },
+      {
+        "Default": null,
+        "Description": "The client that has access to the loggregator firehose",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.client"
+      },
+      {
+        "Default": null,
+        "Description": "The subscription id to be used for the firehose",
+        "Example": null,
+        "Examples": null,
+        "Name": "nozzle.subscription_id"
+      },
+      {
+        "Default": 60,
+        "Description": "Number of seconds to wait before timing out the read to the firehose, if there are no messages",
+        "Example": null,
+        "Examples": null,
+        "Name": "nozzle.idle_timeout_seconds"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/datadog_logrotate.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor565290850/templates/datadog_logrotate.cron.erb",
+        "SrcPathEnd": "datadog_logrotate.cron.erb"
+      },
+      {
+        "DstPathEnd": "config/logrotate.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor565290850/templates/logrotate.conf.erb",
+        "SrcPathEnd": "logrotate.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/datadog-firehose-nozzle-ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor565290850/templates/datadog-firehose-nozzle-ctl.erb",
+        "SrcPathEnd": "datadog-firehose-nozzle-ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/datadog-firehose-nozzle.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor565290850/templates/datadog-firehose-nozzle.json.erb",
+        "SrcPathEnd": "datadog-firehose-nozzle.json.erb"
+      }
+    ]
+  }
+]

@@ -1,873 +1,1224 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor974118198/monit
-    SrcPathEnd: monit
-  Name: cf-kibana
-  Packages:
-  - Name: cf-cli
-  - Name: cf-kibana
-  Properties:
-  - Default: 43200000
-    Description: Kibana user session expiration period in milliseconds (default to
-      12h)
-    Example: null
-    Examples: null
-    Name: cf-kibana.session_expiration_ms
-  - Default: .kibana
-    Description: Kibana uses an index in Elasticsearch to store saved searches, visualizations
-      and dashboards
-    Example: null
-    Examples: null
-    Name: cf-kibana.kibana_index
-  - Default: 30000
-    Description: Time in milliseconds for Elasticsearch to wait for responses from
-      shards. Set to 0 to disable
-    Example: null
-    Examples: null
-    Name: cf-kibana.shard_timeout
-  - Default: null
-    Description: The CF API URL
-    Example: null
-    Examples: null
-    Name: cloudfoundry.api_endpoint
-  - Default: admin
-    Description: The organisation that owns the CF system domain
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.system_org
-  - Default: 9200
-    Description: ElasticSearch master port
-    Example: null
-    Examples: null
-    Name: cf-kibana.elasticsearch.port
-  - Default: kibana_oauth2_client
-    Description: The UAA Kibana oauth2 client id
-    Example: null
-    Examples: null
-    Name: cf-kibana.oauth2_client_id
-  - Default: null
-    Description: CF security group with API access
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.api_security_group
-  - Default: null
-    Description: The UAA admin client's secret
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.uaa_admin_client_secret
-  - Default: null
-    Description: ElasticSearch master endpoint
-    Example: null
-    Examples: null
-    Name: cf-kibana.elasticsearch.host
-  - Default: true
-    Description: Set to true to suppress all logging output other than error messages
-    Example: null
-    Examples: null
-    Name: cf-kibana.logging_quiet
-  - Default: true
-    Description: A boolean indicating whether or not you want the redirect_uri to
-      be forced to https
-    Example: null
-    Examples: null
-    Name: cf-kibana.use_https
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Examples: null
-    Name: cloudfoundry.admin_user
-  - Default: null
-    Description: Password to be used for the UAA kibana oauth2 client
-    Example: null
-    Examples: null
-    Name: cf-kibana.oauth2_client_secret
-  - Default: null
-    Description: 'The CF system domain ( eg: system.10.244.0.34.xip.io )'
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.system_domain
-  - Default: null
-    Description: The UAA admin client id (required scope is `uaa.admin`). The admin
-      client is used to manage the UAA Kibana oauth2 client.
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.uaa_admin_client_id
-  - Default: 300000
-    Description: Time in milliseconds to wait for responses from the back end or elasticsearch.  This
-      must be > 0
-    Example: null
-    Examples: null
-    Name: cf-kibana.request_timeout
-  - Default: 2048M
-    Description: Kibana app memory
-    Example: null
-    Examples: null
-    Name: cf-kibana.app_memory
-  - Default: null
-    Description: 'The CF apps domain ( eg: apps.10.244.0.34.xip.io )'
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.apps_domain
-  - Default: dashboard/App-Overview
-    Description: The default application to load
-    Example: null
-    Examples: null
-    Name: cf-kibana.default_app_id
-  - Default: null
-    Description: Additional options to append to kibana configuration (YAML format).
-    Example: null
-    Examples: null
-    Name: cf-kibana.config_options
-  - Default: logs
-    Description: Kibana dashoboard app name
-    Example: null
-    Examples: null
-    Name: cf-kibana.app_name
-  - Default: false
-    Description: 'Set true to use existing UAA oauth2 client for Kibana. Note the
-      client required scopes: `openid,oauth.approvals,scim.userids,cloud_controller.read`.'
-    Example: null
-    Examples: null
-    Name: cf-kibana.oauth2_use_existing_client
-  - Default: []
-    Description: 'a list of key-value pairs of plugins. e.g. Kibana-auth: /var/vcap/packagaes/kibana/kibana-auth'
-    Example: null
-    Examples: null
-    Name: cf-kibana.plugins
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Examples: null
-    Name: cloudfoundry.admin_password
-  - Default: 1
-    Description: Count of Kibana instances
-    Example: null
-    Examples: null
-    Name: cf-kibana.app_instances
-  - Default: null
-    Description: Toggles cli verification of the CF API SSL certificate
-    Example: null
-    Examples: null
-    Name: cloudfoundry.skip_ssl_validation
-  - Default: null
-    Description: Redis endpoint
-    Example: null
-    Examples: null
-    Name: redis.host
-  - Default: logsearch
-    Description: CF space where Kibana will be deployed
-    Example: null
-    Examples: null
-    Name: cf-kibana.cloudfoundry.logsearch_space
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor974118198/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-  - DstPathEnd: config/manifest.yml
-    Path: /mnt/tmp/tar-CmdExtractor974118198/templates/manifest.yml.erb
-    SrcPathEnd: manifest.yml.erb
-  - DstPathEnd: config/kibana.yml
-    Path: /mnt/tmp/tar-CmdExtractor974118198/templates/kibana.yml.erb
-    SrcPathEnd: kibana.yml.erb
-  - DstPathEnd: config/allow-logsearch-access.json
-    Path: /mnt/tmp/tar-CmdExtractor974118198/templates/allow-logsearch-access.json.erb
-    SrcPathEnd: allow-logsearch-access.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor769060824/monit
-    SrcPathEnd: monit
-  Name: create-uaa-client
-  Packages: null
-  Properties:
-  - Default: logs
-    Description: 'The Kibana log dashboard app name ( eg defaults to: logs )'
-    Example: null
-    Examples: null
-    Name: create-uaa-client.app_name
-  - Default: null
-    Description: The Kibana dashboard domain. Is used for redirects.
-    Example: null
-    Examples: null
-    Name: create-uaa-client.kibana_domain
-  - Default: kibana_oauth2_client
-    Description: 'The UAA Kibana oauth2 client id. Put an existing client id or one
-      you want the job to create. Note the client required scopes: `openid,oauth.approvals,scim.userids,cloud_controller.read`.'
-    Example: null
-    Examples: null
-    Name: create-uaa-client.oauth2_client_id
-  - Default: null
-    Description: The UAA Kibana oauth2 client id's secret
-    Example: null
-    Examples: null
-    Name: create-uaa-client.oauth2_client_secret
-  - Default: false
-    Description: ""
-    Example: null
-    Examples: null
-    Name: create-uaa-client.oauth2_autoapprove
-  - Default: null
-    Description: 'The Elastic Runtime system domain ( eg: system.10.244.0.34.xip.io
-      )'
-    Example: null
-    Examples: null
-    Name: create-uaa-client.cloudfoundry.system_domain
-  - Default: null
-    Description: The UAA admin client id (required scope is `uaa.admin`). The admin
-      client is used to manage the UAA Kibana oauth2 client.
-    Example: null
-    Examples: null
-    Name: create-uaa-client.cloudfoundry.uaa_admin_client_id
-  - Default: null
-    Description: The UAA admin client's secret
-    Example: null
-    Examples: null
-    Name: create-uaa-client.cloudfoundry.uaa_admin_client_secret
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor769060824/templates/bin/run
-    SrcPathEnd: bin/run
-- Description: "The job compiles Elasticsearch mappings specific to Logsearch-for-cloudfoundry.
-    \nThese mappings are add-ons to mappings defined in Logsearch release.\n"
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor620506314/monit
-    SrcPathEnd: monit
-  Name: elasticsearch-config-lfc
-  Packages: null
-  Properties:
-  - Default: logs-
-    Description: |
-      Name prefix of your log indices that you use in `logstash_parser.elasticsearch.index` property set for your parser.
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.index_prefix
-  - Default: logs-app
-    Description: |
-      Name prefix of your `app` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.app_index_prefix
-  - Default: logs-platform
-    Description: |
-      Name prefix of your `platform` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.platform_index_prefix
-  Templates:
-  - DstPathEnd: index-mappings-platform.json
-    Path: /mnt/tmp/tar-CmdExtractor620506314/templates/index-mappings-platform.json.erb
-    SrcPathEnd: index-mappings-platform.json.erb
-  - DstPathEnd: index-mappings.json
-    Path: /mnt/tmp/tar-CmdExtractor620506314/templates/index-mappings.json.erb
-    SrcPathEnd: index-mappings.json.erb
-  - DstPathEnd: index-mappings-app.json
-    Path: /mnt/tmp/tar-CmdExtractor620506314/templates/index-mappings-app.json.erb
-    SrcPathEnd: index-mappings-app.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor142051468/monit
-    SrcPathEnd: monit
-  Name: ingestor_cloudfoundry-firehose
-  Packages:
-  - Name: firehose-to-syslog
-  Properties:
-  - Default: 5514
-    Description: port of the syslog drain
-    Example: null
-    Examples: null
-    Name: syslog.port
-  - Default: null
-    Description: The UAA admin client's secret
-    Example: null
-    Examples: null
-    Name: create-uaa-client.cloudfoundry.uaa_admin_client_secret
-  - Default: NONE
-    Description: Whether to include additional metadata throughout the event lifecycle.
-      NONE = disabled, DEBUG = fully enabled
-    Example: null
-    Examples: null
-    Name: logstash.metadata_level
-  - Default: firehose
-    Description: ID for the firehose-to-syslog subscription
-    Example: null
-    Examples: null
-    Name: cloudfoundry.firehose_subscription_id
-  - Default: null
-    Description: Certificate PEM.
-    Example: null
-    Examples: null
-    Name: syslog.cert_pem
-  - Default: LogMessage
-    Description: Comma seperated list of events you would like to get. Valid options
-      are CounterEvent,Error,HttpStartStop,LogMessage,ValueMetric,ContainerMetric
-    Example: null
-    Examples: null
-    Name: cloudfoundry.firehose_events
-  - Default: firehose-to-syslog
-    Description: CF UAA client ID with 'doppler.firehose' permissions
-    Example: null
-    Examples: null
-    Name: cloudfoundry.firehose_client_id
-  - Default: 60s
-    Description: full app metadata update interval; defaults to 60s
-    Example: null
-    Examples: null
-    Name: cloudfoundry.firehose_cc_pull_interval
-  - Default: null
-    Description: IP or hostname of the syslog drain
-    Example: null
-    Examples: null
-    Name: syslog.host
-  - Default: null
-    Description: 'The Elastic Runtime system domain ( eg: system.10.244.0.34.xip.io
-      )'
-    Example: null
-    Examples: null
-    Name: create-uaa-client.cloudfoundry.system_domain
-  - Default: false
-    Description: Debug level logging. This disables forwarding to syslog
-    Example: null
-    Examples: null
-    Name: ingestor_cloudfoundry-firehose.debug
-  - Default: null
-    Description: URI of the loggregator endpoint
-    Example: null
-    Examples: null
-    Name: cloudfoundry.doppler_endpoint
-  - Default: false
-    Description: Set to true to skip SSL validation when connecting to CF (defaults
-      to false)
-    Example: null
-    Examples: null
-    Name: cloudfoundry.skip_ssl_validation
-  - Default: null
-    Description: CF UAA client secret with 'doppler.firehose' permissions
-    Example: null
-    Examples: null
-    Name: cloudfoundry.firehose_client_secret
-  - Default: tcp
-    Description: Syslog protocol (tcp/udp).
-    Example: null
-    Examples: null
-    Name: syslog.protocol
-  - Default: null
-    Description: The UAA admin client id (required scope is `uaa.admin`). The admin
-      client is used to manage the UAA Kibana oauth2 client.
-    Example: null
-    Examples: null
-    Name: create-uaa-client.cloudfoundry.uaa_admin_client_id
-  - Default: null
-    Description: URI of the CF cloud controller
-    Example: null
-    Examples: null
-    Name: cloudfoundry.api_endpoint
-  Templates:
-  - DstPathEnd: config/cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/config/cert.pem.erb
-    SrcPathEnd: config/cert.pem.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/ingestor_cloudfoundry-firehose_ctl
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/bin/ingestor_cloudfoundry-firehose_ctl
-    SrcPathEnd: bin/ingestor_cloudfoundry-firehose_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor142051468/templates/bin/pre-start.erb
-    SrcPathEnd: bin/pre-start.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor873999774/monit
-    SrcPathEnd: monit
-  Name: kibana-auth-plugin
-  Packages:
-  - Name: kibana-auth-plugin
-  Properties: null
-  Templates: null
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor986502272/monit
-    SrcPathEnd: monit
-  Name: parser-config-lfc
-  Packages:
-  - Name: logsearch-config-logstash-filters
-  Properties:
-  - Default: cloudfoundry-diego
-    Description: Name of Cloud Foundry diego deployment (if there is one). Diego jobs
-      are mapped to this value in deployment_lookup.yml dictionary file.
-    Example: null
-    Examples: null
-    Name: logstash_parser.deployment_name.diego
-  - Default: cloudfoundry-cf
-    Description: Name of Cloud Foundry cf deployment. CF jobs are mapped to this value
-      in deployment_lookup.yml dictionary file.
-    Example: null
-    Examples: null
-    Name: logstash_parser.deployment_name.cf
-  Templates:
-  - DstPathEnd: config/deployment_lookup.yml
-    Path: /mnt/tmp/tar-CmdExtractor986502272/templates/deployment_lookup.yml.erb
-    SrcPathEnd: deployment_lookup.yml.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor074786226/monit
-    SrcPathEnd: monit
-  Name: route_registrar
-  Packages:
-  - Name: route_registrar
-  Properties:
-  - Default: null
-    Description: Password for NATS authentication
-    Example: natSpa55w0rd
-    Examples: null
-    Name: nats.password
-  - Default: null
-    Description: |
-      * Array of hashes determining which routes will be registered.
-      * Each hash should have 'port', 'uris', 'registration_interval'
-        and 'name' keys.
-      * 'registration_interval' is the delay between
-        routing updates. It must be a time duration represented as a string
-        (e.g. "10s").
-        It must parse to a positive time duration i.e. "-5s" is not permitted.
-      * Additionally, the 'tags', 'health_check', and 'prepend_instance_index' keys are optional.
-      * 'uris' is an array of URIs to register for the 'port'.
-      * 'tags' are included in metrics that gorouter emits to support filtering.
-      * 'health_check' is a hash which should have 'name' and 'script_path'.
-      * 'health_check.timeout' is optional.
-        If the health_check timeout is not provided, it defaults to half of the
-        value of `registration_interval`.
-        If it is provided it must be a time duration represented as a string (e.g. "10s"),
-        and less than the value of `registration_interval`.
-        It must parse to a positive time duration i.e. "-5s" is not permitted.
-      * if the healthcheck is not configured, the route is continually registered.
-      * if the healthcheck script exits with success, the route is registered.
-      * if the healthcheck script exits with error, the route is unregistered.
-      * if a timeout is configured, the healthcheck script must exit within the timeout,
-        otherwise it is terminated (with `SIGKILL`) and the route is unregistered.
-      * 'prepend_instance_index' is a boolean. When set to true the values in 'uris'
-        will be prepended with the instance index.
-        e.g. 'some-uri.system-domain.com' will become '0-some-uri.system-domain.com' on the instance
-        with index 0, and '2-some-url.system-domain.com' on the instance with index 2.
-        When this value is enabled, each instance will register its own, unique, set of uris.
-        To additionally continue to register these original uris, create another route
-        with the same uris and set 'prepend_instance_index' to false (or omit the key entirely).
-    Example: |
-      - name: my-service
-        registration_interval: 20s
-        port: 12345
-        tags:
-          component: my-service
-          env: production
-        uris:
-          - my-service.system-domain.com
-          - *.my-service.system-domain.com
-        health_check:
-          name: my-service-health_check
-          script_path: /path/to/script
-          timeout: 5s
-      - name: my-debug-endpoint
-        port: 12346
-        uris:
-          - my-service.system-domain.com/debug
-      - name: cf-mysql-proxy-api-per-instance
-        port: 8080
-        uris:
-        - proxy-cf-mysql.system.domain
-        prepend_instance_index: true
-      - name: cf-mysql-proxy-api
-        port: 8081
-        uris:
-        - proxy-cf-mysql.system.domain
-    Examples: null
-    Name: route_registrar.routes
-  - Default: null
-    Description: IPs of each NATS cluster member
-    Example: |
-      - 192.168.50.123
-      - 192.168.52.123
-    Examples: null
-    Name: nats.machines
-  - Default: null
-    Description: TCP port of NATS servers
-    Example: 4222
-    Examples: null
-    Name: nats.port
-  - Default: null
-    Description: User name for NATS authentication
-    Example: nats
-    Examples: null
-    Name: nats.user
-  Templates:
-  - DstPathEnd: config/registrar_settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor074786226/templates/config/registrar_settings.yml.erb
-    SrcPathEnd: config/registrar_settings.yml.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor074786226/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor074786226/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor074786226/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/route_registrar_ctl
-    Path: /mnt/tmp/tar-CmdExtractor074786226/templates/bin/route_registrar_ctl
-    SrcPathEnd: bin/route_registrar_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor074786226/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor401371060/monit
-    SrcPathEnd: monit
-  Name: smoke-tests
-  Packages:
-  - Name: cf-cli
-  - Name: golang
-  - Name: smoke-tests
-  Properties:
-  - Default: 9200
-    Description: Port of the elasticsearch master node
-    Example: null
-    Examples: null
-    Name: smoke_tests.elasticsearch_master.port
-  - Default: logs-app-{{.Org}}-{{.Space}}-{{.Time.Format \"2006.01.02\"}}
-    Description: App index name
-    Example: null
-    Examples: null
-    Name: smoke_tests.elasticsearch_master.app_index
-  - Default: null
-    Description: The Elastic Runtime API endpoint URL
-    Example: null
-    Examples: null
-    Name: smoke_tests.api
-  - Default: ""
-    Description: The Elastic Runtime Application Domain
-    Example: null
-    Examples: null
-    Name: smoke_tests.apps_domain
-  - Default: null
-    Description: Full URL of Cloud Foundry System Domain
-    Example: null
-    Examples: null
-    Name: smoke_tests.system_domain
-  - Default: null
-    Description: The Elastic Runtime API admin user
-    Example: null
-    Examples: null
-    Name: smoke_tests.admin_user
-  - Default: null
-    Description: The Elastic Runtime API admin user's password
-    Example: null
-    Examples: null
-    Name: smoke_tests.admin_password
-  - Default: null
-    Description: IP of the elasticsearch master node
-    Example: null
-    Examples: null
-    Name: smoke_tests.elasticsearch_master.host
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor401371060/templates/run.erb
-    SrcPathEnd: run.erb
-  - DstPathEnd: bin/config.json
-    Path: /mnt/tmp/tar-CmdExtractor401371060/templates/config.json.erb
-    SrcPathEnd: config.json.erb
-- Description: This job uploads Kibana saved objects (index-patterns, searches, visualizations
-    and dashboards). Allows to upload defaults predefined in the job and custom data
-    files.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor185475846/monit
-    SrcPathEnd: monit
-  Name: upload-kibana-objects
-  Packages:
-  - Name: ruby-2.3
-  Properties:
-  - Default: []
-    Description: List of text files to put in API endpoint /_bulk
-    Example: null
-    Examples: null
-    Name: kibana_objects.upload_data_files
-  - Default: null
-    Description: Elasticsearch host
-    Example: null
-    Examples: null
-    Name: elasticsearch.host
-  - Default: null
-    Description: Elasticsearch port
-    Example: null
-    Examples: null
-    Name: elasticsearch.port
-  - Default: LogMessage
-    Description: Comma seperated list of events you would like to get. Valid options
-      are CounterEvent,Error,HttpStartStop,LogMessage,ValueMetric,ContainerMetric
-    Example: null
-    Examples: null
-    Name: cloudfoundry.firehose_events
-  - Default: logs-
-    Description: |
-      Name prefix of your log indices that you use in `logstash_parser.elasticsearch.index` property set for your parser.
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.index_prefix
-  - Default: logs-app
-    Description: |
-      Name prefix of your `app` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.app_index_prefix
-  - Default: logs-platform
-    Description: |
-      Name prefix of your `platform` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.
-    Example: null
-    Examples: null
-    Name: elasticsearch_config.platform_index_prefix
-  - Default:
-    - pattern: /var/vcap/jobs/upload-kibana-objects/kibana-objects/index-pattern/*.json
-      type: index-pattern
-    - pattern: /var/vcap/jobs/upload-kibana-objects/kibana-objects/config/*.json
-      type: config
-    - pattern: /var/vcap/jobs/upload-kibana-objects/kibana-objects/search/*.json
-      type: search
-    - pattern: /var/vcap/jobs/upload-kibana-objects/kibana-objects/visualization/*.json
-      type: visualization
-    - pattern: /var/vcap/jobs/upload-kibana-objects/kibana-objects/dashboard/*.json
-      type: dashboard
-    Description: List of glob patterns of Kibana objects to upload
-    Example: null
-    Examples: null
-    Name: kibana_objects.upload_patterns
-  Templates:
-  - DstPathEnd: kibana-objects/search/[app]-Container-Metric.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Container-Metric.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-Container-Metric.json.erb
-  - DstPathEnd: kibana-objects/dashboard/App-Performance.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Performance.json.erb
-    SrcPathEnd: kibana-objects/dashboard/App-Performance.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-Haproxy-requests-(top-10).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-requests-(top-10).json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-Haproxy-requests-(top-10).json.erb
-  - DstPathEnd: kibana-objects/search/[app]-Counter.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Counter.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-Counter.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-RTR-request-count-by-timezone-(top-5).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-request-count-by-timezone-(top-5).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-RTR-request-count-by-timezone-(top-5).json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-logs-by-source-job-(top-5).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-by-source-job-(top-5).json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-logs-by-source-job-(top-5).json.erb
-  - DstPathEnd: kibana-objects/config/4.5.4.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/config/4.5.4.json.erb
-    SrcPathEnd: kibana-objects/config/4.5.4.json.erb
-  - DstPathEnd: kibana-objects/search/[platform]-Haproxy.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-Haproxy.json.erb
-    SrcPathEnd: kibana-objects/search/[platform]-Haproxy.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-errors-count-in-timeline.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-errors-count-in-timeline.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-errors-count-in-timeline.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-logs-by-component-(top-5).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-by-component-(top-5).json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-logs-by-component-(top-5).json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-logs-count-(top-10-components).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-count-(top-10-components).json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-logs-count-(top-10-components).json.erb
-  - DstPathEnd: kibana-objects/search/[app]-APP-Logs-ERRORs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-APP-Logs-ERRORs.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-APP-Logs-ERRORs.json.erb
-  - DstPathEnd: kibana-objects/search/[platform]-All-ERRORs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-All-ERRORs.json.erb
-    SrcPathEnd: kibana-objects/search/[platform]-All-ERRORs.json.erb
-  - DstPathEnd: kibana-objects/dashboard/Platform-Errors.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Errors.json.erb
-    SrcPathEnd: kibana-objects/dashboard/Platform-Errors.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-links.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-links.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-links.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-components-with-errors.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-components-with-errors.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-components-with-errors.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-Haproxy-request-time-duration-(50th-95th-99th-top-5).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-request-time-duration-(50th-95th-99th-top-5).json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-Haproxy-request-time-duration-(50th-95th-99th-top-5).json.erb
-  - DstPathEnd: kibana-objects/search/[app]-APP-Logs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-APP-Logs.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-APP-Logs.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-logs-count-by-level.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-count-by-level.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-logs-count-by-level.json.erb
-  - DstPathEnd: kibana-objects/search/[platform]-Haproxy-long-response.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-Haproxy-long-response.json.erb
-    SrcPathEnd: kibana-objects/search/[platform]-Haproxy-long-response.json.erb
-  - DstPathEnd: kibana-objects/dashboard/App-Logs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Logs.json.erb
-    SrcPathEnd: kibana-objects/dashboard/App-Logs.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-apps-with-errors.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-apps-with-errors.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-apps-with-errors.json.erb
-  - DstPathEnd: kibana-objects/dashboard/Platform-Overview.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Overview.json.erb
-    SrcPathEnd: kibana-objects/dashboard/Platform-Overview.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-UAA-Audit-event-types.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-UAA-Audit-event-types.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-UAA-Audit-event-types.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-Haproxy-request-time-duration.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-request-time-duration.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-Haproxy-request-time-duration.json.erb
-  - DstPathEnd: kibana-objects/index-pattern/logs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/index-pattern/logs.json.erb
-    SrcPathEnd: kibana-objects/index-pattern/logs.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-All-ERRORs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All-ERRORs.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-All-ERRORs.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-Http.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Http.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-Http.json.erb
-  - DstPathEnd: kibana-objects/dashboard/Platform-Haproxy.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Haproxy.json.erb
-    SrcPathEnd: kibana-objects/dashboard/Platform-Haproxy.json.erb
-  - DstPathEnd: kibana-objects/dashboard/Platform-UAA-Audit.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-UAA-Audit.json.erb
-    SrcPathEnd: kibana-objects/dashboard/Platform-UAA-Audit.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-APP-logs-count-by-level-(top-5-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-by-level-(top-5-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-APP-logs-count-by-level-(top-5-apps).json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-components.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-components.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-components.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-Haproxy-request-status-codes-in-timeline.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-request-status-codes-in-timeline.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-Haproxy-request-status-codes-in-timeline.json.erb
-  - DstPathEnd: kibana-objects/config/4.4.0.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/config/4.4.0.json.erb
-    SrcPathEnd: kibana-objects/config/4.4.0.json.erb
-  - DstPathEnd: kibana-objects/search/[platform]-All.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-All.json.erb
-    SrcPathEnd: kibana-objects/search/[platform]-All.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-APP-logs-count-(top-10-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-(top-10-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-APP-logs-count-(top-10-apps).json.erb
-  - DstPathEnd: kibana-objects/visualization/App-APP-logs-count-by-level.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-by-level.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-APP-logs-count-by-level.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-logs-count-by-source-type-(APP-or-cf-top-5-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-logs-count-by-source-type-(APP-or-cf-top-5-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-logs-count-by-source-type-(APP-or-cf-top-5-apps).json.erb
-  - DstPathEnd: kibana-objects/visualization/App-RTR-requests-map.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-requests-map.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-RTR-requests-map.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-links.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-links.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-links.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-UAA-Audit-events-by-type.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-UAA-Audit-events-by-type.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-UAA-Audit-events-by-type.json.erb
-  - DstPathEnd: kibana-objects/config/4.4.2.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/config/4.4.2.json.erb
-    SrcPathEnd: kibana-objects/config/4.4.2.json.erb
-  - DstPathEnd: kibana-objects/search/[platform]-All-Overview.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-All-Overview.json.erb
-    SrcPathEnd: kibana-objects/search/[platform]-All-Overview.json.erb
-  - DstPathEnd: kibana-objects/dashboard/Platform-Logs.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Logs.json.erb
-    SrcPathEnd: kibana-objects/dashboard/Platform-Logs.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-APP-logs-count-in-timeline.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-in-timeline.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-APP-logs-count-in-timeline.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-METRIC-CPU-usage.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-METRIC-CPU-usage.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-METRIC-CPU-usage.json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-UAA-Audit-event-locations.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-UAA-Audit-event-locations.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-UAA-Audit-event-locations.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-METRIC-disk-usage.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-METRIC-disk-usage.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-METRIC-disk-usage.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-RTR-response-times-(50th-and-95th-first-10-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-response-times-(50th-and-95th-first-10-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-RTR-response-times-(50th-and-95th-first-10-apps).json.erb
-  - DstPathEnd: kibana-objects/visualization/App-RTR-traffic-by-response_time_ms-(first-10-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-traffic-by-response_time_ms-(first-10-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-RTR-traffic-by-response_time_ms-(first-10-apps).json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-errors-count-by-source-component-(top-5).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-errors-count-by-source-component-(top-5).json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-errors-count-by-source-component-(top-5).json.erb
-  - DstPathEnd: kibana-objects/visualization/Platform-logs-count-in-timeline.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-count-in-timeline.json.erb
-    SrcPathEnd: kibana-objects/visualization/Platform-logs-count-in-timeline.json.erb
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/bin/run
-    SrcPathEnd: bin/run
-  - DstPathEnd: kibana-objects/search/[app]-All.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-All.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-All-Messages.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All-Messages.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-All-Messages.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-All-Overview.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All-Overview.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-All-Overview.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-RTR-long-response.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-RTR-long-response.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-RTR-long-response.json.erb
-  - DstPathEnd: kibana-objects/dashboard/App-Overview.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Overview.json.erb
-    SrcPathEnd: kibana-objects/dashboard/App-Overview.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-RTR-response-times.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-response-times.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-RTR-response-times.json.erb
-  - DstPathEnd: kibana-objects/index-pattern/logs-app.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/index-pattern/logs-app.json.erb
-    SrcPathEnd: kibana-objects/index-pattern/logs-app.json.erb
-  - DstPathEnd: kibana-objects/index-pattern/logs-platform.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/index-pattern/logs-platform.json.erb
-    SrcPathEnd: kibana-objects/index-pattern/logs-platform.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-Value-Metric.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Value-Metric.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-Value-Metric.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-logs-by-source-type-(top-10).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-logs-by-source-type-(top-10).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-logs-by-source-type-(top-10).json.erb
-  - DstPathEnd: kibana-objects/visualization/App-METRIC-memory-usage.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-METRIC-memory-usage.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-METRIC-memory-usage.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-RTR-request-count-(top-10-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-request-count-(top-10-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-RTR-request-count-(top-10-apps).json.erb
-  - DstPathEnd: kibana-objects/visualization/App-names.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-names.json.erb
-    SrcPathEnd: kibana-objects/visualization/App-names.json.erb
-  - DstPathEnd: kibana-objects/search/[app]-RTR.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-RTR.json.erb
-    SrcPathEnd: kibana-objects/search/[app]-RTR.json.erb
-  - DstPathEnd: kibana-objects/search/[platform]-UAA-Audit.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-UAA-Audit.json.erb
-    SrcPathEnd: kibana-objects/search/[platform]-UAA-Audit.json.erb
-  - DstPathEnd: kibana-objects/dashboard/App-Errors.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Errors.json.erb
-    SrcPathEnd: kibana-objects/dashboard/App-Errors.json.erb
-  - DstPathEnd: kibana-objects/dashboard/App-Location.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Location.json.erb
-    SrcPathEnd: kibana-objects/dashboard/App-Location.json.erb
-  - DstPathEnd: kibana-objects/dashboard/App-Metrics.json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Metrics.json.erb
-    SrcPathEnd: kibana-objects/dashboard/App-Metrics.json.erb
-  - DstPathEnd: kibana-objects/visualization/App-errors-count-in-timeline-(top-5-apps).json
-    Path: /mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-errors-count-in-timeline-(top-5-apps).json.erb
-    SrcPathEnd: kibana-objects/visualization/App-errors-count-in-timeline-(top-5-apps).json.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor974118198/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cf-kibana",
+    "Packages": [
+      {
+        "Name": "cf-cli"
+      },
+      {
+        "Name": "cf-kibana"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 43200000,
+        "Description": "Kibana user session expiration period in milliseconds (default to 12h)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.session_expiration_ms"
+      },
+      {
+        "Default": ".kibana",
+        "Description": "Kibana uses an index in Elasticsearch to store saved searches, visualizations and dashboards",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.kibana_index"
+      },
+      {
+        "Default": 30000,
+        "Description": "Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.shard_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "The CF API URL",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.api_endpoint"
+      },
+      {
+        "Default": "admin",
+        "Description": "The organisation that owns the CF system domain",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.system_org"
+      },
+      {
+        "Default": 9200,
+        "Description": "ElasticSearch master port",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.elasticsearch.port"
+      },
+      {
+        "Default": "kibana_oauth2_client",
+        "Description": "The UAA Kibana oauth2 client id",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.oauth2_client_id"
+      },
+      {
+        "Default": null,
+        "Description": "CF security group with API access",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.api_security_group"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA admin client's secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.uaa_admin_client_secret"
+      },
+      {
+        "Default": null,
+        "Description": "ElasticSearch master endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.elasticsearch.host"
+      },
+      {
+        "Default": true,
+        "Description": "Set to true to suppress all logging output other than error messages",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.logging_quiet"
+      },
+      {
+        "Default": true,
+        "Description": "A boolean indicating whether or not you want the redirect_uri to be forced to https",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.use_https"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.admin_user"
+      },
+      {
+        "Default": null,
+        "Description": "Password to be used for the UAA kibana oauth2 client",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.oauth2_client_secret"
+      },
+      {
+        "Default": null,
+        "Description": "The CF system domain ( eg: system.10.244.0.34.xip.io )",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.system_domain"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA admin client id (required scope is `uaa.admin`). The admin client is used to manage the UAA Kibana oauth2 client.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.uaa_admin_client_id"
+      },
+      {
+        "Default": 300000,
+        "Description": "Time in milliseconds to wait for responses from the back end or elasticsearch.  This must be \u003e 0",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.request_timeout"
+      },
+      {
+        "Default": "2048M",
+        "Description": "Kibana app memory",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.app_memory"
+      },
+      {
+        "Default": null,
+        "Description": "The CF apps domain ( eg: apps.10.244.0.34.xip.io )",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.apps_domain"
+      },
+      {
+        "Default": "dashboard/App-Overview",
+        "Description": "The default application to load",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.default_app_id"
+      },
+      {
+        "Default": null,
+        "Description": "Additional options to append to kibana configuration (YAML format).",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.config_options"
+      },
+      {
+        "Default": "logs",
+        "Description": "Kibana dashoboard app name",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.app_name"
+      },
+      {
+        "Default": false,
+        "Description": "Set true to use existing UAA oauth2 client for Kibana. Note the client required scopes: `openid,oauth.approvals,scim.userids,cloud_controller.read`.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.oauth2_use_existing_client"
+      },
+      {
+        "Default": [],
+        "Description": "a list of key-value pairs of plugins. e.g. Kibana-auth: /var/vcap/packagaes/kibana/kibana-auth",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.plugins"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.admin_password"
+      },
+      {
+        "Default": 1,
+        "Description": "Count of Kibana instances",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.app_instances"
+      },
+      {
+        "Default": null,
+        "Description": "Toggles cli verification of the CF API SSL certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "Redis endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "redis.host"
+      },
+      {
+        "Default": "logsearch",
+        "Description": "CF space where Kibana will be deployed",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf-kibana.cloudfoundry.logsearch_space"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor974118198/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/manifest.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor974118198/templates/manifest.yml.erb",
+        "SrcPathEnd": "manifest.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/kibana.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor974118198/templates/kibana.yml.erb",
+        "SrcPathEnd": "kibana.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/allow-logsearch-access.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor974118198/templates/allow-logsearch-access.json.erb",
+        "SrcPathEnd": "allow-logsearch-access.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor769060824/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "create-uaa-client",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": "logs",
+        "Description": "The Kibana log dashboard app name ( eg defaults to: logs )",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.app_name"
+      },
+      {
+        "Default": null,
+        "Description": "The Kibana dashboard domain. Is used for redirects.",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.kibana_domain"
+      },
+      {
+        "Default": "kibana_oauth2_client",
+        "Description": "The UAA Kibana oauth2 client id. Put an existing client id or one you want the job to create. Note the client required scopes: `openid,oauth.approvals,scim.userids,cloud_controller.read`.",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.oauth2_client_id"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA Kibana oauth2 client id's secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.oauth2_client_secret"
+      },
+      {
+        "Default": false,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.oauth2_autoapprove"
+      },
+      {
+        "Default": null,
+        "Description": "The Elastic Runtime system domain ( eg: system.10.244.0.34.xip.io )",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.cloudfoundry.system_domain"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA admin client id (required scope is `uaa.admin`). The admin client is used to manage the UAA Kibana oauth2 client.",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.cloudfoundry.uaa_admin_client_id"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA admin client's secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.cloudfoundry.uaa_admin_client_secret"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor769060824/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      }
+    ]
+  },
+  {
+    "Description": "The job compiles Elasticsearch mappings specific to Logsearch-for-cloudfoundry. \nThese mappings are add-ons to mappings defined in Logsearch release.\n",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor620506314/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "elasticsearch-config-lfc",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": "logs-",
+        "Description": "Name prefix of your log indices that you use in `logstash_parser.elasticsearch.index` property set for your parser.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.index_prefix"
+      },
+      {
+        "Default": "logs-app",
+        "Description": "Name prefix of your `app` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.app_index_prefix"
+      },
+      {
+        "Default": "logs-platform",
+        "Description": "Name prefix of your `platform` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.platform_index_prefix"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "index-mappings-platform.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor620506314/templates/index-mappings-platform.json.erb",
+        "SrcPathEnd": "index-mappings-platform.json.erb"
+      },
+      {
+        "DstPathEnd": "index-mappings.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor620506314/templates/index-mappings.json.erb",
+        "SrcPathEnd": "index-mappings.json.erb"
+      },
+      {
+        "DstPathEnd": "index-mappings-app.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor620506314/templates/index-mappings-app.json.erb",
+        "SrcPathEnd": "index-mappings-app.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor142051468/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ingestor_cloudfoundry-firehose",
+    "Packages": [
+      {
+        "Name": "firehose-to-syslog"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 5514,
+        "Description": "port of the syslog drain",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog.port"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA admin client's secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.cloudfoundry.uaa_admin_client_secret"
+      },
+      {
+        "Default": "NONE",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash.metadata_level"
+      },
+      {
+        "Default": "firehose",
+        "Description": "ID for the firehose-to-syslog subscription",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.firehose_subscription_id"
+      },
+      {
+        "Default": null,
+        "Description": "Certificate PEM.",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog.cert_pem"
+      },
+      {
+        "Default": "LogMessage",
+        "Description": "Comma seperated list of events you would like to get. Valid options are CounterEvent,Error,HttpStartStop,LogMessage,ValueMetric,ContainerMetric",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.firehose_events"
+      },
+      {
+        "Default": "firehose-to-syslog",
+        "Description": "CF UAA client ID with 'doppler.firehose' permissions",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.firehose_client_id"
+      },
+      {
+        "Default": "60s",
+        "Description": "full app metadata update interval; defaults to 60s",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.firehose_cc_pull_interval"
+      },
+      {
+        "Default": null,
+        "Description": "IP or hostname of the syslog drain",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog.host"
+      },
+      {
+        "Default": null,
+        "Description": "The Elastic Runtime system domain ( eg: system.10.244.0.34.xip.io )",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.cloudfoundry.system_domain"
+      },
+      {
+        "Default": false,
+        "Description": "Debug level logging. This disables forwarding to syslog",
+        "Example": null,
+        "Examples": null,
+        "Name": "ingestor_cloudfoundry-firehose.debug"
+      },
+      {
+        "Default": null,
+        "Description": "URI of the loggregator endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.doppler_endpoint"
+      },
+      {
+        "Default": false,
+        "Description": "Set to true to skip SSL validation when connecting to CF (defaults to false)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "CF UAA client secret with 'doppler.firehose' permissions",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.firehose_client_secret"
+      },
+      {
+        "Default": "tcp",
+        "Description": "Syslog protocol (tcp/udp).",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog.protocol"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA admin client id (required scope is `uaa.admin`). The admin client is used to manage the UAA Kibana oauth2 client.",
+        "Example": null,
+        "Examples": null,
+        "Name": "create-uaa-client.cloudfoundry.uaa_admin_client_id"
+      },
+      {
+        "Default": null,
+        "Description": "URI of the CF cloud controller",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.api_endpoint"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/config/cert.pem.erb",
+        "SrcPathEnd": "config/cert.pem.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/ingestor_cloudfoundry-firehose_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/bin/ingestor_cloudfoundry-firehose_ctl",
+        "SrcPathEnd": "bin/ingestor_cloudfoundry-firehose_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor142051468/templates/bin/pre-start.erb",
+        "SrcPathEnd": "bin/pre-start.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor873999774/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "kibana-auth-plugin",
+    "Packages": [
+      {
+        "Name": "kibana-auth-plugin"
+      }
+    ],
+    "Properties": null,
+    "Templates": null
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor986502272/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "parser-config-lfc",
+    "Packages": [
+      {
+        "Name": "logsearch-config-logstash-filters"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "cloudfoundry-diego",
+        "Description": "Name of Cloud Foundry diego deployment (if there is one). Diego jobs are mapped to this value in deployment_lookup.yml dictionary file.",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.deployment_name.diego"
+      },
+      {
+        "Default": "cloudfoundry-cf",
+        "Description": "Name of Cloud Foundry cf deployment. CF jobs are mapped to this value in deployment_lookup.yml dictionary file.",
+        "Example": null,
+        "Examples": null,
+        "Name": "logstash_parser.deployment_name.cf"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/deployment_lookup.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor986502272/templates/deployment_lookup.yml.erb",
+        "SrcPathEnd": "deployment_lookup.yml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor074786226/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "route_registrar",
+    "Packages": [
+      {
+        "Name": "route_registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Password for NATS authentication",
+        "Example": "natSpa55w0rd",
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "* Array of hashes determining which routes will be registered.\n* Each hash should have 'port', 'uris', 'registration_interval'\n  and 'name' keys.\n* 'registration_interval' is the delay between\n  routing updates. It must be a time duration represented as a string\n  (e.g. \"10s\").\n  It must parse to a positive time duration i.e. \"-5s\" is not permitted.\n* Additionally, the 'tags', 'health_check', and 'prepend_instance_index' keys are optional.\n* 'uris' is an array of URIs to register for the 'port'.\n* 'tags' are included in metrics that gorouter emits to support filtering.\n* 'health_check' is a hash which should have 'name' and 'script_path'.\n* 'health_check.timeout' is optional.\n  If the health_check timeout is not provided, it defaults to half of the\n  value of `registration_interval`.\n  If it is provided it must be a time duration represented as a string (e.g. \"10s\"),\n  and less than the value of `registration_interval`.\n  It must parse to a positive time duration i.e. \"-5s\" is not permitted.\n* if the healthcheck is not configured, the route is continually registered.\n* if the healthcheck script exits with success, the route is registered.\n* if the healthcheck script exits with error, the route is unregistered.\n* if a timeout is configured, the healthcheck script must exit within the timeout,\n  otherwise it is terminated (with `SIGKILL`) and the route is unregistered.\n* 'prepend_instance_index' is a boolean. When set to true the values in 'uris'\n  will be prepended with the instance index.\n  e.g. 'some-uri.system-domain.com' will become '0-some-uri.system-domain.com' on the instance\n  with index 0, and '2-some-url.system-domain.com' on the instance with index 2.\n  When this value is enabled, each instance will register its own, unique, set of uris.\n  To additionally continue to register these original uris, create another route\n  with the same uris and set 'prepend_instance_index' to false (or omit the key entirely).\n",
+        "Example": "- name: my-service\n  registration_interval: 20s\n  port: 12345\n  tags:\n    component: my-service\n    env: production\n  uris:\n    - my-service.system-domain.com\n    - *.my-service.system-domain.com\n  health_check:\n    name: my-service-health_check\n    script_path: /path/to/script\n    timeout: 5s\n- name: my-debug-endpoint\n  port: 12346\n  uris:\n    - my-service.system-domain.com/debug\n- name: cf-mysql-proxy-api-per-instance\n  port: 8080\n  uris:\n  - proxy-cf-mysql.system.domain\n  prepend_instance_index: true\n- name: cf-mysql-proxy-api\n  port: 8081\n  uris:\n  - proxy-cf-mysql.system.domain\n",
+        "Examples": null,
+        "Name": "route_registrar.routes"
+      },
+      {
+        "Default": null,
+        "Description": "IPs of each NATS cluster member",
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null,
+        "Name": "nats.machines"
+      },
+      {
+        "Default": null,
+        "Description": "TCP port of NATS servers",
+        "Example": 4222,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "User name for NATS authentication",
+        "Example": "nats",
+        "Examples": null,
+        "Name": "nats.user"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/registrar_settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor074786226/templates/config/registrar_settings.yml.erb",
+        "SrcPathEnd": "config/registrar_settings.yml.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor074786226/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor074786226/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor074786226/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/route_registrar_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor074786226/templates/bin/route_registrar_ctl",
+        "SrcPathEnd": "bin/route_registrar_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor074786226/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor401371060/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "smoke-tests",
+    "Packages": [
+      {
+        "Name": "cf-cli"
+      },
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "smoke-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 9200,
+        "Description": "Port of the elasticsearch master node",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.elasticsearch_master.port"
+      },
+      {
+        "Default": "logs-app-{{.Org}}-{{.Space}}-{{.Time.Format \\\"2006.01.02\\\"}}",
+        "Description": "App index name",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.elasticsearch_master.app_index"
+      },
+      {
+        "Default": null,
+        "Description": "The Elastic Runtime API endpoint URL",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.api"
+      },
+      {
+        "Default": "",
+        "Description": "The Elastic Runtime Application Domain",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.apps_domain"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry System Domain",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.system_domain"
+      },
+      {
+        "Default": null,
+        "Description": "The Elastic Runtime API admin user",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.admin_user"
+      },
+      {
+        "Default": null,
+        "Description": "The Elastic Runtime API admin user's password",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "IP of the elasticsearch master node",
+        "Example": null,
+        "Examples": null,
+        "Name": "smoke_tests.elasticsearch_master.host"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor401371060/templates/run.erb",
+        "SrcPathEnd": "run.erb"
+      },
+      {
+        "DstPathEnd": "bin/config.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor401371060/templates/config.json.erb",
+        "SrcPathEnd": "config.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "This job uploads Kibana saved objects (index-patterns, searches, visualizations and dashboards). Allows to upload defaults predefined in the job and custom data files.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor185475846/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "upload-kibana-objects",
+    "Packages": [
+      {
+        "Name": "ruby-2.3"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "List of text files to put in API endpoint /_bulk",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana_objects.upload_data_files"
+      },
+      {
+        "Default": null,
+        "Description": "Elasticsearch host",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.host"
+      },
+      {
+        "Default": null,
+        "Description": "Elasticsearch port",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch.port"
+      },
+      {
+        "Default": "LogMessage",
+        "Description": "Comma seperated list of events you would like to get. Valid options are CounterEvent,Error,HttpStartStop,LogMessage,ValueMetric,ContainerMetric",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudfoundry.firehose_events"
+      },
+      {
+        "Default": "logs-",
+        "Description": "Name prefix of your log indices that you use in `logstash_parser.elasticsearch.index` property set for your parser.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.index_prefix"
+      },
+      {
+        "Default": "logs-app",
+        "Description": "Name prefix of your `app` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.app_index_prefix"
+      },
+      {
+        "Default": "logs-platform",
+        "Description": "Name prefix of your `platform` log indices. If you don't split `app` and `platform` indices, then just set it with the value of `elasticsearch_config.index_prefix`.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "elasticsearch_config.platform_index_prefix"
+      },
+      {
+        "Default": [
+          {
+            "pattern": "/var/vcap/jobs/upload-kibana-objects/kibana-objects/index-pattern/*.json",
+            "type": "index-pattern"
+          },
+          {
+            "pattern": "/var/vcap/jobs/upload-kibana-objects/kibana-objects/config/*.json",
+            "type": "config"
+          },
+          {
+            "pattern": "/var/vcap/jobs/upload-kibana-objects/kibana-objects/search/*.json",
+            "type": "search"
+          },
+          {
+            "pattern": "/var/vcap/jobs/upload-kibana-objects/kibana-objects/visualization/*.json",
+            "type": "visualization"
+          },
+          {
+            "pattern": "/var/vcap/jobs/upload-kibana-objects/kibana-objects/dashboard/*.json",
+            "type": "dashboard"
+          }
+        ],
+        "Description": "List of glob patterns of Kibana objects to upload",
+        "Example": null,
+        "Examples": null,
+        "Name": "kibana_objects.upload_patterns"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-Container-Metric.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Container-Metric.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-Container-Metric.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/App-Performance.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Performance.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/App-Performance.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-Haproxy-requests-(top-10).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-requests-(top-10).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-Haproxy-requests-(top-10).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-Counter.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Counter.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-Counter.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-RTR-request-count-by-timezone-(top-5).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-request-count-by-timezone-(top-5).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-RTR-request-count-by-timezone-(top-5).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-logs-by-source-job-(top-5).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-by-source-job-(top-5).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-logs-by-source-job-(top-5).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/config/4.5.4.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/config/4.5.4.json.erb",
+        "SrcPathEnd": "kibana-objects/config/4.5.4.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[platform]-Haproxy.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-Haproxy.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[platform]-Haproxy.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-errors-count-in-timeline.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-errors-count-in-timeline.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-errors-count-in-timeline.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-logs-by-component-(top-5).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-by-component-(top-5).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-logs-by-component-(top-5).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-logs-count-(top-10-components).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-count-(top-10-components).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-logs-count-(top-10-components).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-APP-Logs-ERRORs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-APP-Logs-ERRORs.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-APP-Logs-ERRORs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[platform]-All-ERRORs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-All-ERRORs.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[platform]-All-ERRORs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/Platform-Errors.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Errors.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/Platform-Errors.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-links.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-links.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-links.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-components-with-errors.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-components-with-errors.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-components-with-errors.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-Haproxy-request-time-duration-(50th-95th-99th-top-5).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-request-time-duration-(50th-95th-99th-top-5).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-Haproxy-request-time-duration-(50th-95th-99th-top-5).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-APP-Logs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-APP-Logs.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-APP-Logs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-logs-count-by-level.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-count-by-level.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-logs-count-by-level.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[platform]-Haproxy-long-response.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-Haproxy-long-response.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[platform]-Haproxy-long-response.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/App-Logs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Logs.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/App-Logs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-apps-with-errors.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-apps-with-errors.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-apps-with-errors.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/Platform-Overview.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Overview.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/Platform-Overview.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-UAA-Audit-event-types.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-UAA-Audit-event-types.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-UAA-Audit-event-types.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-Haproxy-request-time-duration.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-request-time-duration.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-Haproxy-request-time-duration.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/index-pattern/logs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/index-pattern/logs.json.erb",
+        "SrcPathEnd": "kibana-objects/index-pattern/logs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-All-ERRORs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All-ERRORs.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-All-ERRORs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-Http.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Http.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-Http.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/Platform-Haproxy.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Haproxy.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/Platform-Haproxy.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/Platform-UAA-Audit.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-UAA-Audit.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/Platform-UAA-Audit.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-APP-logs-count-by-level-(top-5-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-by-level-(top-5-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-APP-logs-count-by-level-(top-5-apps).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-components.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-components.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-components.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-Haproxy-request-status-codes-in-timeline.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-Haproxy-request-status-codes-in-timeline.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-Haproxy-request-status-codes-in-timeline.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/config/4.4.0.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/config/4.4.0.json.erb",
+        "SrcPathEnd": "kibana-objects/config/4.4.0.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[platform]-All.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-All.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[platform]-All.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-APP-logs-count-(top-10-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-(top-10-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-APP-logs-count-(top-10-apps).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-APP-logs-count-by-level.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-by-level.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-APP-logs-count-by-level.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-logs-count-by-source-type-(APP-or-cf-top-5-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-logs-count-by-source-type-(APP-or-cf-top-5-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-logs-count-by-source-type-(APP-or-cf-top-5-apps).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-RTR-requests-map.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-requests-map.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-RTR-requests-map.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-links.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-links.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-links.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-UAA-Audit-events-by-type.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-UAA-Audit-events-by-type.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-UAA-Audit-events-by-type.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/config/4.4.2.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/config/4.4.2.json.erb",
+        "SrcPathEnd": "kibana-objects/config/4.4.2.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[platform]-All-Overview.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-All-Overview.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[platform]-All-Overview.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/Platform-Logs.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/Platform-Logs.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/Platform-Logs.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-APP-logs-count-in-timeline.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-APP-logs-count-in-timeline.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-APP-logs-count-in-timeline.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-METRIC-CPU-usage.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-METRIC-CPU-usage.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-METRIC-CPU-usage.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-UAA-Audit-event-locations.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-UAA-Audit-event-locations.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-UAA-Audit-event-locations.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-METRIC-disk-usage.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-METRIC-disk-usage.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-METRIC-disk-usage.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-RTR-response-times-(50th-and-95th-first-10-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-response-times-(50th-and-95th-first-10-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-RTR-response-times-(50th-and-95th-first-10-apps).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-RTR-traffic-by-response_time_ms-(first-10-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-traffic-by-response_time_ms-(first-10-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-RTR-traffic-by-response_time_ms-(first-10-apps).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-errors-count-by-source-component-(top-5).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-errors-count-by-source-component-(top-5).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-errors-count-by-source-component-(top-5).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/Platform-logs-count-in-timeline.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/Platform-logs-count-in-timeline.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/Platform-logs-count-in-timeline.json.erb"
+      },
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-All.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-All.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-All-Messages.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All-Messages.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-All-Messages.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-All-Overview.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-All-Overview.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-All-Overview.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-RTR-long-response.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-RTR-long-response.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-RTR-long-response.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/App-Overview.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Overview.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/App-Overview.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-RTR-response-times.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-response-times.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-RTR-response-times.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/index-pattern/logs-app.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/index-pattern/logs-app.json.erb",
+        "SrcPathEnd": "kibana-objects/index-pattern/logs-app.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/index-pattern/logs-platform.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/index-pattern/logs-platform.json.erb",
+        "SrcPathEnd": "kibana-objects/index-pattern/logs-platform.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-Value-Metric.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-Value-Metric.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-Value-Metric.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-logs-by-source-type-(top-10).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-logs-by-source-type-(top-10).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-logs-by-source-type-(top-10).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-METRIC-memory-usage.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-METRIC-memory-usage.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-METRIC-memory-usage.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-RTR-request-count-(top-10-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-RTR-request-count-(top-10-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-RTR-request-count-(top-10-apps).json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-names.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-names.json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-names.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[app]-RTR.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[app]-RTR.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[app]-RTR.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/search/[platform]-UAA-Audit.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/search/[platform]-UAA-Audit.json.erb",
+        "SrcPathEnd": "kibana-objects/search/[platform]-UAA-Audit.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/App-Errors.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Errors.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/App-Errors.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/App-Location.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Location.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/App-Location.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/dashboard/App-Metrics.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/dashboard/App-Metrics.json.erb",
+        "SrcPathEnd": "kibana-objects/dashboard/App-Metrics.json.erb"
+      },
+      {
+        "DstPathEnd": "kibana-objects/visualization/App-errors-count-in-timeline-(top-5-apps).json",
+        "Path": "/mnt/tmp/tar-CmdExtractor185475846/templates/kibana-objects/visualization/App-errors-count-in-timeline-(top-5-apps).json.erb",
+        "SrcPathEnd": "kibana-objects/visualization/App-errors-count-in-timeline-(top-5-apps).json.erb"
+      }
+    ]
+  }
+]

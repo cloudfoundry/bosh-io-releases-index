@@ -1,447 +1,710 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor547958633/monit
-    SrcPathEnd: monit
-  Name: stanchion
-  Packages:
-  - Name: stanchion
-  Properties:
-  - Default: null
-    Description: Host of the riak seed node
-    Example: null
-    Name: riak.seed_node
-  - Default: null
-    Description: The admin key_id for riak_cs
-    Example: null
-    Name: riak_cs.admin_key
-  - Default: null
-    Description: The admin secret for riak_cs
-    Example: null
-    Name: riak_cs.admin_secret
-  Templates:
-  - DstPathEnd: bin/stanchion_ctl
-    Path: /mnt/tmp/tar-CmdExtractor547958633/templates/stanchion_ctl
-    SrcPathEnd: stanchion_ctl
-  - DstPathEnd: config/app.config
-    Path: /mnt/tmp/tar-CmdExtractor547958633/templates/app.config.erb
-    SrcPathEnd: app.config.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor314607491/monit
-    SrcPathEnd: monit
-  Name: broker-registrar
-  Packages:
-  - Name: ruby
-  - Name: broker-registrar
-  Properties:
-  - Default: null
-    Description: Host address of the service broker
-    Example: null
-    Name: broker.host
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  - Default: null
-    Description: Name of the service broker
-    Example: null
-    Name: broker.name
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: 80
-    Description: Port for the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  - Default: true
-    Description: Whether the riak cluster registers a route with the cloudfoundry
-      router
-    Example: null
-    Name: riak_cs.register_route
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor314607491/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor222978733/monit
-    SrcPathEnd: monit
-  Name: riak-cs
-  Packages:
-  - Name: riak
-  - Name: erlang
-  - Name: git
-  - Name: riak-cs
-  - Name: common
-  - Name: route-registrar
-  - Name: syslog_aggregator
-  - Name: ruby
-  - Name: bucket_seeder
-  - Name: riakcs_ctrl
-  Properties:
-  - Default: null
-    Description: Restricts riak requests to cluster ip range
-    Example: null
-    Name: riak.firewall_enabled
-  - Default: null
-    Description: IP of each NATS cluster member
-    Example: null
-    Name: nats.machines
-  - Default: null
-    Description: External host name used by router to balance http requests across
-      cluster nodes
-    Example: null
-    Name: external_riakcs_host
-  - Default: tcp
-    Description: Transport to be used when forwarding logs (tcp|udp|relp).
-    Example: null
-    Name: syslog_aggregator.transport
-  - Default: null
-    Description: Username for broker to connect to NATS
-    Example: null
-    Name: nats.user
-  - Default: null
-    Description: IP address for syslog aggregator
-    Example: null
-    Name: syslog_aggregator.address
-  - Default: null
-    Description: TCP port of syslog aggregator
-    Example: null
-    Name: syslog_aggregator.port
-  - Default: null
-    Description: IP of the stanchion node
-    Example: null
-    Name: stanchion.ip
-  - Default: null
-    Description: Host of the riak seed node
-    Example: null
-    Name: riak.seed_node
-  - Default: null
-    Description: IP addresses of riak_cs
-    Example: null
-    Name: riak_cs.ips
-  - Default: 8080
-    Description: Port for riak_cs
-    Example: null
-    Name: riak_cs.port
-  - Default: true
-    Description: |
-      Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at external_riakcs_host. Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node. When this property is set to false, nodes will not register a route. This is useful when deploying cf-riak-cs-release without Cloud Foundry. NOTE: the Riak CS service broker does not yet support register_route: false. When setting register_route to false, you must set the instance count of the cf-riak-cs-broker, acceptance-tests, broker-registrar, and broker-deregistrar jobs to 0. Also you should omit the domain property and all the cf properties.
-    Example: null
-    Name: riak_cs.register_route
-  - Default: false
-    Description: Define whether forwarders should send all their syslog data to our
-      aggregator.
-    Example: null
-    Name: syslog_aggregator.all
-  - Default: null
-    Description: The name of the network that the riak/riak-cs nodes run on (needed
-      for the syslog aggregator)
-    Example: null
-    Name: riak.network
-  - Default: null
-    Description: IP addresses of riak nodes
-    Example: null
-    Name: riak.ips
-  - Default: null
-    Description: The admin key_id for riak_cs
-    Example: null
-    Name: riak_cs.admin_key
-  - Default: null
-    Description: The admin secret for riak_cs
-    Example: null
-    Name: riak_cs.admin_secret
-  - Default: []
-    Description: List of buckets to create on the riak node
-    Example: null
-    Name: riak_cs.seeded_buckets
-  - Default: null
-    Description: Password for broker to connect to NATS
-    Example: null
-    Name: nats.password
-  - Default: null
-    Description: IP port of Cloud Foundry NATS server
-    Example: null
-    Name: nats.port
-  Templates:
-  - DstPathEnd: bin/riak-cs_ctl
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/riak-cs_ctl.erb
-    SrcPathEnd: riak-cs_ctl.erb
-  - DstPathEnd: config/riak_cs.app.config
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/riak_cs.app.config.erb
-    SrcPathEnd: riak_cs.app.config.erb
-  - DstPathEnd: bin/route_registrar_ctl
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/route_registrar_ctl.erb
-    SrcPathEnd: route_registrar_ctl.erb
-  - DstPathEnd: bin/riak_ctl
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/riak_ctl.erb
-    SrcPathEnd: riak_ctl.erb
-  - DstPathEnd: config/riak.app.config
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/riak.app.config.erb
-    SrcPathEnd: riak.app.config.erb
-  - DstPathEnd: restrict_riak_requests_to_cluster_ip_range.sh
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/restrict_riak_requests_to_cluster_ip_range.sh.erb
-    SrcPathEnd: restrict_riak_requests_to_cluster_ip_range.sh.erb
-  - DstPathEnd: bin/create_cs_user.escript
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/create_cs_user.escript.erb
-    SrcPathEnd: create_cs_user.escript.erb
-  - DstPathEnd: join_cluster.sh
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/join_cluster.sh.erb
-    SrcPathEnd: join_cluster.sh.erb
-  - DstPathEnd: config/registrar_settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/registrar_settings.yml.erb
-    SrcPathEnd: registrar_settings.yml.erb
-  - DstPathEnd: config/syslog_forwarder.conf
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/syslog_forwarder.conf.erb
-    SrcPathEnd: syslog_forwarder.conf.erb
-  - DstPathEnd: bin/seed_buckets.sh
-    Path: /mnt/tmp/tar-CmdExtractor222978733/templates/seed_buckets.sh.erb
-    SrcPathEnd: seed_buckets.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor729070951/monit
-    SrcPathEnd: monit
-  Name: cf-riak-cs-broker
-  Packages:
-  - Name: git
-  - Name: ruby
-  - Name: cf-riak-cs-broker
-  - Name: syslog_aggregator
-  Properties:
-  - Default: tcp
-    Description: Transport to be used when forwarding logs (tcp|udp|relp).
-    Example: null
-    Name: syslog_aggregator.transport
-  - Default: 80
-    Description: Port for registering the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  - Default: null
-    Description: External host for registering riak_cs
-    Example: null
-    Name: external_riakcs_host
-  - Default: null
-    Description: Username for broker to connect to NATS
-    Example: null
-    Name: nats.user
-  - Default: null
-    Description: Services and plans offered by the broker
-    Example: null
-    Name: catalog.services
-  - Default: false
-    Description: Determines whether to accept self-signed SSL certs when connecting
-      to cluster nodes through router
-    Example: null
-    Name: riak_cs.skip_ssl_validation
-  - Default: null
-    Description: External host for registering the service broker
-    Example: null
-    Name: external_broker_host
-  - Default: null
-    Description: Name of the network the broker will get its IP address from
-    Example: null
-    Name: broker.network
-  - Default: true
-    Description: Determines the scheme (http or https) used by the broker to communicate
-      with riak-cs and the scheme returned in the binding credentials
-    Example: null
-    Name: riak_cs.ssl_enabled
-  - Default: null
-    Description: The admin key_id for riak_cs
-    Example: null
-    Name: riak_cs.admin_key
-  - Default: null
-    Description: The admin secret for riak_cs
-    Example: null
-    Name: riak_cs.admin_secret
-  - Default: vcap.riak-cs-broker
-    Description: The program name the broker users to log to syslog
-    Example: null
-    Name: syslog_aggregator.prog_name
-  - Default: false
-    Description: Define whether forwarders should send all their syslog data to our
-      aggregator.
-    Example: null
-    Name: syslog_aggregator.all
-  - Default: null
-    Description: Password for broker to connect to NATS
-    Example: null
-    Name: nats.password
-  - Default: null
-    Description: IP port of Cloud Foundry NATS server
-    Example: null
-    Name: nats.port
-  - Default: null
-    Description: IP of each NATS cluster member
-    Example: null
-    Name: nats.machines
-  - Default: null
-    Description: IP address for syslog aggregator
-    Example: null
-    Name: syslog_aggregator.address
-  - Default: null
-    Description: TCP port of syslog aggregator
-    Example: null
-    Name: syslog_aggregator.port
-  Templates:
-  - DstPathEnd: config/settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/config/settings.yml.erb
-    SrcPathEnd: config/settings.yml.erb
-  - DstPathEnd: config/unicorn.conf.rb
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/config/unicorn.conf.rb.erb
-    SrcPathEnd: config/unicorn.conf.rb.erb
-  - DstPathEnd: config/syslog_forwarder.conf
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/config/syslog_forwarder.conf.erb
-    SrcPathEnd: config/syslog_forwarder.conf.erb
-  - DstPathEnd: bin/cf-riak-cs-broker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/bin/cf-riak-cs-broker_ctl
-    SrcPathEnd: bin/cf-riak-cs-broker_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor729070951/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor301019697/monit
-    SrcPathEnd: monit
-  Name: acceptance-tests
-  Packages:
-  - Name: acceptance-tests
-  - Name: golang
-  - Name: cli
-  Properties:
-  - Default: false
-    Description: Whether to add --skip-ssl-validation for cf cli
-    Example: null
-    Name: cf.skip_ssl_validation
-  - Default: null
-    Description: Information about the riak-cs service
-    Example: null
-    Name: catalog.services
-  - Default: 1
-    Description: Scaling multiplier used to determine command timeouts
-    Example: null
-    Name: timeout_scale
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: null
-    Description: Shared domain for pushed apps
-    Example: null
-    Name: cf.apps_domain
-  - Default: true
-    Description: Determines the scheme (http or https) used by the broker to communicate
-      with riak-cs and the scheme returned in the binding credentials
-    Example: null
-    Name: riak_cs.ssl_enabled
-  - Default: true
-    Description: Whether the riak cluster registers a route with the cloudfoundry
-      router
-    Example: null
-    Name: riak_cs.register_route
-  - Default: null
-    Description: Host used for registering the broker
-    Example: null
-    Name: broker.host
-  - Default: null
-    Description: Host used for registering the riak nodes
-    Example: null
-    Name: external_riakcs_host
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor301019697/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor896295307/monit
-    SrcPathEnd: monit
-  Name: broker-deregistrar
-  Packages:
-  - Name: ruby
-  - Name: broker-registrar
-  Properties:
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: 80
-    Description: Port for the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  - Default: true
-    Description: Whether the riak cluster registers a route with the cloudfoundry
-      router
-    Example: null
-    Name: riak_cs.register_route
-  - Default: null
-    Description: Name of the service broker
-    Example: null
-    Name: broker.name
-  - Default: null
-    Description: Host address of the service broker
-    Example: null
-    Name: broker.host
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor896295307/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor547958633/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "stanchion",
+    "Packages": [
+      {
+        "Name": "stanchion"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Host of the riak seed node",
+        "Example": null,
+        "Name": "riak.seed_node"
+      },
+      {
+        "Default": null,
+        "Description": "The admin key_id for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.admin_key"
+      },
+      {
+        "Default": null,
+        "Description": "The admin secret for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.admin_secret"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/stanchion_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor547958633/templates/stanchion_ctl",
+        "SrcPathEnd": "stanchion_ctl"
+      },
+      {
+        "DstPathEnd": "config/app.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor547958633/templates/app.config.erb",
+        "SrcPathEnd": "app.config.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor314607491/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker-registrar",
+    "Packages": [
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "broker-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Host address of the service broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the service broker",
+        "Example": null,
+        "Name": "broker.name"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": 80,
+        "Description": "Port for the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the riak cluster registers a route with the cloudfoundry router",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor314607491/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor222978733/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "riak-cs",
+    "Packages": [
+      {
+        "Name": "riak"
+      },
+      {
+        "Name": "erlang"
+      },
+      {
+        "Name": "git"
+      },
+      {
+        "Name": "riak-cs"
+      },
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "route-registrar"
+      },
+      {
+        "Name": "syslog_aggregator"
+      },
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "bucket_seeder"
+      },
+      {
+        "Name": "riakcs_ctrl"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Restricts riak requests to cluster ip range",
+        "Example": null,
+        "Name": "riak.firewall_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "IP of each NATS cluster member",
+        "Example": null,
+        "Name": "nats.machines"
+      },
+      {
+        "Default": null,
+        "Description": "External host name used by router to balance http requests across cluster nodes",
+        "Example": null,
+        "Name": "external_riakcs_host"
+      },
+      {
+        "Default": "tcp",
+        "Description": "Transport to be used when forwarding logs (tcp|udp|relp).",
+        "Example": null,
+        "Name": "syslog_aggregator.transport"
+      },
+      {
+        "Default": null,
+        "Description": "Username for broker to connect to NATS",
+        "Example": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "IP address for syslog aggregator",
+        "Example": null,
+        "Name": "syslog_aggregator.address"
+      },
+      {
+        "Default": null,
+        "Description": "TCP port of syslog aggregator",
+        "Example": null,
+        "Name": "syslog_aggregator.port"
+      },
+      {
+        "Default": null,
+        "Description": "IP of the stanchion node",
+        "Example": null,
+        "Name": "stanchion.ip"
+      },
+      {
+        "Default": null,
+        "Description": "Host of the riak seed node",
+        "Example": null,
+        "Name": "riak.seed_node"
+      },
+      {
+        "Default": null,
+        "Description": "IP addresses of riak_cs",
+        "Example": null,
+        "Name": "riak_cs.ips"
+      },
+      {
+        "Default": 8080,
+        "Description": "Port for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.port"
+      },
+      {
+        "Default": true,
+        "Description": "Determines whether each node in the cluster advertises a route. When set to true, all heathly nodes in the cluster can be reached at external_riakcs_host. Having a single route to all healthy nodes allows traffic to be load balanced across the Riak CS nodes. A healthcheck process on each node monitors whether riak and riak-cs are running and the node is a valid member of the cluster. If the healthcheck process determines that a node is not healthy, it will unregister the route for the unhealthy node. When this property is set to false, nodes will not register a route. This is useful when deploying cf-riak-cs-release without Cloud Foundry. NOTE: the Riak CS service broker does not yet support register_route: false. When setting register_route to false, you must set the instance count of the cf-riak-cs-broker, acceptance-tests, broker-registrar, and broker-deregistrar jobs to 0. Also you should omit the domain property and all the cf properties.\n",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": false,
+        "Description": "Define whether forwarders should send all their syslog data to our aggregator.",
+        "Example": null,
+        "Name": "syslog_aggregator.all"
+      },
+      {
+        "Default": null,
+        "Description": "The name of the network that the riak/riak-cs nodes run on (needed for the syslog aggregator)",
+        "Example": null,
+        "Name": "riak.network"
+      },
+      {
+        "Default": null,
+        "Description": "IP addresses of riak nodes",
+        "Example": null,
+        "Name": "riak.ips"
+      },
+      {
+        "Default": null,
+        "Description": "The admin key_id for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.admin_key"
+      },
+      {
+        "Default": null,
+        "Description": "The admin secret for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.admin_secret"
+      },
+      {
+        "Default": [],
+        "Description": "List of buckets to create on the riak node",
+        "Example": null,
+        "Name": "riak_cs.seeded_buckets"
+      },
+      {
+        "Default": null,
+        "Description": "Password for broker to connect to NATS",
+        "Example": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "IP port of Cloud Foundry NATS server",
+        "Example": null,
+        "Name": "nats.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/riak-cs_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/riak-cs_ctl.erb",
+        "SrcPathEnd": "riak-cs_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/riak_cs.app.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/riak_cs.app.config.erb",
+        "SrcPathEnd": "riak_cs.app.config.erb"
+      },
+      {
+        "DstPathEnd": "bin/route_registrar_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/route_registrar_ctl.erb",
+        "SrcPathEnd": "route_registrar_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/riak_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/riak_ctl.erb",
+        "SrcPathEnd": "riak_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/riak.app.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/riak.app.config.erb",
+        "SrcPathEnd": "riak.app.config.erb"
+      },
+      {
+        "DstPathEnd": "restrict_riak_requests_to_cluster_ip_range.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/restrict_riak_requests_to_cluster_ip_range.sh.erb",
+        "SrcPathEnd": "restrict_riak_requests_to_cluster_ip_range.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/create_cs_user.escript",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/create_cs_user.escript.erb",
+        "SrcPathEnd": "create_cs_user.escript.erb"
+      },
+      {
+        "DstPathEnd": "join_cluster.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/join_cluster.sh.erb",
+        "SrcPathEnd": "join_cluster.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/registrar_settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/registrar_settings.yml.erb",
+        "SrcPathEnd": "registrar_settings.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/syslog_forwarder.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/syslog_forwarder.conf.erb",
+        "SrcPathEnd": "syslog_forwarder.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/seed_buckets.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor222978733/templates/seed_buckets.sh.erb",
+        "SrcPathEnd": "seed_buckets.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor729070951/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cf-riak-cs-broker",
+    "Packages": [
+      {
+        "Name": "git"
+      },
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "cf-riak-cs-broker"
+      },
+      {
+        "Name": "syslog_aggregator"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "tcp",
+        "Description": "Transport to be used when forwarding logs (tcp|udp|relp).",
+        "Example": null,
+        "Name": "syslog_aggregator.transport"
+      },
+      {
+        "Default": 80,
+        "Description": "Port for registering the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "External host for registering riak_cs",
+        "Example": null,
+        "Name": "external_riakcs_host"
+      },
+      {
+        "Default": null,
+        "Description": "Username for broker to connect to NATS",
+        "Example": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Services and plans offered by the broker",
+        "Example": null,
+        "Name": "catalog.services"
+      },
+      {
+        "Default": false,
+        "Description": "Determines whether to accept self-signed SSL certs when connecting to cluster nodes through router",
+        "Example": null,
+        "Name": "riak_cs.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "External host for registering the service broker",
+        "Example": null,
+        "Name": "external_broker_host"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the network the broker will get its IP address from",
+        "Example": null,
+        "Name": "broker.network"
+      },
+      {
+        "Default": true,
+        "Description": "Determines the scheme (http or https) used by the broker to communicate with riak-cs and the scheme returned in the binding credentials",
+        "Example": null,
+        "Name": "riak_cs.ssl_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "The admin key_id for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.admin_key"
+      },
+      {
+        "Default": null,
+        "Description": "The admin secret for riak_cs",
+        "Example": null,
+        "Name": "riak_cs.admin_secret"
+      },
+      {
+        "Default": "vcap.riak-cs-broker",
+        "Description": "The program name the broker users to log to syslog",
+        "Example": null,
+        "Name": "syslog_aggregator.prog_name"
+      },
+      {
+        "Default": false,
+        "Description": "Define whether forwarders should send all their syslog data to our aggregator.",
+        "Example": null,
+        "Name": "syslog_aggregator.all"
+      },
+      {
+        "Default": null,
+        "Description": "Password for broker to connect to NATS",
+        "Example": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "IP port of Cloud Foundry NATS server",
+        "Example": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "IP of each NATS cluster member",
+        "Example": null,
+        "Name": "nats.machines"
+      },
+      {
+        "Default": null,
+        "Description": "IP address for syslog aggregator",
+        "Example": null,
+        "Name": "syslog_aggregator.address"
+      },
+      {
+        "Default": null,
+        "Description": "TCP port of syslog aggregator",
+        "Example": null,
+        "Name": "syslog_aggregator.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/config/settings.yml.erb",
+        "SrcPathEnd": "config/settings.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/unicorn.conf.rb",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/config/unicorn.conf.rb.erb",
+        "SrcPathEnd": "config/unicorn.conf.rb.erb"
+      },
+      {
+        "DstPathEnd": "config/syslog_forwarder.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/config/syslog_forwarder.conf.erb",
+        "SrcPathEnd": "config/syslog_forwarder.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/cf-riak-cs-broker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/bin/cf-riak-cs-broker_ctl",
+        "SrcPathEnd": "bin/cf-riak-cs-broker_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor729070951/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor301019697/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance-tests",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      },
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "cli"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Whether to add --skip-ssl-validation for cf cli",
+        "Example": null,
+        "Name": "cf.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "Information about the riak-cs service",
+        "Example": null,
+        "Name": "catalog.services"
+      },
+      {
+        "Default": 1,
+        "Description": "Scaling multiplier used to determine command timeouts",
+        "Example": null,
+        "Name": "timeout_scale"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "Shared domain for pushed apps",
+        "Example": null,
+        "Name": "cf.apps_domain"
+      },
+      {
+        "Default": true,
+        "Description": "Determines the scheme (http or https) used by the broker to communicate with riak-cs and the scheme returned in the binding credentials",
+        "Example": null,
+        "Name": "riak_cs.ssl_enabled"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the riak cluster registers a route with the cloudfoundry router",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": null,
+        "Description": "Host used for registering the broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": null,
+        "Description": "Host used for registering the riak nodes",
+        "Example": null,
+        "Name": "external_riakcs_host"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor301019697/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor896295307/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker-deregistrar",
+    "Packages": [
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "broker-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": 80,
+        "Description": "Port for the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the riak cluster registers a route with the cloudfoundry router",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the service broker",
+        "Example": null,
+        "Name": "broker.name"
+      },
+      {
+        "Default": null,
+        "Description": "Host address of the service broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor896295307/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  }
+]

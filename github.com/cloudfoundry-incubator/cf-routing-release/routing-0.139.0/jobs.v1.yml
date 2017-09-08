@@ -1,902 +1,1203 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor805538153/monit
-    SrcPathEnd: monit
-  Name: acceptance_tests
-  Packages:
-  - Name: golang1.6
-  - Name: acceptance_tests
-  - Name: tcp_emitter
-  - Name: rtr
-  - Name: cf-cli
-  Properties:
-  - Default: null
-    Description: URL of the Cloud Controller API
-    Example: null
-    Examples: null
-    Name: acceptance_tests.cloud_controller.api
-  - Default: null
-    Description: Cloud Controller admin user
-    Example: null
-    Examples: null
-    Name: acceptance_tests.cloud_controller.admin_user
-  - Default: null
-    Description: Cloud Controller admin user's password
-    Example: null
-    Examples: null
-    Name: acceptance_tests.cloud_controller.admin_password
-  - Default: null
-    Description: Password for UAA client for the tcp emitter.
-    Example: null
-    Examples: null
-    Name: tcp_emitter.oauth_secret
-  - Default: null
-    Description: Domain for system components, e.g. bosh-lite.com
-    Example: null
-    Examples: null
-    Name: acceptance_tests.system_domain
-  - Default: 4
-    Description: The number of parallel test executors to spawn. The larger the number
-      the higher the stress on the system.
-    Example: null
-    Examples: null
-    Name: acceptance_tests.nodes
-  - Default: false
-    Description: When true, does not verify TLS certificates for any API calls made
-      during the test run
-    Example: null
-    Examples: null
-    Name: acceptance_tests.skip_ssl_validation
-  - Default: null
-    Description: App domain that will be created
-    Example: null
-    Examples: null
-    Name: acceptance_tests.cloud_controller.apps_domain
-  - Default: false
-    Description: Flag for using HTTP when making application requests rather than
-      the default HTTPS
-    Example: null
-    Examples: null
-    Name: acceptance_tests.cloud_controller.use_http
-  - Default: false
-    Description: Whether to pass the -v flag to router acceptance tests
-    Example: null
-    Examples: null
-    Name: acceptance_tests.verbose
-  - Default:
-    - 10.244.14.2
-    Description: A list of addresses which will be checked for TCP connectivity and
-      features
-    Example: null
-    Examples: null
-    Name: acceptance_tests.addresses
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor805538153/templates/run.erb
-    SrcPathEnd: run.erb
-  - DstPathEnd: bin/config.json
-    Path: /mnt/tmp/tar-CmdExtractor805538153/templates/config.json.erb
-    SrcPathEnd: config.json.erb
-- Description: The Router maintains a list of live routes for the applications running
-    on each DEA. The Router load balances requests (based on their Host header) between
-    each application instance registered for a specific route. It requires to be behind
-    a load balancer that can terminate SSL connections.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor277761923/monit
-    SrcPathEnd: monit
-  Name: gorouter
-  Packages:
-  - Name: routing_utils
-  - Name: gorouter
-  Properties:
-  - Default: 3457
-    Description: The port used to emit dropsonde messages to the Metron agent.
-    Example: null
-    Examples: null
-    Name: metron.port
-  - Default: 80
-    Description: Listening Port for Router.
-    Example: null
-    Examples: null
-    Name: router.port
-  - Default: null
-    Description: Password for HTTP basic auth to the varz/status endpoint.
-    Example: null
-    Examples: null
-    Name: router.status.password
-  - Default: false
-    Description: Enable ssl termination on the router
-    Example: null
-    Examples: null
-    Name: router.enable_ssl
-  - Default: ""
-    Description: The private ssl key for ssl termination
-    Example: null
-    Examples: null
-    Name: router.ssl_key
-  - Default: null
-    Description: ""
-    Example: null
-    Examples: null
-    Name: nats.port
-  - Default: 0.0.0.0:17002
-    Description: Address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: router.debug_address
-  - Default: 0
-    Description: |
-      Delay in seconds after drain begins before server stops listening.
-      During this time the server will respond with 503 Service Unavailable to
-      requests having header
-      User-Agent: {Value of router.healthcheck_user_agent}.
-      This accommodates requests in transit sent during the time the health
-      check responded with `ok`.
-    Example: null
-    Examples: null
-    Name: router.drain_wait
-  - Default: 3000
-    Description: Port on which Routing API is running.
-    Example: null
-    Examples: null
-    Name: routing_api.port
-  - Default: ""
-    Description: Certificate authority for communication between clients and uaa.
-    Example: null
-    Examples: null
-    Name: uaa.ca_cert
-  - Default: false
-    Description: |
-      Suspend pruning of routes when NATs is unavailable and maintain the
-      current routing table. WARNING: This strategy favors availability over
-      consistency and there is a possibility of routing to an incorrect
-      endpoint in the case of port re-use. To be used with caution."
-    Example: null
-    Examples: null
-    Name: router.suspend_pruning_if_nats_unavailable
-  - Default: 20
-    Description: Time period in seconds to wait until declaring the router instance
-      started after starting the listener socket. This allows an external load balancer
-      time to register the instance as healthy.
-    Example: null
-    Examples: null
-    Name: router.load_balancer_healthy_threshold
-  - Default: -1
-    Description: Number of CPUs to utilize, the default (-1) will equal the number
-      of available CPUs
-    Example: null
-    Examples: null
-    Name: router.number_of_cpus
-  - Default: false
-    Description: Set secure flag on http cookies
-    Example: null
-    Examples: null
-    Name: router.secure_cookies
-  - Default: HTTP-Monitor/1.1
-    Description: User-Agent for the health check agent (usually the Load Balancer).
-    Example: ELB-HealthChecker/1.0
-    Examples: null
-    Name: router.healthcheck_user_agent
-  - Default: false
-    Description: Enables setting X-Forwarded-Proto header if SSL termination happened
-      upstream and incorrectly set the header value. When this property is set to
-      true gorouter sets the header X-Forwarded-Proto to https. When this value set
-      to false, gorouter set the header X-Forwarded-Proto to the protocol of the incoming
-      request
-    Example: null
-    Examples: null
-    Name: router.force_forwarded_proto_https
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution, only used when Routing
-      API is enabled
-    Example: null
-    Examples: null
-    Name: router.dns_health_check_host
-  - Default: ""
-    Description: To rotate keys, add your new key here and deploy. Then swap this
-      key with the value of route_services_secret and deploy again.
-    Example: null
-    Examples: null
-    Name: router.route_services_secret_decrypt_only
-  - Default: 5
-    Description: The frequency in minutes which logrotate will rotate VM logs
-    Example: null
-    Examples: null
-    Name: router.logrotate.freq_min
-  - Default: null
-    Description: IP of each NATS cluster member.
-    Example: null
-    Examples: null
-    Name: nats.machines
-  - Default: 8080
-    Description: Port for the Router varz/status endpoint.
-    Example: null
-    Examples: null
-    Name: router.status.port
-  - Default: ""
-    Description: The public ssl cert for ssl termination
-    Example: null
-    Examples: null
-    Name: router.ssl_cert
-  - Default: 7
-    Description: The number of files that logrotate will keep around on the VM
-    Example: null
-    Examples: null
-    Name: router.logrotate.rotate
-  - Default: false
-    Description: Enables the addition of the X-B3-Trace-Id header to incoming requests.
-      If the header already exists on the incoming request, it will not be overwritten.
-    Example: null
-    Examples: null
-    Name: router.tracing.enable_zipkin
-  - Default: false
-    Description: Enables streaming of access log to syslog.
-    Example: null
-    Examples: null
-    Name: router.enable_access_log_streaming
-  - Default: 900
-    Description: Timeout in seconds for Router -> Endpoint roundtrip.
-    Example: null
-    Examples: null
-    Name: request_timeout_in_seconds
-  - Default: false
-    Description: When false, Routing API requires OAuth tokens for authentication.
-    Example: null
-    Examples: null
-    Name: routing_api.auth_disabled
-  - Default: 20
-    Description: On startup, the router will delay listening for requests by this
-      duration to increase likelihood that it has a complete routing table before
-      serving requests. The router also broadcasts the same duration as a recommended
-      interval to registering clients via NATS.
-    Example: null
-    Examples: null
-    Name: router.requested_route_registration_interval_in_seconds
-  - Default: false
-    Description: Skip SSL client cert validation
-    Example: null
-    Examples: null
-    Name: router.ssl_skip_validation
-  - Default: 60
-    Description: Expiry time of a route service signature in seconds
-    Example: null
-    Examples: null
-    Name: router.route_services_timeout
-  - Default: false
-    Description: Enables support for the popular PROXY protocol, allowing downstream
-      load balancers that do not support HTTP to pass along client information.
-    Example: null
-    Examples: null
-    Name: router.enable_proxy
-  - Default: null
-    Description: ""
-    Example: null
-    Examples: null
-    Name: nats.password
-  - Default: null
-    Description: Password for UAA client for the gorouter.
-    Example: null
-    Examples: null
-    Name: uaa.clients.gorouter.secret
-  - Default: false
-    Description: When enabled, GoRouter will fetch HTTP routes from the Routing API
-      in addition to routes obtained via NATS.
-    Example: null
-    Examples: null
-    Name: routing_api.enabled
-  - Default: null
-    Description: Username for HTTP basic auth to the varz/status endpoint.
-    Example: null
-    Examples: null
-    Name: router.status.user
-  - Default: ""
-    Description: Support for route services is disabled when no value is configured.
-      A robust passphrase is recommended.
-    Example: null
-    Examples: null
-    Name: router.route_services_secret
-  - Default: true
-    Description: Route Services are told where to send requests after processing using
-      the X-CF-Forwarded-Url header. When this property is true, the scheme for this
-      URL is https. When false, the scheme is http. As requests from Route Services
-      to applications on CF transit load balancers and gorouter, disable this property
-      for deployments that have TLS termination disabled.
-    Example: null
-    Examples: null
-    Name: router.route_services_recommend_https
-  - Default: 2M
-    Description: The size at which logrotate will decide to rotate the log file
-    Example: null
-    Examples: null
-    Name: router.logrotate.size
-  - Default: []
-    Description: An array of headers that access log events will be annotated with
-    Example: null
-    Examples: null
-    Name: router.extra_headers_to_log
-  - Default: 8080
-    Description: Port on which UAA is running.
-    Example: null
-    Examples: null
-    Name: uaa.port
-  - Default: null
-    Description: Secure Port on which UAA is running.
-    Example: null
-    Examples: null
-    Name: uaa.ssl.port
-  - Default: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_RSA_WITH_AES_128_CBC_SHA:TLS_RSA_WITH_AES_256_CBC_SHA
-    Description: An ordered list of supported SSL cipher suites containing golang
-      tls constants separated by colons The cipher suite will be chosen according
-      to this order during SSL handshake
-    Example: null
-    Examples: null
-    Name: router.cipher_suites
-  - Default: info
-    Description: Log level for router
-    Example: null
-    Examples: null
-    Name: router.logging_level
-  - Default: null
-    Description: ""
-    Example: null
-    Examples: null
-    Name: nats.user
-  - Default: 0
-    Description: ""
-    Example: null
-    Examples: null
-    Name: router.offset
-  - Default: 22
-    Description: If the X-Vcap-Trace request header is set and has this value, trace
-      headers are added to the response.
-    Example: null
-    Examples: null
-    Name: router.trace_key
-  Templates:
-  - DstPathEnd: config/gorouter_logrotate.cron
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/gorouter_logrotate.cron.erb
-    SrcPathEnd: gorouter_logrotate.cron.erb
-  - DstPathEnd: config/logrotate.conf
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/logrotate.conf.erb
-    SrcPathEnd: logrotate.conf.erb
-  - DstPathEnd: config/cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/cert.pem.erb
-    SrcPathEnd: cert.pem.erb
-  - DstPathEnd: config/key.pem
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/key.pem.erb
-    SrcPathEnd: key.pem.erb
-  - DstPathEnd: config/certs/uaa/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/uaa_ca.crt.erb
-    SrcPathEnd: uaa_ca.crt.erb
-  - DstPathEnd: bin/gorouter_ctl
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/gorouter_ctl
-    SrcPathEnd: gorouter_ctl
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/dns_health_check.erb
-    SrcPathEnd: dns_health_check.erb
-  - DstPathEnd: config/gorouter.yml
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/gorouter.yml.erb
-    SrcPathEnd: gorouter.yml.erb
-  - DstPathEnd: bin/run_gorouter
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/run_gorouter.erb
-    SrcPathEnd: run_gorouter.erb
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor277761923/templates/drain
-    SrcPathEnd: drain
-- Description: The tcp proxy layer used by router to achieve tcp routing functionality.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor206055085/monit
-    SrcPathEnd: monit
-  Name: haproxy
-  Packages:
-  - Name: routing_utils
-  - Name: haproxy-monitor
-  - Name: haproxy
-  Properties:
-  - Default: 300
-    Description: Server and client timeouts in seconds
-    Example: null
-    Examples: null
-    Name: haproxy.request_timeout_in_seconds
-  - Default: 80
-    Description: Load balancer in front of TCP Routers should be configured to check
-      the health of TCP Router instances by establishing a TCP connection on this
-      port
-    Example: null
-    Examples: null
-    Name: haproxy.health_check_port
-  Templates:
-  - DstPathEnd: config/haproxy.conf
-    Path: /mnt/tmp/tar-CmdExtractor206055085/templates/haproxy.conf.erb
-    SrcPathEnd: haproxy.conf.erb
-  - DstPathEnd: config/haproxy.conf.template
-    Path: /mnt/tmp/tar-CmdExtractor206055085/templates/haproxy.conf.template.erb
-    SrcPathEnd: haproxy.conf.template.erb
-  - DstPathEnd: bin/haproxy_ctl
-    Path: /mnt/tmp/tar-CmdExtractor206055085/templates/haproxy_ctl
-    SrcPathEnd: haproxy_ctl
-- Description: Used for registering routes
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor772341095/monit
-    SrcPathEnd: monit
-  Name: route_registrar
-  Packages:
-  - Name: routing_utils
-  - Name: route_registrar
-  Properties:
-  - Default: null
-    Description: IPs of each NATS cluster member
-    Example: |
-      - 192.168.50.123
-      - 192.168.52.123
-    Examples: null
-    Name: nats.machines
-  - Default: null
-    Description: TCP port of NATS servers
-    Example: 4222
-    Examples: null
-    Name: nats.port
-  - Default: null
-    Description: User name for NATS authentication
-    Example: nats
-    Examples: null
-    Name: nats.user
-  - Default: null
-    Description: Password for NATS authentication
-    Example: natSpa55w0rd
-    Examples: null
-    Name: nats.password
-  - Default: null
-    Description: |
-      * Array of hashes determining which routes will be registered.
-      * Each hash should have 'port', 'uris', 'registration_interval'
-        and 'name' keys.
-      * 'registration_interval' is the delay between
-        routing updates. It must be a time duration represented as a string
-        (e.g. "10s").
-        It must parse to a positive time duration i.e. "-5s" is not permitted.
-      * Additionally, the 'tags' and 'health_check' keys are optional.
-      * 'uris' is an array of URIs to register for the 'port'.
-      * 'tags' are included in metrics that gorouter emits to support filtering.
-      * 'health_check' is a hash which should have 'name' and 'script_path'.
-      * 'health_check.timeout' is optional.
-        If the health_check timeout is not provided, it defaults to half of the
-        value of `registration_interval`.
-        If it is provided it must be a time duration represented as a string (e.g. "10s"),
-        and less than the value of `registration_interval`.
-        It must parse to a positive time duration i.e. "-5s" is not permitted.
-      * if the healthcheck is not configured, the route is continually registered.
-      * if the healthcheck script exits with success, the route is registered.
-      * if the healthcheck script exits with error, the route is unregistered.
-      * if a timeout is configured, the healthcheck script must exit within the timeout,
-        otherwise it is terminated (with `SIGKILL`) and the route is unregistered.
-    Example: |
-      - name: my-service
-        registration_interval: 20s
-        port: 12345
-        tags:
-          component: my-service
-          env: production
-        uris:
-          - my-service.system-domain.com
-          - *.my-service.system-domain.com
-        health_check:
-          name: my-service-health_check
-          script_path: /path/to/script
-          timeout: 5s
-      - name: my-debug-endpoint
-        port: 12346
-        uris:
-          - my-service.system-domain.com/debug
-    Examples: null
-    Name: route_registrar.routes
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor772341095/templates/pre-start
-    SrcPathEnd: pre-start
-  - DstPathEnd: bin/route_registrar_ctl
-    Path: /mnt/tmp/tar-CmdExtractor772341095/templates/route_registrar_ctl.erb
-    SrcPathEnd: route_registrar_ctl.erb
-  - DstPathEnd: config/registrar_settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor772341095/templates/registrar_settings.yml.erb
-    SrcPathEnd: registrar_settings.yml.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor915852337/monit
-    SrcPathEnd: monit
-  Name: router_configurer
-  Packages:
-  - Name: routing_utils
-  - Name: router_configurer
-  Properties:
-  - Default: null
-    Description: OAuth client secret used to obtain token for Routing API from UAA.
-    Example: null
-    Examples: null
-    Name: router_configurer.oauth_secret
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution
-    Example: null
-    Examples: null
-    Name: dns_health_check_host
-  - Default: 3457
-    Description: The port used to emit dropsonde messages to the Metron agent.
-    Example: null
-    Examples: null
-    Name: metron.port
-  - Default: ""
-    Description: Certificate authority for communication between clients and uaa.
-    Example: null
-    Examples: null
-    Name: uaa.ca_cert
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: router_configurer.log_level
-  - Default: 1m
-    Description: 'String representing interval for collecting statistic metrics from
-      tcp proxy. Units: ms, s, m h'
-    Example: null
-    Examples: null
-    Name: router_configurer.tcp_stats_collection_interval
-  - Default: false
-    Description: When false, Routing API requires OAuth tokens for authentication.
-    Example: null
-    Examples: null
-    Name: routing_api.auth_disabled
-  - Default: null
-    Description: Port on which UAA is listening for TLS connections. This is required
-      for obtaining an OAuth token for Routing API.
-    Example: null
-    Examples: null
-    Name: uaa.tls_port
-  - Default: false
-    Description: Skip TLS verification when talking to UAA
-    Example: null
-    Examples: null
-    Name: skip_ssl_validation
-  - Default: 0.0.0.0:17002
-    Description: Address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: router_configurer.debug_address
-  Templates:
-  - DstPathEnd: bin/haproxy_reloader
-    Path: /mnt/tmp/tar-CmdExtractor915852337/templates/haproxy_reloader
-    SrcPathEnd: haproxy_reloader
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor915852337/templates/pre-start
-    SrcPathEnd: pre-start
-  - DstPathEnd: config/router_configurer.yml
-    Path: /mnt/tmp/tar-CmdExtractor915852337/templates/router_configurer.yml.erb
-    SrcPathEnd: router_configurer.yml.erb
-  - DstPathEnd: config/certs/uaa/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor915852337/templates/uaa_ca.crt.erb
-    SrcPathEnd: uaa_ca.crt.erb
-  - DstPathEnd: bin/router_configurer_ctl
-    Path: /mnt/tmp/tar-CmdExtractor915852337/templates/router_configurer_ctl.erb
-    SrcPathEnd: router_configurer_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor290234251/monit
-    SrcPathEnd: monit
-  Name: routing-api
-  Packages:
-  - Name: routing-api
-  - Name: routing_utils
-  Properties:
-  - Default: 120s
-    Description: String representing the maximum TTL a client can request for route
-      registration.
-    Example: null
-    Examples: null
-    Name: routing_api.max_ttl
-  - Default: 30s
-    Description: 'String representing interval for reporting the following metrics:
-      total_http_subscriptions, total_http_routes, total_tcp_subscriptions, total_tcp_routes,
-      total_token_errors, key_refresh_events. Units: ms, s, m h'
-    Example: null
-    Examples: null
-    Name: routing_api.metrics_reporting_interval
-  - Default: ""
-    Description: Client key for communication between clients and etcd
-    Example: null
-    Examples: null
-    Name: routing_api.etcd.client_key
-  - Default: false
-    Description: etcd requires client to communicate via TLS
-    Example: null
-    Examples: null
-    Name: routing_api.etcd.require_ssl
-  - Default: 3457
-    Description: The port used to emit dropsonde messages to the Metron agent.
-    Example: null
-    Examples: null
-    Name: metron.port
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution
-    Example: null
-    Examples: null
-    Name: dns_health_check_host
-  - Default: null
-    Description: Type of SQL database
-    Example: mysql
-    Examples: null
-    Name: routing_api.sqldb.type
-  - Default: null
-    Description: Password used for connecting to SQL database
-    Example: null
-    Examples: null
-    Name: routing_api.sqldb.password
-  - Default: localhost:8125
-    Description: 'The endpoint for the statsd server used to translate the following
-      metrics from statsd to dropsonde: total_http_subscriptions, total_http_routes,
-      total_tcp_subscriptions, total_tcp_routes, total_token_errors, key_refresh_events.'
-    Example: null
-    Examples: null
-    Name: routing_api.statsd_endpoint
-  - Default: 0.0.0.0:17002
-    Description: Address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: routing_api.debug_address
-  - Default: false
-    Description: Disables UAA authentication
-    Example: null
-    Examples: null
-    Name: routing_api.auth_disabled
-  - Default: null
-    Description: Must be the internal DNS name for the etcd cluster when require_ssl:true.
-      When require_ssl:false either a DNS name or an array of IP addresses is supported.
-    Example: null
-    Examples: null
-    Name: routing_api.etcd.servers
-  - Default: null
-    Description: Host for SQL database
-    Example: null
-    Examples: null
-    Name: routing_api.sqldb.host
-  - Default: 5s
-    Description: interval to wait before retrying a failed lock acquisition
-    Example: null
-    Examples: null
-    Name: routing_api.lock_retry_interval
-  - Default: null
-    Description: Username used for connecting to SQL database
-    Example: null
-    Examples: null
-    Name: routing_api.sqldb.username
-  - Default: null
-    Description: Domain reserved for CF operator; base URL where the UAA, Cloud Controller,
-      and other non-user apps listen
-    Example: null
-    Examples: null
-    Name: routing_api.system_domain
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: routing_api.log_level
-  - Default: null
-    Description: Port on which SQL database is listening
-    Example: null
-    Examples: null
-    Name: routing_api.sqldb.port
-  - Default: null
-    Description: Database name for routing api
-    Example: routing_api
-    Examples: null
-    Name: routing_api.sqldb.schema
-  - Default: null
-    Description: Port on which UAA is listening for TLS connections. This is required
-      for obtaining a key to verify client OAuth tokens.
-    Example: null
-    Examples: null
-    Name: uaa.tls_port
-  - Default: http://127.0.0.1:8500
-    Description: comma-separated list of consul server URLs (scheme://ip:port)
-    Example: null
-    Examples: null
-    Name: consul.servers
-  - Default: 10s
-    Description: TTL for service lock
-    Example: null
-    Examples: null
-    Name: routing_api.lock_ttl
-  - Default: 300ms
-    Description: Buffered statsd client flush interval
-    Example: null
-    Examples: null
-    Name: routing_api.statsd_client_flush_interval
-  - Default: ""
-    Description: Client certificate for communication between clients and etcd
-    Example: null
-    Examples: null
-    Name: routing_api.etcd.client_cert
-  - Default: ""
-    Description: Certificate authority for communication between clients and UAA.
-    Example: null
-    Examples: null
-    Name: uaa.ca_cert
-  - Default: []
-    Description: 'Array of router groups that will be seeded into routing_api database.
-      Once some value is included with a deploy, subsequent changes to this property
-      will be ignored. TCP Routing requires a router group of type: tcp.'
-    Example: |
-      - name: default-tcp
-        reservable_ports: 1024-10000,12000
-        type: tcp
-    Examples: null
-    Name: routing_api.router_groups
-  - Default: false
-    Description: Skip TLS verification when talking to UAA
-    Example: null
-    Examples: null
-    Name: skip_ssl_validation
-  - Default: ""
-    Description: Certificate authority used to sign cert hosted by etcd
-    Example: null
-    Examples: null
-    Name: routing_api.etcd.ca_cert
-  Templates:
-  - DstPathEnd: config/certs/etcd/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/etcd_ca.crt.erb
-    SrcPathEnd: etcd_ca.crt.erb
-  - DstPathEnd: config/certs/etcd/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/etcd_client.crt.erb
-    SrcPathEnd: etcd_client.crt.erb
-  - DstPathEnd: config/certs/uaa/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/uaa_ca.crt.erb
-    SrcPathEnd: uaa_ca.crt.erb
-  - DstPathEnd: config/certs/etcd/client.key
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/etcd_client.key.erb
-    SrcPathEnd: etcd_client.key.erb
-  - DstPathEnd: config/routing-api.yml
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/routing-api.yml.erb
-    SrcPathEnd: routing-api.yml.erb
-  - DstPathEnd: bin/routing-api_ctl
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/routing-api_ctl.erb
-    SrcPathEnd: routing-api_ctl.erb
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/dns_health_check.erb
-    SrcPathEnd: dns_health_check.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor290234251/templates/pre-start
-    SrcPathEnd: pre-start
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor678288373/monit
-    SrcPathEnd: monit
-  Name: tcp_emitter
-  Packages:
-  - Name: routing_utils
-  - Name: tcp_emitter
-  - Name: router_configurer
-  Properties:
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: tcp_emitter.log_level
-  - Default: false
-    Description: auth disabled setting of routing api
-    Example: null
-    Examples: null
-    Name: routing_api.auth_disabled
-  - Default: 10s
-    Description: TTL for service lock
-    Example: null
-    Examples: null
-    Name: tcp_emitter.lock_ttl
-  - Default: http://127.0.0.1:8500
-    Description: comma-separated list of consul server URLs (scheme://ip:port)
-    Example: null
-    Examples: null
-    Name: consul.servers
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution
-    Example: null
-    Examples: null
-    Name: dns_health_check_host
-  - Default: 0.0.0.0:17002
-    Description: Address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: tcp_emitter.debug_address
-  - Default: 5s
-    Description: interval to wait before retrying a failed lock acquisition
-    Example: null
-    Examples: null
-    Name: tcp_emitter.lock_retry_interval
-  - Default: false
-    Description: Skip TLS verification when talking to UAA
-    Example: null
-    Examples: null
-    Name: skip_ssl_validation
-  - Default: 60s
-    Description: Interval to sync with BBS to get latest route information.
-    Example: null
-    Examples: null
-    Name: tcp_emitter.sync_interval
-  - Default: 120s
-    Description: TTL used for routes registered with Routing API.
-    Example: null
-    Examples: null
-    Name: tcp_emitter.route_ttl
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: tcp_emitter.bbs.client_cert
-  - Default: null
-    Description: Port on which UAA is listening for TLS connections. This is required
-      for obtaining a OAuth token for Routing API.
-    Example: null
-    Examples: null
-    Name: uaa.tls_port
-  - Default: http://bbs.service.cf.internal:8889
-    Description: Diego BBS Server endpoint URL.
-    Example: null
-    Examples: null
-    Name: bbs.api_location
-  - Default: true
-    Description: Enables mutual-TLS communication with Diego BBS.
-    Example: null
-    Examples: null
-    Name: bbs.require_ssl
-  - Default: null
-    Description: PEM-encoded CA certificate used to sign TLS certificate hosted by
-      Diego BBS.
-    Example: null
-    Examples: null
-    Name: bbs.ca_cert
-  - Default: null
-    Description: Password for UAA client for tcp emitter.
-    Example: null
-    Examples: null
-    Name: tcp_emitter.oauth_secret
-  - Default: 3457
-    Description: The port used to emit dropsonde messages to the Metron agent.
-    Example: null
-    Examples: null
-    Name: metron.port
-  - Default: ""
-    Description: Certificate authority for communication between clients and uaa.
-    Example: null
-    Examples: null
-    Name: uaa.ca_cert
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: tcp_emitter.bbs.client_key
-  Templates:
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-  - DstPathEnd: config/tcp_emitter.yml
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/tcp_emitter.yml.erb
-    SrcPathEnd: tcp_emitter.yml.erb
-  - DstPathEnd: config/certs/uaa/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/uaa_ca.crt.erb
-    SrcPathEnd: uaa_ca.crt.erb
-  - DstPathEnd: bin/tcp_emitter_ctl
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/tcp_emitter_ctl.erb
-    SrcPathEnd: tcp_emitter_ctl.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/pre-start
-    SrcPathEnd: pre-start
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor678288373/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor805538153/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance_tests",
+    "Packages": [
+      {
+        "Name": "golang1.6"
+      },
+      {
+        "Name": "acceptance_tests"
+      },
+      {
+        "Name": "tcp_emitter"
+      },
+      {
+        "Name": "rtr"
+      },
+      {
+        "Name": "cf-cli"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "URL of the Cloud Controller API",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.cloud_controller.api"
+      },
+      {
+        "Default": null,
+        "Description": "Cloud Controller admin user",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.cloud_controller.admin_user"
+      },
+      {
+        "Default": null,
+        "Description": "Cloud Controller admin user's password",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.cloud_controller.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "Password for UAA client for the tcp emitter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.oauth_secret"
+      },
+      {
+        "Default": null,
+        "Description": "Domain for system components, e.g. bosh-lite.com",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.system_domain"
+      },
+      {
+        "Default": 4,
+        "Description": "The number of parallel test executors to spawn. The larger the number the higher the stress on the system.",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.nodes"
+      },
+      {
+        "Default": false,
+        "Description": "When true, does not verify TLS certificates for any API calls made during the test run",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "App domain that will be created",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.cloud_controller.apps_domain"
+      },
+      {
+        "Default": false,
+        "Description": "Flag for using HTTP when making application requests rather than the default HTTPS",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.cloud_controller.use_http"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to pass the -v flag to router acceptance tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.verbose"
+      },
+      {
+        "Default": [
+          "10.244.14.2"
+        ],
+        "Description": "A list of addresses which will be checked for TCP connectivity and features",
+        "Example": null,
+        "Examples": null,
+        "Name": "acceptance_tests.addresses"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor805538153/templates/run.erb",
+        "SrcPathEnd": "run.erb"
+      },
+      {
+        "DstPathEnd": "bin/config.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor805538153/templates/config.json.erb",
+        "SrcPathEnd": "config.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The Router maintains a list of live routes for the applications running on each DEA. The Router load balances requests (based on their Host header) between each application instance registered for a specific route. It requires to be behind a load balancer that can terminate SSL connections.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor277761923/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "gorouter",
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "gorouter"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 3457,
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron.port"
+      },
+      {
+        "Default": 80,
+        "Description": "Listening Port for Router.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.port"
+      },
+      {
+        "Default": null,
+        "Description": "Password for HTTP basic auth to the varz/status endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.status.password"
+      },
+      {
+        "Default": false,
+        "Description": "Enable ssl termination on the router",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.enable_ssl"
+      },
+      {
+        "Default": "",
+        "Description": "The private ssl key for ssl termination",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.ssl_key"
+      },
+      {
+        "Default": null,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": "0.0.0.0:17002",
+        "Description": "Address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.debug_address"
+      },
+      {
+        "Default": 0,
+        "Description": "Delay in seconds after drain begins before server stops listening.\nDuring this time the server will respond with 503 Service Unavailable to\nrequests having header\nUser-Agent: {Value of router.healthcheck_user_agent}.\nThis accommodates requests in transit sent during the time the health\ncheck responded with `ok`.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.drain_wait"
+      },
+      {
+        "Default": 3000,
+        "Description": "Port on which Routing API is running.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.port"
+      },
+      {
+        "Default": "",
+        "Description": "Certificate authority for communication between clients and uaa.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ca_cert"
+      },
+      {
+        "Default": false,
+        "Description": "Suspend pruning of routes when NATs is unavailable and maintain the\ncurrent routing table. WARNING: This strategy favors availability over\nconsistency and there is a possibility of routing to an incorrect\nendpoint in the case of port re-use. To be used with caution.\"\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.suspend_pruning_if_nats_unavailable"
+      },
+      {
+        "Default": 20,
+        "Description": "Time period in seconds to wait until declaring the router instance started after starting the listener socket. This allows an external load balancer time to register the instance as healthy.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.load_balancer_healthy_threshold"
+      },
+      {
+        "Default": -1,
+        "Description": "Number of CPUs to utilize, the default (-1) will equal the number of available CPUs",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.number_of_cpus"
+      },
+      {
+        "Default": false,
+        "Description": "Set secure flag on http cookies",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.secure_cookies"
+      },
+      {
+        "Default": "HTTP-Monitor/1.1",
+        "Description": "User-Agent for the health check agent (usually the Load Balancer).",
+        "Example": "ELB-HealthChecker/1.0",
+        "Examples": null,
+        "Name": "router.healthcheck_user_agent"
+      },
+      {
+        "Default": false,
+        "Description": "Enables setting X-Forwarded-Proto header if SSL termination happened upstream and incorrectly set the header value. When this property is set to true gorouter sets the header X-Forwarded-Proto to https. When this value set to false, gorouter set the header X-Forwarded-Proto to the protocol of the incoming request",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.force_forwarded_proto_https"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution, only used when Routing API is enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.dns_health_check_host"
+      },
+      {
+        "Default": "",
+        "Description": "To rotate keys, add your new key here and deploy. Then swap this key with the value of route_services_secret and deploy again.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.route_services_secret_decrypt_only"
+      },
+      {
+        "Default": 5,
+        "Description": "The frequency in minutes which logrotate will rotate VM logs",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.logrotate.freq_min"
+      },
+      {
+        "Default": null,
+        "Description": "IP of each NATS cluster member.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.machines"
+      },
+      {
+        "Default": 8080,
+        "Description": "Port for the Router varz/status endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.status.port"
+      },
+      {
+        "Default": "",
+        "Description": "The public ssl cert for ssl termination",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.ssl_cert"
+      },
+      {
+        "Default": 7,
+        "Description": "The number of files that logrotate will keep around on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.logrotate.rotate"
+      },
+      {
+        "Default": false,
+        "Description": "Enables the addition of the X-B3-Trace-Id header to incoming requests. If the header already exists on the incoming request, it will not be overwritten.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.tracing.enable_zipkin"
+      },
+      {
+        "Default": false,
+        "Description": "Enables streaming of access log to syslog.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.enable_access_log_streaming"
+      },
+      {
+        "Default": 900,
+        "Description": "Timeout in seconds for Router -\u003e Endpoint roundtrip.",
+        "Example": null,
+        "Examples": null,
+        "Name": "request_timeout_in_seconds"
+      },
+      {
+        "Default": false,
+        "Description": "When false, Routing API requires OAuth tokens for authentication.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.auth_disabled"
+      },
+      {
+        "Default": 20,
+        "Description": "On startup, the router will delay listening for requests by this duration to increase likelihood that it has a complete routing table before serving requests. The router also broadcasts the same duration as a recommended interval to registering clients via NATS.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.requested_route_registration_interval_in_seconds"
+      },
+      {
+        "Default": false,
+        "Description": "Skip SSL client cert validation",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.ssl_skip_validation"
+      },
+      {
+        "Default": 60,
+        "Description": "Expiry time of a route service signature in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.route_services_timeout"
+      },
+      {
+        "Default": false,
+        "Description": "Enables support for the popular PROXY protocol, allowing downstream load balancers that do not support HTTP to pass along client information.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.enable_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "Password for UAA client for the gorouter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.clients.gorouter.secret"
+      },
+      {
+        "Default": false,
+        "Description": "When enabled, GoRouter will fetch HTTP routes from the Routing API in addition to routes obtained via NATS.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.enabled"
+      },
+      {
+        "Default": null,
+        "Description": "Username for HTTP basic auth to the varz/status endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.status.user"
+      },
+      {
+        "Default": "",
+        "Description": "Support for route services is disabled when no value is configured. A robust passphrase is recommended.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.route_services_secret"
+      },
+      {
+        "Default": true,
+        "Description": "Route Services are told where to send requests after processing using the X-CF-Forwarded-Url header. When this property is true, the scheme for this URL is https. When false, the scheme is http. As requests from Route Services to applications on CF transit load balancers and gorouter, disable this property for deployments that have TLS termination disabled.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.route_services_recommend_https"
+      },
+      {
+        "Default": "2M",
+        "Description": "The size at which logrotate will decide to rotate the log file",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.logrotate.size"
+      },
+      {
+        "Default": [],
+        "Description": "An array of headers that access log events will be annotated with",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.extra_headers_to_log"
+      },
+      {
+        "Default": 8080,
+        "Description": "Port on which UAA is running.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.port"
+      },
+      {
+        "Default": null,
+        "Description": "Secure Port on which UAA is running.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ssl.port"
+      },
+      {
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:TLS_RSA_WITH_AES_128_CBC_SHA:TLS_RSA_WITH_AES_256_CBC_SHA",
+        "Description": "An ordered list of supported SSL cipher suites containing golang tls constants separated by colons The cipher suite will be chosen according to this order during SSL handshake",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.cipher_suites"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level for router",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.logging_level"
+      },
+      {
+        "Default": null,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": 0,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.offset"
+      },
+      {
+        "Default": 22,
+        "Description": "If the X-Vcap-Trace request header is set and has this value, trace headers are added to the response.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router.trace_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/gorouter_logrotate.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/gorouter_logrotate.cron.erb",
+        "SrcPathEnd": "gorouter_logrotate.cron.erb"
+      },
+      {
+        "DstPathEnd": "config/logrotate.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/logrotate.conf.erb",
+        "SrcPathEnd": "logrotate.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/cert.pem.erb",
+        "SrcPathEnd": "cert.pem.erb"
+      },
+      {
+        "DstPathEnd": "config/key.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/key.pem.erb",
+        "SrcPathEnd": "key.pem.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/uaa_ca.crt.erb",
+        "SrcPathEnd": "uaa_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/gorouter_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/gorouter_ctl",
+        "SrcPathEnd": "gorouter_ctl"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/dns_health_check.erb",
+        "SrcPathEnd": "dns_health_check.erb"
+      },
+      {
+        "DstPathEnd": "config/gorouter.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/gorouter.yml.erb",
+        "SrcPathEnd": "gorouter.yml.erb"
+      },
+      {
+        "DstPathEnd": "bin/run_gorouter",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/run_gorouter.erb",
+        "SrcPathEnd": "run_gorouter.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor277761923/templates/drain",
+        "SrcPathEnd": "drain"
+      }
+    ]
+  },
+  {
+    "Description": "The tcp proxy layer used by router to achieve tcp routing functionality.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor206055085/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "haproxy",
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "haproxy-monitor"
+      },
+      {
+        "Name": "haproxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 300,
+        "Description": "Server and client timeouts in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.request_timeout_in_seconds"
+      },
+      {
+        "Default": 80,
+        "Description": "Load balancer in front of TCP Routers should be configured to check the health of TCP Router instances by establishing a TCP connection on this port",
+        "Example": null,
+        "Examples": null,
+        "Name": "haproxy.health_check_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/haproxy.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor206055085/templates/haproxy.conf.erb",
+        "SrcPathEnd": "haproxy.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/haproxy.conf.template",
+        "Path": "/mnt/tmp/tar-CmdExtractor206055085/templates/haproxy.conf.template.erb",
+        "SrcPathEnd": "haproxy.conf.template.erb"
+      },
+      {
+        "DstPathEnd": "bin/haproxy_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor206055085/templates/haproxy_ctl",
+        "SrcPathEnd": "haproxy_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "Used for registering routes",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor772341095/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "route_registrar",
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "route_registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "IPs of each NATS cluster member",
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null,
+        "Name": "nats.machines"
+      },
+      {
+        "Default": null,
+        "Description": "TCP port of NATS servers",
+        "Example": 4222,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "User name for NATS authentication",
+        "Example": "nats",
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password for NATS authentication",
+        "Example": "natSpa55w0rd",
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "* Array of hashes determining which routes will be registered.\n* Each hash should have 'port', 'uris', 'registration_interval'\n  and 'name' keys.\n* 'registration_interval' is the delay between\n  routing updates. It must be a time duration represented as a string\n  (e.g. \"10s\").\n  It must parse to a positive time duration i.e. \"-5s\" is not permitted.\n* Additionally, the 'tags' and 'health_check' keys are optional.\n* 'uris' is an array of URIs to register for the 'port'.\n* 'tags' are included in metrics that gorouter emits to support filtering.\n* 'health_check' is a hash which should have 'name' and 'script_path'.\n* 'health_check.timeout' is optional.\n  If the health_check timeout is not provided, it defaults to half of the\n  value of `registration_interval`.\n  If it is provided it must be a time duration represented as a string (e.g. \"10s\"),\n  and less than the value of `registration_interval`.\n  It must parse to a positive time duration i.e. \"-5s\" is not permitted.\n* if the healthcheck is not configured, the route is continually registered.\n* if the healthcheck script exits with success, the route is registered.\n* if the healthcheck script exits with error, the route is unregistered.\n* if a timeout is configured, the healthcheck script must exit within the timeout,\n  otherwise it is terminated (with `SIGKILL`) and the route is unregistered.\n",
+        "Example": "- name: my-service\n  registration_interval: 20s\n  port: 12345\n  tags:\n    component: my-service\n    env: production\n  uris:\n    - my-service.system-domain.com\n    - *.my-service.system-domain.com\n  health_check:\n    name: my-service-health_check\n    script_path: /path/to/script\n    timeout: 5s\n- name: my-debug-endpoint\n  port: 12346\n  uris:\n    - my-service.system-domain.com/debug\n",
+        "Examples": null,
+        "Name": "route_registrar.routes"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor772341095/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      },
+      {
+        "DstPathEnd": "bin/route_registrar_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor772341095/templates/route_registrar_ctl.erb",
+        "SrcPathEnd": "route_registrar_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/registrar_settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor772341095/templates/registrar_settings.yml.erb",
+        "SrcPathEnd": "registrar_settings.yml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor915852337/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "router_configurer",
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "router_configurer"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "OAuth client secret used to obtain token for Routing API from UAA.",
+        "Example": null,
+        "Examples": null,
+        "Name": "router_configurer.oauth_secret"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns_health_check_host"
+      },
+      {
+        "Default": 3457,
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron.port"
+      },
+      {
+        "Default": "",
+        "Description": "Certificate authority for communication between clients and uaa.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ca_cert"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "router_configurer.log_level"
+      },
+      {
+        "Default": "1m",
+        "Description": "String representing interval for collecting statistic metrics from tcp proxy. Units: ms, s, m h",
+        "Example": null,
+        "Examples": null,
+        "Name": "router_configurer.tcp_stats_collection_interval"
+      },
+      {
+        "Default": false,
+        "Description": "When false, Routing API requires OAuth tokens for authentication.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.auth_disabled"
+      },
+      {
+        "Default": null,
+        "Description": "Port on which UAA is listening for TLS connections. This is required for obtaining an OAuth token for Routing API.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.tls_port"
+      },
+      {
+        "Default": false,
+        "Description": "Skip TLS verification when talking to UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "skip_ssl_validation"
+      },
+      {
+        "Default": "0.0.0.0:17002",
+        "Description": "Address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "router_configurer.debug_address"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/haproxy_reloader",
+        "Path": "/mnt/tmp/tar-CmdExtractor915852337/templates/haproxy_reloader",
+        "SrcPathEnd": "haproxy_reloader"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor915852337/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      },
+      {
+        "DstPathEnd": "config/router_configurer.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor915852337/templates/router_configurer.yml.erb",
+        "SrcPathEnd": "router_configurer.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor915852337/templates/uaa_ca.crt.erb",
+        "SrcPathEnd": "uaa_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/router_configurer_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor915852337/templates/router_configurer_ctl.erb",
+        "SrcPathEnd": "router_configurer_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor290234251/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "routing-api",
+    "Packages": [
+      {
+        "Name": "routing-api"
+      },
+      {
+        "Name": "routing_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "120s",
+        "Description": "String representing the maximum TTL a client can request for route registration.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.max_ttl"
+      },
+      {
+        "Default": "30s",
+        "Description": "String representing interval for reporting the following metrics: total_http_subscriptions, total_http_routes, total_tcp_subscriptions, total_tcp_routes, total_token_errors, key_refresh_events. Units: ms, s, m h",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.metrics_reporting_interval"
+      },
+      {
+        "Default": "",
+        "Description": "Client key for communication between clients and etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.etcd.client_key"
+      },
+      {
+        "Default": false,
+        "Description": "etcd requires client to communicate via TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.etcd.require_ssl"
+      },
+      {
+        "Default": 3457,
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron.port"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns_health_check_host"
+      },
+      {
+        "Default": null,
+        "Description": "Type of SQL database",
+        "Example": "mysql",
+        "Examples": null,
+        "Name": "routing_api.sqldb.type"
+      },
+      {
+        "Default": null,
+        "Description": "Password used for connecting to SQL database",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.sqldb.password"
+      },
+      {
+        "Default": "localhost:8125",
+        "Description": "The endpoint for the statsd server used to translate the following metrics from statsd to dropsonde: total_http_subscriptions, total_http_routes, total_tcp_subscriptions, total_tcp_routes, total_token_errors, key_refresh_events.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.statsd_endpoint"
+      },
+      {
+        "Default": "0.0.0.0:17002",
+        "Description": "Address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.debug_address"
+      },
+      {
+        "Default": false,
+        "Description": "Disables UAA authentication",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.auth_disabled"
+      },
+      {
+        "Default": null,
+        "Description": "Must be the internal DNS name for the etcd cluster when require_ssl:true. When require_ssl:false either a DNS name or an array of IP addresses is supported.",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.etcd.servers"
+      },
+      {
+        "Default": null,
+        "Description": "Host for SQL database",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.sqldb.host"
+      },
+      {
+        "Default": "5s",
+        "Description": "interval to wait before retrying a failed lock acquisition",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.lock_retry_interval"
+      },
+      {
+        "Default": null,
+        "Description": "Username used for connecting to SQL database",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.sqldb.username"
+      },
+      {
+        "Default": null,
+        "Description": "Domain reserved for CF operator; base URL where the UAA, Cloud Controller, and other non-user apps listen",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.system_domain"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "Port on which SQL database is listening",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.sqldb.port"
+      },
+      {
+        "Default": null,
+        "Description": "Database name for routing api",
+        "Example": "routing_api",
+        "Examples": null,
+        "Name": "routing_api.sqldb.schema"
+      },
+      {
+        "Default": null,
+        "Description": "Port on which UAA is listening for TLS connections. This is required for obtaining a key to verify client OAuth tokens.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.tls_port"
+      },
+      {
+        "Default": "http://127.0.0.1:8500",
+        "Description": "comma-separated list of consul server URLs (scheme://ip:port)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.servers"
+      },
+      {
+        "Default": "10s",
+        "Description": "TTL for service lock",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.lock_ttl"
+      },
+      {
+        "Default": "300ms",
+        "Description": "Buffered statsd client flush interval",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.statsd_client_flush_interval"
+      },
+      {
+        "Default": "",
+        "Description": "Client certificate for communication between clients and etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.etcd.client_cert"
+      },
+      {
+        "Default": "",
+        "Description": "Certificate authority for communication between clients and UAA.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ca_cert"
+      },
+      {
+        "Default": [],
+        "Description": "Array of router groups that will be seeded into routing_api database. Once some value is included with a deploy, subsequent changes to this property will be ignored. TCP Routing requires a router group of type: tcp.",
+        "Example": "- name: default-tcp\n  reservable_ports: 1024-10000,12000\n  type: tcp\n",
+        "Examples": null,
+        "Name": "routing_api.router_groups"
+      },
+      {
+        "Default": false,
+        "Description": "Skip TLS verification when talking to UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "skip_ssl_validation"
+      },
+      {
+        "Default": "",
+        "Description": "Certificate authority used to sign cert hosted by etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.etcd.ca_cert"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/etcd/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/etcd_ca.crt.erb",
+        "SrcPathEnd": "etcd_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/etcd_client.crt.erb",
+        "SrcPathEnd": "etcd_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/uaa_ca.crt.erb",
+        "SrcPathEnd": "uaa_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/etcd_client.key.erb",
+        "SrcPathEnd": "etcd_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/routing-api.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/routing-api.yml.erb",
+        "SrcPathEnd": "routing-api.yml.erb"
+      },
+      {
+        "DstPathEnd": "bin/routing-api_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/routing-api_ctl.erb",
+        "SrcPathEnd": "routing-api_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/dns_health_check.erb",
+        "SrcPathEnd": "dns_health_check.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor290234251/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor678288373/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "tcp_emitter",
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "tcp_emitter"
+      },
+      {
+        "Name": "router_configurer"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.log_level"
+      },
+      {
+        "Default": false,
+        "Description": "auth disabled setting of routing api",
+        "Example": null,
+        "Examples": null,
+        "Name": "routing_api.auth_disabled"
+      },
+      {
+        "Default": "10s",
+        "Description": "TTL for service lock",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.lock_ttl"
+      },
+      {
+        "Default": "http://127.0.0.1:8500",
+        "Description": "comma-separated list of consul server URLs (scheme://ip:port)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.servers"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns_health_check_host"
+      },
+      {
+        "Default": "0.0.0.0:17002",
+        "Description": "Address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.debug_address"
+      },
+      {
+        "Default": "5s",
+        "Description": "interval to wait before retrying a failed lock acquisition",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.lock_retry_interval"
+      },
+      {
+        "Default": false,
+        "Description": "Skip TLS verification when talking to UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "skip_ssl_validation"
+      },
+      {
+        "Default": "60s",
+        "Description": "Interval to sync with BBS to get latest route information.",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.sync_interval"
+      },
+      {
+        "Default": "120s",
+        "Description": "TTL used for routes registered with Routing API.",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.route_ttl"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.bbs.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Port on which UAA is listening for TLS connections. This is required for obtaining a OAuth token for Routing API.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.tls_port"
+      },
+      {
+        "Default": "http://bbs.service.cf.internal:8889",
+        "Description": "Diego BBS Server endpoint URL.",
+        "Example": null,
+        "Examples": null,
+        "Name": "bbs.api_location"
+      },
+      {
+        "Default": true,
+        "Description": "Enables mutual-TLS communication with Diego BBS.",
+        "Example": null,
+        "Examples": null,
+        "Name": "bbs.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate used to sign TLS certificate hosted by Diego BBS.",
+        "Example": null,
+        "Examples": null,
+        "Name": "bbs.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Password for UAA client for tcp emitter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.oauth_secret"
+      },
+      {
+        "Default": 3457,
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron.port"
+      },
+      {
+        "Default": "",
+        "Description": "Certificate authority for communication between clients and uaa.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "tcp_emitter.bbs.client_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/tcp_emitter.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/tcp_emitter.yml.erb",
+        "SrcPathEnd": "tcp_emitter.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/uaa_ca.crt.erb",
+        "SrcPathEnd": "uaa_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/tcp_emitter_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/tcp_emitter_ctl.erb",
+        "SrcPathEnd": "tcp_emitter_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/pre-start",
+        "SrcPathEnd": "pre-start"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor678288373/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      }
+    ]
+  }
+]

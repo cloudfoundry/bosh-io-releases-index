@@ -1,59 +1,91 @@
-- Description: Concourse worker for Windows
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor070573514/monit
-    SrcPathEnd: monit
-  Name: concourse_windows
-  Packages:
-  - Name: concourse_windows
-  Properties:
-  - Default: 127.0.0.1
-    Description: IP address on which to listen for the Garden server.
-    Example: null
-    Examples: null
-    Name: concourse_windows.bind_ip
-  - Default: 127.0.0.1
-    Description: IP address on which to listen for API traffic.
-    Example: null
-    Examples: null
-    Name: concourse_windows.baggageclaim_bind_ip
-  - Default: C:\var\vcap\data\concourse_windows
-    Description: Specifies where container data should be placed.
-    Example: null
-    Examples: null
-    Name: concourse_windows.work_dir
-  - Default: 127.0.0.1
-    Description: TSA host to forward the worker through
-    Example: null
-    Examples: null
-    Name: concourse_windows.tsa_host
-  - Default: []
-    Description: Used to ensure we're connecting to the correct TSA.
-    Example: null
-    Examples: null
-    Name: concourse_windows.tsa_public_key
-  - Default: []
-    Description: Specifies the key to use when authenticating to the TSA.
-    Example: null
-    Examples: null
-    Name: concourse_windows.tsa_worker_private_key
-  - Default: ""
-    Description: Specifies the team this worker will be assigned to.
-    Example: null
-    Examples: null
-    Name: concourse_windows.team
-  - Default: []
-    Description: Specifies the tags this worker will be assigned.
-    Example: null
-    Examples: null
-    Name: concourse_windows.tags
-  Templates:
-  - DstPathEnd: bin/concourse_windows.ps1
-    Path: /mnt/tmp/tar-CmdExtractor070573514/templates/concourse_windows.ps1.erb
-    SrcPathEnd: concourse_windows.ps1.erb
-  - DstPathEnd: bin/tsa-public-key.pub
-    Path: /mnt/tmp/tar-CmdExtractor070573514/templates/tsa-public-key.pub.erb
-    SrcPathEnd: tsa-public-key.pub.erb
-  - DstPathEnd: bin/tsa-worker-private-key
-    Path: /mnt/tmp/tar-CmdExtractor070573514/templates/tsa-worker-private-key.erb
-    SrcPathEnd: tsa-worker-private-key.erb
+[
+  {
+    "Description": "Concourse worker for Windows",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor070573514/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "concourse_windows",
+    "Packages": [
+      {
+        "Name": "concourse_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address on which to listen for the Garden server.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.bind_ip"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address on which to listen for API traffic.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.baggageclaim_bind_ip"
+      },
+      {
+        "Default": "C:\\var\\vcap\\data\\concourse_windows",
+        "Description": "Specifies where container data should be placed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.work_dir"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "TSA host to forward the worker through",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.tsa_host"
+      },
+      {
+        "Default": [],
+        "Description": "Used to ensure we're connecting to the correct TSA.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.tsa_public_key"
+      },
+      {
+        "Default": [],
+        "Description": "Specifies the key to use when authenticating to the TSA.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.tsa_worker_private_key"
+      },
+      {
+        "Default": "",
+        "Description": "Specifies the team this worker will be assigned to.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.team"
+      },
+      {
+        "Default": [],
+        "Description": "Specifies the tags this worker will be assigned.",
+        "Example": null,
+        "Examples": null,
+        "Name": "concourse_windows.tags"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/concourse_windows.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor070573514/templates/concourse_windows.ps1.erb",
+        "SrcPathEnd": "concourse_windows.ps1.erb"
+      },
+      {
+        "DstPathEnd": "bin/tsa-public-key.pub",
+        "Path": "/mnt/tmp/tar-CmdExtractor070573514/templates/tsa-public-key.pub.erb",
+        "SrcPathEnd": "tsa-public-key.pub.erb"
+      },
+      {
+        "DstPathEnd": "bin/tsa-worker-private-key",
+        "Path": "/mnt/tmp/tar-CmdExtractor070573514/templates/tsa-worker-private-key.erb",
+        "SrcPathEnd": "tsa-worker-private-key.erb"
+      }
+    ]
+  }
+]

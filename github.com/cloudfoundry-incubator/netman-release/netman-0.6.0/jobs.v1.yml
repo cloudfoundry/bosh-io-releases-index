@@ -1,412 +1,617 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor709151067/monit
-    SrcPathEnd: monit
-  Name: cni-flannel
-  Packages:
-  - Name: flannel
-  - Name: runc-cni
-  - Name: flannel-watchdog
-  Properties:
-  - Default: ""
-    Description: PEM encoded client cert
-    Example: null
-    Examples: null
-    Name: cni-flannel.etcd_client_cert
-  - Default: true
-    Description: Enable GBP on VXLAN devices
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.Backend.GBP
-  - Default: /var/vcap/data/flannel/subnet.env
-    Description: file that flannel writes out the subnet environment
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.subnet_file
-  - Default: /var/vcap/data/container-metadata/store.json
-    Description: file where the wrapper plugin will store container info
-    Example: null
-    Examples: null
-    Name: cni-flannel.cni_datastore_path
-  - Default: ""
-    Description: PEM encoded client key
-    Example: null
-    Examples: null
-    Name: cni-flannel.etcd_client_key
-  - Default: 10.255.0.0/16
-    Description: CIDR block for overlay network.  Should be /16
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.Network
-  - Default: 1
-    Description: VXLAN Virtual Network Identifier to use
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.Backend.VNI
-  - Default: 8472
-    Description: UDP port to use for VXLAN Tunnel Endpoints
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.Backend.Port
-  - Default: false
-    Description: disable container to container networking
-    Example: null
-    Examples: null
-    Name: netman.disable
-  - Default: []
-    Description: a list of etcd endpoints
-    Example: null
-    Examples: null
-    Name: cni-flannel.etcd_endpoints
-  - Default: ""
-    Description: PEM encoded CA cert
-    Example: null
-    Examples: null
-    Name: cni-flannel.etcd_ca_cert
-  - Default: true
-    Description: Enable ssl for communication between flannel and etcd
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.etcd.require_ssl
-  - Default: vxlan
-    Description: Flannel backend to use
-    Example: null
-    Examples: null
-    Name: cni-flannel.flannel.Backend.Type
-  - Default: cni-flannel0
-    Description: name of cni bridge on host
-    Example: null
-    Examples: null
-    Name: flannel-watchdog.config.bridge_name
-  - Default: /var/vcap/data/flannel/subnet.env
-    Description: file that flannel writes out the subnet environment
-    Example: null
-    Examples: null
-    Name: flannel-watchdog.config.flannel_subnet_file
-  Templates:
-  - DstPathEnd: bin/flannel-watchdog_ctl
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/flannel-watchdog_ctl.erb
-    SrcPathEnd: flannel-watchdog_ctl.erb
-  - DstPathEnd: config/flannel-watchdog.json
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/flannel-watchdog.json.erb
-    SrcPathEnd: flannel-watchdog.json.erb
-  - DstPathEnd: config/certs/etcd/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/etcd_ca.crt.erb
-    SrcPathEnd: etcd_ca.crt.erb
-  - DstPathEnd: config/certs/etcd/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/etcd_client.crt.erb
-    SrcPathEnd: etcd_client.crt.erb
-  - DstPathEnd: config/certs/etcd/client.key
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/etcd_client.key.erb
-    SrcPathEnd: etcd_client.key.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/flanneld_ctl
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/flanneld_ctl.erb
-    SrcPathEnd: flanneld_ctl.erb
-  - DstPathEnd: config/cni/30-cni-wrapper-plugin.conf
-    Path: /mnt/tmp/tar-CmdExtractor709151067/templates/30-cni-wrapper-plugin.conf.erb
-    SrcPathEnd: 30-cni-wrapper-plugin.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor938587205/monit
-    SrcPathEnd: monit
-  Name: garden-cni
-  Packages:
-  - Name: runc-cni
-  Properties:
-  - Default: null
-    Description: Directory containing CNI plugins.
-    Example: null
-    Examples: null
-    Name: garden-cni.cni_plugin_dir
-  - Default: null
-    Description: Directory to store CNI config files.  Other jobs may write files
-      into here.
-    Example: null
-    Examples: null
-    Name: garden-cni.cni_config_dir
-  - Default: /var/vcap/data/garden-cni/container-netns
-    Description: The CNI adapter will bind-mount network namespaces in this directory
-    Example: null
-    Examples: null
-    Name: garden-cni.bind_mount_dir
-  - Default: 10.255.0.0/16
-    Description: IP range used by the container network
-    Example: null
-    Examples: null
-    Name: garden-cni.overlay_network
-  - Default: /var/vcap/data/garden-cni/external-networker-state.json
-    Description: Path to file that will hold the state persisted by the external networker
-      binary
-    Example: null
-    Examples: null
-    Name: garden-cni.state_file
-  - Default: 60000
-    Description: Starting value for allocating host ports to containers
-    Example: null
-    Examples: null
-    Name: garden-cni.start_port
-  - Default: 5000
-    Description: Total number of host ports that may be allocated to containers
-    Example: null
-    Examples: null
-    Name: garden-cni.total_ports
-  Templates:
-  - DstPathEnd: config/adapter.json
-    Path: /mnt/tmp/tar-CmdExtractor938587205/templates/adapter.json.erb
-    SrcPathEnd: adapter.json.erb
-  - DstPathEnd: config/cni/30-bridge.conf
-    Path: /mnt/tmp/tar-CmdExtractor938587205/templates/30-bridge.conf.erb
-    SrcPathEnd: 30-bridge.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor733475519/monit
-    SrcPathEnd: monit
-  Name: netmon
-  Packages:
-  - Name: netmon
-  Properties:
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: netmon.metron_address
-  - Default: 30
-    Description: Gather and report metrics at this interval, in seconds
-    Example: null
-    Examples: null
-    Name: netmon.poll_interval
-  - Default: flannel.1
-    Description: Report tx/rx bytes on the interface with this name
-    Example: null
-    Examples: null
-    Name: netmon.interface_name
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: netmon.log_level
-  - Default: false
-    Description: disable container to container networking
-    Example: null
-    Examples: null
-    Name: netman.disable
-  Templates:
-  - DstPathEnd: bin/netmon_ctl
-    Path: /mnt/tmp/tar-CmdExtractor733475519/templates/netmon_ctl.erb
-    SrcPathEnd: netmon_ctl.erb
-  - DstPathEnd: config/netmon.json
-    Path: /mnt/tmp/tar-CmdExtractor733475519/templates/netmon.json.erb
-    SrcPathEnd: netmon.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor279901001/monit
-    SrcPathEnd: monit
-  Name: policy-server
-  Packages:
-  - Name: policy-server
-  Properties:
-  - Default: /var/vcap/jobs/policy-server/config/certs/server.crt
-    Description: Server certificate  for TLS
-    Example: null
-    Examples: null
-    Name: policy-server.server_cert_file
-  - Default: https://uaa.bosh-lite.com
-    Description: address of uaa server
-    Example: null
-    Examples: null
-    Name: policy-server.uaa_url
-  - Default: /var/vcap/jobs/policy-server/config/certs/ca.crt
-    Description: Trusted CA certificate file for clients
-    Example: null
-    Examples: null
-    Name: policy-server.ca_cert_file
-  - Default: /var/vcap/jobs/policy-server/config/certs/server.key
-    Description: Server key file for TLS
-    Example: null
-    Examples: null
-    Name: policy-server.server_key_file
-  - Default: null
-    Description: Server key for TLS
-    Example: null
-    Examples: null
-    Name: policy-server.server_key
-  - Default: network-policy
-    Description: uaa client name
-    Example: null
-    Examples: null
-    Name: policy-server.uaa_client
-  - Default: postgres
-    Description: 'Type of database: postgres or mysql'
-    Example: null
-    Examples: null
-    Name: policy-server.database.type
-  - Default: null
-    Description: Connection string to policy server database (for example, postgres://username:password@1.1.1.1:1234/db_name)
-    Example: null
-    Examples: null
-    Name: policy-server.database.connection_string
-  - Default: null
-    Description: Trusted CA certificate for clients
-    Example: null
-    Examples: null
-    Name: policy-server.ca_cert
-  - Default: network-policy-secret
-    Description: uaa client secret
-    Example: null
-    Examples: null
-    Name: policy-server.uaa_client_secret
-  - Default: false
-    Description: skip verifying ssl certs when speaking to uaa
-    Example: null
-    Examples: null
-    Name: policy-server.skip_ssl_validation
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: policy-server.metron_address
-  - Default: null
-    Description: Server certificate for TLS
-    Example: null
-    Examples: null
-    Name: policy-server.server_cert
-  - Default: 4002
-    Description: Port where the policy server will serve its external API
-    Example: null
-    Examples: null
-    Name: policy-server.listen_port
-  - Default: 4003
-    Description: Port where the policy server will serve its internal API
-    Example: null
-    Examples: null
-    Name: policy-server.internal_listen_port
-  - Default: 2
-    Description: Length in bytes of the packet tags to generate for policy sources
-      and destinations. Must be greater than 0 and less than 4.
-    Example: null
-    Examples: null
-    Name: policy-server.tag_length
-  - Default: 0.0.0.0
-    Description: Host where the policy server will serve its API
-    Example: null
-    Examples: null
-    Name: policy-server.listen_host
-  Templates:
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor279901001/templates/server.key.erb
-    SrcPathEnd: server.key.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor279901001/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/policy-server_ctl
-    Path: /mnt/tmp/tar-CmdExtractor279901001/templates/policy-server_ctl.erb
-    SrcPathEnd: policy-server_ctl.erb
-  - DstPathEnd: config/policy-server.json
-    Path: /mnt/tmp/tar-CmdExtractor279901001/templates/policy-server.json.erb
-    SrcPathEnd: policy-server.json.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor279901001/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor279901001/templates/server.crt.erb
-    SrcPathEnd: server.crt.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor555537507/monit
-    SrcPathEnd: monit
-  Name: vxlan-policy-agent
-  Packages:
-  - Name: vxlan-policy-agent
-  Properties:
-  - Default: null
-    Description: Client private key for TLS to access policy server
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.client_key
-  - Default: 1
-    Description: VXLAN VNI
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.vni
-  - Default: /var/vcap/data/container-metadata/store.json
-    Description: file where the cni wrapper plugin stores container info
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.cni_datastore_path
-  - Default: 5
-    Description: Query the policy server on this interval, in seconds
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.poll_interval
-  - Default: /var/vcap/jobs/vxlan-policy-agent/config/certs/ca.crt
-    Description: Trusted CA certificate for server
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.ca_cert_file
-  - Default: null
-    Description: Trusted CA certificate for server
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.ca_cert
-  - Default: /var/vcap/jobs/vxlan-policy-agent/config/certs/client.crt
-    Description: Client certificate file for TLS to access policy server
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.client_cert_file
-  - Default: null
-    Description: Client certificate for TLS to access policy server
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.client_cert
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.metron_address
-  - Default: null
-    Description: URL where the policy server can be reached
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.policy_server_url
-  - Default: /var/vcap/jobs/vxlan-policy-agent/config/certs/client.key
-    Description: Client private key file for TLS to access policy server
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.client_key_file
-  - Default: /var/vcap/data/flannel/subnet.env
-    Description: File path to look for flannel's subnet.env file
-    Example: null
-    Examples: null
-    Name: vxlan-policy-agent.flannel_subnet_file
-  - Default: false
-    Description: disable container to container networking
-    Example: null
-    Examples: null
-    Name: netman.disable
-  Templates:
-  - DstPathEnd: bin/vxlan-policy-agent_ctl
-    Path: /mnt/tmp/tar-CmdExtractor555537507/templates/vxlan-policy-agent_ctl.erb
-    SrcPathEnd: vxlan-policy-agent_ctl.erb
-  - DstPathEnd: config/vxlan-policy-agent.json
-    Path: /mnt/tmp/tar-CmdExtractor555537507/templates/vxlan-policy-agent.json.erb
-    SrcPathEnd: vxlan-policy-agent.json.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor555537507/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: config/certs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor555537507/templates/client.crt.erb
-    SrcPathEnd: client.crt.erb
-  - DstPathEnd: config/certs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor555537507/templates/client.key.erb
-    SrcPathEnd: client.key.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor555537507/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor709151067/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cni-flannel",
+    "Packages": [
+      {
+        "Name": "flannel"
+      },
+      {
+        "Name": "runc-cni"
+      },
+      {
+        "Name": "flannel-watchdog"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "PEM encoded client cert",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.etcd_client_cert"
+      },
+      {
+        "Default": true,
+        "Description": "Enable GBP on VXLAN devices",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.Backend.GBP"
+      },
+      {
+        "Default": "/var/vcap/data/flannel/subnet.env",
+        "Description": "file that flannel writes out the subnet environment",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.subnet_file"
+      },
+      {
+        "Default": "/var/vcap/data/container-metadata/store.json",
+        "Description": "file where the wrapper plugin will store container info",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.cni_datastore_path"
+      },
+      {
+        "Default": "",
+        "Description": "PEM encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.etcd_client_key"
+      },
+      {
+        "Default": "10.255.0.0/16",
+        "Description": "CIDR block for overlay network.  Should be /16",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.Network"
+      },
+      {
+        "Default": 1,
+        "Description": "VXLAN Virtual Network Identifier to use",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.Backend.VNI"
+      },
+      {
+        "Default": 8472,
+        "Description": "UDP port to use for VXLAN Tunnel Endpoints",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.Backend.Port"
+      },
+      {
+        "Default": false,
+        "Description": "disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "netman.disable"
+      },
+      {
+        "Default": [],
+        "Description": "a list of etcd endpoints",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.etcd_endpoints"
+      },
+      {
+        "Default": "",
+        "Description": "PEM encoded CA cert",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.etcd_ca_cert"
+      },
+      {
+        "Default": true,
+        "Description": "Enable ssl for communication between flannel and etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.etcd.require_ssl"
+      },
+      {
+        "Default": "vxlan",
+        "Description": "Flannel backend to use",
+        "Example": null,
+        "Examples": null,
+        "Name": "cni-flannel.flannel.Backend.Type"
+      },
+      {
+        "Default": "cni-flannel0",
+        "Description": "name of cni bridge on host",
+        "Example": null,
+        "Examples": null,
+        "Name": "flannel-watchdog.config.bridge_name"
+      },
+      {
+        "Default": "/var/vcap/data/flannel/subnet.env",
+        "Description": "file that flannel writes out the subnet environment",
+        "Example": null,
+        "Examples": null,
+        "Name": "flannel-watchdog.config.flannel_subnet_file"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/flannel-watchdog_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/flannel-watchdog_ctl.erb",
+        "SrcPathEnd": "flannel-watchdog_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/flannel-watchdog.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/flannel-watchdog.json.erb",
+        "SrcPathEnd": "flannel-watchdog.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/etcd_ca.crt.erb",
+        "SrcPathEnd": "etcd_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/etcd_client.crt.erb",
+        "SrcPathEnd": "etcd_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/etcd_client.key.erb",
+        "SrcPathEnd": "etcd_client.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/flanneld_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/flanneld_ctl.erb",
+        "SrcPathEnd": "flanneld_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/cni/30-cni-wrapper-plugin.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor709151067/templates/30-cni-wrapper-plugin.conf.erb",
+        "SrcPathEnd": "30-cni-wrapper-plugin.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor938587205/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "garden-cni",
+    "Packages": [
+      {
+        "Name": "runc-cni"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Directory containing CNI plugins.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.cni_plugin_dir"
+      },
+      {
+        "Default": null,
+        "Description": "Directory to store CNI config files.  Other jobs may write files into here.",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.cni_config_dir"
+      },
+      {
+        "Default": "/var/vcap/data/garden-cni/container-netns",
+        "Description": "The CNI adapter will bind-mount network namespaces in this directory",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.bind_mount_dir"
+      },
+      {
+        "Default": "10.255.0.0/16",
+        "Description": "IP range used by the container network",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.overlay_network"
+      },
+      {
+        "Default": "/var/vcap/data/garden-cni/external-networker-state.json",
+        "Description": "Path to file that will hold the state persisted by the external networker binary",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.state_file"
+      },
+      {
+        "Default": 60000,
+        "Description": "Starting value for allocating host ports to containers",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.start_port"
+      },
+      {
+        "Default": 5000,
+        "Description": "Total number of host ports that may be allocated to containers",
+        "Example": null,
+        "Examples": null,
+        "Name": "garden-cni.total_ports"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/adapter.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor938587205/templates/adapter.json.erb",
+        "SrcPathEnd": "adapter.json.erb"
+      },
+      {
+        "DstPathEnd": "config/cni/30-bridge.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor938587205/templates/30-bridge.conf.erb",
+        "SrcPathEnd": "30-bridge.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor733475519/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "netmon",
+    "Packages": [
+      {
+        "Name": "netmon"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "netmon.metron_address"
+      },
+      {
+        "Default": 30,
+        "Description": "Gather and report metrics at this interval, in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "netmon.poll_interval"
+      },
+      {
+        "Default": "flannel.1",
+        "Description": "Report tx/rx bytes on the interface with this name",
+        "Example": null,
+        "Examples": null,
+        "Name": "netmon.interface_name"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "netmon.log_level"
+      },
+      {
+        "Default": false,
+        "Description": "disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "netman.disable"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/netmon_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor733475519/templates/netmon_ctl.erb",
+        "SrcPathEnd": "netmon_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/netmon.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor733475519/templates/netmon.json.erb",
+        "SrcPathEnd": "netmon.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor279901001/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "policy-server",
+    "Packages": [
+      {
+        "Name": "policy-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "/var/vcap/jobs/policy-server/config/certs/server.crt",
+        "Description": "Server certificate  for TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.server_cert_file"
+      },
+      {
+        "Default": "https://uaa.bosh-lite.com",
+        "Description": "address of uaa server",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.uaa_url"
+      },
+      {
+        "Default": "/var/vcap/jobs/policy-server/config/certs/ca.crt",
+        "Description": "Trusted CA certificate file for clients",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.ca_cert_file"
+      },
+      {
+        "Default": "/var/vcap/jobs/policy-server/config/certs/server.key",
+        "Description": "Server key file for TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.server_key_file"
+      },
+      {
+        "Default": null,
+        "Description": "Server key for TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.server_key"
+      },
+      {
+        "Default": "network-policy",
+        "Description": "uaa client name",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.uaa_client"
+      },
+      {
+        "Default": "postgres",
+        "Description": "Type of database: postgres or mysql",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.database.type"
+      },
+      {
+        "Default": null,
+        "Description": "Connection string to policy server database (for example, postgres://username:password@1.1.1.1:1234/db_name)",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.database.connection_string"
+      },
+      {
+        "Default": null,
+        "Description": "Trusted CA certificate for clients",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.ca_cert"
+      },
+      {
+        "Default": "network-policy-secret",
+        "Description": "uaa client secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.uaa_client_secret"
+      },
+      {
+        "Default": false,
+        "Description": "skip verifying ssl certs when speaking to uaa",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.skip_ssl_validation"
+      },
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.metron_address"
+      },
+      {
+        "Default": null,
+        "Description": "Server certificate for TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.server_cert"
+      },
+      {
+        "Default": 4002,
+        "Description": "Port where the policy server will serve its external API",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.listen_port"
+      },
+      {
+        "Default": 4003,
+        "Description": "Port where the policy server will serve its internal API",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.internal_listen_port"
+      },
+      {
+        "Default": 2,
+        "Description": "Length in bytes of the packet tags to generate for policy sources and destinations. Must be greater than 0 and less than 4.",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.tag_length"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "Host where the policy server will serve its API",
+        "Example": null,
+        "Examples": null,
+        "Name": "policy-server.listen_host"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor279901001/templates/server.key.erb",
+        "SrcPathEnd": "server.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor279901001/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/policy-server_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor279901001/templates/policy-server_ctl.erb",
+        "SrcPathEnd": "policy-server_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/policy-server.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor279901001/templates/policy-server.json.erb",
+        "SrcPathEnd": "policy-server.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor279901001/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor279901001/templates/server.crt.erb",
+        "SrcPathEnd": "server.crt.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor555537507/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "vxlan-policy-agent",
+    "Packages": [
+      {
+        "Name": "vxlan-policy-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Client private key for TLS to access policy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.client_key"
+      },
+      {
+        "Default": 1,
+        "Description": "VXLAN VNI",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.vni"
+      },
+      {
+        "Default": "/var/vcap/data/container-metadata/store.json",
+        "Description": "file where the cni wrapper plugin stores container info",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.cni_datastore_path"
+      },
+      {
+        "Default": 5,
+        "Description": "Query the policy server on this interval, in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.poll_interval"
+      },
+      {
+        "Default": "/var/vcap/jobs/vxlan-policy-agent/config/certs/ca.crt",
+        "Description": "Trusted CA certificate for server",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.ca_cert_file"
+      },
+      {
+        "Default": null,
+        "Description": "Trusted CA certificate for server",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.ca_cert"
+      },
+      {
+        "Default": "/var/vcap/jobs/vxlan-policy-agent/config/certs/client.crt",
+        "Description": "Client certificate file for TLS to access policy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.client_cert_file"
+      },
+      {
+        "Default": null,
+        "Description": "Client certificate for TLS to access policy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.client_cert"
+      },
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.metron_address"
+      },
+      {
+        "Default": null,
+        "Description": "URL where the policy server can be reached",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.policy_server_url"
+      },
+      {
+        "Default": "/var/vcap/jobs/vxlan-policy-agent/config/certs/client.key",
+        "Description": "Client private key file for TLS to access policy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.client_key_file"
+      },
+      {
+        "Default": "/var/vcap/data/flannel/subnet.env",
+        "Description": "File path to look for flannel's subnet.env file",
+        "Example": null,
+        "Examples": null,
+        "Name": "vxlan-policy-agent.flannel_subnet_file"
+      },
+      {
+        "Default": false,
+        "Description": "disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "netman.disable"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/vxlan-policy-agent_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor555537507/templates/vxlan-policy-agent_ctl.erb",
+        "SrcPathEnd": "vxlan-policy-agent_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/vxlan-policy-agent.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor555537507/templates/vxlan-policy-agent.json.erb",
+        "SrcPathEnd": "vxlan-policy-agent.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor555537507/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor555537507/templates/client.crt.erb",
+        "SrcPathEnd": "client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor555537507/templates/client.key.erb",
+        "SrcPathEnd": "client.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor555537507/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      }
+    ]
+  }
+]

@@ -1,136 +1,213 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor000861572/monit
-    SrcPathEnd: monit
-  Name: etcd
-  Packages:
-  - Name: etcd-common
-  - Name: etcd
-  Properties:
-  - Default: 1000
-    Description: Time without recieving a heartbeat before peer should attempt to
-      become leader in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
-    Example: null
-    Name: etcd.election_timeout_in_milliseconds
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Name: etcd.ca_cert
-  - Default: 50
-    Description: Interval between heartbeats in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
-    Example: null
-    Name: etcd.heartbeat_interval_in_milliseconds
-  - Default: true
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Name: etcd.require_ssl
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Name: etcd.server_cert
-  - Default: false
-    Description: enable ssl between etcd peers
-    Example: null
-    Name: etcd.peer_require_ssl
-  - Default: null
-    Description: Information about etcd cluster
-    Example: null
-    Name: etcd.cluster
-  - Default: 30
-    Description: Time to wait for a joining node to finish syncing logs with the existing
-      cluster in seconds
-    Example: null
-    Name: etcd.log_sync_timeout_in_seconds
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Name: etcd.client_cert
-  - Default: null
-    Description: PEM-encoded peer certificate
-    Example: null
-    Name: etcd.peer_cert
-  - Default: null
-    Description: Addresses of etcd machines
-    Example: null
-    Name: etcd.machines
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Name: etcd.client_key
-  - Default: null
-    Description: PEM-encoded peer CA certificate
-    Example: null
-    Name: etcd.peer_ca_cert
-  - Default: null
-    Description: PEM-encoded peer key
-    Example: null
-    Name: etcd.peer_key
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Name: etcd.server_key
-  Templates:
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor000861572/templates/dns_health_check.erb
-    SrcPathEnd: dns_health_check.erb
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor000861572/templates/drain
-    SrcPathEnd: drain
-  - DstPathEnd: bin/etcd_bosh_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor000861572/templates/etcd_bosh_utils.sh.erb
-    SrcPathEnd: etcd_bosh_utils.sh.erb
-  - DstPathEnd: bin/etcd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor000861572/templates/etcd_ctl.erb
-    SrcPathEnd: etcd_ctl.erb
-- Description: The ETCD Metrics Server is meant to be collocated with the ETCD server
-    to collect and expose runtime statistics for the Collector.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor843925334/monit
-    SrcPathEnd: monit
-  Name: etcd_metrics_server
-  Packages:
-  - Name: etcd-common
-  - Name: etcd_metrics_server
-  Properties:
-  - Default: null
-    Description: array of NATS addresses
-    Example: null
-    Name: etcd_metrics_server.nats.machines
-  - Default: 4222
-    Description: NATS server port
-    Example: null
-    Name: etcd_metrics_server.nats.port
-  - Default: ""
-    Description: basic auth password for metrics server (leave empty for generated)
-    Example: null
-    Name: etcd_metrics_server.status.password
-  - Default: ""
-    Description: basic auth username for metrics server (leave empty for generated)
-    Example: null
-    Name: etcd_metrics_server.status.username
-  - Default: 127.0.0.1
-    Description: address of ETCD server to instrument
-    Example: null
-    Name: etcd_metrics_server.etcd.machine
-  - Default: 4001
-    Description: port of ETCD server to instrument
-    Example: null
-    Name: etcd_metrics_server.etcd.port
-  - Default: null
-    Description: NATS server username
-    Example: null
-    Name: etcd_metrics_server.nats.username
-  - Default: null
-    Description: NATS server password
-    Example: null
-    Name: etcd_metrics_server.nats.password
-  - Default: 5678
-    Description: listening port for metrics server
-    Example: null
-    Name: etcd_metrics_server.status.port
-  Templates:
-  - DstPathEnd: bin/etcd_metrics_server_ctl
-    Path: /mnt/tmp/tar-CmdExtractor843925334/templates/etcd_metrics_server_ctl.erb
-    SrcPathEnd: etcd_metrics_server_ctl.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor000861572/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "etcd",
+    "Packages": [
+      {
+        "Name": "etcd-common"
+      },
+      {
+        "Name": "etcd"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 1000,
+        "Description": "Time without recieving a heartbeat before peer should attempt to become leader in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning",
+        "Example": null,
+        "Name": "etcd.election_timeout_in_milliseconds"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Name": "etcd.ca_cert"
+      },
+      {
+        "Default": 50,
+        "Description": "Interval between heartbeats in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning",
+        "Example": null,
+        "Name": "etcd.heartbeat_interval_in_milliseconds"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Name": "etcd.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Name": "etcd.server_cert"
+      },
+      {
+        "Default": false,
+        "Description": "enable ssl between etcd peers",
+        "Example": null,
+        "Name": "etcd.peer_require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Information about etcd cluster",
+        "Example": null,
+        "Name": "etcd.cluster"
+      },
+      {
+        "Default": 30,
+        "Description": "Time to wait for a joining node to finish syncing logs with the existing cluster in seconds",
+        "Example": null,
+        "Name": "etcd.log_sync_timeout_in_seconds"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Name": "etcd.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded peer certificate",
+        "Example": null,
+        "Name": "etcd.peer_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Addresses of etcd machines",
+        "Example": null,
+        "Name": "etcd.machines"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Name": "etcd.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded peer CA certificate",
+        "Example": null,
+        "Name": "etcd.peer_ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded peer key",
+        "Example": null,
+        "Name": "etcd.peer_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Name": "etcd.server_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor000861572/templates/dns_health_check.erb",
+        "SrcPathEnd": "dns_health_check.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor000861572/templates/drain",
+        "SrcPathEnd": "drain"
+      },
+      {
+        "DstPathEnd": "bin/etcd_bosh_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor000861572/templates/etcd_bosh_utils.sh.erb",
+        "SrcPathEnd": "etcd_bosh_utils.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/etcd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor000861572/templates/etcd_ctl.erb",
+        "SrcPathEnd": "etcd_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The ETCD Metrics Server is meant to be collocated with the ETCD server to collect and expose runtime statistics for the Collector.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor843925334/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "etcd_metrics_server",
+    "Packages": [
+      {
+        "Name": "etcd-common"
+      },
+      {
+        "Name": "etcd_metrics_server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "array of NATS addresses",
+        "Example": null,
+        "Name": "etcd_metrics_server.nats.machines"
+      },
+      {
+        "Default": 4222,
+        "Description": "NATS server port",
+        "Example": null,
+        "Name": "etcd_metrics_server.nats.port"
+      },
+      {
+        "Default": "",
+        "Description": "basic auth password for metrics server (leave empty for generated)",
+        "Example": null,
+        "Name": "etcd_metrics_server.status.password"
+      },
+      {
+        "Default": "",
+        "Description": "basic auth username for metrics server (leave empty for generated)",
+        "Example": null,
+        "Name": "etcd_metrics_server.status.username"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "address of ETCD server to instrument",
+        "Example": null,
+        "Name": "etcd_metrics_server.etcd.machine"
+      },
+      {
+        "Default": 4001,
+        "Description": "port of ETCD server to instrument",
+        "Example": null,
+        "Name": "etcd_metrics_server.etcd.port"
+      },
+      {
+        "Default": null,
+        "Description": "NATS server username",
+        "Example": null,
+        "Name": "etcd_metrics_server.nats.username"
+      },
+      {
+        "Default": null,
+        "Description": "NATS server password",
+        "Example": null,
+        "Name": "etcd_metrics_server.nats.password"
+      },
+      {
+        "Default": 5678,
+        "Description": "listening port for metrics server",
+        "Example": null,
+        "Name": "etcd_metrics_server.status.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/etcd_metrics_server_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor843925334/templates/etcd_metrics_server_ctl.erb",
+        "SrcPathEnd": "etcd_metrics_server_ctl.erb"
+      }
+    ]
+  }
+]

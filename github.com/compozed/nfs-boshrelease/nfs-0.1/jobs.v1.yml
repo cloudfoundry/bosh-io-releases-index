@@ -1,91 +1,141 @@
-- Description: The NFS Mounter sets up an NFS mount at a specific location. It can
-    be used with the Cloud Controller to save assets to the NFS Server.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor297054093/monit
-    SrcPathEnd: monit
-  Name: nfs_mounter
-  Packages:
-  - Name: common
-  Properties:
-  - Default: null
-    Description: Path to share from the remote NFS server (not used in an AWS deploy,
-      use s3 instead)
-    Example: null
-    Name: nfs_server.share
-  - Default: null
-    Description: bool to use NFS4 (not used in an AWS deploy, use s3 instead)
-    Example: null
-    Name: nfs_server.nfsv4
-  - Default: localdomain
-    Description: Domain name for NFS idmapd
-    Example: null
-    Name: nfs_server.idmapd_domain
-  - Default: /var/lib/nfs/rpc_pipefs
-    Description: Pipefs directory for NFS idmapd
-    Example: null
-    Name: nfs_server.pipefs_directory
-  - Default: /var/vcap/nfs
-    Description: Location to mount the nfs share
-    Example: null
-    Name: nfs_server.share_path
-  - Default: null
-    Description: NFS server for droplets and apps (not used in an AWS deploy, use
-      s3 instead)
-    Example: null
-    Name: nfs_server.address
-  Templates:
-  - DstPathEnd: bin/handle_nfs_blobstore.sh
-    Path: /mnt/tmp/tar-CmdExtractor297054093/templates/handle_nfs_blobstore.sh.erb
-    SrcPathEnd: handle_nfs_blobstore.sh.erb
-  - DstPathEnd: config/idmapd.conf
-    Path: /mnt/tmp/tar-CmdExtractor297054093/templates/idmapd.conf.erb
-    SrcPathEnd: idmapd.conf.erb
-  - DstPathEnd: config/nfs-common
-    Path: /mnt/tmp/tar-CmdExtractor297054093/templates/nfs-common
-    SrcPathEnd: nfs-common
-  - DstPathEnd: bin/nfs_mounter_ctl
-    Path: /mnt/tmp/tar-CmdExtractor297054093/templates/nfs_mounter_ctl.erb
-    SrcPathEnd: nfs_mounter_ctl.erb
-- Description: The NFS Server provides a storage server that can be used with the
-    Cloud Controllers to store uploaded application source code and compiled application
-    assets.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor276472647/monit
-    SrcPathEnd: monit
-  Name: debian_nfs_server
-  Packages:
-  - Name: common
-  - Name: debian_nfs_server
-  Properties:
-  - Default: /var/lib/nfs/rpc_pipef
-    Description: Pipefs directory for NFS idmapd
-    Example: null
-    Name: nfs_server.pipefs_directory
-  - Default: false
-    Description: Exports /var/vcap/store with no_root_squash when set to true
-    Example: null
-    Name: nfs_server.no_root_squash
-  - Default: null
-    Description: An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or
-      IPs from which /var/vcap/store is accessible
-    Example: null
-    Name: nfs_server.allow_from_entries
-  - Default: localdomain
-    Description: Domain name for NFS idmapd
-    Example: null
-    Name: nfs_server.idmapd_domain
-  Templates:
-  - DstPathEnd: config/exports
-    Path: /mnt/tmp/tar-CmdExtractor276472647/templates/exports.erb
-    SrcPathEnd: exports.erb
-  - DstPathEnd: config/idmapd.conf
-    Path: /mnt/tmp/tar-CmdExtractor276472647/templates/idmapd.conf.erb
-    SrcPathEnd: idmapd.conf.erb
-  - DstPathEnd: bin/rpc_nfsd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor276472647/templates/rpc_nfsd_ctl
-    SrcPathEnd: rpc_nfsd_ctl
-  - DstPathEnd: bin/rpc_mountd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor276472647/templates/rpc_mountd_ctl
-    SrcPathEnd: rpc_mountd_ctl
+[
+  {
+    "Description": "The NFS Mounter sets up an NFS mount at a specific location. It can be used with the Cloud Controller to save assets to the NFS Server.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor297054093/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "nfs_mounter",
+    "Packages": [
+      {
+        "Name": "common"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Path to share from the remote NFS server (not used in an AWS deploy, use s3 instead)",
+        "Example": null,
+        "Name": "nfs_server.share"
+      },
+      {
+        "Default": null,
+        "Description": "bool to use NFS4 (not used in an AWS deploy, use s3 instead)",
+        "Example": null,
+        "Name": "nfs_server.nfsv4"
+      },
+      {
+        "Default": "localdomain",
+        "Description": "Domain name for NFS idmapd",
+        "Example": null,
+        "Name": "nfs_server.idmapd_domain"
+      },
+      {
+        "Default": "/var/lib/nfs/rpc_pipefs",
+        "Description": "Pipefs directory for NFS idmapd",
+        "Example": null,
+        "Name": "nfs_server.pipefs_directory"
+      },
+      {
+        "Default": "/var/vcap/nfs",
+        "Description": "Location to mount the nfs share",
+        "Example": null,
+        "Name": "nfs_server.share_path"
+      },
+      {
+        "Default": null,
+        "Description": "NFS server for droplets and apps (not used in an AWS deploy, use s3 instead)",
+        "Example": null,
+        "Name": "nfs_server.address"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/handle_nfs_blobstore.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor297054093/templates/handle_nfs_blobstore.sh.erb",
+        "SrcPathEnd": "handle_nfs_blobstore.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/idmapd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor297054093/templates/idmapd.conf.erb",
+        "SrcPathEnd": "idmapd.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/nfs-common",
+        "Path": "/mnt/tmp/tar-CmdExtractor297054093/templates/nfs-common",
+        "SrcPathEnd": "nfs-common"
+      },
+      {
+        "DstPathEnd": "bin/nfs_mounter_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor297054093/templates/nfs_mounter_ctl.erb",
+        "SrcPathEnd": "nfs_mounter_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The NFS Server provides a storage server that can be used with the Cloud Controllers to store uploaded application source code and compiled application assets.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor276472647/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "debian_nfs_server",
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "debian_nfs_server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "/var/lib/nfs/rpc_pipef",
+        "Description": "Pipefs directory for NFS idmapd",
+        "Example": null,
+        "Name": "nfs_server.pipefs_directory"
+      },
+      {
+        "Default": false,
+        "Description": "Exports /var/vcap/store with no_root_squash when set to true",
+        "Example": null,
+        "Name": "nfs_server.no_root_squash"
+      },
+      {
+        "Default": null,
+        "Description": "An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or IPs from which /var/vcap/store is accessible",
+        "Example": null,
+        "Name": "nfs_server.allow_from_entries"
+      },
+      {
+        "Default": "localdomain",
+        "Description": "Domain name for NFS idmapd",
+        "Example": null,
+        "Name": "nfs_server.idmapd_domain"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/exports",
+        "Path": "/mnt/tmp/tar-CmdExtractor276472647/templates/exports.erb",
+        "SrcPathEnd": "exports.erb"
+      },
+      {
+        "DstPathEnd": "config/idmapd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor276472647/templates/idmapd.conf.erb",
+        "SrcPathEnd": "idmapd.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/rpc_nfsd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor276472647/templates/rpc_nfsd_ctl",
+        "SrcPathEnd": "rpc_nfsd_ctl"
+      },
+      {
+        "DstPathEnd": "bin/rpc_mountd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor276472647/templates/rpc_mountd_ctl",
+        "SrcPathEnd": "rpc_mountd_ctl"
+      }
+    ]
+  }
+]

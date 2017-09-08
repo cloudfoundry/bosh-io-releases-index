@@ -1,1308 +1,1453 @@
-- Description: The UAA is the identity management service for Cloud Foundry. It's
-    primary role is as an OAuth2 provider, issuing tokens for client applications
-    to use when they act on behalf of Cloud Foundry users. It can also authenticate
-    users with their Cloud Foundry credentials, and can act as an SSO service using
-    those credentials (or others). It has endpoints for managing user accounts and
-    for registering OAuth2 clients, as well as various other management functions.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor701396505/monit
-    SrcPathEnd: monit
-  Name: uaa
-  Packages:
-  - Name: uaa_utils
-  - Name: uaa
-  Properties:
-  - Default: 255
-    Description: Maximum number of characters required for password to be considered
-      valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.maxLength
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.profile_type - login.ldap prefix is used
-      for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.profile_type
-  - Default: 1
-    Description: Deprecated. Use login.saml.providers list objects
-    Example: null
-    Examples: null
-    Name: login.saml.assertionConsumerIndex
-  - Default: null
-    Description: |
-      To enable newrelic monitoring, the sub element of this property will be placed in
-      a configuration file called newrelic.yml in the jobs config directory.
-      The syntax that must adhere to documentation in https://docs.newrelic.com/docs/agents/java-agent/configuration/java-agent-configuration-config-file
-      The JVM option -javaagent:/path/to/newrelic.jar will be added to Apache Tomcat's startup script
-      The enablement of the NewRelic agent in the UAA is triggered by the property uaa.newrelic.common.license_key
-      The property uaa.newrelic.common.license_key must be set!
-    Example: null
-    Examples: null
-    Name: uaa.newrelic
-  - Default: null
-    Description: List of OAuth2 clients that the UAA will be bootstrapped with
-    Example:
-      login:
-        app-icon: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAD1BMVEWZttQvMDEoKisqKywAAAApvvoVAAAAGElEQVQYlWNgYUQBLAxMDCiAeXgLoHsfAD03AHOyfqy1AAAAAElFTkSuQmCC
-        app-launch-url: http://myloginpage.com
-        authorities: test_resource.test_action
-        authorized-grant-types: authorization_code,client_credentials,refresh_token
-        id: login
-        override: true
-        redirect-uri: http://login.example.com
-        scope: test_resource.test_action
-        secret: some-secret
-        show-on-homepage: true
-    Examples: null
-    Name: uaa.clients
-  - Default: 0
-    Description: Minimum number of uppercase characters required for password to be
-      considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.requireUpperCaseCharacter
-  - Default: 43200
-    Description: The access token validity for the default zone if nothing is configured
-      on the client. Will override global validity policies for the default zone only.
-    Example: null
-    Examples: null
-    Name: uaa.jwt.policy.accessTokenValiditySeconds
-  - Default: 0
-    Description: Minimum number of digits required for password to be considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.requireDigit
-  - Default: search-and-bind
-    Description: 'The file to be used for configuring the LDAP authentication. Options
-      are: ''simple-bind'', ''search-and-bind'', ''search-and-compare'''
-    Example: null
-    Examples: null
-    Name: uaa.ldap.profile_type
-  - Default: member={0}
-    Description: Search query filter to find the groups a user belongs to, or for
-      a nested search, groups that a group belongs to
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.groupSearchFilter
-  - Default: "1"
-    Description: Set to number of levels a nested group search should go. Set to 1
-      to disable nested groups (default)
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.maxSearchDepth
-  - Default: null
-    Description: Deprecated. Use uaa.url for setting the location of UAA.
-    Example: null
-    Examples: null
-    Name: login.uaa_base
-  - Default: null
-    Description: Deprecated. Use login.saml.entityid
-    Example: null
-    Examples: null
-    Name: login.entity_id
-  - Default: null
-    Description: Whitelist of external groups from LDAP that get added as roles in
-      the ID Token
-    Example:
-    - admin
-    - user
-    Examples: null
-    Name: uaa.ldap.externalGroupsWhitelist
-  - Default: Email
-    Description: The text used to prompt for a username during login
-    Example: null
-    Examples: null
-    Name: login.prompt.username.text
-  - Default: null
-    Description: Secret of the admin client - a client named admin with uaa.admin
-      as an authority
-    Example: null
-    Examples: null
-    Name: uaa.admin.client_secret
-  - Default: ""
-    Description: Defines an email pattern containing a {0} to generate an email address
-      for an LDAP user during authentication
-    Example: null
-    Examples: null
-    Name: uaa.ldap.mailSubstitute
-  - Default: https
-    Description: Scheme to use for HTTP communication (http/https)
-    Example: null
-    Examples: null
-    Name: login.protocol
-  - Default: Password
-    Description: The text used to prompt for a password during login
-    Example: null
-    Examples: null
-    Name: login.prompt.password.text
-  - Default: null
-    Description: SMTP server configuration, for password reset emails etc.
-    Example: null
-    Examples: null
-    Name: login.smtp
-  - Default: 2525
-    Description: SMTP server port
-    Example: null
-    Examples: null
-    Name: login.smtp.port
-  - Default: 0
-    Description: Number of months after which current password expires
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.expirePasswordInMonths
-  - Default: null
-    Description: Database scheme for UAA DB
-    Example: null
-    Examples: null
-    Name: uaadb.db_scheme
-  - Default: "true"
-    Description: Set to true when profile_type=groups_as_scopes to auto create scopes
-      for a user. Ignored for other profiles.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.autoAdd
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.sslCertificateAlias - login.ldap prefix
-      is used for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.sslCertificateAlias
-  - Default: 10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|169\.254\.\d{1,3}\.\d{1,3}|127\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.1[6-9]{1}\.\d{1,3}\.\d{1,3}|172\.2[0-9]{1}\.\d{1,3}\.\d{1,3}|172\.3[0-1]{1}\.\d{1,3}\.\d{1,3}
-    Description: |
-      A pipe delimited set of regular expressions of IP addresses that are considered reverse proxies.
-      When a request from these IP addresses come in, the x-forwarded-for and x-forwarded-proto headers will be respected.
-      If the uaa.restricted_ips_regex is set, it will be appended to this list for backwards compatibility purposes
-      If spiff has been used and includes templates/cf-jobs.yml to generate the manifest. This list will automatically
-      contain the Router IP addresses
-    Example: null
-    Examples: null
-    Name: uaa.proxy_ips_regex
-  - Default: localhost
-    Description: SMTP server host address
-    Example: null
-    Examples: null
-    Name: login.smtp.host
-  - Default: 0
-    Description: Minimum number of digits required for password to be considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.requireDigit
-  - Default: null
-    Description: The ID of the JWT signing key to be used when signing tokens.
-    Example: key-1
-    Examples: null
-    Name: uaa.jwt.policy.active_key_id
-  - Default: 100
-    Description: The max number of open connections to the DB from a running UAA instance
-    Example: null
-    Examples: null
-    Name: uaa.database.max_connections
-  - Default: mail
-    Description: The name of the LDAP attribute that contains the users email address
-    Example: null
-    Examples: null
-    Name: uaa.ldap.mailAttributeName
-  - Default: no-groups
-    Description: 'What type of group integration should be used. Values are: ''no-groups'',
-      ''groups-as-scopes'', ''groups-map-to-scopes'''
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.profile_type
-  - Default: null
-    Description: Deprecated. Use login.saml.providers list objects
-    Example: null
-    Examples: null
-    Name: login.saml.idpMetadataURL
-  - Default: null
-    Description: The url for the notifications service (configure to use Notifications
-      Service instead of SMTP server)
-    Example: null
-    Examples: null
-    Name: login.notifications.url
-  - Default:
-    - openid
-    - scim.me
-    - cloud_controller.read
-    - cloud_controller.write
-    - cloud_controller_service_permissions.read
-    - password.write
-    - uaa.user
-    - approvals.me
-    - oauth.approvals
-    - notification_preferences.read
-    - notification_preferences.write
-    - profile
-    - roles
-    - user_attributes
-    Description: Contains a list of the default authorities/scopes assigned to a user
-    Example: null
-    Examples: null
-    Name: uaa.user.authorities
-  - Default: 5
-    Description: Number of allowed failures before account is locked
-    Example: null
-    Examples: null
-    Name: uaa.authentication.policy.global.lockoutAfterFailures
-  - Default: null
-    Description: The UAA database Port
-    Example: null
-    Examples: null
-    Name: uaadb.port
-  - Default: null
-    Description: Used with groups-as-scopes, defines the attribute that holds the
-      scope name(s).
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.groupRoleAttribute
-  - Default: null
-    Description: Private key for the service provider certificate.
-    Example: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIICXgIBAAKBgQDfTLadf6QgJeS2XXImEHMsa+1O7MmIt44xaL77N2K+J/JGpfV3
-      AnkyB06wFZ02sBLB7hko42LIsVEOyTuUBird/3vlyHFKytG7UEt60Fl88SbAEfsU
-      JN1i1aSUlunPS/NCz+BKwwKFP9Ss3rNImE9Uc2LMvGy153LHFVW2zrjhTwIDAQAB
-      AoGBAJDh21LRcJITRBQ3CUs9PR1DYZPl+tUkE7RnPBMPWpf6ny3LnDp9dllJeHqz
-      a3ACSgleDSEEeCGzOt6XHnrqjYCKa42Z+Opnjx/OOpjyX1NAaswRtnb039jwv4gb
-      RlwT49Y17UAQpISOo7JFadCBoMG0ix8xr4ScY+zCSoG5v0BhAkEA8llNsiWBJF5r
-      LWQ6uimfdU2y1IPlkcGAvjekYDkdkHiRie725Dn4qRiXyABeaqNm2bpnD620Okwr
-      sf7LY+BMdwJBAOvgt/ZGwJrMOe/cHhbujtjBK/1CumJ4n2r5V1zPBFfLNXiKnpJ6
-      J/sRwmjgg4u3Anu1ENF3YsxYabflBnvOP+kCQCQ8VBCp6OhOMcpErT8+j/gTGQUL
-      f5zOiPhoC2zTvWbnkCNGlqXDQTnPUop1+6gILI2rgFNozoTU9MeVaEXTuLsCQQDC
-      AGuNpReYucwVGYet+LuITyjs/krp3qfPhhByhtndk4cBA5H0i4ACodKyC6Zl7Tmf
-      oYaZoYWi6DzbQQUaIsKxAkEA2rXQjQFsfnSm+w/9067ChWg46p4lq5Na2NpcpFgH
-      waZKhM1W0oB8MX78M+0fG3xGUtywTx0D4N7pr1Tk2GTgNw==
-      -----END RSA PRIVATE KEY-----
-    Examples: null
-    Name: login.saml.serviceProviderKey
-  - Default: null
-    Description: Google analytics domain. If Google Analytics is desired set both
-      login.analytics.code and login.analytics.domain
-    Example: null
-    Examples: null
-    Name: login.analytics.domain
-  - Default: null
-    Description: SMTP server password
-    Example: null
-    Examples: null
-    Name: login.smtp.password
-  - Default: 0
-    Description: Minimum number of uppercase characters required for password to be
-      considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.requireUpperCaseCharacter
-  - Default: ;
-    Description: The delimiter character in between user DN patterns for simple-bind
-      authentication
-    Example: null
-    Examples: null
-    Name: uaa.ldap.userDNPatternDelimiter
-  - Default: userPassword
-    Description: Deprecated. Use uaa.ldap.passwordAttributeName - login.ldap prefix
-      is used for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.passwordAttributeName
-  - Default: true
-    Description: Deprecated. Use login.self_service_links_enabled. Instructs UAA to
-      use 'enable account creation flow'. Enabled by default.
-    Example: null
-    Examples: null
-    Name: login.signups_enabled
-  - Default: null
-    Description: Enable self-service account creation and password resets links.
-    Example: null
-    Examples: null
-    Name: login.self_service_links_enabled
-  - Default: null
-    Description: A list of URLs. When this list is non null, including empty, and
-      disable=false, logout redirects are allowed, but limited to the whitelist URLs.
-      If a redirect parameter value is not white listed, redirect will be to the default
-      URL.
-    Example: null
-    Examples: null
-    Name: login.logout.redirect.parameter.whitelist
-  - Default: 10
-    Description: The max number of open idle connections to the DB from a running
-      UAA instance
-    Example: null
-    Examples: null
-    Name: uaa.database.max_idle_connections
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.userPassword - login.ldap prefix is used
-      for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.userPassword
-  - Default: 10000
-    Description: Timeout in milliseconds for connection pooling for SAML metadata
-      HTTP requests
-    Example: null
-    Examples: null
-    Name: login.saml.socket.connectionManagerTimeout
-  - Default: 8080
-    Description: Port that uaa will accept connections on
-    Example: null
-    Examples: null
-    Name: uaa.port
-  - Default: 300
-    Description: Timeout in seconds for the longest running queries. Take into DB
-      migrations for this timeout as they may run during a long period of time.
-    Example: null
-    Examples: null
-    Name: uaa.database.abandoned_timeout
-  - Default: false
-    Description: Set to true to enable LDAP
-    Example: null
-    Examples: null
-    Name: uaa.ldap.enabled
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.sslCertificate - login.ldap prefix is used
-      for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.sslCertificate
-  - Default: true
-    Description: Global property to sign Local/SP requests
-    Example: null
-    Examples: null
-    Name: login.saml.signRequest
-  - Default: null
-    Description: The server's ssl private key. Only passphrase-less keys are supported
-    Example: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIICXwIBAAKBgQD1TiBrxvDBW5KovsrXQR1WxBnXuI2gqYZrxpvPf+CrNK/tONVb
-      EueVzWJx7MV05YdRYgdinG6w2996YL7gCGKXADtiNIKhnkaEtoTbMc3BXZIEmZ9b
-      pgwHqBOGwgE66rjfdyjHMP3KGOY2nFH2/T9gkM7ZEntqPkFrSGlmALyN2wIDAQAB
-      AoGBAPBvfz+kYt5iz0EuoMqTPBqLY3kZn1fWUbbZmGatxJyKq9UsW5NE2FDwWomn
-      tXJ6d0PBfdOd2LDpEgZ1RSF5lobXn2m2+YeEso7A7yMiBRW8CIrkUn8wVA0s42t+
-      osElfvj73G2ZjCqQm6BLCjtFYnalmZIzfOCB26xRWaf0MJ7hAkEA/XaqnosJfmRp
-      kmvto81LEvjVVlSvpo+6rt66ykywEv9daHWZZBrrwVz3Iu4oXlwPuF8bcO8JMLRf
-      OH98T1+1PQJBAPfCj0r3fRhmBZMWqf2/tbeQPvIQzqSXfYroFgnKIKxVCV8Bkm3q
-      1rP4c0XDHEWYIwvMWBTOmVSZqfSxtwIicPcCQQDCcRqK7damo5lpvmpb0s3ZDBN9
-      WxI1EOYB6NQbBaG9sTGTRUQbS5u4hv0ASvulB7L3md6PUJEYUAcMbKCMs7txAkEA
-      7C8pwHJba0XebJB/bqkxxpKYntPM2fScNi32zFBGg2HxNANgnq3vDNN8t/U+X02f
-      oyCimvs0CgUOknhTmJJSkwJBAPaI298JxTnWncC3Zu7d5QYCJXjU403Aj4LdcVeI
-      6A15MzQdj5Hm82vlmpC4LzXofLjiN4E5ZLluzEw+1TjRE7c=
-      -----END RSA PRIVATE KEY-----
-    Examples: null
-    Name: uaa.sslPrivateKey
-  - Default: true
-    Description: When set to false, this allows an operator to leverage an open redirect
-      on the UAA (/logout.do?redirect=google.com). No open redirect enabled
-    Example: null
-    Examples: null
-    Name: login.logout.redirect.parameter.disable
-  - Default: 300
-    Description: Number of seconds to lock out an account when lockoutAfterFailures
-      failures is exceeded
-    Example: null
-    Examples: null
-    Name: uaa.authentication.policy.lockoutPeriodSeconds
-  - Default: 0
-    Description: Minimum number of characters required for password to be considered
-      valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.minLength
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.userDNPattern - login.ldap prefix is used
-      for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.userDNPattern
-  - Default: null
-    Description: These links appear on the footer of all UAA pages. You may choose
-      to add multiple urls for things like Support, Terms of Service etc.
-    Example:
-      linkDisplayName: linkDisplayUrl
-    Examples: null
-    Name: login.branding.footer_links
-  - Default: null
-    Description: Used with simple-bind only. A semi-colon separated lists of DN patterns
-      to construct a DN direct from the user ID without performing a search.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.userDNPattern
-  - Default: null
-    Description: |
-      The URL for which SAML identity providers will post assertions to.
-      If set it overrides the default.
-      This URL should NOT have the schema (http:// or https:// prefix in it) instead just the hostname.
-      The schema is derived by #{login.protocol} property.
-      The default value is #{uaa.url}.replaceFirst('uaa','login'), typically login.example.com
-      The UAA will display this link in the cf --sso call if there is a SAML provider enabled.
-    Example: null
-    Examples: null
-    Name: login.saml.entity_base_url
-  - Default: null
-    Description: Password to protect the service provider private key.
-    Example: ""
-    Examples: null
-    Name: login.saml.serviceProviderKeyPassword
-  - Default: null
-    Description: SMTP server username
-    Example: null
-    Examples: null
-    Name: login.smtp.user
-  - Default: null
-    Description: The server's ssl certificate. The default is a self-signed certificate
-      and should always be replaced for production deployments
-    Example: |
-      -----BEGIN CERTIFICATE-----
-      MIIDAjCCAmugAwIBAgIJAJtrcBsKNfWDMA0GCSqGSIb3DQEBCwUAMIGZMQswCQYD
-      VQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5j
-      aXNjbzEQMA4GA1UECgwHUGl2b3RhbDERMA8GA1UECwwISWRlbnRpdHkxFjAUBgNV
-      BAMMDU1hcmlzc2EgS29hbGExIDAeBgkqhkiG9w0BCQEWEW1rb2FsYUBwaXZvdGFs
-      LmlvMB4XDTE1MDczMDE5Mzk0NVoXDTI1MDcyOTE5Mzk0NVowgZkxCzAJBgNVBAYT
-      AlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2Nv
-      MRAwDgYDVQQKDAdQaXZvdGFsMREwDwYDVQQLDAhJZGVudGl0eTEWMBQGA1UEAwwN
-      TWFyaXNzYSBLb2FsYTEgMB4GCSqGSIb3DQEJARYRbWtvYWxhQHBpdm90YWwuaW8w
-      gZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAPVOIGvG8MFbkqi+ytdBHVbEGde4
-      jaCphmvGm89/4Ks0r+041VsS55XNYnHsxXTlh1FiB2KcbrDb33pgvuAIYpcAO2I0
-      gqGeRoS2hNsxzcFdkgSZn1umDAeoE4bCATrquN93KMcw/coY5jacUfb9P2CQztkS
-      e2o+QWtIaWYAvI3bAgMBAAGjUDBOMB0GA1UdDgQWBBTkEjA4CEjevAGfnPBciyXC
-      3v4zMzAfBgNVHSMEGDAWgBTkEjA4CEjevAGfnPBciyXC3v4zMzAMBgNVHRMEBTAD
-      AQH/MA0GCSqGSIb3DQEBCwUAA4GBAIEd8U32tkcvwG9qCOfe5raBENHM4ltTuhju
-      zZWIM5Ik1bFf6+rA71HVDD1Z5fRozidhMOl6mrrGShfu6VUjtqzctJeSjaOPIJL+
-      wvrXXcAkCYZ9QKf0sqlUWcIRy90nqrD5sL/rHAjNjxQ3lqIOj7yWOgty4LUzFQNr
-      FHiyd3T6
-      -----END CERTIFICATE-----
-    Examples: null
-    Name: uaa.sslCertificate
-  - Default: null
-    Description: |
-      A nested or flat hash of messages that the login server uses to display UI message
-      This will be flattened into a java.util.Properties file. The example below will lead
-      to four properties, where the key is the concatenated value delimited by dot, for example scope.tokens.read=message
-    Example:
-      messages:
-        scope:
-          tokens:
-            read: View details of your approvals you have granted to this and other
-              applications
-            write: Cancel the approvals like this one that you have granted to this
-              and other applications
-      scope.tokens.read: View details of your approvals you have granted to this and
-        other applications
-      scope.tokens.write: Cancel the approvals like this one that you have granted
-        to this and other applications
-    Examples: null
-    Name: login.messages
-  - Default: 3600
-    Description: Number of seconds in which lockoutAfterFailures failures must occur
-      in order for account to be locked
-    Example: null
-    Examples: null
-    Name: uaa.authentication.policy.countFailuresWithinSeconds
-  - Default: "true"
-    Description: Used with search-and-compare only. Set to true if passwords are retrieved
-      by the search, and should be compared in the login server.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.localPasswordCompare
-  - Default: null
-    Description: Contains a hash of OpenID Connect/Oauth Identity Providers, the key
-      will be used as the origin key for that provider, followed by key/value pairs.
-      Presence of the userInfoUrl will mark it as an OpenID provider instead of OAuth.
-    Example:
-      my-oauth-provider:
-        addShadowUserOnLogin: true
-        attributeMappings:
-          external_groups:
-          - <attribute holding roles or group memberships in the OIDC id_token>
-          - <other attribute holding roles or group memberships in the OIDC id_token>
-          family_name: <Attribute holding family name in the OIDC ID Token>
-          given_name: <Attribute holding given name in the OIDC ID Token>
-          user:
-            attribute:
-              name-of-attribute-in-uaa-id-token: name-of-attribute-in-provider-token
-              name-of-other-attribute-in-uaa-id-token: name-of-other-attribute-in-provider-token
-          user_name: <Attribute holding username in the OIDC ID Token>
-        authUrl: <URL to the authorize endpoint of the provider>
-        linkText: My Oauth Provider
-        relyingPartyId: <OIDC Client ID>
-        relyingPartySecret: <OIDC Client secret>
-        scopes:
-        - openid
-        - <other scope>
-        showLinkText: true
-        skipSslValidation: false
-        tokenKey: <Token verification key>
-        tokenKeyUrl: <URL for token verification. Will be used if tokenKey is not
-          specified.>
-        tokenUrl: <URL to the token endpoint of the provider>
-        type: oidc1.0
-    Examples: null
-    Name: login.oauth.providers
-  - Default: DEBUG
-    Description: Set UAA logging level.  (e.g. TRACE, DEBUG, INFO)
-    Example: null
-    Examples: null
-    Name: uaa.logging_level
-  - Default: 0
-    Description: Minimum number of characters required for password to be considered
-      valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.minLength
-  - Default: null
-    Description: The UAA database IP address
-    Example: null
-    Examples: null
-    Name: uaadb.address
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.url - login.ldap prefix is used for backwards
-      compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.url
-  - Default: 0
-    Description: Minimum number of lowercase characters required for password to be
-      considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.requireLowerCaseCharacter
-  - Default: 0
-    Description: Minimum number of special characters required for password to be
-      considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.requireSpecialCharacter
-  - Default: null
-    Description: List of claims to exclude from the JWT-based OAuth2 tokens
-    Example:
-    - authorities
-    Examples: null
-    Name: uaa.jwt.claims.exclude
-  - Default: false
-    Description: True if connections that are left open longer then abandoned_timeout
-      seconds during a session(time between borrow and return from pool) should be
-      forcibly closed
-    Example: null
-    Examples: null
-    Name: uaa.database.remove_abandoned
-  - Default: null
-    Description: Set to true if you don't want to be using LOWER() SQL functions in
-      search queries/filters, because you know that your DB is case insensitive. If
-      this property is null, then it will be set to true if the UAA DB is MySQL and
-      false otherwise, but even on MySQL you can override it by setting it explicitly
-      to false
-    Example: null
-    Examples: null
-    Name: uaa.database.case_insensitive
-  - Default: cn={0}
-    Description: Used with search-and-bind and search-and-compare. Search filter used.
-      Takes one parameter, user ID defined as {0}
-    Example: null
-    Examples: null
-    Name: uaa.ldap.searchFilter
-  - Default: "true"
-    Description: Boolean value, set to true to search below the search base
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.searchSubtree
-  - Default: org.cloudfoundry.identity.uaa.login.ldap.DynamicPasswordComparator
-    Description: Deprecated. Use uaa.ldap.passwordEncoder - login.ldap prefix is used
-      for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.passwordEncoder
-  - Default: /forgot_password
-    Description: URL for requesting password reset
-    Example: null
-    Examples: null
-    Name: login.links.passwd
-  - Default: null
-    Description: This is a base64 encoded PNG image which will be used as the favicon
-      for the UAA pages
-    Example: null
-    Examples: null
-    Name: login.branding.square_logo
-  - Default: null
-    Description: Deprecated. Use uaa.ldap.userDN - login.ldap prefix is used for backwards
-      compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.userDN
-  - Default: []
-    Description: Array of the router IPs acting as the first group of HTTP/TCP backends.
-      These will be added to the proxy_ips_regex as exact matches. When using spiff,
-      these will be router_z1 and router_z2 static IPs from cf-jobs.yml
-    Example: null
-    Examples: null
-    Name: uaa.proxy.servers
-  - Default: 5
-    Description: Number of allowed failures before account is locked
-    Example: null
-    Examples: null
-    Name: uaa.authentication.policy.lockoutAfterFailures
-  - Default: null
-    Description: Used with ldaps:// URLs. The certificate alias, to be trusted by
-      this connection and stored in the keystore.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.sslCertificateAlias
-  - Default: null
-    Description: This text appears on the footer of all UAA pages
-    Example: null
-    Examples: null
-    Name: login.branding.footer_legal_text
-  - Default: null
-    Description: The http_proxy across the VMs
-    Example: null
-    Examples: null
-    Name: env.http_proxy
-  - Default: true
-    Description: Request came in on a secure connection. Expect the load balancer/proxy
-      to set the proper headers (x-forwarded-for, x-forwarded-proto)
-    Example: null
-    Examples: null
-    Name: uaa.require_https
-  - Default: null
-    Description: "Contains a hash of group names and their descriptions. These groups
-      will be added to the UAA database for the default zone but not associated with
-      any user.\nExample:\n  uaa:\n    scim:\n      groups:\n        my-test-group:
-      'My test group description'\n        another-group: 'Another group description'\nDeprecated
-      format(still supported, but may be removed in the future): \nComma separated
-      list of groups that should be added to the UAA db, but not assigned to a user
-      by default.\n"
-    Example: null
-    Examples: null
-    Name: uaa.scim.groups
-  - Default: 10000
-    Description: Read timeout in milliseconds for SAML metadata HTTP requests
-    Example: null
-    Examples: null
-    Name: login.saml.socket.soTimeout
-  - Default: false
-    Description: Global property to request that external IDPs sign their SAML assertion
-      before sending them to the UAA
-    Example: null
-    Examples: null
-    Name: login.saml.wantAssertionSigned
-  - Default: null
-    Description: |
-      A list of hostnames that are routed to the UAA, specifically the default zone in the UAA. The UAA will reject any Host headers that it doesn't recognize.
-      By default the UAA recognizes:
-        The hostname from the property uaa.url
-        The hostname from the property login.url
-        localhost (in order to accept health checks)
-      Any hostnames added as a list are additive to the default hostnames allowed.
-    Example:
-    - hostname1
-    - hostname2.localhost
-    - hostname3.example.com
-    Examples: null
-    Name: uaa.zones.internal.hostnames
-  - Default: null
-    Description: URL for configuring a custom home page
-    Example: null
-    Examples: null
-    Name: login.home_redirect
-  - Default: null
-    Description: Map of key IDs and signing keys, each defined with a property `signingKey`
-    Example:
-      key-1:
-        signingKey: |
-          -----BEGIN RSA PRIVATE KEY-----
-          MIICXgIBAAKBgQDfTLadf6QgJeS2XXImEHMsa+1O7MmIt44xaL77N2K+J/JGpfV3
-          AnkyB06wFZ02sBLB7hko42LIsVEOyTuUBird/3vlyHFKytG7UEt60Fl88SbAEfsU
-          JN1i1aSUlunPS/NCz+BKwwKFP9Ss3rNImE9Uc2LMvGy153LHFVW2zrjhTwIDAQAB
-          AoGBAJDh21LRcJITRBQ3CUs9PR1DYZPl+tUkE7RnPBMPWpf6ny3LnDp9dllJeHqz
-          a3ACSgleDSEEeCGzOt6XHnrqjYCKa42Z+Opnjx/OOpjyX1NAaswRtnb039jwv4gb
-          RlwT49Y17UAQpISOo7JFadCBoMG0ix8xr4ScY+zCSoG5v0BhAkEA8llNsiWBJF5r
-          LWQ6uimfdU2y1IPlkcGAvjekYDkdkHiRie725Dn4qRiXyABeaqNm2bpnD620Okwr
-          sf7LY+BMdwJBAOvgt/ZGwJrMOe/cHhbujtjBK/1CumJ4n2r5V1zPBFfLNXiKnpJ6
-          J/sRwmjgg4u3Anu1ENF3YsxYabflBnvOP+kCQCQ8VBCp6OhOMcpErT8+j/gTGQUL
-          f5zOiPhoC2zTvWbnkCNGlqXDQTnPUop1+6gILI2rgFNozoTU9MeVaEXTuLsCQQDC
-          AGuNpReYucwVGYet+LuITyjs/krp3qfPhhByhtndk4cBA5H0i4ACodKyC6Zl7Tmf
-          oYaZoYWi6DzbQQUaIsKxAkEA2rXQjQFsfnSm+w/9067ChWg46p4lq5Na2NpcpFgH
-          waZKhM1W0oB8MX78M+0fG3xGUtywTx0D4N7pr1Tk2GTgNw==
-          -----END RSA PRIVATE KEY-----
-    Examples: null
-    Name: uaa.jwt.policy.keys
-  - Default: null
-    Description: The key used to sign the JWT-based OAuth2 tokens
-    Example: null
-    Examples: null
-    Name: uaa.jwt.signing_key
-  - Default: 0
-    Description: Minimum number of lowercase characters required for password to be
-      considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.requireLowerCaseCharacter
-  - Default: follow
-    Description: |
-      Configures the UAA LDAP referral behavior. The following values are possible:
-      - follow -> Referrals are followed
-      - ignore -> Referrals are ignored and the partial result is returned
-      - throw  -> An error is thrown and the authentication is aborted
-      Reference: http://docs.oracle.com/javase/jndi/tutorial/ldap/referral/jndi.html
-    Example: null
-    Examples: null
-    Name: uaa.ldap.referral
-  - Default: null
-    Description: Set No_Proxy across the VMs
-    Example: localhost,127.0.0.0/8,127.0.1.1
-    Examples: null
-    Name: env.no_proxy
-  - Default: 3600
-    Description: Number of seconds in which lockoutAfterFailures failures must occur
-      in order for account to be locked
-    Example: null
-    Examples: null
-    Name: uaa.authentication.policy.global.countFailuresWithinSeconds
-  - Default: null
-    Description: Sets the whitelist of emails domains that the LDAP identity provider
-      handles
-    Example:
-    - whitelist-domain1.org
-    - whitelist-domain2.org
-    Examples: null
-    Name: uaa.ldap.emailDomain
-  - Default: 10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|169\.254\.\d{1,3}\.\d{1,3}|127\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.1[6-9]{1}\.\d{1,3}\.\d{1,3}|172\.2[0-9]{1}\.\d{1,3}\.\d{1,3}|172\.3[0-1]{1}\.\d{1,3}\.\d{1,3}
-    Description: A pipe delimited set of regular expressions of IP addresses that
-      can reach the listening HTTP port of the server.
-    Example: null
-    Examples: null
-    Name: uaa.restricted_ips_regex
-  - Default: true
-    Description: If true override users defined in uaa.scim.users found in the database.
-    Example: null
-    Examples: null
-    Name: uaa.scim.user.override
-  - Default: ""
-    Description: Search start point for a user group membership search
-    Example: null
-    Examples: null
-    Name: uaa.ldap.groups.searchBase
-  - Default: null
-    Description: Service provider certificate.
-    Example: |
-      -----BEGIN CERTIFICATE-----
-      MIIEJTCCA46gAwIBAgIJANIqfxWTfhpkMA0GCSqGSIb3DQEBBQUAMIG+MQswCQYD
-      VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5j
-      aXNjbzEdMBsGA1UEChMUUGl2b3RhbCBTb2Z0d2FyZSBJbmMxJDAiBgNVBAsTG0Ns
-      b3VkIEZvdW5kcnkgSWRlbnRpdHkgVGVhbTEcMBoGA1UEAxMTaWRlbnRpdHkuY2Yt
-      YXBwLmNvbTEfMB0GCSqGSIb3DQEJARYQbWFyaXNzYUB0ZXN0Lm9yZzAeFw0xNTA1
-      MTQxNzE5MTBaFw0yNTA1MTExNzE5MTBaMIG+MQswCQYDVQQGEwJVUzETMBEGA1UE
-      CBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEdMBsGA1UEChMU
-      UGl2b3RhbCBTb2Z0d2FyZSBJbmMxJDAiBgNVBAsTG0Nsb3VkIEZvdW5kcnkgSWRl
-      bnRpdHkgVGVhbTEcMBoGA1UEAxMTaWRlbnRpdHkuY2YtYXBwLmNvbTEfMB0GCSqG
-      SIb3DQEJARYQbWFyaXNzYUB0ZXN0Lm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAw
-      gYkCgYEA30y2nX+kICXktl1yJhBzLGvtTuzJiLeOMWi++zdivifyRqX1dwJ5MgdO
-      sBWdNrASwe4ZKONiyLFRDsk7lAYq3f975chxSsrRu1BLetBZfPEmwBH7FCTdYtWk
-      lJbpz0vzQs/gSsMChT/UrN6zSJhPVHNizLxstedyxxVVts644U8CAwEAAaOCAScw
-      ggEjMB0GA1UdDgQWBBSvWY/TyHysYGxKvII95wD/CzE1AzCB8wYDVR0jBIHrMIHo
-      gBSvWY/TyHysYGxKvII95wD/CzE1A6GBxKSBwTCBvjELMAkGA1UEBhMCVVMxEzAR
-      BgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xHTAbBgNV
-      BAoTFFBpdm90YWwgU29mdHdhcmUgSW5jMSQwIgYDVQQLExtDbG91ZCBGb3VuZHJ5
-      IElkZW50aXR5IFRlYW0xHDAaBgNVBAMTE2lkZW50aXR5LmNmLWFwcC5jb20xHzAd
-      BgkqhkiG9w0BCQEWEG1hcmlzc2FAdGVzdC5vcmeCCQDSKn8Vk34aZDAMBgNVHRME
-      BTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAL5j1JCN5EoXMOOBSBUL8KeVZFQD3Nfy
-      YkYKBatFEKdBFlAKLBdG+5KzE7sTYesn7EzBISHXFz3DhdK2tg+IF1DeSFVmFl2n
-      iVxQ1sYjo4kCugHBsWo+MpFH9VBLFzsMlP3eIDuVKe8aPXFKYCGhctZEJdQTKlja
-      lshe50nayKrT
-      -----END CERTIFICATE----
-    Examples: null
-    Name: login.saml.serviceProviderCertificate
-  - Default: 8443
-    Description: If this property Tomcat will listen to this port and expect https
-      traffic. If null, tomcat will not listen to this port
-    Example: null
-    Examples: null
-    Name: uaa.ssl.port
-  - Default: /login
-    Description: The Location of the redirect header following a logout of the the
-      UAA (/logout.do).
-    Example: null
-    Examples: null
-    Name: login.logout.redirect.url
-  - Default: null
-    Description: The key used to verify JWT-based OAuth2 tokens
-    Example: null
-    Examples: null
-    Name: uaa.jwt.verification_key
-  - Default: null
-    Description: The URL to the ldap server, must start with ldap:// or ldaps://
-    Example: null
-    Examples: null
-    Name: uaa.ldap.url
-  - Default: null
-    Description: Deprecated. Use login.saml.providers list objects
-    Example: null
-    Examples: null
-    Name: login.saml.idp_metadata_file
-  - Default: x-forwarded-proto
-    Description: The header to look for to determine if ssl termination was performed
-      by a front end load balancer.
-    Example: null
-    Examples: null
-    Name: uaa.ssl.protocol_header
-  - Default: 255
-    Description: Maximum number of characters required for password to be considered
-      valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.maxLength
-  - Default: false
-    Description: Disables internal user authentication
-    Example: null
-    Examples: null
-    Name: uaa.disableInternalAuth
-  - Default: org.cloudfoundry.identity.uaa.ldap.DynamicPasswordComparator
-    Description: Used with search-and-compare only. The encoder used to properly encode
-      user password to match the one in the LDAP directory.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.passwordEncoder
-  - Default:
-    - login
-    - support-signon
-    Description: Deprecated
-    Example: null
-    Examples: null
-    Name: uaa.client.autoapprove
-  - Default: 2592000
-    Description: The refresh token validity for the default zone if nothing is configured
-      on the client. Will override global validity policies for the default zone only.
-    Example: null
-    Examples: null
-    Name: uaa.jwt.policy.refreshTokenValiditySeconds
-  - Default: null
-    Description: Specifies how UAA user attributes map to LDAP attributes. given_name,
-      family_name, and phone_number are UAA user attributes, while other attributes
-      should be included using the prefix `user.attribute`
-    Example:
-      family_name: sn
-      given_name: givenName
-      phone_number: telephoneNumber
-      user.attribute.name-of-attribute-in-uaa-id-token: name-of-attribute-in-ldap-record
-      user.attribute.name-of-other-attribute-in-uaa-id-token: name-of-other-attribute-in-ldap-record
-    Examples: null
-    Name: uaa.ldap.attributeMappings
-  - Default: null
-    Description: Contains a hash of SAML Identity Providers, the key is the IDP Alias,
-      followed by key/value pairs. To learn more about how to setup a saml identity
-      provider go to https://simplesamlphp.org
-    Example:
-      my-identity-provider:
-        assertionConsumerIndex: 0
-        groupMappingMode: AS_SCOPES
-        iconUrl: https://my.identityprovider.com/icon.png
-        idpMetadata: http://my.identityprovider.com/saml2/idp/metadata.php
-        linkText: Log in with My Saml Identity Provider
-        metadataTrustCheck: false
-        nameID: urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
-        showSamlLoginLink: true
-        signMetaData: false
-        signRequest: false
-    Examples: null
-    Name: login.saml.providers
-  - Default: -Xmx768m -XX:MaxPermSize=256m
-    Description: The options used to configure Tomcat
-    Example: null
-    Examples: null
-    Name: uaa.catalina_opts
-  - Default: null
-    Description: |
-      A list of users to be bootstrapped with authorities.
-      Each entry supports the following format:
-        Short Pipe: username|password|comma,separated,groups
-        Long Pipe: username|password|email|firstName|lastName|comma,separated,groups|origin
-        Short OpenStruct:
-          - name: username
-            password: password
-            groups:
-              - group1
-              - group2
-        Long OpenStruct:
-          - name: username
-            password: password
-            groups:
-              - group1
-              - group2
-            firstName: first name
-            lastName: lastName
-            email: email
-            origin: origin-value - most commonly uaa
-    Example:
-    - marissa|koala|marissa@test.org|Marissa|Bloggs
-    Examples: null
-    Name: uaa.scim.users
-  - Default: cn={0}
-    Description: Deprecated. Use uaa.ldap.searchFilter - login.ldap prefix is used
-      for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.searchFilter
-  - Default: null
-    Description: |
-      This is used as the SAML Service Provider Entity ID. Each zone has a unique entity ID. Zones other than
-      the default zone will derive their entity ID from this setting by prefexing it with the subdomain.
-    Example: null
-    Examples: null
-    Name: login.saml.entityid
-  - Default: true
-    Description: Global property to sign Local/SP metadata
-    Example: null
-    Examples: null
-    Name: login.saml.signMetaData
-  - Default: /resources/oss
-    Description: Base url for static assets, allows custom styling of the login server.  Use
-      '/resources/pivotal' for Pivotal style.
-    Example: null
-    Examples: null
-    Name: login.asset_base_url
-  - Default: null
-    Description: This is a base64 encoded PNG image which will be used as the logo
-      on all UAA pages like Login, Sign Up etc.
-    Example: null
-    Examples: null
-    Name: login.branding.product_logo
-  - Default: false
-    Description: Disables UI and API for internal user management
-    Example: null
-    Examples: null
-    Name: uaa.disableInternalUserManagement
-  - Default: true
-    Description: Enables the endpoint `/ids/Users` that allows consumers to translate
-      user ids to name
-    Example: null
-    Examples: null
-    Name: uaa.scim.userids_enabled
-  - Default: null
-    Description: |
-      External group mappings. Either formatted as an OpenStruct or a list of pipe-separated specifications. The list format is deprecated.
-      As an OpenStruct, the mapping additionally specifies an origin to which the mapping is applied:
-        origin1:
-          external_group1:
-            - internal_group1
-            - internal_group2
-            - internal_group3
-          external_group2:
-            - internal_group2
-            - internal_group4
-        origin2:
-          external_group3:
-            - internal_group3
-            - internal_group4
-            - internal_group5
-      As a list, each entry consists of the following (The origin defaults to ldap in this case.):
-        - internal_group_name|space_delimited_external_groups another_group another_group_etc
-    Example: null
-    Examples: null
-    Name: uaa.scim.external_groups
-  - Default: true
-    Description: Deprecated. Use login.saml.providers list objects
-    Example: null
-    Examples: null
-    Name: login.saml.metadataTrustCheck
-  - Default: null
-    Description: This name is used on the UAA Pages and in account management related
-      communication in UAA
-    Example: null
-    Examples: null
-    Name: login.branding.company_name
-  - Default: false
-    Description: Set to true if you wish that even JWT tokens become individually
-      revocable and stored in the UAA token storage. This setting applies to the default
-      zone only.
-    Example: null
-    Examples: null
-    Name: uaa.jwt.revocable
-  - Default: null
-    Description: Used with ldaps:// URLs. The certificate, if self signed, to be trusted
-      by this connection.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.sslCertificate
-  - Default: false
-    Description: Set to true if you wish to override an LDAP user email address with
-      a generated one
-    Example: null
-    Examples: null
-    Name: uaa.ldap.mailSubstituteOverridesLdap
-  - Default: null
-    Description: The url to use as the issuer URI
-    Example: null
-    Examples: null
-    Name: uaa.issuer
-  - Default: null
-    Description: Deprecated. Use uaa.url for setting the location of UAA
-    Example: null
-    Examples: null
-    Name: domain
-  - Default: null
-    Description: Default login client secret, if no login client is defined
-    Example: null
-    Examples: null
-    Name: uaa.login.client_secret
-  - Default: urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
-    Description: Deprecated. Use login.saml.providers list objects
-    Example: null
-    Examples: null
-    Name: login.saml.nameidFormat
-  - Default: null
-    Description: |
-      Set if you have an external login server.
-      The UAA uses this link on by its email service to create links
-      The UAA uses this as a base domain for internal hostnames so that subdomain can be detected
-      This defaults to the uaa.url property, and if not set, to login.<domain>
-    Example: null
-    Examples: null
-    Name: login.url
-  - Default: null
-    Description: The base url of the UAA
-    Example: null
-    Examples: null
-    Name: uaa.url
-  - Default: null
-    Description: Google analytics code. If Google Analytics is desired set both login.analytics.code
-      and login.analytics.domain
-    Example: null
-    Examples: null
-    Name: login.analytics.code
-  - Default: 300
-    Description: Number of seconds to lock out an account when lockoutAfterFailures
-      failures is exceeded
-    Example: null
-    Examples: null
-    Name: uaa.authentication.policy.global.lockoutPeriodSeconds
-  - Default: 43200
-    Description: The global access token validity for all zones if nothing is configured
-      on the client
-    Example: null
-    Examples: null
-    Name: uaa.jwt.policy.global.accessTokenValiditySeconds
-  - Default: true
-    Description: Should connections that are forcibly closed be logged.
-    Example: null
-    Examples: null
-    Name: uaa.database.log_abandoned
-  - Default: false
-    Description: Sets the time format for log messages to be yyyy-MM-dd'T'HH:mm:ss.SSSXXX
-      instead of yyyy-MM-dd HH:mm:ss.SSS
-    Example: null
-    Examples: null
-    Name: uaa.logging_use_rfc3339
-  - Default: ""
-    Description: Used with search-and-bind and search-and-compare. Define a base where
-      the search starts at.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.searchBase
-  - Default: null
-    Description: |
-      Optional configuration of the UAA session cookie.
-      Defaults are the following key value pairs:
-        secure: <(boolean)this value if set, otherwise require_https>
-        http-only: <(boolean) - default to true. set HttpOnly flag on cookie.
-        max-age: <(int) lifetime in seconds of cookie - default to 30 minutes)
-        name: <(String) name of cookie, default is JSESSIONID>
-        comment: <(String) optional comment in cookie>
-        path: <(String) path for cookie, default is />
-        domain: <(String) domain for cookie, default is incoming request domain>
-    Example: null
-    Examples: null
-    Name: uaa.servlet.session-cookie
-  - Default: null
-    Description: Used with search-and-bind and search-and-compare. Password for the
-      LDAP ID that performs a search of the LDAP tree for user information.
-    Example: null
-    Examples: null
-    Name: uaa.ldap.userPassword
-  - Default: null
-    Description: A hash of home/passwd/signup URLS (see commented examples below)
-    Example: null
-    Examples: null
-    Name: login.links
-  - Default: /create_account
-    Description: URL for requesting to signup/register for an account
-    Example: null
-    Examples: null
-    Name: login.links.signup
-  - Default: 0
-    Description: Minimum number of special characters required for password to be
-      considered valid
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.global.requireSpecialCharacter
-  - Default: userPassword
-    Description: Used with search-and-compare only. The name of the password attribute
-      in the LDAP directory
-    Example: null
-    Examples: null
-    Name: uaa.ldap.passwordAttributeName
-  - Default: "true"
-    Description: Deprecated. Use uaa.ldap.localPasswordCompare - login.ldap prefix
-      is used for backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.localPasswordCompare
-  - Default: false
-    Description: When set to true dumps UAA requests to uaa.log
-    Example: null
-    Examples: null
-    Name: uaa.dump_requests
-  - Default: 2592000
-    Description: The global refresh token validity for all zones if nothing is configured
-      on the client
-    Example: null
-    Examples: null
-    Name: uaa.jwt.policy.global.refreshTokenValiditySeconds
-  - Default: null
-    Description: The list of databases used in UAA database including tag/name
-    Example: null
-    Examples: null
-    Name: uaadb.databases
-  - Default: null
-    Description: The list of database Roles used in UAA database including tag/name/password
-    Example: null
-    Examples: null
-    Name: uaadb.roles
-  - Default: null
-    Description: 'Used with search-and-bind and search-and-compare. A valid LDAP ID
-      that has read permissions to perform a search of the LDAP tree for user information. '
-    Example: null
-    Examples: null
-    Name: uaa.ldap.userDN
-  - Default: ""
-    Description: Deprecated. Use uaa.ldap.searchBase - login.ldap prefix is used for
-      backwards compatibility to enable ldap from login config
-    Example: null
-    Examples: null
-    Name: login.ldap.searchBase
-  - Default: null
-    Description: Deprecated. Use login.saml.providers list objects
-    Example: null
-    Examples: null
-    Name: login.saml.idpEntityAlias
-  - Default: null
-    Description: The https_proxy across the VMs
-    Example: null
-    Examples: null
-    Name: env.https_proxy
-  - Default: 0
-    Description: Number of months after which current password expires
-    Example: null
-    Examples: null
-    Name: uaa.password.policy.expirePasswordInMonths
-  - Default: null
-    Description: A list of links to other services to show on the landing page after
-      log in.
-    Example: null
-    Examples: null
-    Name: login.tiles
-  Templates:
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/post-start
-    SrcPathEnd: post-start
-  - DstPathEnd: config/log4j.properties
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/log4j.properties.erb
-    SrcPathEnd: log4j.properties.erb
-  - DstPathEnd: config/uaa.crt
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/uaa.crt.erb
-    SrcPathEnd: uaa.crt.erb
-  - DstPathEnd: config/varz.yml
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/varz.yml
-    SrcPathEnd: varz.yml
-  - DstPathEnd: config/tomcat/server.xml
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/tomcat.server.xml.erb
-    SrcPathEnd: tomcat.server.xml.erb
-  - DstPathEnd: config/ldap.crt
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/ldap.crt.erb
-    SrcPathEnd: ldap.crt.erb
-  - DstPathEnd: bin/uaa_ctl
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/uaa_ctl.erb
-    SrcPathEnd: uaa_ctl.erb
-  - DstPathEnd: bin/install_crt
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/install_crt
-    SrcPathEnd: install_crt
-  - DstPathEnd: bin/install_uaa_crt
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/install_uaa_crt
-    SrcPathEnd: install_uaa_crt
-  - DstPathEnd: config/newrelic.yml
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/newrelic.yml.erb
-    SrcPathEnd: newrelic.yml.erb
-  - DstPathEnd: bin/health_check
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/health_check
-    SrcPathEnd: health_check
-  - DstPathEnd: config/varz.log4j.properties
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/varz.log4j.properties
-    SrcPathEnd: varz.log4j.properties
-  - DstPathEnd: config/tomcat/logging.properties
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/tomcat.logging.properties
-    SrcPathEnd: tomcat.logging.properties
-  - DstPathEnd: config/messages.properties
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/messages.properties.erb
-    SrcPathEnd: messages.properties.erb
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/dns_health_check.erb
-    SrcPathEnd: dns_health_check.erb
-  - DstPathEnd: config/uaa.yml
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/uaa.yml.erb
-    SrcPathEnd: uaa.yml.erb
-  - DstPathEnd: config/login.yml
-    Path: /mnt/tmp/tar-CmdExtractor701396505/templates/login.yml.erb
-    SrcPathEnd: login.yml.erb
-- Description: The Postgres server provides a single instance Postgres database that
-    can be used with the Cloud Controller or the UAA. It does not provide highly-available
-    configuration.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor765826483/monit
-    SrcPathEnd: monit
-  Name: uaa_postgres
-  Packages:
-  - Name: uaa_utils
-  - Name: uaa_postgres-9.4.2
-  Properties:
-  - Default: 5524
-    Description: The database port
-    Example: null
-    Examples: null
-    Name: postgres.port
-  - Default: null
-    Description: The database address
-    Example: null
-    Examples: null
-    Name: postgres.address
-  - Default: null
-    Description: A list of databases and associated properties to create
-    Example: null
-    Examples: null
-    Name: postgres.databases
-  - Default: null
-    Description: A list of database roles and associated properties to create
-    Example: null
-    Examples: null
-    Name: postgres.roles
-  - Default: 500
-    Description: Maximum number of database connections
-    Example: null
-    Examples: null
-    Name: postgres.max_connections
-  - Default: '%m: '
-    Description: The postgres `printf` style string that is output at the beginning
-      of each log line
-    Example: null
-    Examples: null
-    Name: postgres.log_line_prefix
-  Templates:
-  - DstPathEnd: config/pg_hba.conf
-    Path: /mnt/tmp/tar-CmdExtractor765826483/templates/pg_hba.conf.erb
-    SrcPathEnd: pg_hba.conf.erb
-  - DstPathEnd: bin/postgres_ctl
-    Path: /mnt/tmp/tar-CmdExtractor765826483/templates/postgres_ctl.erb
-    SrcPathEnd: postgres_ctl.erb
-  - DstPathEnd: bin/postgres_start.sh
-    Path: /mnt/tmp/tar-CmdExtractor765826483/templates/postgres_start.sh.erb
-    SrcPathEnd: postgres_start.sh.erb
-  - DstPathEnd: config/postgresql.conf
-    Path: /mnt/tmp/tar-CmdExtractor765826483/templates/postgresql.conf.erb
-    SrcPathEnd: postgresql.conf.erb
+[
+  {
+    "Description": "The UAA is the identity management service for Cloud Foundry. It's primary role is as an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of Cloud Foundry users. It can also authenticate users with their Cloud Foundry credentials, and can act as an SSO service using those credentials (or others). It has endpoints for managing user accounts and for registering OAuth2 clients, as well as various other management functions.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor701396505/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "uaa",
+    "Packages": [
+      {
+        "Name": "uaa_utils"
+      },
+      {
+        "Name": "uaa"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 255,
+        "Description": "Maximum number of characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.maxLength"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.profile_type - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.profile_type"
+      },
+      {
+        "Default": 1,
+        "Description": "Deprecated. Use login.saml.providers list objects",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.assertionConsumerIndex"
+      },
+      {
+        "Default": null,
+        "Description": "To enable newrelic monitoring, the sub element of this property will be placed in\na configuration file called newrelic.yml in the jobs config directory.\nThe syntax that must adhere to documentation in https://docs.newrelic.com/docs/agents/java-agent/configuration/java-agent-configuration-config-file\nThe JVM option -javaagent:/path/to/newrelic.jar will be added to Apache Tomcat's startup script\nThe enablement of the NewRelic agent in the UAA is triggered by the property uaa.newrelic.common.license_key\nThe property uaa.newrelic.common.license_key must be set!\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.newrelic"
+      },
+      {
+        "Default": null,
+        "Description": "List of OAuth2 clients that the UAA will be bootstrapped with",
+        "Example": {
+          "login": {
+            "app-icon": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAD1BMVEWZttQvMDEoKisqKywAAAApvvoVAAAAGElEQVQYlWNgYUQBLAxMDCiAeXgLoHsfAD03AHOyfqy1AAAAAElFTkSuQmCC",
+            "app-launch-url": "http://myloginpage.com",
+            "authorities": "test_resource.test_action",
+            "authorized-grant-types": "authorization_code,client_credentials,refresh_token",
+            "id": "login",
+            "override": true,
+            "redirect-uri": "http://login.example.com",
+            "scope": "test_resource.test_action",
+            "secret": "some-secret",
+            "show-on-homepage": true
+          }
+        },
+        "Examples": null,
+        "Name": "uaa.clients"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of uppercase characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.requireUpperCaseCharacter"
+      },
+      {
+        "Default": 43200,
+        "Description": "The access token validity for the default zone if nothing is configured on the client. Will override global validity policies for the default zone only.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.policy.accessTokenValiditySeconds"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of digits required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.requireDigit"
+      },
+      {
+        "Default": "search-and-bind",
+        "Description": "The file to be used for configuring the LDAP authentication. Options are: 'simple-bind', 'search-and-bind', 'search-and-compare'",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.profile_type"
+      },
+      {
+        "Default": "member={0}",
+        "Description": "Search query filter to find the groups a user belongs to, or for a nested search, groups that a group belongs to",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.groupSearchFilter"
+      },
+      {
+        "Default": "1",
+        "Description": "Set to number of levels a nested group search should go. Set to 1 to disable nested groups (default)",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.maxSearchDepth"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.url for setting the location of UAA.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.uaa_base"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use login.saml.entityid",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.entity_id"
+      },
+      {
+        "Default": null,
+        "Description": "Whitelist of external groups from LDAP that get added as roles in the ID Token",
+        "Example": [
+          "admin",
+          "user"
+        ],
+        "Examples": null,
+        "Name": "uaa.ldap.externalGroupsWhitelist"
+      },
+      {
+        "Default": "Email",
+        "Description": "The text used to prompt for a username during login",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.prompt.username.text"
+      },
+      {
+        "Default": null,
+        "Description": "Secret of the admin client - a client named admin with uaa.admin as an authority",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.admin.client_secret"
+      },
+      {
+        "Default": "",
+        "Description": "Defines an email pattern containing a {0} to generate an email address for an LDAP user during authentication",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.mailSubstitute"
+      },
+      {
+        "Default": "https",
+        "Description": "Scheme to use for HTTP communication (http/https)",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.protocol"
+      },
+      {
+        "Default": "Password",
+        "Description": "The text used to prompt for a password during login",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.prompt.password.text"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP server configuration, for password reset emails etc.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.smtp"
+      },
+      {
+        "Default": 2525,
+        "Description": "SMTP server port",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.smtp.port"
+      },
+      {
+        "Default": 0,
+        "Description": "Number of months after which current password expires",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.expirePasswordInMonths"
+      },
+      {
+        "Default": null,
+        "Description": "Database scheme for UAA DB",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaadb.db_scheme"
+      },
+      {
+        "Default": "true",
+        "Description": "Set to true when profile_type=groups_as_scopes to auto create scopes for a user. Ignored for other profiles.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.autoAdd"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.sslCertificateAlias - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.sslCertificateAlias"
+      },
+      {
+        "Default": "10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|192\\.168\\.\\d{1,3}\\.\\d{1,3}|169\\.254\\.\\d{1,3}\\.\\d{1,3}|127\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|172\\.1[6-9]{1}\\.\\d{1,3}\\.\\d{1,3}|172\\.2[0-9]{1}\\.\\d{1,3}\\.\\d{1,3}|172\\.3[0-1]{1}\\.\\d{1,3}\\.\\d{1,3}",
+        "Description": "A pipe delimited set of regular expressions of IP addresses that are considered reverse proxies.\nWhen a request from these IP addresses come in, the x-forwarded-for and x-forwarded-proto headers will be respected.\nIf the uaa.restricted_ips_regex is set, it will be appended to this list for backwards compatibility purposes\nIf spiff has been used and includes templates/cf-jobs.yml to generate the manifest. This list will automatically\ncontain the Router IP addresses\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.proxy_ips_regex"
+      },
+      {
+        "Default": "localhost",
+        "Description": "SMTP server host address",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.smtp.host"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of digits required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.requireDigit"
+      },
+      {
+        "Default": null,
+        "Description": "The ID of the JWT signing key to be used when signing tokens.",
+        "Example": "key-1",
+        "Examples": null,
+        "Name": "uaa.jwt.policy.active_key_id"
+      },
+      {
+        "Default": 100,
+        "Description": "The max number of open connections to the DB from a running UAA instance",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.database.max_connections"
+      },
+      {
+        "Default": "mail",
+        "Description": "The name of the LDAP attribute that contains the users email address",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.mailAttributeName"
+      },
+      {
+        "Default": "no-groups",
+        "Description": "What type of group integration should be used. Values are: 'no-groups', 'groups-as-scopes', 'groups-map-to-scopes'",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.profile_type"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use login.saml.providers list objects",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.idpMetadataURL"
+      },
+      {
+        "Default": null,
+        "Description": "The url for the notifications service (configure to use Notifications Service instead of SMTP server)",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.notifications.url"
+      },
+      {
+        "Default": [
+          "openid",
+          "scim.me",
+          "cloud_controller.read",
+          "cloud_controller.write",
+          "cloud_controller_service_permissions.read",
+          "password.write",
+          "uaa.user",
+          "approvals.me",
+          "oauth.approvals",
+          "notification_preferences.read",
+          "notification_preferences.write",
+          "profile",
+          "roles",
+          "user_attributes"
+        ],
+        "Description": "Contains a list of the default authorities/scopes assigned to a user",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.user.authorities"
+      },
+      {
+        "Default": 5,
+        "Description": "Number of allowed failures before account is locked",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.authentication.policy.global.lockoutAfterFailures"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA database Port",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaadb.port"
+      },
+      {
+        "Default": null,
+        "Description": "Used with groups-as-scopes, defines the attribute that holds the scope name(s).",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.groupRoleAttribute"
+      },
+      {
+        "Default": null,
+        "Description": "Private key for the service provider certificate.",
+        "Example": "-----BEGIN RSA PRIVATE KEY-----\nMIICXgIBAAKBgQDfTLadf6QgJeS2XXImEHMsa+1O7MmIt44xaL77N2K+J/JGpfV3\nAnkyB06wFZ02sBLB7hko42LIsVEOyTuUBird/3vlyHFKytG7UEt60Fl88SbAEfsU\nJN1i1aSUlunPS/NCz+BKwwKFP9Ss3rNImE9Uc2LMvGy153LHFVW2zrjhTwIDAQAB\nAoGBAJDh21LRcJITRBQ3CUs9PR1DYZPl+tUkE7RnPBMPWpf6ny3LnDp9dllJeHqz\na3ACSgleDSEEeCGzOt6XHnrqjYCKa42Z+Opnjx/OOpjyX1NAaswRtnb039jwv4gb\nRlwT49Y17UAQpISOo7JFadCBoMG0ix8xr4ScY+zCSoG5v0BhAkEA8llNsiWBJF5r\nLWQ6uimfdU2y1IPlkcGAvjekYDkdkHiRie725Dn4qRiXyABeaqNm2bpnD620Okwr\nsf7LY+BMdwJBAOvgt/ZGwJrMOe/cHhbujtjBK/1CumJ4n2r5V1zPBFfLNXiKnpJ6\nJ/sRwmjgg4u3Anu1ENF3YsxYabflBnvOP+kCQCQ8VBCp6OhOMcpErT8+j/gTGQUL\nf5zOiPhoC2zTvWbnkCNGlqXDQTnPUop1+6gILI2rgFNozoTU9MeVaEXTuLsCQQDC\nAGuNpReYucwVGYet+LuITyjs/krp3qfPhhByhtndk4cBA5H0i4ACodKyC6Zl7Tmf\noYaZoYWi6DzbQQUaIsKxAkEA2rXQjQFsfnSm+w/9067ChWg46p4lq5Na2NpcpFgH\nwaZKhM1W0oB8MX78M+0fG3xGUtywTx0D4N7pr1Tk2GTgNw==\n-----END RSA PRIVATE KEY-----\n",
+        "Examples": null,
+        "Name": "login.saml.serviceProviderKey"
+      },
+      {
+        "Default": null,
+        "Description": "Google analytics domain. If Google Analytics is desired set both login.analytics.code and login.analytics.domain",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.analytics.domain"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP server password",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.smtp.password"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of uppercase characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.requireUpperCaseCharacter"
+      },
+      {
+        "Default": ";",
+        "Description": "The delimiter character in between user DN patterns for simple-bind authentication",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.userDNPatternDelimiter"
+      },
+      {
+        "Default": "userPassword",
+        "Description": "Deprecated. Use uaa.ldap.passwordAttributeName - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.passwordAttributeName"
+      },
+      {
+        "Default": true,
+        "Description": "Deprecated. Use login.self_service_links_enabled. Instructs UAA to use 'enable account creation flow'. Enabled by default.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.signups_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "Enable self-service account creation and password resets links.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.self_service_links_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "A list of URLs. When this list is non null, including empty, and disable=false, logout redirects are allowed, but limited to the whitelist URLs. If a redirect parameter value is not white listed, redirect will be to the default URL.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.logout.redirect.parameter.whitelist"
+      },
+      {
+        "Default": 10,
+        "Description": "The max number of open idle connections to the DB from a running UAA instance",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.database.max_idle_connections"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.userPassword - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.userPassword"
+      },
+      {
+        "Default": 10000,
+        "Description": "Timeout in milliseconds for connection pooling for SAML metadata HTTP requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.socket.connectionManagerTimeout"
+      },
+      {
+        "Default": 8080,
+        "Description": "Port that uaa will accept connections on",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.port"
+      },
+      {
+        "Default": 300,
+        "Description": "Timeout in seconds for the longest running queries. Take into DB migrations for this timeout as they may run during a long period of time.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.database.abandoned_timeout"
+      },
+      {
+        "Default": false,
+        "Description": "Set to true to enable LDAP",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.enabled"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.sslCertificate - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.sslCertificate"
+      },
+      {
+        "Default": true,
+        "Description": "Global property to sign Local/SP requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.signRequest"
+      },
+      {
+        "Default": null,
+        "Description": "The server's ssl private key. Only passphrase-less keys are supported",
+        "Example": "-----BEGIN RSA PRIVATE KEY-----\nMIICXwIBAAKBgQD1TiBrxvDBW5KovsrXQR1WxBnXuI2gqYZrxpvPf+CrNK/tONVb\nEueVzWJx7MV05YdRYgdinG6w2996YL7gCGKXADtiNIKhnkaEtoTbMc3BXZIEmZ9b\npgwHqBOGwgE66rjfdyjHMP3KGOY2nFH2/T9gkM7ZEntqPkFrSGlmALyN2wIDAQAB\nAoGBAPBvfz+kYt5iz0EuoMqTPBqLY3kZn1fWUbbZmGatxJyKq9UsW5NE2FDwWomn\ntXJ6d0PBfdOd2LDpEgZ1RSF5lobXn2m2+YeEso7A7yMiBRW8CIrkUn8wVA0s42t+\nosElfvj73G2ZjCqQm6BLCjtFYnalmZIzfOCB26xRWaf0MJ7hAkEA/XaqnosJfmRp\nkmvto81LEvjVVlSvpo+6rt66ykywEv9daHWZZBrrwVz3Iu4oXlwPuF8bcO8JMLRf\nOH98T1+1PQJBAPfCj0r3fRhmBZMWqf2/tbeQPvIQzqSXfYroFgnKIKxVCV8Bkm3q\n1rP4c0XDHEWYIwvMWBTOmVSZqfSxtwIicPcCQQDCcRqK7damo5lpvmpb0s3ZDBN9\nWxI1EOYB6NQbBaG9sTGTRUQbS5u4hv0ASvulB7L3md6PUJEYUAcMbKCMs7txAkEA\n7C8pwHJba0XebJB/bqkxxpKYntPM2fScNi32zFBGg2HxNANgnq3vDNN8t/U+X02f\noyCimvs0CgUOknhTmJJSkwJBAPaI298JxTnWncC3Zu7d5QYCJXjU403Aj4LdcVeI\n6A15MzQdj5Hm82vlmpC4LzXofLjiN4E5ZLluzEw+1TjRE7c=\n-----END RSA PRIVATE KEY-----\n",
+        "Examples": null,
+        "Name": "uaa.sslPrivateKey"
+      },
+      {
+        "Default": true,
+        "Description": "When set to false, this allows an operator to leverage an open redirect on the UAA (/logout.do?redirect=google.com). No open redirect enabled",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.logout.redirect.parameter.disable"
+      },
+      {
+        "Default": 300,
+        "Description": "Number of seconds to lock out an account when lockoutAfterFailures failures is exceeded",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.authentication.policy.lockoutPeriodSeconds"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.minLength"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.userDNPattern - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.userDNPattern"
+      },
+      {
+        "Default": null,
+        "Description": "These links appear on the footer of all UAA pages. You may choose to add multiple urls for things like Support, Terms of Service etc.",
+        "Example": {
+          "linkDisplayName": "linkDisplayUrl"
+        },
+        "Examples": null,
+        "Name": "login.branding.footer_links"
+      },
+      {
+        "Default": null,
+        "Description": "Used with simple-bind only. A semi-colon separated lists of DN patterns to construct a DN direct from the user ID without performing a search.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.userDNPattern"
+      },
+      {
+        "Default": null,
+        "Description": "The URL for which SAML identity providers will post assertions to.\nIf set it overrides the default.\nThis URL should NOT have the schema (http:// or https:// prefix in it) instead just the hostname.\nThe schema is derived by #{login.protocol} property.\nThe default value is #{uaa.url}.replaceFirst('uaa','login'), typically login.example.com\nThe UAA will display this link in the cf --sso call if there is a SAML provider enabled.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.entity_base_url"
+      },
+      {
+        "Default": null,
+        "Description": "Password to protect the service provider private key.",
+        "Example": "",
+        "Examples": null,
+        "Name": "login.saml.serviceProviderKeyPassword"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP server username",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.smtp.user"
+      },
+      {
+        "Default": null,
+        "Description": "The server's ssl certificate. The default is a self-signed certificate and should always be replaced for production deployments",
+        "Example": "-----BEGIN CERTIFICATE-----\nMIIDAjCCAmugAwIBAgIJAJtrcBsKNfWDMA0GCSqGSIb3DQEBCwUAMIGZMQswCQYD\nVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5j\naXNjbzEQMA4GA1UECgwHUGl2b3RhbDERMA8GA1UECwwISWRlbnRpdHkxFjAUBgNV\nBAMMDU1hcmlzc2EgS29hbGExIDAeBgkqhkiG9w0BCQEWEW1rb2FsYUBwaXZvdGFs\nLmlvMB4XDTE1MDczMDE5Mzk0NVoXDTI1MDcyOTE5Mzk0NVowgZkxCzAJBgNVBAYT\nAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2Nv\nMRAwDgYDVQQKDAdQaXZvdGFsMREwDwYDVQQLDAhJZGVudGl0eTEWMBQGA1UEAwwN\nTWFyaXNzYSBLb2FsYTEgMB4GCSqGSIb3DQEJARYRbWtvYWxhQHBpdm90YWwuaW8w\ngZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAPVOIGvG8MFbkqi+ytdBHVbEGde4\njaCphmvGm89/4Ks0r+041VsS55XNYnHsxXTlh1FiB2KcbrDb33pgvuAIYpcAO2I0\ngqGeRoS2hNsxzcFdkgSZn1umDAeoE4bCATrquN93KMcw/coY5jacUfb9P2CQztkS\ne2o+QWtIaWYAvI3bAgMBAAGjUDBOMB0GA1UdDgQWBBTkEjA4CEjevAGfnPBciyXC\n3v4zMzAfBgNVHSMEGDAWgBTkEjA4CEjevAGfnPBciyXC3v4zMzAMBgNVHRMEBTAD\nAQH/MA0GCSqGSIb3DQEBCwUAA4GBAIEd8U32tkcvwG9qCOfe5raBENHM4ltTuhju\nzZWIM5Ik1bFf6+rA71HVDD1Z5fRozidhMOl6mrrGShfu6VUjtqzctJeSjaOPIJL+\nwvrXXcAkCYZ9QKf0sqlUWcIRy90nqrD5sL/rHAjNjxQ3lqIOj7yWOgty4LUzFQNr\nFHiyd3T6\n-----END CERTIFICATE-----\n",
+        "Examples": null,
+        "Name": "uaa.sslCertificate"
+      },
+      {
+        "Default": null,
+        "Description": "A nested or flat hash of messages that the login server uses to display UI message\nThis will be flattened into a java.util.Properties file. The example below will lead\nto four properties, where the key is the concatenated value delimited by dot, for example scope.tokens.read=message\n",
+        "Example": {
+          "messages": {
+            "scope": {
+              "tokens": {
+                "read": "View details of your approvals you have granted to this and other applications",
+                "write": "Cancel the approvals like this one that you have granted to this and other applications"
+              }
+            }
+          },
+          "scope.tokens.read": "View details of your approvals you have granted to this and other applications",
+          "scope.tokens.write": "Cancel the approvals like this one that you have granted to this and other applications"
+        },
+        "Examples": null,
+        "Name": "login.messages"
+      },
+      {
+        "Default": 3600,
+        "Description": "Number of seconds in which lockoutAfterFailures failures must occur in order for account to be locked",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.authentication.policy.countFailuresWithinSeconds"
+      },
+      {
+        "Default": "true",
+        "Description": "Used with search-and-compare only. Set to true if passwords are retrieved by the search, and should be compared in the login server.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.localPasswordCompare"
+      },
+      {
+        "Default": null,
+        "Description": "Contains a hash of OpenID Connect/Oauth Identity Providers, the key will be used as the origin key for that provider, followed by key/value pairs. Presence of the userInfoUrl will mark it as an OpenID provider instead of OAuth.",
+        "Example": {
+          "my-oauth-provider": {
+            "addShadowUserOnLogin": true,
+            "attributeMappings": {
+              "external_groups": [
+                "\u003cattribute holding roles or group memberships in the OIDC id_token\u003e",
+                "\u003cother attribute holding roles or group memberships in the OIDC id_token\u003e"
+              ],
+              "family_name": "\u003cAttribute holding family name in the OIDC ID Token\u003e",
+              "given_name": "\u003cAttribute holding given name in the OIDC ID Token\u003e",
+              "user": {
+                "attribute": {
+                  "name-of-attribute-in-uaa-id-token": "name-of-attribute-in-provider-token",
+                  "name-of-other-attribute-in-uaa-id-token": "name-of-other-attribute-in-provider-token"
+                }
+              },
+              "user_name": "\u003cAttribute holding username in the OIDC ID Token\u003e"
+            },
+            "authUrl": "\u003cURL to the authorize endpoint of the provider\u003e",
+            "linkText": "My Oauth Provider",
+            "relyingPartyId": "\u003cOIDC Client ID\u003e",
+            "relyingPartySecret": "\u003cOIDC Client secret\u003e",
+            "scopes": [
+              "openid",
+              "\u003cother scope\u003e"
+            ],
+            "showLinkText": true,
+            "skipSslValidation": false,
+            "tokenKey": "\u003cToken verification key\u003e",
+            "tokenKeyUrl": "\u003cURL for token verification. Will be used if tokenKey is not specified.\u003e",
+            "tokenUrl": "\u003cURL to the token endpoint of the provider\u003e",
+            "type": "oidc1.0"
+          }
+        },
+        "Examples": null,
+        "Name": "login.oauth.providers"
+      },
+      {
+        "Default": "DEBUG",
+        "Description": "Set UAA logging level.  (e.g. TRACE, DEBUG, INFO)",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.logging_level"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.minLength"
+      },
+      {
+        "Default": null,
+        "Description": "The UAA database IP address",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaadb.address"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.url - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.url"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of lowercase characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.requireLowerCaseCharacter"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of special characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.requireSpecialCharacter"
+      },
+      {
+        "Default": null,
+        "Description": "List of claims to exclude from the JWT-based OAuth2 tokens",
+        "Example": [
+          "authorities"
+        ],
+        "Examples": null,
+        "Name": "uaa.jwt.claims.exclude"
+      },
+      {
+        "Default": false,
+        "Description": "True if connections that are left open longer then abandoned_timeout seconds during a session(time between borrow and return from pool) should be forcibly closed",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.database.remove_abandoned"
+      },
+      {
+        "Default": null,
+        "Description": "Set to true if you don't want to be using LOWER() SQL functions in search queries/filters, because you know that your DB is case insensitive. If this property is null, then it will be set to true if the UAA DB is MySQL and false otherwise, but even on MySQL you can override it by setting it explicitly to false",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.database.case_insensitive"
+      },
+      {
+        "Default": "cn={0}",
+        "Description": "Used with search-and-bind and search-and-compare. Search filter used. Takes one parameter, user ID defined as {0}",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.searchFilter"
+      },
+      {
+        "Default": "true",
+        "Description": "Boolean value, set to true to search below the search base",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.searchSubtree"
+      },
+      {
+        "Default": "org.cloudfoundry.identity.uaa.login.ldap.DynamicPasswordComparator",
+        "Description": "Deprecated. Use uaa.ldap.passwordEncoder - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.passwordEncoder"
+      },
+      {
+        "Default": "/forgot_password",
+        "Description": "URL for requesting password reset",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.links.passwd"
+      },
+      {
+        "Default": null,
+        "Description": "This is a base64 encoded PNG image which will be used as the favicon for the UAA pages",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.branding.square_logo"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.ldap.userDN - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.userDN"
+      },
+      {
+        "Default": [],
+        "Description": "Array of the router IPs acting as the first group of HTTP/TCP backends. These will be added to the proxy_ips_regex as exact matches. When using spiff, these will be router_z1 and router_z2 static IPs from cf-jobs.yml",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.proxy.servers"
+      },
+      {
+        "Default": 5,
+        "Description": "Number of allowed failures before account is locked",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.authentication.policy.lockoutAfterFailures"
+      },
+      {
+        "Default": null,
+        "Description": "Used with ldaps:// URLs. The certificate alias, to be trusted by this connection and stored in the keystore.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.sslCertificateAlias"
+      },
+      {
+        "Default": null,
+        "Description": "This text appears on the footer of all UAA pages",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.branding.footer_legal_text"
+      },
+      {
+        "Default": null,
+        "Description": "The http_proxy across the VMs",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.http_proxy"
+      },
+      {
+        "Default": true,
+        "Description": "Request came in on a secure connection. Expect the load balancer/proxy to set the proper headers (x-forwarded-for, x-forwarded-proto)",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.require_https"
+      },
+      {
+        "Default": null,
+        "Description": "Contains a hash of group names and their descriptions. These groups will be added to the UAA database for the default zone but not associated with any user.\nExample:\n  uaa:\n    scim:\n      groups:\n        my-test-group: 'My test group description'\n        another-group: 'Another group description'\nDeprecated format(still supported, but may be removed in the future): \nComma separated list of groups that should be added to the UAA db, but not assigned to a user by default.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.scim.groups"
+      },
+      {
+        "Default": 10000,
+        "Description": "Read timeout in milliseconds for SAML metadata HTTP requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.socket.soTimeout"
+      },
+      {
+        "Default": false,
+        "Description": "Global property to request that external IDPs sign their SAML assertion before sending them to the UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.wantAssertionSigned"
+      },
+      {
+        "Default": null,
+        "Description": "A list of hostnames that are routed to the UAA, specifically the default zone in the UAA. The UAA will reject any Host headers that it doesn't recognize.\nBy default the UAA recognizes:\n  The hostname from the property uaa.url\n  The hostname from the property login.url\n  localhost (in order to accept health checks)\nAny hostnames added as a list are additive to the default hostnames allowed.\n",
+        "Example": [
+          "hostname1",
+          "hostname2.localhost",
+          "hostname3.example.com"
+        ],
+        "Examples": null,
+        "Name": "uaa.zones.internal.hostnames"
+      },
+      {
+        "Default": null,
+        "Description": "URL for configuring a custom home page",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.home_redirect"
+      },
+      {
+        "Default": null,
+        "Description": "Map of key IDs and signing keys, each defined with a property `signingKey`",
+        "Example": {
+          "key-1": {
+            "signingKey": "-----BEGIN RSA PRIVATE KEY-----\nMIICXgIBAAKBgQDfTLadf6QgJeS2XXImEHMsa+1O7MmIt44xaL77N2K+J/JGpfV3\nAnkyB06wFZ02sBLB7hko42LIsVEOyTuUBird/3vlyHFKytG7UEt60Fl88SbAEfsU\nJN1i1aSUlunPS/NCz+BKwwKFP9Ss3rNImE9Uc2LMvGy153LHFVW2zrjhTwIDAQAB\nAoGBAJDh21LRcJITRBQ3CUs9PR1DYZPl+tUkE7RnPBMPWpf6ny3LnDp9dllJeHqz\na3ACSgleDSEEeCGzOt6XHnrqjYCKa42Z+Opnjx/OOpjyX1NAaswRtnb039jwv4gb\nRlwT49Y17UAQpISOo7JFadCBoMG0ix8xr4ScY+zCSoG5v0BhAkEA8llNsiWBJF5r\nLWQ6uimfdU2y1IPlkcGAvjekYDkdkHiRie725Dn4qRiXyABeaqNm2bpnD620Okwr\nsf7LY+BMdwJBAOvgt/ZGwJrMOe/cHhbujtjBK/1CumJ4n2r5V1zPBFfLNXiKnpJ6\nJ/sRwmjgg4u3Anu1ENF3YsxYabflBnvOP+kCQCQ8VBCp6OhOMcpErT8+j/gTGQUL\nf5zOiPhoC2zTvWbnkCNGlqXDQTnPUop1+6gILI2rgFNozoTU9MeVaEXTuLsCQQDC\nAGuNpReYucwVGYet+LuITyjs/krp3qfPhhByhtndk4cBA5H0i4ACodKyC6Zl7Tmf\noYaZoYWi6DzbQQUaIsKxAkEA2rXQjQFsfnSm+w/9067ChWg46p4lq5Na2NpcpFgH\nwaZKhM1W0oB8MX78M+0fG3xGUtywTx0D4N7pr1Tk2GTgNw==\n-----END RSA PRIVATE KEY-----\n"
+          }
+        },
+        "Examples": null,
+        "Name": "uaa.jwt.policy.keys"
+      },
+      {
+        "Default": null,
+        "Description": "The key used to sign the JWT-based OAuth2 tokens",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.signing_key"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of lowercase characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.requireLowerCaseCharacter"
+      },
+      {
+        "Default": "follow",
+        "Description": "Configures the UAA LDAP referral behavior. The following values are possible:\n- follow -\u003e Referrals are followed\n- ignore -\u003e Referrals are ignored and the partial result is returned\n- throw  -\u003e An error is thrown and the authentication is aborted\nReference: http://docs.oracle.com/javase/jndi/tutorial/ldap/referral/jndi.html\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.referral"
+      },
+      {
+        "Default": null,
+        "Description": "Set No_Proxy across the VMs",
+        "Example": "localhost,127.0.0.0/8,127.0.1.1",
+        "Examples": null,
+        "Name": "env.no_proxy"
+      },
+      {
+        "Default": 3600,
+        "Description": "Number of seconds in which lockoutAfterFailures failures must occur in order for account to be locked",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.authentication.policy.global.countFailuresWithinSeconds"
+      },
+      {
+        "Default": null,
+        "Description": "Sets the whitelist of emails domains that the LDAP identity provider handles",
+        "Example": [
+          "whitelist-domain1.org",
+          "whitelist-domain2.org"
+        ],
+        "Examples": null,
+        "Name": "uaa.ldap.emailDomain"
+      },
+      {
+        "Default": "10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|192\\.168\\.\\d{1,3}\\.\\d{1,3}|169\\.254\\.\\d{1,3}\\.\\d{1,3}|127\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|172\\.1[6-9]{1}\\.\\d{1,3}\\.\\d{1,3}|172\\.2[0-9]{1}\\.\\d{1,3}\\.\\d{1,3}|172\\.3[0-1]{1}\\.\\d{1,3}\\.\\d{1,3}",
+        "Description": "A pipe delimited set of regular expressions of IP addresses that can reach the listening HTTP port of the server.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.restricted_ips_regex"
+      },
+      {
+        "Default": true,
+        "Description": "If true override users defined in uaa.scim.users found in the database.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.scim.user.override"
+      },
+      {
+        "Default": "",
+        "Description": "Search start point for a user group membership search",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.groups.searchBase"
+      },
+      {
+        "Default": null,
+        "Description": "Service provider certificate.",
+        "Example": "-----BEGIN CERTIFICATE-----\nMIIEJTCCA46gAwIBAgIJANIqfxWTfhpkMA0GCSqGSIb3DQEBBQUAMIG+MQswCQYD\nVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5j\naXNjbzEdMBsGA1UEChMUUGl2b3RhbCBTb2Z0d2FyZSBJbmMxJDAiBgNVBAsTG0Ns\nb3VkIEZvdW5kcnkgSWRlbnRpdHkgVGVhbTEcMBoGA1UEAxMTaWRlbnRpdHkuY2Yt\nYXBwLmNvbTEfMB0GCSqGSIb3DQEJARYQbWFyaXNzYUB0ZXN0Lm9yZzAeFw0xNTA1\nMTQxNzE5MTBaFw0yNTA1MTExNzE5MTBaMIG+MQswCQYDVQQGEwJVUzETMBEGA1UE\nCBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEdMBsGA1UEChMU\nUGl2b3RhbCBTb2Z0d2FyZSBJbmMxJDAiBgNVBAsTG0Nsb3VkIEZvdW5kcnkgSWRl\nbnRpdHkgVGVhbTEcMBoGA1UEAxMTaWRlbnRpdHkuY2YtYXBwLmNvbTEfMB0GCSqG\nSIb3DQEJARYQbWFyaXNzYUB0ZXN0Lm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAw\ngYkCgYEA30y2nX+kICXktl1yJhBzLGvtTuzJiLeOMWi++zdivifyRqX1dwJ5MgdO\nsBWdNrASwe4ZKONiyLFRDsk7lAYq3f975chxSsrRu1BLetBZfPEmwBH7FCTdYtWk\nlJbpz0vzQs/gSsMChT/UrN6zSJhPVHNizLxstedyxxVVts644U8CAwEAAaOCAScw\nggEjMB0GA1UdDgQWBBSvWY/TyHysYGxKvII95wD/CzE1AzCB8wYDVR0jBIHrMIHo\ngBSvWY/TyHysYGxKvII95wD/CzE1A6GBxKSBwTCBvjELMAkGA1UEBhMCVVMxEzAR\nBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xHTAbBgNV\nBAoTFFBpdm90YWwgU29mdHdhcmUgSW5jMSQwIgYDVQQLExtDbG91ZCBGb3VuZHJ5\nIElkZW50aXR5IFRlYW0xHDAaBgNVBAMTE2lkZW50aXR5LmNmLWFwcC5jb20xHzAd\nBgkqhkiG9w0BCQEWEG1hcmlzc2FAdGVzdC5vcmeCCQDSKn8Vk34aZDAMBgNVHRME\nBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAL5j1JCN5EoXMOOBSBUL8KeVZFQD3Nfy\nYkYKBatFEKdBFlAKLBdG+5KzE7sTYesn7EzBISHXFz3DhdK2tg+IF1DeSFVmFl2n\niVxQ1sYjo4kCugHBsWo+MpFH9VBLFzsMlP3eIDuVKe8aPXFKYCGhctZEJdQTKlja\nlshe50nayKrT\n-----END CERTIFICATE----\n",
+        "Examples": null,
+        "Name": "login.saml.serviceProviderCertificate"
+      },
+      {
+        "Default": 8443,
+        "Description": "If this property Tomcat will listen to this port and expect https traffic. If null, tomcat will not listen to this port",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ssl.port"
+      },
+      {
+        "Default": "/login",
+        "Description": "The Location of the redirect header following a logout of the the UAA (/logout.do).",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.logout.redirect.url"
+      },
+      {
+        "Default": null,
+        "Description": "The key used to verify JWT-based OAuth2 tokens",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.verification_key"
+      },
+      {
+        "Default": null,
+        "Description": "The URL to the ldap server, must start with ldap:// or ldaps://",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.url"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use login.saml.providers list objects",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.idp_metadata_file"
+      },
+      {
+        "Default": "x-forwarded-proto",
+        "Description": "The header to look for to determine if ssl termination was performed by a front end load balancer.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ssl.protocol_header"
+      },
+      {
+        "Default": 255,
+        "Description": "Maximum number of characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.maxLength"
+      },
+      {
+        "Default": false,
+        "Description": "Disables internal user authentication",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.disableInternalAuth"
+      },
+      {
+        "Default": "org.cloudfoundry.identity.uaa.ldap.DynamicPasswordComparator",
+        "Description": "Used with search-and-compare only. The encoder used to properly encode user password to match the one in the LDAP directory.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.passwordEncoder"
+      },
+      {
+        "Default": [
+          "login",
+          "support-signon"
+        ],
+        "Description": "Deprecated",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.client.autoapprove"
+      },
+      {
+        "Default": 2592000,
+        "Description": "The refresh token validity for the default zone if nothing is configured on the client. Will override global validity policies for the default zone only.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.policy.refreshTokenValiditySeconds"
+      },
+      {
+        "Default": null,
+        "Description": "Specifies how UAA user attributes map to LDAP attributes. given_name, family_name, and phone_number are UAA user attributes, while other attributes should be included using the prefix `user.attribute`",
+        "Example": {
+          "family_name": "sn",
+          "given_name": "givenName",
+          "phone_number": "telephoneNumber",
+          "user.attribute.name-of-attribute-in-uaa-id-token": "name-of-attribute-in-ldap-record",
+          "user.attribute.name-of-other-attribute-in-uaa-id-token": "name-of-other-attribute-in-ldap-record"
+        },
+        "Examples": null,
+        "Name": "uaa.ldap.attributeMappings"
+      },
+      {
+        "Default": null,
+        "Description": "Contains a hash of SAML Identity Providers, the key is the IDP Alias, followed by key/value pairs. To learn more about how to setup a saml identity provider go to https://simplesamlphp.org",
+        "Example": {
+          "my-identity-provider": {
+            "assertionConsumerIndex": 0,
+            "groupMappingMode": "AS_SCOPES",
+            "iconUrl": "https://my.identityprovider.com/icon.png",
+            "idpMetadata": "http://my.identityprovider.com/saml2/idp/metadata.php",
+            "linkText": "Log in with My Saml Identity Provider",
+            "metadataTrustCheck": false,
+            "nameID": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+            "showSamlLoginLink": true,
+            "signMetaData": false,
+            "signRequest": false
+          }
+        },
+        "Examples": null,
+        "Name": "login.saml.providers"
+      },
+      {
+        "Default": "-Xmx768m -XX:MaxPermSize=256m",
+        "Description": "The options used to configure Tomcat",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.catalina_opts"
+      },
+      {
+        "Default": null,
+        "Description": "A list of users to be bootstrapped with authorities.\nEach entry supports the following format:\n  Short Pipe: username|password|comma,separated,groups\n  Long Pipe: username|password|email|firstName|lastName|comma,separated,groups|origin\n  Short OpenStruct:\n    - name: username\n      password: password\n      groups:\n        - group1\n        - group2\n  Long OpenStruct:\n    - name: username\n      password: password\n      groups:\n        - group1\n        - group2\n      firstName: first name\n      lastName: lastName\n      email: email\n      origin: origin-value - most commonly uaa\n",
+        "Example": [
+          "marissa|koala|marissa@test.org|Marissa|Bloggs"
+        ],
+        "Examples": null,
+        "Name": "uaa.scim.users"
+      },
+      {
+        "Default": "cn={0}",
+        "Description": "Deprecated. Use uaa.ldap.searchFilter - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.searchFilter"
+      },
+      {
+        "Default": null,
+        "Description": "This is used as the SAML Service Provider Entity ID. Each zone has a unique entity ID. Zones other than\nthe default zone will derive their entity ID from this setting by prefexing it with the subdomain.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.entityid"
+      },
+      {
+        "Default": true,
+        "Description": "Global property to sign Local/SP metadata",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.signMetaData"
+      },
+      {
+        "Default": "/resources/oss",
+        "Description": "Base url for static assets, allows custom styling of the login server.  Use '/resources/pivotal' for Pivotal style.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.asset_base_url"
+      },
+      {
+        "Default": null,
+        "Description": "This is a base64 encoded PNG image which will be used as the logo on all UAA pages like Login, Sign Up etc.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.branding.product_logo"
+      },
+      {
+        "Default": false,
+        "Description": "Disables UI and API for internal user management",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.disableInternalUserManagement"
+      },
+      {
+        "Default": true,
+        "Description": "Enables the endpoint `/ids/Users` that allows consumers to translate user ids to name",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.scim.userids_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "External group mappings. Either formatted as an OpenStruct or a list of pipe-separated specifications. The list format is deprecated.\nAs an OpenStruct, the mapping additionally specifies an origin to which the mapping is applied:\n  origin1:\n    external_group1:\n      - internal_group1\n      - internal_group2\n      - internal_group3\n    external_group2:\n      - internal_group2\n      - internal_group4\n  origin2:\n    external_group3:\n      - internal_group3\n      - internal_group4\n      - internal_group5\nAs a list, each entry consists of the following (The origin defaults to ldap in this case.):\n  - internal_group_name|space_delimited_external_groups another_group another_group_etc\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.scim.external_groups"
+      },
+      {
+        "Default": true,
+        "Description": "Deprecated. Use login.saml.providers list objects",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.metadataTrustCheck"
+      },
+      {
+        "Default": null,
+        "Description": "This name is used on the UAA Pages and in account management related communication in UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.branding.company_name"
+      },
+      {
+        "Default": false,
+        "Description": "Set to true if you wish that even JWT tokens become individually revocable and stored in the UAA token storage. This setting applies to the default zone only.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.revocable"
+      },
+      {
+        "Default": null,
+        "Description": "Used with ldaps:// URLs. The certificate, if self signed, to be trusted by this connection.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.sslCertificate"
+      },
+      {
+        "Default": false,
+        "Description": "Set to true if you wish to override an LDAP user email address with a generated one",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.mailSubstituteOverridesLdap"
+      },
+      {
+        "Default": null,
+        "Description": "The url to use as the issuer URI",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.issuer"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use uaa.url for setting the location of UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "domain"
+      },
+      {
+        "Default": null,
+        "Description": "Default login client secret, if no login client is defined",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.login.client_secret"
+      },
+      {
+        "Default": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+        "Description": "Deprecated. Use login.saml.providers list objects",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.nameidFormat"
+      },
+      {
+        "Default": null,
+        "Description": "Set if you have an external login server.\nThe UAA uses this link on by its email service to create links\nThe UAA uses this as a base domain for internal hostnames so that subdomain can be detected\nThis defaults to the uaa.url property, and if not set, to login.\u003cdomain\u003e\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.url"
+      },
+      {
+        "Default": null,
+        "Description": "The base url of the UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.url"
+      },
+      {
+        "Default": null,
+        "Description": "Google analytics code. If Google Analytics is desired set both login.analytics.code and login.analytics.domain",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.analytics.code"
+      },
+      {
+        "Default": 300,
+        "Description": "Number of seconds to lock out an account when lockoutAfterFailures failures is exceeded",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.authentication.policy.global.lockoutPeriodSeconds"
+      },
+      {
+        "Default": 43200,
+        "Description": "The global access token validity for all zones if nothing is configured on the client",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.policy.global.accessTokenValiditySeconds"
+      },
+      {
+        "Default": true,
+        "Description": "Should connections that are forcibly closed be logged.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.database.log_abandoned"
+      },
+      {
+        "Default": false,
+        "Description": "Sets the time format for log messages to be yyyy-MM-dd'T'HH:mm:ss.SSSXXX instead of yyyy-MM-dd HH:mm:ss.SSS",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.logging_use_rfc3339"
+      },
+      {
+        "Default": "",
+        "Description": "Used with search-and-bind and search-and-compare. Define a base where the search starts at.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.searchBase"
+      },
+      {
+        "Default": null,
+        "Description": "Optional configuration of the UAA session cookie.\nDefaults are the following key value pairs:\n  secure: \u003c(boolean)this value if set, otherwise require_https\u003e\n  http-only: \u003c(boolean) - default to true. set HttpOnly flag on cookie.\n  max-age: \u003c(int) lifetime in seconds of cookie - default to 30 minutes)\n  name: \u003c(String) name of cookie, default is JSESSIONID\u003e\n  comment: \u003c(String) optional comment in cookie\u003e\n  path: \u003c(String) path for cookie, default is /\u003e\n  domain: \u003c(String) domain for cookie, default is incoming request domain\u003e\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.servlet.session-cookie"
+      },
+      {
+        "Default": null,
+        "Description": "Used with search-and-bind and search-and-compare. Password for the LDAP ID that performs a search of the LDAP tree for user information.",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.userPassword"
+      },
+      {
+        "Default": null,
+        "Description": "A hash of home/passwd/signup URLS (see commented examples below)",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.links"
+      },
+      {
+        "Default": "/create_account",
+        "Description": "URL for requesting to signup/register for an account",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.links.signup"
+      },
+      {
+        "Default": 0,
+        "Description": "Minimum number of special characters required for password to be considered valid",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.global.requireSpecialCharacter"
+      },
+      {
+        "Default": "userPassword",
+        "Description": "Used with search-and-compare only. The name of the password attribute in the LDAP directory",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.passwordAttributeName"
+      },
+      {
+        "Default": "true",
+        "Description": "Deprecated. Use uaa.ldap.localPasswordCompare - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.localPasswordCompare"
+      },
+      {
+        "Default": false,
+        "Description": "When set to true dumps UAA requests to uaa.log",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.dump_requests"
+      },
+      {
+        "Default": 2592000,
+        "Description": "The global refresh token validity for all zones if nothing is configured on the client",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.jwt.policy.global.refreshTokenValiditySeconds"
+      },
+      {
+        "Default": null,
+        "Description": "The list of databases used in UAA database including tag/name",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaadb.databases"
+      },
+      {
+        "Default": null,
+        "Description": "The list of database Roles used in UAA database including tag/name/password",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaadb.roles"
+      },
+      {
+        "Default": null,
+        "Description": "Used with search-and-bind and search-and-compare. A valid LDAP ID that has read permissions to perform a search of the LDAP tree for user information. ",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.ldap.userDN"
+      },
+      {
+        "Default": "",
+        "Description": "Deprecated. Use uaa.ldap.searchBase - login.ldap prefix is used for backwards compatibility to enable ldap from login config",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.ldap.searchBase"
+      },
+      {
+        "Default": null,
+        "Description": "Deprecated. Use login.saml.providers list objects",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.saml.idpEntityAlias"
+      },
+      {
+        "Default": null,
+        "Description": "The https_proxy across the VMs",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.https_proxy"
+      },
+      {
+        "Default": 0,
+        "Description": "Number of months after which current password expires",
+        "Example": null,
+        "Examples": null,
+        "Name": "uaa.password.policy.expirePasswordInMonths"
+      },
+      {
+        "Default": null,
+        "Description": "A list of links to other services to show on the landing page after log in.",
+        "Example": null,
+        "Examples": null,
+        "Name": "login.tiles"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/post-start",
+        "SrcPathEnd": "post-start"
+      },
+      {
+        "DstPathEnd": "config/log4j.properties",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/log4j.properties.erb",
+        "SrcPathEnd": "log4j.properties.erb"
+      },
+      {
+        "DstPathEnd": "config/uaa.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/uaa.crt.erb",
+        "SrcPathEnd": "uaa.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/varz.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/varz.yml",
+        "SrcPathEnd": "varz.yml"
+      },
+      {
+        "DstPathEnd": "config/tomcat/server.xml",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/tomcat.server.xml.erb",
+        "SrcPathEnd": "tomcat.server.xml.erb"
+      },
+      {
+        "DstPathEnd": "config/ldap.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/ldap.crt.erb",
+        "SrcPathEnd": "ldap.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/uaa_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/uaa_ctl.erb",
+        "SrcPathEnd": "uaa_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/install_crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/install_crt",
+        "SrcPathEnd": "install_crt"
+      },
+      {
+        "DstPathEnd": "bin/install_uaa_crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/install_uaa_crt",
+        "SrcPathEnd": "install_uaa_crt"
+      },
+      {
+        "DstPathEnd": "config/newrelic.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/newrelic.yml.erb",
+        "SrcPathEnd": "newrelic.yml.erb"
+      },
+      {
+        "DstPathEnd": "bin/health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/health_check",
+        "SrcPathEnd": "health_check"
+      },
+      {
+        "DstPathEnd": "config/varz.log4j.properties",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/varz.log4j.properties",
+        "SrcPathEnd": "varz.log4j.properties"
+      },
+      {
+        "DstPathEnd": "config/tomcat/logging.properties",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/tomcat.logging.properties",
+        "SrcPathEnd": "tomcat.logging.properties"
+      },
+      {
+        "DstPathEnd": "config/messages.properties",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/messages.properties.erb",
+        "SrcPathEnd": "messages.properties.erb"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/dns_health_check.erb",
+        "SrcPathEnd": "dns_health_check.erb"
+      },
+      {
+        "DstPathEnd": "config/uaa.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/uaa.yml.erb",
+        "SrcPathEnd": "uaa.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/login.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor701396505/templates/login.yml.erb",
+        "SrcPathEnd": "login.yml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor765826483/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "uaa_postgres",
+    "Packages": [
+      {
+        "Name": "uaa_utils"
+      },
+      {
+        "Name": "uaa_postgres-9.4.2"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 5524,
+        "Description": "The database port",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.port"
+      },
+      {
+        "Default": null,
+        "Description": "The database address",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.address"
+      },
+      {
+        "Default": null,
+        "Description": "A list of databases and associated properties to create",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.databases"
+      },
+      {
+        "Default": null,
+        "Description": "A list of database roles and associated properties to create",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.roles"
+      },
+      {
+        "Default": 500,
+        "Description": "Maximum number of database connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.max_connections"
+      },
+      {
+        "Default": "%m: ",
+        "Description": "The postgres `printf` style string that is output at the beginning of each log line",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.log_line_prefix"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor765826483/templates/pg_hba.conf.erb",
+        "SrcPathEnd": "pg_hba.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor765826483/templates/postgres_ctl.erb",
+        "SrcPathEnd": "postgres_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgres_start.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor765826483/templates/postgres_start.sh.erb",
+        "SrcPathEnd": "postgres_start.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor765826483/templates/postgresql.conf.erb",
+        "SrcPathEnd": "postgresql.conf.erb"
+      }
+    ]
+  }
+]

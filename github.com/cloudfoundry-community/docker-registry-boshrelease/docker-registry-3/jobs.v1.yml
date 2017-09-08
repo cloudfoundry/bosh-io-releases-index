@@ -1,252 +1,395 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor541477709/monit
-    SrcPathEnd: monit
-  Name: cache
-  Packages:
-  - Name: redis
-  Properties:
-  - Default: warning
-    Description: Log verbosity level for Redis cache server
-    Example: null
-    Examples: null
-    Name: docker.cache.redis.loglevel
-  Templates:
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor541477709/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor541477709/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor541477709/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor541477709/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: config/redis.conf
-    Path: /mnt/tmp/tar-CmdExtractor541477709/templates/config/redis.conf
-    SrcPathEnd: config/redis.conf
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor541477709/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-- Description: The NFS Server provides a storage server that can be used with the
-    Cloud Controllers to store uploaded application source code and compiled application
-    assets.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor418949895/monit
-    SrcPathEnd: monit
-  Name: debian_nfs_server
-  Packages:
-  - Name: common
-  - Name: debian_nfs_server
-  Properties:
-  - Default: null
-    Description: An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or
-      IPs from which /var/vcap/store is accessible
-    Example: null
-    Examples: null
-    Name: nfs_server.allow_from_entries
-  - Default: localdomain
-    Description: Domain name for NFS idmapd
-    Example: null
-    Examples: null
-    Name: nfs_server.idmapd_domain
-  - Default: /var/lib/nfs/rpc_pipef
-    Description: Pipefs directory for NFS idmapd
-    Example: null
-    Examples: null
-    Name: nfs_server.pipefs_directory
-  - Default: false
-    Description: Exports /var/vcap/store with no_root_squash when set to true
-    Example: null
-    Examples: null
-    Name: nfs_server.no_root_squash
-  Templates:
-  - DstPathEnd: config/idmapd.conf
-    Path: /mnt/tmp/tar-CmdExtractor418949895/templates/idmapd.conf.erb
-    SrcPathEnd: idmapd.conf.erb
-  - DstPathEnd: bin/rpc_nfsd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor418949895/templates/rpc_nfsd_ctl
-    SrcPathEnd: rpc_nfsd_ctl
-  - DstPathEnd: bin/rpc_mountd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor418949895/templates/rpc_mountd_ctl
-    SrcPathEnd: rpc_mountd_ctl
-  - DstPathEnd: config/exports
-    Path: /mnt/tmp/tar-CmdExtractor418949895/templates/exports.erb
-    SrcPathEnd: exports.erb
-- Description: The NFS Mounter sets up an NFS mount at a specific location. It can
-    be used with the Cloud Controller to save assets to the NFS Server.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor131118289/monit
-    SrcPathEnd: monit
-  Name: nfs_mounter
-  Packages:
-  - Name: common
-  Properties:
-  - Default: null
-    Description: NFS server for droplets and apps
-    Example: null
-    Examples: null
-    Name: nfs_server.address
-  - Default: null
-    Description: Path to share from the remote NFS server
-    Example: null
-    Examples: null
-    Name: nfs_server.share
-  - Default: null
-    Description: bool to use NFS4
-    Example: null
-    Examples: null
-    Name: nfs_server.nfsv4
-  - Default: localdomain
-    Description: Domain name for NFS idmapd
-    Example: null
-    Examples: null
-    Name: nfs_server.idmapd_domain
-  - Default: /var/lib/nfs/rpc_pipefs
-    Description: Pipefs directory for NFS idmapd
-    Example: null
-    Examples: null
-    Name: nfs_server.pipefs_directory
-  - Default: /var/vcap/nfs
-    Description: Location to mount the nfs share
-    Example: null
-    Examples: null
-    Name: nfs_server.share_path
-  Templates:
-  - DstPathEnd: bin/handle_nfs_blobstore.sh
-    Path: /mnt/tmp/tar-CmdExtractor131118289/templates/handle_nfs_blobstore.sh.erb
-    SrcPathEnd: handle_nfs_blobstore.sh.erb
-  - DstPathEnd: config/idmapd.conf
-    Path: /mnt/tmp/tar-CmdExtractor131118289/templates/idmapd.conf.erb
-    SrcPathEnd: idmapd.conf.erb
-  - DstPathEnd: config/nfs-common
-    Path: /mnt/tmp/tar-CmdExtractor131118289/templates/nfs-common
-    SrcPathEnd: nfs-common
-  - DstPathEnd: bin/nfs_mounter_ctl
-    Path: /mnt/tmp/tar-CmdExtractor131118289/templates/nfs_mounter_ctl.erb
-    SrcPathEnd: nfs_mounter_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor425285419/monit
-    SrcPathEnd: monit
-  Name: proxy
-  Packages:
-  - Name: nginx
-  Properties:
-  - Default: []
-    Description: A list of the IP addresses of each Docker proxy to load-balance
-    Example: null
-    Examples: null
-    Name: docker.proxy.backend.hosts
-  - Default: 5000
-    Description: TCP Port that each backend registry is listening on
-    Example: null
-    Examples: null
-    Name: docker.proxy.backend.port
-  - Default: null
-    Description: PEM-encoded SSL certificate for HTTPS proxy operation
-    Example: null
-    Examples: null
-    Name: docker.proxy.ssl.cert
-  - Default: null
-    Description: PEM-encoded private key for HTTPS proxy operation
-    Example: null
-    Examples: null
-    Name: docker.proxy.ssl.key
-  Templates:
-  - DstPathEnd: tls/cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/tls/cert.pem
-    SrcPathEnd: tls/cert.pem
-  - DstPathEnd: tls/key.pem
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/tls/key.pem
-    SrcPathEnd: tls/key.pem
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: config/nginx.conf
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/config/nginx.conf
-    SrcPathEnd: config/nginx.conf
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor425285419/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor218507413/monit
-    SrcPathEnd: monit
-  Name: registry
-  Packages:
-  - Name: golang
-  - Name: docker
-  Properties:
-  - Default: null
-    Description: A secret cookie used to sign state against tampering.
-    Example: null
-    Examples: null
-    Name: docker.registry.cookie
-  - Default: /var/vcap/store/registry
-    Description: Path (on-disk, locally) where the Docker registry should store its
-      data
-    Example: null
-    Examples: null
-    Name: docker.registry.root
-  - Default: ""
-    Description: IP address of the cache host
-    Example: null
-    Examples: null
-    Name: docker.cache.host
-  - Default: 5000
-    Description: What port to run the Docker Registry v2 API on
-    Example: null
-    Examples: null
-    Name: docker.registry.port
-  - Default: null
-    Description: PEM-encoded SSL certificate for HTTPS registry operation
-    Example: null
-    Examples: null
-    Name: docker.registry.ssl.cert
-  - Default: null
-    Description: PEM-encoded private key for HTTPS registry operation
-    Example: null
-    Examples: null
-    Name: docker.registry.ssl.key
-  Templates:
-  - DstPathEnd: config/registry.conf
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/config/registry.conf
-    SrcPathEnd: config/registry.conf
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: tls/cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/tls/cert.pem
-    SrcPathEnd: tls/cert.pem
-  - DstPathEnd: tls/key.pem
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/tls/key.pem
-    SrcPathEnd: tls/key.pem
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor218507413/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor541477709/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cache",
+    "Packages": [
+      {
+        "Name": "redis"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "warning",
+        "Description": "Log verbosity level for Redis cache server",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.cache.redis.loglevel"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor541477709/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor541477709/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor541477709/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor541477709/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "config/redis.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor541477709/templates/config/redis.conf",
+        "SrcPathEnd": "config/redis.conf"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor541477709/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The NFS Server provides a storage server that can be used with the Cloud Controllers to store uploaded application source code and compiled application assets.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor418949895/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "debian_nfs_server",
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "debian_nfs_server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or IPs from which /var/vcap/store is accessible",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.allow_from_entries"
+      },
+      {
+        "Default": "localdomain",
+        "Description": "Domain name for NFS idmapd",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.idmapd_domain"
+      },
+      {
+        "Default": "/var/lib/nfs/rpc_pipef",
+        "Description": "Pipefs directory for NFS idmapd",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.pipefs_directory"
+      },
+      {
+        "Default": false,
+        "Description": "Exports /var/vcap/store with no_root_squash when set to true",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.no_root_squash"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/idmapd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor418949895/templates/idmapd.conf.erb",
+        "SrcPathEnd": "idmapd.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/rpc_nfsd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor418949895/templates/rpc_nfsd_ctl",
+        "SrcPathEnd": "rpc_nfsd_ctl"
+      },
+      {
+        "DstPathEnd": "bin/rpc_mountd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor418949895/templates/rpc_mountd_ctl",
+        "SrcPathEnd": "rpc_mountd_ctl"
+      },
+      {
+        "DstPathEnd": "config/exports",
+        "Path": "/mnt/tmp/tar-CmdExtractor418949895/templates/exports.erb",
+        "SrcPathEnd": "exports.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The NFS Mounter sets up an NFS mount at a specific location. It can be used with the Cloud Controller to save assets to the NFS Server.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor131118289/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "nfs_mounter",
+    "Packages": [
+      {
+        "Name": "common"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "NFS server for droplets and apps",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.address"
+      },
+      {
+        "Default": null,
+        "Description": "Path to share from the remote NFS server",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.share"
+      },
+      {
+        "Default": null,
+        "Description": "bool to use NFS4",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.nfsv4"
+      },
+      {
+        "Default": "localdomain",
+        "Description": "Domain name for NFS idmapd",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.idmapd_domain"
+      },
+      {
+        "Default": "/var/lib/nfs/rpc_pipefs",
+        "Description": "Pipefs directory for NFS idmapd",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.pipefs_directory"
+      },
+      {
+        "Default": "/var/vcap/nfs",
+        "Description": "Location to mount the nfs share",
+        "Example": null,
+        "Examples": null,
+        "Name": "nfs_server.share_path"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/handle_nfs_blobstore.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor131118289/templates/handle_nfs_blobstore.sh.erb",
+        "SrcPathEnd": "handle_nfs_blobstore.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/idmapd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor131118289/templates/idmapd.conf.erb",
+        "SrcPathEnd": "idmapd.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/nfs-common",
+        "Path": "/mnt/tmp/tar-CmdExtractor131118289/templates/nfs-common",
+        "SrcPathEnd": "nfs-common"
+      },
+      {
+        "DstPathEnd": "bin/nfs_mounter_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor131118289/templates/nfs_mounter_ctl.erb",
+        "SrcPathEnd": "nfs_mounter_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor425285419/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "proxy",
+    "Packages": [
+      {
+        "Name": "nginx"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "A list of the IP addresses of each Docker proxy to load-balance",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.proxy.backend.hosts"
+      },
+      {
+        "Default": 5000,
+        "Description": "TCP Port that each backend registry is listening on",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.proxy.backend.port"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded SSL certificate for HTTPS proxy operation",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.proxy.ssl.cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded private key for HTTPS proxy operation",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.proxy.ssl.key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "tls/cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/tls/cert.pem",
+        "SrcPathEnd": "tls/cert.pem"
+      },
+      {
+        "DstPathEnd": "tls/key.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/tls/key.pem",
+        "SrcPathEnd": "tls/key.pem"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/config/nginx.conf",
+        "SrcPathEnd": "config/nginx.conf"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor425285419/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor218507413/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "registry",
+    "Packages": [
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "A secret cookie used to sign state against tampering.",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.registry.cookie"
+      },
+      {
+        "Default": "/var/vcap/store/registry",
+        "Description": "Path (on-disk, locally) where the Docker registry should store its data",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.registry.root"
+      },
+      {
+        "Default": "",
+        "Description": "IP address of the cache host",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.cache.host"
+      },
+      {
+        "Default": 5000,
+        "Description": "What port to run the Docker Registry v2 API on",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.registry.port"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded SSL certificate for HTTPS registry operation",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.registry.ssl.cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded private key for HTTPS registry operation",
+        "Example": null,
+        "Examples": null,
+        "Name": "docker.registry.ssl.key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/registry.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/config/registry.conf",
+        "SrcPathEnd": "config/registry.conf"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "tls/cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/tls/cert.pem",
+        "SrcPathEnd": "tls/cert.pem"
+      },
+      {
+        "DstPathEnd": "tls/key.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/tls/key.pem",
+        "SrcPathEnd": "tls/key.pem"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor218507413/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      }
+    ]
+  }
+]

@@ -1,156 +1,215 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor405500732/monit
-    SrcPathEnd: monit
-  Name: syslog_forwarder
-  Packages: null
-  Properties:
-  - Default: 97500
-    Description: Purge messages of from memory whose severity is greater than or equal
-      to DiscardSeverity
-    Example: null
-    Examples: null
-    Name: queue_discard_mark
-  - Default: true
-    Description: Save in-memory data to disk if rsyslog shuts down. Must be "on" or
-      "off"
-    Example: null
-    Examples: null
-    Name: queue_save_on_shutdown
-  - Default: 10
-    Description: When action is suspended (dest not connected), retry after this number
-      of seconds
-    Example: null
-    Examples: null
-    Name: resume_interval
-  - Default: agg_backlog
-    Description: Spill to disk if queue is full
-    Example: null
-    Examples: null
-    Name: queue_file_name
-  - Default: 128m
-    Description: Max size for disk queue
-    Example: null
-    Examples: null
-    Name: queue_max_disk_space
-  - Default: ""
-    Description: Accepted fingerprint (SHA1) or name of remote peer. Required if TLS
-      is enabled.
-    Example: '*.papertrail.com'
-    Examples: null
-    Name: permitted_peer
-  - Default: []
-    Description: List of fallback servers to be used if the primary syslog server
-      is down. Only tcp or relp protocols are supported. Each list entry should consist
-      of "address", "transport" and "port" keys.
-    Example:
-    - address: logs5.papertrail.com
-      port: 44312
-      transport: tcp
-    Examples: null
-    Name: fallback_servers
-  - Default: false
-    Description: Set this to true to enable TLS.
-    Example: null
-    Examples: null
-    Name: tls_enabled
-  - Default: udp
-    Description: One of ["udp", "tcp", "relp"].
-    Example: null
-    Examples: null
-    Name: transport
-  - Default: null
-    Description: Trust these Certificate Authorities. Required if TLS is enabled.
-    Example: |
-      -----BEGIN CERTIFICATE-----
-      MIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMC...
-      -----END CERTIFICATE-----
-    Examples: null
-    Name: ca_cert
-  - Default: 0
-    Description: This discards every message as soon as the discard mark is reached
-    Example: null
-    Examples: null
-    Name: queue_discard_severity
-  - Default: 80000
-    Description: Num messages. Assuming avg size of 512B, this is 4MiB. (If this is
-      reached, messages will spill to disk until the low watermark is reached).
-    Example: null
-    Examples: null
-    Name: queue_high_water_mark
-  - Default: null
-    Description: IP or DNS address of the syslog server.
-    Example: logs4.papertrail.com
-    Examples: null
-    Name: address
-  - Default: 514
-    Description: Port of the syslog server.
-    Example: null
-    Examples: null
-    Name: port
-  - Default: 2000
-    Description: Num messages. Assuming avg size of 512B, this is 1MiB.
-    Example: null
-    Examples: null
-    Name: queue_low_water_mark
-  - Default: 0
-    Description: Discard messages if the queue + disk is full
-    Example: null
-    Examples: null
-    Name: queue_timeout_enqueue
-  - Default: 100
-    Description: write bookkeeping information on checkpoints (every n records)
-    Example: null
-    Examples: null
-    Name: queue_checkpoint_interval
-  - Default: ""
-    Description: Custom rule for syslog event forwarder.
-    Example: null
-    Examples: null
-    Name: custom_rule
-  - Default: 100000
-    Description: Store no more than this number syslog messages in memory
-    Example: null
-    Examples: null
-    Name: queue_size
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor405500732/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: config/rsyslog.conf
-    Path: /mnt/tmp/tar-CmdExtractor405500732/templates/rsyslog.conf.erb
-    SrcPathEnd: rsyslog.conf.erb
-  - DstPathEnd: config/ca_cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor405500732/templates/ca_cert.pem.erb
-    SrcPathEnd: ca_cert.pem.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor024359374/monit
-    SrcPathEnd: monit
-  Name: syslog_storer
-  Packages: null
-  Properties:
-  - Default: ""
-    Description: Custom rule for syslog event forwarder
-    Example: null
-    Examples: null
-    Name: custom_rule
-  - Default: 514
-    Description: Port of the syslog drain
-    Example: null
-    Examples: null
-    Name: port
-  - Default: udp
-    Description: One of ["udp", "tcp", "relp"].
-    Example: null
-    Examples: null
-    Name: transport
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor024359374/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: config/rsyslog.conf
-    Path: /mnt/tmp/tar-CmdExtractor024359374/templates/rsyslog.conf.erb
-    SrcPathEnd: rsyslog.conf.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor405500732/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "syslog_forwarder",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": 97500,
+        "Description": "Purge messages of from memory whose severity is greater than or equal to DiscardSeverity",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_discard_mark"
+      },
+      {
+        "Default": true,
+        "Description": "Save in-memory data to disk if rsyslog shuts down. Must be \"on\" or \"off\"",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_save_on_shutdown"
+      },
+      {
+        "Default": 10,
+        "Description": "When action is suspended (dest not connected), retry after this number of seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "resume_interval"
+      },
+      {
+        "Default": "agg_backlog",
+        "Description": "Spill to disk if queue is full",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_file_name"
+      },
+      {
+        "Default": "128m",
+        "Description": "Max size for disk queue",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_max_disk_space"
+      },
+      {
+        "Default": "",
+        "Description": "Accepted fingerprint (SHA1) or name of remote peer. Required if TLS is enabled.",
+        "Example": "*.papertrail.com",
+        "Examples": null,
+        "Name": "permitted_peer"
+      },
+      {
+        "Default": [],
+        "Description": "List of fallback servers to be used if the primary syslog server is down. Only tcp or relp protocols are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys.",
+        "Example": [
+          {
+            "address": "logs5.papertrail.com",
+            "port": 44312,
+            "transport": "tcp"
+          }
+        ],
+        "Examples": null,
+        "Name": "fallback_servers"
+      },
+      {
+        "Default": false,
+        "Description": "Set this to true to enable TLS.",
+        "Example": null,
+        "Examples": null,
+        "Name": "tls_enabled"
+      },
+      {
+        "Default": "udp",
+        "Description": "One of [\"udp\", \"tcp\", \"relp\"].",
+        "Example": null,
+        "Examples": null,
+        "Name": "transport"
+      },
+      {
+        "Default": null,
+        "Description": "Trust these Certificate Authorities. Required if TLS is enabled.",
+        "Example": "-----BEGIN CERTIFICATE-----\nMIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMC...\n-----END CERTIFICATE-----\n",
+        "Examples": null,
+        "Name": "ca_cert"
+      },
+      {
+        "Default": 0,
+        "Description": "This discards every message as soon as the discard mark is reached",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_discard_severity"
+      },
+      {
+        "Default": 80000,
+        "Description": "Num messages. Assuming avg size of 512B, this is 4MiB. (If this is reached, messages will spill to disk until the low watermark is reached).",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_high_water_mark"
+      },
+      {
+        "Default": null,
+        "Description": "IP or DNS address of the syslog server.",
+        "Example": "logs4.papertrail.com",
+        "Examples": null,
+        "Name": "address"
+      },
+      {
+        "Default": 514,
+        "Description": "Port of the syslog server.",
+        "Example": null,
+        "Examples": null,
+        "Name": "port"
+      },
+      {
+        "Default": 2000,
+        "Description": "Num messages. Assuming avg size of 512B, this is 1MiB.",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_low_water_mark"
+      },
+      {
+        "Default": 0,
+        "Description": "Discard messages if the queue + disk is full",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_timeout_enqueue"
+      },
+      {
+        "Default": 100,
+        "Description": "write bookkeeping information on checkpoints (every n records)",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_checkpoint_interval"
+      },
+      {
+        "Default": "",
+        "Description": "Custom rule for syslog event forwarder.",
+        "Example": null,
+        "Examples": null,
+        "Name": "custom_rule"
+      },
+      {
+        "Default": 100000,
+        "Description": "Store no more than this number syslog messages in memory",
+        "Example": null,
+        "Examples": null,
+        "Name": "queue_size"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor405500732/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "config/rsyslog.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor405500732/templates/rsyslog.conf.erb",
+        "SrcPathEnd": "rsyslog.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/ca_cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor405500732/templates/ca_cert.pem.erb",
+        "SrcPathEnd": "ca_cert.pem.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor024359374/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "syslog_storer",
+    "Packages": null,
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Custom rule for syslog event forwarder",
+        "Example": null,
+        "Examples": null,
+        "Name": "custom_rule"
+      },
+      {
+        "Default": 514,
+        "Description": "Port of the syslog drain",
+        "Example": null,
+        "Examples": null,
+        "Name": "port"
+      },
+      {
+        "Default": "udp",
+        "Description": "One of [\"udp\", \"tcp\", \"relp\"].",
+        "Example": null,
+        "Examples": null,
+        "Name": "transport"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor024359374/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "config/rsyslog.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor024359374/templates/rsyslog.conf.erb",
+        "SrcPathEnd": "rsyslog.conf.erb"
+      }
+    ]
+  }
+]

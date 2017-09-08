@@ -1,107 +1,156 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor487875476/monit
-    SrcPathEnd: monit
-  Name: config_server
-  Packages:
-  - Name: config_server
-  Properties:
-  - Default: 8080
-    Description: Config server port number
-    Example: null
-    Examples: null
-    Name: port
-  - Default: null
-    Description: CA to issue new certificates
-    Example: null
-    Examples: null
-    Name: ca.certificate
-  - Default: null
-    Description: Password used for the config_server database
-    Example: null
-    Examples: null
-    Name: db.password
-  - Default: null
-    Description: key to create new certificate
-    Example: null
-    Examples: null
-    Name: ca.private_key
-  - Default: null
-    Description: SSL certificate
-    Example: null
-    Examples: null
-    Name: ssl.certificate
-  - Default: 127.0.0.1
-    Description: |
-      'Address of the config_server database, for example, in the case of AWS RDS:
-      rds-instance-name.coqxxxxxxxxx.us-east-1.rds.amazonaws.com'
-    Example: null
-    Examples: null
-    Name: db.host
-  - Default: config_server
-    Description: Name of the config_server database
-    Example: null
-    Examples: null
-    Name: db.database
-  - Default:
-      max_idle_connections: 10
-      max_open_connections: 32
-    Description: Additional options for the database
-    Example: null
-    Examples: null
-    Name: db.connection_options
-  - Default: memory
-    Description: memory|database
-    Example: null
-    Examples: null
-    Name: store
-  - Default: null
-    Description: SSL private key
-    Example: null
-    Examples: null
-    Name: ssl.private_key
-  - Default: postgres
-    Description: The type of database used (postgres|mysql)
-    Example: null
-    Examples: null
-    Name: db.adapter
-  - Default: config_server
-    Description: Username used for the config_server database
-    Example: null
-    Examples: null
-    Name: db.user
-  - Default: null
-    Description: Public key used by the Config server to verify tokens without contacting
-      the UAA
-    Example: null
-    Examples: null
-    Name: jwt.verification_key
-  - Default: 5432
-    Description: Port of the config_server database (e.g, postgres adapter would generally
-      use 5432)
-    Example: null
-    Examples: null
-    Name: db.port
-  Templates:
-  - DstPathEnd: config/ca_private_key
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/ca_private_key.erb
-    SrcPathEnd: ca_private_key.erb
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/ctl.erb
-    SrcPathEnd: ctl.erb
-  - DstPathEnd: config/config.json
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/config.json.erb
-    SrcPathEnd: config.json.erb
-  - DstPathEnd: config/cert
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/cert.erb
-    SrcPathEnd: cert.erb
-  - DstPathEnd: config/key
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/key.erb
-    SrcPathEnd: key.erb
-  - DstPathEnd: config/jwt_verification_key
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/jwt_verification_key.erb
-    SrcPathEnd: jwt_verification_key.erb
-  - DstPathEnd: config/ca_certificate
-    Path: /mnt/tmp/tar-CmdExtractor487875476/templates/ca_certificate.erb
-    SrcPathEnd: ca_certificate.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor487875476/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "config_server",
+    "Packages": [
+      {
+        "Name": "config_server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 8080,
+        "Description": "Config server port number",
+        "Example": null,
+        "Examples": null,
+        "Name": "port"
+      },
+      {
+        "Default": null,
+        "Description": "CA to issue new certificates",
+        "Example": null,
+        "Examples": null,
+        "Name": "ca.certificate"
+      },
+      {
+        "Default": null,
+        "Description": "Password used for the config_server database",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.password"
+      },
+      {
+        "Default": null,
+        "Description": "key to create new certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "ca.private_key"
+      },
+      {
+        "Default": null,
+        "Description": "SSL certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "ssl.certificate"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "'Address of the config_server database, for example, in the case of AWS RDS:\nrds-instance-name.coqxxxxxxxxx.us-east-1.rds.amazonaws.com'\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.host"
+      },
+      {
+        "Default": "config_server",
+        "Description": "Name of the config_server database",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.database"
+      },
+      {
+        "Default": {
+          "max_idle_connections": 10,
+          "max_open_connections": 32
+        },
+        "Description": "Additional options for the database",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.connection_options"
+      },
+      {
+        "Default": "memory",
+        "Description": "memory|database",
+        "Example": null,
+        "Examples": null,
+        "Name": "store"
+      },
+      {
+        "Default": null,
+        "Description": "SSL private key",
+        "Example": null,
+        "Examples": null,
+        "Name": "ssl.private_key"
+      },
+      {
+        "Default": "postgres",
+        "Description": "The type of database used (postgres|mysql)",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.adapter"
+      },
+      {
+        "Default": "config_server",
+        "Description": "Username used for the config_server database",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.user"
+      },
+      {
+        "Default": null,
+        "Description": "Public key used by the Config server to verify tokens without contacting the UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "jwt.verification_key"
+      },
+      {
+        "Default": 5432,
+        "Description": "Port of the config_server database (e.g, postgres adapter would generally use 5432)",
+        "Example": null,
+        "Examples": null,
+        "Name": "db.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/ca_private_key",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/ca_private_key.erb",
+        "SrcPathEnd": "ca_private_key.erb"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/ctl.erb",
+        "SrcPathEnd": "ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/config.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/config.json.erb",
+        "SrcPathEnd": "config.json.erb"
+      },
+      {
+        "DstPathEnd": "config/cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/cert.erb",
+        "SrcPathEnd": "cert.erb"
+      },
+      {
+        "DstPathEnd": "config/key",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/key.erb",
+        "SrcPathEnd": "key.erb"
+      },
+      {
+        "DstPathEnd": "config/jwt_verification_key",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/jwt_verification_key.erb",
+        "SrcPathEnd": "jwt_verification_key.erb"
+      },
+      {
+        "DstPathEnd": "config/ca_certificate",
+        "Path": "/mnt/tmp/tar-CmdExtractor487875476/templates/ca_certificate.erb",
+        "SrcPathEnd": "ca_certificate.erb"
+      }
+    ]
+  }
+]

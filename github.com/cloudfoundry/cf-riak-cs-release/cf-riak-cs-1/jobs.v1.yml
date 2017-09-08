@@ -1,255 +1,428 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor149610314/monit
-    SrcPathEnd: monit
-  Name: acceptance-tests
-  Packages:
-  - Name: acceptance-tests
-  - Name: golang
-  - Name: cli
-  Properties:
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: null
-    Description: Whether to add --skip-ssl-validation for cf cli
-    Example: null
-    Name: cf.skip_ssl_validation
-  - Default: null
-    Description: Host used for registering the broker
-    Example: null
-    Name: broker.host
-  - Default: null
-    Description: Host used for registering the riak nodes
-    Example: null
-    Name: external_riakcs_host
-  - Default: null
-    Description: Whether the broker registers a route with the cloudfoundry router
-    Example: null
-    Name: riak_cs.register_route
-  - Default: null
-    Description: Information about the riak-cs service
-    Example: null
-    Name: catalog.services
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  - Default: null
-    Description: Shared domain for pushed apps
-    Example: null
-    Name: cf.apps_domain
-  - Default: null
-    Description: Use SSL (i.e. https or http)
-    Example: null
-    Name: riak_cs.ssl_enabled
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor149610314/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor982745868/monit
-    SrcPathEnd: monit
-  Name: broker-deregistrar
-  Packages:
-  - Name: ruby
-  - Name: broker-registrar
-  Properties:
-  - Default: 80
-    Description: Port for the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  - Default: null
-    Description: Whether the broker registers a route with the cloudfoundry router
-    Example: null
-    Name: riak_cs.register_route
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: null
-    Description: Name of the service broker
-    Example: null
-    Name: broker.name
-  - Default: null
-    Description: Host address of the service broker
-    Example: null
-    Name: broker.host
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor982745868/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor026844702/monit
-    SrcPathEnd: monit
-  Name: broker-registrar
-  Packages:
-  - Name: ruby
-  - Name: broker-registrar
-  Properties:
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  - Default: null
-    Description: Whether the broker registers a route with the cloudfoundry router
-    Example: null
-    Name: riak_cs.register_route
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: 80
-    Description: Port for the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: null
-    Description: Name of the service broker
-    Example: null
-    Name: broker.name
-  - Default: null
-    Description: Host address of the service broker
-    Example: null
-    Name: broker.host
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor026844702/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor349673216/monit
-    SrcPathEnd: monit
-  Name: cf-riak-cs-broker
-  Packages:
-  - Name: git
-  - Name: ruby
-  - Name: cf-riak-cs-broker
-  Properties: null
-  Templates:
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/config/settings.yml.erb
-    SrcPathEnd: config/settings.yml.erb
-  - DstPathEnd: config/unicorn.conf.rb
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/config/unicorn.conf.rb.erb
-    SrcPathEnd: config/unicorn.conf.rb.erb
-  - DstPathEnd: bin/cf-riak-cs-broker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/bin/cf-riak-cs-broker_ctl
-    SrcPathEnd: bin/cf-riak-cs-broker_ctl
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor349673216/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor048092210/monit
-    SrcPathEnd: monit
-  Name: riak-cs
-  Packages:
-  - Name: riak
-  - Name: erlang
-  - Name: git
-  - Name: riak-cs
-  - Name: common
-  - Name: route-registrar
-  Properties: null
-  Templates:
-  - DstPathEnd: config/riak.vm.args
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/riak.vm.args.erb
-    SrcPathEnd: riak.vm.args.erb
-  - DstPathEnd: restrict_riak_requests_to_cluster_ip_range.sh
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/restrict_riak_requests_to_cluster_ip_range.sh.erb
-    SrcPathEnd: restrict_riak_requests_to_cluster_ip_range.sh.erb
-  - DstPathEnd: bin/create_cs_user.escript
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/create_cs_user.escript.erb
-    SrcPathEnd: create_cs_user.escript.erb
-  - DstPathEnd: bin/route_registrar_ctl
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/route_registrar_ctl.erb
-    SrcPathEnd: route_registrar_ctl.erb
-  - DstPathEnd: config/riak.app.config
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/riak.app.config.erb
-    SrcPathEnd: riak.app.config.erb
-  - DstPathEnd: join_cluster.sh
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/join_cluster.sh.erb
-    SrcPathEnd: join_cluster.sh.erb
-  - DstPathEnd: bin/riak-cs_ctl
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/riak-cs_ctl.erb
-    SrcPathEnd: riak-cs_ctl.erb
-  - DstPathEnd: config/riak_cs.app.config
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/riak_cs.app.config.erb
-    SrcPathEnd: riak_cs.app.config.erb
-  - DstPathEnd: config/riak_cs.vm.args
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/riak_cs.vm.args.erb
-    SrcPathEnd: riak_cs.vm.args.erb
-  - DstPathEnd: config/registrar_settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/registrar_settings.yml.erb
-    SrcPathEnd: registrar_settings.yml.erb
-  - DstPathEnd: bin/riak_ctl
-    Path: /mnt/tmp/tar-CmdExtractor048092210/templates/riak_ctl.erb
-    SrcPathEnd: riak_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor246315572/monit
-    SrcPathEnd: monit
-  Name: stanchion
-  Packages:
-  - Name: stanchion
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/stanchion_ctl
-    Path: /mnt/tmp/tar-CmdExtractor246315572/templates/stanchion_ctl
-    SrcPathEnd: stanchion_ctl
-  - DstPathEnd: config/app.config
-    Path: /mnt/tmp/tar-CmdExtractor246315572/templates/app.config.erb
-    SrcPathEnd: app.config.erb
-  - DstPathEnd: config/vm.args
-    Path: /mnt/tmp/tar-CmdExtractor246315572/templates/vm.args.erb
-    SrcPathEnd: vm.args.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor149610314/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance-tests",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      },
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "cli"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "Whether to add --skip-ssl-validation for cf cli",
+        "Example": null,
+        "Name": "cf.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "Host used for registering the broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": null,
+        "Description": "Host used for registering the riak nodes",
+        "Example": null,
+        "Name": "external_riakcs_host"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the broker registers a route with the cloudfoundry router",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": null,
+        "Description": "Information about the riak-cs service",
+        "Example": null,
+        "Name": "catalog.services"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Shared domain for pushed apps",
+        "Example": null,
+        "Name": "cf.apps_domain"
+      },
+      {
+        "Default": null,
+        "Description": "Use SSL (i.e. https or http)",
+        "Example": null,
+        "Name": "riak_cs.ssl_enabled"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor149610314/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor982745868/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker-deregistrar",
+    "Packages": [
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "broker-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 80,
+        "Description": "Port for the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the broker registers a route with the cloudfoundry router",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the service broker",
+        "Example": null,
+        "Name": "broker.name"
+      },
+      {
+        "Default": null,
+        "Description": "Host address of the service broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor982745868/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor026844702/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker-registrar",
+    "Packages": [
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "broker-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the broker registers a route with the cloudfoundry router",
+        "Example": null,
+        "Name": "riak_cs.register_route"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": 80,
+        "Description": "Port for the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the service broker",
+        "Example": null,
+        "Name": "broker.name"
+      },
+      {
+        "Default": null,
+        "Description": "Host address of the service broker",
+        "Example": null,
+        "Name": "broker.host"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor026844702/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor349673216/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cf-riak-cs-broker",
+    "Packages": [
+      {
+        "Name": "git"
+      },
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "cf-riak-cs-broker"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/config/settings.yml.erb",
+        "SrcPathEnd": "config/settings.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/unicorn.conf.rb",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/config/unicorn.conf.rb.erb",
+        "SrcPathEnd": "config/unicorn.conf.rb.erb"
+      },
+      {
+        "DstPathEnd": "bin/cf-riak-cs-broker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/bin/cf-riak-cs-broker_ctl",
+        "SrcPathEnd": "bin/cf-riak-cs-broker_ctl"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor349673216/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor048092210/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "riak-cs",
+    "Packages": [
+      {
+        "Name": "riak"
+      },
+      {
+        "Name": "erlang"
+      },
+      {
+        "Name": "git"
+      },
+      {
+        "Name": "riak-cs"
+      },
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "route-registrar"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "config/riak.vm.args",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/riak.vm.args.erb",
+        "SrcPathEnd": "riak.vm.args.erb"
+      },
+      {
+        "DstPathEnd": "restrict_riak_requests_to_cluster_ip_range.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/restrict_riak_requests_to_cluster_ip_range.sh.erb",
+        "SrcPathEnd": "restrict_riak_requests_to_cluster_ip_range.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/create_cs_user.escript",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/create_cs_user.escript.erb",
+        "SrcPathEnd": "create_cs_user.escript.erb"
+      },
+      {
+        "DstPathEnd": "bin/route_registrar_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/route_registrar_ctl.erb",
+        "SrcPathEnd": "route_registrar_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/riak.app.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/riak.app.config.erb",
+        "SrcPathEnd": "riak.app.config.erb"
+      },
+      {
+        "DstPathEnd": "join_cluster.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/join_cluster.sh.erb",
+        "SrcPathEnd": "join_cluster.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/riak-cs_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/riak-cs_ctl.erb",
+        "SrcPathEnd": "riak-cs_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/riak_cs.app.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/riak_cs.app.config.erb",
+        "SrcPathEnd": "riak_cs.app.config.erb"
+      },
+      {
+        "DstPathEnd": "config/riak_cs.vm.args",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/riak_cs.vm.args.erb",
+        "SrcPathEnd": "riak_cs.vm.args.erb"
+      },
+      {
+        "DstPathEnd": "config/registrar_settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/registrar_settings.yml.erb",
+        "SrcPathEnd": "registrar_settings.yml.erb"
+      },
+      {
+        "DstPathEnd": "bin/riak_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor048092210/templates/riak_ctl.erb",
+        "SrcPathEnd": "riak_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor246315572/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "stanchion",
+    "Packages": [
+      {
+        "Name": "stanchion"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/stanchion_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor246315572/templates/stanchion_ctl",
+        "SrcPathEnd": "stanchion_ctl"
+      },
+      {
+        "DstPathEnd": "config/app.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor246315572/templates/app.config.erb",
+        "SrcPathEnd": "app.config.erb"
+      },
+      {
+        "DstPathEnd": "config/vm.args",
+        "Path": "/mnt/tmp/tar-CmdExtractor246315572/templates/vm.args.erb",
+        "SrcPathEnd": "vm.args.erb"
+      }
+    ]
+  }
+]

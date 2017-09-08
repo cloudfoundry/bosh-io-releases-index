@@ -1,146 +1,216 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /tmp/tar-CmdExtractor506267722/monit
-    SrcPathEnd: monit
-  Name: cpi
-  Packages:
-  - Name: ruby_openstack_cpi
-  - Name: bosh_openstack_cpi
-  Properties:
-  - Default: null
-    Description: Username agent uses to connect to blobstore used by 'simple' blobstore
-      plugin
-    Example: null
-    Name: blobstore.agent.user
-  - Default: null
-    Description: Provider of the blobstore used by director and agent (simple|local)
-    Example: null
-    Name: blobstore.provider
-  - Default: null
-    Description: NATS password used by agent to subscribe to agent requests
-    Example: null
-    Name: nats.password
-  - Default: null
-    Description: NATS address used by agent to subscribe to agent requests
-    Example: null
-    Name: nats.address
-  - Default: false
-    Description: Set public visibility for stemcells (optional, false by default)
-    Example: null
-    Name: openstack.stemcell_public_visibility
-  - Default: null
-    Description: Address of the Registry to connect to
-    Example: null
-    Name: registry.host
-  - Default: null
-    Description: Password agent uses to connect to blobstore used by 'simple' blobstore
-      plugin
-    Example: null
-    Name: blobstore.agent.password
-  - Default: null
-    Description: NATS username used by agent to subscribe to agent requests
-    Example: null
-    Name: nats.user
-  - Default: 300
-    Description: Timeout (in seconds) for OpenStack resources desired state (optional,
-      by default 300)
-    Example: null
-    Name: openstack.state_timeout
-  - Default: false
-    Description: Boot from volume (optional, false by default)
-    Example: null
-    Name: openstack.boot_from_volume
-  - Default: null
-    Description: Address for agent to connect to blobstore server used by 'simple'
-      blobstore plugin
-    Example: null
-    Name: blobstore.address
-  - Default: null
-    Description: NATS port used by agent to subscribe to agent requests
-    Example: null
-    Name: nats.port
-  - Default: null
-    Description: OpenStack region (optional)
-    Example: null
-    Name: openstack.region
-  - Default: publicURL
-    Description: OpenStack endpoint type (optional, by default publicURL)
-    Example: null
-    Name: openstack.endpoint_type
-  - Default: null
-    Description: Hash containing optional connection parameters to the OpenStack API
-    Example: null
-    Name: openstack.connection_options
-  - Default: 5
-    Description: Changes the delay (in seconds) between each status check to OpenStack
-      when creating a resource (optional, by default 5)
-    Example: null
-    Name: openstack.wait_resource_poll_interval
-  - Default: []
-    Description: List of ntp server URIs
-    Example:
-    - 0.us.pool.ntp.org
-    - 1.us.pool.ntp.org
-    Name: ntp
-  - Default: null
-    Description: OpenStack user name
-    Example: null
-    Name: openstack.username
-  - Default: null
-    Description: OpenStack API key
-    Example: null
-    Name: openstack.api_key
-  - Default: null
-    Description: Default OpenStack security groups to use when spinning up new vms
-    Example: null
-    Name: openstack.default_security_groups
-  - Default: null
-    Description: Config drive device (cdrom or disk) to use as metadata service on
-      OpenStack (optional)
-    Example: cdrom
-    Name: openstack.config_drive
-  - Default: null
-    Description: Username to access the Registry
-    Example: null
-    Name: registry.username
-  - Default: null
-    Description: Port for agent to connect to blobstore server used by 'simple' blobstore
-      plugin
-    Example: null
-    Name: blobstore.port
-  - Default: null
-    Description: URL of the OpenStack Identity endpoint to connect to
-    Example: http://192.168.0.1:5000/v2.0
-    Name: openstack.auth_url
-  - Default: null
-    Description: Message bus endpoint for the agent to start accepting agent requests
-    Example: https://user:password@192.168.0.1:5000
-    Name: agent.mbus
-  - Default: null
-    Description: Password to access the Registry
-    Example: null
-    Name: registry.password
-  - Default: null
-    Description: Path used by 'local' blobstore plugin
-    Example: null
-    Name: blobstore.path
-  - Default: null
-    Description: OpenStack tenant name
-    Example: null
-    Name: openstack.tenant
-  - Default: null
-    Description: Default OpenStack keypair to use when spinning up new vms
-    Example: null
-    Name: openstack.default_key_name
-  - Default: 25777
-    Description: Port of the Registry for CPI and agent to connect to
-    Example: null
-    Name: registry.port
-  Templates:
-  - DstPathEnd: bin/cpi
-    Path: /tmp/tar-CmdExtractor506267722/templates/cpi.erb
-    SrcPathEnd: cpi.erb
-  - DstPathEnd: config/cpi.yml
-    Path: /tmp/tar-CmdExtractor506267722/templates/cpi.yml.erb
-    SrcPathEnd: cpi.yml.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor506267722/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cpi",
+    "Packages": [
+      {
+        "Name": "ruby_openstack_cpi"
+      },
+      {
+        "Name": "bosh_openstack_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Username agent uses to connect to blobstore used by 'simple' blobstore plugin",
+        "Example": null,
+        "Name": "blobstore.agent.user"
+      },
+      {
+        "Default": null,
+        "Description": "Provider of the blobstore used by director and agent (simple|local)",
+        "Example": null,
+        "Name": "blobstore.provider"
+      },
+      {
+        "Default": null,
+        "Description": "NATS password used by agent to subscribe to agent requests",
+        "Example": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "NATS address used by agent to subscribe to agent requests",
+        "Example": null,
+        "Name": "nats.address"
+      },
+      {
+        "Default": false,
+        "Description": "Set public visibility for stemcells (optional, false by default)",
+        "Example": null,
+        "Name": "openstack.stemcell_public_visibility"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the Registry to connect to",
+        "Example": null,
+        "Name": "registry.host"
+      },
+      {
+        "Default": null,
+        "Description": "Password agent uses to connect to blobstore used by 'simple' blobstore plugin",
+        "Example": null,
+        "Name": "blobstore.agent.password"
+      },
+      {
+        "Default": null,
+        "Description": "NATS username used by agent to subscribe to agent requests",
+        "Example": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": 300,
+        "Description": "Timeout (in seconds) for OpenStack resources desired state (optional, by default 300)",
+        "Example": null,
+        "Name": "openstack.state_timeout"
+      },
+      {
+        "Default": false,
+        "Description": "Boot from volume (optional, false by default)",
+        "Example": null,
+        "Name": "openstack.boot_from_volume"
+      },
+      {
+        "Default": null,
+        "Description": "Address for agent to connect to blobstore server used by 'simple' blobstore plugin",
+        "Example": null,
+        "Name": "blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "NATS port used by agent to subscribe to agent requests",
+        "Example": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack region (optional)",
+        "Example": null,
+        "Name": "openstack.region"
+      },
+      {
+        "Default": "publicURL",
+        "Description": "OpenStack endpoint type (optional, by default publicURL)",
+        "Example": null,
+        "Name": "openstack.endpoint_type"
+      },
+      {
+        "Default": null,
+        "Description": "Hash containing optional connection parameters to the OpenStack API",
+        "Example": null,
+        "Name": "openstack.connection_options"
+      },
+      {
+        "Default": 5,
+        "Description": "Changes the delay (in seconds) between each status check to OpenStack when creating a resource (optional, by default 5)",
+        "Example": null,
+        "Name": "openstack.wait_resource_poll_interval"
+      },
+      {
+        "Default": [],
+        "Description": "List of ntp server URIs",
+        "Example": [
+          "0.us.pool.ntp.org",
+          "1.us.pool.ntp.org"
+        ],
+        "Name": "ntp"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack user name",
+        "Example": null,
+        "Name": "openstack.username"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack API key",
+        "Example": null,
+        "Name": "openstack.api_key"
+      },
+      {
+        "Default": null,
+        "Description": "Default OpenStack security groups to use when spinning up new vms",
+        "Example": null,
+        "Name": "openstack.default_security_groups"
+      },
+      {
+        "Default": null,
+        "Description": "Config drive device (cdrom or disk) to use as metadata service on OpenStack (optional)",
+        "Example": "cdrom",
+        "Name": "openstack.config_drive"
+      },
+      {
+        "Default": null,
+        "Description": "Username to access the Registry",
+        "Example": null,
+        "Name": "registry.username"
+      },
+      {
+        "Default": null,
+        "Description": "Port for agent to connect to blobstore server used by 'simple' blobstore plugin",
+        "Example": null,
+        "Name": "blobstore.port"
+      },
+      {
+        "Default": null,
+        "Description": "URL of the OpenStack Identity endpoint to connect to",
+        "Example": "http://192.168.0.1:5000/v2.0",
+        "Name": "openstack.auth_url"
+      },
+      {
+        "Default": null,
+        "Description": "Message bus endpoint for the agent to start accepting agent requests",
+        "Example": "https://user:password@192.168.0.1:5000",
+        "Name": "agent.mbus"
+      },
+      {
+        "Default": null,
+        "Description": "Password to access the Registry",
+        "Example": null,
+        "Name": "registry.password"
+      },
+      {
+        "Default": null,
+        "Description": "Path used by 'local' blobstore plugin",
+        "Example": null,
+        "Name": "blobstore.path"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack tenant name",
+        "Example": null,
+        "Name": "openstack.tenant"
+      },
+      {
+        "Default": null,
+        "Description": "Default OpenStack keypair to use when spinning up new vms",
+        "Example": null,
+        "Name": "openstack.default_key_name"
+      },
+      {
+        "Default": 25777,
+        "Description": "Port of the Registry for CPI and agent to connect to",
+        "Example": null,
+        "Name": "registry.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor506267722/templates/cpi.erb",
+        "SrcPathEnd": "cpi.erb"
+      },
+      {
+        "DstPathEnd": "config/cpi.yml",
+        "Path": "/tmp/tar-CmdExtractor506267722/templates/cpi.yml.erb",
+        "SrcPathEnd": "cpi.yml.erb"
+      }
+    ]
+  }
+]

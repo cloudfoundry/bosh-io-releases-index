@@ -1,421 +1,630 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor226152852/monit
-    SrcPathEnd: monit
-  Name: acceptance-tests
-  Packages:
-  - Name: acceptance-tests
-  - Name: consul
-  - Name: golang1.8
-  Properties:
-  - Default: https://192.168.50.4:25555
-    Description: Location of the BOSH Director to target when deploying consul
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.target
-  - Default: ""
-    Description: BOSH Director CA Cert
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.director_ca_cert
-  - Default: latest
-    Description: The default consul-release version number to deploy
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.consul_release_version
-  - Default: false
-    Description: Run tests in turbulence package
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.enable_turbulence_tests
-  - Default: admin
-    Description: BOSH Director username
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.username
-  - Default: admin
-    Description: BOSH Director password
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.bosh.password
-  - Default: 1
-    Description: Number of parallel nodes to use for tests
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.parallel_nodes
-  - Default: latest
-    Description: The latest bosh.io consul-release version number to deploy
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.latest_consul_release_version
-  - Default: false
-    Description: Run consats with windows clients
-    Example: null
-    Examples: null
-    Name: consul.acceptance_tests.windows_clients
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor226152852/templates/test.sh.erb
-    SrcPathEnd: test.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor366217702/monit
-    SrcPathEnd: monit
-  Name: consul-test-consumer-windows
-  Packages:
-  - Name: acceptance-tests-windows
-  Properties:
-  - Default: ""
-    Description: Nameserver to use to mock out responses/response times
-    Example: null
-    Examples: null
-    Name: consul-test-consumer.nameserver
-  - Default: false
-    Description: Require SSL to talk with local consul agent
-    Example: null
-    Examples: null
-    Name: consul-test-consumer.require_ssl
-  Templates:
-  - DstPathEnd: bin/pre-start.ps1
-    Path: /mnt/tmp/tar-CmdExtractor366217702/templates/pre-start.ps1.erb
-    SrcPathEnd: pre-start.ps1.erb
-  - DstPathEnd: bin/dns_health_check.ps1
-    Path: /mnt/tmp/tar-CmdExtractor366217702/templates/dns_health_check.ps1
-    SrcPathEnd: dns_health_check.ps1
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor897542152/monit
-    SrcPathEnd: monit
-  Name: consul-test-consumer
-  Packages:
-  - Name: acceptance-tests
-  Properties:
-  - Default: ""
-    Description: Nameserver to use to mock out responses/response times
-    Example: null
-    Examples: null
-    Name: consul-test-consumer.nameserver
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor897542152/templates/run.sh.erb
-    SrcPathEnd: run.sh.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor897542152/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor897542152/templates/dns_health_check
-    SrcPathEnd: dns_health_check
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor683563130/monit
-    SrcPathEnd: monit
-  Name: consul_agent
-  Packages:
-  - Name: consul
-  - Name: confab
-  Properties:
-  - Default: client
-    Description: Mode to run the agent in. (client or server)
-    Example: null
-    Examples: null
-    Name: consul.agent.mode
-  - Default: info
-    Description: Agent log level.
-    Example: null
-    Examples: null
-    Name: consul.agent.log_level
-  - Default: null
-    Description: Domain suffix for DNS
-    Example: null
-    Examples: null
-    Name: consul.agent.domain
-  - Default: null
-    Description: A list of passphrases that will be converted into encryption keys,
-      the first key in the list is the active one
-    Example: null
-    Examples: null
-    Name: consul.encrypt_keys
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: consul.ca_cert
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Examples: null
-    Name: consul.server_key
-  - Default: null
-    Description: PEM-encoded agent certificate
-    Example: null
-    Examples: null
-    Name: consul.agent_cert
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: consul.agent_key
-  - Default: 30s
-    Description: When allow_stale is specified, this is used to limit how stale results
-      are allowed to be.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.max_stale
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Examples: null
-    Name: consul.server_cert
-  - Default: []
-    Description: LAN server addresses to join on start.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.lan
-  - Default: []
-    Description: WAN server addresses to join.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.wan
-  - Default: dc1
-    Description: Name of the agent's datacenter.
-    Example: null
-    Examples: null
-    Name: consul.agent.datacenter
-  - Default: null
-    Description: Telemetry Statsd address
-    Example: null
-    Examples: null
-    Name: consul.agent.telemetry.statsd_address
-  - Default: 5s
-    Description: Timeout used by Consul when recursively querying an upstream DNS
-      server.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.recursor_timeout
-  - Default: true
-    Description: When set to true this property will rewrite the resolv.conf file
-      and add 127.0.0.1 as the first entry
-    Example: null
-    Examples: null
-    Name: consul.agent.rewrite_resolv
-  - Default: true
-    Description: Set to false to disable the consul_agent on a VM.
-    Example: null
-    Examples: null
-    Name: consul.client.enabled
-  - Default: 53
-    Description: DNS server port
-    Example: null
-    Examples: null
-    Name: consul.agent.ports.dns
-  - Default: {}
-    Description: Map of consul service definitions.
-    Example: null
-    Examples: null
-    Name: consul.agent.services
-  - Default: 2
-    Description: The Consul protocol to use.
-    Example: null
-    Examples: null
-    Name: consul.agent.protocol_version
-  - Default: true
-    Description: Enables a stale query for DNS information. This allows any Consul
-      server, rather than only the leader, to service the request.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.allow_stale
-  Templates:
-  - DstPathEnd: bin/agent_ctl
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/agent_ctl.sh.erb
-    SrcPathEnd: agent_ctl.sh.erb
-  - DstPathEnd: bin/agent_ctl_wrapper
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/agent_ctl_wrapper.erb
-    SrcPathEnd: agent_ctl_wrapper.erb
-  - DstPathEnd: bin/join_ctl
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/join_ctl.sh.erb
-    SrcPathEnd: join_ctl.sh.erb
-  - DstPathEnd: consul_link.json
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/consul_link.json.erb
-    SrcPathEnd: consul_link.json.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/server.key.erb
-    SrcPathEnd: server.key.erb
-  - DstPathEnd: config/certs/agent.crt
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/agent.crt.erb
-    SrcPathEnd: agent.crt.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/drain
-    SrcPathEnd: drain
-  - DstPathEnd: confab.json
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/confab.json.erb
-    SrcPathEnd: confab.json.erb
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/server.crt.erb
-    SrcPathEnd: server.crt.erb
-  - DstPathEnd: config/certs/agent.key
-    Path: /mnt/tmp/tar-CmdExtractor683563130/templates/agent.key.erb
-    SrcPathEnd: agent.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor657436092/monit
-    SrcPathEnd: monit
-  Name: consul_agent_windows
-  Packages:
-  - Name: consul-windows
-  - Name: confab-windows
-  Properties:
-  - Default: false
-    Description: Enables a stale query for DNS information. This allows any Consul
-      server, rather than only the leader, to service the request.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.allow_stale
-  - Default: true
-    Description: When set to true this property will rewrite the resolv.conf file
-      and add 127.0.0.1 as the first entry
-    Example: null
-    Examples: null
-    Name: consul.agent.rewrite_resolv
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: consul.agent_key
-  - Default: true
-    Description: Set to false to disable the consul_agent on a VM.
-    Example: null
-    Examples: null
-    Name: consul.client.enabled
-  - Default: []
-    Description: WAN server addresses to join.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.wan
-  - Default: {}
-    Description: Map of consul service definitions.
-    Example: null
-    Examples: null
-    Name: consul.agent.services
-  - Default: false
-    Description: Require SSL to talk with the local agent
-    Example: null
-    Examples: null
-    Name: consul.agent.require_ssl
-  - Default: udp
-    Description: Syslog transport protocol (tcp or udp)
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.transport
-  - Default: ""
-    Description: Syslog port
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.port
-  - Default: []
-    Description: LAN server addresses to join on start.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.lan
-  - Default: 5s
-    Description: When allow_stale is specified, this is used to limit how stale results
-      are allowed to be.
-    Example: null
-    Examples: null
-    Name: consul.agent.dns_config.max_stale
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: consul.ca_cert
-  - Default: null
-    Description: A list of passphrases that will be converted into encryption keys,
-      the first key in the list is the active one
-    Example: null
-    Examples: null
-    Name: consul.encrypt_keys
-  - Default: null
-    Description: PEM-encoded agent certificate
-    Example: null
-    Examples: null
-    Name: consul.agent_cert
-  - Default: ""
-    Description: Syslog host
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.address
-  - Default: info
-    Description: Agent log level.
-    Example: null
-    Examples: null
-    Name: consul.agent.log_level
-  - Default: dc1
-    Description: Name of the agent's datacenter.
-    Example: null
-    Examples: null
-    Name: consul.agent.datacenter
-  - Default: 2
-    Description: The Consul protocol to use.
-    Example: null
-    Examples: null
-    Name: consul.agent.protocol_version
-  - Default: null
-    Description: Domain suffix for DNS
-    Example: null
-    Examples: null
-    Name: consul.agent.domain
-  Templates:
-  - DstPathEnd: config/certs/agent.crt
-    Path: /mnt/tmp/tar-CmdExtractor657436092/templates/agent.crt.erb
-    SrcPathEnd: agent.crt.erb
-  - DstPathEnd: config/certs/agent.key
-    Path: /mnt/tmp/tar-CmdExtractor657436092/templates/agent.key.erb
-    SrcPathEnd: agent.key.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor657436092/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: confab.json
-    Path: /mnt/tmp/tar-CmdExtractor657436092/templates/confab.json.erb
-    SrcPathEnd: confab.json.erb
-  - DstPathEnd: consul_link.json
-    Path: /mnt/tmp/tar-CmdExtractor657436092/templates/consul_link.json.erb
-    SrcPathEnd: consul_link.json.erb
-  - DstPathEnd: bin/pre-start.ps1
-    Path: /mnt/tmp/tar-CmdExtractor657436092/templates/pre-start.ps1.erb
-    SrcPathEnd: pre-start.ps1.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor461765198/monit
-    SrcPathEnd: monit
-  Name: fake-dns-server
-  Packages:
-  - Name: acceptance-tests
-  Properties:
-  - Default: ""
-    Description: Name of the entry to add to the hosts file
-    Example: null
-    Examples: null
-    Name: fake_dns_server.host_to_add.name
-  - Default: ""
-    Description: Address of the entry to add to the hosts file
-    Example: null
-    Examples: null
-    Name: fake_dns_server.host_to_add.address
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor461765198/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor461765198/templates/run.sh.erb
-    SrcPathEnd: run.sh.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor226152852/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "acceptance-tests",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      },
+      {
+        "Name": "consul"
+      },
+      {
+        "Name": "golang1.8"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "https://192.168.50.4:25555",
+        "Description": "Location of the BOSH Director to target when deploying consul",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.target"
+      },
+      {
+        "Default": "",
+        "Description": "BOSH Director CA Cert",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.director_ca_cert"
+      },
+      {
+        "Default": "latest",
+        "Description": "The default consul-release version number to deploy",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.consul_release_version"
+      },
+      {
+        "Default": false,
+        "Description": "Run tests in turbulence package",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.enable_turbulence_tests"
+      },
+      {
+        "Default": "admin",
+        "Description": "BOSH Director username",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.username"
+      },
+      {
+        "Default": "admin",
+        "Description": "BOSH Director password",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.bosh.password"
+      },
+      {
+        "Default": 1,
+        "Description": "Number of parallel nodes to use for tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.parallel_nodes"
+      },
+      {
+        "Default": "latest",
+        "Description": "The latest bosh.io consul-release version number to deploy",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.latest_consul_release_version"
+      },
+      {
+        "Default": false,
+        "Description": "Run consats with windows clients",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.acceptance_tests.windows_clients"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor226152852/templates/test.sh.erb",
+        "SrcPathEnd": "test.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor366217702/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul-test-consumer-windows",
+    "Packages": [
+      {
+        "Name": "acceptance-tests-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Nameserver to use to mock out responses/response times",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul-test-consumer.nameserver"
+      },
+      {
+        "Default": false,
+        "Description": "Require SSL to talk with local consul agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul-test-consumer.require_ssl"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor366217702/templates/pre-start.ps1.erb",
+        "SrcPathEnd": "pre-start.ps1.erb"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor366217702/templates/dns_health_check.ps1",
+        "SrcPathEnd": "dns_health_check.ps1"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor897542152/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul-test-consumer",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Nameserver to use to mock out responses/response times",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul-test-consumer.nameserver"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor897542152/templates/run.sh.erb",
+        "SrcPathEnd": "run.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor897542152/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor897542152/templates/dns_health_check",
+        "SrcPathEnd": "dns_health_check"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor683563130/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul_agent",
+    "Packages": [
+      {
+        "Name": "consul"
+      },
+      {
+        "Name": "confab"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "client",
+        "Description": "Mode to run the agent in. (client or server)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.mode"
+      },
+      {
+        "Default": "info",
+        "Description": "Agent log level.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "Domain suffix for DNS",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.domain"
+      },
+      {
+        "Default": null,
+        "Description": "A list of passphrases that will be converted into encryption keys, the first key in the list is the active one",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.encrypt_keys"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded agent certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_key"
+      },
+      {
+        "Default": "30s",
+        "Description": "When allow_stale is specified, this is used to limit how stale results are allowed to be.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.max_stale"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server_cert"
+      },
+      {
+        "Default": [],
+        "Description": "LAN server addresses to join on start.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.lan"
+      },
+      {
+        "Default": [],
+        "Description": "WAN server addresses to join.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.wan"
+      },
+      {
+        "Default": "dc1",
+        "Description": "Name of the agent's datacenter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.datacenter"
+      },
+      {
+        "Default": null,
+        "Description": "Telemetry Statsd address",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.telemetry.statsd_address"
+      },
+      {
+        "Default": "5s",
+        "Description": "Timeout used by Consul when recursively querying an upstream DNS server.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.recursor_timeout"
+      },
+      {
+        "Default": true,
+        "Description": "When set to true this property will rewrite the resolv.conf file and add 127.0.0.1 as the first entry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.rewrite_resolv"
+      },
+      {
+        "Default": true,
+        "Description": "Set to false to disable the consul_agent on a VM.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.client.enabled"
+      },
+      {
+        "Default": 53,
+        "Description": "DNS server port",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.ports.dns"
+      },
+      {
+        "Default": {},
+        "Description": "Map of consul service definitions.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.services"
+      },
+      {
+        "Default": 2,
+        "Description": "The Consul protocol to use.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.protocol_version"
+      },
+      {
+        "Default": true,
+        "Description": "Enables a stale query for DNS information. This allows any Consul server, rather than only the leader, to service the request.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.allow_stale"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/agent_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/agent_ctl.sh.erb",
+        "SrcPathEnd": "agent_ctl.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/agent_ctl_wrapper",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/agent_ctl_wrapper.erb",
+        "SrcPathEnd": "agent_ctl_wrapper.erb"
+      },
+      {
+        "DstPathEnd": "bin/join_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/join_ctl.sh.erb",
+        "SrcPathEnd": "join_ctl.sh.erb"
+      },
+      {
+        "DstPathEnd": "consul_link.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/consul_link.json.erb",
+        "SrcPathEnd": "consul_link.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/server.key.erb",
+        "SrcPathEnd": "server.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/agent.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/agent.crt.erb",
+        "SrcPathEnd": "agent.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/drain",
+        "SrcPathEnd": "drain"
+      },
+      {
+        "DstPathEnd": "confab.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/confab.json.erb",
+        "SrcPathEnd": "confab.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/server.crt.erb",
+        "SrcPathEnd": "server.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/agent.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor683563130/templates/agent.key.erb",
+        "SrcPathEnd": "agent.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor657436092/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul_agent_windows",
+    "Packages": [
+      {
+        "Name": "consul-windows"
+      },
+      {
+        "Name": "confab-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Enables a stale query for DNS information. This allows any Consul server, rather than only the leader, to service the request.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.allow_stale"
+      },
+      {
+        "Default": true,
+        "Description": "When set to true this property will rewrite the resolv.conf file and add 127.0.0.1 as the first entry",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.rewrite_resolv"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_key"
+      },
+      {
+        "Default": true,
+        "Description": "Set to false to disable the consul_agent on a VM.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.client.enabled"
+      },
+      {
+        "Default": [],
+        "Description": "WAN server addresses to join.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.wan"
+      },
+      {
+        "Default": {},
+        "Description": "Map of consul service definitions.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.services"
+      },
+      {
+        "Default": false,
+        "Description": "Require SSL to talk with the local agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.require_ssl"
+      },
+      {
+        "Default": "udp",
+        "Description": "Syslog transport protocol (tcp or udp)",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.transport"
+      },
+      {
+        "Default": "",
+        "Description": "Syslog port",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.port"
+      },
+      {
+        "Default": [],
+        "Description": "LAN server addresses to join on start.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.lan"
+      },
+      {
+        "Default": "5s",
+        "Description": "When allow_stale is specified, this is used to limit how stale results are allowed to be.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.dns_config.max_stale"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "A list of passphrases that will be converted into encryption keys, the first key in the list is the active one",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.encrypt_keys"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded agent certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_cert"
+      },
+      {
+        "Default": "",
+        "Description": "Syslog host",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.address"
+      },
+      {
+        "Default": "info",
+        "Description": "Agent log level.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.log_level"
+      },
+      {
+        "Default": "dc1",
+        "Description": "Name of the agent's datacenter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.datacenter"
+      },
+      {
+        "Default": 2,
+        "Description": "The Consul protocol to use.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.protocol_version"
+      },
+      {
+        "Default": null,
+        "Description": "Domain suffix for DNS",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.domain"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/agent.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor657436092/templates/agent.crt.erb",
+        "SrcPathEnd": "agent.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/agent.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor657436092/templates/agent.key.erb",
+        "SrcPathEnd": "agent.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor657436092/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "confab.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor657436092/templates/confab.json.erb",
+        "SrcPathEnd": "confab.json.erb"
+      },
+      {
+        "DstPathEnd": "consul_link.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor657436092/templates/consul_link.json.erb",
+        "SrcPathEnd": "consul_link.json.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor657436092/templates/pre-start.ps1.erb",
+        "SrcPathEnd": "pre-start.ps1.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor461765198/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "fake-dns-server",
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Name of the entry to add to the hosts file",
+        "Example": null,
+        "Examples": null,
+        "Name": "fake_dns_server.host_to_add.name"
+      },
+      {
+        "Default": "",
+        "Description": "Address of the entry to add to the hosts file",
+        "Example": null,
+        "Examples": null,
+        "Name": "fake_dns_server.host_to_add.address"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor461765198/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor461765198/templates/run.sh.erb",
+        "SrcPathEnd": "run.sh.erb"
+      }
+    ]
+  }
+]

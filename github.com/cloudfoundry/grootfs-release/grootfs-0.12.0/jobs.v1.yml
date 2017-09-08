@@ -1,70 +1,108 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor721425776/monit
-    SrcPathEnd: monit
-  Name: grootfs
-  Packages:
-  - Name: idmapper
-  - Name: btrfs-progs
-  - Name: xfs-progs
-  - Name: grootfs
-  Properties:
-  - Default: []
-    Description: A list of IP:PORT tuples that we allow pulling docker images from
-      using self-signed certificates.
-    Example: null
-    Examples: null
-    Name: grootfs.insecure_docker_registry_list
-  - Default: []
-    Description: List of base images (tarballs or Docker URLs) which will never be
-      deleted during cleanup.
-    Example: null
-    Examples: null
-    Name: grootfs.persistent_image_list
-  - Default: -1
-    Description: Total size of all filesystem layers downloaded from Docker registries
-      before graph cleanup is activated. -1 disables graph cleanup.
-    Example: null
-    Examples: null
-    Name: grootfs.graph_cleanup_threshold_in_mb
-  - Default: 10737418240
-    Description: The size of the grootfs store. Changes to this value do not update
-      the store on existing hosts. To resize the store, the job host must be recreated.
-    Example: null
-    Examples: null
-    Name: grootfs.store_size_bytes
-  - Default: overlay-xfs
-    Description: Filesystem driver to use
-    Example: null
-    Examples: null
-    Name: grootfs.driver
-  - Default: info
-    Description: Log level for grootfs - can be debug, info, error or fatal
-    Example: null
-    Examples: null
-    Name: grootfs.log_level
-  - Default: null
-    Description: Local metron agent's port
-    Example: null
-    Examples: null
-    Name: grootfs.dropsonde_port
-  Templates:
-  - DstPathEnd: bin/btrfs-setup
-    Path: /mnt/tmp/tar-CmdExtractor721425776/templates/bin/btrfs-setup.erb
-    SrcPathEnd: bin/btrfs-setup.erb
-  - DstPathEnd: bin/overlay-xfs-setup
-    Path: /mnt/tmp/tar-CmdExtractor721425776/templates/bin/overlay-xfs-setup.erb
-    SrcPathEnd: bin/overlay-xfs-setup.erb
-  - DstPathEnd: bin/utils
-    Path: /mnt/tmp/tar-CmdExtractor721425776/templates/bin/utils.erb
-    SrcPathEnd: bin/utils.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor721425776/templates/bin/pre-start.erb
-    SrcPathEnd: bin/pre-start.erb
-  - DstPathEnd: config/grootfs_config.yml
-    Path: /mnt/tmp/tar-CmdExtractor721425776/templates/config/grootfs_config.yml.erb
-    SrcPathEnd: config/grootfs_config.yml.erb
-  - DstPathEnd: config/privileged_grootfs_config.yml
-    Path: /mnt/tmp/tar-CmdExtractor721425776/templates/config/privileged_grootfs_config.yml.erb
-    SrcPathEnd: config/privileged_grootfs_config.yml.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor721425776/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "grootfs",
+    "Packages": [
+      {
+        "Name": "idmapper"
+      },
+      {
+        "Name": "btrfs-progs"
+      },
+      {
+        "Name": "xfs-progs"
+      },
+      {
+        "Name": "grootfs"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "A list of IP:PORT tuples that we allow pulling docker images from using self-signed certificates.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.insecure_docker_registry_list"
+      },
+      {
+        "Default": [],
+        "Description": "List of base images (tarballs or Docker URLs) which will never be deleted during cleanup.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.persistent_image_list"
+      },
+      {
+        "Default": -1,
+        "Description": "Total size of all filesystem layers downloaded from Docker registries before graph cleanup is activated. -1 disables graph cleanup.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.graph_cleanup_threshold_in_mb"
+      },
+      {
+        "Default": 10737418240,
+        "Description": "The size of the grootfs store. Changes to this value do not update the store on existing hosts. To resize the store, the job host must be recreated.",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.store_size_bytes"
+      },
+      {
+        "Default": "overlay-xfs",
+        "Description": "Filesystem driver to use",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.driver"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level for grootfs - can be debug, info, error or fatal",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "Local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "grootfs.dropsonde_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/btrfs-setup",
+        "Path": "/mnt/tmp/tar-CmdExtractor721425776/templates/bin/btrfs-setup.erb",
+        "SrcPathEnd": "bin/btrfs-setup.erb"
+      },
+      {
+        "DstPathEnd": "bin/overlay-xfs-setup",
+        "Path": "/mnt/tmp/tar-CmdExtractor721425776/templates/bin/overlay-xfs-setup.erb",
+        "SrcPathEnd": "bin/overlay-xfs-setup.erb"
+      },
+      {
+        "DstPathEnd": "bin/utils",
+        "Path": "/mnt/tmp/tar-CmdExtractor721425776/templates/bin/utils.erb",
+        "SrcPathEnd": "bin/utils.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor721425776/templates/bin/pre-start.erb",
+        "SrcPathEnd": "bin/pre-start.erb"
+      },
+      {
+        "DstPathEnd": "config/grootfs_config.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor721425776/templates/config/grootfs_config.yml.erb",
+        "SrcPathEnd": "config/grootfs_config.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/privileged_grootfs_config.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor721425776/templates/config/privileged_grootfs_config.yml.erb",
+        "SrcPathEnd": "config/privileged_grootfs_config.yml.erb"
+      }
+    ]
+  }
+]

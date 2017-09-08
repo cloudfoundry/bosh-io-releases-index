@@ -1,579 +1,864 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor674089228/monit
-    SrcPathEnd: monit
-  Name: cf-networking-acceptance
-  Packages:
-  - Name: golang
-  - Name: cf-networking-acceptance
-  Properties:
-  - Default: null
-    Description: cf system domain, e.g. bosh-lite.com
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.system_domain
-  - Default: null
-    Description: cf apps domain, e.g. bosh-lite.com
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.apps_domain
-  - Default: admin
-    Description: uaa admin client name
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.admin_client
-  - Default: 1
-    Description: number of proxy applications to use in acceptance tests
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.proxy_applications
-  - Default: 2
-    Description: number of app instances to use in acceptance tests
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.num_app_instances
-  - Default: false
-    Description: Skip ssl validation when connecting to apis
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.skip_ssl_validation
-  - Default: admin
-    Description: cf admin user name
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.admin_user
-  - Default: null
-    Description: cf admin user password
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.admin_password
-  - Default: null
-    Description: uaa admin client secret
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.admin_secret
-  - Default: netman-errand-
-    Description: prefix applied to all apps, orgs and spaces created by test
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.prefix
-  - Default: 1
-    Description: number of proxy applications to use in acceptance tests
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.proxy_instances
-  - Default: 2
-    Description: number of applications to use in acceptance tests
-    Example: null
-    Examples: null
-    Name: cf_networking.acceptance.num_apps
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor674089228/templates/run-tests.erb
-    SrcPathEnd: run-tests.erb
-  - DstPathEnd: config.json
-    Path: /mnt/tmp/tar-CmdExtractor674089228/templates/config.json.erb
-    SrcPathEnd: config.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor750998046/monit
-    SrcPathEnd: monit
-  Name: cni-flannel
-  Packages:
-  - Name: flannel
-  - Name: silk
-  - Name: runc-cni
-  - Name: flannel-watchdog
-  Properties:
-  - Default: []
-    Description: List of etcd endpoints
-    Example: null
-    Examples: null
-    Name: cf_networking.plugin.etcd_endpoints
-  - Default: ""
-    Description: PEM encoded client key
-    Example: null
-    Examples: null
-    Name: cf_networking.plugin.etcd_client_key
-  - Default: 24
-    Description: Length, in bits, of the prefix for subnets allocated per Diego cell,
-      e.g. '24' for a '/24' subnet.
-    Example: null
-    Examples: null
-    Name: cf_networking.subnet_prefix_length
-  - Default: 10007
-    Description: Port for the health check endpoint
-    Example: null
-    Examples: null
-    Name: cf_networking.health_check_port
-  - Default: []
-    Description: DNS servers containers will use. If set, takes precedence over DNS
-      servers configured through garden
-    Example: null
-    Examples: null
-    Name: cf_networking.dns_servers
-  - Default: ""
-    Description: PEM encoded client cert
-    Example: null
-    Examples: null
-    Name: cf_networking.plugin.etcd_client_cert
-  - Default: 10.255.0.0/16
-    Description: CIDR block for overlay network.
-    Example: null
-    Examples: null
-    Name: cf_networking.network
-  - Default: 0
-    Description: MTU for containers
-    Example: null
-    Examples: null
-    Name: cf_networking.mtu
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: cf_networking.flannel_watchdog.metron_address
-  - Default: 127.0.0.1:1800
-    Description: admin endpoint on diego rep
-    Example: null
-    Examples: null
-    Name: cf_networking.rep_listen_addr_admin
-  - Default: 19823
-    Description: Port for the flannel health check endpoint
-    Example: null
-    Examples: null
-    Name: cf_networking.plugin.health_check_port
-  - Default: false
-    Description: Disable container to container networking
-    Example: null
-    Examples: null
-    Name: cf_networking.disable
-  - Default: false
-    Description: Enables global logging for all ASGs
-    Example: null
-    Examples: null
-    Name: cf_networking.iptables_asg_logging
-  - Default: ""
-    Description: PEM encoded CA cert
-    Example: null
-    Examples: null
-    Name: cf_networking.plugin.etcd_ca_cert
-  Templates:
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/drain.erb
-    SrcPathEnd: drain.erb
-  - DstPathEnd: bin/flanneld_ctl
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/flanneld_ctl.erb
-    SrcPathEnd: flanneld_ctl.erb
-  - DstPathEnd: bin/flannel-watchdog_ctl
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/flannel-watchdog_ctl.erb
-    SrcPathEnd: flannel-watchdog_ctl.erb
-  - DstPathEnd: config/certs/etcd/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/etcd_client.crt.erb
-    SrcPathEnd: etcd_client.crt.erb
-  - DstPathEnd: config/certs/etcd/client.key
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/etcd_client.key.erb
-    SrcPathEnd: etcd_client.key.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: config/cni/30-cni-wrapper-plugin.conf
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/30-cni-wrapper-plugin.conf.erb
-    SrcPathEnd: 30-cni-wrapper-plugin.conf.erb
-  - DstPathEnd: config/flannel-watchdog.json
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/flannel-watchdog.json.erb
-    SrcPathEnd: flannel-watchdog.json.erb
-  - DstPathEnd: config/certs/etcd/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor750998046/templates/etcd_ca.crt.erb
-    SrcPathEnd: etcd_ca.crt.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor031644416/monit
-    SrcPathEnd: monit
-  Name: garden-cni
-  Packages:
-  - Name: runc-cni
-  Properties:
-  - Default: 10007
-    Description: Port for the flannel-watchdog health check endpoint
-    Example: null
-    Examples: null
-    Name: cf_networking.flannel_watchdog.health_check_port
-  - Default: /var/vcap/packages/silk/bin
-    Description: Directory containing CNI plugins.
-    Example: null
-    Examples: null
-    Name: cf_networking.garden_external_networker.cni_plugin_dir
-  - Default: /var/vcap/jobs/cni-flannel/config/cni
-    Description: Directory to store CNI config files.  Other jobs may write files
-      into here.
-    Example: null
-    Examples: null
-    Name: cf_networking.garden_external_networker.cni_config_dir
-  - Default: 61000
-    Description: Starting value for allocating host ports to containers
-    Example: null
-    Examples: null
-    Name: cf_networking.garden_external_networker.start_port
-  - Default: 5000
-    Description: Total number of host ports that may be allocated to containers
-    Example: null
-    Examples: null
-    Name: cf_networking.garden_external_networker.total_ports
-  - Default: 10.255.0.0/16
-    Description: IP range used by the container network
-    Example: null
-    Examples: null
-    Name: cf_networking.network
-  Templates:
-  - DstPathEnd: config/adapter.json
-    Path: /mnt/tmp/tar-CmdExtractor031644416/templates/adapter.json.erb
-    SrcPathEnd: adapter.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor106665010/monit
-    SrcPathEnd: monit
-  Name: netmon
-  Packages:
-  - Name: netmon
-  Properties:
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: cf_networking.netmon.metron_address
-  - Default: 30
-    Description: Gather and report metrics at this interval, in seconds
-    Example: null
-    Examples: null
-    Name: cf_networking.netmon.poll_interval
-  - Default: flannel.1
-    Description: Report tx/rx bytes on the interface with this name
-    Example: null
-    Examples: null
-    Name: cf_networking.netmon.interface_name
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: cf_networking.netmon.log_level
-  - Default: false
-    Description: disable container to container networking
-    Example: null
-    Examples: null
-    Name: cf_networking.disable
-  Templates:
-  - DstPathEnd: bin/netmon_ctl
-    Path: /mnt/tmp/tar-CmdExtractor106665010/templates/netmon_ctl.erb
-    SrcPathEnd: netmon_ctl.erb
-  - DstPathEnd: config/netmon.json
-    Path: /mnt/tmp/tar-CmdExtractor106665010/templates/netmon.json.erb
-    SrcPathEnd: netmon.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor078198324/monit
-    SrcPathEnd: monit
-  Name: network-daemon
-  Packages:
-  - Name: silk
-  Properties:
-  - Default: 10.255.0.0/16
-    Description: CIDR block for overlay network.
-    Example: null
-    Examples: null
-    Name: cf_networking.network
-  - Default: postgres
-    Description: 'Type of database: postgres or mysql'
-    Example: null
-    Examples: null
-    Name: cf_networking.connectivity.database.type
-  - Default: ""
-    Description: Name of logical database to use
-    Example: null
-    Examples: null
-    Name: cf_networking.connectivity.database.name
-  - Default: 24
-    Description: Length, in bits, of the prefix for subnets allocated per Diego cell,
-      e.g. '24' for a '/24' subnet.
-    Example: null
-    Examples: null
-    Name: cf_networking.subnet_prefix_length
-  - Default: false
-    Description: Disable container to container networking
-    Example: null
-    Examples: null
-    Name: cf_networking.disable
-  - Default: ""
-    Description: Username for database connection
-    Example: null
-    Examples: null
-    Name: cf_networking.connectivity.database.username
-  - Default: ""
-    Description: Password for database connection
-    Example: null
-    Examples: null
-    Name: cf_networking.connectivity.database.password
-  - Default: ""
-    Description: Host (IP or DNS name) for database server
-    Example: null
-    Examples: null
-    Name: cf_networking.connectivity.database.host
-  - Default: ""
-    Description: Port for database server
-    Example: null
-    Examples: null
-    Name: cf_networking.connectivity.database.port
-  Templates:
-  - DstPathEnd: config/silkd.json
-    Path: /mnt/tmp/tar-CmdExtractor078198324/templates/silkd.json.erb
-    SrcPathEnd: silkd.json.erb
-  - DstPathEnd: bin/silkd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor078198324/templates/silkd_ctl.erb
-    SrcPathEnd: silkd_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor492978054/monit
-    SrcPathEnd: monit
-  Name: policy-server
-  Packages:
-  - Name: policy-server
-  Properties:
-  - Default: ""
-    Description: Port for database server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.database.port
-  - Default: 60
-    Description: Clean up stale policies on this interval, in minutes
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.cleanup_interval
-  - Default: null
-    Description: Server certificate for TLS
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.server_cert
-  - Default: null
-    Description: Trusted CA for UAA server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.uaa_ca
-  - Default: false
-    Description: Skip verifying ssl certs when speaking to UAA or Cloud Controller
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.skip_ssl_validation
-  - Default: ""
-    Description: Host (IP or DNS name) for database server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.database.host
-  - Default: ""
-    Description: Name of logical database to use
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.database.name
-  - Default: 2
-    Description: Length in bytes of the packet tags to generate for policy sources
-      and destinations. Must be greater than 0 and less than 4.
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.tag_length
-  - Default: 4002
-    Description: Port where the policy server will serve its external API
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.listen_port
-  - Default: 8443
-    Description: Port of the UAA server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.uaa_port
-  - Default: postgres
-    Description: 'Type of database: postgres or mysql'
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.database.type
-  - Default: ""
-    Description: Password for database connection
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.database.password
-  - Default: network-policy-secret
-    Description: UAA client secret
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.uaa_client_secret
-  - Default: ""
-    Description: Username for database connection
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.database.username
-  - Default: info
-    Description: Logging level (debug, info, warn, error)
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.log_level
-  - Default: 0.0.0.0
-    Description: Host where the policy server will serve its API
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.listen_host
-  - Default: 4003
-    Description: Port where the policy server will serve its internal API
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.internal_listen_port
-  - Default: null
-    Description: Trusted CA certificate for clients
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.ca_cert
-  - Default: network-policy
-    Description: UAA client name
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.uaa_client
-  - Default: http://cloud-controller-ng.service.cf.internal:9022
-    Description: Address of Cloud Controller server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.cc_url
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.metron_address
-  - Default: 127.0.0.1
-    Description: Host for the debug server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.debug_server_host
-  - Default: 22222
-    Description: Port for the debug server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.debug_server_port
-  - Default: null
-    Description: Server key for TLS
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.server_key
-  - Default: https://uaa.service.cf.internal
-    Description: Address of UAA server
-    Example: null
-    Examples: null
-    Name: cf_networking.policy_server.uaa_url
-  Templates:
-  - DstPathEnd: bin/policy-server_ctl
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/policy-server_ctl.erb
-    SrcPathEnd: policy-server_ctl.erb
-  - DstPathEnd: bin/policy-server_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/policy-server_as_vcap.erb
-    SrcPathEnd: policy-server_as_vcap.erb
-  - DstPathEnd: config/policy-server.json
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/policy-server.json.erb
-    SrcPathEnd: policy-server.json.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: config/certs/uaa_ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/uaa_ca.crt.erb
-    SrcPathEnd: uaa_ca.crt.erb
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/server.crt.erb
-    SrcPathEnd: server.crt.erb
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/server.key.erb
-    SrcPathEnd: server.key.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor492978054/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor353868456/monit
-    SrcPathEnd: monit
-  Name: vxlan-policy-agent
-  Packages:
-  - Name: vxlan-policy-agent
-  Properties:
-  - Default: null
-    Description: Trusted CA certificate for server
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.ca_cert
-  - Default: null
-    Description: Client certificate for TLS to access policy server
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.client_cert
-  - Default: 127.0.0.1:3457
-    Description: Forward metrics to this metron agent
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.metron_address
-  - Default: false
-    Description: Enables iptables logging for container to container traffic
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.iptables_c2c_logging
-  - Default: null
-    Description: URL where the policy server can be reached
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.policy_server_url
-  - Default: 5
-    Description: Query the policy server on this interval, in seconds
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.poll_interval
-  - Default: null
-    Description: Client private key for TLS to access policy server
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.client_key
-  - Default: 127.0.0.1
-    Description: Host for the debug server
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.debug_server_host
-  - Default: 22222
-    Description: Port for the debug server
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.debug_server_port
-  - Default: info
-    Description: Logging level (debug, info, warn, error)
-    Example: null
-    Examples: null
-    Name: cf_networking.vxlan_policy_agent.log_level
-  - Default: false
-    Description: Disable container to container networking
-    Example: null
-    Examples: null
-    Name: cf_networking.disable
-  Templates:
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor353868456/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/vxlan-policy-agent_ctl
-    Path: /mnt/tmp/tar-CmdExtractor353868456/templates/vxlan-policy-agent_ctl.erb
-    SrcPathEnd: vxlan-policy-agent_ctl.erb
-  - DstPathEnd: config/vxlan-policy-agent.json
-    Path: /mnt/tmp/tar-CmdExtractor353868456/templates/vxlan-policy-agent.json.erb
-    SrcPathEnd: vxlan-policy-agent.json.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor353868456/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: config/certs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor353868456/templates/client.crt.erb
-    SrcPathEnd: client.crt.erb
-  - DstPathEnd: config/certs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor353868456/templates/client.key.erb
-    SrcPathEnd: client.key.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor674089228/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cf-networking-acceptance",
+    "Packages": [
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "cf-networking-acceptance"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "cf system domain, e.g. bosh-lite.com",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.system_domain"
+      },
+      {
+        "Default": null,
+        "Description": "cf apps domain, e.g. bosh-lite.com",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.apps_domain"
+      },
+      {
+        "Default": "admin",
+        "Description": "uaa admin client name",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.admin_client"
+      },
+      {
+        "Default": 1,
+        "Description": "number of proxy applications to use in acceptance tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.proxy_applications"
+      },
+      {
+        "Default": 2,
+        "Description": "number of app instances to use in acceptance tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.num_app_instances"
+      },
+      {
+        "Default": false,
+        "Description": "Skip ssl validation when connecting to apis",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.skip_ssl_validation"
+      },
+      {
+        "Default": "admin",
+        "Description": "cf admin user name",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.admin_user"
+      },
+      {
+        "Default": null,
+        "Description": "cf admin user password",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "uaa admin client secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.admin_secret"
+      },
+      {
+        "Default": "netman-errand-",
+        "Description": "prefix applied to all apps, orgs and spaces created by test",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.prefix"
+      },
+      {
+        "Default": 1,
+        "Description": "number of proxy applications to use in acceptance tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.proxy_instances"
+      },
+      {
+        "Default": 2,
+        "Description": "number of applications to use in acceptance tests",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.acceptance.num_apps"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor674089228/templates/run-tests.erb",
+        "SrcPathEnd": "run-tests.erb"
+      },
+      {
+        "DstPathEnd": "config.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor674089228/templates/config.json.erb",
+        "SrcPathEnd": "config.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor750998046/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cni-flannel",
+    "Packages": [
+      {
+        "Name": "flannel"
+      },
+      {
+        "Name": "silk"
+      },
+      {
+        "Name": "runc-cni"
+      },
+      {
+        "Name": "flannel-watchdog"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "List of etcd endpoints",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.plugin.etcd_endpoints"
+      },
+      {
+        "Default": "",
+        "Description": "PEM encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.plugin.etcd_client_key"
+      },
+      {
+        "Default": 24,
+        "Description": "Length, in bits, of the prefix for subnets allocated per Diego cell, e.g. '24' for a '/24' subnet.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.subnet_prefix_length"
+      },
+      {
+        "Default": 10007,
+        "Description": "Port for the health check endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.health_check_port"
+      },
+      {
+        "Default": [],
+        "Description": "DNS servers containers will use. If set, takes precedence over DNS servers configured through garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.dns_servers"
+      },
+      {
+        "Default": "",
+        "Description": "PEM encoded client cert",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.plugin.etcd_client_cert"
+      },
+      {
+        "Default": "10.255.0.0/16",
+        "Description": "CIDR block for overlay network.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.network"
+      },
+      {
+        "Default": 0,
+        "Description": "MTU for containers",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.mtu"
+      },
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.flannel_watchdog.metron_address"
+      },
+      {
+        "Default": "127.0.0.1:1800",
+        "Description": "admin endpoint on diego rep",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.rep_listen_addr_admin"
+      },
+      {
+        "Default": 19823,
+        "Description": "Port for the flannel health check endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.plugin.health_check_port"
+      },
+      {
+        "Default": false,
+        "Description": "Disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.disable"
+      },
+      {
+        "Default": false,
+        "Description": "Enables global logging for all ASGs",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.iptables_asg_logging"
+      },
+      {
+        "Default": "",
+        "Description": "PEM encoded CA cert",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.plugin.etcd_ca_cert"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/drain.erb",
+        "SrcPathEnd": "drain.erb"
+      },
+      {
+        "DstPathEnd": "bin/flanneld_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/flanneld_ctl.erb",
+        "SrcPathEnd": "flanneld_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/flannel-watchdog_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/flannel-watchdog_ctl.erb",
+        "SrcPathEnd": "flannel-watchdog_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/etcd_client.crt.erb",
+        "SrcPathEnd": "etcd_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/etcd_client.key.erb",
+        "SrcPathEnd": "etcd_client.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "config/cni/30-cni-wrapper-plugin.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/30-cni-wrapper-plugin.conf.erb",
+        "SrcPathEnd": "30-cni-wrapper-plugin.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/flannel-watchdog.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/flannel-watchdog.json.erb",
+        "SrcPathEnd": "flannel-watchdog.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor750998046/templates/etcd_ca.crt.erb",
+        "SrcPathEnd": "etcd_ca.crt.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor031644416/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "garden-cni",
+    "Packages": [
+      {
+        "Name": "runc-cni"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 10007,
+        "Description": "Port for the flannel-watchdog health check endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.flannel_watchdog.health_check_port"
+      },
+      {
+        "Default": "/var/vcap/packages/silk/bin",
+        "Description": "Directory containing CNI plugins.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.garden_external_networker.cni_plugin_dir"
+      },
+      {
+        "Default": "/var/vcap/jobs/cni-flannel/config/cni",
+        "Description": "Directory to store CNI config files.  Other jobs may write files into here.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.garden_external_networker.cni_config_dir"
+      },
+      {
+        "Default": 61000,
+        "Description": "Starting value for allocating host ports to containers",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.garden_external_networker.start_port"
+      },
+      {
+        "Default": 5000,
+        "Description": "Total number of host ports that may be allocated to containers",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.garden_external_networker.total_ports"
+      },
+      {
+        "Default": "10.255.0.0/16",
+        "Description": "IP range used by the container network",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.network"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/adapter.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor031644416/templates/adapter.json.erb",
+        "SrcPathEnd": "adapter.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor106665010/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "netmon",
+    "Packages": [
+      {
+        "Name": "netmon"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.netmon.metron_address"
+      },
+      {
+        "Default": 30,
+        "Description": "Gather and report metrics at this interval, in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.netmon.poll_interval"
+      },
+      {
+        "Default": "flannel.1",
+        "Description": "Report tx/rx bytes on the interface with this name",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.netmon.interface_name"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.netmon.log_level"
+      },
+      {
+        "Default": false,
+        "Description": "disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.disable"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/netmon_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor106665010/templates/netmon_ctl.erb",
+        "SrcPathEnd": "netmon_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/netmon.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor106665010/templates/netmon.json.erb",
+        "SrcPathEnd": "netmon.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor078198324/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "network-daemon",
+    "Packages": [
+      {
+        "Name": "silk"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "10.255.0.0/16",
+        "Description": "CIDR block for overlay network.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.network"
+      },
+      {
+        "Default": "postgres",
+        "Description": "Type of database: postgres or mysql",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.connectivity.database.type"
+      },
+      {
+        "Default": "",
+        "Description": "Name of logical database to use",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.connectivity.database.name"
+      },
+      {
+        "Default": 24,
+        "Description": "Length, in bits, of the prefix for subnets allocated per Diego cell, e.g. '24' for a '/24' subnet.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.subnet_prefix_length"
+      },
+      {
+        "Default": false,
+        "Description": "Disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.disable"
+      },
+      {
+        "Default": "",
+        "Description": "Username for database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.connectivity.database.username"
+      },
+      {
+        "Default": "",
+        "Description": "Password for database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.connectivity.database.password"
+      },
+      {
+        "Default": "",
+        "Description": "Host (IP or DNS name) for database server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.connectivity.database.host"
+      },
+      {
+        "Default": "",
+        "Description": "Port for database server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.connectivity.database.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/silkd.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor078198324/templates/silkd.json.erb",
+        "SrcPathEnd": "silkd.json.erb"
+      },
+      {
+        "DstPathEnd": "bin/silkd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor078198324/templates/silkd_ctl.erb",
+        "SrcPathEnd": "silkd_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor492978054/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "policy-server",
+    "Packages": [
+      {
+        "Name": "policy-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "Port for database server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.database.port"
+      },
+      {
+        "Default": 60,
+        "Description": "Clean up stale policies on this interval, in minutes",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.cleanup_interval"
+      },
+      {
+        "Default": null,
+        "Description": "Server certificate for TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.server_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Trusted CA for UAA server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.uaa_ca"
+      },
+      {
+        "Default": false,
+        "Description": "Skip verifying ssl certs when speaking to UAA or Cloud Controller",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.skip_ssl_validation"
+      },
+      {
+        "Default": "",
+        "Description": "Host (IP or DNS name) for database server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.database.host"
+      },
+      {
+        "Default": "",
+        "Description": "Name of logical database to use",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.database.name"
+      },
+      {
+        "Default": 2,
+        "Description": "Length in bytes of the packet tags to generate for policy sources and destinations. Must be greater than 0 and less than 4.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.tag_length"
+      },
+      {
+        "Default": 4002,
+        "Description": "Port where the policy server will serve its external API",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.listen_port"
+      },
+      {
+        "Default": 8443,
+        "Description": "Port of the UAA server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.uaa_port"
+      },
+      {
+        "Default": "postgres",
+        "Description": "Type of database: postgres or mysql",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.database.type"
+      },
+      {
+        "Default": "",
+        "Description": "Password for database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.database.password"
+      },
+      {
+        "Default": "network-policy-secret",
+        "Description": "UAA client secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.uaa_client_secret"
+      },
+      {
+        "Default": "",
+        "Description": "Username for database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.database.username"
+      },
+      {
+        "Default": "info",
+        "Description": "Logging level (debug, info, warn, error)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.log_level"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "Host where the policy server will serve its API",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.listen_host"
+      },
+      {
+        "Default": 4003,
+        "Description": "Port where the policy server will serve its internal API",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.internal_listen_port"
+      },
+      {
+        "Default": null,
+        "Description": "Trusted CA certificate for clients",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.ca_cert"
+      },
+      {
+        "Default": "network-policy",
+        "Description": "UAA client name",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.uaa_client"
+      },
+      {
+        "Default": "http://cloud-controller-ng.service.cf.internal:9022",
+        "Description": "Address of Cloud Controller server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.cc_url"
+      },
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.metron_address"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Host for the debug server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.debug_server_host"
+      },
+      {
+        "Default": 22222,
+        "Description": "Port for the debug server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.debug_server_port"
+      },
+      {
+        "Default": null,
+        "Description": "Server key for TLS",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.server_key"
+      },
+      {
+        "Default": "https://uaa.service.cf.internal",
+        "Description": "Address of UAA server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.policy_server.uaa_url"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/policy-server_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/policy-server_ctl.erb",
+        "SrcPathEnd": "policy-server_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/policy-server_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/policy-server_as_vcap.erb",
+        "SrcPathEnd": "policy-server_as_vcap.erb"
+      },
+      {
+        "DstPathEnd": "config/policy-server.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/policy-server.json.erb",
+        "SrcPathEnd": "policy-server.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/uaa_ca.crt.erb",
+        "SrcPathEnd": "uaa_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/server.crt.erb",
+        "SrcPathEnd": "server.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/server.key.erb",
+        "SrcPathEnd": "server.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor492978054/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor353868456/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "vxlan-policy-agent",
+    "Packages": [
+      {
+        "Name": "vxlan-policy-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Trusted CA certificate for server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Client certificate for TLS to access policy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.client_cert"
+      },
+      {
+        "Default": "127.0.0.1:3457",
+        "Description": "Forward metrics to this metron agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.metron_address"
+      },
+      {
+        "Default": false,
+        "Description": "Enables iptables logging for container to container traffic",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.iptables_c2c_logging"
+      },
+      {
+        "Default": null,
+        "Description": "URL where the policy server can be reached",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.policy_server_url"
+      },
+      {
+        "Default": 5,
+        "Description": "Query the policy server on this interval, in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.poll_interval"
+      },
+      {
+        "Default": null,
+        "Description": "Client private key for TLS to access policy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.client_key"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Host for the debug server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.debug_server_host"
+      },
+      {
+        "Default": 22222,
+        "Description": "Port for the debug server",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.debug_server_port"
+      },
+      {
+        "Default": "info",
+        "Description": "Logging level (debug, info, warn, error)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.vxlan_policy_agent.log_level"
+      },
+      {
+        "Default": false,
+        "Description": "Disable container to container networking",
+        "Example": null,
+        "Examples": null,
+        "Name": "cf_networking.disable"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor353868456/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/vxlan-policy-agent_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor353868456/templates/vxlan-policy-agent_ctl.erb",
+        "SrcPathEnd": "vxlan-policy-agent_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/vxlan-policy-agent.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor353868456/templates/vxlan-policy-agent.json.erb",
+        "SrcPathEnd": "vxlan-policy-agent.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor353868456/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor353868456/templates/client.crt.erb",
+        "SrcPathEnd": "client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor353868456/templates/client.key.erb",
+        "SrcPathEnd": "client.key.erb"
+      }
+    ]
+  }
+]

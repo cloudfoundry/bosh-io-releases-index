@@ -1,65 +1,91 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor226510985/monit
-    SrcPathEnd: monit
-  Name: nxlog
-  Packages:
-  - Name: nxlog
-  Properties:
-  - Default: null
-    Description: Host where the log should be sent
-    Example: null
-    Examples: null
-    Name: nxlog.tcpoutput.host
-  - Default: null
-    Description: Port where the log should be sent
-    Example: null
-    Examples: null
-    Name: nxlog.tcpoutput.port
-  - Default: 10
-    Description: Specifies in seconds how frequently the module will check for new
-      files and new log entries.
-    Example: null
-    Examples: null
-    Name: nxlog.pollinterval
-  - Default:
-    - exclude: (monit|nxlog)
-      path: /var/vcap/data/sys/log/*.log
-      recursive: true
-    Description: |
-      Array of files to check
-        path: path to file
-        recursive: to look recursively into folder
-        exclude: regex of file/dir pattern to exclude
-      - {path: "/var/vcap/data/sys/log/*.log", recursive: true, exclude: "(monit|nxlog)"}
-      - {path: "/var/log/kernel.log", recursive: false, exclude: ""}
-      - {path: "/var/log/test.log", recursive: false, exclude: ""}
-    Example: null
-    Examples: null
-    Name: nxlog.input.files
-  - Default: vcap:vcap:adm:admin
-    Description: An optional user:group[:group] string for specifying what user and
-      group(s) to run nxlog as
-    Example: null
-    Examples: null
-    Name: nxlog.runas
-  Templates:
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor226510985/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor226510985/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: bin/nxlog_ctl
-    Path: /mnt/tmp/tar-CmdExtractor226510985/templates/bin/nxlog_ctl
-    SrcPathEnd: bin/nxlog_ctl
-  - DstPathEnd: config/nxlog.conf
-    Path: /mnt/tmp/tar-CmdExtractor226510985/templates/config/nxlog.conf.erb
-    SrcPathEnd: config/nxlog.conf.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor226510985/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor226510985/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor226510985/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "nxlog",
+    "Packages": [
+      {
+        "Name": "nxlog"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Host where the log should be sent",
+        "Example": null,
+        "Examples": null,
+        "Name": "nxlog.tcpoutput.host"
+      },
+      {
+        "Default": null,
+        "Description": "Port where the log should be sent",
+        "Example": null,
+        "Examples": null,
+        "Name": "nxlog.tcpoutput.port"
+      },
+      {
+        "Default": 10,
+        "Description": "Specifies in seconds how frequently the module will check for new files and new log entries.",
+        "Example": null,
+        "Examples": null,
+        "Name": "nxlog.pollinterval"
+      },
+      {
+        "Default": [
+          {
+            "exclude": "(monit|nxlog)",
+            "path": "/var/vcap/data/sys/log/*.log",
+            "recursive": true
+          }
+        ],
+        "Description": "Array of files to check\n  path: path to file\n  recursive: to look recursively into folder\n  exclude: regex of file/dir pattern to exclude\n- {path: \"/var/vcap/data/sys/log/*.log\", recursive: true, exclude: \"(monit|nxlog)\"}\n- {path: \"/var/log/kernel.log\", recursive: false, exclude: \"\"}\n- {path: \"/var/log/test.log\", recursive: false, exclude: \"\"}\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "nxlog.input.files"
+      },
+      {
+        "Default": "vcap:vcap:adm:admin",
+        "Description": "An optional user:group[:group] string for specifying what user and group(s) to run nxlog as",
+        "Example": null,
+        "Examples": null,
+        "Name": "nxlog.runas"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor226510985/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor226510985/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "bin/nxlog_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor226510985/templates/bin/nxlog_ctl",
+        "SrcPathEnd": "bin/nxlog_ctl"
+      },
+      {
+        "DstPathEnd": "config/nxlog.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor226510985/templates/config/nxlog.conf.erb",
+        "SrcPathEnd": "config/nxlog.conf.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor226510985/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor226510985/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      }
+    ]
+  }
+]

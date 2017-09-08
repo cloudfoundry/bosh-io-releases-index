@@ -1,1715 +1,2474 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor816024864/monit
-    SrcPathEnd: monit
-  Name: auctioneer
-  Packages:
-  - Name: pid_utils
-  - Name: auctioneer
-  Properties:
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.dropsonde_port
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.client_cert
-  - Default: 127.0.0.1:17001
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.debug_addr
-  - Default: 0.0.0.0:9016
-    Description: address where auctioneer listens for LRP and task start auction requests
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.listen_addr
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.log_level
-  - Default: 0.25
-    Description: Factor to bias against cells with starting containers (0.0 - 1.0)
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.starting_container_weight
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.require_ssl
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.max_idle_conns_per_host
-  - Default: 1s
-    Description: Timeout applied to HTTP requests to the Cell State endpoint.
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.cell_state_timeout
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.ca_cert
-  - Default: false
-    Description: Whether to require TLS for communication to the securable rep API
-      server
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.rep.require_tls
-  - Default: null
-    Description: CA cert for communication to the rep.
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.rep.ca_cert
-  - Default: null
-    Description: Client key for communication to the rep.
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.rep.client_key
-  - Default: bbs.service.cf.internal:8889
-    Description: Address to the BBS Server
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.api_location
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.client_key
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.bbs.client_session_cache_size
-  - Default: null
-    Description: Client cert for communication to the rep.
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.rep.client_cert
-  - Default: 0
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.auctioneer.rep.client_session_cache_size
-  Templates:
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-  - DstPathEnd: config/certs/rep/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/rep_ca.crt.erb
-    SrcPathEnd: rep_ca.crt.erb
-  - DstPathEnd: config/certs/rep/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/rep_client.crt.erb
-    SrcPathEnd: rep_client.crt.erb
-  - DstPathEnd: config/certs/rep/client.key
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/rep_client.key.erb
-    SrcPathEnd: rep_client.key.erb
-  - DstPathEnd: bin/auctioneer_ctl
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/auctioneer_ctl.erb
-    SrcPathEnd: auctioneer_ctl.erb
-  - DstPathEnd: bin/auctioneer_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor816024864/templates/auctioneer_as_vcap.erb
-    SrcPathEnd: auctioneer_as_vcap.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor909079890/monit
-    SrcPathEnd: monit
-  Name: bbs
-  Packages:
-  - Name: pid_utils
-  - Name: bbs
-  Properties:
-  - Default: []
-    Description: List of encryption keys to be used
-    Example: null
-    Examples: null
-    Name: diego.bbs.encryption_keys
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.bbs.ca_cert
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.client_session_cache_size
-  - Default: 30
-    Description: the interval between runs of the converge process
-    Example: null
-    Examples: null
-    Name: diego.bbs.convergence.repeat_interval_in_seconds
-  - Default: 127.0.0.1:8890
-    Description: address at which to serve API requests
-    Example: null
-    Examples: null
-    Name: diego.bbs.health_addr
-  - Default: bbs.service.cf.internal
-    Description: Suffix for the BBS advertised hostname
-    Example: null
-    Examples: null
-    Name: diego.bbs.advertisement_base_hostname
-  - Default: ""
-    Description: Connection string to use for SQL backend. DEPRECATED, use db_{host,port,schema,username,password}
-      instead
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_connection_string
-  - Default: false
-    Description: Whether to require SSL for BBS communication to the SQL backend
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.require_ssl
-  - Default: false
-    Description: Whether to require TLS for communication to the securable rep API
-      server
-    Example: null
-    Examples: null
-    Name: diego.bbs.rep.require_tls
-  - Default: 0.0.0.0:8889
-    Description: address at which to serve API requests
-    Example: null
-    Examples: null
-    Name: diego.bbs.listen_addr
-  - Default: null
-    Description: expected maximum time to create all components of a desired LRP
-    Example: null
-    Examples: null
-    Name: diego.bbs.desired_lrp_creation_timeout
-  - Default: http://auctioneer.service.cf.internal:9016
-    Description: Address of the auctioneer API
-    Example: null
-    Examples: null
-    Name: diego.bbs.auctioneer.api_url
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.ca_cert
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.client_cert
-  - Default: mysql
-    Description: 'Database driver to use for SQL backend (for example: mysql,postgres)'
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_driver
-  - Default: 30
-    Description: the interval, in seconds, between kicks to tasks in seconds
-    Example: null
-    Examples: null
-    Name: diego.bbs.convergence.kick_task_duration_in_seconds
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.bbs.log_level
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.bbs.dropsonde_port
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.max_idle_conns_per_host
-  - Default: 1800
-    Description: unclaimed tasks are marked as failed, after this duration in seconds
-    Example: null
-    Examples: null
-    Name: diego.bbs.convergence.expire_pending_task_duration_in_seconds
-  - Default: ""
-    Description: Password to use for connecting to SQL backend
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_password
-  - Default: null
-    Description: Maximum number of open connections to the SQL database
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.max_open_connections
-  - Default: null
-    Description: Bundle of CA certificates for the BBS to verify the SQL server SSL
-      certificate when connecting via SSL
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.ca_cert
-  - Default: null
-    Description: Client cert for communication to the rep.
-    Example: null
-    Examples: null
-    Name: diego.bbs.rep.client_cert
-  - Default: 0
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.bbs.rep.client_session_cache_size
-  - Default: false
-    Description: Enable access log, i.e. log every request made to the bbs
-    Example: null
-    Examples: null
-    Name: diego.bbs.enable_access_log
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.bbs.server_key
-  - Default: null
-    Description: CA cert for communication to the rep.
-    Example: null
-    Examples: null
-    Name: diego.bbs.rep.ca_cert
-  - Default: true
-    Description: require ssl for all communication the bbs
-    Example: null
-    Examples: null
-    Name: diego.bbs.require_ssl
-  - Default: 120
-    Description: completed, unresolved tasks are deleted after this duration in seconds
-    Example: null
-    Examples: null
-    Name: diego.bbs.convergence.expire_completed_task_duration_in_seconds
-  - Default: true
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.require_ssl
-  - Default: ""
-    Description: Host for SQL backend
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_host
-  - Default: ""
-    Description: Port for SQL backend
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_port
-  - Default: ""
-    Description: Database name to use for connecting to SQL backend
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_schema
-  - Default: ""
-    Description: Username to use for connecting to SQL backend
-    Example: null
-    Examples: null
-    Name: diego.bbs.sql.db_username
-  - Default: 127.0.0.1:17017
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.bbs.debug_addr
-  - Default: null
-    Description: Label of the encryption key to be used when writing to the database
-    Example: null
-    Examples: null
-    Name: diego.bbs.active_key_label
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.client_key
-  - Default: null
-    Description: Client key for communication to the rep.
-    Example: null
-    Examples: null
-    Name: diego.bbs.rep.client_key
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.bbs.server_cert
-  - Default:
-    - etcd.service.cf.internal
-    Description: Addresses pointing to the ETCD cluster
-    Example: null
-    Examples: null
-    Name: diego.bbs.etcd.machines
-  Templates:
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/bbs_server.crt.erb
-    SrcPathEnd: bbs_server.crt.erb
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/bbs_server.key.erb
-    SrcPathEnd: bbs_server.key.erb
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/post-start.erb
-    SrcPathEnd: post-start.erb
-  - DstPathEnd: config/certs/rep/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/rep_ca.crt.erb
-    SrcPathEnd: rep_ca.crt.erb
-  - DstPathEnd: bin/bbs_ctl
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/bbs_ctl.erb
-    SrcPathEnd: bbs_ctl.erb
-  - DstPathEnd: bin/bbs_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/bbs_as_vcap.erb
-    SrcPathEnd: bbs_as_vcap.erb
-  - DstPathEnd: config/certs/etcd/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/etcd_ca.crt.erb
-    SrcPathEnd: etcd_ca.crt.erb
-  - DstPathEnd: config/certs/etcd/client.key
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/etcd_client.key.erb
-    SrcPathEnd: etcd_client.key.erb
-  - DstPathEnd: config/certs/rep/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/rep_client.crt.erb
-    SrcPathEnd: rep_client.crt.erb
-  - DstPathEnd: config/certs/etcd/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/etcd_client.crt.erb
-    SrcPathEnd: etcd_client.crt.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/sql/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/sql_ca.crt.erb
-    SrcPathEnd: sql_ca.crt.erb
-  - DstPathEnd: config/certs/rep/client.key
-    Path: /mnt/tmp/tar-CmdExtractor909079890/templates/rep_client.key.erb
-    SrcPathEnd: rep_client.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor685674068/monit
-    SrcPathEnd: monit
-  Name: benchmark-bbs
-  Packages:
-  - Name: golang
-  - Name: benchmark-bbs
-  Properties:
-  - Default: null
-    Description: driver to use, e.g. postgres or mysql
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_driver
-  - Default: null
-    Description: PEM-encoded root CA certificate
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.etcd.ca_cert
-  - Default: ""
-    Description: the api key for emmitting datadog metrics
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.datadog_api_key
-  - Default: ""
-    Description: the datadog metric prefix
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.datadog_metric_prefix
-  - Default: null
-    Description: the number of rep processes to simulate in test
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.num_reps
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.bbs.client_cert
-  - Default: true
-    Description: boolean to configure ssl connections with the etcd cluster
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.etcd.require_ssl
-  - Default: []
-    Description: the key(s) to use for encryption at rest
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.encryption_keys
-  - Default: null
-    Description: the http timeout for bbs client requests
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.client_timeout
-  - Default: ""
-    Description: Host for SQL backend
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_host
-  - Default: null
-    Description: maximum number of etcd client idle http connections
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.bbs.etcd.max_idle_conns_per_host
-  - Default: null
-    Description: the active key for encryption
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.active_key_label
-  - Default: null
-    Description: the number of trials of each benchmark to average across
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.num_trials
-  - Default: null
-    Description: the number of workers generating desired LRPs during setup
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.num_populate_workers
-  - Default: ""
-    Description: Username to use for connecting to SQL backend
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_username
-  - Default: bbs.service.cf.internal:8889
-    Description: the address of the BBS
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.bbs.api_location
-  - Default: ""
-    Description: Port for SQL backend
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_port
-  - Default: null
-    Description: Addresses pointing to the ETCD cluster
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.etcd.machines
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.etcd.client_key
-  - Default: ""
-    Description: the aws region where the S3 bucket lives
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.aws_region
-  - Default: null
-    Description: 'log level: debug, info, error or fatal'
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.log_level
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.bbs.client_key
-  - Default: true
-    Description: enable ssl for all communication with the bbs (false unsupported)
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.bbs.require_ssl
-  - Default: null
-    Description: capacity of the etcd client tls client cache
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.etcd.client_session_cache_size
-  - Default: ""
-    Description: the aws access key for uploading metrics to s3
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.aws_access_key_id
-  - Default: null
-    Description: file name for benchmark log output in the BOSH log dir
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.log_file
-  - Default: 5
-    Description: percentage of actual LRPs to write on each rep bulk loop
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.percent_writes
-  - Default: ""
-    Description: Connection string to use for SQL backend [username:password@tcp(1.1.1.1:1234)/database]
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_connection_string
-  - Default: ""
-    Description: the S3 bucket to upload metrics to
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.aws_bucket_name
-  - Default: ""
-    Description: Database name to use for connecting to SQL backend
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_schema
-  - Default: ""
-    Description: the application key for datadog metrics
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.datadog_app_key
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.etcd.client_cert
-  - Default: ""
-    Description: the aws secret key for uploading metrics to s3
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.aws_secret_access_key
-  - Default: null
-    Description: the number of single instance desired lrps to generate and fetch
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.desired_lrps
-  - Default: ""
-    Description: Password to use for connecting to SQL backend
-    Example: null
-    Examples: null
-    Name: benchmark-bbs.sql.db_password
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor685674068/templates/run.erb
-    SrcPathEnd: run.erb
-  - DstPathEnd: config/certs/etcd/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor685674068/templates/etcd_ca.crt.erb
-    SrcPathEnd: etcd_ca.crt.erb
-  - DstPathEnd: config/certs/etcd/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor685674068/templates/etcd_client.crt.erb
-    SrcPathEnd: etcd_client.crt.erb
-  - DstPathEnd: config/certs/etcd/client.key
-    Path: /mnt/tmp/tar-CmdExtractor685674068/templates/etcd_client.key.erb
-    SrcPathEnd: etcd_client.key.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor685674068/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor685674068/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor062273702/monit
-    SrcPathEnd: monit
-  Name: cfdot
-  Packages:
-  - Name: cfdot
-  Properties:
-  - Default: true
-    Description: true if the bbs requires TLS connections, false otherwise
-    Example: null
-    Examples: null
-    Name: diego.cfdot.bbs.use_ssl
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.cfdot.bbs.ca_cert
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.cfdot.bbs.client_cert
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.cfdot.bbs.client_key
-  Templates:
-  - DstPathEnd: bin/setup
-    Path: /mnt/tmp/tar-CmdExtractor062273702/templates/setup.erb
-    SrcPathEnd: setup.erb
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor062273702/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor062273702/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor062273702/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor936967368/monit
-    SrcPathEnd: monit
-  Name: file_server
-  Packages:
-  - Name: pid_utils
-  - Name: file_server
-  - Name: buildpack_app_lifecycle
-  - Name: docker_app_lifecycle
-  - Name: windows_app_lifecycle
-  Properties:
-  - Default: 0.0.0.0:8080
-    Description: Address of interface on which to serve files
-    Example: null
-    Examples: null
-    Name: diego.file_server.listen_addr
-  - Default: /var/vcap/jobs/file_server/packages/
-    Description: Fully-qualified path to the doc root for the file server's static
-      files
-    Example: null
-    Examples: null
-    Name: diego.file_server.static_directory
-  - Default: 127.0.0.1:17005
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.file_server.debug_addr
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.file_server.log_level
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.file_server.dropsonde_port
-  Templates:
-  - DstPathEnd: bin/file_server_ctl
-    Path: /mnt/tmp/tar-CmdExtractor936967368/templates/file_server_ctl.erb
-    SrcPathEnd: file_server_ctl.erb
-  - DstPathEnd: bin/file_server_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor936967368/templates/file_server_as_vcap.erb
-    SrcPathEnd: file_server_as_vcap.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor082132794/monit
-    SrcPathEnd: monit
-  Name: rep
-  Packages:
-  - Name: pid_utils
-  - Name: rep
-  Properties:
-  - Default: 2
-    Description: Interval to check unhealthy containers in seconds.
-    Example: null
-    Examples: null
-    Name: diego.executor.unhealthy_monitoring_interval_in_seconds
-  - Default: null
-    Description: 'Experimental: user to run post setup hook command'
-    Example: null
-    Examples: null
-    Name: diego.executor.post_setup_user
-  - Default: 10
-    Description: The interval to look for completed tasks and LRPs during evacuation
-      in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.evacuation_polling_interval_in_seconds
-  - Default: true
-    Description: Whether to enable the auction, LRP, and Task endpoints on the legacy,
-      insecurable API server
-    Example: null
-    Examples: null
-    Name: diego.rep.enable_legacy_api_endpoints
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.server_cert
-  - Default: 5
-    Description: the max concurrent download steps that can be active
-    Example: null
-    Examples: null
-    Name: diego.executor.max_concurrent_downloads
-  - Default: null
-    Description: Directory to run the healthcheck process from
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.dir
-  - Default: 64
-    Description: Maximum number of concurrent health check operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.healthcheck_work_pool_size
-  - Default: null
-    Description: Environment variables to use when running the garden health check
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.env
-  - Default: auto
-    Description: the container disk capacity the executor should manage.  this should
-      not be greater than the actual disk quota on the VM
-    Example: null
-    Examples: null
-    Name: diego.executor.disk_capacity_mb
-  - Default: null
-    Description: the frequency for emitting container metrics
-    Example: null
-    Examples: null
-    Name: diego.executor.container_metrics_report_interval
-  - Default: 10000000000
-    Description: maximum size of the cache in bytes - this should leave a healthy
-      overhead for temporary items, etc.
-    Example: null
-    Examples: null
-    Name: diego.executor.max_cache_size_in_bytes
-  - Default: 8
-    Description: Maximum number of concurrent get container metrics operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.metrics_work_pool_size
-  - Default: 127.0.0.1:17008
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.rep.debug_addr
-  - Default: null
-    Description: Concatenation of trusted CA certificates to be made available inside
-      the rootfses
-    Example: null
-    Examples: null
-    Name: diego.rep.trusted_certs
-  - Default: []
-    Description: Array of optional tags used for scheduling Tasks and LRPs
-    Example: null
-    Examples: null
-    Name: diego.rep.optional_placement_tags
-  - Default: /var/vcap/data/voldrivers
-    Description: 'Experimental: OS style path string containing the directories volman
-      will look in for voldriver specs (delimited by : or ; depending on the OS)'
-    Example: null
-    Examples: null
-    Name: diego.executor.volman.driver_paths
-  - Default: false
-    Description: when connecting over https, ignore bad ssl certificates
-    Example: null
-    Examples: null
-    Name: diego.ssl.skip_cert_verify
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Examples: null
-    Name: diego.rep.server_key
-  - Default: auto
-    Description: the memory capacity the executor should manage.  this should not
-      be greater than the actual memory on the VM
-    Example: null
-    Examples: null
-    Name: diego.executor.memory_capacity_mb
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.require_ssl
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.max_idle_conns_per_host
-  - Default: bbs.service.cf.internal:8889
-    Description: Address to the BBS Server
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.api_location
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.ca_cert
-  - Default: /var/vcap/data/executor_cache
-    Description: path to the executor's cache
-    Example: null
-    Examples: null
-    Name: diego.executor.cache_path
-  - Default: 64
-    Description: Maximum number of concurrent get container info operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.read_work_pool_size
-  - Default: 5s
-    Description: Time to wait between retrying garden commands
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.command_retry_pause
-  - Default: vcap
-    Description: User to use while performing a container healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.user
-  - Default: null
-    Description: 'Experimental: arbitrary command to run after setup action'
-    Example: null
-    Examples: null
-    Name: diego.executor.post_setup_hook
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_key
-  - Default: 30
-    Description: The interval to look for completed tasks and LRPs in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.polling_interval_in_seconds
-  - Default: []
-    Description: Array of tags used for scheduling Tasks and LRPs
-    Example: null
-    Examples: null
-    Name: diego.rep.placement_tags
-  - Default: cell.service.cf.internal
-    Description: base domain at which the rep should advertise its secure API
-    Example: null
-    Examples: null
-    Name: diego.rep.advertise_domain
-  - Default: 32
-    Description: Maximum number of concurrent create container operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.create_work_pool_size
-  - Default: 1024
-    Description: the maximum number of cpu shares for a container.
-    Example: null
-    Examples: null
-    Name: diego.executor.container_max_cpu_shares
-  - Default: null
-    Description: Array of name:absolute_path pairs representing root filesystems preloaded
-      onto the underlying garden
-    Example: null
-    Examples: null
-    Name: diego.rep.preloaded_rootfses
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.ca_cert
-  - Default: /var/vcap/data/garden/garden.sock
-    Description: Garden server listening address.
-    Example: null
-    Examples: null
-    Name: diego.executor.garden.address
-  - Default: -c, ls > /tmp/test
-    Description: List of command line args to pass to the garden health check process
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.args
-  - Default: false
-    Description: Use Azure Fault-Domains to determine the value of the zone. The value
-      of the zone will be z<FD-index>. e.g. z0, z1, etc.
-    Example: null
-    Examples: null
-    Name: diego.rep.use_azure_fault_domains
-  - Default: unix
-    Description: Network type for the garden server connection (tcp or unix).
-    Example: null
-    Examples: null
-    Name: diego.executor.garden.network
-  - Default: true
-    Description: Export network environment variables into container (e.g. CF_INSTANCE_IP,
-      CF_INSTANCE_PORT).
-    Example: null
-    Examples: null
-    Name: diego.executor.export_network_env_vars
-  - Default: /bin/sh
-    Description: Path of the command to run to perform a container healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.path
-  - Default: 200000
-    Description: the inode limit enforced on each garden container.
-    Example: null
-    Examples: null
-    Name: diego.executor.container_inode_limit
-  - Default: 32
-    Description: Maximum number of concurrent delete container operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.delete_work_pool_size
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_cert
-  - Default: 0.0.0.0:1800
-    Description: address to serve auction and LRP stop requests on
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr
-  - Default: 600
-    Description: The time to wait for evacuation to complete in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.evacuation_timeout_in_seconds
-  - Default:
-    - docker
-    Description: Array of schemes for which the underlying garden can support arbitrary
-      root filesystems
-    Example: null
-    Examples: null
-    Name: diego.rep.rootfs_providers
-  - Default: null
-    Description: Concatenation of trusted CA certificates to be used when downloading
-      assets.
-    Example: null
-    Examples: null
-    Name: diego.executor.ca_certs_for_downloads
-  - Default: null
-    Description: The zone associated with the rep
-    Example: null
-    Examples: null
-    Name: diego.rep.zone
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.rep.log_level
-  - Default: 0.0.0.0:1801
-    Description: address where rep listens for LRP and task start auction requests
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr_securable
-  - Default: 10m
-    Description: Frequency for healtchecking garden
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.interval
-  - Default: 10m
-    Description: Maximum allowed time for garden healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.timeout
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_session_cache_size
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.rep.dropsonde_port
-  - Default: 127.0.0.1:1800
-    Description: When enable_legacy_api_endpoints is set to false, serve (insecure)
-      ping and evacuate requests on this address and port
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr_admin
-  - Default: false
-    Description: Whether to require mutual TLS for communication to the securable
-      rep API server
-    Example: null
-    Examples: null
-    Name: diego.rep.require_tls
-  - Default: 30
-    Description: Interval to check healthy containers in seconds.
-    Example: null
-    Examples: null
-    Name: diego.executor.healthy_monitoring_interval_in_seconds
-  Templates:
-  - DstPathEnd: config/certs/rep/trusted_certs.crt
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/trusted_certs.crt.erb
-    SrcPathEnd: trusted_certs.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-  - DstPathEnd: bin/rep_ctl
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/rep_ctl.erb
-    SrcPathEnd: rep_ctl.erb
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/drain.erb
-    SrcPathEnd: drain.erb
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/rep_ca.crt.erb
-    SrcPathEnd: rep_ca.crt.erb
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/rep_server.crt.erb
-    SrcPathEnd: rep_server.crt.erb
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/rep_server.key.erb
-    SrcPathEnd: rep_server.key.erb
-  - DstPathEnd: bin/post-start
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/post-start.erb
-    SrcPathEnd: post-start.erb
-  - DstPathEnd: bin/rep_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/rep_as_vcap.erb
-    SrcPathEnd: rep_as_vcap.erb
-  - DstPathEnd: config/certs/rep/ca_certs_for_downloads.crt
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/ca_certs_for_downloads.crt.erb
-    SrcPathEnd: ca_certs_for_downloads.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor082132794/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor835388028/monit
-    SrcPathEnd: monit
-  Name: rep_windows
-  Packages:
-  - Name: rep_windows
-  Properties:
-  - Default: 64
-    Description: Maximum number of concurrent get container info operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.read_work_pool_size
-  - Default: 10m
-    Description: Frequency for healtchecking garden
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.interval
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.max_idle_conns_per_host
-  - Default: []
-    Description: Array of tags used for scheduling Tasks and LRPs
-    Example: null
-    Examples: null
-    Name: diego.rep.placement_tags
-  - Default: 0.0.0.0:1800
-    Description: address to serve auction and LRP stop requests on
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr
-  - Default: 127.0.0.1:17008
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.rep.debug_addr
-  - Default: true
-    Description: Export network environment variables into container (e.g. CF_INSTANCE_IP,
-      CF_INSTANCE_PORT).
-    Example: null
-    Examples: null
-    Name: diego.executor.export_network_env_vars
-  - Default: ""
-    Description: Syslog host
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.address
-  - Default: ""
-    Description: Syslog port
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.port
-  - Default: 600
-    Description: The time to wait for evacuation to complete in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.evacuation_timeout_in_seconds
-  - Default: false
-    Description: when connecting over https, ignore bad ssl certificates
-    Example: null
-    Examples: null
-    Name: diego.ssl.skip_cert_verify
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_key
-  - Default: /bin/sh
-    Description: Path of the command to run to perform a container healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.path
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.rep.dropsonde_port
-  - Default: true
-    Description: Whether to require mutual TLS for communication to the securable
-      rep API server
-    Example: null
-    Examples: null
-    Name: diego.rep.require_tls
-  - Default: auto
-    Description: the memory capacity the executor should manage.  this should not
-      be greater than the actual memory on the VM
-    Example: null
-    Examples: null
-    Name: diego.executor.memory_capacity_mb
-  - Default: null
-    Description: Concatenation of trusted CA certificates to be made available on
-      the cell.
-    Example: null
-    Examples: null
-    Name: diego.rep.trusted_certs
-  - Default: 5
-    Description: the max concurrent download steps that can be active
-    Example: null
-    Examples: null
-    Name: diego.executor.max_concurrent_downloads
-  - Default: 64
-    Description: Maximum number of concurrent health check operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.healthcheck_work_pool_size
-  - Default: []
-    Description: Array of optional tags used for scheduling Tasks and LRPs
-    Example: null
-    Examples: null
-    Name: diego.rep.optional_placement_tags
-  - Default:
-    - windows2012R2:/tmp/windows2012R2
-    Description: Array of name:absolute_path pairs representing root filesystems preloaded
-      onto the underlying garden
-    Example: null
-    Examples: null
-    Name: diego.rep.preloaded_rootfses
-  - Default: 0.0.0.0:1801
-    Description: address where rep listens for LRP and task start auction requests
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr_securable
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_session_cache_size
-  - Default: 10m
-    Description: Maximum allowed time for garden healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.timeout
-  - Default: 10
-    Description: The interval to look for completed tasks and LRPs during evacuation
-      in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.evacuation_polling_interval_in_seconds
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.rep.log_level
-  - Default: auto
-    Description: the container disk capacity the executor should manage.  this should
-      not be greater than the actual disk quota on the VM
-    Example: null
-    Examples: null
-    Name: diego.executor.disk_capacity_mb
-  - Default: unix
-    Description: Network type for the garden server connection (tcp or unix).
-    Example: null
-    Examples: null
-    Name: diego.executor.garden.network
-  - Default: 2
-    Description: Interval to check unhealthy containers in seconds.
-    Example: null
-    Examples: null
-    Name: diego.executor.unhealthy_monitoring_interval_in_seconds
-  - Default: 32
-    Description: Maximum number of concurrent create container operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.create_work_pool_size
-  - Default: windows2012R2
-    Description: The stack for which to handle requests
-    Example: null
-    Examples: null
-    Name: diego.rep.stack
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.ca_cert
-  - Default: 8500
-    Description: local consul agent's port
-    Example: null
-    Examples: null
-    Name: diego.rep.consul_agent_port
-  - Default: 10000000000
-    Description: maximum size of the cache in bytes - this should leave a healthy
-      overhead for temporary items, etc.
-    Example: null
-    Examples: null
-    Name: diego.executor.max_cache_size_in_bytes
-  - Default: null
-    Description: Directory to run the healthcheck process from
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.dir
-  - Default: vcap
-    Description: User to use while performing a container healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.user
-  - Default: 30
-    Description: The interval to look for completed tasks and LRPs in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.polling_interval_in_seconds
-  - Default: 1024
-    Description: the maximum number of cpu shares for a container.
-    Example: null
-    Examples: null
-    Name: diego.executor.container_max_cpu_shares
-  - Default: /var/vcap/data/garden/garden.sock
-    Description: Garden server listening address.
-    Example: null
-    Examples: null
-    Name: diego.executor.garden.address
-  - Default: null
-    Description: 'Experimental: arbitrary command to run after setup action'
-    Example: null
-    Examples: null
-    Name: diego.executor.post_setup_hook
-  - Default: bbs.service.cf.internal:8889
-    Description: Address to the BBS Server
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.api_location
-  - Default: udp
-    Description: Syslog transport protocol (tcp or udp)
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.transport
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.server_cert
-  - Default: 32
-    Description: Maximum number of concurrent delete container operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.delete_work_pool_size
-  - Default: -c, ls > /tmp/test
-    Description: List of command line args to pass to the garden health check process
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.args
-  - Default: 200000
-    Description: the inode limit enforced on each garden container.
-    Example: null
-    Examples: null
-    Name: diego.executor.container_inode_limit
-  - Default: 30
-    Description: Interval to check healthy containers in seconds.
-    Example: null
-    Examples: null
-    Name: diego.executor.healthy_monitoring_interval_in_seconds
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Examples: null
-    Name: diego.rep.server_key
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_cert
-  - Default: null
-    Description: The zone associated with the rep
-    Example: null
-    Examples: null
-    Name: diego.rep.zone
-  - Default: cell.service.cf.internal
-    Description: base domain at which the rep should advertise its secure API
-    Example: null
-    Examples: null
-    Name: diego.rep.advertise_domain
-  - Default: 127.0.0.1:1800
-    Description: When enable_legacy_api_endpoints is set to false, serve (insecure)
-      ping and evacuate requests on this address and port
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr_admin
-  - Default: 5s
-    Description: Time to wait between retrying garden commands
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.command_retry_pause
-  - Default: null
-    Description: Environment variables to use when running the garden health check
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.env
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.ca_cert
-  - Default: 8
-    Description: Maximum number of concurrent get container metrics operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.metrics_work_pool_size
-  - Default: null
-    Description: 'Experimental: user to run post setup hook command'
-    Example: null
-    Examples: null
-    Name: diego.executor.post_setup_user
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.require_ssl
-  - Default:
-    - docker
-    Description: Array of schemes for which the underlying garden can support arbitrary
-      root filesystems
-    Example: null
-    Examples: null
-    Name: diego.rep.rootfs_providers
-  - Default: true
-    Description: Whether to enable the auction, LRP, and Task endpoints on the legacy,
-      insecurable API server
-    Example: null
-    Examples: null
-    Name: diego.rep.enable_legacy_api_endpoints
-  - Default: /var/vcap/data/executor_cache
-    Description: path to the executor's cache
-    Example: null
-    Examples: null
-    Name: diego.executor.cache_path
-  Templates:
-  - DstPathEnd: config/certs/rep/trusted_certs.crt
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/trusted_certs.crt.erb
-    SrcPathEnd: trusted_certs.crt.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/rep_ca.crt.erb
-    SrcPathEnd: rep_ca.crt.erb
-  - DstPathEnd: config/certs/server.key
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/rep_server.key.erb
-    SrcPathEnd: rep_server.key.erb
-  - DstPathEnd: bin/drain.ps1
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/drain.ps1.erb
-    SrcPathEnd: drain.ps1.erb
-  - DstPathEnd: bin/start.ps1
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/start.ps1.erb
-    SrcPathEnd: start.ps1.erb
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-  - DstPathEnd: config/certs/server.crt
-    Path: /mnt/tmp/tar-CmdExtractor835388028/templates/rep_server.crt.erb
-    SrcPathEnd: rep_server.crt.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor095784718/monit
-    SrcPathEnd: monit
-  Name: route_emitter
-  Packages:
-  - Name: pid_utils
-  - Name: route_emitter
-  Properties:
-  - Default: null
-    Description: Password for server authentication.
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.nats.password
-  - Default: 4222
-    Description: The port for the NATS server to listen on.
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.nats.port
-  - Default: 60
-    Description: Interval to sync routes to the router in seconds.
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.sync_interval_in_seconds
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.client_key
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.require_ssl
-  - Default: 127.0.0.1:17009
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.debug_addr
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.dropsonde_port
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.ca_cert
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.client_cert
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.client_session_cache_size
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.max_idle_conns_per_host
-  - Default: null
-    Description: Username for server authentication.
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.nats.user
-  - Default: null
-    Description: IP of each NATS cluster member.
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.nats.machines
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.log_level
-  - Default: bbs.service.cf.internal:8889
-    Description: Address to the BBS Server
-    Example: null
-    Examples: null
-    Name: diego.route_emitter.bbs.api_location
-  Templates:
-  - DstPathEnd: bin/route_emitter_ctl
-    Path: /mnt/tmp/tar-CmdExtractor095784718/templates/route_emitter_ctl.erb
-    SrcPathEnd: route_emitter_ctl.erb
-  - DstPathEnd: bin/route_emitter_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor095784718/templates/route_emitter_as_vcap.erb
-    SrcPathEnd: route_emitter_as_vcap.erb
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor095784718/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor095784718/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor095784718/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor143422832/monit
-    SrcPathEnd: monit
-  Name: ssh_proxy
-  Packages:
-  - Name: pid_utils
-  - Name: ssh_proxy
-  Properties:
-  - Default: false
-    Description: Allow ssh access for diego applications
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.enable_diego_auth
-  - Default: null
-    Description: Diego Credentials to be used with the Diego authenitcation method
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.diego_credentials
-  - Default: null
-    Description: URL of the UAA token endpoint
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.uaa_token_url
-  - Default: null
-    Description: The oauth client secret used to authenticate the ssh-proxy with the
-      uaa
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.uaa_secret
-  - Default: null
-    Description: Comma separated list of allowed cipher algorithms
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.allowed_ciphers
-  - Default: null
-    Description: Comma separated list of allowed key exchange algorithms
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.allowed_keyexchanges
-  - Default: 127.0.0.1:17016
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.debug_addr
-  - Default: false
-    Description: Allow ssh access for cf applications
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.enable_cf_auth
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.ca_cert
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.client_cert
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.client_key
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.client_session_cache_size
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.max_idle_conns_per_host
-  - Default: 0.0.0.0:2222
-    Description: address for the proxy to listen on
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.listen_addr
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.log_level
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.dropsonde_port
-  - Default: 9022
-    Description: External port of the Cloud Controller API
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.cc.external_port
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.require_ssl
-  - Default: false
-    Description: when connecting over https, ignore bad ssl certificates
-    Example: null
-    Examples: null
-    Name: diego.ssl.skip_cert_verify
-  - Default: bbs.service.cf.internal:8889
-    Description: Address to the BBS Server
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.bbs.api_location
-  - Default: null
-    Description: PEM encoded RSA private key used to identify host
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.host_key
-  - Default: cloud-controller-ng.service.cf.internal
-    Description: Internal service hostname of Cloud Controller Api
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.cc.internal_service_hostname
-  - Default: 0.0.0.0:2223
-    Description: address for the ssh proxy healthcheck server
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.healthcheck_listen_addr
-  - Default: null
-    Description: Comma separated list of allowed MAC algorithms
-    Example: null
-    Examples: null
-    Name: diego.ssh_proxy.allowed_macs
-  Templates:
-  - DstPathEnd: bin/ssh_proxy_as_vcap
-    Path: /mnt/tmp/tar-CmdExtractor143422832/templates/ssh_proxy_as_vcap.erb
-    SrcPathEnd: ssh_proxy_as_vcap.erb
-  - DstPathEnd: bin/ssh_proxy_ctl
-    Path: /mnt/tmp/tar-CmdExtractor143422832/templates/ssh_proxy_ctl.erb
-    SrcPathEnd: ssh_proxy_ctl.erb
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor143422832/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor143422832/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor143422832/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-  - DstPathEnd: config/ssh_proxy.json
-    Path: /mnt/tmp/tar-CmdExtractor143422832/templates/ssh_proxy.json.erb
-    SrcPathEnd: ssh_proxy.json.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor051843106/monit
-    SrcPathEnd: monit
-  Name: vizzini
-  Packages:
-  - Name: golang
-  - Name: vizzini
-  Properties:
-  - Default: ssh-proxy.service.cf.internal:2222
-    Description: Host and port for the SSH proxy
-    Example: null
-    Examples: null
-    Name: vizzini.ssh.proxy_address
-  - Default: 4
-    Description: The number of nodes to run the tests with
-    Example: null
-    Examples: null
-    Name: vizzini.nodes
-  - Default: false
-    Description: Run tests in verbose mode
-    Example: null
-    Examples: null
-    Name: vizzini.verbose
-  - Default: bbs.service.cf.internal:8889
-    Description: The address of the BBS
-    Example: null
-    Examples: null
-    Name: vizzini.bbs.api_location
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: vizzini.bbs.client_cert
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: vizzini.bbs.require_ssl
-  - Default: null
-    Description: The deployment's routable domain name
-    Example: null
-    Examples: null
-    Name: vizzini.routable_domain_suffix
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: vizzini.bbs.client_key
-  - Default: null
-    Description: Shared secret for the SSH proxy's Diego authenticator
-    Example: null
-    Examples: null
-    Name: vizzini.ssh.proxy_secret
-  - Default: null
-    Description: default timeout for ginkgo assertions
-    Example: null
-    Examples: null
-    Name: vizzini.eventually_timeout
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor051843106/templates/run.erb
-    SrcPathEnd: run.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor051843106/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor051843106/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor816024864/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "auctioneer",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "auctioneer"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.dropsonde_port"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.client_cert"
+      },
+      {
+        "Default": "127.0.0.1:17001",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.debug_addr"
+      },
+      {
+        "Default": "0.0.0.0:9016",
+        "Description": "address where auctioneer listens for LRP and task start auction requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.listen_addr"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.log_level"
+      },
+      {
+        "Default": 0.25,
+        "Description": "Factor to bias against cells with starting containers (0.0 - 1.0)",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.starting_container_weight"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.max_idle_conns_per_host"
+      },
+      {
+        "Default": "1s",
+        "Description": "Timeout applied to HTTP requests to the Cell State endpoint.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.cell_state_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.ca_cert"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to require TLS for communication to the securable rep API server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.rep.require_tls"
+      },
+      {
+        "Default": null,
+        "Description": "CA cert for communication to the rep.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.rep.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Client key for communication to the rep.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.rep.client_key"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "Address to the BBS Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.api_location"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.bbs.client_session_cache_size"
+      },
+      {
+        "Default": null,
+        "Description": "Client cert for communication to the rep.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.rep.client_cert"
+      },
+      {
+        "Default": 0,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.auctioneer.rep.client_session_cache_size"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/rep_ca.crt.erb",
+        "SrcPathEnd": "rep_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/rep_client.crt.erb",
+        "SrcPathEnd": "rep_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/rep_client.key.erb",
+        "SrcPathEnd": "rep_client.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/auctioneer_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/auctioneer_ctl.erb",
+        "SrcPathEnd": "auctioneer_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/auctioneer_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor816024864/templates/auctioneer_as_vcap.erb",
+        "SrcPathEnd": "auctioneer_as_vcap.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor909079890/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "bbs",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "bbs"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "List of encryption keys to be used",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.encryption_keys"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.client_session_cache_size"
+      },
+      {
+        "Default": 30,
+        "Description": "the interval between runs of the converge process",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.convergence.repeat_interval_in_seconds"
+      },
+      {
+        "Default": "127.0.0.1:8890",
+        "Description": "address at which to serve API requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.health_addr"
+      },
+      {
+        "Default": "bbs.service.cf.internal",
+        "Description": "Suffix for the BBS advertised hostname",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.advertisement_base_hostname"
+      },
+      {
+        "Default": "",
+        "Description": "Connection string to use for SQL backend. DEPRECATED, use db_{host,port,schema,username,password} instead",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_connection_string"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to require SSL for BBS communication to the SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.require_ssl"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to require TLS for communication to the securable rep API server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.rep.require_tls"
+      },
+      {
+        "Default": "0.0.0.0:8889",
+        "Description": "address at which to serve API requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.listen_addr"
+      },
+      {
+        "Default": null,
+        "Description": "expected maximum time to create all components of a desired LRP",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.desired_lrp_creation_timeout"
+      },
+      {
+        "Default": "http://auctioneer.service.cf.internal:9016",
+        "Description": "Address of the auctioneer API",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.auctioneer.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.client_cert"
+      },
+      {
+        "Default": "mysql",
+        "Description": "Database driver to use for SQL backend (for example: mysql,postgres)",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_driver"
+      },
+      {
+        "Default": 30,
+        "Description": "the interval, in seconds, between kicks to tasks in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.convergence.kick_task_duration_in_seconds"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.log_level"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.dropsonde_port"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.max_idle_conns_per_host"
+      },
+      {
+        "Default": 1800,
+        "Description": "unclaimed tasks are marked as failed, after this duration in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.convergence.expire_pending_task_duration_in_seconds"
+      },
+      {
+        "Default": "",
+        "Description": "Password to use for connecting to SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_password"
+      },
+      {
+        "Default": null,
+        "Description": "Maximum number of open connections to the SQL database",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.max_open_connections"
+      },
+      {
+        "Default": null,
+        "Description": "Bundle of CA certificates for the BBS to verify the SQL server SSL certificate when connecting via SSL",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Client cert for communication to the rep.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.rep.client_cert"
+      },
+      {
+        "Default": 0,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.rep.client_session_cache_size"
+      },
+      {
+        "Default": false,
+        "Description": "Enable access log, i.e. log every request made to the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.enable_access_log"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.server_key"
+      },
+      {
+        "Default": null,
+        "Description": "CA cert for communication to the rep.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.rep.ca_cert"
+      },
+      {
+        "Default": true,
+        "Description": "require ssl for all communication the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.require_ssl"
+      },
+      {
+        "Default": 120,
+        "Description": "completed, unresolved tasks are deleted after this duration in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.convergence.expire_completed_task_duration_in_seconds"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.require_ssl"
+      },
+      {
+        "Default": "",
+        "Description": "Host for SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_host"
+      },
+      {
+        "Default": "",
+        "Description": "Port for SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_port"
+      },
+      {
+        "Default": "",
+        "Description": "Database name to use for connecting to SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_schema"
+      },
+      {
+        "Default": "",
+        "Description": "Username to use for connecting to SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.sql.db_username"
+      },
+      {
+        "Default": "127.0.0.1:17017",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.debug_addr"
+      },
+      {
+        "Default": null,
+        "Description": "Label of the encryption key to be used when writing to the database",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.active_key_label"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "Client key for communication to the rep.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.rep.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.server_cert"
+      },
+      {
+        "Default": [
+          "etcd.service.cf.internal"
+        ],
+        "Description": "Addresses pointing to the ETCD cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.bbs.etcd.machines"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/bbs_server.crt.erb",
+        "SrcPathEnd": "bbs_server.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/bbs_server.key.erb",
+        "SrcPathEnd": "bbs_server.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/post-start.erb",
+        "SrcPathEnd": "post-start.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/rep_ca.crt.erb",
+        "SrcPathEnd": "rep_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/bbs_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/bbs_ctl.erb",
+        "SrcPathEnd": "bbs_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/bbs_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/bbs_as_vcap.erb",
+        "SrcPathEnd": "bbs_as_vcap.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/etcd_ca.crt.erb",
+        "SrcPathEnd": "etcd_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/etcd_client.key.erb",
+        "SrcPathEnd": "etcd_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/rep_client.crt.erb",
+        "SrcPathEnd": "rep_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/etcd_client.crt.erb",
+        "SrcPathEnd": "etcd_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/sql/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/sql_ca.crt.erb",
+        "SrcPathEnd": "sql_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor909079890/templates/rep_client.key.erb",
+        "SrcPathEnd": "rep_client.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor685674068/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "benchmark-bbs",
+    "Packages": [
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "benchmark-bbs"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "driver to use, e.g. postgres or mysql",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_driver"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded root CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.etcd.ca_cert"
+      },
+      {
+        "Default": "",
+        "Description": "the api key for emmitting datadog metrics",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.datadog_api_key"
+      },
+      {
+        "Default": "",
+        "Description": "the datadog metric prefix",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.datadog_metric_prefix"
+      },
+      {
+        "Default": null,
+        "Description": "the number of rep processes to simulate in test",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.num_reps"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.bbs.client_cert"
+      },
+      {
+        "Default": true,
+        "Description": "boolean to configure ssl connections with the etcd cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.etcd.require_ssl"
+      },
+      {
+        "Default": [],
+        "Description": "the key(s) to use for encryption at rest",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.encryption_keys"
+      },
+      {
+        "Default": null,
+        "Description": "the http timeout for bbs client requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.client_timeout"
+      },
+      {
+        "Default": "",
+        "Description": "Host for SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_host"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of etcd client idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.bbs.etcd.max_idle_conns_per_host"
+      },
+      {
+        "Default": null,
+        "Description": "the active key for encryption",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.active_key_label"
+      },
+      {
+        "Default": null,
+        "Description": "the number of trials of each benchmark to average across",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.num_trials"
+      },
+      {
+        "Default": null,
+        "Description": "the number of workers generating desired LRPs during setup",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.num_populate_workers"
+      },
+      {
+        "Default": "",
+        "Description": "Username to use for connecting to SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_username"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "the address of the BBS",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.bbs.api_location"
+      },
+      {
+        "Default": "",
+        "Description": "Port for SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_port"
+      },
+      {
+        "Default": null,
+        "Description": "Addresses pointing to the ETCD cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.etcd.machines"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.etcd.client_key"
+      },
+      {
+        "Default": "",
+        "Description": "the aws region where the S3 bucket lives",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.aws_region"
+      },
+      {
+        "Default": null,
+        "Description": "log level: debug, info, error or fatal",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.log_level"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.bbs.client_key"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs (false unsupported)",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.bbs.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the etcd client tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.etcd.client_session_cache_size"
+      },
+      {
+        "Default": "",
+        "Description": "the aws access key for uploading metrics to s3",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.aws_access_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "file name for benchmark log output in the BOSH log dir",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.log_file"
+      },
+      {
+        "Default": 5,
+        "Description": "percentage of actual LRPs to write on each rep bulk loop",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.percent_writes"
+      },
+      {
+        "Default": "",
+        "Description": "Connection string to use for SQL backend [username:password@tcp(1.1.1.1:1234)/database]",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_connection_string"
+      },
+      {
+        "Default": "",
+        "Description": "the S3 bucket to upload metrics to",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.aws_bucket_name"
+      },
+      {
+        "Default": "",
+        "Description": "Database name to use for connecting to SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_schema"
+      },
+      {
+        "Default": "",
+        "Description": "the application key for datadog metrics",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.datadog_app_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.etcd.client_cert"
+      },
+      {
+        "Default": "",
+        "Description": "the aws secret key for uploading metrics to s3",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.aws_secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "the number of single instance desired lrps to generate and fetch",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.desired_lrps"
+      },
+      {
+        "Default": "",
+        "Description": "Password to use for connecting to SQL backend",
+        "Example": null,
+        "Examples": null,
+        "Name": "benchmark-bbs.sql.db_password"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor685674068/templates/run.erb",
+        "SrcPathEnd": "run.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor685674068/templates/etcd_ca.crt.erb",
+        "SrcPathEnd": "etcd_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor685674068/templates/etcd_client.crt.erb",
+        "SrcPathEnd": "etcd_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor685674068/templates/etcd_client.key.erb",
+        "SrcPathEnd": "etcd_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor685674068/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor685674068/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor062273702/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cfdot",
+    "Packages": [
+      {
+        "Name": "cfdot"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": true,
+        "Description": "true if the bbs requires TLS connections, false otherwise",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.cfdot.bbs.use_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.cfdot.bbs.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.cfdot.bbs.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.cfdot.bbs.client_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/setup",
+        "Path": "/mnt/tmp/tar-CmdExtractor062273702/templates/setup.erb",
+        "SrcPathEnd": "setup.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor062273702/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor062273702/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor062273702/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor936967368/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "file_server",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "file_server"
+      },
+      {
+        "Name": "buildpack_app_lifecycle"
+      },
+      {
+        "Name": "docker_app_lifecycle"
+      },
+      {
+        "Name": "windows_app_lifecycle"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "0.0.0.0:8080",
+        "Description": "Address of interface on which to serve files",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.file_server.listen_addr"
+      },
+      {
+        "Default": "/var/vcap/jobs/file_server/packages/",
+        "Description": "Fully-qualified path to the doc root for the file server's static files",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.file_server.static_directory"
+      },
+      {
+        "Default": "127.0.0.1:17005",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.file_server.debug_addr"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.file_server.log_level"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.file_server.dropsonde_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/file_server_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor936967368/templates/file_server_ctl.erb",
+        "SrcPathEnd": "file_server_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/file_server_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor936967368/templates/file_server_as_vcap.erb",
+        "SrcPathEnd": "file_server_as_vcap.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor082132794/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "rep",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "rep"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 2,
+        "Description": "Interval to check unhealthy containers in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.unhealthy_monitoring_interval_in_seconds"
+      },
+      {
+        "Default": null,
+        "Description": "Experimental: user to run post setup hook command",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.post_setup_user"
+      },
+      {
+        "Default": 10,
+        "Description": "The interval to look for completed tasks and LRPs during evacuation in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.evacuation_polling_interval_in_seconds"
+      },
+      {
+        "Default": true,
+        "Description": "Whether to enable the auction, LRP, and Task endpoints on the legacy, insecurable API server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.enable_legacy_api_endpoints"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.server_cert"
+      },
+      {
+        "Default": 5,
+        "Description": "the max concurrent download steps that can be active",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.max_concurrent_downloads"
+      },
+      {
+        "Default": null,
+        "Description": "Directory to run the healthcheck process from",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.dir"
+      },
+      {
+        "Default": 64,
+        "Description": "Maximum number of concurrent health check operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.healthcheck_work_pool_size"
+      },
+      {
+        "Default": null,
+        "Description": "Environment variables to use when running the garden health check",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.env"
+      },
+      {
+        "Default": "auto",
+        "Description": "the container disk capacity the executor should manage.  this should not be greater than the actual disk quota on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.disk_capacity_mb"
+      },
+      {
+        "Default": null,
+        "Description": "the frequency for emitting container metrics",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_metrics_report_interval"
+      },
+      {
+        "Default": 10000000000,
+        "Description": "maximum size of the cache in bytes - this should leave a healthy overhead for temporary items, etc.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.max_cache_size_in_bytes"
+      },
+      {
+        "Default": 8,
+        "Description": "Maximum number of concurrent get container metrics operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.metrics_work_pool_size"
+      },
+      {
+        "Default": "127.0.0.1:17008",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.debug_addr"
+      },
+      {
+        "Default": null,
+        "Description": "Concatenation of trusted CA certificates to be made available inside the rootfses",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.trusted_certs"
+      },
+      {
+        "Default": [],
+        "Description": "Array of optional tags used for scheduling Tasks and LRPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.optional_placement_tags"
+      },
+      {
+        "Default": "/var/vcap/data/voldrivers",
+        "Description": "Experimental: OS style path string containing the directories volman will look in for voldriver specs (delimited by : or ; depending on the OS)",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.volman.driver_paths"
+      },
+      {
+        "Default": false,
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssl.skip_cert_verify"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.server_key"
+      },
+      {
+        "Default": "auto",
+        "Description": "the memory capacity the executor should manage.  this should not be greater than the actual memory on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.memory_capacity_mb"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.max_idle_conns_per_host"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "Address to the BBS Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.api_location"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.ca_cert"
+      },
+      {
+        "Default": "/var/vcap/data/executor_cache",
+        "Description": "path to the executor's cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.cache_path"
+      },
+      {
+        "Default": 64,
+        "Description": "Maximum number of concurrent get container info operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.read_work_pool_size"
+      },
+      {
+        "Default": "5s",
+        "Description": "Time to wait between retrying garden commands",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.command_retry_pause"
+      },
+      {
+        "Default": "vcap",
+        "Description": "User to use while performing a container healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.user"
+      },
+      {
+        "Default": null,
+        "Description": "Experimental: arbitrary command to run after setup action",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.post_setup_hook"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_key"
+      },
+      {
+        "Default": 30,
+        "Description": "The interval to look for completed tasks and LRPs in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.polling_interval_in_seconds"
+      },
+      {
+        "Default": [],
+        "Description": "Array of tags used for scheduling Tasks and LRPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.placement_tags"
+      },
+      {
+        "Default": "cell.service.cf.internal",
+        "Description": "base domain at which the rep should advertise its secure API",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.advertise_domain"
+      },
+      {
+        "Default": 32,
+        "Description": "Maximum number of concurrent create container operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.create_work_pool_size"
+      },
+      {
+        "Default": 1024,
+        "Description": "the maximum number of cpu shares for a container.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_max_cpu_shares"
+      },
+      {
+        "Default": null,
+        "Description": "Array of name:absolute_path pairs representing root filesystems preloaded onto the underlying garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.preloaded_rootfses"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.ca_cert"
+      },
+      {
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Description": "Garden server listening address.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden.address"
+      },
+      {
+        "Default": "-c, ls \u003e /tmp/test",
+        "Description": "List of command line args to pass to the garden health check process",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.args"
+      },
+      {
+        "Default": false,
+        "Description": "Use Azure Fault-Domains to determine the value of the zone. The value of the zone will be z\u003cFD-index\u003e. e.g. z0, z1, etc.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.use_azure_fault_domains"
+      },
+      {
+        "Default": "unix",
+        "Description": "Network type for the garden server connection (tcp or unix).",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden.network"
+      },
+      {
+        "Default": true,
+        "Description": "Export network environment variables into container (e.g. CF_INSTANCE_IP, CF_INSTANCE_PORT).",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.export_network_env_vars"
+      },
+      {
+        "Default": "/bin/sh",
+        "Description": "Path of the command to run to perform a container healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.path"
+      },
+      {
+        "Default": 200000,
+        "Description": "the inode limit enforced on each garden container.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_inode_limit"
+      },
+      {
+        "Default": 32,
+        "Description": "Maximum number of concurrent delete container operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.delete_work_pool_size"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_cert"
+      },
+      {
+        "Default": "0.0.0.0:1800",
+        "Description": "address to serve auction and LRP stop requests on",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr"
+      },
+      {
+        "Default": 600,
+        "Description": "The time to wait for evacuation to complete in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.evacuation_timeout_in_seconds"
+      },
+      {
+        "Default": [
+          "docker"
+        ],
+        "Description": "Array of schemes for which the underlying garden can support arbitrary root filesystems",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.rootfs_providers"
+      },
+      {
+        "Default": null,
+        "Description": "Concatenation of trusted CA certificates to be used when downloading assets.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.ca_certs_for_downloads"
+      },
+      {
+        "Default": null,
+        "Description": "The zone associated with the rep",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.zone"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.log_level"
+      },
+      {
+        "Default": "0.0.0.0:1801",
+        "Description": "address where rep listens for LRP and task start auction requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr_securable"
+      },
+      {
+        "Default": "10m",
+        "Description": "Frequency for healtchecking garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.interval"
+      },
+      {
+        "Default": "10m",
+        "Description": "Maximum allowed time for garden healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.timeout"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_session_cache_size"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.dropsonde_port"
+      },
+      {
+        "Default": "127.0.0.1:1800",
+        "Description": "When enable_legacy_api_endpoints is set to false, serve (insecure) ping and evacuate requests on this address and port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr_admin"
+      },
+      {
+        "Default": false,
+        "Description": "Whether to require mutual TLS for communication to the securable rep API server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.require_tls"
+      },
+      {
+        "Default": 30,
+        "Description": "Interval to check healthy containers in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.healthy_monitoring_interval_in_seconds"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/rep/trusted_certs.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/trusted_certs.crt.erb",
+        "SrcPathEnd": "trusted_certs.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/rep_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/rep_ctl.erb",
+        "SrcPathEnd": "rep_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/drain.erb",
+        "SrcPathEnd": "drain.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/rep_ca.crt.erb",
+        "SrcPathEnd": "rep_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/rep_server.crt.erb",
+        "SrcPathEnd": "rep_server.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/rep_server.key.erb",
+        "SrcPathEnd": "rep_server.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/post-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/post-start.erb",
+        "SrcPathEnd": "post-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/rep_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/rep_as_vcap.erb",
+        "SrcPathEnd": "rep_as_vcap.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/ca_certs_for_downloads.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/ca_certs_for_downloads.crt.erb",
+        "SrcPathEnd": "ca_certs_for_downloads.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor082132794/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor835388028/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "rep_windows",
+    "Packages": [
+      {
+        "Name": "rep_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 64,
+        "Description": "Maximum number of concurrent get container info operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.read_work_pool_size"
+      },
+      {
+        "Default": "10m",
+        "Description": "Frequency for healtchecking garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.interval"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.max_idle_conns_per_host"
+      },
+      {
+        "Default": [],
+        "Description": "Array of tags used for scheduling Tasks and LRPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.placement_tags"
+      },
+      {
+        "Default": "0.0.0.0:1800",
+        "Description": "address to serve auction and LRP stop requests on",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr"
+      },
+      {
+        "Default": "127.0.0.1:17008",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.debug_addr"
+      },
+      {
+        "Default": true,
+        "Description": "Export network environment variables into container (e.g. CF_INSTANCE_IP, CF_INSTANCE_PORT).",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.export_network_env_vars"
+      },
+      {
+        "Default": "",
+        "Description": "Syslog host",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.address"
+      },
+      {
+        "Default": "",
+        "Description": "Syslog port",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.port"
+      },
+      {
+        "Default": 600,
+        "Description": "The time to wait for evacuation to complete in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.evacuation_timeout_in_seconds"
+      },
+      {
+        "Default": false,
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssl.skip_cert_verify"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_key"
+      },
+      {
+        "Default": "/bin/sh",
+        "Description": "Path of the command to run to perform a container healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.path"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.dropsonde_port"
+      },
+      {
+        "Default": true,
+        "Description": "Whether to require mutual TLS for communication to the securable rep API server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.require_tls"
+      },
+      {
+        "Default": "auto",
+        "Description": "the memory capacity the executor should manage.  this should not be greater than the actual memory on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.memory_capacity_mb"
+      },
+      {
+        "Default": null,
+        "Description": "Concatenation of trusted CA certificates to be made available on the cell.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.trusted_certs"
+      },
+      {
+        "Default": 5,
+        "Description": "the max concurrent download steps that can be active",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.max_concurrent_downloads"
+      },
+      {
+        "Default": 64,
+        "Description": "Maximum number of concurrent health check operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.healthcheck_work_pool_size"
+      },
+      {
+        "Default": [],
+        "Description": "Array of optional tags used for scheduling Tasks and LRPs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.optional_placement_tags"
+      },
+      {
+        "Default": [
+          "windows2012R2:/tmp/windows2012R2"
+        ],
+        "Description": "Array of name:absolute_path pairs representing root filesystems preloaded onto the underlying garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.preloaded_rootfses"
+      },
+      {
+        "Default": "0.0.0.0:1801",
+        "Description": "address where rep listens for LRP and task start auction requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr_securable"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_session_cache_size"
+      },
+      {
+        "Default": "10m",
+        "Description": "Maximum allowed time for garden healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.timeout"
+      },
+      {
+        "Default": 10,
+        "Description": "The interval to look for completed tasks and LRPs during evacuation in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.evacuation_polling_interval_in_seconds"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.log_level"
+      },
+      {
+        "Default": "auto",
+        "Description": "the container disk capacity the executor should manage.  this should not be greater than the actual disk quota on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.disk_capacity_mb"
+      },
+      {
+        "Default": "unix",
+        "Description": "Network type for the garden server connection (tcp or unix).",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden.network"
+      },
+      {
+        "Default": 2,
+        "Description": "Interval to check unhealthy containers in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.unhealthy_monitoring_interval_in_seconds"
+      },
+      {
+        "Default": 32,
+        "Description": "Maximum number of concurrent create container operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.create_work_pool_size"
+      },
+      {
+        "Default": "windows2012R2",
+        "Description": "The stack for which to handle requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.stack"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.ca_cert"
+      },
+      {
+        "Default": 8500,
+        "Description": "local consul agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.consul_agent_port"
+      },
+      {
+        "Default": 10000000000,
+        "Description": "maximum size of the cache in bytes - this should leave a healthy overhead for temporary items, etc.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.max_cache_size_in_bytes"
+      },
+      {
+        "Default": null,
+        "Description": "Directory to run the healthcheck process from",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.dir"
+      },
+      {
+        "Default": "vcap",
+        "Description": "User to use while performing a container healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.user"
+      },
+      {
+        "Default": 30,
+        "Description": "The interval to look for completed tasks and LRPs in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.polling_interval_in_seconds"
+      },
+      {
+        "Default": 1024,
+        "Description": "the maximum number of cpu shares for a container.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_max_cpu_shares"
+      },
+      {
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Description": "Garden server listening address.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden.address"
+      },
+      {
+        "Default": null,
+        "Description": "Experimental: arbitrary command to run after setup action",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.post_setup_hook"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "Address to the BBS Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.api_location"
+      },
+      {
+        "Default": "udp",
+        "Description": "Syslog transport protocol (tcp or udp)",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.transport"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.server_cert"
+      },
+      {
+        "Default": 32,
+        "Description": "Maximum number of concurrent delete container operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.delete_work_pool_size"
+      },
+      {
+        "Default": "-c, ls \u003e /tmp/test",
+        "Description": "List of command line args to pass to the garden health check process",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.args"
+      },
+      {
+        "Default": 200000,
+        "Description": "the inode limit enforced on each garden container.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_inode_limit"
+      },
+      {
+        "Default": 30,
+        "Description": "Interval to check healthy containers in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.healthy_monitoring_interval_in_seconds"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.server_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "The zone associated with the rep",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.zone"
+      },
+      {
+        "Default": "cell.service.cf.internal",
+        "Description": "base domain at which the rep should advertise its secure API",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.advertise_domain"
+      },
+      {
+        "Default": "127.0.0.1:1800",
+        "Description": "When enable_legacy_api_endpoints is set to false, serve (insecure) ping and evacuate requests on this address and port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr_admin"
+      },
+      {
+        "Default": "5s",
+        "Description": "Time to wait between retrying garden commands",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.command_retry_pause"
+      },
+      {
+        "Default": null,
+        "Description": "Environment variables to use when running the garden health check",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.env"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.ca_cert"
+      },
+      {
+        "Default": 8,
+        "Description": "Maximum number of concurrent get container metrics operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.metrics_work_pool_size"
+      },
+      {
+        "Default": null,
+        "Description": "Experimental: user to run post setup hook command",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.post_setup_user"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.require_ssl"
+      },
+      {
+        "Default": [
+          "docker"
+        ],
+        "Description": "Array of schemes for which the underlying garden can support arbitrary root filesystems",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.rootfs_providers"
+      },
+      {
+        "Default": true,
+        "Description": "Whether to enable the auction, LRP, and Task endpoints on the legacy, insecurable API server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.enable_legacy_api_endpoints"
+      },
+      {
+        "Default": "/var/vcap/data/executor_cache",
+        "Description": "path to the executor's cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.cache_path"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/rep/trusted_certs.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/trusted_certs.crt.erb",
+        "SrcPathEnd": "trusted_certs.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/rep_ca.crt.erb",
+        "SrcPathEnd": "rep_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/rep_server.key.erb",
+        "SrcPathEnd": "rep_server.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/drain.ps1.erb",
+        "SrcPathEnd": "drain.ps1.erb"
+      },
+      {
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/start.ps1.erb",
+        "SrcPathEnd": "start.ps1.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor835388028/templates/rep_server.crt.erb",
+        "SrcPathEnd": "rep_server.crt.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor095784718/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "route_emitter",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "route_emitter"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Password for server authentication.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.nats.password"
+      },
+      {
+        "Default": 4222,
+        "Description": "The port for the NATS server to listen on.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.nats.port"
+      },
+      {
+        "Default": 60,
+        "Description": "Interval to sync routes to the router in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.sync_interval_in_seconds"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.client_key"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.require_ssl"
+      },
+      {
+        "Default": "127.0.0.1:17009",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.debug_addr"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.dropsonde_port"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.client_session_cache_size"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.max_idle_conns_per_host"
+      },
+      {
+        "Default": null,
+        "Description": "Username for server authentication.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "IP of each NATS cluster member.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.nats.machines"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.log_level"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "Address to the BBS Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.route_emitter.bbs.api_location"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/route_emitter_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor095784718/templates/route_emitter_ctl.erb",
+        "SrcPathEnd": "route_emitter_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/route_emitter_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor095784718/templates/route_emitter_as_vcap.erb",
+        "SrcPathEnd": "route_emitter_as_vcap.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor095784718/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor095784718/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor095784718/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor143422832/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "ssh_proxy",
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "ssh_proxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Allow ssh access for diego applications",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.enable_diego_auth"
+      },
+      {
+        "Default": null,
+        "Description": "Diego Credentials to be used with the Diego authenitcation method",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.diego_credentials"
+      },
+      {
+        "Default": null,
+        "Description": "URL of the UAA token endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.uaa_token_url"
+      },
+      {
+        "Default": null,
+        "Description": "The oauth client secret used to authenticate the ssh-proxy with the uaa",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.uaa_secret"
+      },
+      {
+        "Default": null,
+        "Description": "Comma separated list of allowed cipher algorithms",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.allowed_ciphers"
+      },
+      {
+        "Default": null,
+        "Description": "Comma separated list of allowed key exchange algorithms",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.allowed_keyexchanges"
+      },
+      {
+        "Default": "127.0.0.1:17016",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.debug_addr"
+      },
+      {
+        "Default": false,
+        "Description": "Allow ssh access for cf applications",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.enable_cf_auth"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.client_session_cache_size"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.max_idle_conns_per_host"
+      },
+      {
+        "Default": "0.0.0.0:2222",
+        "Description": "address for the proxy to listen on",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.listen_addr"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.log_level"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.dropsonde_port"
+      },
+      {
+        "Default": 9022,
+        "Description": "External port of the Cloud Controller API",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.cc.external_port"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.require_ssl"
+      },
+      {
+        "Default": false,
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssl.skip_cert_verify"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "Address to the BBS Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.bbs.api_location"
+      },
+      {
+        "Default": null,
+        "Description": "PEM encoded RSA private key used to identify host",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.host_key"
+      },
+      {
+        "Default": "cloud-controller-ng.service.cf.internal",
+        "Description": "Internal service hostname of Cloud Controller Api",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.cc.internal_service_hostname"
+      },
+      {
+        "Default": "0.0.0.0:2223",
+        "Description": "address for the ssh proxy healthcheck server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.healthcheck_listen_addr"
+      },
+      {
+        "Default": null,
+        "Description": "Comma separated list of allowed MAC algorithms",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssh_proxy.allowed_macs"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/ssh_proxy_as_vcap",
+        "Path": "/mnt/tmp/tar-CmdExtractor143422832/templates/ssh_proxy_as_vcap.erb",
+        "SrcPathEnd": "ssh_proxy_as_vcap.erb"
+      },
+      {
+        "DstPathEnd": "bin/ssh_proxy_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor143422832/templates/ssh_proxy_ctl.erb",
+        "SrcPathEnd": "ssh_proxy_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor143422832/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor143422832/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor143422832/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/ssh_proxy.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor143422832/templates/ssh_proxy.json.erb",
+        "SrcPathEnd": "ssh_proxy.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor051843106/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "vizzini",
+    "Packages": [
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "vizzini"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "ssh-proxy.service.cf.internal:2222",
+        "Description": "Host and port for the SSH proxy",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.ssh.proxy_address"
+      },
+      {
+        "Default": 4,
+        "Description": "The number of nodes to run the tests with",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.nodes"
+      },
+      {
+        "Default": false,
+        "Description": "Run tests in verbose mode",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.verbose"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "The address of the BBS",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.bbs.api_location"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.bbs.client_cert"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.bbs.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "The deployment's routable domain name",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.routable_domain_suffix"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.bbs.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "Shared secret for the SSH proxy's Diego authenticator",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.ssh.proxy_secret"
+      },
+      {
+        "Default": null,
+        "Description": "default timeout for ginkgo assertions",
+        "Example": null,
+        "Examples": null,
+        "Name": "vizzini.eventually_timeout"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor051843106/templates/run.erb",
+        "SrcPathEnd": "run.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor051843106/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor051843106/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      }
+    ]
+  }
+]

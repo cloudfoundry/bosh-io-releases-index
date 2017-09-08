@@ -1,81 +1,132 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor273445645/monit
-    SrcPathEnd: monit
-  Name: new_hostname
-  Packages:
-  - Name: libevent
-  - Name: tor
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor273445645/templates/bin/run
-    SrcPathEnd: bin/run
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor273445645/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor273445645/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/torrc
-    Path: /mnt/tmp/tar-CmdExtractor273445645/templates/config/torrc.erb
-    SrcPathEnd: config/torrc.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor148937927/monit
-    SrcPathEnd: monit
-  Name: tor
-  Packages:
-  - Name: libevent
-  - Name: tor
-  Properties:
-  - Default: null
-    Description: The <base32-encoded-fingerprint>.onion domain name for this hidden
-      service. If the hidden service is restricted to authorized clients only, this
-      also contains authorization data for all clients.
-    Example: null
-    Name: tor.hostname
-  - Default: null
-    Description: The private key for this hidden service.
-    Example: null
-    Name: tor.private_key
-  - Default: null
-    Description: Authorization data for a hidden service that is only accessible by
-      authorized clients.
-    Example: null
-    Name: tor.client_keys
-  - Default: null
-    Description: If you enable the controlport, be sure to enable one of these authentication
-      methods, to prevent attackers from accessing it.
-    Example: null
-    Name: tor.hashed_control_password
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: hidden_service/private_key
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/hidden_service/private_key.erb
-    SrcPathEnd: hidden_service/private_key.erb
-  - DstPathEnd: hidden_service/client_keys
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/hidden_service/client_keys.erb
-    SrcPathEnd: hidden_service/client_keys.erb
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: bin/tor_ctl
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/bin/tor_ctl
-    SrcPathEnd: bin/tor_ctl
-  - DstPathEnd: config/torrc
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/config/torrc.erb
-    SrcPathEnd: config/torrc.erb
-  - DstPathEnd: hidden_service/hostname
-    Path: /mnt/tmp/tar-CmdExtractor148937927/templates/hidden_service/hostname.erb
-    SrcPathEnd: hidden_service/hostname.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor273445645/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "new_hostname",
+    "Packages": [
+      {
+        "Name": "libevent"
+      },
+      {
+        "Name": "tor"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor273445645/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor273445645/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor273445645/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/torrc",
+        "Path": "/mnt/tmp/tar-CmdExtractor273445645/templates/config/torrc.erb",
+        "SrcPathEnd": "config/torrc.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor148937927/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "tor",
+    "Packages": [
+      {
+        "Name": "libevent"
+      },
+      {
+        "Name": "tor"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "The \u003cbase32-encoded-fingerprint\u003e.onion domain name for this hidden service. If the hidden service is restricted to authorized clients only, this also contains authorization data for all clients.",
+        "Example": null,
+        "Name": "tor.hostname"
+      },
+      {
+        "Default": null,
+        "Description": "The private key for this hidden service.",
+        "Example": null,
+        "Name": "tor.private_key"
+      },
+      {
+        "Default": null,
+        "Description": "Authorization data for a hidden service that is only accessible by authorized clients.",
+        "Example": null,
+        "Name": "tor.client_keys"
+      },
+      {
+        "Default": null,
+        "Description": "If you enable the controlport, be sure to enable one of these authentication methods, to prevent attackers from accessing it.",
+        "Example": null,
+        "Name": "tor.hashed_control_password"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "hidden_service/private_key",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/hidden_service/private_key.erb",
+        "SrcPathEnd": "hidden_service/private_key.erb"
+      },
+      {
+        "DstPathEnd": "hidden_service/client_keys",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/hidden_service/client_keys.erb",
+        "SrcPathEnd": "hidden_service/client_keys.erb"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "bin/tor_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/bin/tor_ctl",
+        "SrcPathEnd": "bin/tor_ctl"
+      },
+      {
+        "DstPathEnd": "config/torrc",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/config/torrc.erb",
+        "SrcPathEnd": "config/torrc.erb"
+      },
+      {
+        "DstPathEnd": "hidden_service/hostname",
+        "Path": "/mnt/tmp/tar-CmdExtractor148937927/templates/hidden_service/hostname.erb",
+        "SrcPathEnd": "hidden_service/hostname.erb"
+      }
+    ]
+  }
+]

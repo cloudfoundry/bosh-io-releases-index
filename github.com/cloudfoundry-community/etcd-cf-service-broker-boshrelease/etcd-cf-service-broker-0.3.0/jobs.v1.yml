@@ -1,164 +1,250 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor209384267/monit
-    SrcPathEnd: monit
-  Name: broker
-  Packages:
-  - Name: etcd-cf-service-broker
-  - Name: jq
-  Properties:
-  - Default: null
-    Description: password for root user
-    Example: null
-    Examples: null
-    Name: etcd.root_password
-  - Default: false
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: etcd.require_ssl
-  - Default: null
-    Description: Addresses of etcd machines
-    Example: null
-    Examples: null
-    Name: etcd.machines
-  - Default: 4001
-    Description: port of the etcd server
-    Example: null
-    Examples: null
-    Name: etcd.port
-  - Default: ""
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: etcd.client_cert
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution
-    Example: null
-    Examples: null
-    Name: etcd.dns_health_check_host
-  - Default: ""
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: etcd.client_key
-  - Default: 6000
-    Description: Listening port for broker http requests
-    Example: null
-    Examples: null
-    Name: broker.port
-  - Default: broker
-    Description: Broker basic auth username
-    Example: null
-    Examples: null
-    Name: broker.username
-  - Default: null
-    Description: Broker basic auth password
-    Example: null
-    Examples: null
-    Name: broker.password
-  - Default: null
-    Description: Host URL used for published binding credentials
-    Example: null
-    Examples: null
-    Name: broker.public_etcd_url
-  - Default: root
-    Description: '''root'' user for etcd; created automatically if etcd has no users'
-    Example: null
-    Examples: null
-    Name: etcd.root_username
-  - Default: ""
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: etcd.ca_cert
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor209384267/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: bin/initialize_etcd_auth.sh
-    Path: /mnt/tmp/tar-CmdExtractor209384267/templates/bin/initialize_etcd_auth.sh
-    SrcPathEnd: bin/initialize_etcd_auth.sh
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor209384267/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor209384267/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor209384267/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: bin/ctl
-    Path: /mnt/tmp/tar-CmdExtractor209384267/templates/bin/ctl
-    SrcPathEnd: bin/ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor648529845/monit
-    SrcPathEnd: monit
-  Name: sanity-test
-  Packages:
-  - Name: sanity-tests
-  - Name: jq
-  Properties:
-  - Default: null
-    Description: Broker host
-    Example: null
-    Examples: null
-    Name: broker.host
-  - Default: 6000
-    Description: Broker port
-    Example: null
-    Examples: null
-    Name: broker.port
-  - Default: null
-    Description: Broker basic auth password
-    Example: null
-    Examples: null
-    Name: broker.password
-  - Default: null
-    Description: password for root user
-    Example: null
-    Examples: null
-    Name: etcd.root_password
-  - Default: 4001
-    Description: port of the etcd server
-    Example: null
-    Examples: null
-    Name: etcd.port
-  - Default: broker
-    Description: Broker basic auth username
-    Example: null
-    Examples: null
-    Name: broker.username
-  - Default: null
-    Description: Assert the base URL expected in binding credentials
-    Example: null
-    Examples: null
-    Name: broker.expected_etcd_host
-  - Default: root
-    Description: '''root'' user for etcd; created automatically if etcd has no users'
-    Example: null
-    Examples: null
-    Name: etcd.root_username
-  - Default: false
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: etcd.require_ssl
-  - Default: null
-    Description: Addresses of etcd machines
-    Example: null
-    Examples: null
-    Name: etcd.machines
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor648529845/templates/bin/run
-    SrcPathEnd: bin/run
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor648529845/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor648529845/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor209384267/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker",
+    "Packages": [
+      {
+        "Name": "etcd-cf-service-broker"
+      },
+      {
+        "Name": "jq"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "password for root user",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.root_password"
+      },
+      {
+        "Default": false,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Addresses of etcd machines",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.machines"
+      },
+      {
+        "Default": 4001,
+        "Description": "port of the etcd server",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.port"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.client_cert"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.dns_health_check_host"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.client_key"
+      },
+      {
+        "Default": 6000,
+        "Description": "Listening port for broker http requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": "broker",
+        "Description": "Broker basic auth username",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "Broker basic auth password",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "Host URL used for published binding credentials",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.public_etcd_url"
+      },
+      {
+        "Default": "root",
+        "Description": "'root' user for etcd; created automatically if etcd has no users",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.root_username"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.ca_cert"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor209384267/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "bin/initialize_etcd_auth.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor209384267/templates/bin/initialize_etcd_auth.sh",
+        "SrcPathEnd": "bin/initialize_etcd_auth.sh"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor209384267/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor209384267/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor209384267/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor209384267/templates/bin/ctl",
+        "SrcPathEnd": "bin/ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor648529845/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "sanity-test",
+    "Packages": [
+      {
+        "Name": "sanity-tests"
+      },
+      {
+        "Name": "jq"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Broker host",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": 6000,
+        "Description": "Broker port",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Broker basic auth password",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "password for root user",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.root_password"
+      },
+      {
+        "Default": 4001,
+        "Description": "port of the etcd server",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.port"
+      },
+      {
+        "Default": "broker",
+        "Description": "Broker basic auth username",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "Assert the base URL expected in binding credentials",
+        "Example": null,
+        "Examples": null,
+        "Name": "broker.expected_etcd_host"
+      },
+      {
+        "Default": "root",
+        "Description": "'root' user for etcd; created automatically if etcd has no users",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.root_username"
+      },
+      {
+        "Default": false,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Addresses of etcd machines",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.machines"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor648529845/templates/bin/run",
+        "SrcPathEnd": "bin/run"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor648529845/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor648529845/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      }
+    ]
+  }
+]

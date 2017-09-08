@@ -1,170 +1,237 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor483716824/monit
-    SrcPathEnd: monit
-  Name: logsearch-shipper
-  Packages:
-  - Name: logsearch-collectd
-  - Name: logsearch-nxlog
-  Properties:
-  - Default: true
-    Description: Whether to enable log forwarding functionality
-    Example: null
-    Name: logsearch.logs.enabled
-  - Default: null
-    Description: The upstream server in the format of `host:port`
-    Example: null
-    Name: logsearch.logs.server
-  - Default: null
-    Description: The upstream SSL certificate to use for authentication
-    Example: null
-    Name: logsearch.logs.ssl_ca_certificate
-  - Default: true
-    Description: Gather host CPU metrics
-    Example: null
-    Name: logsearch.metrics.host.cpu
-  - Default: true
-    Description: Gather host process metrics
-    Example: null
-    Name: logsearch.metrics.host.processes
-  - Default: tcp
-    Description: Transport to use with upstream server (tcp|udp)
-    Example: null
-    Name: logsearch.logs.transport
-  - Default: true
-    Description: Gather host load average metrics
-    Example: null
-    Name: logsearch.metrics.host.loadavg
-  - Default: true
-    Description: Gather host swap metrics
-    Example: null
-    Name: logsearch.metrics.host.swap
-  - Default: true
-    Description: Gather monit process metrics
-    Example: null
-    Name: logsearch.metrics.monit
-  - Default: true
-    Description: Gather host network metrics
-    Example: null
-    Name: logsearch.metrics.host.network
-  - Default: true
-    Description: Gather host user metrics
-    Example: null
-    Name: logsearch.metrics.host.users
-  - Default: null
-    Description: Default metric collector configuration
-    Example: null
-    Name: logsearch.metrics._defaults
-  - Default: null
-    Description: A SSL certificate to use for authentication
-    Example: null
-    Name: logsearch.logs.ssl_certificate
-  - Default: 60
-    Description: Delay startup commands by this number of seconds to help catch newly-created
-      logs
-    Example: null
-    Name: logsearch.logs.start_delay
-  - Default: |
-      ---
-      files:
-        "**/*.log":
-          fields:
-            bosh_director: "{{director}}"
-            bosh_deployment: "{{deployment}}"
-            bosh_job: "{{job}}/{{index}}"
-            bosh_template: "{{file_template}}"
-        "**/*.stdout.log":
-          fields:
-            stream: "stdout"
-        "**/stdout.log":
-          fields:
-            stream: "stdout"
-        "**/*.stderr.log":
-          fields:
-            stream: "stderr"
-        "**/stderr.log":
-          fields:
-            stream: "stderr"
-    Description: ""
-    Example: null
-    Name: logsearch.logs._builtin_defaults
-  - Default: null
-    Description: Override template configuration applied to all forwarded files
-    Example: null
-    Name: logsearch.logs._overrides
-  - Default: true
-    Description: Gather host memory metrics
-    Example: null
-    Name: logsearch.metrics.host.memory
-  - Default: null
-    Description: Override template configuration for metric collectors
-    Example: null
-    Name: logsearch.metrics._overrides
-  - Default: true
-    Description: Gather host disk metrics
-    Example: null
-    Name: logsearch.metrics.host.disk
-  - Default: default
-    Description: The name of the BOSH director (not dynamically accessible)
-    Example: null
-    Name: logsearch.logs.director
-  - Default: null
-    Description: A SSL key to use for authentication
-    Example: null
-    Name: logsearch.logs.ssl_key
-  - Default: null
-    Description: Default log forwarding configuration applied to all forwarded files
-    Example: null
-    Name: logsearch.logs._defaults
-  - Default: true
-    Description: Whether to enable metrics functionality
-    Example: null
-    Name: logsearch.metrics.enabled
-  - Default: 60
-    Description: Check metrics every interval of this number of seconds
-    Example: null
-    Name: logsearch.metrics.frequency
-  Templates:
-  - DstPathEnd: bin/logs.control
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/logs.control
-    SrcPathEnd: bin/logs.control
-  - DstPathEnd: bin/logs.generate-config
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/logs.generate-config.erb
-    SrcPathEnd: bin/logs.generate-config.erb
-  - DstPathEnd: bin/metrics-collectd.graphite-mock
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics-collectd.graphite-mock
-    SrcPathEnd: bin/metrics-collectd.graphite-mock
-  - DstPathEnd: logsearch/metrics.yml
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/logsearch/metrics.yml.erb
-    SrcPathEnd: logsearch/metrics.yml.erb
-  - DstPathEnd: etc/logs.ssl.key
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/etc/logs.ssl.key.erb
-    SrcPathEnd: etc/logs.ssl.key.erb
-  - DstPathEnd: bin/metrics.control
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics.control
-    SrcPathEnd: bin/metrics.control
-  - DstPathEnd: etc/logs.ssl-ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/etc/logs.ssl-ca.crt.erb
-    SrcPathEnd: etc/logs.ssl-ca.crt.erb
-  - DstPathEnd: bin/metrics-runner.control
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics-runner.control.erb
-    SrcPathEnd: bin/metrics-runner.control.erb
-  - DstPathEnd: logsearch/metric-collector/monit/collector
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/logsearch/metric-collector/monit/collector
-    SrcPathEnd: logsearch/metric-collector/monit/collector
-  - DstPathEnd: etc/logs.ssl.crt
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/etc/logs.ssl.crt.erb
-    SrcPathEnd: etc/logs.ssl.crt.erb
-  - DstPathEnd: bin/metrics-collectd.control
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics-collectd.control
-    SrcPathEnd: bin/metrics-collectd.control
-  - DstPathEnd: bin/metrics.generate-config
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics.generate-config.erb
-    SrcPathEnd: bin/metrics.generate-config.erb
-  - DstPathEnd: etc/metrics-collectd.conf
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/etc/metrics-collectd.conf.erb
-    SrcPathEnd: etc/metrics-collectd.conf.erb
-  - DstPathEnd: logsearch/logs.yml
-    Path: /mnt/tmp/tar-CmdExtractor483716824/templates/logsearch/logs.yml
-    SrcPathEnd: logsearch/logs.yml
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor483716824/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "logsearch-shipper",
+    "Packages": [
+      {
+        "Name": "logsearch-collectd"
+      },
+      {
+        "Name": "logsearch-nxlog"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": true,
+        "Description": "Whether to enable log forwarding functionality",
+        "Example": null,
+        "Name": "logsearch.logs.enabled"
+      },
+      {
+        "Default": null,
+        "Description": "The upstream server in the format of `host:port`",
+        "Example": null,
+        "Name": "logsearch.logs.server"
+      },
+      {
+        "Default": null,
+        "Description": "The upstream SSL certificate to use for authentication",
+        "Example": null,
+        "Name": "logsearch.logs.ssl_ca_certificate"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host CPU metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.cpu"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host process metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.processes"
+      },
+      {
+        "Default": "tcp",
+        "Description": "Transport to use with upstream server (tcp|udp)",
+        "Example": null,
+        "Name": "logsearch.logs.transport"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host load average metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.loadavg"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host swap metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.swap"
+      },
+      {
+        "Default": true,
+        "Description": "Gather monit process metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.monit"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host network metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.network"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host user metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.users"
+      },
+      {
+        "Default": null,
+        "Description": "Default metric collector configuration",
+        "Example": null,
+        "Name": "logsearch.metrics._defaults"
+      },
+      {
+        "Default": null,
+        "Description": "A SSL certificate to use for authentication",
+        "Example": null,
+        "Name": "logsearch.logs.ssl_certificate"
+      },
+      {
+        "Default": 60,
+        "Description": "Delay startup commands by this number of seconds to help catch newly-created logs",
+        "Example": null,
+        "Name": "logsearch.logs.start_delay"
+      },
+      {
+        "Default": "---\nfiles:\n  \"**/*.log\":\n    fields:\n      bosh_director: \"{{director}}\"\n      bosh_deployment: \"{{deployment}}\"\n      bosh_job: \"{{job}}/{{index}}\"\n      bosh_template: \"{{file_template}}\"\n  \"**/*.stdout.log\":\n    fields:\n      stream: \"stdout\"\n  \"**/stdout.log\":\n    fields:\n      stream: \"stdout\"\n  \"**/*.stderr.log\":\n    fields:\n      stream: \"stderr\"\n  \"**/stderr.log\":\n    fields:\n      stream: \"stderr\"\n",
+        "Description": "",
+        "Example": null,
+        "Name": "logsearch.logs._builtin_defaults"
+      },
+      {
+        "Default": null,
+        "Description": "Override template configuration applied to all forwarded files",
+        "Example": null,
+        "Name": "logsearch.logs._overrides"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host memory metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.memory"
+      },
+      {
+        "Default": null,
+        "Description": "Override template configuration for metric collectors",
+        "Example": null,
+        "Name": "logsearch.metrics._overrides"
+      },
+      {
+        "Default": true,
+        "Description": "Gather host disk metrics",
+        "Example": null,
+        "Name": "logsearch.metrics.host.disk"
+      },
+      {
+        "Default": "default",
+        "Description": "The name of the BOSH director (not dynamically accessible)",
+        "Example": null,
+        "Name": "logsearch.logs.director"
+      },
+      {
+        "Default": null,
+        "Description": "A SSL key to use for authentication",
+        "Example": null,
+        "Name": "logsearch.logs.ssl_key"
+      },
+      {
+        "Default": null,
+        "Description": "Default log forwarding configuration applied to all forwarded files",
+        "Example": null,
+        "Name": "logsearch.logs._defaults"
+      },
+      {
+        "Default": true,
+        "Description": "Whether to enable metrics functionality",
+        "Example": null,
+        "Name": "logsearch.metrics.enabled"
+      },
+      {
+        "Default": 60,
+        "Description": "Check metrics every interval of this number of seconds",
+        "Example": null,
+        "Name": "logsearch.metrics.frequency"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/logs.control",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/logs.control",
+        "SrcPathEnd": "bin/logs.control"
+      },
+      {
+        "DstPathEnd": "bin/logs.generate-config",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/logs.generate-config.erb",
+        "SrcPathEnd": "bin/logs.generate-config.erb"
+      },
+      {
+        "DstPathEnd": "bin/metrics-collectd.graphite-mock",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics-collectd.graphite-mock",
+        "SrcPathEnd": "bin/metrics-collectd.graphite-mock"
+      },
+      {
+        "DstPathEnd": "logsearch/metrics.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/logsearch/metrics.yml.erb",
+        "SrcPathEnd": "logsearch/metrics.yml.erb"
+      },
+      {
+        "DstPathEnd": "etc/logs.ssl.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/etc/logs.ssl.key.erb",
+        "SrcPathEnd": "etc/logs.ssl.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/metrics.control",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics.control",
+        "SrcPathEnd": "bin/metrics.control"
+      },
+      {
+        "DstPathEnd": "etc/logs.ssl-ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/etc/logs.ssl-ca.crt.erb",
+        "SrcPathEnd": "etc/logs.ssl-ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/metrics-runner.control",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics-runner.control.erb",
+        "SrcPathEnd": "bin/metrics-runner.control.erb"
+      },
+      {
+        "DstPathEnd": "logsearch/metric-collector/monit/collector",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/logsearch/metric-collector/monit/collector",
+        "SrcPathEnd": "logsearch/metric-collector/monit/collector"
+      },
+      {
+        "DstPathEnd": "etc/logs.ssl.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/etc/logs.ssl.crt.erb",
+        "SrcPathEnd": "etc/logs.ssl.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/metrics-collectd.control",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics-collectd.control",
+        "SrcPathEnd": "bin/metrics-collectd.control"
+      },
+      {
+        "DstPathEnd": "bin/metrics.generate-config",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/bin/metrics.generate-config.erb",
+        "SrcPathEnd": "bin/metrics.generate-config.erb"
+      },
+      {
+        "DstPathEnd": "etc/metrics-collectd.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/etc/metrics-collectd.conf.erb",
+        "SrcPathEnd": "etc/metrics-collectd.conf.erb"
+      },
+      {
+        "DstPathEnd": "logsearch/logs.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor483716824/templates/logsearch/logs.yml",
+        "SrcPathEnd": "logsearch/logs.yml"
+      }
+    ]
+  }
+]

@@ -1,1726 +1,2430 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor677314127/monit
-    SrcPathEnd: monit
-  Name: blobstore
-  Packages:
-  - Name: nginx
-  Properties:
-  - Default: null
-    Description: Username director must use to access blobstore via HTTP Basic
-    Example: null
-    Examples: null
-    Name: blobstore.director.user
-  - Default: null
-    Description: Password director must use to access blobstore via HTTP Basic
-    Example: null
-    Examples: null
-    Name: blobstore.director.password
-  - Default: null
-    Description: Username agents must use to access blobstore via HTTP Basic
-    Example: null
-    Examples: null
-    Name: blobstore.agent.user
-  - Default: null
-    Description: Password agents must use to access blobstore via HTTP Basic
-    Example: null
-    Examples: null
-    Name: blobstore.agent.password
-  - Default: 5000m
-    Description: Max allowed file size for upload
-    Example: null
-    Examples: null
-    Name: blobstore.max_upload_size
-  - Default: 2
-    Description: Number of nginx workers for blobstore
-    Example: null
-    Examples: null
-    Name: blobstore.nginx.workers
-  - Default: 25250
-    Description: TCP port blobstore server (ngnix) listens on
-    Example: null
-    Examples: null
-    Name: blobstore.port
-  - Default: 25251
-    Description: TCP port backend blobstore server (simple blobstore) listens on
-    Example: null
-    Examples: null
-    Name: blobstore.backend_port
-  Templates:
-  - DstPathEnd: config/nginx.conf
-    Path: /mnt/tmp/tar-CmdExtractor677314127/templates/nginx.conf.erb
-    SrcPathEnd: nginx.conf.erb
-  - DstPathEnd: config/sites/blobstore.conf
-    Path: /mnt/tmp/tar-CmdExtractor677314127/templates/blobstore.conf.erb
-    SrcPathEnd: blobstore.conf.erb
-  - DstPathEnd: config/mime.types
-    Path: /mnt/tmp/tar-CmdExtractor677314127/templates/mime.types
-    SrcPathEnd: mime.types
-  - DstPathEnd: config/read_users
-    Path: /mnt/tmp/tar-CmdExtractor677314127/templates/read_users.erb
-    SrcPathEnd: read_users.erb
-  - DstPathEnd: config/write_users
-    Path: /mnt/tmp/tar-CmdExtractor677314127/templates/write_users.erb
-    SrcPathEnd: write_users.erb
-  - DstPathEnd: bin/nginx_ctl
-    Path: /mnt/tmp/tar-CmdExtractor677314127/templates/nginx_ctl
-    SrcPathEnd: nginx_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor358055140/monit
-    SrcPathEnd: monit
-  Name: director
-  Packages:
-  - Name: director
-  - Name: nginx
-  - Name: libpq
-  - Name: postgres
-  - Name: mysql
-  - Name: ruby
-  - Name: s3cli
-  - Name: davcli
-  Properties:
-  - Default: false
-    Description: When true, remove dev tool packages from non-compilation VMs
-    Example: null
-    Examples: null
-    Name: director.remove_dev_tools
-  - Default: null
-    Description: UAA client id to access Config Server
-    Example: null
-    Examples: null
-    Name: director.config_server.uaa.client_id
-  - Default: null
-    Description: UAA client secret to access Config Server
-    Example: null
-    Examples: null
-    Name: director.config_server.uaa.client_secret
-  - Default: nats
-    Description: Username to connect to nats with
-    Example: null
-    Examples: null
-    Name: nats.user
-  - Default: null
-    Description: Address for agent to connect to nats
-    Example: null
-    Examples: null
-    Name: agent.nats.address
-  - Default: null
-    Description: CA cert to trust when communicating with Config Server
-    Example: null
-    Examples: null
-    Name: director.config_server.ca_cert
-  - Default: true
-    Description: Verify the SSL certificate used on the blobstore?
-    Example: null
-    Examples: null
-    Name: blobstore.ssl_verify_peer
-  - Default: 25777
-    Description: Port of the Registry to connect to
-    Example: null
-    Examples: null
-    Name: registry.http.port
-  - Default: ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
-    Description: 'List of SSL ciphers to allow (format: https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT)'
-    Example: null
-    Examples: null
-    Name: director.nginx.ssl_ciphers
-  - Default: false
-    Description: Enable recording of events to the database and syslog
-    Example: null
-    Examples: null
-    Name: director.events.record_events
-  - Default: static
-    Description: AWS credentials (static / env_or_profile)
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.credentials_source
-  - Default: null
-    Description: Default host to use as ssh gateway with bosh ssh command
-    Example: null
-    Examples: null
-    Name: director.default_ssh_options.gateway_host
-  - Default: null
-    Description: AWS access_key_id used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.access_key_id
-  - Default: 25250
-    Description: Port of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.port
-  - Default: 443
-    Description: Port of blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.s3_port
-  - Default: null
-    Description: Port for agent to connect to blobstore server used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.port
-  - Default: 25555
-    Description: Port that the director nginx listens on
-    Example: null
-    Examples: null
-    Name: director.port
-  - Default: null
-    Description: SSL private key for director (PEM encoded)
-    Example: null
-    Examples: null
-    Name: director.ssl.key
-  - Default: false
-    Description: When true, replace substitution values in manifest with values from
-      Config Server
-    Example: null
-    Examples: null
-    Name: director.config_server.enabled
-  - Default: null
-    Description: AWS S3 Bucket used for the compiled package cache
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.bucket_name
-  - Default: null
-    Description: Host of blobstore server used for compiled package cache
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.host
-  - Default: 3
-    Description: Number of director workers
-    Example: null
-    Examples: null
-    Name: director.workers
-  - Default: true
-    Description: Prefer server's cipher priority instead of client's (true for On,
-      false for Off)
-    Example: null
-    Examples: null
-    Name: director.nginx.ssl_prefer_server_ciphers
-  - Default: local
-    Description: User management implementation (local|uaa)
-    Example: null
-    Examples: null
-    Name: director.user_management.provider
-  - Default: bosh
-    Description: Username used for the director database
-    Example: null
-    Examples: null
-    Name: director.db.user
-  - Default: null
-    Description: Host of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.host
-  - Default: 25556
-    Description: Port that the director listens on
-    Example: null
-    Examples: null
-    Name: director.backend_port
-  - Default: 7200
-    Description: Timeout for connection from bosh CLI to nginx
-    Example: null
-    Examples: null
-    Name: director.timeout
-  - Default: false
-    Description: Access to api is logged to the syslog
-    Example: null
-    Examples: null
-    Name: director.log_access_events_to_syslog
-  - Default: null
-    Description: List of Uaa URLs, specify either the url or the urls attribute
-    Example: null
-    Examples: null
-    Name: director.user_management.uaa.urls
-  - Default: 443
-    Description: Port of blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.s3_port
-  - Default: null
-    Description: Uaa URL, specify either the url or the urls attribute
-    Example: null
-    Examples: null
-    Name: director.user_management.uaa.url
-  - Default: bosh
-    Description: Name of the director database
-    Example: null
-    Examples: null
-    Name: director.db.database
-  - Default: bosh
-    Description: DNS Database user
-    Example: null
-    Examples: null
-    Name: dns.db.user
-  - Default: null
-    Description: User to access the Registry
-    Example: null
-    Examples: null
-    Name: registry.http.user
-  - Default: 900
-    Description: Timeout for proxy connection from nginx to director
-    Example: null
-    Examples: null
-    Name: director.proxy_timeout
-  - Default: null
-    Description: Password director uses to connect to blobstore used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.director.password
-  - Default: true
-    Description: Whether the simple blobstore plugin should use SSL to connect to
-      the blobstore server
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.use_ssl
-  - Default: null
-    Description: Server-side encryption algorithm used when storing blobs in S3 (Optional
-      - "AES256"|"aws:kms")
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.server_side_encryption
-  - Default: true
-    Description: Enable/Disable auto resolution for stateful nodes for scan_and_fix
-      (true|false)
-    Example: null
-    Examples: null
-    Name: director.auto_fix_stateful_nodes
-  - Default: null
-    Description: Symmetric key to verify Uaa token
-    Example: null
-    Examples: null
-    Name: director.user_management.uaa.symmetric_key
-  - Default: null
-    Description: Password agent uses to connect to blobstore used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.agent.password
-  - Default: null
-    Description: SSL Certificate for director (PEM encoded)
-    Example: null
-    Examples: null
-    Name: director.ssl.cert
-  - Default: null
-    Description: URL for the Config Server
-    Example: null
-    Examples: null
-    Name: director.config_server.url
-  - Default: null
-    Description: Password used for the director database
-    Example: null
-    Examples: null
-    Name: director.db.password
-  - Default: vcap
-    Description: Default user to use with bosh ssh command
-    Example: null
-    Examples: null
-    Name: director.default_ssh_options.gateway_user
-  - Default: postgres
-    Description: The type of database used (mysql2|postgres|sqlite)
-    Example: null
-    Examples: null
-    Name: director.db.adapter
-  - Default: null
-    Description: Region of the blobstore used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.s3_region
-  - Default: static
-    Description: AWS Credential Source (static / env_or_profile)
-    Example: null
-    Examples: null
-    Name: blobstore.credentials_source
-  - Default: true
-    Description: Whether the simple blobstore plugin should use SSL to connect to
-      the blobstore server
-    Example: null
-    Examples: null
-    Name: blobstore.use_ssl
-  - Default: ""
-    Description: Cerfiticates that VMs created by this director should trust in addition
-      to those packaged with the stemcell (PEM encoded; zero or more certs allowed)
-    Example: null
-    Examples: null
-    Name: director.trusted_certs
-  - Default: null
-    Description: List of comma-separated hosts that should skip connecting to the
-      proxy in the director, scheduler and workers
-    Example: null
-    Examples: null
-    Name: env.no_proxy
-  - Default: false
-    Description: When true, all templates will run their post_deploy script once deployment
-      is complete
-    Example: null
-    Examples: null
-    Name: director.enable_post_deploy
-  - Default: null
-    Description: CA cert to trust when communicating with UAA
-    Example: null
-    Examples: null
-    Name: director.config_server.uaa.ca_cert
-  - Default: 10000
-    Description: Max number of events to keep
-    Example: null
-    Examples: null
-    Name: director.events.max_events
-  - Default:
-    - 0.pool.ntp.org
-    - 1.pool.ntp.org
-    Description: List of ntp server IPs. pool.ntp.org attempts to return IPs closest
-      to your location, but you can still specify if needed.
-    Example: null
-    Examples: null
-    Name: ntp
-  - Default: null
-    Description: HTTP proxy that the director, scheduler and workers should use
-    Example: null
-    Examples: null
-    Name: env.http_proxy
-  - Default: TLSv1 TLSv1.1 TLSv1.2
-    Description: SSL/TLS protocols to allow
-    Example: null
-    Examples: null
-    Name: director.nginx.ssl_protocols
-  - Default: false
-    Description: Enable/Disable snapshots for persistent disks (true|false)
-    Example: null
-    Examples: null
-    Name: director.enable_snapshots
-  - Default: 4222
-    Description: Port that the nats server listens on
-    Example: null
-    Examples: null
-    Name: nats.port
-  - Default: bosh
-    Description: Name of the powerdns database
-    Example: null
-    Examples: null
-    Name: dns.db.database
-  - Default: 0 * * * * UTC
-    Description: RufusScheduler cron formatted schedule for cleanup of events
-    Example: null
-    Examples: null
-    Name: director.events.cleanup_schedule
-  - Default: 100
-    Description: Max number of tasks per each type to keep in disk
-    Example: null
-    Examples: null
-    Name: director.max_tasks
-  - Default: null
-    Description: RufusScheduler cron formatted schedule for backups
-    Example: null
-    Examples: null
-    Name: director.backup_schedule
-  - Default:
-      max_connections: 32
-      pool_timeout: 10
-    Description: Additional options for the powerdns database
-    Example: null
-    Examples: null
-    Name: dns.db.connection_options
-  - Default: null
-    Description: AWS secret_access_key used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.secret_access_key
-  - Default: s3
-    Description: Provider of the blobstore used for the compiled package cache
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.provider
-  - Default: static
-    Description: AWS credentials (static / env_or_profile)
-    Example: null
-    Examples: null
-    Name: agent.blobstore.credentials_source
-  - Default: null
-    Description: List of users that can authenticate with director in non-Uaa mode
-    Example: null
-    Examples: null
-    Name: director.user_management.local.users
-  - Default: null
-    Description: Address of the powerdns server
-    Example: null
-    Examples: null
-    Name: dns.address
-  - Default: bosh
-    Description: TLD of the dns zone used by bosh
-    Example: null
-    Examples: null
-    Name: dns.domain_name
-  - Default: dav
-    Description: Provider of the blobstore used by director and agent (dav|simple|s3)
-    Example: null
-    Examples: null
-    Name: blobstore.provider
-  - Default: false
-    Description: Clear up arp entries when machines are recreated
-    Example: null
-    Examples: null
-    Name: director.flush_arp
-  - Default: 5
-    Description: Days to keep orphaned disks and orhaned snapshots before cleanup
-    Example: null
-    Examples: null
-    Name: director.disks.max_orphaned_age_in_days
-  - Default: null
-    Description: Username director uses to connect to blobstore used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.director.user
-  - Default: null
-    Description: Name of cpi job (null to use bundled cpi gems)
-    Example: null
-    Examples: null
-    Name: director.cpi_job
-  - Default: 32
-    Description: Max number of director concurrent threads
-    Example: null
-    Examples: null
-    Name: director.max_threads
-  - Default: false
-    Description: When true, a random unique password will be used for each vm if user
-      has not specified a password
-    Example: null
-    Examples: null
-    Name: director.generate_vm_passwords
-  - Default:
-      max_connections: 32
-      pool_timeout: 10
-    Description: Additional options for the database
-    Example: null
-    Examples: null
-    Name: director.db.connection_options
-  - Default: null
-    Description: AWS S3 Bucket used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.bucket_name
-  - Default: 5
-    Description: Max retries when creating VMs
-    Example: null
-    Examples: null
-    Name: director.max_vm_create_tries
-  - Default: null
-    Description: Public key to verify Uaa token when token is encoded with asymmetric
-      encryption
-    Example: null
-    Examples: null
-    Name: director.user_management.uaa.public_key
-  - Default: null
-    Description: Username agent uses to connect to blobstore used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.agent.user
-  - Default: null
-    Description: AWS access_key_id for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.access_key_id
-  - Default: null
-    Description: Address for agent to connect to blobstore server used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.address
-  - Default: false
-    Description: When true, bosh will not delete vm from cloud when instance update,
-      just destroy vm record in db
-    Example: null
-    Examples: null
-    Name: director.enable_virtual_delete_vms
-  - Default: null
-    Description: AWS secret_access_key used for the compiled package cache
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.secret_access_key
-  - Default: null
-    Description: HTTPS proxy that the director, scheduler and workers should use
-    Example: null
-    Examples: null
-    Name: env.https_proxy
-  - Default: false
-    Description: Enable/Disable agent-director encryption (true|false)
-    Example: null
-    Examples: null
-    Name: director.encryption
-  - Default: null
-    Description: Address of the nats server
-    Example: null
-    Examples: null
-    Name: nats.address
-  - Default: 127.0.0.1
-    Description: DNS Database host
-    Example: null
-    Examples: null
-    Name: dns.db.host
-  - Default: false
-    Description: Allow gateway to be omitted from subnet configuration. Boshlite vms(containers)
-      do not require gateway.
-    Example: null
-    Examples: null
-    Name: director.ignore_missing_gateway
-  - Default: null
-    Description: AWS region for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_region
-  - Default: null
-    Description: AWS KMS key ID to use for object encryption. All GET and PUT requests
-      for an object protected by AWS KMS will fail if not made via SSL or using SigV4.
-    Example: null
-    Examples: null
-    Name: blobstore.sse_kms_key_id
-  - Default: true
-    Description: Verify the SSL certificate used on the blobstore?
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.ssl_verify_peer
-  - Default: null
-    Description: Name of the director
-    Example: null
-    Examples: null
-    Name: director.name
-  - Default: false
-    Description: Separate worker for 'bosh vms' and 'bosh ssh'
-    Example: null
-    Examples: null
-    Name: director.enable_dedicated_status_worker
-  - Default: 0 0 7 * * * UTC
-    Description: RufusScheduler cron formatted schedule for snapshots
-    Example: null
-    Examples: null
-    Name: director.snapshot_schedule
-  - Default: 0 0 6 * * * UTC
-    Description: RufusScheduler cron formatted schedule for self snapshots
-    Example: null
-    Examples: null
-    Name: director.self_snapshot_schedule
-  - Default: null
-    Description: URL for the UAA server used for authenticating access to Config Server
-    Example: null
-    Examples: null
-    Name: director.config_server.uaa.url
-  - Default: postgres
-    Description: DNS Database adapter
-    Example: null
-    Examples: null
-    Name: dns.db.adapter
-  - Default: null
-    Description: Signature version of the blobstore used by s3 blobstore plugin (optional,
-      if not provided the s3 client decides which version to use)
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.s3_signature_version
-  - Default: null
-    Description: Server-side encryption algorithm used when storing blobs in S3 (Optional
-      - "AES256"|"aws:kms")
-    Example: null
-    Examples: null
-    Name: agent.blobstore.server_side_encryption
-  - Default: {}
-    Description: Enables local DNS, i.e., sending sync_dns messages with all names/IPs
-      to all agents managed by this director
-    Example: null
-    Examples: null
-    Name: director.local_dns
-  - Default: null
-    Description: Server-side encryption algorithm used when storing blobs in S3 (Optional
-      - "AES256"|"aws:kms")
-    Example: null
-    Examples: null
-    Name: blobstore.server_side_encryption
-  - Default: null
-    Description: AWS secret_access_key for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.secret_access_key
-  - Default: null
-    Description: Signature version of the blobstore used by s3 blobstore plugin (optional,
-      if not provided the s3 client decides which version to use)
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_signature_version
-  - Default: 5432
-    Description: Port of the director database (e.g, msyql2 adapter would generally
-      use 3306)
-    Example: null
-    Examples: null
-    Name: director.db.port
-  - Default: 5432
-    Description: Port that the powerdns database listens on
-    Example: null
-    Examples: null
-    Name: dns.db.port
-  - Default: null
-    Description: Host of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.host
-  - Default: null
-    Description: AWS KMS key ID to use for object encryption. All GET and PUT requests
-      for an object protected by AWS KMS will fail if not made via SSL or using SigV4.
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.sse_kms_key_id
-  - Default: null
-    Description: Password to access the Registry
-    Example: null
-    Examples: null
-    Name: registry.http.password
-  - Default: null
-    Description: Password to connect to nats with
-    Example: null
-    Examples: null
-    Name: nats.password
-  - Default: null
-    Description: Address of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.address
-  - Default: null
-    Description: Configuration of the blobstore used by director for backups (dav|simple|s3)
-    Example: null
-    Examples: null
-    Name: director.backup_destination
-  - Default: null
-    Description: AWS access_key_id used for the compiled package cache
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.access_key_id
-  - Default: 25250
-    Description: Port of blobstore server used for compiled package cache
-    Example: null
-    Examples: null
-    Name: compiled_package_cache.options.port
-  - Default: true
-    Description: Verify the SSL certificate used on the blobstore?
-    Example: null
-    Examples: null
-    Name: agent.blobstore.ssl_verify_peer
-  - Default: 127.0.0.1
-    Description: |
-      Address of the director database, for example, in the case of AWS RDS:
-      rds-instance-name.coqxxxxxxxxx.us-east-1.rds.amazonaws.com
-    Example: null
-    Examples: null
-    Name: director.db.host
-  - Default: null
-    Description: DNS Database password
-    Example: null
-    Examples: null
-    Name: dns.db.password
-  - Default: 2
-    Description: Number of nginx workers for director
-    Example: null
-    Examples: null
-    Name: director.nginx.workers
-  - Default: 10000m
-    Description: Max allowed file size for upload
-    Example: null
-    Examples: null
-    Name: director.max_upload_size
-  - Default: false
-    Description: When a bosh deploy fails, the failed VM will be kept instead of destroyed
-    Example: null
-    Examples: null
-    Name: director.debug.keep_unreachable_vms
-  - Default: 0 0,30 * * * * UTC
-    Description: RufusScheduler cron formatted schedule for cleanup of orphaned disks
-      and orphaned snapshots
-    Example: null
-    Examples: null
-    Name: director.disks.cleanup_schedule
-  - Default: null
-    Description: Signature version of the blobstore used by s3 blobstore plugin (optional,
-      if not provided the s3 client decides which version to use)
-    Example: null
-    Examples: null
-    Name: blobstore.s3_signature_version
-  - Default: null
-    Description: AWS KMS key ID to use for object encryption. All GET and PUT requests
-      for an object protected by AWS KMS will fail if not made via SSL or using SigV4.
-    Example: null
-    Examples: null
-    Name: agent.blobstore.sse_kms_key_id
-  - Default: true
-    Description: Whether the simple blobstore plugin should use SSL to connect to
-      the blobstore server
-    Example: null
-    Examples: null
-    Name: agent.blobstore.use_ssl
-  - Default: null
-    Description: Address of the Registry to connect to
-    Example: null
-    Examples: null
-    Name: registry.address
-  Templates:
-  - DstPathEnd: config/ssl/director.key
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/director.key.erb
-    SrcPathEnd: director.key.erb
-  - DstPathEnd: config/uaa_server_ca.cert
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/uaa_server_ca.cert.erb
-    SrcPathEnd: uaa_server_ca.cert.erb
-  - DstPathEnd: bin/director_ctl
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/director_ctl.erb
-    SrcPathEnd: director_ctl.erb
-  - DstPathEnd: config/task_logrotate.cron
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/task_logrotate.cron
-    SrcPathEnd: task_logrotate.cron
-  - DstPathEnd: config/sudoers
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/sudoers
-    SrcPathEnd: sudoers
-  - DstPathEnd: bin/restore-db
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/restore-db
-    SrcPathEnd: restore-db
-  - DstPathEnd: config/nginx.conf
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/nginx.conf.erb
-    SrcPathEnd: nginx.conf.erb
-  - DstPathEnd: bin/scheduler_ctl
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/scheduler_ctl.erb
-    SrcPathEnd: scheduler_ctl.erb
-  - DstPathEnd: config/config_server_ca.cert
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/config_server_ca.cert.erb
-    SrcPathEnd: config_server_ca.cert.erb
-  - DstPathEnd: config/director.yml.erb
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/director.yml.erb.erb
-    SrcPathEnd: director.yml.erb.erb
-  - DstPathEnd: bin/worker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/worker_ctl.erb
-    SrcPathEnd: worker_ctl.erb
-  - DstPathEnd: bin/stemcell-copy
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/stemcell-copy.sh
-    SrcPathEnd: stemcell-copy.sh
-  - DstPathEnd: bin/nginx_ctl
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/nginx_ctl
-    SrcPathEnd: nginx_ctl
-  - DstPathEnd: config/mime.types
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/mime.types
-    SrcPathEnd: mime.types
-  - DstPathEnd: bin/ps_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/ps_utils.sh
-    SrcPathEnd: ps_utils.sh
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/drain
-    SrcPathEnd: drain
-  - DstPathEnd: config/ssl/director.pem
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/director.pem.erb
-    SrcPathEnd: director.pem.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: bin/task_logrotate
-    Path: /mnt/tmp/tar-CmdExtractor358055140/templates/task_logrotate.sh
-    SrcPathEnd: task_logrotate.sh
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor032970678/monit
-    SrcPathEnd: monit
-  Name: health_monitor
-  Packages:
-  - Name: health_monitor
-  - Name: ruby
-  Properties:
-  - Default: false
-    Description: Enable VM resurrector plugin
-    Example: null
-    Examples: null
-    Name: hm.resurrector_enabled
-  - Default: false
-    Description: Enable Consul Plugin
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder_enabled
-  - Default: false
-    Description: Should we treat all heartbeats as alerts as well?
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.heartbeats_as_alerts
-  - Default: 30
-    Description: Interval (in seconds) to prune received events
-    Example: null
-    Examples: null
-    Name: hm.intervals.prune_events
-  - Default: null
-    Description: Use STARTTLS (optional)
-    Example: null
-    Examples: null
-    Name: hm.smtp.tls
-  - Default: null
-    Description: PagerDuty service API key
-    Example: null
-    Examples: null
-    Name: hm.pagerduty.service_key
-  - Default: 5
-    Description: If the total number of down jobs in a deployment is below this threshold,
-      the resurrector will always request a down job be recreated
-    Example: null
-    Examples: null
-    Name: hm.resurrector.minimum_down_jobs
-  - Default: 5514
-    Description: Port of the syslog drain
-    Example: null
-    Examples: null
-    Name: hm.syslog_event_forwarder.port
-  - Default: null
-    Description: Email of recipients (Array)
-    Example: null
-    Examples: null
-    Name: hm.email_recipients
-  - Default: false
-    Description: Enable AWS CloudWatch Plugin
-    Example: null
-    Examples: null
-    Name: hm.cloud_watch_enabled
-  - Default: null
-    Description: AWS access key id
-    Example: null
-    Examples: null
-    Name: aws.access_key_id
-  - Default: null
-    Description: Service name to alert in PagerDuty upon HM events
-    Example: null
-    Examples: null
-    Name: hm.datadog.pagerduty_service_name
-  - Default: 60
-    Description: Interval (in seconds) to consider an agent has timed out
-    Example: null
-    Examples: null
-    Name: hm.intervals.agent_timeout
-  - Default: ""
-    Description: User to access Bosh Director
-    Example: null
-    Examples: null
-    Name: hm.director_account.user
-  - Default: null
-    Description: Password for event NATS message bus connection
-    Example: null
-    Examples: null
-    Name: event_nats.password
-  - Default: null
-    Description: Prefix that will be added to all metrics sent to Graphite
-    Example: null
-    Examples: null
-    Name: hm.graphite.prefix
-  - Default: 600
-    Description: Time (in seconds) for which an alert in the resurrector is considered
-      'current'; alerts older than this are ignored when deciding to recreate a job.
-    Example: null
-    Examples: null
-    Name: hm.resurrector.time_threshold
-  - Default: null
-    Description: Health Monitor Application Key for DataDog
-    Example: null
-    Examples: null
-    Name: hm.datadog.application_key
-  - Default: null
-    Description: Params for url can be used for passing ACL token
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.params
-  - Default: http
-    Description: http/https
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.protocol
-  - Default: info
-    Description: Level of log messages (fatal, error, warn, info, debug)
-    Example: null
-    Examples: null
-    Name: hm.loglevel
-  - Default: ""
-    Description: UAA client id to access Bosh Director
-    Example: null
-    Examples: null
-    Name: hm.director_account.client_id
-  - Default: false
-    Description: Enable TSDB plugin
-    Example: null
-    Examples: null
-    Name: hm.tsdb_enabled
-  - Default: false
-    Description: Enable DataDog plugin
-    Example: null
-    Examples: null
-    Name: hm.datadog_enabled
-  - Default: ""
-    Description: UAA client secret to access Bosh Director
-    Example: null
-    Examples: null
-    Name: hm.director_account.client_secret
-  - Default: null
-    Description: User for the event NATS message bus connection
-    Example: null
-    Examples: null
-    Name: event_nats.user
-  - Default: false
-    Description: Enable PagerDuty plugin
-    Example: null
-    Examples: null
-    Name: hm.pagerduty_enabled
-  - Default: null
-    Description: Riemann host
-    Example: null
-    Examples: null
-    Name: hm.riemann.host
-  - Default: null
-    Description: Graphite port
-    Example: null
-    Examples: null
-    Name: hm.graphite.port
-  - Default: null
-    Description: A ttl time for ttl checks, if set ttl checks will be used
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.ttl
-  - Default: 4222
-    Description: Port of the NATS message bus port to connect to
-    Example: null
-    Examples: null
-    Name: nats.port
-  - Default: null
-    Description: Password for NATS message bus connection
-    Example: null
-    Examples: null
-    Name: nats.password
-  - Default: null
-    Description: Email of sender, e.g. "bosh-director@cfapps.io"
-    Example: null
-    Examples: null
-    Name: hm.smtp.from
-  - Default: null
-    Description: SMTP EHLO domain (typically server's fully qualified domain name,
-      e.g. "bosh.cfapps.io")
-    Example: null
-    Examples: null
-    Name: hm.smtp.domain
-  - Default: 25923
-    Description: TCP port Health Monitor daemon listens on
-    Example: null
-    Examples: null
-    Name: hm.http.port
-  - Default: null
-    Description: Password for SMTP Authentication (optional, use in conjuction with
-      hm.smtp.auth)
-    Example: null
-    Examples: null
-    Name: hm.smtp.password
-  - Default: false
-    Description: Enable Riemann plugin
-    Example: null
-    Examples: null
-    Name: hm.riemann_enabled
-  - Default: null
-    Description: AWS secret access key
-    Example: null
-    Examples: null
-    Name: aws.secret_access_key
-  - Default: false
-    Description: Enable Graphite plugin
-    Example: null
-    Examples: null
-    Name: hm.graphite_enabled
-  - Default: null
-    Description: List of comma-separated hosts that should skip connecting to the
-      proxy in the health monitor
-    Example: null
-    Examples: null
-    Name: env.no_proxy
-  - Default: 20
-    Description: EM thread pool size
-    Example: null
-    Examples: null
-    Name: hm.em_threadpool_size
-  - Default: null
-    Description: User for the NATS message bus connection
-    Example: null
-    Examples: null
-    Name: nats.user
-  - Default: null
-    Description: Port of the event NATS message bus port to connect to
-    Example: null
-    Examples: null
-    Name: event_nats.port
-  - Default: null
-    Description: Address of the SMTP server to connect to (e.g. "smtp.gmail.com")
-    Example: null
-    Examples: null
-    Name: hm.smtp.host
-  - Default: null
-    Description: IP address of the syslog drain
-    Example: null
-    Examples: null
-    Name: hm.syslog_event_forwarder.address
-  - Default: null
-    Description: HTTP proxy that the health monitor should use
-    Example: null
-    Examples: null
-    Name: env.http_proxy
-  - Default: 25555
-    Description: Port of the Bosh Director to connect to
-    Example: null
-    Examples: null
-    Name: director.port
-  - Default: null
-    Description: Address of the event NATS message bus to connect to
-    Example: null
-    Examples: null
-    Name: event_nats.address
-  - Default: null
-    Description: Address of TSDB to connect to
-    Example: null
-    Examples: null
-    Name: hm.tsdb.address
-  - Default: false
-    Description: Enable syslog forwarder plugin
-    Example: null
-    Examples: null
-    Name: hm.syslog_event_forwarder_enabled
-  - Default: null
-    Description: HTTP proxy to connect to PagerDuty (optional)
-    Example: null
-    Examples: null
-    Name: hm.pagerduty.http_proxy
-  - Default: null
-    Description: API Key for DataDog
-    Example: null
-    Examples: null
-    Name: hm.datadog.api_key
-  - Default: null
-    Description: A namespace for handling multiples of the same release
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.namespace
-  - Default: Automatically Registered by Bosh-Monitor
-    Description: A note for ttl checks
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.ttl_note
-  - Default: null
-    Description: Address of the NATS message bus to connect to
-    Example: null
-    Examples: null
-    Name: nats.address
-  - Default: false
-    Description: Enable email notifications plugin
-    Example: null
-    Examples: null
-    Name: hm.email_notifications
-  - Default: null
-    Description: User for SMTP Authentication (optional, use in conjuction with hm.smtp.auth)
-    Example: null
-    Examples: null
-    Name: hm.smtp.user
-  - Default: null
-    Description: Interval (in seconds) to deliver alerts by email (optional)
-    Example: null
-    Examples: null
-    Name: hm.email_interval
-  - Default: tcp
-    Description: One of ["udp", "tcp", "relp"]
-    Example: null
-    Examples: null
-    Name: hm.syslog_event_forwarder.transport
-  - Default: ""
-    Description: Custom rule for syslog event forwarder
-    Example: null
-    Examples: null
-    Name: hm.syslog_event_forwarder.custom_rule
-  - Default: 30
-    Description: Interval (in seconds) between discovering managed VMs and analyzing
-      their status
-    Example: null
-    Examples: null
-    Name: hm.intervals.poll_grace_period
-  - Default: null
-    Description: Address of the Bosh Director to connect to
-    Example: null
-    Examples: null
-    Name: director.address
-  - Default: ""
-    Description: Password to access Bosh Director
-    Example: null
-    Examples: null
-    Name: hm.director_account.password
-  - Default: false
-    Description: Enable event NATS message bus plugin
-    Example: null
-    Examples: null
-    Name: event_nats_enabled
-  - Default: null
-    Description: Port of TSDB to connect to
-    Example: null
-    Examples: null
-    Name: hm.tsdb.port
-  - Default: 0.2
-    Description: Percentage of total jobs in a deployment that must be down for the
-      resurrector to to stop sending recreate-job requests. Used in 'meltdown' situations
-      so resurrector will not try to recreate the world.
-    Example: null
-    Examples: null
-    Name: hm.resurrector.percent_threshold
-  - Default: null
-    Description: Graphite address
-    Example: null
-    Examples: null
-    Name: hm.graphite.address
-  - Default: false
-    Description: Whether or not to use the events api
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.events
-  - Default: 60
-    Description: Interval (in seconds) to get the list of managed VMs from Bosh Director
-    Example: null
-    Examples: null
-    Name: hm.intervals.poll_director
-  - Default: 60
-    Description: Interval (in seconds) to analyze the status of agents
-    Example: null
-    Examples: null
-    Name: hm.intervals.analyze_agents
-  - Default: 60
-    Description: Interval (in seconds) to analyze the status of instances for missing
-      VMs
-    Example: null
-    Examples: null
-    Name: hm.intervals.analyze_instances
-  - Default: null
-    Description: Port of the SMTP server to connect to (e.g. 25, 465, or 587)
-    Example: null
-    Examples: null
-    Name: hm.smtp.port
-  - Default: null
-    Description: Location of Consul Cluster or agent
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.host
-  - Default: null
-    Description: HTTPS proxy that the health monitor should use
-    Example: null
-    Examples: null
-    Name: env.https_proxy
-  - Default: 60
-    Description: Interval (in seconds) to log Health Monitor statistics
-    Example: null
-    Examples: null
-    Name: hm.intervals.log_stats
-  - Default: ""
-    Description: Certificate to verify UAA endpoint
-    Example: null
-    Examples: null
-    Name: hm.director_account.ca_cert
-  - Default: null
-    Description: SMTP Authentication type (optional, only "plain" is supported)
-    Example: null
-    Examples: null
-    Name: hm.smtp.auth
-  - Default: 5555
-    Description: Riemann port
-    Example: null
-    Examples: null
-    Name: hm.riemann.port
-  - Default: 120
-    Description: Interval (in seconds) to consider an agent as rogue (an agent that
-      is no part of any deployment)
-    Example: null
-    Examples: null
-    Name: hm.intervals.rogue_agent_alert
-  - Default: 8500
-    Description: Consul Port
-    Example: null
-    Examples: null
-    Name: hm.consul_event_forwarder.port
-  Templates:
-  - DstPathEnd: config/health_monitor.yml
-    Path: /mnt/tmp/tar-CmdExtractor032970678/templates/health_monitor.yml.erb
-    SrcPathEnd: health_monitor.yml.erb
-  - DstPathEnd: config/uaa.pem
-    Path: /mnt/tmp/tar-CmdExtractor032970678/templates/uaa.pem.erb
-    SrcPathEnd: uaa.pem.erb
-  - DstPathEnd: config/syslog_event_forwarder.conf
-    Path: /mnt/tmp/tar-CmdExtractor032970678/templates/syslog_event_forwarder.conf.erb
-    SrcPathEnd: syslog_event_forwarder.conf.erb
-  - DstPathEnd: bin/health_monitor_ctl
-    Path: /mnt/tmp/tar-CmdExtractor032970678/templates/health_monitor_ctl.erb
-    SrcPathEnd: health_monitor_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor430705752/monit
-    SrcPathEnd: monit
-  Name: nats
-  Packages:
-  - Name: nats
-  - Name: ruby
-  Properties:
-  - Default: null
-    Description: Username clients must use to access nats mbus via HTTP connection
-      (optional)
-    Example: null
-    Examples: null
-    Name: nats.http.user
-  - Default: null
-    Description: Password clients must use to access nats mbus via HTTP connection
-      (optional)
-    Example: null
-    Examples: null
-    Name: nats.http.password
-  - Default: false
-    Description: Disable epoll (Linux)
-    Example: null
-    Examples: null
-    Name: nats.no_epoll
-  - Default: 1
-    Description: Timeout (in seconds) for clients to send auth credentials
-    Example: null
-    Examples: null
-    Name: nats.auth_timeout
-  - Default: 9222
-    Description: TCP port NATS listens on for HTTP connections (optional)
-    Example: null
-    Examples: null
-    Name: nats.http.port
-  - Default: 5
-    Description: Time interval (in seconds) pings from server
-    Example: null
-    Examples: null
-    Name: nats.ping_interval
-  - Default: 2
-    Description: Maximum number of pings before declaring a client unresponsive
-    Example: null
-    Examples: null
-    Name: nats.ping_max_outstanding
-  - Default: null
-    Description: Username clients must use to access nats mbus
-    Example: null
-    Examples: null
-    Name: nats.user
-  - Default: null
-    Description: Password clients must use to access nats mbus
-    Example: null
-    Examples: null
-    Name: nats.password
-  - Default: 0.0.0.0
-    Description: IP address nats mbus listens on
-    Example: null
-    Examples: null
-    Name: nats.listen_address
-  - Default: 4222
-    Description: TCP port nats mbus listens on
-    Example: null
-    Examples: null
-    Name: nats.port
-  - Default: true
-    Description: Disable kqueue (MacOSX and BSD)
-    Example: null
-    Examples: null
-    Name: nats.no_kqueue
-  Templates:
-  - DstPathEnd: bin/nats_ctl
-    Path: /mnt/tmp/tar-CmdExtractor430705752/templates/nats_ctl.erb
-    SrcPathEnd: nats_ctl.erb
-  - DstPathEnd: config/nats.yml
-    Path: /mnt/tmp/tar-CmdExtractor430705752/templates/nats.yml.erb
-    SrcPathEnd: nats.yml.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor246905674/monit
-    SrcPathEnd: monit
-  Name: postgres
-  Packages:
-  - Name: postgres
-  Properties:
-  - Default: []
-    Description: Additional Postgres databases to be created (during the startup process)
-    Example: null
-    Examples: null
-    Name: postgres.additional_databases
-  - Default: 100
-    Description: Set max concurrent connections for database
-    Example: null
-    Examples: null
-    Name: postgres.max_connections
-  - Default: bosh
-    Description: Username clients must use to access Postgres
-    Example: null
-    Examples: null
-    Name: postgres.user
-  - Default: null
-    Description: Password clients must use to access Postgres
-    Example: null
-    Examples: null
-    Name: postgres.password
-  - Default: 127.0.0.1
-    Description: IP address Postgres listens on; use 0.0.0.0 to listen on all IP addresses
-    Example: null
-    Examples: null
-    Name: postgres.listen_address
-  - Default: 5432
-    Description: TCP port Postgres listens on
-    Example: null
-    Examples: null
-    Name: postgres.port
-  - Default: bosh
-    Description: Default Postgres database (it will be created during the startup
-      process)
-    Example: null
-    Examples: null
-    Name: postgres.database
-  Templates:
-  - DstPathEnd: bin/postgres_ctl
-    Path: /mnt/tmp/tar-CmdExtractor246905674/templates/postgres_ctl.erb
-    SrcPathEnd: postgres_ctl.erb
-  - DstPathEnd: config/postgresql.conf
-    Path: /mnt/tmp/tar-CmdExtractor246905674/templates/postgresql.conf.erb
-    SrcPathEnd: postgresql.conf.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor873237772/monit
-    SrcPathEnd: monit
-  Name: postgres-9.4
-  Packages:
-  - Name: postgres
-  - Name: postgres-9.4
-  Properties:
-  - Default: bosh
-    Description: Default Postgres database (it will be created during the startup
-      process)
-    Example: null
-    Examples: null
-    Name: postgres.database
-  - Default: []
-    Description: Additional Postgres databases to be created (during the startup process)
-    Example: null
-    Examples: null
-    Name: postgres.additional_databases
-  - Default: 100
-    Description: Set max concurrent connections for database
-    Example: null
-    Examples: null
-    Name: postgres.max_connections
-  - Default: bosh
-    Description: Username clients must use to access Postgres
-    Example: null
-    Examples: null
-    Name: postgres.user
-  - Default: null
-    Description: Password clients must use to access Postgres
-    Example: null
-    Examples: null
-    Name: postgres.password
-  - Default: 127.0.0.1
-    Description: IP address Postgres listens on; use 0.0.0.0 to listen on all IP addresses
-    Example: null
-    Examples: null
-    Name: postgres.listen_address
-  - Default: 5432
-    Description: TCP port Postgres listens on
-    Example: null
-    Examples: null
-    Name: postgres.port
-  Templates:
-  - DstPathEnd: bin/postgres_db_upgrade.sh
-    Path: /mnt/tmp/tar-CmdExtractor873237772/templates/postgres_db_upgrade.sh.erb
-    SrcPathEnd: postgres_db_upgrade.sh.erb
-  - DstPathEnd: config/postgresql.conf
-    Path: /mnt/tmp/tar-CmdExtractor873237772/templates/postgresql.conf.erb
-    SrcPathEnd: postgresql.conf.erb
-  - DstPathEnd: bin/postgres_ctl
-    Path: /mnt/tmp/tar-CmdExtractor873237772/templates/postgres_ctl.erb
-    SrcPathEnd: postgres_ctl.erb
-  - DstPathEnd: bin/postgres_db_backup.sh
-    Path: /mnt/tmp/tar-CmdExtractor873237772/templates/postgres_db_backup.sh.erb
-    SrcPathEnd: postgres_db_backup.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor350852638/monit
-    SrcPathEnd: monit
-  Name: powerdns
-  Packages:
-  - Name: powerdns
-  Properties:
-  - Default: null
-    Description: IP address to which to bind to (optional; useful with multiple IP
-      addresses)
-    Example: null
-    Examples: null
-    Name: dns.local_address
-  - Default: 8081
-    Description: TCP port PowerDNS webserver listens on (optional)
-    Example: null
-    Examples: null
-    Name: dns.webserver.port
-  - Default: postgres
-    Description: Adapter for the PowerDNS database connection
-    Example: null
-    Examples: null
-    Name: dns.db.adapter
-  - Default: 127.0.0.1
-    Description: Address for the PowerDNS database
-    Example: null
-    Examples: null
-    Name: dns.db.host
-  - Default: bosh
-    Description: Database for the PowerDNS database connection
-    Example: null
-    Examples: null
-    Name: dns.db.database
-  - Default: null
-    Description: If recursion is desired, IP address of a recursing nameserver (optional)
-    Example: null
-    Examples: null
-    Name: dns.recursor
-  - Default: null
-    Description: Address of the primary PowerDNS instance
-    Example: null
-    Examples: null
-    Name: dns.address
-  - Default: 0.0.0.0
-    Description: IP address PowerDNS webserver listens on (optional)
-    Example: null
-    Examples: null
-    Name: dns.webserver.address
-  - Default: null
-    Description: Password clients must use to access PowerDNS webserver (optional)
-    Example: null
-    Examples: null
-    Name: dns.webserver.password
-  - Default: 2
-    Description: Number of threads to query the backend, for each receiver thread
-    Example: null
-    Examples: null
-    Name: dns.distributor_threads
-  - Default: null
-    Description: IP address to use as a source address for sending queries (optional;
-      useful with multiple IP addresses)
-    Example: null
-    Examples: null
-    Name: dns.query_local_address
-  - Default: 5432
-    Description: Port for the PowerDNS database connection
-    Example: null
-    Examples: null
-    Name: dns.db.port
-  - Default: 2
-    Description: Number of sockets the powerdns process will open
-    Example: null
-    Examples: null
-    Name: dns.receiver_threads
-  - Default: bosh
-    Description: User for the PowerDNS database connection
-    Example: null
-    Examples: null
-    Name: dns.db.user
-  - Default: null
-    Description: Password for the PowerDNS database connection
-    Example: null
-    Examples: null
-    Name: dns.db.password
-  Templates:
-  - DstPathEnd: config/pdns.conf
-    Path: /mnt/tmp/tar-CmdExtractor350852638/templates/pdns.conf.erb
-    SrcPathEnd: pdns.conf.erb
-  - DstPathEnd: bin/powerdns_ctl
-    Path: /mnt/tmp/tar-CmdExtractor350852638/templates/powerdns_ctl.erb
-    SrcPathEnd: powerdns_ctl.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor416380672/monit
-    SrcPathEnd: monit
-  Name: registry
-  Packages:
-  - Name: registry
-  - Name: libpq
-  - Name: mysql
-  - Name: ruby
-  Properties:
-  - Default: null
-    Description: HTTPS proxy that the registry should use
-    Example: null
-    Examples: null
-    Name: env.https_proxy
-  - Default:
-      max_connections: 32
-      pool_timeout: 10
-    Description: Additional options for the database
-    Example: null
-    Examples: null
-    Name: registry.db.connection_options
-  - Default: null
-    Description: The path to a CA cert bundle in PEM format
-    Example: null
-    Examples: null
-    Name: aws.ssl_ca_file
-  - Default: null
-    Description: URL of the OpenStack Identity endpoint to connect to
-    Example: null
-    Examples: null
-    Name: openstack.auth_url
-  - Default: static
-    Description: AWS credentials source
-    Example: null
-    Examples: null
-    Name: aws.credentials_source
-  - Default: null
-    Description: OpenStack user name
-    Example: null
-    Examples: null
-    Name: openstack.username
-  - Default: null
-    Description: OpenStack project name (required for Keystone API version 3)
-    Example: null
-    Examples: null
-    Name: openstack.project
-  - Default: null
-    Description: HTTP proxy that the registry should use
-    Example: null
-    Examples: null
-    Name: env.http_proxy
-  - Default: bosh
-    Description: Username used for the registry database
-    Example: null
-    Examples: null
-    Name: registry.db.user
-  - Default: null
-    Description: Password used for the registry database
-    Example: null
-    Examples: null
-    Name: registry.db.password
-  - Default: null
-    Description: AWS IAM Secret Access Key
-    Example: null
-    Examples: null
-    Name: aws.secret_access_key
-  - Default: null
-    Description: OpenStack tenant name (required for Keystone API version 2)
-    Example: null
-    Examples: null
-    Name: openstack.tenant
-  - Default: null
-    Description: OpenStack domain (required for Keystone API version 3)
-    Example: null
-    Examples: null
-    Name: openstack.domain
-  - Default: null
-    Description: Hash containing optional connection parameters to the OpenStack API
-    Example: null
-    Examples: null
-    Name: openstack.connection_options
-  - Default: 25777
-    Description: TCP port Registry daemon listens on
-    Example: null
-    Examples: null
-    Name: registry.http.port
-  - Default: null
-    Description: Username clients must use to access Registry via HTTP Basic Auth
-    Example: null
-    Examples: null
-    Name: registry.http.user
-  - Default: 5432
-    Description: Port of the registry database
-    Example: null
-    Examples: null
-    Name: registry.db.port
-  - Default: 2
-    Description: Max number of retries to connect to AWS
-    Example: null
-    Examples: null
-    Name: aws.max_retries
-  - Default: null
-    Description: The path the a CA cert directory
-    Example: null
-    Examples: null
-    Name: aws.ssl_ca_path
-  - Default: null
-    Description: When true the HTTP handler validate server certificates for HTTPS
-      requests
-    Example: null
-    Examples: null
-    Name: aws.ssl_verify_peer
-  - Default: null
-    Description: OpenStack API key
-    Example: null
-    Examples: null
-    Name: openstack.api_key
-  - Default: null
-    Description: OpenStack region (optional)
-    Example: null
-    Examples: null
-    Name: openstack.region
-  - Default: publicURL
-    Description: OpenStack endpoint type (optional, by default publicURL)
-    Example: null
-    Examples: null
-    Name: openstack.endpoint_type
-  - Default: null
-    Description: Password clients must use to access Registry via HTTP Basic Auth
-    Example: null
-    Examples: null
-    Name: registry.http.password
-  - Default: null
-    Description: The service endpoint for Amazon EC2 (optional, if not supplied default
-      region endpoint will be used)
-    Example: null
-    Examples: null
-    Name: aws.ec2_endpoint
-  - Default: null
-    Description: List of comma-separated hosts that should skip connecting to the
-      proxy in the registry
-    Example: null
-    Examples: null
-    Name: env.no_proxy
-  - Default: postgres
-    Description: The type of database used
-    Example: null
-    Examples: null
-    Name: registry.db.adapter
-  - Default: 127.0.0.1
-    Description: Address of the registry database
-    Example: null
-    Examples: null
-    Name: registry.db.host
-  - Default: bosh_registry
-    Description: Name of the registry database
-    Example: null
-    Examples: null
-    Name: registry.db.database
-  - Default: null
-    Description: AWS IAM Access Key ID
-    Example: null
-    Examples: null
-    Name: aws.access_key_id
-  - Default: null
-    Description: AWS EC2 Region
-    Example: null
-    Examples: null
-    Name: aws.region
-  - Default: null
-    Description: The service endpoint for Amazon Elastic Load Balancing (optional,
-      if not supplied default region endpoint will be used)
-    Example: null
-    Examples: null
-    Name: aws.elb_endpoint
-  Templates:
-  - DstPathEnd: config/cacert.pem
-    Path: /mnt/tmp/tar-CmdExtractor416380672/templates/cacert.pem.erb
-    SrcPathEnd: cacert.pem.erb
-  - DstPathEnd: bin/registry_ctl
-    Path: /mnt/tmp/tar-CmdExtractor416380672/templates/registry_ctl.erb
-    SrcPathEnd: registry_ctl.erb
-  - DstPathEnd: config/registry.yml
-    Path: /mnt/tmp/tar-CmdExtractor416380672/templates/registry.yml.erb
-    SrcPathEnd: registry.yml.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor677314127/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "blobstore",
+    "Packages": [
+      {
+        "Name": "nginx"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Username director must use to access blobstore via HTTP Basic",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.director.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password director must use to access blobstore via HTTP Basic",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.director.password"
+      },
+      {
+        "Default": null,
+        "Description": "Username agents must use to access blobstore via HTTP Basic",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password agents must use to access blobstore via HTTP Basic",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.password"
+      },
+      {
+        "Default": "5000m",
+        "Description": "Max allowed file size for upload",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.max_upload_size"
+      },
+      {
+        "Default": 2,
+        "Description": "Number of nginx workers for blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.nginx.workers"
+      },
+      {
+        "Default": 25250,
+        "Description": "TCP port blobstore server (ngnix) listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.port"
+      },
+      {
+        "Default": 25251,
+        "Description": "TCP port backend blobstore server (simple blobstore) listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.backend_port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor677314127/templates/nginx.conf.erb",
+        "SrcPathEnd": "nginx.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/sites/blobstore.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor677314127/templates/blobstore.conf.erb",
+        "SrcPathEnd": "blobstore.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/mime.types",
+        "Path": "/mnt/tmp/tar-CmdExtractor677314127/templates/mime.types",
+        "SrcPathEnd": "mime.types"
+      },
+      {
+        "DstPathEnd": "config/read_users",
+        "Path": "/mnt/tmp/tar-CmdExtractor677314127/templates/read_users.erb",
+        "SrcPathEnd": "read_users.erb"
+      },
+      {
+        "DstPathEnd": "config/write_users",
+        "Path": "/mnt/tmp/tar-CmdExtractor677314127/templates/write_users.erb",
+        "SrcPathEnd": "write_users.erb"
+      },
+      {
+        "DstPathEnd": "bin/nginx_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor677314127/templates/nginx_ctl",
+        "SrcPathEnd": "nginx_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor358055140/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "director",
+    "Packages": [
+      {
+        "Name": "director"
+      },
+      {
+        "Name": "nginx"
+      },
+      {
+        "Name": "libpq"
+      },
+      {
+        "Name": "postgres"
+      },
+      {
+        "Name": "mysql"
+      },
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "s3cli"
+      },
+      {
+        "Name": "davcli"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "When true, remove dev tool packages from non-compilation VMs",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.remove_dev_tools"
+      },
+      {
+        "Default": null,
+        "Description": "UAA client id to access Config Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.uaa.client_id"
+      },
+      {
+        "Default": null,
+        "Description": "UAA client secret to access Config Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.uaa.client_secret"
+      },
+      {
+        "Default": "nats",
+        "Description": "Username to connect to nats with",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Address for agent to connect to nats",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.nats.address"
+      },
+      {
+        "Default": null,
+        "Description": "CA cert to trust when communicating with Config Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.ca_cert"
+      },
+      {
+        "Default": true,
+        "Description": "Verify the SSL certificate used on the blobstore?",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.ssl_verify_peer"
+      },
+      {
+        "Default": 25777,
+        "Description": "Port of the Registry to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.http.port"
+      },
+      {
+        "Default": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK",
+        "Description": "List of SSL ciphers to allow (format: https://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.nginx.ssl_ciphers"
+      },
+      {
+        "Default": false,
+        "Description": "Enable recording of events to the database and syslog",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.events.record_events"
+      },
+      {
+        "Default": "static",
+        "Description": "AWS credentials (static / env_or_profile)",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.credentials_source"
+      },
+      {
+        "Default": null,
+        "Description": "Default host to use as ssh gateway with bosh ssh command",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.default_ssh_options.gateway_host"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.access_key_id"
+      },
+      {
+        "Default": 25250,
+        "Description": "Port of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.port"
+      },
+      {
+        "Default": 443,
+        "Description": "Port of blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.s3_port"
+      },
+      {
+        "Default": null,
+        "Description": "Port for agent to connect to blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.port"
+      },
+      {
+        "Default": 25555,
+        "Description": "Port that the director nginx listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.port"
+      },
+      {
+        "Default": null,
+        "Description": "SSL private key for director (PEM encoded)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.ssl.key"
+      },
+      {
+        "Default": false,
+        "Description": "When true, replace substitution values in manifest with values from Config Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.enabled"
+      },
+      {
+        "Default": null,
+        "Description": "AWS S3 Bucket used for the compiled package cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.bucket_name"
+      },
+      {
+        "Default": null,
+        "Description": "Host of blobstore server used for compiled package cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.host"
+      },
+      {
+        "Default": 3,
+        "Description": "Number of director workers",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.workers"
+      },
+      {
+        "Default": true,
+        "Description": "Prefer server's cipher priority instead of client's (true for On, false for Off)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.nginx.ssl_prefer_server_ciphers"
+      },
+      {
+        "Default": "local",
+        "Description": "User management implementation (local|uaa)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.user_management.provider"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Username used for the director database",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.user"
+      },
+      {
+        "Default": null,
+        "Description": "Host of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.host"
+      },
+      {
+        "Default": 25556,
+        "Description": "Port that the director listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.backend_port"
+      },
+      {
+        "Default": 7200,
+        "Description": "Timeout for connection from bosh CLI to nginx",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.timeout"
+      },
+      {
+        "Default": false,
+        "Description": "Access to api is logged to the syslog",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.log_access_events_to_syslog"
+      },
+      {
+        "Default": null,
+        "Description": "List of Uaa URLs, specify either the url or the urls attribute",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.user_management.uaa.urls"
+      },
+      {
+        "Default": 443,
+        "Description": "Port of blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_port"
+      },
+      {
+        "Default": null,
+        "Description": "Uaa URL, specify either the url or the urls attribute",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.user_management.uaa.url"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Name of the director database",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.database"
+      },
+      {
+        "Default": "bosh",
+        "Description": "DNS Database user",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.user"
+      },
+      {
+        "Default": null,
+        "Description": "User to access the Registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.http.user"
+      },
+      {
+        "Default": 900,
+        "Description": "Timeout for proxy connection from nginx to director",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.proxy_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "Password director uses to connect to blobstore used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.director.password"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the simple blobstore plugin should use SSL to connect to the blobstore server",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.use_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Server-side encryption algorithm used when storing blobs in S3 (Optional - \"AES256\"|\"aws:kms\")",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.server_side_encryption"
+      },
+      {
+        "Default": true,
+        "Description": "Enable/Disable auto resolution for stateful nodes for scan_and_fix (true|false)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.auto_fix_stateful_nodes"
+      },
+      {
+        "Default": null,
+        "Description": "Symmetric key to verify Uaa token",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.user_management.uaa.symmetric_key"
+      },
+      {
+        "Default": null,
+        "Description": "Password agent uses to connect to blobstore used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.password"
+      },
+      {
+        "Default": null,
+        "Description": "SSL Certificate for director (PEM encoded)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.ssl.cert"
+      },
+      {
+        "Default": null,
+        "Description": "URL for the Config Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.url"
+      },
+      {
+        "Default": null,
+        "Description": "Password used for the director database",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.password"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Default user to use with bosh ssh command",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.default_ssh_options.gateway_user"
+      },
+      {
+        "Default": "postgres",
+        "Description": "The type of database used (mysql2|postgres|sqlite)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.adapter"
+      },
+      {
+        "Default": null,
+        "Description": "Region of the blobstore used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_region"
+      },
+      {
+        "Default": "static",
+        "Description": "AWS Credential Source (static / env_or_profile)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.credentials_source"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the simple blobstore plugin should use SSL to connect to the blobstore server",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.use_ssl"
+      },
+      {
+        "Default": "",
+        "Description": "Cerfiticates that VMs created by this director should trust in addition to those packaged with the stemcell (PEM encoded; zero or more certs allowed)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.trusted_certs"
+      },
+      {
+        "Default": null,
+        "Description": "List of comma-separated hosts that should skip connecting to the proxy in the director, scheduler and workers",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.no_proxy"
+      },
+      {
+        "Default": false,
+        "Description": "When true, all templates will run their post_deploy script once deployment is complete",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.enable_post_deploy"
+      },
+      {
+        "Default": null,
+        "Description": "CA cert to trust when communicating with UAA",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.uaa.ca_cert"
+      },
+      {
+        "Default": 10000,
+        "Description": "Max number of events to keep",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.events.max_events"
+      },
+      {
+        "Default": [
+          "0.pool.ntp.org",
+          "1.pool.ntp.org"
+        ],
+        "Description": "List of ntp server IPs. pool.ntp.org attempts to return IPs closest to your location, but you can still specify if needed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "ntp"
+      },
+      {
+        "Default": null,
+        "Description": "HTTP proxy that the director, scheduler and workers should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.http_proxy"
+      },
+      {
+        "Default": "TLSv1 TLSv1.1 TLSv1.2",
+        "Description": "SSL/TLS protocols to allow",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.nginx.ssl_protocols"
+      },
+      {
+        "Default": false,
+        "Description": "Enable/Disable snapshots for persistent disks (true|false)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.enable_snapshots"
+      },
+      {
+        "Default": 4222,
+        "Description": "Port that the nats server listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Name of the powerdns database",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.database"
+      },
+      {
+        "Default": "0 * * * * UTC",
+        "Description": "RufusScheduler cron formatted schedule for cleanup of events",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.events.cleanup_schedule"
+      },
+      {
+        "Default": 100,
+        "Description": "Max number of tasks per each type to keep in disk",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.max_tasks"
+      },
+      {
+        "Default": null,
+        "Description": "RufusScheduler cron formatted schedule for backups",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.backup_schedule"
+      },
+      {
+        "Default": {
+          "max_connections": 32,
+          "pool_timeout": 10
+        },
+        "Description": "Additional options for the powerdns database",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.connection_options"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.secret_access_key"
+      },
+      {
+        "Default": "s3",
+        "Description": "Provider of the blobstore used for the compiled package cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.provider"
+      },
+      {
+        "Default": "static",
+        "Description": "AWS credentials (static / env_or_profile)",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.credentials_source"
+      },
+      {
+        "Default": null,
+        "Description": "List of users that can authenticate with director in non-Uaa mode",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.user_management.local.users"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the powerdns server",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.address"
+      },
+      {
+        "Default": "bosh",
+        "Description": "TLD of the dns zone used by bosh",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.domain_name"
+      },
+      {
+        "Default": "dav",
+        "Description": "Provider of the blobstore used by director and agent (dav|simple|s3)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.provider"
+      },
+      {
+        "Default": false,
+        "Description": "Clear up arp entries when machines are recreated",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.flush_arp"
+      },
+      {
+        "Default": 5,
+        "Description": "Days to keep orphaned disks and orhaned snapshots before cleanup",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.disks.max_orphaned_age_in_days"
+      },
+      {
+        "Default": null,
+        "Description": "Username director uses to connect to blobstore used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.director.user"
+      },
+      {
+        "Default": null,
+        "Description": "Name of cpi job (null to use bundled cpi gems)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.cpi_job"
+      },
+      {
+        "Default": 32,
+        "Description": "Max number of director concurrent threads",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.max_threads"
+      },
+      {
+        "Default": false,
+        "Description": "When true, a random unique password will be used for each vm if user has not specified a password",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.generate_vm_passwords"
+      },
+      {
+        "Default": {
+          "max_connections": 32,
+          "pool_timeout": 10
+        },
+        "Description": "Additional options for the database",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.connection_options"
+      },
+      {
+        "Default": null,
+        "Description": "AWS S3 Bucket used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.bucket_name"
+      },
+      {
+        "Default": 5,
+        "Description": "Max retries when creating VMs",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.max_vm_create_tries"
+      },
+      {
+        "Default": null,
+        "Description": "Public key to verify Uaa token when token is encoded with asymmetric encryption",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.user_management.uaa.public_key"
+      },
+      {
+        "Default": null,
+        "Description": "Username agent uses to connect to blobstore used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.user"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.access_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "Address for agent to connect to blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.address"
+      },
+      {
+        "Default": false,
+        "Description": "When true, bosh will not delete vm from cloud when instance update, just destroy vm record in db",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.enable_virtual_delete_vms"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key used for the compiled package cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "HTTPS proxy that the director, scheduler and workers should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.https_proxy"
+      },
+      {
+        "Default": false,
+        "Description": "Enable/Disable agent-director encryption (true|false)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.encryption"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the nats server",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.address"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "DNS Database host",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.host"
+      },
+      {
+        "Default": false,
+        "Description": "Allow gateway to be omitted from subnet configuration. Boshlite vms(containers) do not require gateway.",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.ignore_missing_gateway"
+      },
+      {
+        "Default": null,
+        "Description": "AWS region for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_region"
+      },
+      {
+        "Default": null,
+        "Description": "AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4.",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.sse_kms_key_id"
+      },
+      {
+        "Default": true,
+        "Description": "Verify the SSL certificate used on the blobstore?",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.ssl_verify_peer"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the director",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.name"
+      },
+      {
+        "Default": false,
+        "Description": "Separate worker for 'bosh vms' and 'bosh ssh'",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.enable_dedicated_status_worker"
+      },
+      {
+        "Default": "0 0 7 * * * UTC",
+        "Description": "RufusScheduler cron formatted schedule for snapshots",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.snapshot_schedule"
+      },
+      {
+        "Default": "0 0 6 * * * UTC",
+        "Description": "RufusScheduler cron formatted schedule for self snapshots",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.self_snapshot_schedule"
+      },
+      {
+        "Default": null,
+        "Description": "URL for the UAA server used for authenticating access to Config Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.config_server.uaa.url"
+      },
+      {
+        "Default": "postgres",
+        "Description": "DNS Database adapter",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.adapter"
+      },
+      {
+        "Default": null,
+        "Description": "Signature version of the blobstore used by s3 blobstore plugin (optional, if not provided the s3 client decides which version to use)",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.s3_signature_version"
+      },
+      {
+        "Default": null,
+        "Description": "Server-side encryption algorithm used when storing blobs in S3 (Optional - \"AES256\"|\"aws:kms\")",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.server_side_encryption"
+      },
+      {
+        "Default": {},
+        "Description": "Enables local DNS, i.e., sending sync_dns messages with all names/IPs to all agents managed by this director",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.local_dns"
+      },
+      {
+        "Default": null,
+        "Description": "Server-side encryption algorithm used when storing blobs in S3 (Optional - \"AES256\"|\"aws:kms\")",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.server_side_encryption"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "Signature version of the blobstore used by s3 blobstore plugin (optional, if not provided the s3 client decides which version to use)",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_signature_version"
+      },
+      {
+        "Default": 5432,
+        "Description": "Port of the director database (e.g, msyql2 adapter would generally use 3306)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.port"
+      },
+      {
+        "Default": 5432,
+        "Description": "Port that the powerdns database listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.port"
+      },
+      {
+        "Default": null,
+        "Description": "Host of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.host"
+      },
+      {
+        "Default": null,
+        "Description": "AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4.",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.sse_kms_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "Password to access the Registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.http.password"
+      },
+      {
+        "Default": null,
+        "Description": "Password to connect to nats with",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "Address of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "Configuration of the blobstore used by director for backups (dav|simple|s3)",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.backup_destination"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id used for the compiled package cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.access_key_id"
+      },
+      {
+        "Default": 25250,
+        "Description": "Port of blobstore server used for compiled package cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "compiled_package_cache.options.port"
+      },
+      {
+        "Default": true,
+        "Description": "Verify the SSL certificate used on the blobstore?",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.ssl_verify_peer"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Address of the director database, for example, in the case of AWS RDS:\nrds-instance-name.coqxxxxxxxxx.us-east-1.rds.amazonaws.com\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.db.host"
+      },
+      {
+        "Default": null,
+        "Description": "DNS Database password",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.password"
+      },
+      {
+        "Default": 2,
+        "Description": "Number of nginx workers for director",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.nginx.workers"
+      },
+      {
+        "Default": "10000m",
+        "Description": "Max allowed file size for upload",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.max_upload_size"
+      },
+      {
+        "Default": false,
+        "Description": "When a bosh deploy fails, the failed VM will be kept instead of destroyed",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.debug.keep_unreachable_vms"
+      },
+      {
+        "Default": "0 0,30 * * * * UTC",
+        "Description": "RufusScheduler cron formatted schedule for cleanup of orphaned disks and orphaned snapshots",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.disks.cleanup_schedule"
+      },
+      {
+        "Default": null,
+        "Description": "Signature version of the blobstore used by s3 blobstore plugin (optional, if not provided the s3 client decides which version to use)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_signature_version"
+      },
+      {
+        "Default": null,
+        "Description": "AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4.",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.sse_kms_key_id"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the simple blobstore plugin should use SSL to connect to the blobstore server",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.use_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the Registry to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.address"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/ssl/director.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/director.key.erb",
+        "SrcPathEnd": "director.key.erb"
+      },
+      {
+        "DstPathEnd": "config/uaa_server_ca.cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/uaa_server_ca.cert.erb",
+        "SrcPathEnd": "uaa_server_ca.cert.erb"
+      },
+      {
+        "DstPathEnd": "bin/director_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/director_ctl.erb",
+        "SrcPathEnd": "director_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/task_logrotate.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/task_logrotate.cron",
+        "SrcPathEnd": "task_logrotate.cron"
+      },
+      {
+        "DstPathEnd": "config/sudoers",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/sudoers",
+        "SrcPathEnd": "sudoers"
+      },
+      {
+        "DstPathEnd": "bin/restore-db",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/restore-db",
+        "SrcPathEnd": "restore-db"
+      },
+      {
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/nginx.conf.erb",
+        "SrcPathEnd": "nginx.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/scheduler_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/scheduler_ctl.erb",
+        "SrcPathEnd": "scheduler_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/config_server_ca.cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/config_server_ca.cert.erb",
+        "SrcPathEnd": "config_server_ca.cert.erb"
+      },
+      {
+        "DstPathEnd": "config/director.yml.erb",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/director.yml.erb.erb",
+        "SrcPathEnd": "director.yml.erb.erb"
+      },
+      {
+        "DstPathEnd": "bin/worker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/worker_ctl.erb",
+        "SrcPathEnd": "worker_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/stemcell-copy",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/stemcell-copy.sh",
+        "SrcPathEnd": "stemcell-copy.sh"
+      },
+      {
+        "DstPathEnd": "bin/nginx_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/nginx_ctl",
+        "SrcPathEnd": "nginx_ctl"
+      },
+      {
+        "DstPathEnd": "config/mime.types",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/mime.types",
+        "SrcPathEnd": "mime.types"
+      },
+      {
+        "DstPathEnd": "bin/ps_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/ps_utils.sh",
+        "SrcPathEnd": "ps_utils.sh"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/drain",
+        "SrcPathEnd": "drain"
+      },
+      {
+        "DstPathEnd": "config/ssl/director.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/director.pem.erb",
+        "SrcPathEnd": "director.pem.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "bin/task_logrotate",
+        "Path": "/mnt/tmp/tar-CmdExtractor358055140/templates/task_logrotate.sh",
+        "SrcPathEnd": "task_logrotate.sh"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor032970678/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "health_monitor",
+    "Packages": [
+      {
+        "Name": "health_monitor"
+      },
+      {
+        "Name": "ruby"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Enable VM resurrector plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.resurrector_enabled"
+      },
+      {
+        "Default": false,
+        "Description": "Enable Consul Plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder_enabled"
+      },
+      {
+        "Default": false,
+        "Description": "Should we treat all heartbeats as alerts as well?",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.heartbeats_as_alerts"
+      },
+      {
+        "Default": 30,
+        "Description": "Interval (in seconds) to prune received events",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.prune_events"
+      },
+      {
+        "Default": null,
+        "Description": "Use STARTTLS (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.tls"
+      },
+      {
+        "Default": null,
+        "Description": "PagerDuty service API key",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.pagerduty.service_key"
+      },
+      {
+        "Default": 5,
+        "Description": "If the total number of down jobs in a deployment is below this threshold, the resurrector will always request a down job be recreated",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.resurrector.minimum_down_jobs"
+      },
+      {
+        "Default": 5514,
+        "Description": "Port of the syslog drain",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.syslog_event_forwarder.port"
+      },
+      {
+        "Default": null,
+        "Description": "Email of recipients (Array)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.email_recipients"
+      },
+      {
+        "Default": false,
+        "Description": "Enable AWS CloudWatch Plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.cloud_watch_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access key id",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.access_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "Service name to alert in PagerDuty upon HM events",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.datadog.pagerduty_service_name"
+      },
+      {
+        "Default": 60,
+        "Description": "Interval (in seconds) to consider an agent has timed out",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.agent_timeout"
+      },
+      {
+        "Default": "",
+        "Description": "User to access Bosh Director",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.director_account.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password for event NATS message bus connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "event_nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "Prefix that will be added to all metrics sent to Graphite",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.graphite.prefix"
+      },
+      {
+        "Default": 600,
+        "Description": "Time (in seconds) for which an alert in the resurrector is considered 'current'; alerts older than this are ignored when deciding to recreate a job.",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.resurrector.time_threshold"
+      },
+      {
+        "Default": null,
+        "Description": "Health Monitor Application Key for DataDog",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.datadog.application_key"
+      },
+      {
+        "Default": null,
+        "Description": "Params for url can be used for passing ACL token",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.params"
+      },
+      {
+        "Default": "http",
+        "Description": "http/https",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.protocol"
+      },
+      {
+        "Default": "info",
+        "Description": "Level of log messages (fatal, error, warn, info, debug)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.loglevel"
+      },
+      {
+        "Default": "",
+        "Description": "UAA client id to access Bosh Director",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.director_account.client_id"
+      },
+      {
+        "Default": false,
+        "Description": "Enable TSDB plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.tsdb_enabled"
+      },
+      {
+        "Default": false,
+        "Description": "Enable DataDog plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.datadog_enabled"
+      },
+      {
+        "Default": "",
+        "Description": "UAA client secret to access Bosh Director",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.director_account.client_secret"
+      },
+      {
+        "Default": null,
+        "Description": "User for the event NATS message bus connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "event_nats.user"
+      },
+      {
+        "Default": false,
+        "Description": "Enable PagerDuty plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.pagerduty_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "Riemann host",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.riemann.host"
+      },
+      {
+        "Default": null,
+        "Description": "Graphite port",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.graphite.port"
+      },
+      {
+        "Default": null,
+        "Description": "A ttl time for ttl checks, if set ttl checks will be used",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.ttl"
+      },
+      {
+        "Default": 4222,
+        "Description": "Port of the NATS message bus port to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "Password for NATS message bus connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "Email of sender, e.g. \"bosh-director@cfapps.io\"",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.from"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP EHLO domain (typically server's fully qualified domain name, e.g. \"bosh.cfapps.io\")",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.domain"
+      },
+      {
+        "Default": 25923,
+        "Description": "TCP port Health Monitor daemon listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.http.port"
+      },
+      {
+        "Default": null,
+        "Description": "Password for SMTP Authentication (optional, use in conjuction with hm.smtp.auth)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.password"
+      },
+      {
+        "Default": false,
+        "Description": "Enable Riemann plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.riemann_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret access key",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.secret_access_key"
+      },
+      {
+        "Default": false,
+        "Description": "Enable Graphite plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.graphite_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "List of comma-separated hosts that should skip connecting to the proxy in the health monitor",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.no_proxy"
+      },
+      {
+        "Default": 20,
+        "Description": "EM thread pool size",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.em_threadpool_size"
+      },
+      {
+        "Default": null,
+        "Description": "User for the NATS message bus connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Port of the event NATS message bus port to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "event_nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the SMTP server to connect to (e.g. \"smtp.gmail.com\")",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.host"
+      },
+      {
+        "Default": null,
+        "Description": "IP address of the syslog drain",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.syslog_event_forwarder.address"
+      },
+      {
+        "Default": null,
+        "Description": "HTTP proxy that the health monitor should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.http_proxy"
+      },
+      {
+        "Default": 25555,
+        "Description": "Port of the Bosh Director to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.port"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the event NATS message bus to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "event_nats.address"
+      },
+      {
+        "Default": null,
+        "Description": "Address of TSDB to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.tsdb.address"
+      },
+      {
+        "Default": false,
+        "Description": "Enable syslog forwarder plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.syslog_event_forwarder_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "HTTP proxy to connect to PagerDuty (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.pagerduty.http_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "API Key for DataDog",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.datadog.api_key"
+      },
+      {
+        "Default": null,
+        "Description": "A namespace for handling multiples of the same release",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.namespace"
+      },
+      {
+        "Default": "Automatically Registered by Bosh-Monitor",
+        "Description": "A note for ttl checks",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.ttl_note"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the NATS message bus to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.address"
+      },
+      {
+        "Default": false,
+        "Description": "Enable email notifications plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.email_notifications"
+      },
+      {
+        "Default": null,
+        "Description": "User for SMTP Authentication (optional, use in conjuction with hm.smtp.auth)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.user"
+      },
+      {
+        "Default": null,
+        "Description": "Interval (in seconds) to deliver alerts by email (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.email_interval"
+      },
+      {
+        "Default": "tcp",
+        "Description": "One of [\"udp\", \"tcp\", \"relp\"]",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.syslog_event_forwarder.transport"
+      },
+      {
+        "Default": "",
+        "Description": "Custom rule for syslog event forwarder",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.syslog_event_forwarder.custom_rule"
+      },
+      {
+        "Default": 30,
+        "Description": "Interval (in seconds) between discovering managed VMs and analyzing their status",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.poll_grace_period"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the Bosh Director to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "director.address"
+      },
+      {
+        "Default": "",
+        "Description": "Password to access Bosh Director",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.director_account.password"
+      },
+      {
+        "Default": false,
+        "Description": "Enable event NATS message bus plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "event_nats_enabled"
+      },
+      {
+        "Default": null,
+        "Description": "Port of TSDB to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.tsdb.port"
+      },
+      {
+        "Default": 0.2,
+        "Description": "Percentage of total jobs in a deployment that must be down for the resurrector to to stop sending recreate-job requests. Used in 'meltdown' situations so resurrector will not try to recreate the world.",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.resurrector.percent_threshold"
+      },
+      {
+        "Default": null,
+        "Description": "Graphite address",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.graphite.address"
+      },
+      {
+        "Default": false,
+        "Description": "Whether or not to use the events api",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.events"
+      },
+      {
+        "Default": 60,
+        "Description": "Interval (in seconds) to get the list of managed VMs from Bosh Director",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.poll_director"
+      },
+      {
+        "Default": 60,
+        "Description": "Interval (in seconds) to analyze the status of agents",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.analyze_agents"
+      },
+      {
+        "Default": 60,
+        "Description": "Interval (in seconds) to analyze the status of instances for missing VMs",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.analyze_instances"
+      },
+      {
+        "Default": null,
+        "Description": "Port of the SMTP server to connect to (e.g. 25, 465, or 587)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.port"
+      },
+      {
+        "Default": null,
+        "Description": "Location of Consul Cluster or agent",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.host"
+      },
+      {
+        "Default": null,
+        "Description": "HTTPS proxy that the health monitor should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.https_proxy"
+      },
+      {
+        "Default": 60,
+        "Description": "Interval (in seconds) to log Health Monitor statistics",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.log_stats"
+      },
+      {
+        "Default": "",
+        "Description": "Certificate to verify UAA endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.director_account.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Authentication type (optional, only \"plain\" is supported)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.smtp.auth"
+      },
+      {
+        "Default": 5555,
+        "Description": "Riemann port",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.riemann.port"
+      },
+      {
+        "Default": 120,
+        "Description": "Interval (in seconds) to consider an agent as rogue (an agent that is no part of any deployment)",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.intervals.rogue_agent_alert"
+      },
+      {
+        "Default": 8500,
+        "Description": "Consul Port",
+        "Example": null,
+        "Examples": null,
+        "Name": "hm.consul_event_forwarder.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/health_monitor.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor032970678/templates/health_monitor.yml.erb",
+        "SrcPathEnd": "health_monitor.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/uaa.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor032970678/templates/uaa.pem.erb",
+        "SrcPathEnd": "uaa.pem.erb"
+      },
+      {
+        "DstPathEnd": "config/syslog_event_forwarder.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor032970678/templates/syslog_event_forwarder.conf.erb",
+        "SrcPathEnd": "syslog_event_forwarder.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/health_monitor_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor032970678/templates/health_monitor_ctl.erb",
+        "SrcPathEnd": "health_monitor_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor430705752/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "nats",
+    "Packages": [
+      {
+        "Name": "nats"
+      },
+      {
+        "Name": "ruby"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Username clients must use to access nats mbus via HTTP connection (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.http.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password clients must use to access nats mbus via HTTP connection (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.http.password"
+      },
+      {
+        "Default": false,
+        "Description": "Disable epoll (Linux)",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.no_epoll"
+      },
+      {
+        "Default": 1,
+        "Description": "Timeout (in seconds) for clients to send auth credentials",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.auth_timeout"
+      },
+      {
+        "Default": 9222,
+        "Description": "TCP port NATS listens on for HTTP connections (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.http.port"
+      },
+      {
+        "Default": 5,
+        "Description": "Time interval (in seconds) pings from server",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.ping_interval"
+      },
+      {
+        "Default": 2,
+        "Description": "Maximum number of pings before declaring a client unresponsive",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.ping_max_outstanding"
+      },
+      {
+        "Default": null,
+        "Description": "Username clients must use to access nats mbus",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password clients must use to access nats mbus",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address nats mbus listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.listen_address"
+      },
+      {
+        "Default": 4222,
+        "Description": "TCP port nats mbus listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": true,
+        "Description": "Disable kqueue (MacOSX and BSD)",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.no_kqueue"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/nats_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor430705752/templates/nats_ctl.erb",
+        "SrcPathEnd": "nats_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/nats.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor430705752/templates/nats.yml.erb",
+        "SrcPathEnd": "nats.yml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor246905674/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "postgres",
+    "Packages": [
+      {
+        "Name": "postgres"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": [],
+        "Description": "Additional Postgres databases to be created (during the startup process)",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.additional_databases"
+      },
+      {
+        "Default": 100,
+        "Description": "Set max concurrent connections for database",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.max_connections"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Username clients must use to access Postgres",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password clients must use to access Postgres",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.password"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address Postgres listens on; use 0.0.0.0 to listen on all IP addresses",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.listen_address"
+      },
+      {
+        "Default": 5432,
+        "Description": "TCP port Postgres listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.port"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Default Postgres database (it will be created during the startup process)",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.database"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor246905674/templates/postgres_ctl.erb",
+        "SrcPathEnd": "postgres_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor246905674/templates/postgresql.conf.erb",
+        "SrcPathEnd": "postgresql.conf.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor873237772/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "postgres-9.4",
+    "Packages": [
+      {
+        "Name": "postgres"
+      },
+      {
+        "Name": "postgres-9.4"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "bosh",
+        "Description": "Default Postgres database (it will be created during the startup process)",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.database"
+      },
+      {
+        "Default": [],
+        "Description": "Additional Postgres databases to be created (during the startup process)",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.additional_databases"
+      },
+      {
+        "Default": 100,
+        "Description": "Set max concurrent connections for database",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.max_connections"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Username clients must use to access Postgres",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password clients must use to access Postgres",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.password"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "IP address Postgres listens on; use 0.0.0.0 to listen on all IP addresses",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.listen_address"
+      },
+      {
+        "Default": 5432,
+        "Description": "TCP port Postgres listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "postgres.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/postgres_db_upgrade.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor873237772/templates/postgres_db_upgrade.sh.erb",
+        "SrcPathEnd": "postgres_db_upgrade.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor873237772/templates/postgresql.conf.erb",
+        "SrcPathEnd": "postgresql.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor873237772/templates/postgres_ctl.erb",
+        "SrcPathEnd": "postgres_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/postgres_db_backup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor873237772/templates/postgres_db_backup.sh.erb",
+        "SrcPathEnd": "postgres_db_backup.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor350852638/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "powerdns",
+    "Packages": [
+      {
+        "Name": "powerdns"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "IP address to which to bind to (optional; useful with multiple IP addresses)",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.local_address"
+      },
+      {
+        "Default": 8081,
+        "Description": "TCP port PowerDNS webserver listens on (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.webserver.port"
+      },
+      {
+        "Default": "postgres",
+        "Description": "Adapter for the PowerDNS database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.adapter"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Address for the PowerDNS database",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.host"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Database for the PowerDNS database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.database"
+      },
+      {
+        "Default": null,
+        "Description": "If recursion is desired, IP address of a recursing nameserver (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.recursor"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the primary PowerDNS instance",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.address"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "IP address PowerDNS webserver listens on (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.webserver.address"
+      },
+      {
+        "Default": null,
+        "Description": "Password clients must use to access PowerDNS webserver (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.webserver.password"
+      },
+      {
+        "Default": 2,
+        "Description": "Number of threads to query the backend, for each receiver thread",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.distributor_threads"
+      },
+      {
+        "Default": null,
+        "Description": "IP address to use as a source address for sending queries (optional; useful with multiple IP addresses)",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.query_local_address"
+      },
+      {
+        "Default": 5432,
+        "Description": "Port for the PowerDNS database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.port"
+      },
+      {
+        "Default": 2,
+        "Description": "Number of sockets the powerdns process will open",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.receiver_threads"
+      },
+      {
+        "Default": "bosh",
+        "Description": "User for the PowerDNS database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password for the PowerDNS database connection",
+        "Example": null,
+        "Examples": null,
+        "Name": "dns.db.password"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/pdns.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor350852638/templates/pdns.conf.erb",
+        "SrcPathEnd": "pdns.conf.erb"
+      },
+      {
+        "DstPathEnd": "bin/powerdns_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor350852638/templates/powerdns_ctl.erb",
+        "SrcPathEnd": "powerdns_ctl.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor416380672/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "registry",
+    "Packages": [
+      {
+        "Name": "registry"
+      },
+      {
+        "Name": "libpq"
+      },
+      {
+        "Name": "mysql"
+      },
+      {
+        "Name": "ruby"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "HTTPS proxy that the registry should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.https_proxy"
+      },
+      {
+        "Default": {
+          "max_connections": 32,
+          "pool_timeout": 10
+        },
+        "Description": "Additional options for the database",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.connection_options"
+      },
+      {
+        "Default": null,
+        "Description": "The path to a CA cert bundle in PEM format",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.ssl_ca_file"
+      },
+      {
+        "Default": null,
+        "Description": "URL of the OpenStack Identity endpoint to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.auth_url"
+      },
+      {
+        "Default": "static",
+        "Description": "AWS credentials source",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.credentials_source"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack user name",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.username"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack project name (required for Keystone API version 3)",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.project"
+      },
+      {
+        "Default": null,
+        "Description": "HTTP proxy that the registry should use",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.http_proxy"
+      },
+      {
+        "Default": "bosh",
+        "Description": "Username used for the registry database",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.user"
+      },
+      {
+        "Default": null,
+        "Description": "Password used for the registry database",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.password"
+      },
+      {
+        "Default": null,
+        "Description": "AWS IAM Secret Access Key",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack tenant name (required for Keystone API version 2)",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.tenant"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack domain (required for Keystone API version 3)",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.domain"
+      },
+      {
+        "Default": null,
+        "Description": "Hash containing optional connection parameters to the OpenStack API",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.connection_options"
+      },
+      {
+        "Default": 25777,
+        "Description": "TCP port Registry daemon listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.http.port"
+      },
+      {
+        "Default": null,
+        "Description": "Username clients must use to access Registry via HTTP Basic Auth",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.http.user"
+      },
+      {
+        "Default": 5432,
+        "Description": "Port of the registry database",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.port"
+      },
+      {
+        "Default": 2,
+        "Description": "Max number of retries to connect to AWS",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.max_retries"
+      },
+      {
+        "Default": null,
+        "Description": "The path the a CA cert directory",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.ssl_ca_path"
+      },
+      {
+        "Default": null,
+        "Description": "When true the HTTP handler validate server certificates for HTTPS requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.ssl_verify_peer"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack API key",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.api_key"
+      },
+      {
+        "Default": null,
+        "Description": "OpenStack region (optional)",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.region"
+      },
+      {
+        "Default": "publicURL",
+        "Description": "OpenStack endpoint type (optional, by default publicURL)",
+        "Example": null,
+        "Examples": null,
+        "Name": "openstack.endpoint_type"
+      },
+      {
+        "Default": null,
+        "Description": "Password clients must use to access Registry via HTTP Basic Auth",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.http.password"
+      },
+      {
+        "Default": null,
+        "Description": "The service endpoint for Amazon EC2 (optional, if not supplied default region endpoint will be used)",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.ec2_endpoint"
+      },
+      {
+        "Default": null,
+        "Description": "List of comma-separated hosts that should skip connecting to the proxy in the registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.no_proxy"
+      },
+      {
+        "Default": "postgres",
+        "Description": "The type of database used",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.adapter"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Address of the registry database",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.host"
+      },
+      {
+        "Default": "bosh_registry",
+        "Description": "Name of the registry database",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.db.database"
+      },
+      {
+        "Default": null,
+        "Description": "AWS IAM Access Key ID",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.access_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "AWS EC2 Region",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.region"
+      },
+      {
+        "Default": null,
+        "Description": "The service endpoint for Amazon Elastic Load Balancing (optional, if not supplied default region endpoint will be used)",
+        "Example": null,
+        "Examples": null,
+        "Name": "aws.elb_endpoint"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/cacert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor416380672/templates/cacert.pem.erb",
+        "SrcPathEnd": "cacert.pem.erb"
+      },
+      {
+        "DstPathEnd": "bin/registry_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor416380672/templates/registry_ctl.erb",
+        "SrcPathEnd": "registry_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/registry.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor416380672/templates/registry.yml.erb",
+        "SrcPathEnd": "registry.yml.erb"
+      }
+    ]
+  }
+]

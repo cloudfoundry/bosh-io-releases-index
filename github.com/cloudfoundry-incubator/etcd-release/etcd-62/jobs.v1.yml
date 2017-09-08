@@ -1,306 +1,453 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor712631437/monit
-    SrcPathEnd: monit
-  Name: etcd
-  Packages:
-  - Name: etcd-common
-  - Name: etcd
-  - Name: etcd-dns-checker
-  Properties:
-  - Default: 50
-    Description: Interval between heartbeats in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
-    Example: null
-    Examples: null
-    Name: etcd.heartbeat_interval_in_milliseconds
-  - Default: null
-    Description: Information about etcd cluster
-    Example: null
-    Examples: null
-    Name: etcd.cluster
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution
-    Example: null
-    Examples: null
-    Name: etcd.dns_health_check_host
-  - Default: null
-    Description: DNS suffix for all nodes in the etcd cluster
-    Example: null
-    Examples: null
-    Name: etcd.advertise_urls_dns_suffix
-  - Default: true
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: etcd.require_ssl
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Examples: null
-    Name: etcd.server_key
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: etcd.client_cert
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: etcd.client_key
-  - Default: null
-    Description: PEM-encoded peer CA certificate
-    Example: null
-    Examples: null
-    Name: etcd.peer_ca_cert
-  - Default: null
-    Description: Addresses of etcd machines
-    Example: null
-    Examples: null
-    Name: etcd.machines
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Examples: null
-    Name: etcd.server_cert
-  - Default: true
-    Description: enable ssl between etcd peers
-    Example: null
-    Examples: null
-    Name: etcd.peer_require_ssl
-  - Default: 1000
-    Description: Time without receiving a heartbeat before peer should attempt to
-      become leader in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning
-    Example: null
-    Examples: null
-    Name: etcd.election_timeout_in_milliseconds
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: etcd.ca_cert
-  - Default: null
-    Description: PEM-encoded peer certificate
-    Example: null
-    Examples: null
-    Name: etcd.peer_cert
-  - Default: null
-    Description: PEM-encoded peer key
-    Example: null
-    Examples: null
-    Name: etcd.peer_key
-  Templates:
-  - DstPathEnd: bin/dns_health_check
-    Path: /mnt/tmp/tar-CmdExtractor712631437/templates/dns_health_check.erb
-    SrcPathEnd: dns_health_check.erb
-  - DstPathEnd: bin/drain
-    Path: /mnt/tmp/tar-CmdExtractor712631437/templates/drain
-    SrcPathEnd: drain
-  - DstPathEnd: bin/etcd_bosh_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor712631437/templates/etcd_bosh_utils.sh.erb
-    SrcPathEnd: etcd_bosh_utils.sh.erb
-  - DstPathEnd: bin/etcd_ctl
-    Path: /mnt/tmp/tar-CmdExtractor712631437/templates/etcd_ctl.erb
-    SrcPathEnd: etcd_ctl.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor712631437/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-- Description: The etcd Metrics Server is meant to be collocated with the etcd server
-    to collect and expose runtime statistics for the Collector.
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor491874887/monit
-    SrcPathEnd: monit
-  Name: etcd_metrics_server
-  Packages:
-  - Name: etcd-common
-  - Name: etcd_metrics_server
-  Properties:
-  - Default: null
-    Description: NATS server password
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.nats.password
-  - Default: ""
-    Description: basic auth password for metrics server (leave empty for generated)
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.status.password
-  - Default: ""
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.client_cert
-  - Default: 127.0.0.1
-    Description: |
-      Address of any etcd server to instrument.
-      Target etcd server does not need to be colocated with this etcd_metrics_server.
-      This address must be an IP or a domain name that resolves to a single etcd server.
-      This property is only used if 'etcd_metrics_server.etcd.require_ssl' is 'false'.
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.machine
-  - Default: 4001
-    Description: port of etcd server to instrument
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.port
-  - Default: null
-    Description: array of NATS addresses
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.nats.machines
-  - Default: ""
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.client_key
-  - Default: ""
-    Description: basic auth username for metrics server (leave empty for generated)
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.status.username
-  - Default: false
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.require_ssl
-  - Default: null
-    Description: |
-      DNS suffix of the etcd server to instrument.
-      Target etcd server must be colocated with this etcd_metrics_server.
-      This property is only used if 'etcd_metrics_server.etcd.require_ssl' is 'true'."
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.dns_suffix
-  - Default: 4222
-    Description: NATS server port
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.nats.port
-  - Default: null
-    Description: NATS server username
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.nats.username
-  - Default: 5678
-    Description: listening port for metrics server
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.status.port
-  - Default: ""
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: etcd_metrics_server.etcd.ca_cert
-  Templates:
-  - DstPathEnd: bin/etcd_metrics_server_ctl
-    Path: /mnt/tmp/tar-CmdExtractor491874887/templates/etcd_metrics_server_ctl.erb
-    SrcPathEnd: etcd_metrics_server_ctl.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor491874887/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-  - DstPathEnd: certs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor491874887/templates/client.crt.erb
-    SrcPathEnd: client.crt.erb
-  - DstPathEnd: certs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor491874887/templates/client.key.erb
-    SrcPathEnd: client.key.erb
-  - DstPathEnd: certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor491874887/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-- Description: etcd http proxy server
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor227754513/monit
-    SrcPathEnd: monit
-  Name: etcd_proxy
-  Packages:
-  - Name: etcd-common
-  - Name: etcd_proxy
-  Properties:
-  - Default: etcd.service.cf.internal
-    Description: dns suffix of etcd server
-    Example: null
-    Examples: null
-    Name: etcd_proxy.etcd.dns_suffix
-  - Default: 4001
-    Description: port of the etcd server
-    Example: null
-    Examples: null
-    Name: etcd_proxy.etcd.port
-  - Default: ""
-    Description: etcd ca certificate
-    Example: null
-    Examples: null
-    Name: etcd_proxy.etcd.ca_cert
-  - Default: ""
-    Description: etcd client certificate
-    Example: null
-    Examples: null
-    Name: etcd_proxy.etcd.client_cert
-  - Default: ""
-    Description: etcd client key
-    Example: null
-    Examples: null
-    Name: etcd_proxy.etcd.client_key
-  - Default: 4001
-    Description: port of proxy server
-    Example: null
-    Examples: null
-    Name: etcd_proxy.port
-  Templates:
-  - DstPathEnd: bin/etcd_proxy_ctl
-    Path: /mnt/tmp/tar-CmdExtractor227754513/templates/etcd_proxy_ctl.erb
-    SrcPathEnd: etcd_proxy_ctl.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor227754513/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor005636715/monit
-    SrcPathEnd: monit
-  Name: etcd_testconsumer
-  Packages:
-  - Name: testconsumer
-  - Name: etcd-dns-checker
-  Properties:
-  - Default: ""
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: etcd_testconsumer.etcd.client_cert
-  - Default: ""
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: etcd_testconsumer.etcd.client_key
-  - Default: consul.service.cf.internal
-    Description: Host to ping for confirmation of DNS resolution
-    Example: null
-    Examples: null
-    Name: etcd_testconsumer.etcd.dns_health_check_host
-  - Default: false
-    Description: enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: etcd_testconsumer.etcd.require_ssl
-  - Default: null
-    Description: Addresses of etcd machines
-    Example: null
-    Examples: null
-    Name: etcd_testconsumer.etcd.machines
-  - Default: ""
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: etcd_testconsumer.etcd.ca_cert
-  Templates:
-  - DstPathEnd: bin/etcd_testconsumer_ctl
-    Path: /mnt/tmp/tar-CmdExtractor005636715/templates/etcd_testconsumer_ctl.sh.erb
-    SrcPathEnd: etcd_testconsumer_ctl.sh.erb
-  - DstPathEnd: bin/pre-start
-    Path: /mnt/tmp/tar-CmdExtractor005636715/templates/pre-start.erb
-    SrcPathEnd: pre-start.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor712631437/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "etcd",
+    "Packages": [
+      {
+        "Name": "etcd-common"
+      },
+      {
+        "Name": "etcd"
+      },
+      {
+        "Name": "etcd-dns-checker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 50,
+        "Description": "Interval between heartbeats in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.heartbeat_interval_in_milliseconds"
+      },
+      {
+        "Default": null,
+        "Description": "Information about etcd cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.cluster"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.dns_health_check_host"
+      },
+      {
+        "Default": null,
+        "Description": "DNS suffix for all nodes in the etcd cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.advertise_urls_dns_suffix"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.server_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded peer CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.peer_ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Addresses of etcd machines",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.machines"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.server_cert"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl between etcd peers",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.peer_require_ssl"
+      },
+      {
+        "Default": 1000,
+        "Description": "Time without receiving a heartbeat before peer should attempt to become leader in milliseconds. See https://coreos.com/docs/cluster-management/debugging/etcd-tuning",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.election_timeout_in_milliseconds"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded peer certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.peer_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded peer key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd.peer_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/mnt/tmp/tar-CmdExtractor712631437/templates/dns_health_check.erb",
+        "SrcPathEnd": "dns_health_check.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain",
+        "Path": "/mnt/tmp/tar-CmdExtractor712631437/templates/drain",
+        "SrcPathEnd": "drain"
+      },
+      {
+        "DstPathEnd": "bin/etcd_bosh_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor712631437/templates/etcd_bosh_utils.sh.erb",
+        "SrcPathEnd": "etcd_bosh_utils.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/etcd_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor712631437/templates/etcd_ctl.erb",
+        "SrcPathEnd": "etcd_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor712631437/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      }
+    ]
+  },
+  {
+    "Description": "The etcd Metrics Server is meant to be collocated with the etcd server to collect and expose runtime statistics for the Collector.",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor491874887/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "etcd_metrics_server",
+    "Packages": [
+      {
+        "Name": "etcd-common"
+      },
+      {
+        "Name": "etcd_metrics_server"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "NATS server password",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.nats.password"
+      },
+      {
+        "Default": "",
+        "Description": "basic auth password for metrics server (leave empty for generated)",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.status.password"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.client_cert"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Address of any etcd server to instrument.\nTarget etcd server does not need to be colocated with this etcd_metrics_server.\nThis address must be an IP or a domain name that resolves to a single etcd server.\nThis property is only used if 'etcd_metrics_server.etcd.require_ssl' is 'false'.\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.machine"
+      },
+      {
+        "Default": 4001,
+        "Description": "port of etcd server to instrument",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.port"
+      },
+      {
+        "Default": null,
+        "Description": "array of NATS addresses",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.nats.machines"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.client_key"
+      },
+      {
+        "Default": "",
+        "Description": "basic auth username for metrics server (leave empty for generated)",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.status.username"
+      },
+      {
+        "Default": false,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "DNS suffix of the etcd server to instrument.\nTarget etcd server must be colocated with this etcd_metrics_server.\nThis property is only used if 'etcd_metrics_server.etcd.require_ssl' is 'true'.\"\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.dns_suffix"
+      },
+      {
+        "Default": 4222,
+        "Description": "NATS server port",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "NATS server username",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.nats.username"
+      },
+      {
+        "Default": 5678,
+        "Description": "listening port for metrics server",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.status.port"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_metrics_server.etcd.ca_cert"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/etcd_metrics_server_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor491874887/templates/etcd_metrics_server_ctl.erb",
+        "SrcPathEnd": "etcd_metrics_server_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor491874887/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      },
+      {
+        "DstPathEnd": "certs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor491874887/templates/client.crt.erb",
+        "SrcPathEnd": "client.crt.erb"
+      },
+      {
+        "DstPathEnd": "certs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor491874887/templates/client.key.erb",
+        "SrcPathEnd": "client.key.erb"
+      },
+      {
+        "DstPathEnd": "certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor491874887/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      }
+    ]
+  },
+  {
+    "Description": "etcd http proxy server",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor227754513/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "etcd_proxy",
+    "Packages": [
+      {
+        "Name": "etcd-common"
+      },
+      {
+        "Name": "etcd_proxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "etcd.service.cf.internal",
+        "Description": "dns suffix of etcd server",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_proxy.etcd.dns_suffix"
+      },
+      {
+        "Default": 4001,
+        "Description": "port of the etcd server",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_proxy.etcd.port"
+      },
+      {
+        "Default": "",
+        "Description": "etcd ca certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_proxy.etcd.ca_cert"
+      },
+      {
+        "Default": "",
+        "Description": "etcd client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_proxy.etcd.client_cert"
+      },
+      {
+        "Default": "",
+        "Description": "etcd client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_proxy.etcd.client_key"
+      },
+      {
+        "Default": 4001,
+        "Description": "port of proxy server",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_proxy.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/etcd_proxy_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor227754513/templates/etcd_proxy_ctl.erb",
+        "SrcPathEnd": "etcd_proxy_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor227754513/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor005636715/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "etcd_testconsumer",
+    "Packages": [
+      {
+        "Name": "testconsumer"
+      },
+      {
+        "Name": "etcd-dns-checker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "",
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_testconsumer.etcd.client_cert"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_testconsumer.etcd.client_key"
+      },
+      {
+        "Default": "consul.service.cf.internal",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_testconsumer.etcd.dns_health_check_host"
+      },
+      {
+        "Default": false,
+        "Description": "enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_testconsumer.etcd.require_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Addresses of etcd machines",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_testconsumer.etcd.machines"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "etcd_testconsumer.etcd.ca_cert"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/etcd_testconsumer_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor005636715/templates/etcd_testconsumer_ctl.sh.erb",
+        "SrcPathEnd": "etcd_testconsumer_ctl.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/mnt/tmp/tar-CmdExtractor005636715/templates/pre-start.erb",
+        "SrcPathEnd": "pre-start.erb"
+      }
+    ]
+  }
+]

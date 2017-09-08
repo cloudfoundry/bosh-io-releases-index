@@ -1,201 +1,288 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor110738239/monit
-    SrcPathEnd: monit
-  Name: riemann
-  Packages:
-  - Name: java
-  - Name: riemann
-  Properties:
-  - Default: null
-    Description: VictorOps API key
-    Example: null
-    Examples: null
-    Name: riemann.victorops.apikey
-  - Default: 0.9
-    Description: 'InfluxDB version (available values: 0.8, 0.9)'
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.version
-  - Default: null
-    Description: Mail from address
-    Example: null
-    Examples: null
-    Name: riemann.mailer.from
-  - Default: null
-    Description: SMTP Server
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-server
-  - Default: null
-    Description: SMTP User
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-user
-  - Default: ""
-    Description: Custom alert rules
-    Example: null
-    Examples: null
-    Name: riemann.custom_rules
-  - Default: https://alert.victorops.com/integrations/generic/20131114/alert
-    Description: VictorOps API URL endpoint
-    Example: null
-    Examples: null
-    Name: riemann.victorops.apiendpoint
-  - Default: 8086
-    Description: InfluxDB port
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.port
-  - Default: null
-    Description: Specifies the maximum size of the memory allocation pool
-    Example: null
-    Examples: null
-    Name: riemann.java.xmx
-  - Default: 30
-    Description: ""
-    Example: null
-    Examples: null
-    Name: riemann.periodically_expire
-  - Default: riemann
-    Description: VictorOps routing key
-    Example: null
-    Examples: null
-    Name: riemann.victorops.routingkey
-  - Default: 100
-    Description: The number of connections to keep open to Graphite
-    Example: null
-    Examples: null
-    Name: riemann.graphite.pool
-  - Default: 10000
-    Description: Queue size for Riemann ThreadPool Service to Graphite
-    Example: null
-    Examples: null
-    Name: riemann.graphite.threadpool.queue
-  - Default: null
-    Description: InfluxDB host
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.host
-  - Default: 10000
-    Description: The queue size for Riemann ThreadPool Service to InfluxDB
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.threadpool.queue
-  - Default: null
-    Description: Specifies the initial size of the memory allocation pool
-    Example: null
-    Examples: null
-    Name: riemann.java.xms
-  - Default:
-    - name: tcp
-      port: 5555
-    Description: |
-      Array of servers to enable and their port, possible values:
-      - {name: "tcp", port: 5555}
-      - {name: "udp", port: 5555}
-      - {name: "ws", port: 5556}
-      - {name: "graphite", port: 2003, ttl: 60}
-      - {name: "opentsdb", port: 4242}
-    Example: null
-    Examples: null
-    Name: riemann.listener.list
-  - Default: null
-    Description: Mail to address
-    Example: null
-    Examples: null
-    Name: riemann.mailer.to
-  - Default: null
-    Description: SMTP Password
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-password
-  - Default: null
-    Description: Graphite hostname
-    Example: null
-    Examples: null
-    Name: riemann.graphite.host
-  - Default: 100
-    Description: Maximum allowed number of threads for Riemann ThreadPool Service
-      to Graphite
-    Example: null
-    Examples: null
-    Name: riemann.graphite.threadpool.maxsize
-  - Default: 0
-    Description: Number of seconds an event state must remains the same before alerting
-    Example: null
-    Examples: null
-    Name: riemann.victorops.stable-time
-  - Default: null
-    Description: InfluxDB database password
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.password
-  - Default: 60
-    Description: Default ttl for index
-    Example: null
-    Examples: null
-    Name: riemann.index_ttl
-  - Default: null
-    Description: SMTP Port
-    Example: null
-    Examples: null
-    Name: riemann.mailer.smtp-port
-  - Default: 2003
-    Description: Graphite port
-    Example: null
-    Examples: null
-    Name: riemann.graphite.port
-  - Default: null
-    Description: InfluxDB database username
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.username
-  - Default: 100
-    Description: The maximum allowed number of threads for Riemann ThreadPool Service
-      to InfluxDB
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.threadpool.maxsize
-  - Default: 0.0.0.0
-    Description: Address on which all riemann servers will listen on
-    Example: null
-    Examples: null
-    Name: riemann.listener.addr
-  - Default: null
-    Description: InfluxDB database name
-    Example: null
-    Examples: null
-    Name: riemann.influxdb.database
-  Templates:
-  - DstPathEnd: bin/monit_debugger
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/bin/monit_debugger
-    SrcPathEnd: bin/monit_debugger
-  - DstPathEnd: data/properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/data/properties.sh.erb
-    SrcPathEnd: data/properties.sh.erb
-  - DstPathEnd: config/alert.clj
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/config/alert.clj.erb
-    SrcPathEnd: config/alert.clj.erb
-  - DstPathEnd: config/influxdb.clj
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/config/influxdb.clj.erb
-    SrcPathEnd: config/influxdb.clj.erb
-  - DstPathEnd: config/victorops.clj
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/config/victorops.clj.erb
-    SrcPathEnd: config/victorops.clj.erb
-  - DstPathEnd: bin/riemann_ctl
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/bin/riemann_ctl
-    SrcPathEnd: bin/riemann_ctl
-  - DstPathEnd: helpers/ctl_setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/helpers/ctl_setup.sh
-    SrcPathEnd: helpers/ctl_setup.sh
-  - DstPathEnd: helpers/ctl_utils.sh
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/helpers/ctl_utils.sh
-    SrcPathEnd: helpers/ctl_utils.sh
-  - DstPathEnd: config/riemann.config
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/config/riemann.config.erb
-    SrcPathEnd: config/riemann.config.erb
-  - DstPathEnd: config/graphite.clj
-    Path: /mnt/tmp/tar-CmdExtractor110738239/templates/config/graphite.clj.erb
-    SrcPathEnd: config/graphite.clj.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor110738239/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "riemann",
+    "Packages": [
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "riemann"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "VictorOps API key",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.apikey"
+      },
+      {
+        "Default": 0.9,
+        "Description": "InfluxDB version (available values: 0.8, 0.9)",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.version"
+      },
+      {
+        "Default": null,
+        "Description": "Mail from address",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.from"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-server"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP User",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-user"
+      },
+      {
+        "Default": "",
+        "Description": "Custom alert rules",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.custom_rules"
+      },
+      {
+        "Default": "https://alert.victorops.com/integrations/generic/20131114/alert",
+        "Description": "VictorOps API URL endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.apiendpoint"
+      },
+      {
+        "Default": 8086,
+        "Description": "InfluxDB port",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.port"
+      },
+      {
+        "Default": null,
+        "Description": "Specifies the maximum size of the memory allocation pool",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.java.xmx"
+      },
+      {
+        "Default": 30,
+        "Description": "",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.periodically_expire"
+      },
+      {
+        "Default": "riemann",
+        "Description": "VictorOps routing key",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.routingkey"
+      },
+      {
+        "Default": 100,
+        "Description": "The number of connections to keep open to Graphite",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.pool"
+      },
+      {
+        "Default": 10000,
+        "Description": "Queue size for Riemann ThreadPool Service to Graphite",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.threadpool.queue"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB host",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.host"
+      },
+      {
+        "Default": 10000,
+        "Description": "The queue size for Riemann ThreadPool Service to InfluxDB",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.threadpool.queue"
+      },
+      {
+        "Default": null,
+        "Description": "Specifies the initial size of the memory allocation pool",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.java.xms"
+      },
+      {
+        "Default": [
+          {
+            "name": "tcp",
+            "port": 5555
+          }
+        ],
+        "Description": "Array of servers to enable and their port, possible values:\n- {name: \"tcp\", port: 5555}\n- {name: \"udp\", port: 5555}\n- {name: \"ws\", port: 5556}\n- {name: \"graphite\", port: 2003, ttl: 60}\n- {name: \"opentsdb\", port: 4242}\n",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.listener.list"
+      },
+      {
+        "Default": null,
+        "Description": "Mail to address",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.to"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Password",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-password"
+      },
+      {
+        "Default": null,
+        "Description": "Graphite hostname",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.host"
+      },
+      {
+        "Default": 100,
+        "Description": "Maximum allowed number of threads for Riemann ThreadPool Service to Graphite",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.threadpool.maxsize"
+      },
+      {
+        "Default": 0,
+        "Description": "Number of seconds an event state must remains the same before alerting",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.victorops.stable-time"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB database password",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.password"
+      },
+      {
+        "Default": 60,
+        "Description": "Default ttl for index",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.index_ttl"
+      },
+      {
+        "Default": null,
+        "Description": "SMTP Port",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.mailer.smtp-port"
+      },
+      {
+        "Default": 2003,
+        "Description": "Graphite port",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.graphite.port"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB database username",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.username"
+      },
+      {
+        "Default": 100,
+        "Description": "The maximum allowed number of threads for Riemann ThreadPool Service to InfluxDB",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.threadpool.maxsize"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "Address on which all riemann servers will listen on",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.listener.addr"
+      },
+      {
+        "Default": null,
+        "Description": "InfluxDB database name",
+        "Example": null,
+        "Examples": null,
+        "Name": "riemann.influxdb.database"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/bin/monit_debugger",
+        "SrcPathEnd": "bin/monit_debugger"
+      },
+      {
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/data/properties.sh.erb",
+        "SrcPathEnd": "data/properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "config/alert.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/config/alert.clj.erb",
+        "SrcPathEnd": "config/alert.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/influxdb.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/config/influxdb.clj.erb",
+        "SrcPathEnd": "config/influxdb.clj.erb"
+      },
+      {
+        "DstPathEnd": "config/victorops.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/config/victorops.clj.erb",
+        "SrcPathEnd": "config/victorops.clj.erb"
+      },
+      {
+        "DstPathEnd": "bin/riemann_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/bin/riemann_ctl",
+        "SrcPathEnd": "bin/riemann_ctl"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/helpers/ctl_setup.sh",
+        "SrcPathEnd": "helpers/ctl_setup.sh"
+      },
+      {
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/helpers/ctl_utils.sh",
+        "SrcPathEnd": "helpers/ctl_utils.sh"
+      },
+      {
+        "DstPathEnd": "config/riemann.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/config/riemann.config.erb",
+        "SrcPathEnd": "config/riemann.config.erb"
+      },
+      {
+        "DstPathEnd": "config/graphite.clj",
+        "Path": "/mnt/tmp/tar-CmdExtractor110738239/templates/config/graphite.clj.erb",
+        "SrcPathEnd": "config/graphite.clj.erb"
+      }
+    ]
+  }
+]

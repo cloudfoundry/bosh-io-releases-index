@@ -1,383 +1,614 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor236899545/monit
-    SrcPathEnd: monit
-  Name: docker
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: false
-    Description: Restart previously running containers
-    Example: null
-    Name: docker.restart
-  - Default: false
-    Description: Enable CORS headers in the remote API
-    Example: null
-    Name: docker.api_enable_cors
-  - Default: true
-    Description: Enable inter-container communication
-    Example: null
-    Name: docker.icc
-  - Default: null
-    Description: Array of DNS servers to be used by Docker
-    Example: null
-    Name: docker.dns_servers
-  - Default: null
-    Description: Array of DNS search domains to be used by Docker
-    Example: null
-    Name: docker.dns_domains
-  - Default: false
-    Description: Enable debug mode
-    Example: null
-    Name: docker.debug
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: 127.0.0.1
-    Description: TCP address where Docker daemon will listen to (if not set, TCP will
-      not be available)
-    Example: null
-    Name: docker.tcp_address
-  - Default: "4243"
-    Description: TCP port where Docker daemon will listen to (if not set, TCP will
-      not be available)
-    Example: null
-    Name: docker.tcp_port
-  - Default: true
-    Description: Enable Docker addition of iptables rules
-    Example: null
-    Name: docker.iptables
-  - Default: true
-    Description: Enable net.ipv4.ip_forward
-    Example: null
-    Name: docker.ip_forward
-  - Default: null
-    Description: Docker Containers network MTU
-    Example: null
-    Name: docker.mtu
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  Templates:
-  - DstPathEnd: bin/cgroupfs-mount
-    Path: /mnt/tmp/tar-CmdExtractor236899545/templates/bin/cgroupfs-mount
-    SrcPathEnd: bin/cgroupfs-mount
-  - DstPathEnd: bin/docker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor236899545/templates/bin/docker_ctl
-    SrcPathEnd: bin/docker_ctl
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor236899545/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor698561651/monit
-    SrcPathEnd: monit
-  Name: shipyard
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: shipyard
-    Description: Shipyard database user
-    Example: null
-    Name: shipyard.db.user
-  - Default: 127.0.0.1
-    Description: Shipyard database address/hostname
-    Example: null
-    Name: shipyard.db.host
-  - Default: "True"
-    Description: Shipyard debug enabled/disabled
-    Example: null
-    Name: shipyard.debug
-  - Default: "8000"
-    Description: Shipyard port
-    Example: null
-    Name: shipyard.port
-  - Default: "4"
-    Description: Shipyard Celery workers
-    Example: null
-    Name: shipyard.celery_workers
-  - Default: shipyard
-    Description: Shipyard database name
-    Example: null
-    Name: shipyard.db.name
-  - Default: "5432"
-    Description: TCP Port where Shipyard database will listen to
-    Example: null
-    Name: shipyard.db.port
-  - Default: 127.0.0.1
-    Description: Shipyard redis address/hostname
-    Example: null
-    Name: shipyard.redis.host
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: "6379"
-    Description: TCP Port where Shipyard redis will listen to
-    Example: null
-    Name: shipyard.redis.port
-  - Default: postgresql_psycopg2
-    Description: Shipyard database type
-    Example: null
-    Name: shipyard.db.type
-  - Default: shipyard
-    Description: Shipyard admin password
-    Example: null
-    Name: shipyard.admin_pass
-  - Default: c1oudc0w
-    Description: Shipyard database password
-    Example: null
-    Name: shipyard.db.password
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor698561651/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/shipyard_ctl
-    Path: /mnt/tmp/tar-CmdExtractor698561651/templates/bin/shipyard_ctl
-    SrcPathEnd: bin/shipyard_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor359152925/monit
-    SrcPathEnd: monit
-  Name: shipyard_db
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: c1oudc0w
-    Description: Shipyard database password
-    Example: null
-    Name: shipyard.db.password
-  - Default: shipyard
-    Description: Shipyard database name
-    Example: null
-    Name: shipyard.db.name
-  - Default: "5432"
-    Description: TCP Port where Shipyard database will listen to
-    Example: null
-    Name: shipyard.db.port
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: postgresql_psycopg2
-    Description: Shipyard database type
-    Example: null
-    Name: shipyard.db.type
-  - Default: shipyard
-    Description: Shipyard database user
-    Example: null
-    Name: shipyard.db.user
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor359152925/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/shipyard_db_ctl
-    Path: /mnt/tmp/tar-CmdExtractor359152925/templates/bin/shipyard_db_ctl
-    SrcPathEnd: bin/shipyard_db_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor738042199/monit
-    SrcPathEnd: monit
-  Name: shipyard_lb
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: 127.0.0.1
-    Description: Shipyard redis address/hostname
-    Example: null
-    Name: shipyard.redis.host
-  - Default: "8080"
-    Description: TCP Port where Shipyard router will listen to
-    Example: null
-    Name: shipyard.router.port
-  - Default: null
-    Description: 'Shipyard load balancer DNS resolver for Nginx (default: system dns)'
-    Example: null
-    Name: shipyard.lb.resolver
-  - Default: null
-    Description: SSL certificate
-    Example: null
-    Name: shipyard.lb.ssl_cert
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: "6379"
-    Description: TCP Port where Shipyard redis will listen to
-    Example: null
-    Name: shipyard.redis.port
-  - Default:
-    - 127.0.0.1
-    Description: Shipyard load balancer router upstreams address/hostname
-    Example: null
-    Name: shipyard.lb.routers
-  - Default: null
-    Description: SSL private key
-    Example: null
-    Name: shipyard.lb.ssl_key
-  Templates:
-  - DstPathEnd: bin/shipyard_lb_ctl
-    Path: /mnt/tmp/tar-CmdExtractor738042199/templates/bin/shipyard_lb_ctl
-    SrcPathEnd: bin/shipyard_lb_ctl
-  - DstPathEnd: config/ssl.key
-    Path: /mnt/tmp/tar-CmdExtractor738042199/templates/config/ssl.key.erb
-    SrcPathEnd: config/ssl.key.erb
-  - DstPathEnd: config/ssl.cert
-    Path: /mnt/tmp/tar-CmdExtractor738042199/templates/config/ssl.cert.erb
-    SrcPathEnd: config/ssl.cert.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor738042199/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor479026081/monit
-    SrcPathEnd: monit
-  Name: shipyard_redis
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: "6379"
-    Description: TCP Port where Shipyard redis will listen to
-    Example: null
-    Name: shipyard.redis.port
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor479026081/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/shipyard_redis_ctl
-    Path: /mnt/tmp/tar-CmdExtractor479026081/templates/bin/shipyard_redis_ctl
-    SrcPathEnd: bin/shipyard_redis_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor277207163/monit
-    SrcPathEnd: monit
-  Name: shipyard_router
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: "100"
-    Description: Shipyard router maximum number of sockets
-    Example: null
-    Name: shipyard.router.max_sockets
-  - Default: "30"
-    Description: Shipyard router number of seconds before backend is labeled dead
-    Example: null
-    Name: shipyard.router.dead_backend_ttl
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: 127.0.0.1
-    Description: Shipyard redis address/hostname
-    Example: null
-    Name: shipyard.redis.host
-  - Default: "6379"
-    Description: TCP Port where Shipyard redis will listen to
-    Example: null
-    Name: shipyard.redis.port
-  - Default: "8080"
-    Description: TCP Port where Shipyard router will listen to
-    Example: null
-    Name: shipyard.router.port
-  - Default: "5"
-    Description: Shipyard router number of workers
-    Example: null
-    Name: shipyard.router.workers
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor277207163/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/shipyard_router_ctl
-    Path: /mnt/tmp/tar-CmdExtractor277207163/templates/bin/shipyard_router_ctl
-    SrcPathEnd: bin/shipyard_router_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor783701093/monit
-    SrcPathEnd: monit
-  Name: shipyardagent
-  Packages:
-  - Name: bosh-helpers
-  - Name: shipyard-agent
-  Properties:
-  - Default: "5"
-    Description: Shipyard Agent run interval (seconds)
-    Example: null
-    Name: shipyard.agent.interval
-  - Default: "60"
-    Description: Shipyard Agent metric interval (seconds)
-    Example: null
-    Name: shipyard.agent.metric-interval
-  - Default: "4243"
-    Description: Local Docker daemon TCP port
-    Example: null
-    Name: docker.tcp_port
-  - Default: 0.0.0.0
-    Description: Shipyard Agent listen address
-    Example: null
-    Name: shipyard.agent.address
-  - Default: "4500"
-    Description: Shipyard Agent listen port
-    Example: null
-    Name: shipyard.agent.port
-  - Default: vcap
-    Description: Group which will own the Shipyard Agent services
-    Example: null
-    Name: shipyard.agent.group
-  - Default: null
-    Description: Shipyard Host
-    Example: null
-    Name: shipyard.host
-  - Default: "8000"
-    Description: Shipyard port
-    Example: null
-    Name: shipyard.port
-  - Default: root
-    Description: User which will own the Shipyard Agent services
-    Example: null
-    Name: shipyard.agent.user
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor783701093/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/shipyardagent_ctl
-    Path: /mnt/tmp/tar-CmdExtractor783701093/templates/bin/shipyardagent_ctl
-    SrcPathEnd: bin/shipyardagent_ctl
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor236899545/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "docker",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Restart previously running containers",
+        "Example": null,
+        "Name": "docker.restart"
+      },
+      {
+        "Default": false,
+        "Description": "Enable CORS headers in the remote API",
+        "Example": null,
+        "Name": "docker.api_enable_cors"
+      },
+      {
+        "Default": true,
+        "Description": "Enable inter-container communication",
+        "Example": null,
+        "Name": "docker.icc"
+      },
+      {
+        "Default": null,
+        "Description": "Array of DNS servers to be used by Docker",
+        "Example": null,
+        "Name": "docker.dns_servers"
+      },
+      {
+        "Default": null,
+        "Description": "Array of DNS search domains to be used by Docker",
+        "Example": null,
+        "Name": "docker.dns_domains"
+      },
+      {
+        "Default": false,
+        "Description": "Enable debug mode",
+        "Example": null,
+        "Name": "docker.debug"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "TCP address where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Example": null,
+        "Name": "docker.tcp_address"
+      },
+      {
+        "Default": "4243",
+        "Description": "TCP port where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Example": null,
+        "Name": "docker.tcp_port"
+      },
+      {
+        "Default": true,
+        "Description": "Enable Docker addition of iptables rules",
+        "Example": null,
+        "Name": "docker.iptables"
+      },
+      {
+        "Default": true,
+        "Description": "Enable net.ipv4.ip_forward",
+        "Example": null,
+        "Name": "docker.ip_forward"
+      },
+      {
+        "Default": null,
+        "Description": "Docker Containers network MTU",
+        "Example": null,
+        "Name": "docker.mtu"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/cgroupfs-mount",
+        "Path": "/mnt/tmp/tar-CmdExtractor236899545/templates/bin/cgroupfs-mount",
+        "SrcPathEnd": "bin/cgroupfs-mount"
+      },
+      {
+        "DstPathEnd": "bin/docker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor236899545/templates/bin/docker_ctl",
+        "SrcPathEnd": "bin/docker_ctl"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor236899545/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor698561651/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shipyard",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "shipyard",
+        "Description": "Shipyard database user",
+        "Example": null,
+        "Name": "shipyard.db.user"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Shipyard database address/hostname",
+        "Example": null,
+        "Name": "shipyard.db.host"
+      },
+      {
+        "Default": "True",
+        "Description": "Shipyard debug enabled/disabled",
+        "Example": null,
+        "Name": "shipyard.debug"
+      },
+      {
+        "Default": "8000",
+        "Description": "Shipyard port",
+        "Example": null,
+        "Name": "shipyard.port"
+      },
+      {
+        "Default": "4",
+        "Description": "Shipyard Celery workers",
+        "Example": null,
+        "Name": "shipyard.celery_workers"
+      },
+      {
+        "Default": "shipyard",
+        "Description": "Shipyard database name",
+        "Example": null,
+        "Name": "shipyard.db.name"
+      },
+      {
+        "Default": "5432",
+        "Description": "TCP Port where Shipyard database will listen to",
+        "Example": null,
+        "Name": "shipyard.db.port"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Shipyard redis address/hostname",
+        "Example": null,
+        "Name": "shipyard.redis.host"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "6379",
+        "Description": "TCP Port where Shipyard redis will listen to",
+        "Example": null,
+        "Name": "shipyard.redis.port"
+      },
+      {
+        "Default": "postgresql_psycopg2",
+        "Description": "Shipyard database type",
+        "Example": null,
+        "Name": "shipyard.db.type"
+      },
+      {
+        "Default": "shipyard",
+        "Description": "Shipyard admin password",
+        "Example": null,
+        "Name": "shipyard.admin_pass"
+      },
+      {
+        "Default": "c1oudc0w",
+        "Description": "Shipyard database password",
+        "Example": null,
+        "Name": "shipyard.db.password"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor698561651/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/shipyard_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor698561651/templates/bin/shipyard_ctl",
+        "SrcPathEnd": "bin/shipyard_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor359152925/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shipyard_db",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "c1oudc0w",
+        "Description": "Shipyard database password",
+        "Example": null,
+        "Name": "shipyard.db.password"
+      },
+      {
+        "Default": "shipyard",
+        "Description": "Shipyard database name",
+        "Example": null,
+        "Name": "shipyard.db.name"
+      },
+      {
+        "Default": "5432",
+        "Description": "TCP Port where Shipyard database will listen to",
+        "Example": null,
+        "Name": "shipyard.db.port"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": "postgresql_psycopg2",
+        "Description": "Shipyard database type",
+        "Example": null,
+        "Name": "shipyard.db.type"
+      },
+      {
+        "Default": "shipyard",
+        "Description": "Shipyard database user",
+        "Example": null,
+        "Name": "shipyard.db.user"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor359152925/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/shipyard_db_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor359152925/templates/bin/shipyard_db_ctl",
+        "SrcPathEnd": "bin/shipyard_db_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor738042199/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shipyard_lb",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Shipyard redis address/hostname",
+        "Example": null,
+        "Name": "shipyard.redis.host"
+      },
+      {
+        "Default": "8080",
+        "Description": "TCP Port where Shipyard router will listen to",
+        "Example": null,
+        "Name": "shipyard.router.port"
+      },
+      {
+        "Default": null,
+        "Description": "Shipyard load balancer DNS resolver for Nginx (default: system dns)",
+        "Example": null,
+        "Name": "shipyard.lb.resolver"
+      },
+      {
+        "Default": null,
+        "Description": "SSL certificate",
+        "Example": null,
+        "Name": "shipyard.lb.ssl_cert"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "6379",
+        "Description": "TCP Port where Shipyard redis will listen to",
+        "Example": null,
+        "Name": "shipyard.redis.port"
+      },
+      {
+        "Default": [
+          "127.0.0.1"
+        ],
+        "Description": "Shipyard load balancer router upstreams address/hostname",
+        "Example": null,
+        "Name": "shipyard.lb.routers"
+      },
+      {
+        "Default": null,
+        "Description": "SSL private key",
+        "Example": null,
+        "Name": "shipyard.lb.ssl_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/shipyard_lb_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor738042199/templates/bin/shipyard_lb_ctl",
+        "SrcPathEnd": "bin/shipyard_lb_ctl"
+      },
+      {
+        "DstPathEnd": "config/ssl.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor738042199/templates/config/ssl.key.erb",
+        "SrcPathEnd": "config/ssl.key.erb"
+      },
+      {
+        "DstPathEnd": "config/ssl.cert",
+        "Path": "/mnt/tmp/tar-CmdExtractor738042199/templates/config/ssl.cert.erb",
+        "SrcPathEnd": "config/ssl.cert.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor738042199/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor479026081/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shipyard_redis",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": "6379",
+        "Description": "TCP Port where Shipyard redis will listen to",
+        "Example": null,
+        "Name": "shipyard.redis.port"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor479026081/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/shipyard_redis_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor479026081/templates/bin/shipyard_redis_ctl",
+        "SrcPathEnd": "bin/shipyard_redis_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor277207163/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shipyard_router",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "100",
+        "Description": "Shipyard router maximum number of sockets",
+        "Example": null,
+        "Name": "shipyard.router.max_sockets"
+      },
+      {
+        "Default": "30",
+        "Description": "Shipyard router number of seconds before backend is labeled dead",
+        "Example": null,
+        "Name": "shipyard.router.dead_backend_ttl"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Shipyard redis address/hostname",
+        "Example": null,
+        "Name": "shipyard.redis.host"
+      },
+      {
+        "Default": "6379",
+        "Description": "TCP Port where Shipyard redis will listen to",
+        "Example": null,
+        "Name": "shipyard.redis.port"
+      },
+      {
+        "Default": "8080",
+        "Description": "TCP Port where Shipyard router will listen to",
+        "Example": null,
+        "Name": "shipyard.router.port"
+      },
+      {
+        "Default": "5",
+        "Description": "Shipyard router number of workers",
+        "Example": null,
+        "Name": "shipyard.router.workers"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor277207163/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/shipyard_router_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor277207163/templates/bin/shipyard_router_ctl",
+        "SrcPathEnd": "bin/shipyard_router_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor783701093/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "shipyardagent",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "shipyard-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "5",
+        "Description": "Shipyard Agent run interval (seconds)",
+        "Example": null,
+        "Name": "shipyard.agent.interval"
+      },
+      {
+        "Default": "60",
+        "Description": "Shipyard Agent metric interval (seconds)",
+        "Example": null,
+        "Name": "shipyard.agent.metric-interval"
+      },
+      {
+        "Default": "4243",
+        "Description": "Local Docker daemon TCP port",
+        "Example": null,
+        "Name": "docker.tcp_port"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "Shipyard Agent listen address",
+        "Example": null,
+        "Name": "shipyard.agent.address"
+      },
+      {
+        "Default": "4500",
+        "Description": "Shipyard Agent listen port",
+        "Example": null,
+        "Name": "shipyard.agent.port"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Shipyard Agent services",
+        "Example": null,
+        "Name": "shipyard.agent.group"
+      },
+      {
+        "Default": null,
+        "Description": "Shipyard Host",
+        "Example": null,
+        "Name": "shipyard.host"
+      },
+      {
+        "Default": "8000",
+        "Description": "Shipyard port",
+        "Example": null,
+        "Name": "shipyard.port"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Shipyard Agent services",
+        "Example": null,
+        "Name": "shipyard.agent.user"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor783701093/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/shipyardagent_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor783701093/templates/bin/shipyardagent_ctl",
+        "SrcPathEnd": "bin/shipyardagent_ctl"
+      }
+    ]
+  }
+]

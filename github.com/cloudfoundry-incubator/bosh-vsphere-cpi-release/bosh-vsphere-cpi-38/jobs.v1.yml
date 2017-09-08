@@ -1,289 +1,399 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor538690705/monit
-    SrcPathEnd: monit
-  Name: vsphere_cpi
-  Packages:
-  - Name: vsphere_cpi_mkisofs
-  - Name: vsphere_cpi_ruby
-  - Name: vsphere_cpi
-  Properties:
-  - Default: null
-    Description: Password to connect to vCenter server used by vspher cpi
-    Example: null
-    Examples: null
-    Name: vcenter.password
-  - Default: false
-    Description: Creates DRS rule to place VMs on separate hosts.
-    Example: null
-    Examples: null
-    Name: vcenter.enable_auto_anti_affinity_drs_rules
-  - Default: null
-    Description: AWS region used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_region
-  - Default: false
-    Description: Whether s3 blobstore plugin will always use path style for bucket
-      access
-    Example: null
-    Examples: null
-    Name: blobstore.s3_force_path_style
-  - Default: null
-    Description: s3 blobstore threshold for multipart uploads
-    Example: null
-    Examples: null
-    Name: blobstore.s3_multipart_threshold
-  - Default: null
-    Description: Password agent uses to connect to blobstore used by dav blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.agent.password
-  - Default: null
-    Description: Address of the nats server
-    Example: null
-    Examples: null
-    Name: nats.address
-  - Default: preallocated
-    Description: backing for ephemeral and persistent disks unless overridden by `disk_pools.cloud_properties.type`;
-      can be `thin` or `preallocated`
-    Example: null
-    Examples: null
-    Name: vcenter.default_disk_type
-  - Default: null
-    Description: AWS secret_access_key for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.secret_access_key
-  - Default: null
-    Description: Port of agent blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_port
-  - Default: null
-    Description: AWS region used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.s3_region
-  - Default: 443
-    Description: Port of blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.s3_port
-  - Default: 4222
-    Description: Port that the nats server listens on
-    Example: null
-    Examples: null
-    Name: nats.port
-  - Default: false
-    Description: Enables HTTP level logging. Each HTTP request to vcenter will be
-      logged
-    Example: null
-    Examples: null
-    Name: vcenter.http_logging
-  - Default: null
-    Description: Agent blobstore threshold for multipart uploads
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_multipart_threshold
-  - Default: null
-    Description: Signature version used to connect to an s3 blobstore
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_signature_version
-  - Default: null
-    Description: Signature version used to connect to an s3 blobstore
-    Example: null
-    Examples: null
-    Name: blobstore.s3_signature_version
-  - Default: nats
-    Description: Username to connect to nats with
-    Example: null
-    Examples: null
-    Name: nats.user
-  - Default: null
-    Description: Datacenters in vCenter to use (value is an array of Hashes representing
-      datacenters and clusters, See director.yml.erb.erb)
-    Example: null
-    Examples: null
-    Name: vcenter.datacenters
-  - Default:
-    - 0.pool.ntp.org
-    - 1.pool.ntp.org
-    Description: List of ntp server IPs. pool.ntp.org attempts to return IPs closest
-      to your location, but you can still specify if needed.
-    Example: null
-    Examples: null
-    Name: ntp
-  - Default: null
-    Description: Address for agent to connect to blobstore server used by dav blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.address
-  - Default: null
-    Description: Whether the agent blobstore plugin should verify its peer when using
-      SSL
-    Example: null
-    Examples: null
-    Name: agent.blobstore.ssl_verify_peer
-  - Default: dav
-    Description: Provider of the blobstore used by director and agent (dav|local|s3)
-    Example: null
-    Examples: null
-    Name: blobstore.provider
-  - Default: null
-    Description: AWS S3 Bucket used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.bucket_name
-  - Default: null
-    Description: AWS access_key_id used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.access_key_id
-  - Default: null
-    Description: AWS secret_access_key used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.secret_access_key
-  - Default: null
-    Description: User to connect to vCenter server used by vsphere cpi
-    Example: null
-    Examples: null
-    Name: vcenter.user
-  - Default: null
-    Description: No Proxy environment variable
-    Example: null
-    Examples: null
-    Name: env.no_proxy
-  - Default: null
-    Description: Address of blobstore server used by dav blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.address
-  - Default: null
-    Description: AWS access_key_id for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.access_key_id
-  - Default: null
-    Description: Agent mbus
-    Example: null
-    Examples: null
-    Name: agent.mbus
-  - Default: null
-    Description: Host of agent blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.host
-  - Default: true
-    Description: Whether the s3 blobstore plugin should use SSL to connect to the
-      blobstore server
-    Example: null
-    Examples: null
-    Name: blobstore.use_ssl
-  - Default: null
-    Description: Password to connect to nats with
-    Example: null
-    Examples: null
-    Name: nats.password
-  - Default: null
-    Description: Address of the NSX manager
-    Example: null
-    Examples: null
-    Name: vcenter.nsx.address
-  - Default: null
-    Description: Password to connect to NSX manager
-    Example: null
-    Examples: null
-    Name: vcenter.nsx.password
-  - Default: null
-    Description: All required custom CA certificates
-    Example: '-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----'
-    Examples: null
-    Name: vcenter.nsx.ca_cert
-  - Default: null
-    Description: Whether the agent blobstore plugin will always use path style for
-      bucket access
-    Example: null
-    Examples: null
-    Name: agent.blobstore.s3_force_path_style
-  - Default: null
-    Description: Host of blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.host
-  - Default: null
-    Description: User to connect to NSX manager
-    Example: null
-    Examples: null
-    Name: vcenter.nsx.user
-  - Default: 25250
-    Description: Port of blobstore server used by dav blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.port
-  - Default: null
-    Description: Http proxy to connect to cloud API's
-    Example: null
-    Examples: null
-    Name: env.http_proxy
-  - Default: null
-    Description: Https proxy to connect to cloud API's
-    Example: null
-    Examples: null
-    Name: env.https_proxy
-  - Default: null
-    Description: All required custom CA certificates
-    Example: '-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----'
-    Examples: null
-    Name: vcenter.connection_options.ca_cert
-  - Default: null
-    Description: Address of the nats server
-    Example: null
-    Examples: null
-    Name: agent.nats.address
-  - Default: null
-    Description: Whether the agent blobstore plugin should use SSL to connect to the
-      blobstore server
-    Example: null
-    Examples: null
-    Name: agent.blobstore.use_ssl
-  - Default: null
-    Description: Whether the s3 blobstore plugin should verify its peer when using
-      SSL
-    Example: null
-    Examples: null
-    Name: blobstore.ssl_verify_peer
-  - Default: null
-    Description: local blobstore path
-    Example: null
-    Examples: null
-    Name: blobstore.path
-  - Default: null
-    Description: Username agent uses to connect to blobstore used by dav blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.agent.user
-  - Default: null
-    Description: Address of vCenter server used by vsphere cpi
-    Example: null
-    Examples: null
-    Name: vcenter.address
-  Templates:
-  - DstPathEnd: config/cacert.pem
-    Path: /mnt/tmp/tar-CmdExtractor538690705/templates/cacert.pem.erb
-    SrcPathEnd: cacert.pem.erb
-  - DstPathEnd: bin/cpi
-    Path: /mnt/tmp/tar-CmdExtractor538690705/templates/cpi.erb
-    SrcPathEnd: cpi.erb
-  - DstPathEnd: config/cpi.json
-    Path: /mnt/tmp/tar-CmdExtractor538690705/templates/cpi.json.erb
-    SrcPathEnd: cpi.json.erb
-  - DstPathEnd: config/nsx_cacert.pem
-    Path: /mnt/tmp/tar-CmdExtractor538690705/templates/nsx_cacert.pem.erb
-    SrcPathEnd: nsx_cacert.pem.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor538690705/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "vsphere_cpi",
+    "Packages": [
+      {
+        "Name": "vsphere_cpi_mkisofs"
+      },
+      {
+        "Name": "vsphere_cpi_ruby"
+      },
+      {
+        "Name": "vsphere_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Password to connect to vCenter server used by vspher cpi",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.password"
+      },
+      {
+        "Default": false,
+        "Description": "Creates DRS rule to place VMs on separate hosts.",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.enable_auto_anti_affinity_drs_rules"
+      },
+      {
+        "Default": null,
+        "Description": "AWS region used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_region"
+      },
+      {
+        "Default": false,
+        "Description": "Whether s3 blobstore plugin will always use path style for bucket access",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_force_path_style"
+      },
+      {
+        "Default": null,
+        "Description": "s3 blobstore threshold for multipart uploads",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_multipart_threshold"
+      },
+      {
+        "Default": null,
+        "Description": "Password agent uses to connect to blobstore used by dav blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.password"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the nats server",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.address"
+      },
+      {
+        "Default": "preallocated",
+        "Description": "backing for ephemeral and persistent disks unless overridden by `disk_pools.cloud_properties.type`; can be `thin` or `preallocated`",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.default_disk_type"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "Port of agent blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_port"
+      },
+      {
+        "Default": null,
+        "Description": "AWS region used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_region"
+      },
+      {
+        "Default": 443,
+        "Description": "Port of blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_port"
+      },
+      {
+        "Default": 4222,
+        "Description": "Port that the nats server listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": false,
+        "Description": "Enables HTTP level logging. Each HTTP request to vcenter will be logged",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.http_logging"
+      },
+      {
+        "Default": null,
+        "Description": "Agent blobstore threshold for multipart uploads",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_multipart_threshold"
+      },
+      {
+        "Default": null,
+        "Description": "Signature version used to connect to an s3 blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_signature_version"
+      },
+      {
+        "Default": null,
+        "Description": "Signature version used to connect to an s3 blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_signature_version"
+      },
+      {
+        "Default": "nats",
+        "Description": "Username to connect to nats with",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Datacenters in vCenter to use (value is an array of Hashes representing datacenters and clusters, See director.yml.erb.erb)",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.datacenters"
+      },
+      {
+        "Default": [
+          "0.pool.ntp.org",
+          "1.pool.ntp.org"
+        ],
+        "Description": "List of ntp server IPs. pool.ntp.org attempts to return IPs closest to your location, but you can still specify if needed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "ntp"
+      },
+      {
+        "Default": null,
+        "Description": "Address for agent to connect to blobstore server used by dav blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the agent blobstore plugin should verify its peer when using SSL",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.ssl_verify_peer"
+      },
+      {
+        "Default": "dav",
+        "Description": "Provider of the blobstore used by director and agent (dav|local|s3)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.provider"
+      },
+      {
+        "Default": null,
+        "Description": "AWS S3 Bucket used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.bucket_name"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.access_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "User to connect to vCenter server used by vsphere cpi",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.user"
+      },
+      {
+        "Default": null,
+        "Description": "No Proxy environment variable",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.no_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "Address of blobstore server used by dav blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.access_key_id"
+      },
+      {
+        "Default": null,
+        "Description": "Agent mbus",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.mbus"
+      },
+      {
+        "Default": null,
+        "Description": "Host of agent blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.host"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the s3 blobstore plugin should use SSL to connect to the blobstore server",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.use_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Password to connect to nats with",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the NSX manager",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.nsx.address"
+      },
+      {
+        "Default": null,
+        "Description": "Password to connect to NSX manager",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.nsx.password"
+      },
+      {
+        "Default": null,
+        "Description": "All required custom CA certificates",
+        "Example": "-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----",
+        "Examples": null,
+        "Name": "vcenter.nsx.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the agent blobstore plugin will always use path style for bucket access",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.s3_force_path_style"
+      },
+      {
+        "Default": null,
+        "Description": "Host of blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.host"
+      },
+      {
+        "Default": null,
+        "Description": "User to connect to NSX manager",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.nsx.user"
+      },
+      {
+        "Default": 25250,
+        "Description": "Port of blobstore server used by dav blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.port"
+      },
+      {
+        "Default": null,
+        "Description": "Http proxy to connect to cloud API's",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.http_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "Https proxy to connect to cloud API's",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.https_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "All required custom CA certificates",
+        "Example": "-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----",
+        "Examples": null,
+        "Name": "vcenter.connection_options.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the nats server",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.nats.address"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the agent blobstore plugin should use SSL to connect to the blobstore server",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.use_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Whether the s3 blobstore plugin should verify its peer when using SSL",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.ssl_verify_peer"
+      },
+      {
+        "Default": null,
+        "Description": "local blobstore path",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.path"
+      },
+      {
+        "Default": null,
+        "Description": "Username agent uses to connect to blobstore used by dav blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.user"
+      },
+      {
+        "Default": null,
+        "Description": "Address of vCenter server used by vsphere cpi",
+        "Example": null,
+        "Examples": null,
+        "Name": "vcenter.address"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/cacert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor538690705/templates/cacert.pem.erb",
+        "SrcPathEnd": "cacert.pem.erb"
+      },
+      {
+        "DstPathEnd": "bin/cpi",
+        "Path": "/mnt/tmp/tar-CmdExtractor538690705/templates/cpi.erb",
+        "SrcPathEnd": "cpi.erb"
+      },
+      {
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor538690705/templates/cpi.json.erb",
+        "SrcPathEnd": "cpi.json.erb"
+      },
+      {
+        "DstPathEnd": "config/nsx_cacert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor538690705/templates/nsx_cacert.pem.erb",
+        "SrcPathEnd": "nsx_cacert.pem.erb"
+      }
+    ]
+  }
+]

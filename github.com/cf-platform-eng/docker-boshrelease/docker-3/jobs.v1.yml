@@ -1,102 +1,162 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor426446456/monit
-    SrcPathEnd: monit
-  Name: docker
-  Packages:
-  - Name: bosh-helpers
-  - Name: docker
-  Properties:
-  - Default: null
-    Description: Docker Containers network MTU
-    Example: null
-    Name: docker.mtu
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: 127.0.0.1
-    Description: TCP address where Docker daemon will listen to (if not set, TCP will
-      not be available)
-    Example: null
-    Name: docker.tcp_address
-  - Default: false
-    Description: Enable debug mode
-    Example: null
-    Name: docker.debug
-  - Default: null
-    Description: Array of DNS search domains to be used by Docker
-    Example: null
-    Name: docker.dns_domains
-  - Default: true
-    Description: Enable Docker addition of iptables rules
-    Example: null
-    Name: docker.iptables
-  - Default: true
-    Description: Enable net.ipv4.ip_forward
-    Example: null
-    Name: docker.ip_forward
-  - Default: true
-    Description: Enable inter-container communication
-    Example: null
-    Name: docker.icc
-  - Default: null
-    Description: Array of DNS servers to be used by Docker
-    Example: null
-    Name: docker.dns_servers
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: "4243"
-    Description: TCP port where Docker daemon will listen to (if not set, TCP will
-      not be available)
-    Example: null
-    Name: docker.tcp_port
-  - Default: false
-    Description: Restart previously running containers
-    Example: null
-    Name: docker.restart
-  - Default: false
-    Description: Enable CORS headers in the remote API
-    Example: null
-    Name: docker.api_enable_cors
-  Templates:
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor426446456/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
-  - DstPathEnd: bin/cgroupfs-mount
-    Path: /mnt/tmp/tar-CmdExtractor426446456/templates/bin/cgroupfs-mount
-    SrcPathEnd: bin/cgroupfs-mount
-  - DstPathEnd: bin/docker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor426446456/templates/bin/docker_ctl
-    SrcPathEnd: bin/docker_ctl
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor156941418/monit
-    SrcPathEnd: monit
-  Name: containers
-  Packages:
-  - Name: bosh-helpers
-  Properties:
-  - Default: root
-    Description: User which will own the Docker services
-    Example: null
-    Name: docker.user
-  - Default: vcap
-    Description: Group which will own the Docker services
-    Example: null
-    Name: docker.group
-  - Default: null
-    Description: Containers Array (see below for details)
-    Example: null
-    Name: containers
-  Templates:
-  - DstPathEnd: bin/containers_ctl
-    Path: /mnt/tmp/tar-CmdExtractor156941418/templates/bin/containers_ctl.erb
-    SrcPathEnd: bin/containers_ctl.erb
-  - DstPathEnd: bin/job_properties.sh
-    Path: /mnt/tmp/tar-CmdExtractor156941418/templates/bin/job_properties.sh.erb
-    SrcPathEnd: bin/job_properties.sh.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor426446456/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "docker",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Docker Containers network MTU",
+        "Example": null,
+        "Name": "docker.mtu"
+      },
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "TCP address where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Example": null,
+        "Name": "docker.tcp_address"
+      },
+      {
+        "Default": false,
+        "Description": "Enable debug mode",
+        "Example": null,
+        "Name": "docker.debug"
+      },
+      {
+        "Default": null,
+        "Description": "Array of DNS search domains to be used by Docker",
+        "Example": null,
+        "Name": "docker.dns_domains"
+      },
+      {
+        "Default": true,
+        "Description": "Enable Docker addition of iptables rules",
+        "Example": null,
+        "Name": "docker.iptables"
+      },
+      {
+        "Default": true,
+        "Description": "Enable net.ipv4.ip_forward",
+        "Example": null,
+        "Name": "docker.ip_forward"
+      },
+      {
+        "Default": true,
+        "Description": "Enable inter-container communication",
+        "Example": null,
+        "Name": "docker.icc"
+      },
+      {
+        "Default": null,
+        "Description": "Array of DNS servers to be used by Docker",
+        "Example": null,
+        "Name": "docker.dns_servers"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": "4243",
+        "Description": "TCP port where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Example": null,
+        "Name": "docker.tcp_port"
+      },
+      {
+        "Default": false,
+        "Description": "Restart previously running containers",
+        "Example": null,
+        "Name": "docker.restart"
+      },
+      {
+        "Default": false,
+        "Description": "Enable CORS headers in the remote API",
+        "Example": null,
+        "Name": "docker.api_enable_cors"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor426446456/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/cgroupfs-mount",
+        "Path": "/mnt/tmp/tar-CmdExtractor426446456/templates/bin/cgroupfs-mount",
+        "SrcPathEnd": "bin/cgroupfs-mount"
+      },
+      {
+        "DstPathEnd": "bin/docker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor426446456/templates/bin/docker_ctl",
+        "SrcPathEnd": "bin/docker_ctl"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor156941418/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "containers",
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "root",
+        "Description": "User which will own the Docker services",
+        "Example": null,
+        "Name": "docker.user"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Group which will own the Docker services",
+        "Example": null,
+        "Name": "docker.group"
+      },
+      {
+        "Default": null,
+        "Description": "Containers Array (see below for details)",
+        "Example": null,
+        "Name": "containers"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/containers_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor156941418/templates/bin/containers_ctl.erb",
+        "SrcPathEnd": "bin/containers_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor156941418/templates/bin/job_properties.sh.erb",
+        "SrcPathEnd": "bin/job_properties.sh.erb"
+      }
+    ]
+  }
+]

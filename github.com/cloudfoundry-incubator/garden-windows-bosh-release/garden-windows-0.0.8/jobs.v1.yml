@@ -1,609 +1,871 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor172932982/monit
-    SrcPathEnd: monit
-  Name: consul_agent_windows
-  Packages:
-  - Name: consul-windows
-  - Name: confab-windows
-  Properties:
-  - Default: null
-    Description: PEM-encoded agent certificate
-    Example: null
-    Examples: null
-    Name: consul.agent_cert
-  - Default: null
-    Description: PEM-encoded server certificate
-    Example: null
-    Examples: null
-    Name: consul.server_cert
-  - Default: info
-    Description: Agent log level.
-    Example: null
-    Examples: null
-    Name: consul.agent.log_level
-  - Default: dc1
-    Description: Name of the agent's datacenter.
-    Example: null
-    Examples: null
-    Name: consul.agent.datacenter
-  - Default: []
-    Description: WAN server addresses to join.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.wan
-  - Default: []
-    Description: LAN server addresses to join on start.
-    Example: null
-    Examples: null
-    Name: consul.agent.servers.lan
-  - Default: {}
-    Description: Map of consul service definitions.
-    Example: null
-    Examples: null
-    Name: consul.agent.services
-  - Default: 2
-    Description: The Consul protocol to use.
-    Example: null
-    Examples: null
-    Name: consul.agent.protocol_version
-  - Default: null
-    Description: PEM-encoded server key
-    Example: null
-    Examples: null
-    Name: consul.server_key
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: consul.agent_key
-  - Default: null
-    Description: A list of passphrases that will be converted into encryption keys,
-      the first key in the list is the active one
-    Example: null
-    Examples: null
-    Name: consul.encrypt_keys
-  - Default: client
-    Description: Mode to run the agent in. (client or server)
-    Example: null
-    Examples: null
-    Name: consul.agent.mode
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: consul.ca_cert
-  - Default: null
-    Description: Domain suffix for DNS
-    Example: null
-    Examples: null
-    Name: consul.agent.domain
-  Templates:
-  - DstPathEnd: config/certs/agent.crt
-    Path: /mnt/tmp/tar-CmdExtractor172932982/templates/agent.crt.erb
-    SrcPathEnd: agent.crt.erb
-  - DstPathEnd: config/certs/agent.key
-    Path: /mnt/tmp/tar-CmdExtractor172932982/templates/agent.key.erb
-    SrcPathEnd: agent.key.erb
-  - DstPathEnd: config/certs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor172932982/templates/ca.crt.erb
-    SrcPathEnd: ca.crt.erb
-  - DstPathEnd: confab.json
-    Path: /mnt/tmp/tar-CmdExtractor172932982/templates/confab.json.erb
-    SrcPathEnd: confab.json.erb
-- Description: Garden for Windows
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor129126424/monit
-    SrcPathEnd: monit
-  Name: garden-windows
-  Packages:
-  - Name: garden-windows
-  Properties: null
-  Templates:
-  - DstPathEnd: bin/containerizer.ps1
-    Path: /mnt/tmp/tar-CmdExtractor129126424/templates/containerizer.ps1
-    SrcPathEnd: containerizer.ps1
-  - DstPathEnd: bin/pre-start.ps1
-    Path: /mnt/tmp/tar-CmdExtractor129126424/templates/pre-start.ps1
-    SrcPathEnd: pre-start.ps1
-  - DstPathEnd: bin/post-start.ps1
-    Path: /mnt/tmp/tar-CmdExtractor129126424/templates/post-start.ps1
-    SrcPathEnd: post-start.ps1
-- Description: hakim diagnostics
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor504342794/monit
-    SrcPathEnd: monit
-  Name: hakim
-  Packages:
-  - Name: hakim
-  Properties: null
-  Templates: null
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor694207692/monit
-    SrcPathEnd: monit
-  Name: metron_agent_windows
-  Packages:
-  - Name: metron_agent_windows
-  Properties:
-  - Default: udp
-    Description: DEPRECATED - replaced with metron_agent.protocols
-    Example: null
-    Examples: null
-    Name: metron_agent.preferred_protocol
-  - Default: 3457
-    Description: DEPRECATED - replaced by metron_agent.listening_port
-    Example: null
-    Examples: null
-    Name: metron_agent.dropsonde_incoming_port
-  - Default: []
-    Description: 'Addresses of fallback servers to be used if the primary syslog server
-      is down. Only tcp or relp are supported. Each list entry should consist of "address",
-      "transport" and "port" keys. '
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.fallback_addresses
-  - Default: 127.0.0.1
-    Description: Address the metron agent is listening on to receive dropsonde log
-      messages provided for BOSH links and should not be overwritten
-    Example: null
-    Examples: null
-    Name: metron_agent.listening_address
-  - Default: ""
-    Description: TLS client certificate
-    Example: null
-    Examples: null
-    Name: metron_agent.tls.client_cert
-  - Default: ""
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: loggregator.etcd.ca_cert
-  - Default: false
-    Description: DEPRECATED
-    Example: null
-    Examples: null
-    Name: metron_agent.enable_buffer
-  - Default: null
-    Description: Name of deployment (added as tag on all outgoing metrics)
-    Example: null
-    Examples: null
-    Name: metron_agent.deployment
-  - Default: 100
-    Description: The maximum time that a message can stay in the batching buffer before
-      being flushed
-    Example: null
-    Examples: null
-    Name: metron_agent.tcp.batching_buffer_flush_interval_milliseconds
-  - Default: 7
-    Description: The number of files that logrotate will keep around on the VM
-    Example: null
-    Examples: null
-    Name: metron_agent.logrotate.rotate
-  - Default: false
-    Description: Enable ssl for all communication with etcd
-    Example: null
-    Examples: null
-    Name: loggregator.etcd.require_ssl
-  - Default: ""
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: metron_agent.etcd.client_cert
-  - Default: null
-    Description: IP address for syslog aggregator
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.address
-  - Default: tcp
-    Description: Transport to be used when forwarding logs (tcp|udp|relp).
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.transport
-  - Default: ""
-    Description: CA root required for key/cert verification
-    Example: null
-    Examples: null
-    Name: loggregator.tls.ca_cert
-  - Default: 5
-    Description: The frequency in minutes which logrotate will rotate VM logs
-    Example: null
-    Examples: null
-    Name: metron_agent.logrotate.freq_min
-  - Default: ""
-    Description: Custom rule for syslog forward daemon
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.custom_rule
-  - Default: 3457
-    Description: Port the metron agent is listening on to receive dropsonde log messages
-    Example: null
-    Examples: null
-    Name: metron_agent.listening_port
-  - Default: false
-    Description: boolean value to turn on verbose mode
-    Example: null
-    Examples: null
-    Name: metron_agent.debug
-  - Default: null
-    Description: Availability zone where this agent is running
-    Example: null
-    Examples: null
-    Name: metron_agent.zone
-  - Default: null
-    Description: Shared secret used to verify cryptographically signed dropsonde messages
-    Example: null
-    Examples: null
-    Name: metron_endpoint.shared_secret
-  - Default:
-    - udp
-    Description: A priority list of protocols for metron to connect to doppler over.  Metron
-      will refuse to connect to doppler over any protocol not in this list.
-    Example: null
-    Examples: null
-    Name: metron_agent.protocols
-  - Default: ""
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: metron_agent.etcd.client_key
-  - Default: true
-    Description: Enable or disable rsyslog configuration for forwarding syslog messages
-      into metron
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.enable
-  - Default: 10240
-    Description: The number of bytes which can be buffered prior to TCP writes (applies
-      to TLS over TCP)
-    Example: null
-    Examples: null
-    Name: metron_agent.tcp.batching_buffer_bytes
-  - Default: 10000
-    Description: DEPRECATED
-    Example: null
-    Examples: null
-    Name: metron_agent.buffer_size
-  - Default: null
-    Description: TCP port of syslog aggregator
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.port
-  - Default: ""
-    Description: TLS client key
-    Example: null
-    Examples: null
-    Name: metron_agent.tls.client_key
-  - Default: null
-    Description: IPs pointing to the ETCD cluster
-    Example: null
-    Examples: null
-    Name: loggregator.etcd.machines
-  - Default: 10
-    Description: Number of concurrent requests to ETCD
-    Example: null
-    Examples: null
-    Name: loggregator.etcd.maxconcurrentrequests
-  - Default: 4k
-    Description: maximum message size to be sent
-    Example: null
-    Examples: null
-    Name: syslog_daemon_config.max_message_size
-  - Default: 50M
-    Description: The size at which logrotate will decide to rotate the log file
-    Example: null
-    Examples: null
-    Name: metron_agent.logrotate.size
-  Templates:
-  - DstPathEnd: config/certs/etcd-client.crt
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/etcd-client.crt.erb
-    SrcPathEnd: etcd-client.crt.erb
-  - DstPathEnd: config/certs/etcd-ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/etcd-ca.crt.erb
-    SrcPathEnd: etcd-ca.crt.erb
-  - DstPathEnd: bin/metron_agent_ctl.ps1
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent_ctl.ps1.erb
-    SrcPathEnd: metron_agent_ctl.ps1.erb
-  - DstPathEnd: config/metron_agent_logrotate.cron
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent_logrotate.cron.erb
-    SrcPathEnd: metron_agent_logrotate.cron.erb
-  - DstPathEnd: config/logrotate.conf
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/logrotate.conf.erb
-    SrcPathEnd: logrotate.conf.erb
-  - DstPathEnd: config/certs/loggregator_ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/loggregator_ca.crt.erb
-    SrcPathEnd: loggregator_ca.crt.erb
-  - DstPathEnd: config/certs/etcd-client.key
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/etcd-client.key.erb
-    SrcPathEnd: etcd-client.key.erb
-  - DstPathEnd: config/metron_agent.json
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent.json.erb
-    SrcPathEnd: metron_agent.json.erb
-  - DstPathEnd: config/certs/metron_agent.crt
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent.crt.erb
-    SrcPathEnd: metron_agent.crt.erb
-  - DstPathEnd: config/certs/metron_agent.key
-    Path: /mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent.key.erb
-    SrcPathEnd: metron_agent.key.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor320477150/monit
-    SrcPathEnd: monit
-  Name: rep_windows
-  Packages:
-  - Name: rep_windows
-  Properties:
-  - Default: /var/vcap/data/garden/garden.sock
-    Description: Garden server listening address.
-    Example: null
-    Examples: null
-    Name: diego.executor.garden.address
-  - Default: 8
-    Description: Maximum number of concurrent get container metrics operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.metrics_work_pool_size
-  - Default: 64
-    Description: Maximum number of concurrent health check operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.healthcheck_work_pool_size
-  - Default: null
-    Description: PEM-encoded client key
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_key
-  - Default: 600
-    Description: The time to wait for evacuation to complete in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.evacuation_timeout_in_seconds
-  - Default: 8500
-    Description: local consul agent's port
-    Example: null
-    Examples: null
-    Name: diego.rep.consul_agent_port
-  - Default: auto
-    Description: the container disk capacity the executor should manage.  this should
-      not be greater than the actual disk quota on the VM
-    Example: null
-    Examples: null
-    Name: diego.executor.disk_capacity_mb
-  - Default: 0.5
-    Description: Interval to check unhealthy containers in seconds.
-    Example: null
-    Examples: null
-    Name: diego.executor.unhealthy_monitoring_interval_in_seconds
-  - Default: 32
-    Description: Maximum number of concurrent create container operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.create_work_pool_size
-  - Default: 200000
-    Description: the inode limit enforced on each garden container.
-    Example: null
-    Examples: null
-    Name: diego.executor.container_inode_limit
-  - Default: 10000000000
-    Description: maximum size of the cache in bytes - this should leave a healthy
-      overhead for temporary items, etc.
-    Example: null
-    Examples: null
-    Name: diego.executor.max_cache_size_in_bytes
-  - Default: 64
-    Description: Maximum number of concurrent get container info operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.read_work_pool_size
-  - Default: cflinuxfs2
-    Description: The stack for which to handle requests
-    Example: null
-    Examples: null
-    Name: diego.rep.stack
-  - Default: 10
-    Description: The interval to look for completed tasks and LRPs during evacuation
-      in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.evacuation_polling_interval_in_seconds
-  - Default: 3457
-    Description: local metron agent's port
-    Example: null
-    Examples: null
-    Name: diego.rep.dropsonde_port
-  - Default: null
-    Description: Concatenation of trusted CA certificates to be made available on
-      the cell.
-    Example: null
-    Examples: null
-    Name: diego.rep.trusted_certs
-  - Default: 1024
-    Description: the maximum number of cpu shares for a container.
-    Example: null
-    Examples: null
-    Name: diego.executor.container_max_cpu_shares
-  - Default: bbs.service.cf.internal:8889
-    Description: Address to the BBS Server
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.api_location
-  - Default: null
-    Description: 'Experimental: arbitrary command to run after setup action'
-    Example: null
-    Examples: null
-    Name: diego.executor.post_setup_hook
-  - Default: null
-    Description: PEM-encoded client certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_cert
-  - Default: null
-    Description: capacity of the tls client cache
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.client_session_cache_size
-  - Default: 0.0.0.0:17008
-    Description: address at which to serve debug info
-    Example: null
-    Examples: null
-    Name: diego.rep.debug_addr
-  - Default: unix
-    Description: Network type for the garden server connection (tcp or unix).
-    Example: null
-    Examples: null
-    Name: diego.executor.garden.network
-  - Default: 10m
-    Description: Frequency for healtchecking garden
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.interval
-  - Default: 10m
-    Description: Maximum allowed time for garden healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.timeout
-  - Default: 5s
-    Description: Time to wait between retrying garden commands
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.command_retry_pause
-  - Default: null
-    Description: maximum number of idle http connections
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.max_idle_conns_per_host
-  - Default: true
-    Description: enable ssl for all communication with the bbs
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.require_ssl
-  - Default: 30
-    Description: The interval to look for completed tasks and LRPs in seconds
-    Example: null
-    Examples: null
-    Name: diego.rep.polling_interval_in_seconds
-  - Default:
-    - docker
-    Description: Array of schemes for which the underlying garden can support arbitrary
-      root filesystems
-    Example: null
-    Examples: null
-    Name: diego.rep.rootfs_providers
-  - Default: 5
-    Description: the max concurrent download steps that can be active
-    Example: null
-    Examples: null
-    Name: diego.executor.max_concurrent_downloads
-  - Default: null
-    Description: 'Experimental: user to run post setup hook command'
-    Example: null
-    Examples: null
-    Name: diego.executor.post_setup_user
-  - Default: null
-    Description: PEM-encoded CA certificate
-    Example: null
-    Examples: null
-    Name: diego.rep.bbs.ca_cert
-  - Default: 0.0.0.0:1800
-    Description: address to serve auction and LRP stop requests on
-    Example: null
-    Examples: null
-    Name: diego.rep.listen_addr
-  - Default:
-    - windows2012R2:/tmp/windows2012R2
-    Description: Array of name:absolute_path pairs representing root filesystems preloaded
-      onto the underlying garden
-    Example: null
-    Examples: null
-    Name: diego.rep.preloaded_rootfses
-  - Default: false
-    Description: when connecting over https, ignore bad ssl certificates
-    Example: null
-    Examples: null
-    Name: diego.ssl.skip_cert_verify
-  - Default: true
-    Description: Export network environment variables into container (e.g. CF_INSTANCE_IP,
-      CF_INSTANCE_PORT).
-    Example: null
-    Examples: null
-    Name: diego.executor.export_network_env_vars
-  - Default: /bin/sh
-    Description: Path of the command to run to perform a container healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.path
-  - Default: null
-    Description: The zone associated with the rep
-    Example: null
-    Examples: null
-    Name: diego.rep.zone
-  - Default: 30
-    Description: Interval to check healthy containers in seconds.
-    Example: null
-    Examples: null
-    Name: diego.executor.healthy_monitoring_interval_in_seconds
-  - Default: 32
-    Description: Maximum number of concurrent delete container operations.
-    Example: null
-    Examples: null
-    Name: diego.executor.delete_work_pool_size
-  - Default: -c, ls > /tmp/test
-    Description: List of command line args to pass to the garden health check process
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.args
-  - Default: null
-    Description: Environment variables to use when running the garden health check
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.env
-  - Default: info
-    Description: Log level
-    Example: null
-    Examples: null
-    Name: diego.rep.log_level
-  - Default: auto
-    Description: the memory capacity the executor should manage.  this should not
-      be greater than the actual memory on the VM
-    Example: null
-    Examples: null
-    Name: diego.executor.memory_capacity_mb
-  - Default: /var/vcap/data/executor_cache
-    Description: path to the executor's cache
-    Example: null
-    Examples: null
-    Name: diego.executor.cache_path
-  - Default: vcap
-    Description: User to use while performing a container healthcheck
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.user
-  - Default: null
-    Description: Directory to run the healthcheck process from
-    Example: null
-    Examples: null
-    Name: diego.executor.garden_healthcheck.process.dir
-  Templates:
-  - DstPathEnd: config/certs/bbs/ca.crt
-    Path: /mnt/tmp/tar-CmdExtractor320477150/templates/bbs_ca.crt.erb
-    SrcPathEnd: bbs_ca.crt.erb
-  - DstPathEnd: config/certs/rep/trusted_certs.crt
-    Path: /mnt/tmp/tar-CmdExtractor320477150/templates/trusted_certs.crt.erb
-    SrcPathEnd: trusted_certs.crt.erb
-  - DstPathEnd: config/certs/bbs/client.crt
-    Path: /mnt/tmp/tar-CmdExtractor320477150/templates/bbs_client.crt.erb
-    SrcPathEnd: bbs_client.crt.erb
-  - DstPathEnd: config/certs/bbs/client.key
-    Path: /mnt/tmp/tar-CmdExtractor320477150/templates/bbs_client.key.erb
-    SrcPathEnd: bbs_client.key.erb
-  - DstPathEnd: bin/drain.ps1
-    Path: /mnt/tmp/tar-CmdExtractor320477150/templates/drain.ps1.erb
-    SrcPathEnd: drain.ps1.erb
-  - DstPathEnd: bin/start.ps1
-    Path: /mnt/tmp/tar-CmdExtractor320477150/templates/start.ps1.erb
-    SrcPathEnd: start.ps1.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor172932982/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "consul_agent_windows",
+    "Packages": [
+      {
+        "Name": "consul-windows"
+      },
+      {
+        "Name": "confab-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "PEM-encoded agent certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_cert"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server_cert"
+      },
+      {
+        "Default": "info",
+        "Description": "Agent log level.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.log_level"
+      },
+      {
+        "Default": "dc1",
+        "Description": "Name of the agent's datacenter.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.datacenter"
+      },
+      {
+        "Default": [],
+        "Description": "WAN server addresses to join.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.wan"
+      },
+      {
+        "Default": [],
+        "Description": "LAN server addresses to join on start.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.servers.lan"
+      },
+      {
+        "Default": {},
+        "Description": "Map of consul service definitions.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.services"
+      },
+      {
+        "Default": 2,
+        "Description": "The Consul protocol to use.",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.protocol_version"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded server key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.server_key"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent_key"
+      },
+      {
+        "Default": null,
+        "Description": "A list of passphrases that will be converted into encryption keys, the first key in the list is the active one",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.encrypt_keys"
+      },
+      {
+        "Default": "client",
+        "Description": "Mode to run the agent in. (client or server)",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.mode"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.ca_cert"
+      },
+      {
+        "Default": null,
+        "Description": "Domain suffix for DNS",
+        "Example": null,
+        "Examples": null,
+        "Name": "consul.agent.domain"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/agent.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor172932982/templates/agent.crt.erb",
+        "SrcPathEnd": "agent.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/agent.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor172932982/templates/agent.key.erb",
+        "SrcPathEnd": "agent.key.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor172932982/templates/ca.crt.erb",
+        "SrcPathEnd": "ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "confab.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor172932982/templates/confab.json.erb",
+        "SrcPathEnd": "confab.json.erb"
+      }
+    ]
+  },
+  {
+    "Description": "Garden for Windows",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor129126424/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "garden-windows",
+    "Packages": [
+      {
+        "Name": "garden-windows"
+      }
+    ],
+    "Properties": null,
+    "Templates": [
+      {
+        "DstPathEnd": "bin/containerizer.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor129126424/templates/containerizer.ps1",
+        "SrcPathEnd": "containerizer.ps1"
+      },
+      {
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor129126424/templates/pre-start.ps1",
+        "SrcPathEnd": "pre-start.ps1"
+      },
+      {
+        "DstPathEnd": "bin/post-start.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor129126424/templates/post-start.ps1",
+        "SrcPathEnd": "post-start.ps1"
+      }
+    ]
+  },
+  {
+    "Description": "hakim diagnostics",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor504342794/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "hakim",
+    "Packages": [
+      {
+        "Name": "hakim"
+      }
+    ],
+    "Properties": null,
+    "Templates": null
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor694207692/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "metron_agent_windows",
+    "Packages": [
+      {
+        "Name": "metron_agent_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "udp",
+        "Description": "DEPRECATED - replaced with metron_agent.protocols",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.preferred_protocol"
+      },
+      {
+        "Default": 3457,
+        "Description": "DEPRECATED - replaced by metron_agent.listening_port",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.dropsonde_incoming_port"
+      },
+      {
+        "Default": [],
+        "Description": "Addresses of fallback servers to be used if the primary syslog server is down. Only tcp or relp are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys. ",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.fallback_addresses"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "Address the metron agent is listening on to receive dropsonde log messages provided for BOSH links and should not be overwritten",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.listening_address"
+      },
+      {
+        "Default": "",
+        "Description": "TLS client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.tls.client_cert"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "loggregator.etcd.ca_cert"
+      },
+      {
+        "Default": false,
+        "Description": "DEPRECATED",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.enable_buffer"
+      },
+      {
+        "Default": null,
+        "Description": "Name of deployment (added as tag on all outgoing metrics)",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.deployment"
+      },
+      {
+        "Default": 100,
+        "Description": "The maximum time that a message can stay in the batching buffer before being flushed",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.tcp.batching_buffer_flush_interval_milliseconds"
+      },
+      {
+        "Default": 7,
+        "Description": "The number of files that logrotate will keep around on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.logrotate.rotate"
+      },
+      {
+        "Default": false,
+        "Description": "Enable ssl for all communication with etcd",
+        "Example": null,
+        "Examples": null,
+        "Name": "loggregator.etcd.require_ssl"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.etcd.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "IP address for syslog aggregator",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.address"
+      },
+      {
+        "Default": "tcp",
+        "Description": "Transport to be used when forwarding logs (tcp|udp|relp).",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.transport"
+      },
+      {
+        "Default": "",
+        "Description": "CA root required for key/cert verification",
+        "Example": null,
+        "Examples": null,
+        "Name": "loggregator.tls.ca_cert"
+      },
+      {
+        "Default": 5,
+        "Description": "The frequency in minutes which logrotate will rotate VM logs",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.logrotate.freq_min"
+      },
+      {
+        "Default": "",
+        "Description": "Custom rule for syslog forward daemon",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.custom_rule"
+      },
+      {
+        "Default": 3457,
+        "Description": "Port the metron agent is listening on to receive dropsonde log messages",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.listening_port"
+      },
+      {
+        "Default": false,
+        "Description": "boolean value to turn on verbose mode",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.debug"
+      },
+      {
+        "Default": null,
+        "Description": "Availability zone where this agent is running",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.zone"
+      },
+      {
+        "Default": null,
+        "Description": "Shared secret used to verify cryptographically signed dropsonde messages",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_endpoint.shared_secret"
+      },
+      {
+        "Default": [
+          "udp"
+        ],
+        "Description": "A priority list of protocols for metron to connect to doppler over.  Metron will refuse to connect to doppler over any protocol not in this list.",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.protocols"
+      },
+      {
+        "Default": "",
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.etcd.client_key"
+      },
+      {
+        "Default": true,
+        "Description": "Enable or disable rsyslog configuration for forwarding syslog messages into metron",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.enable"
+      },
+      {
+        "Default": 10240,
+        "Description": "The number of bytes which can be buffered prior to TCP writes (applies to TLS over TCP)",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.tcp.batching_buffer_bytes"
+      },
+      {
+        "Default": 10000,
+        "Description": "DEPRECATED",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.buffer_size"
+      },
+      {
+        "Default": null,
+        "Description": "TCP port of syslog aggregator",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.port"
+      },
+      {
+        "Default": "",
+        "Description": "TLS client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.tls.client_key"
+      },
+      {
+        "Default": null,
+        "Description": "IPs pointing to the ETCD cluster",
+        "Example": null,
+        "Examples": null,
+        "Name": "loggregator.etcd.machines"
+      },
+      {
+        "Default": 10,
+        "Description": "Number of concurrent requests to ETCD",
+        "Example": null,
+        "Examples": null,
+        "Name": "loggregator.etcd.maxconcurrentrequests"
+      },
+      {
+        "Default": "4k",
+        "Description": "maximum message size to be sent",
+        "Example": null,
+        "Examples": null,
+        "Name": "syslog_daemon_config.max_message_size"
+      },
+      {
+        "Default": "50M",
+        "Description": "The size at which logrotate will decide to rotate the log file",
+        "Example": null,
+        "Examples": null,
+        "Name": "metron_agent.logrotate.size"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/etcd-client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/etcd-client.crt.erb",
+        "SrcPathEnd": "etcd-client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd-ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/etcd-ca.crt.erb",
+        "SrcPathEnd": "etcd-ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "bin/metron_agent_ctl.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent_ctl.ps1.erb",
+        "SrcPathEnd": "metron_agent_ctl.ps1.erb"
+      },
+      {
+        "DstPathEnd": "config/metron_agent_logrotate.cron",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent_logrotate.cron.erb",
+        "SrcPathEnd": "metron_agent_logrotate.cron.erb"
+      },
+      {
+        "DstPathEnd": "config/logrotate.conf",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/logrotate.conf.erb",
+        "SrcPathEnd": "logrotate.conf.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/loggregator_ca.crt.erb",
+        "SrcPathEnd": "loggregator_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/etcd-client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/etcd-client.key.erb",
+        "SrcPathEnd": "etcd-client.key.erb"
+      },
+      {
+        "DstPathEnd": "config/metron_agent.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent.json.erb",
+        "SrcPathEnd": "metron_agent.json.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/metron_agent.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent.crt.erb",
+        "SrcPathEnd": "metron_agent.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/metron_agent.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor694207692/templates/metron_agent.key.erb",
+        "SrcPathEnd": "metron_agent.key.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor320477150/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "rep_windows",
+    "Packages": [
+      {
+        "Name": "rep_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Description": "Garden server listening address.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden.address"
+      },
+      {
+        "Default": 8,
+        "Description": "Maximum number of concurrent get container metrics operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.metrics_work_pool_size"
+      },
+      {
+        "Default": 64,
+        "Description": "Maximum number of concurrent health check operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.healthcheck_work_pool_size"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client key",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_key"
+      },
+      {
+        "Default": 600,
+        "Description": "The time to wait for evacuation to complete in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.evacuation_timeout_in_seconds"
+      },
+      {
+        "Default": 8500,
+        "Description": "local consul agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.consul_agent_port"
+      },
+      {
+        "Default": "auto",
+        "Description": "the container disk capacity the executor should manage.  this should not be greater than the actual disk quota on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.disk_capacity_mb"
+      },
+      {
+        "Default": 0.5,
+        "Description": "Interval to check unhealthy containers in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.unhealthy_monitoring_interval_in_seconds"
+      },
+      {
+        "Default": 32,
+        "Description": "Maximum number of concurrent create container operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.create_work_pool_size"
+      },
+      {
+        "Default": 200000,
+        "Description": "the inode limit enforced on each garden container.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_inode_limit"
+      },
+      {
+        "Default": 10000000000,
+        "Description": "maximum size of the cache in bytes - this should leave a healthy overhead for temporary items, etc.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.max_cache_size_in_bytes"
+      },
+      {
+        "Default": 64,
+        "Description": "Maximum number of concurrent get container info operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.read_work_pool_size"
+      },
+      {
+        "Default": "cflinuxfs2",
+        "Description": "The stack for which to handle requests",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.stack"
+      },
+      {
+        "Default": 10,
+        "Description": "The interval to look for completed tasks and LRPs during evacuation in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.evacuation_polling_interval_in_seconds"
+      },
+      {
+        "Default": 3457,
+        "Description": "local metron agent's port",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.dropsonde_port"
+      },
+      {
+        "Default": null,
+        "Description": "Concatenation of trusted CA certificates to be made available on the cell.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.trusted_certs"
+      },
+      {
+        "Default": 1024,
+        "Description": "the maximum number of cpu shares for a container.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.container_max_cpu_shares"
+      },
+      {
+        "Default": "bbs.service.cf.internal:8889",
+        "Description": "Address to the BBS Server",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.api_location"
+      },
+      {
+        "Default": null,
+        "Description": "Experimental: arbitrary command to run after setup action",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.post_setup_hook"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded client certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_cert"
+      },
+      {
+        "Default": null,
+        "Description": "capacity of the tls client cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.client_session_cache_size"
+      },
+      {
+        "Default": "0.0.0.0:17008",
+        "Description": "address at which to serve debug info",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.debug_addr"
+      },
+      {
+        "Default": "unix",
+        "Description": "Network type for the garden server connection (tcp or unix).",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden.network"
+      },
+      {
+        "Default": "10m",
+        "Description": "Frequency for healtchecking garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.interval"
+      },
+      {
+        "Default": "10m",
+        "Description": "Maximum allowed time for garden healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.timeout"
+      },
+      {
+        "Default": "5s",
+        "Description": "Time to wait between retrying garden commands",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.command_retry_pause"
+      },
+      {
+        "Default": null,
+        "Description": "maximum number of idle http connections",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.max_idle_conns_per_host"
+      },
+      {
+        "Default": true,
+        "Description": "enable ssl for all communication with the bbs",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.require_ssl"
+      },
+      {
+        "Default": 30,
+        "Description": "The interval to look for completed tasks and LRPs in seconds",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.polling_interval_in_seconds"
+      },
+      {
+        "Default": [
+          "docker"
+        ],
+        "Description": "Array of schemes for which the underlying garden can support arbitrary root filesystems",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.rootfs_providers"
+      },
+      {
+        "Default": 5,
+        "Description": "the max concurrent download steps that can be active",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.max_concurrent_downloads"
+      },
+      {
+        "Default": null,
+        "Description": "Experimental: user to run post setup hook command",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.post_setup_user"
+      },
+      {
+        "Default": null,
+        "Description": "PEM-encoded CA certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.bbs.ca_cert"
+      },
+      {
+        "Default": "0.0.0.0:1800",
+        "Description": "address to serve auction and LRP stop requests on",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.listen_addr"
+      },
+      {
+        "Default": [
+          "windows2012R2:/tmp/windows2012R2"
+        ],
+        "Description": "Array of name:absolute_path pairs representing root filesystems preloaded onto the underlying garden",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.preloaded_rootfses"
+      },
+      {
+        "Default": false,
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.ssl.skip_cert_verify"
+      },
+      {
+        "Default": true,
+        "Description": "Export network environment variables into container (e.g. CF_INSTANCE_IP, CF_INSTANCE_PORT).",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.export_network_env_vars"
+      },
+      {
+        "Default": "/bin/sh",
+        "Description": "Path of the command to run to perform a container healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.path"
+      },
+      {
+        "Default": null,
+        "Description": "The zone associated with the rep",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.zone"
+      },
+      {
+        "Default": 30,
+        "Description": "Interval to check healthy containers in seconds.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.healthy_monitoring_interval_in_seconds"
+      },
+      {
+        "Default": 32,
+        "Description": "Maximum number of concurrent delete container operations.",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.delete_work_pool_size"
+      },
+      {
+        "Default": "-c, ls \u003e /tmp/test",
+        "Description": "List of command line args to pass to the garden health check process",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.args"
+      },
+      {
+        "Default": null,
+        "Description": "Environment variables to use when running the garden health check",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.env"
+      },
+      {
+        "Default": "info",
+        "Description": "Log level",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.rep.log_level"
+      },
+      {
+        "Default": "auto",
+        "Description": "the memory capacity the executor should manage.  this should not be greater than the actual memory on the VM",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.memory_capacity_mb"
+      },
+      {
+        "Default": "/var/vcap/data/executor_cache",
+        "Description": "path to the executor's cache",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.cache_path"
+      },
+      {
+        "Default": "vcap",
+        "Description": "User to use while performing a container healthcheck",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.user"
+      },
+      {
+        "Default": null,
+        "Description": "Directory to run the healthcheck process from",
+        "Example": null,
+        "Examples": null,
+        "Name": "diego.executor.garden_healthcheck.process.dir"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor320477150/templates/bbs_ca.crt.erb",
+        "SrcPathEnd": "bbs_ca.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/rep/trusted_certs.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor320477150/templates/trusted_certs.crt.erb",
+        "SrcPathEnd": "trusted_certs.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/mnt/tmp/tar-CmdExtractor320477150/templates/bbs_client.crt.erb",
+        "SrcPathEnd": "bbs_client.crt.erb"
+      },
+      {
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/mnt/tmp/tar-CmdExtractor320477150/templates/bbs_client.key.erb",
+        "SrcPathEnd": "bbs_client.key.erb"
+      },
+      {
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor320477150/templates/drain.ps1.erb",
+        "SrcPathEnd": "drain.ps1.erb"
+      },
+      {
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/mnt/tmp/tar-CmdExtractor320477150/templates/start.ps1.erb",
+        "SrcPathEnd": "start.ps1.erb"
+      }
+    ]
+  }
+]

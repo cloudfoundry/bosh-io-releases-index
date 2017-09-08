@@ -1,332 +1,529 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor442979274/monit
-    SrcPathEnd: monit
-  Name: broker-registrar
-  Packages:
-  - Name: ruby
-  - Name: broker-registrar
-  Properties:
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: null
-    Description: Name of the service broker
-    Example: null
-    Name: broker.name
-  - Default: 443
-    Description: Port for the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: https
-    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
-      the broker
-    Example: null
-    Name: broker.protocol
-  - Default: null
-    Description: Host address of the service broker
-    Example: null
-    Name: broker.host
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor442979274/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor475578764/monit
-    SrcPathEnd: monit
-  Name: rabbitmq-server
-  Packages:
-  - Name: util-linux
-  - Name: erlang
-  - Name: rabbitmq-server
-  - Name: rabbitmq-cluster-migration-tool
-  Properties:
-  - Default: null
-    Description: SSL security options (currently only 'enable_tls1_0')
-    Example: null
-    Name: rabbitmq-server.ssl.security_options
-  - Default: null
-    Description: RabbitMQ plugins (array of strings)
-    Example: null
-    Name: rabbitmq-server.plugins
-  - Default: null
-    Description: RabbitMQ admin username (for broker)
-    Example: null
-    Name: rabbitmq-server.administrators.broker.username
-  - Default: null
-    Description: RabbitMQ admin password (for broker)
-    Example: null
-    Name: rabbitmq-server.administrators.broker.password
-  - Default: null
-    Description: RabbitMQ admin password (for operator)
-    Example: null
-    Name: rabbitmq-server.administrators.ops_manager.password
-  - Default: null
-    Description: RabbitMQ server CA certificate
-    Example: null
-    Name: rabbitmq-server.ssl.cacert
-  - Default: null
-    Description: RabbitMQ server certificate
-    Example: null
-    Name: rabbitmq-server.ssl.cert
-  - Default: null
-    Description: RabbitMQ configuration (base64 encoded)
-    Example: null
-    Name: rabbitmq-server.config
-  - Default: null
-    Description: Erlang cookie used by RabbitMQ nodes and rabbitmqctl
-    Example: null
-    Name: rabbitmq-server.cookie
-  - Default: null
-    Description: Cluster node IPs
-    Example: null
-    Name: rabbitmq-server.static_ips
-  - Default: null
-    Description: RabbitMQ server private key
-    Example: null
-    Name: rabbitmq-server.ssl.key
-  - Default: null
-    Description: RabbitMQ admin username (for operator)
-    Example: null
-    Name: rabbitmq-server.administrators.ops_manager.username
-  Templates:
-  - DstPathEnd: bin/rabbitmq-server.init
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/rabbitmq-server.init.erb
-    SrcPathEnd: rabbitmq-server.init.erb
-  - DstPathEnd: bin/setup.sh
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/setup.sh.erb
-    SrcPathEnd: setup.sh.erb
-  - DstPathEnd: bin/node_name_migration.sh
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/node_name_migration.sh
-    SrcPathEnd: node_name_migration.sh
-  - DstPathEnd: etc/rabbitmq.config
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/rabbitmq.config.erb
-    SrcPathEnd: rabbitmq.config.erb
-  - DstPathEnd: etc/cacert.pem
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/cacert.pem.erb
-    SrcPathEnd: cacert.pem.erb
-  - DstPathEnd: etc/cert.pem
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/cert.pem.erb
-    SrcPathEnd: cert.pem.erb
-  - DstPathEnd: etc/key.pem
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/key.pem.erb
-    SrcPathEnd: key.pem.erb
-  - DstPathEnd: bin/plugins.sh
-    Path: /mnt/tmp/tar-CmdExtractor475578764/templates/plugins.sh.erb
-    SrcPathEnd: plugins.sh.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor265388702/monit
-    SrcPathEnd: monit
-  Name: rabbitmq-haproxy
-  Packages:
-  - Name: haproxy
-  Properties:
-  - Default: null
-    Description: List of ports (as string!) to forward to the RabbitMQ cluster
-    Example: null
-    Name: rabbitmq-haproxy.ports
-  - Default: null
-    Description: Admin username to access HaProxy stats dashboard
-    Example: null
-    Name: rabbitmq-haproxy.stats.username
-  - Default: null
-    Description: Admin password to access HaProxy stats dashboard
-    Example: null
-    Name: rabbitmq-haproxy.stats.password
-  - Default: null
-    Description: List of IP addresses for the RabbitMQ cluster to proxy
-    Example: null
-    Name: rabbitmq-haproxy.server_ips
-  Templates:
-  - DstPathEnd: bin/rabbitmq-haproxy.init
-    Path: /mnt/tmp/tar-CmdExtractor265388702/templates/rabbitmq-haproxy.init.erb
-    SrcPathEnd: rabbitmq-haproxy.init.erb
-  - DstPathEnd: haproxy.config
-    Path: /mnt/tmp/tar-CmdExtractor265388702/templates/haproxy.config.erb
-    SrcPathEnd: haproxy.config.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor058482048/monit
-    SrcPathEnd: monit
-  Name: rabbitmq-broker
-  Packages:
-  - Name: java
-  - Name: rabbitmq-broker
-  - Name: util-linux
-  - Name: golang
-  - Name: route-registrar
-  Properties:
-  - Default: false
-    Description: Set to true if RabbitMQ cluster is configured to use TLS/SSL
-    Example: null
-    Name: rabbitmq-broker.rabbitmq.ssl
-  - Default: null
-    Description: Username used by Cloud Controller for authentication
-    Example: null
-    Name: rabbitmq-broker.service.username
-  - Default: null
-    Description: Hostname/IP of NATS
-    Example: null
-    Name: cf.nats.host
-  - Default: null
-    Description: IP address RabbitMQ management UI requests will be routed to, typically
-      that of RabbitMQ HAproxy VM
-    Example: null
-    Name: route-registrar.target_ip
-  - Default: null
-    Description: The password to use when authenticating with NATS
-    Example: null
-    Name: cf.nats.password
-  - Default: null
-    Description: URL for CC
-    Example: null
-    Name: rabbitmq-broker.cc_endpoint
-  - Default: null
-    Description: URL for UAA
-    Example: null
-    Name: rabbitmq-broker.uaa_endpoint
-  - Default: null
-    Description: Services Password
-    Example: null
-    Name: rabbitmq-broker.uaa_client.password
-  - Default: null
-    Description: Domain that will be used to access RabbitMQ management UI, typically
-      the system CF/CC domain.
-    Example: null
-    Name: rabbitmq-broker.rabbitmq.management_domain
-  - Default: null
-    Description: The user to use when authenticating with NATS
-    Example: null
-    Name: cf.nats.username
-  - Default: null
-    Description: Domain shared by the UAA and CF API, e.g. '10.244.0.34.xip.io'
-    Example: null
-    Name: cf.domain
-  - Default: null
-    Description: Port that NATS listens on
-    Example: null
-    Name: cf.nats.port
-  - Default: null
-    Description: Client ID for UAA
-    Example: null
-    Name: rabbitmq-broker.uaa_client.client_id
-  - Default: null
-    Description: Services Username
-    Example: null
-    Name: rabbitmq-broker.uaa_client.username
-  - Default: null
-    Description: List of IPs of the Rabbit servers (maybe proxied) upon which to allocate
-      resources
-    Example: null
-    Name: rabbitmq-broker.rabbitmq.hosts
-  - Default: info
-    Description: Logging level
-    Example: null
-    Name: rabbitmq-broker.logging.level
-  - Default: null
-    Description: Password used by Cloud Controller for authentication
-    Example: null
-    Name: rabbitmq-broker.service.password
-  - Default: null
-    Description: The username used to access an admin account of the Rabbit servers
-    Example: null
-    Name: rabbitmq-broker.rabbitmq.administrator.username
-  - Default: null
-    Description: The password used to access an admin account of the Rabbit servers
-    Example: null
-    Name: rabbitmq-broker.rabbitmq.administrator.password
-  - Default: false
-    Description: Should boot exception handlers print full stack traces?
-    Example: null
-    Name: rabbitmq-broker.logging.print_stack_traces
-  - Default: null
-    Description: The URL to the service gateway
-    Example: null
-    Name: rabbitmq-broker.service.url
-  Templates:
-  - DstPathEnd: bin/rabbitmq_broker_ctl
-    Path: /mnt/tmp/tar-CmdExtractor058482048/templates/broker_ctl.erb
-    SrcPathEnd: broker_ctl.erb
-  - DstPathEnd: bin/route_registrar_ctl
-    Path: /mnt/tmp/tar-CmdExtractor058482048/templates/route_registrar_ctl.erb
-    SrcPathEnd: route_registrar_ctl.erb
-  - DstPathEnd: config/registrar_settings.yml
-    Path: /mnt/tmp/tar-CmdExtractor058482048/templates/registrar_settings.yml.erb
-    SrcPathEnd: registrar_settings.yml.erb
-  - DstPathEnd: config/rabbitmq_broker.yml
-    Path: /mnt/tmp/tar-CmdExtractor058482048/templates/broker_config.yml.erb
-    SrcPathEnd: broker_config.yml.erb
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor777055410/monit
-    SrcPathEnd: monit
-  Name: broker-deregistrar
-  Packages:
-  - Name: ruby
-  - Name: broker-registrar
-  Properties:
-  - Default: null
-    Description: Host address of the service broker
-    Example: null
-    Name: broker.host
-  - Default: 443
-    Description: Port for the service broker
-    Example: null
-    Name: broker.port
-  - Default: null
-    Description: Full URL of Cloud Foundry API
-    Example: null
-    Name: cf.api_url
-  - Default: null
-    Description: Password of the admin user
-    Example: null
-    Name: cf.admin_password
-  - Default: https
-    Description: Protocol (http/https) provided to the Cloud Controller when registering/deregistering
-      the broker
-    Example: null
-    Name: broker.protocol
-  - Default: null
-    Description: Basic Auth username for the service broker
-    Example: null
-    Name: broker.username
-  - Default: null
-    Description: Basic Auth password for the service broker
-    Example: null
-    Name: broker.password
-  - Default: null
-    Description: Username of the admin user
-    Example: null
-    Name: cf.admin_username
-  - Default: null
-    Description: Name of the service broker
-    Example: null
-    Name: broker.name
-  Templates:
-  - DstPathEnd: bin/run
-    Path: /mnt/tmp/tar-CmdExtractor777055410/templates/errand.sh.erb
-    SrcPathEnd: errand.sh.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor442979274/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker-registrar",
+    "Packages": [
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "broker-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the service broker",
+        "Example": null,
+        "Name": "broker.name"
+      },
+      {
+        "Default": 443,
+        "Description": "Port for the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": "https",
+        "Description": "Protocol (http/https) provided to the Cloud Controller when registering/deregistering the broker",
+        "Example": null,
+        "Name": "broker.protocol"
+      },
+      {
+        "Default": null,
+        "Description": "Host address of the service broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor442979274/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor475578764/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "rabbitmq-server",
+    "Packages": [
+      {
+        "Name": "util-linux"
+      },
+      {
+        "Name": "erlang"
+      },
+      {
+        "Name": "rabbitmq-server"
+      },
+      {
+        "Name": "rabbitmq-cluster-migration-tool"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "SSL security options (currently only 'enable_tls1_0')",
+        "Example": null,
+        "Name": "rabbitmq-server.ssl.security_options"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ plugins (array of strings)",
+        "Example": null,
+        "Name": "rabbitmq-server.plugins"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ admin username (for broker)",
+        "Example": null,
+        "Name": "rabbitmq-server.administrators.broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ admin password (for broker)",
+        "Example": null,
+        "Name": "rabbitmq-server.administrators.broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ admin password (for operator)",
+        "Example": null,
+        "Name": "rabbitmq-server.administrators.ops_manager.password"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ server CA certificate",
+        "Example": null,
+        "Name": "rabbitmq-server.ssl.cacert"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ server certificate",
+        "Example": null,
+        "Name": "rabbitmq-server.ssl.cert"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ configuration (base64 encoded)",
+        "Example": null,
+        "Name": "rabbitmq-server.config"
+      },
+      {
+        "Default": null,
+        "Description": "Erlang cookie used by RabbitMQ nodes and rabbitmqctl",
+        "Example": null,
+        "Name": "rabbitmq-server.cookie"
+      },
+      {
+        "Default": null,
+        "Description": "Cluster node IPs",
+        "Example": null,
+        "Name": "rabbitmq-server.static_ips"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ server private key",
+        "Example": null,
+        "Name": "rabbitmq-server.ssl.key"
+      },
+      {
+        "Default": null,
+        "Description": "RabbitMQ admin username (for operator)",
+        "Example": null,
+        "Name": "rabbitmq-server.administrators.ops_manager.username"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/rabbitmq-server.init",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/rabbitmq-server.init.erb",
+        "SrcPathEnd": "rabbitmq-server.init.erb"
+      },
+      {
+        "DstPathEnd": "bin/setup.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/setup.sh.erb",
+        "SrcPathEnd": "setup.sh.erb"
+      },
+      {
+        "DstPathEnd": "bin/node_name_migration.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/node_name_migration.sh",
+        "SrcPathEnd": "node_name_migration.sh"
+      },
+      {
+        "DstPathEnd": "etc/rabbitmq.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/rabbitmq.config.erb",
+        "SrcPathEnd": "rabbitmq.config.erb"
+      },
+      {
+        "DstPathEnd": "etc/cacert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/cacert.pem.erb",
+        "SrcPathEnd": "cacert.pem.erb"
+      },
+      {
+        "DstPathEnd": "etc/cert.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/cert.pem.erb",
+        "SrcPathEnd": "cert.pem.erb"
+      },
+      {
+        "DstPathEnd": "etc/key.pem",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/key.pem.erb",
+        "SrcPathEnd": "key.pem.erb"
+      },
+      {
+        "DstPathEnd": "bin/plugins.sh",
+        "Path": "/mnt/tmp/tar-CmdExtractor475578764/templates/plugins.sh.erb",
+        "SrcPathEnd": "plugins.sh.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor265388702/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "rabbitmq-haproxy",
+    "Packages": [
+      {
+        "Name": "haproxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "List of ports (as string!) to forward to the RabbitMQ cluster",
+        "Example": null,
+        "Name": "rabbitmq-haproxy.ports"
+      },
+      {
+        "Default": null,
+        "Description": "Admin username to access HaProxy stats dashboard",
+        "Example": null,
+        "Name": "rabbitmq-haproxy.stats.username"
+      },
+      {
+        "Default": null,
+        "Description": "Admin password to access HaProxy stats dashboard",
+        "Example": null,
+        "Name": "rabbitmq-haproxy.stats.password"
+      },
+      {
+        "Default": null,
+        "Description": "List of IP addresses for the RabbitMQ cluster to proxy",
+        "Example": null,
+        "Name": "rabbitmq-haproxy.server_ips"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/rabbitmq-haproxy.init",
+        "Path": "/mnt/tmp/tar-CmdExtractor265388702/templates/rabbitmq-haproxy.init.erb",
+        "SrcPathEnd": "rabbitmq-haproxy.init.erb"
+      },
+      {
+        "DstPathEnd": "haproxy.config",
+        "Path": "/mnt/tmp/tar-CmdExtractor265388702/templates/haproxy.config.erb",
+        "SrcPathEnd": "haproxy.config.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor058482048/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "rabbitmq-broker",
+    "Packages": [
+      {
+        "Name": "java"
+      },
+      {
+        "Name": "rabbitmq-broker"
+      },
+      {
+        "Name": "util-linux"
+      },
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "route-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": false,
+        "Description": "Set to true if RabbitMQ cluster is configured to use TLS/SSL",
+        "Example": null,
+        "Name": "rabbitmq-broker.rabbitmq.ssl"
+      },
+      {
+        "Default": null,
+        "Description": "Username used by Cloud Controller for authentication",
+        "Example": null,
+        "Name": "rabbitmq-broker.service.username"
+      },
+      {
+        "Default": null,
+        "Description": "Hostname/IP of NATS",
+        "Example": null,
+        "Name": "cf.nats.host"
+      },
+      {
+        "Default": null,
+        "Description": "IP address RabbitMQ management UI requests will be routed to, typically that of RabbitMQ HAproxy VM",
+        "Example": null,
+        "Name": "route-registrar.target_ip"
+      },
+      {
+        "Default": null,
+        "Description": "The password to use when authenticating with NATS",
+        "Example": null,
+        "Name": "cf.nats.password"
+      },
+      {
+        "Default": null,
+        "Description": "URL for CC",
+        "Example": null,
+        "Name": "rabbitmq-broker.cc_endpoint"
+      },
+      {
+        "Default": null,
+        "Description": "URL for UAA",
+        "Example": null,
+        "Name": "rabbitmq-broker.uaa_endpoint"
+      },
+      {
+        "Default": null,
+        "Description": "Services Password",
+        "Example": null,
+        "Name": "rabbitmq-broker.uaa_client.password"
+      },
+      {
+        "Default": null,
+        "Description": "Domain that will be used to access RabbitMQ management UI, typically the system CF/CC domain.",
+        "Example": null,
+        "Name": "rabbitmq-broker.rabbitmq.management_domain"
+      },
+      {
+        "Default": null,
+        "Description": "The user to use when authenticating with NATS",
+        "Example": null,
+        "Name": "cf.nats.username"
+      },
+      {
+        "Default": null,
+        "Description": "Domain shared by the UAA and CF API, e.g. '10.244.0.34.xip.io'",
+        "Example": null,
+        "Name": "cf.domain"
+      },
+      {
+        "Default": null,
+        "Description": "Port that NATS listens on",
+        "Example": null,
+        "Name": "cf.nats.port"
+      },
+      {
+        "Default": null,
+        "Description": "Client ID for UAA",
+        "Example": null,
+        "Name": "rabbitmq-broker.uaa_client.client_id"
+      },
+      {
+        "Default": null,
+        "Description": "Services Username",
+        "Example": null,
+        "Name": "rabbitmq-broker.uaa_client.username"
+      },
+      {
+        "Default": null,
+        "Description": "List of IPs of the Rabbit servers (maybe proxied) upon which to allocate resources",
+        "Example": null,
+        "Name": "rabbitmq-broker.rabbitmq.hosts"
+      },
+      {
+        "Default": "info",
+        "Description": "Logging level",
+        "Example": null,
+        "Name": "rabbitmq-broker.logging.level"
+      },
+      {
+        "Default": null,
+        "Description": "Password used by Cloud Controller for authentication",
+        "Example": null,
+        "Name": "rabbitmq-broker.service.password"
+      },
+      {
+        "Default": null,
+        "Description": "The username used to access an admin account of the Rabbit servers",
+        "Example": null,
+        "Name": "rabbitmq-broker.rabbitmq.administrator.username"
+      },
+      {
+        "Default": null,
+        "Description": "The password used to access an admin account of the Rabbit servers",
+        "Example": null,
+        "Name": "rabbitmq-broker.rabbitmq.administrator.password"
+      },
+      {
+        "Default": false,
+        "Description": "Should boot exception handlers print full stack traces?",
+        "Example": null,
+        "Name": "rabbitmq-broker.logging.print_stack_traces"
+      },
+      {
+        "Default": null,
+        "Description": "The URL to the service gateway",
+        "Example": null,
+        "Name": "rabbitmq-broker.service.url"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/rabbitmq_broker_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor058482048/templates/broker_ctl.erb",
+        "SrcPathEnd": "broker_ctl.erb"
+      },
+      {
+        "DstPathEnd": "bin/route_registrar_ctl",
+        "Path": "/mnt/tmp/tar-CmdExtractor058482048/templates/route_registrar_ctl.erb",
+        "SrcPathEnd": "route_registrar_ctl.erb"
+      },
+      {
+        "DstPathEnd": "config/registrar_settings.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor058482048/templates/registrar_settings.yml.erb",
+        "SrcPathEnd": "registrar_settings.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/rabbitmq_broker.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor058482048/templates/broker_config.yml.erb",
+        "SrcPathEnd": "broker_config.yml.erb"
+      }
+    ]
+  },
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor777055410/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "broker-deregistrar",
+    "Packages": [
+      {
+        "Name": "ruby"
+      },
+      {
+        "Name": "broker-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": null,
+        "Description": "Host address of the service broker",
+        "Example": null,
+        "Name": "broker.host"
+      },
+      {
+        "Default": 443,
+        "Description": "Port for the service broker",
+        "Example": null,
+        "Name": "broker.port"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL of Cloud Foundry API",
+        "Example": null,
+        "Name": "cf.api_url"
+      },
+      {
+        "Default": null,
+        "Description": "Password of the admin user",
+        "Example": null,
+        "Name": "cf.admin_password"
+      },
+      {
+        "Default": "https",
+        "Description": "Protocol (http/https) provided to the Cloud Controller when registering/deregistering the broker",
+        "Example": null,
+        "Name": "broker.protocol"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth username for the service broker",
+        "Example": null,
+        "Name": "broker.username"
+      },
+      {
+        "Default": null,
+        "Description": "Basic Auth password for the service broker",
+        "Example": null,
+        "Name": "broker.password"
+      },
+      {
+        "Default": null,
+        "Description": "Username of the admin user",
+        "Example": null,
+        "Name": "cf.admin_username"
+      },
+      {
+        "Default": null,
+        "Description": "Name of the service broker",
+        "Example": null,
+        "Name": "broker.name"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/run",
+        "Path": "/mnt/tmp/tar-CmdExtractor777055410/templates/errand.sh.erb",
+        "SrcPathEnd": "errand.sh.erb"
+      }
+    ]
+  }
+]

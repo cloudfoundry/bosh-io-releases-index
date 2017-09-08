@@ -1,281 +1,386 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor779149356/monit
-    SrcPathEnd: monit
-  Name: azure_cpi
-  Packages:
-  - Name: ruby_azure_cpi
-  - Name: bosh_azure_cpi
-  Properties:
-  - Default: 443
-    Description: Port of blobstore server used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.s3_port
-  - Default: null
-    Description: Address of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.address
-  - Default: null
-    Description: Username agent uses to connect to blobstore used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.agent.user
-  - Default: null
-    Description: Agent mbus
-    Example: null
-    Examples: null
-    Name: agent.mbus
-  - Default: null
-    Description: Password to connect to nats with
-    Example: null
-    Examples: null
-    Name: nats.password
-  - Default: 4222
-    Description: Port that the nats server listens on
-    Example: null
-    Examples: null
-    Name: nats.port
-  - Default: false
-    Description: Enable debug mode to log all raw HTTP requests/responses
-    Example: null
-    Examples: null
-    Name: azure.debug_mode
-  - Default: null
-    Description: User to access the Registry
-    Example: null
-    Examples: null
-    Name: registry.username
-  - Default: null
-    Description: The client secret for your service principal
-    Example: null
-    Examples: null
-    Name: azure.client_secret
-  - Default: 16
-    Description: The number of threads to upload stemcells in parallel
-    Example: null
-    Examples: null
-    Name: azure.parallel_upload_thread_num
-  - Default: false
-    Description: Enable managed disks
-    Example: null
-    Examples: null
-    Name: azure.use_managed_disks
-  - Default: null
-    Description: The token resource for your AzureStack deployment
-    Example: null
-    Examples: null
-    Name: azure.azure_stack.resource
-  - Default: null
-    Description: Full URL for the registry endpoint that may include basic auth credentials
-    Example: http://admin:admin-password@some-ip:port
-    Examples: null
-    Name: registry.endpoint
-  - Default:
-    - 0.pool.ntp.org
-    - 1.pool.ntp.org
-    Description: List of ntp server IPs. pool.ntp.org attempts to return IPs closest
-      to your location, but you can still specify if needed.
-    Example: null
-    Examples: null
-    Name: ntp
-  - Default: null
-    Description: Azure Subscription Id
-    Example: null
-    Examples: null
-    Name: azure.subscription_id
-  - Default: null
-    Description: The tenant id for your service principal
-    Example: null
-    Examples: null
-    Name: azure.tenant_id
-  - Default: null
-    Description: Http proxy to connect to cloud API's
-    Example: null
-    Examples: null
-    Name: env.http_proxy
-  - Default: null
-    Description: AWS secret_access_key used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.secret_access_key
-  - Default: null
-    Description: Host of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.host
-  - Default: AzureAD
-    Description: The authentication type for your AzureStack deployment. AzureAD,
-      AzureStackAD or AzureStack
-    Example: null
-    Examples: null
-    Name: azure.azure_stack.authentication
-  - Default: dav
-    Description: Provider of the blobstore used by director and agent (dav|simple|s3)
-    Example: null
-    Examples: null
-    Name: blobstore.provider
-  - Default: false
-    Description: Whether s3 blobstore plugin will always use path style for bucket
-      access
-    Example: null
-    Examples: null
-    Name: blobstore.s3_force_path_style
-  - Default: 25250
-    Description: Port of blobstore server used by simple blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.port
-  - Default: null
-    Description: Address for agent to connect to blobstore server used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.address
-  - Default: null
-    Description: Address of the nats server
-    Example: null
-    Examples: null
-    Name: nats.address
-  - Default: null
-    Description: Resource group name to use when spinning up new vms
-    Example: null
-    Examples: null
-    Name: azure.resource_group_name
-  - Default: null
-    Description: The name of the default security group that will be applied to all
-      created VMs
-    Example: null
-    Examples: null
-    Name: azure.default_security_group
-  - Default: null
-    Description: Https proxy to connect to cloud API's
-    Example: null
-    Examples: null
-    Name: env.https_proxy
-  - Default: null
-    Description: No proxy environment variable
-    Example: null
-    Examples: null
-    Name: env.no_proxy
-  - Default: management
-    Description: The endpoint prefix for your AzureStack deployment
-    Example: null
-    Examples: null
-    Name: azure.azure_stack.endpoint_prefix
-  - Default: null
-    Description: Address of the Registry to connect to
-    Example: null
-    Examples: null
-    Name: registry.host
-  - Default: 25777
-    Description: Port of the Registry to connect to
-    Example: null
-    Examples: null
-    Name: registry.port
-  - Default: null
-    Description: AWS S3 Bucket used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.bucket_name
-  - Default: null
-    Description: local blobstore path
-    Example: null
-    Examples: null
-    Name: blobstore.path
-  - Default: nats
-    Description: Username to connect to nats with
-    Example: null
-    Examples: null
-    Name: nats.user
-  - Default: null
-    Description: Azure storage account name. This property is required when use_managed_disks
-      is false or upgrading from an existing deployment whose use_managed_disks is
-      false.
-    Example: null
-    Examples: null
-    Name: azure.storage_account_name
-  - Default: vcap
-    Description: Default ssh user to use when spinning up new vms
-    Example: null
-    Examples: null
-    Name: azure.ssh_user
-  - Default: null
-    Description: AWS access_key_id used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: blobstore.access_key_id
-  - Default: true
-    Description: Whether the simple blobstore plugin should use SSL to connect to
-      the blobstore server
-    Example: null
-    Examples: null
-    Name: blobstore.use_ssl
-  - Default: null
-    Description: AWS secret_access_key for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.secret_access_key
-  - Default: null
-    Description: Address of the nats server
-    Example: null
-    Examples: null
-    Name: agent.nats.address
-  - Default: local.azurestack.external
-    Description: The domain for your AzureStack deployment
-    Example: null
-    Examples: null
-    Name: azure.azure_stack.domain
-  - Default: null
-    Description: Password to access the Registry
-    Example: null
-    Examples: null
-    Name: registry.password
-  - Default: false
-    Description: Flag for using HTTP to access storage account rather than the default
-      HTTPS
-    Example: null
-    Examples: null
-    Name: azure.azure_stack.use_http_to_access_storage_account
-  - Default: null
-    Description: Password agent uses to connect to blobstore used by simple blobstore
-      plugin
-    Example: null
-    Examples: null
-    Name: blobstore.agent.password
-  - Default: null
-    Description: AWS access_key_id for agent used by s3 blobstore plugin
-    Example: null
-    Examples: null
-    Name: agent.blobstore.access_key_id
-  - Default: AzureCloud
-    Description: The environment for Azure Management Service. AzureCloud, AzureChinaCloud,
-      AzureUSGovernment or AzureStack
-    Example: null
-    Examples: null
-    Name: azure.environment
-  - Default: false
-    Description: Toggles verification of the Azure Resource Manager REST API SSL certificate
-    Example: null
-    Examples: null
-    Name: azure.azure_stack.skip_ssl_validation
-  - Default: null
-    Description: The client id for your service principal
-    Example: null
-    Examples: null
-    Name: azure.client_id
-  - Default: null
-    Description: The content of the SSH public key to use when spinning up new vms
-    Example: null
-    Examples: null
-    Name: azure.ssh_public_key
-  Templates:
-  - DstPathEnd: bin/cpi
-    Path: /mnt/tmp/tar-CmdExtractor779149356/templates/cpi.erb
-    SrcPathEnd: cpi.erb
-  - DstPathEnd: config/cpi.json
-    Path: /mnt/tmp/tar-CmdExtractor779149356/templates/cpi.json.erb
-    SrcPathEnd: cpi.json.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor779149356/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "azure_cpi",
+    "Packages": [
+      {
+        "Name": "ruby_azure_cpi"
+      },
+      {
+        "Name": "bosh_azure_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 443,
+        "Description": "Port of blobstore server used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_port"
+      },
+      {
+        "Default": null,
+        "Description": "Address of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "Username agent uses to connect to blobstore used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.user"
+      },
+      {
+        "Default": null,
+        "Description": "Agent mbus",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.mbus"
+      },
+      {
+        "Default": null,
+        "Description": "Password to connect to nats with",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.password"
+      },
+      {
+        "Default": 4222,
+        "Description": "Port that the nats server listens on",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.port"
+      },
+      {
+        "Default": false,
+        "Description": "Enable debug mode to log all raw HTTP requests/responses",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.debug_mode"
+      },
+      {
+        "Default": null,
+        "Description": "User to access the Registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.username"
+      },
+      {
+        "Default": null,
+        "Description": "The client secret for your service principal",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.client_secret"
+      },
+      {
+        "Default": 16,
+        "Description": "The number of threads to upload stemcells in parallel",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.parallel_upload_thread_num"
+      },
+      {
+        "Default": false,
+        "Description": "Enable managed disks",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.use_managed_disks"
+      },
+      {
+        "Default": null,
+        "Description": "The token resource for your AzureStack deployment",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.azure_stack.resource"
+      },
+      {
+        "Default": null,
+        "Description": "Full URL for the registry endpoint that may include basic auth credentials",
+        "Example": "http://admin:admin-password@some-ip:port",
+        "Examples": null,
+        "Name": "registry.endpoint"
+      },
+      {
+        "Default": [
+          "0.pool.ntp.org",
+          "1.pool.ntp.org"
+        ],
+        "Description": "List of ntp server IPs. pool.ntp.org attempts to return IPs closest to your location, but you can still specify if needed.",
+        "Example": null,
+        "Examples": null,
+        "Name": "ntp"
+      },
+      {
+        "Default": null,
+        "Description": "Azure Subscription Id",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.subscription_id"
+      },
+      {
+        "Default": null,
+        "Description": "The tenant id for your service principal",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.tenant_id"
+      },
+      {
+        "Default": null,
+        "Description": "Http proxy to connect to cloud API's",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.http_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "Host of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.host"
+      },
+      {
+        "Default": "AzureAD",
+        "Description": "The authentication type for your AzureStack deployment. AzureAD, AzureStackAD or AzureStack",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.azure_stack.authentication"
+      },
+      {
+        "Default": "dav",
+        "Description": "Provider of the blobstore used by director and agent (dav|simple|s3)",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.provider"
+      },
+      {
+        "Default": false,
+        "Description": "Whether s3 blobstore plugin will always use path style for bucket access",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.s3_force_path_style"
+      },
+      {
+        "Default": 25250,
+        "Description": "Port of blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.port"
+      },
+      {
+        "Default": null,
+        "Description": "Address for agent to connect to blobstore server used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the nats server",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.address"
+      },
+      {
+        "Default": null,
+        "Description": "Resource group name to use when spinning up new vms",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.resource_group_name"
+      },
+      {
+        "Default": null,
+        "Description": "The name of the default security group that will be applied to all created VMs",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.default_security_group"
+      },
+      {
+        "Default": null,
+        "Description": "Https proxy to connect to cloud API's",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.https_proxy"
+      },
+      {
+        "Default": null,
+        "Description": "No proxy environment variable",
+        "Example": null,
+        "Examples": null,
+        "Name": "env.no_proxy"
+      },
+      {
+        "Default": "management",
+        "Description": "The endpoint prefix for your AzureStack deployment",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.azure_stack.endpoint_prefix"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the Registry to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.host"
+      },
+      {
+        "Default": 25777,
+        "Description": "Port of the Registry to connect to",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.port"
+      },
+      {
+        "Default": null,
+        "Description": "AWS S3 Bucket used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.bucket_name"
+      },
+      {
+        "Default": null,
+        "Description": "local blobstore path",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.path"
+      },
+      {
+        "Default": "nats",
+        "Description": "Username to connect to nats with",
+        "Example": null,
+        "Examples": null,
+        "Name": "nats.user"
+      },
+      {
+        "Default": null,
+        "Description": "Azure storage account name. This property is required when use_managed_disks is false or upgrading from an existing deployment whose use_managed_disks is false.",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.storage_account_name"
+      },
+      {
+        "Default": "vcap",
+        "Description": "Default ssh user to use when spinning up new vms",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.ssh_user"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.access_key_id"
+      },
+      {
+        "Default": true,
+        "Description": "Whether the simple blobstore plugin should use SSL to connect to the blobstore server",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.use_ssl"
+      },
+      {
+        "Default": null,
+        "Description": "AWS secret_access_key for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "Address of the nats server",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.nats.address"
+      },
+      {
+        "Default": "local.azurestack.external",
+        "Description": "The domain for your AzureStack deployment",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.azure_stack.domain"
+      },
+      {
+        "Default": null,
+        "Description": "Password to access the Registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "registry.password"
+      },
+      {
+        "Default": false,
+        "Description": "Flag for using HTTP to access storage account rather than the default HTTPS",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.azure_stack.use_http_to_access_storage_account"
+      },
+      {
+        "Default": null,
+        "Description": "Password agent uses to connect to blobstore used by simple blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "blobstore.agent.password"
+      },
+      {
+        "Default": null,
+        "Description": "AWS access_key_id for agent used by s3 blobstore plugin",
+        "Example": null,
+        "Examples": null,
+        "Name": "agent.blobstore.access_key_id"
+      },
+      {
+        "Default": "AzureCloud",
+        "Description": "The environment for Azure Management Service. AzureCloud, AzureChinaCloud, AzureUSGovernment or AzureStack",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.environment"
+      },
+      {
+        "Default": false,
+        "Description": "Toggles verification of the Azure Resource Manager REST API SSL certificate",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.azure_stack.skip_ssl_validation"
+      },
+      {
+        "Default": null,
+        "Description": "The client id for your service principal",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.client_id"
+      },
+      {
+        "Default": null,
+        "Description": "The content of the SSH public key to use when spinning up new vms",
+        "Example": null,
+        "Examples": null,
+        "Name": "azure.ssh_public_key"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "bin/cpi",
+        "Path": "/mnt/tmp/tar-CmdExtractor779149356/templates/cpi.erb",
+        "SrcPathEnd": "cpi.erb"
+      },
+      {
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/mnt/tmp/tar-CmdExtractor779149356/templates/cpi.json.erb",
+        "SrcPathEnd": "cpi.json.erb"
+      }
+    ]
+  }
+]

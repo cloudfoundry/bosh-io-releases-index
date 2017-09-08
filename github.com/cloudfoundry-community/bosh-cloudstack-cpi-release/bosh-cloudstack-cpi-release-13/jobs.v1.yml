@@ -1,268 +1,368 @@
-- Description: ""
-  MonitTemplate:
-    DstPathEnd: monit
-    Path: /mnt/tmp/tar-CmdExtractor779007775/monit
-    SrcPathEnd: monit
-  Name: cloudstack_cpi
-  Packages:
-  - Name: cpi-common
-  - Name: openjdk
-  - Name: cpi-core
-  Properties:
-  - Default: 1200
-    Description: cloudstack volume api timout
-    Example: null
-    Examples: null
-    Name: cloudstack.state_timeout_volume
-  - Default: local
-    Description: local for micro bosh and bosh-init or dav provider for full bosh
-    Example: null
-    Examples: null
-    Name: cpi.blobstore.provider
-  - Default: null
-    Description: network to use when creating new template from existing template
-      for light stemcell
-    Example: null
-    Examples: null
-    Name: cpi.lightstemcell.network_name
-  - Default: 1200
-    Description: cloudstack api timeout
-    Example: null
-    Examples: null
-    Name: cloudstack.state_timeout
-  - Default: null
-    Description: password to authent on the proxy
-    Example: null
-    Examples: null
-    Name: cloudstack.proxy_password
-  - Default: null
-    Description: default disk offering to use if not specified (ie not disk_pool,
-      just persistent tag)
-    Example: null
-    Examples: null
-    Name: cpi.default_disk_offering
-  - Default: 10
-    Description: delay (in seconds) the cpi will wait after vm creation. To tune e.g.
-      in case of xentools discovery delay
-    Example: null
-    Examples: null
-    Name: cpi.vm_create_delay
-  - Default: 127.0.0.1
-    Description: host the cpi-core rest server is listening on. use full for debugging
-      rest server out of bosh deployment
-    Example: null
-    Examples: null
-    Name: cpi.host
-  - Default: /var/vcap/store/cloudstack_cpi/webdav
-    Description: webdav filesystem dir. defaults to persistent disk location
-    Example: null
-    Examples: null
-    Name: cpi.webdav_directory
-  - Default: null
-    Description: host the bosh registry is listening on. must be the IP of the director
-      to be reached from bosh agents
-    Example: http://admin:admin@<bosh_director_ip>:8080
-    Examples: null
-    Name: cpi.registry.endpoint
-  - Default: agent
-    Description: agent user for blobstore
-    Example: null
-    Examples: null
-    Name: cpi.blobstore.agent.user
-  - Default: agent-password
-    Description: password user for blobstore
-    Example: null
-    Examples: null
-    Name: cpi.blobstore.agent.password
-  - Default: 0.1
-    Description: zipkin sleuth percentage sampling. 1.0 is all, 0.1 is one tenth
-    Example: null
-    Examples: null
-    Name: cpi.zipkin.sampler-percentage
-  - Default: null
-    Description: cloudstack api endpoint
-    Example: null
-    Examples: null
-    Name: cloudstack.endpoint
-  - Default: null
-    Description: cloudstack api key
-    Example: null
-    Examples: null
-    Name: cloudstack.api_key
-  - Default: null
-    Description: CloudStack Iaas ZONE to use
-    Example: null
-    Examples: null
-    Name: cloudstack.default_zone
-  - Default: null
-    Description: default disk offering to use if not specified (ie not disk_pool,
-      just persistent tag)
-    Example: null
-    Examples: null
-    Name: cpi.default_ephemeral_disk_offering
-  - Default: false
-    Description: explicitly force vm expunge with cloudstack api. expunge follows
-      delete api calls, should not require cloudstack admin rights
-    Example: null
-    Examples: null
-    Name: cpi.force_expunge
-  - Default: admin
-    Description: password for bosh registry
-    Example: null
-    Examples: null
-    Name: cpi.registry.password
-  - Default: null
-    Description: 'director nats url eg : nats://nats:nats-password@10.234.228.157:4222 '
-    Example: null
-    Examples: null
-    Name: cpi.agent.mbus
-  - Default: null
-    Description: instance type to use when creating new template from existing template
-      for light stemcell
-    Example: null
-    Examples: null
-    Name: cpi.lightstemcell.instance_type
-  - Default: 5
-    Description: timeout in minutes before consider stemcell push to cloud is ko
-    Example: null
-    Examples: null
-    Name: cloudstack.stemcell_publish_timeout
-  - Default: ""
-    Description: host to the proxy e.g. 192.168.1.1. Usefull to reach cloudstack api
-      behind proxy. No proxy if no set
-    Example: null
-    Examples: null
-    Name: cloudstack.proxy_host
-  - Default: null
-    Description: user to authent on the proxy
-    Example: null
-    Examples: null
-    Name: cloudstack.proxy_user
-  - Default: cpi
-    Description: password for core rest API
-    Example: null
-    Examples: null
-    Name: cpi.core.password
-  - Default: 8080
-    Description: webdav port to offer template to cloudstack api
-    Example: null
-    Examples: null
-    Name: cpi.webdav_port
-  - Default: admin
-    Description: user for bosh registry
-    Example: null
-    Examples: null
-    Name: cpi.registry.user
-  - Default: 0
-    Description: port of blobstore
-    Example: null
-    Examples: null
-    Name: cpi.blobstore.port
-  - Default: http://127.0.0.1:9441
-    Description: remote zipkin collecter server url
-    Example: http://xx.xx.xx
-    Examples: null
-    Name: cpi.zipkin.base-url
-  - Default: false
-    Description: must stemcell template be published with requires hvm flag
-    Example: null
-    Examples: null
-    Name: cloudstack.stemcell_requires_hvm
-  - Default: Other PV (64-bit)
-    Description: os type to use when publishing stemcell as cloudstack template.
-    Example: null
-    Examples: null
-    Name: cloudstack.stemcell_os_type
-  - Default: 8080
-    Description: port to the proxy
-    Example: null
-    Examples: null
-    Name: cloudstack.proxy_port
-  - Default: 127.0.0.1
-    Description: webdav server to offer template to cloudstack api. Should be set
-      to bosh server ip address
-    Example: null
-    Examples: null
-    Name: cpi.webdav_host
-  - Default: 0.0.0.0
-    Description: ip of blobstore
-    Example: null
-    Examples: null
-    Name: cpi.blobstore.address
-  - Default: null
-    Description: cloudstack api secret
-    Example: null
-    Examples: null
-    Name: cloudstack.secret_access_key
-  - Default: null
-    Description: key name for ssh access. must be present in cloudstack. cpi+bosh
-      agent will provision the public key for vcap user
-    Example: null
-    Examples: null
-    Name: cloudstack.default_key_name
-  - Default: null
-    Description: private key for ssh access. (unused)
-    Example: null
-    Examples: null
-    Name: cloudstack.private_key
-  - Default: 512M
-    Description: cpi jvm sizing
-    Example: null
-    Examples: null
-    Name: cpi.heap_size
-  - Default: 8080
-    Description: port the cpi core rest server is listening on
-    Example: null
-    Examples: null
-    Name: cpi.port
-  - Default: cpi
-    Description: user for core rest API
-    Example: null
-    Examples: null
-    Name: cpi.core.user
-  - Default: /var/vcap/micro_bosh/data/cache
-    Description: path for local provider
-    Example: null
-    Examples: null
-    Name: cpi.blobstore.path
-  - Default: null
-    Description: 'ntp server list (same as director) eg : [10.234.50.245 ,10.234.50.246]'
-    Example: null
-    Examples: null
-    Name: cpi.ntp
-  - Default: false
-    Description: should the cpi tell bosh-agent to configure vm network with dhcp.
-      default is false - static configuration
-    Example: null
-    Examples: null
-    Name: cpi.use_dhcp
-  - Default: true
-    Description: must stemcell template be public ?  (unused)
-    Example: null
-    Examples: null
-    Name: cloudstack.stemcell_public_visibility
-  - Default: 30
-    Description: delay (in seconds) the cpi will wait after vm deletion. Should match
-      cloudstack expunge delay to prevent ip reuse conflicts if force_expunge not
-      set
-    Example: null
-    Examples: null
-    Name: cpi.vm_expunge_delay
-  - Default: false
-    Description: should cpi activate zipkin sleuth http tracing
-    Example: null
-    Examples: null
-    Name: cpi.zipkin.enabled
-  Templates:
-  - DstPathEnd: config/application.yml
-    Path: /mnt/tmp/tar-CmdExtractor779007775/templates/application.yml.erb
-    SrcPathEnd: application.yml.erb
-  - DstPathEnd: config/logback.xml
-    Path: /mnt/tmp/tar-CmdExtractor779007775/templates/logback.xml.erb
-    SrcPathEnd: logback.xml.erb
-  - DstPathEnd: bin/cpi-core
-    Path: /mnt/tmp/tar-CmdExtractor779007775/templates/cpi-core.erb
-    SrcPathEnd: cpi-core.erb
-  - DstPathEnd: bin/cpi
-    Path: /mnt/tmp/tar-CmdExtractor779007775/templates/cpi.erb
-    SrcPathEnd: cpi.erb
+[
+  {
+    "Description": "",
+    "MonitTemplate": {
+      "DstPathEnd": "monit",
+      "Path": "/mnt/tmp/tar-CmdExtractor779007775/monit",
+      "SrcPathEnd": "monit"
+    },
+    "Name": "cloudstack_cpi",
+    "Packages": [
+      {
+        "Name": "cpi-common"
+      },
+      {
+        "Name": "openjdk"
+      },
+      {
+        "Name": "cpi-core"
+      }
+    ],
+    "Properties": [
+      {
+        "Default": 1200,
+        "Description": "cloudstack volume api timout",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.state_timeout_volume"
+      },
+      {
+        "Default": "local",
+        "Description": "local for micro bosh and bosh-init or dav provider for full bosh",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.blobstore.provider"
+      },
+      {
+        "Default": null,
+        "Description": "network to use when creating new template from existing template for light stemcell",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.lightstemcell.network_name"
+      },
+      {
+        "Default": 1200,
+        "Description": "cloudstack api timeout",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.state_timeout"
+      },
+      {
+        "Default": null,
+        "Description": "password to authent on the proxy",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.proxy_password"
+      },
+      {
+        "Default": null,
+        "Description": "default disk offering to use if not specified (ie not disk_pool, just persistent tag)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.default_disk_offering"
+      },
+      {
+        "Default": 10,
+        "Description": "delay (in seconds) the cpi will wait after vm creation. To tune e.g. in case of xentools discovery delay",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.vm_create_delay"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "host the cpi-core rest server is listening on. use full for debugging rest server out of bosh deployment",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.host"
+      },
+      {
+        "Default": "/var/vcap/store/cloudstack_cpi/webdav",
+        "Description": "webdav filesystem dir. defaults to persistent disk location",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.webdav_directory"
+      },
+      {
+        "Default": null,
+        "Description": "host the bosh registry is listening on. must be the IP of the director to be reached from bosh agents",
+        "Example": "http://admin:admin@\u003cbosh_director_ip\u003e:8080",
+        "Examples": null,
+        "Name": "cpi.registry.endpoint"
+      },
+      {
+        "Default": "agent",
+        "Description": "agent user for blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.blobstore.agent.user"
+      },
+      {
+        "Default": "agent-password",
+        "Description": "password user for blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.blobstore.agent.password"
+      },
+      {
+        "Default": 0.1,
+        "Description": "zipkin sleuth percentage sampling. 1.0 is all, 0.1 is one tenth",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.zipkin.sampler-percentage"
+      },
+      {
+        "Default": null,
+        "Description": "cloudstack api endpoint",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.endpoint"
+      },
+      {
+        "Default": null,
+        "Description": "cloudstack api key",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.api_key"
+      },
+      {
+        "Default": null,
+        "Description": "CloudStack Iaas ZONE to use",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.default_zone"
+      },
+      {
+        "Default": null,
+        "Description": "default disk offering to use if not specified (ie not disk_pool, just persistent tag)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.default_ephemeral_disk_offering"
+      },
+      {
+        "Default": false,
+        "Description": "explicitly force vm expunge with cloudstack api. expunge follows delete api calls, should not require cloudstack admin rights",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.force_expunge"
+      },
+      {
+        "Default": "admin",
+        "Description": "password for bosh registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.registry.password"
+      },
+      {
+        "Default": null,
+        "Description": "director nats url eg : nats://nats:nats-password@10.234.228.157:4222 ",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.agent.mbus"
+      },
+      {
+        "Default": null,
+        "Description": "instance type to use when creating new template from existing template for light stemcell",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.lightstemcell.instance_type"
+      },
+      {
+        "Default": 5,
+        "Description": "timeout in minutes before consider stemcell push to cloud is ko",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.stemcell_publish_timeout"
+      },
+      {
+        "Default": "",
+        "Description": "host to the proxy e.g. 192.168.1.1. Usefull to reach cloudstack api behind proxy. No proxy if no set",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.proxy_host"
+      },
+      {
+        "Default": null,
+        "Description": "user to authent on the proxy",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.proxy_user"
+      },
+      {
+        "Default": "cpi",
+        "Description": "password for core rest API",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.core.password"
+      },
+      {
+        "Default": 8080,
+        "Description": "webdav port to offer template to cloudstack api",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.webdav_port"
+      },
+      {
+        "Default": "admin",
+        "Description": "user for bosh registry",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.registry.user"
+      },
+      {
+        "Default": 0,
+        "Description": "port of blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.blobstore.port"
+      },
+      {
+        "Default": "http://127.0.0.1:9441",
+        "Description": "remote zipkin collecter server url",
+        "Example": "http://xx.xx.xx",
+        "Examples": null,
+        "Name": "cpi.zipkin.base-url"
+      },
+      {
+        "Default": false,
+        "Description": "must stemcell template be published with requires hvm flag",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.stemcell_requires_hvm"
+      },
+      {
+        "Default": "Other PV (64-bit)",
+        "Description": "os type to use when publishing stemcell as cloudstack template.",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.stemcell_os_type"
+      },
+      {
+        "Default": 8080,
+        "Description": "port to the proxy",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.proxy_port"
+      },
+      {
+        "Default": "127.0.0.1",
+        "Description": "webdav server to offer template to cloudstack api. Should be set to bosh server ip address",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.webdav_host"
+      },
+      {
+        "Default": "0.0.0.0",
+        "Description": "ip of blobstore",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.blobstore.address"
+      },
+      {
+        "Default": null,
+        "Description": "cloudstack api secret",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.secret_access_key"
+      },
+      {
+        "Default": null,
+        "Description": "key name for ssh access. must be present in cloudstack. cpi+bosh agent will provision the public key for vcap user",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.default_key_name"
+      },
+      {
+        "Default": null,
+        "Description": "private key for ssh access. (unused)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.private_key"
+      },
+      {
+        "Default": "512M",
+        "Description": "cpi jvm sizing",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.heap_size"
+      },
+      {
+        "Default": 8080,
+        "Description": "port the cpi core rest server is listening on",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.port"
+      },
+      {
+        "Default": "cpi",
+        "Description": "user for core rest API",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.core.user"
+      },
+      {
+        "Default": "/var/vcap/micro_bosh/data/cache",
+        "Description": "path for local provider",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.blobstore.path"
+      },
+      {
+        "Default": null,
+        "Description": "ntp server list (same as director) eg : [10.234.50.245 ,10.234.50.246]",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.ntp"
+      },
+      {
+        "Default": false,
+        "Description": "should the cpi tell bosh-agent to configure vm network with dhcp. default is false - static configuration",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.use_dhcp"
+      },
+      {
+        "Default": true,
+        "Description": "must stemcell template be public ?  (unused)",
+        "Example": null,
+        "Examples": null,
+        "Name": "cloudstack.stemcell_public_visibility"
+      },
+      {
+        "Default": 30,
+        "Description": "delay (in seconds) the cpi will wait after vm deletion. Should match cloudstack expunge delay to prevent ip reuse conflicts if force_expunge not set",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.vm_expunge_delay"
+      },
+      {
+        "Default": false,
+        "Description": "should cpi activate zipkin sleuth http tracing",
+        "Example": null,
+        "Examples": null,
+        "Name": "cpi.zipkin.enabled"
+      }
+    ],
+    "Templates": [
+      {
+        "DstPathEnd": "config/application.yml",
+        "Path": "/mnt/tmp/tar-CmdExtractor779007775/templates/application.yml.erb",
+        "SrcPathEnd": "application.yml.erb"
+      },
+      {
+        "DstPathEnd": "config/logback.xml",
+        "Path": "/mnt/tmp/tar-CmdExtractor779007775/templates/logback.xml.erb",
+        "SrcPathEnd": "logback.xml.erb"
+      },
+      {
+        "DstPathEnd": "bin/cpi-core",
+        "Path": "/mnt/tmp/tar-CmdExtractor779007775/templates/cpi-core.erb",
+        "SrcPathEnd": "cpi-core.erb"
+      },
+      {
+        "DstPathEnd": "bin/cpi",
+        "Path": "/mnt/tmp/tar-CmdExtractor779007775/templates/cpi.erb",
+        "SrcPathEnd": "cpi.erb"
+      }
+    ]
+  }
+]
