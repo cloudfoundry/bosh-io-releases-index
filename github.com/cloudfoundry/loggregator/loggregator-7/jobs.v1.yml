@@ -1,0 +1,841 @@
+[
+  {
+    "Name": "dea_logging_agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor319640418/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "dea_logging_agent_ctl.erb",
+        "DstPathEnd": "bin/dea_logging_agent_ctl",
+        "Path": "/tmp/tar-CmdExtractor319640418/templates/dea_logging_agent_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "dea_logging_agent.json.erb",
+        "DstPathEnd": "config/dea_logging_agent.json",
+        "Path": "/tmp/tar-CmdExtractor319640418/templates/dea_logging_agent.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_common"
+      },
+      {
+        "Name": "dea_logging_agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "dea_logging_agent.debug",
+        "Description": "boolean value to turn on verbose mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.host",
+        "Description": "The host used to emit messages to the Metron agent",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.dropsonde_port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_trafficcontroller",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor961403108/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_trafficcontroller_ctl.erb",
+        "DstPathEnd": "bin/loggregator_trafficcontroller_ctl",
+        "Path": "/tmp/tar-CmdExtractor961403108/templates/loggregator_trafficcontroller_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_trafficcontroller.json.erb",
+        "DstPathEnd": "config/loggregator_trafficcontroller.json",
+        "Path": "/tmp/tar-CmdExtractor961403108/templates/loggregator_trafficcontroller.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_common"
+      },
+      {
+        "Name": "loggregator_trafficcontroller"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "traffic_controller.debug",
+        "Description": "boolean value to turn on verbose logging for loggregator system (dea agent \u0026 loggregator server)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.outgoing_port",
+        "Description": "Port on which the traffic controller listens to for requests",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "login.protocol",
+        "Description": "Protocol to use to connect to UAA (used in case uaa.url is not set)",
+        "Default": "https",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.machines",
+        "Description": "IPs pointing to the ETCD cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_domain",
+        "Description": "Domain reserved for CF operator, base URL where the login, uaa, and other non-user apps listen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.url",
+        "Description": "URL of UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.dropsonde_port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.maxconcurrentrequests",
+        "Description": "Number of concurrent requests to ETCD",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.srv_api_uri",
+        "Description": "API URI of cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.disable_access_control",
+        "Description": "Traffic controller bypasses authentication with the UAA and CC",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.outgoing_dropsonde_port",
+        "Description": "Port for outgoing dropsonde messages",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.doppler_port",
+        "Description": "Port for outgoing doppler messages",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.uaa_client_id",
+        "Description": "Doppler's client id to connect to UAA",
+        "Default": "doppler",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.clients.doppler.secret",
+        "Description": "Doppler's client secret to connect to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.zone",
+        "Description": "Zone of the loggregator_trafficcontroller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "doppler",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor460992950/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "doppler.crt.erb",
+        "DstPathEnd": "config/certs/doppler.crt",
+        "Path": "/tmp/tar-CmdExtractor460992950/templates/doppler.crt.erb"
+      },
+      {
+        "SrcPathEnd": "doppler.key.erb",
+        "DstPathEnd": "config/certs/doppler.key",
+        "Path": "/tmp/tar-CmdExtractor460992950/templates/doppler.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor460992950/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "doppler_ctl.erb",
+        "DstPathEnd": "bin/doppler_ctl",
+        "Path": "/tmp/tar-CmdExtractor460992950/templates/doppler_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "doppler.json.erb",
+        "DstPathEnd": "config/doppler.json",
+        "Path": "/tmp/tar-CmdExtractor460992950/templates/doppler.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_common"
+      },
+      {
+        "Name": "doppler"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "doppler.incoming_port",
+        "Description": "Port for incoming log messages in the legacy format",
+        "Default": 3456,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.dropsonde_incoming_port",
+        "Description": "Port for incoming messages in the dropsonde format",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.machines",
+        "Description": "IPs pointing to the ETCD cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.zone",
+        "Description": "Zone of the doppler server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.debug",
+        "Description": "boolean value to turn on verbose logging for doppler system (dea agent \u0026 doppler server)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.sink_inactivity_timeout_seconds",
+        "Description": "Interval before removing a sink due to inactivity",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.websocket_write_timeout_seconds",
+        "Description": "Interval before a websocket write is aborted if it does not succeed",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.message_drain_buffer_size",
+        "Description": "Size of the internal buffer used by doppler to store messages. If the buffer gets full doppler will drop the messages.",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.tls.server_key",
+        "Description": "TLS server key",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.syslog_skip_cert_verify",
+        "Description": "When connecting over TLS, don't verify certificates for syslog sink",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.dropsonde_port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.blacklisted_syslog_ranges",
+        "Description": "Blacklist for IPs that should not be used as syslog drains, e.g. internal ip addresses.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.container_metric_ttl_seconds",
+        "Description": "TTL (in seconds) for container usage metrics",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.tls.enable",
+        "Description": "Enable TLS listener on doppler so that it can receive dropsonde envelopes over TLS transport. If enabled, Cert and Key files must be specified.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.host",
+        "Description": "The host used to emit messages to the Metron agent",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.outgoing_port",
+        "Description": "Port for outgoing log messages",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.sink_dial_timeout_seconds",
+        "Description": "Dial timeout for sinks",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.sink_io_timeout_seconds",
+        "Description": "I/O Timeout on sinks",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler_endpoint.shared_secret",
+        "Description": "Shared secret used to verify cryptographically signed dropsonde messages",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.tls.port",
+        "Description": "Port for incoming messages in the dropsonde format over tls listener",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.tls.server_cert",
+        "Description": "TLS server certificate",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.maxRetainedLogMessages",
+        "Description": "number of log messages to retain per application",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.unmarshaller_count",
+        "Description": "Number of parallel unmarshallers to run within Doppler",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "syslog_drain_binder",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor094330456/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "syslog_drain_binder_ctl.erb",
+        "DstPathEnd": "bin/syslog_drain_binder_ctl",
+        "Path": "/tmp/tar-CmdExtractor094330456/templates/syslog_drain_binder_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_drain_binder.json.erb",
+        "DstPathEnd": "config/syslog_drain_binder.json",
+        "Path": "/tmp/tar-CmdExtractor094330456/templates/syslog_drain_binder.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_common"
+      },
+      {
+        "Name": "syslog_drain_binder"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cc.bulk_api_password",
+        "Description": "password for the bulk api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.host",
+        "Description": "The host used to emit messages to the Metron agent",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.dropsonde_port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.maxconcurrentrequests",
+        "Description": "Number of concurrent requests to ETCD",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_domain",
+        "Description": "Domain reserved for CF operator, base URL where the login, uaa, and other non-user apps listen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_drain_binder.drain_url_ttl_seconds",
+        "Description": "Time to live for drain urls in seconds",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_drain_binder.update_interval_seconds",
+        "Description": "Interval on which to poll cloud controller in seconds",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_drain_binder.polling_batch_size",
+        "Description": "Batch size for the poll from cloud controller",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.machines",
+        "Description": "IPs pointing to the ETCD cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_drain_binder.debug",
+        "Description": "boolean value to turn on verbose logging for syslog_drain_binder",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.srv_api_uri",
+        "Description": "API URI of cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator-acceptance-tests",
+    "Description": "The loggregator acceptance tests.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor275273034/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor275273034/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "bin/config.json",
+        "Path": "/tmp/tar-CmdExtractor275273034/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang1.5"
+      },
+      {
+        "Name": "loggregator-acceptance-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.etcd.machines",
+        "Description": "IPs pointing to the ETCD cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_domain",
+        "Description": "for computing the Traffic Controller URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.dropsonde_incoming_port",
+        "Description": "port for tests to send metrics to metron",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_endpoint.shared_secret",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_acceptance_tests.login_required",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_acceptance_tests.admin_user",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_acceptance_tests.admin_password",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "metron_agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor315517196/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "metron_agent.key.erb",
+        "DstPathEnd": "config/certs/metron_agent.key",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/metron_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metron_agent_ctl.erb",
+        "DstPathEnd": "bin/metron_agent_ctl",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/metron_agent_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "metron_agent.json.erb",
+        "DstPathEnd": "config/metron_agent.json",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/metron_agent.json.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_forwarder.conf.erb",
+        "DstPathEnd": "config/syslog_forwarder.conf",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/syslog_forwarder.conf.erb"
+      },
+      {
+        "SrcPathEnd": "metron_agent_logrotate.cron.erb",
+        "DstPathEnd": "config/metron_agent_logrotate.cron",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/metron_agent_logrotate.cron.erb"
+      },
+      {
+        "SrcPathEnd": "logrotate.conf.erb",
+        "DstPathEnd": "config/logrotate.conf",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/logrotate.conf.erb"
+      },
+      {
+        "SrcPathEnd": "metron_agent.crt.erb",
+        "DstPathEnd": "config/certs/metron_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor315517196/templates/metron_agent.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_common"
+      },
+      {
+        "Name": "metron_agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metron_agent.debug",
+        "Description": "boolean value to turn on verbose mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.logrotate.freq_min",
+        "Description": "The frequency in minutes which logrotate will rotate VM logs",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.logrotate.size",
+        "Description": "The size at which logrotate will decide to rotate the log file",
+        "Default": "50M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.buffer_size",
+        "Description": "The size of the internal buffer used by metron before sending to Doppler",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.fallback_addresses",
+        "Description": "Addresses of fallback servers to be used if the primary syslog server is down. Only tcp or relp are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys. ",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.dropsonde_incoming_port",
+        "Description": "Incoming port for dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.shared_secret",
+        "Description": "Shared secret used to verify cryptographically signed dropsonde messages",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.enable_buffer",
+        "Description": "boolean value to turn on buffering",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.logrotate.rotate",
+        "Description": "The number of files that logrotate will keep around on the VM",
+        "Default": 7,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.maxconcurrentrequests",
+        "Description": "Number of concurrent requests to ETCD",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.transport",
+        "Description": "Transport to be used when forwarding logs (tcp|udp|relp).",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.max_message_size",
+        "Description": "maximum message size to be sent",
+        "Default": "4k",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.tls.client_cert",
+        "Description": "TLS client certificate",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.address",
+        "Description": "IP address for syslog aggregator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.tls.client_key",
+        "Description": "TLS client key",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.dropsonde_incoming_port",
+        "Description": "Port where loggregator listens for dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.etcd.machines",
+        "Description": "IPs pointing to the ETCD cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.port",
+        "Description": "TCP port of syslog aggregator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.custom_rule",
+        "Description": "Custom rule for syslog forward daemon",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.preferred_protocol",
+        "Description": "Preferred protocol to droppler (udp|tls)",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_agent.deployment",
+        "Description": "Name of deployment (added as tag on all outgoing metrics)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
