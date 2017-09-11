@@ -1,0 +1,3 @@
+{
+  "Content": "- Upgraded to Hazelcast 3.7.3\n- In our environment we were having trouble with vmware \"ballooning\" memory from the vm causing memory issues for our memcache process what was using all available memory.  In this release I moved most memory configuration to a new property and set the default to have different Xmx and Xms so that the process will act more like a regular process and our memory monitoring tools will work better with it.  I also set swapiness to 10% to help reduce swapping.  If users still want Xmx and Xms the same you can set Xms in the java_opts property.\n- Fixed some issues issues in error conditions where the request object would never get completely downloaded leaving the connection in a weird state.\n"
+}

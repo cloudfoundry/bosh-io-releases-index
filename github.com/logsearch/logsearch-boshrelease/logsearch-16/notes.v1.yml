@@ -1,0 +1,3 @@
+{
+  "Content": "This adds TLS support to the syslog ingestor and significantly changes how logstash filters are configured.\n\nBackward Compatibility Break - the `logstash.filters` is no longer an array of files to extract and dynamically compose a set of filters. The value must now be the final concatenated form of the filters you want to use (excluding the wrapping `filter { ... }` parts). Typically you'll automatically update this from a build artifact.\n- BREAKING CHANGE: the `logstash.filters` property now expects a string of the literal filter rules logstash should use (#58)\n- ADD: syslog_tls ingestor support (#59)\n- ADD: drain script for elasticsearch - currently disabled, by default, with the `elasticsearch.drain` property (#51)\n"
+}
