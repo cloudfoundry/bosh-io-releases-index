@@ -1,0 +1,208 @@
+[
+  {
+    "Name": "slave",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor449414790/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor449414790/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor449414790/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor449414790/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor449414790/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor449414790/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "config/slave.conf",
+        "DstPathEnd": "config/slave.conf",
+        "Path": "/tmp/tar-CmdExtractor449414790/templates/config/slave.conf"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bind9"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bind9.slave.master",
+        "Description": "IP address of the master BIND9 nameserver",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.slave.zones",
+        "Description": "List of zones to transfer from the master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.slave.allow_notify",
+        "Description": "ACL (possible semi-colon delimited) to allow AXFR zone transfers from",
+        "Default": "none",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.recursion.forwarders",
+        "Description": "List of DNS servers to forward recursive queries on to. If not specified, recursion is disabled",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.recursion.allow_from",
+        "Description": "List of IPs or CIDRs to allow recursive queries from. If recursion is enabled, localhost and localnets will always be allowed",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.options",
+        "Description": "Map of additional options",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.forward.zones",
+        "Description": "Forward zones in forward only mode,e.g. {name: zone1, forwarders: [1.1.1.1, 1.1.1.2]}",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "master",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor764466088/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "config/master.conf",
+        "DstPathEnd": "config/master.conf",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/config/master.conf"
+      },
+      {
+        "SrcPathEnd": "config/zones.ttar",
+        "DstPathEnd": "config/zones.ttar",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/config/zones.ttar"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/ttar",
+        "DstPathEnd": "bin/ttar",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/bin/ttar"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor764466088/templates/bin/monit_debugger"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bind9"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bind9.master.allow_transfer",
+        "Description": "ACL (possible semi-colon delimited) to allow AXFR zone transfers from",
+        "Default": "none",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.master.zones",
+        "Description": "Map of DNS zone names to their BIND configuration file contents",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.recursion.forwarders",
+        "Description": "List of DNS servers to forward recursive queries on to. If not specified, recursion is disabled",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.recursion.allow_from",
+        "Description": "List of IPs or CIDRs to allow recursive queries from. If recursion is enabled, localhost and localnets will always be allowed",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.options",
+        "Description": "Map of additional options",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.forward.zones",
+        "Description": "Forward zones in forward only mode,e.g. {name: zone1, forwarders: [1.1.1.1, 1.1.1.2]}",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind9.master.slaves",
+        "Description": "List of IPs of the slave nameservers",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
