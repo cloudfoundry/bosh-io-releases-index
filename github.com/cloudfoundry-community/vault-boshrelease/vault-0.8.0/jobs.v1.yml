@@ -1,0 +1,558 @@
+[
+  {
+    "Name": "sanity-test",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor425780502/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/bin/run"
+      },
+      {
+        "SrcPathEnd": "bin/run-vault-tests.sh",
+        "DstPathEnd": "bin/run-vault-tests.sh",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/bin/run-vault-tests.sh"
+      },
+      {
+        "SrcPathEnd": "bin/run-broker-tests.sh",
+        "DstPathEnd": "bin/run-broker-tests.sh",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/bin/run-broker-tests.sh"
+      },
+      {
+        "SrcPathEnd": "bin/create-service",
+        "DstPathEnd": "bin/create-service",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/bin/create-service"
+      },
+      {
+        "SrcPathEnd": "bin/delete-service",
+        "DstPathEnd": "bin/delete-service",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/bin/delete-service"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor425780502/templates/helpers/ctl_utils.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "vault"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "vault.broker.host",
+        "Description": "The hostname for accessing the vault broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.port",
+        "Description": "The port for accessing the vault broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.username",
+        "Description": "The username for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.password",
+        "Description": "The password for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.backend.token",
+        "Description": "The token that the service broker will use when interacting with the Vault. If 'TODO' then skip tests.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.backend.address",
+        "Description": "The address to use when accessing the Vault to set up new policies and manage provisioned services.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "vault",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor456304312/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/post-start",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/bin/post-start"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "ssl/certificate.pem",
+        "DstPathEnd": "ssl/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/ssl/certificate.pem"
+      },
+      {
+        "SrcPathEnd": "ssl/key.pem",
+        "DstPathEnd": "ssl/key.pem",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/ssl/key.pem"
+      },
+      {
+        "SrcPathEnd": "ssl/consul_certificate.pem",
+        "DstPathEnd": "ssl/consul_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/ssl/consul_certificate.pem"
+      },
+      {
+        "SrcPathEnd": "bin/vault_ctl",
+        "DstPathEnd": "bin/vault_ctl",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/bin/vault_ctl"
+      },
+      {
+        "SrcPathEnd": "data/unseal_keys.erb",
+        "DstPathEnd": "data/unseal_keys",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/data/unseal_keys.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "config/vault.conf.erb",
+        "DstPathEnd": "config/server.hcl",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/config/vault.conf.erb"
+      },
+      {
+        "SrcPathEnd": "ssl/consul_ca_certificate.pem",
+        "DstPathEnd": "ssl/consul_ca_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/ssl/consul_ca_certificate.pem"
+      },
+      {
+        "SrcPathEnd": "ssl/consul_key.pem",
+        "DstPathEnd": "ssl/consul_key.pem",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/ssl/consul_key.pem"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor456304312/templates/bin/monit_debugger"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "vault"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "vault.listener.tcp.tls.key",
+        "Description": "Contents of the PEM-encoded TLS server private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.telemetry.statsite_addr",
+        "Description": "Address for statsite",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.telemetry.statsd_addr",
+        "Description": "Address for StatsD",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.tls.ca_certificate",
+        "Description": "Contents of the PEM-encoded TLS CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.s3.session_token",
+        "Description": "AWS session token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.listener.cluster.address",
+        "Description": "Address to bind to for cluster server-to-server requests",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.ha.redirect_address",
+        "Description": "This is the address to advertise to other Vault servers in the cluster for client redirection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.ha.disable_clustering",
+        "Description": "This controls whether clustering features (currently, request forwarding) are enabled",
+        "Default": "true",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.address",
+        "Description": "Address for Consul",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.check_timeout",
+        "Description": "The check interval used to send health check information to consul.",
+        "Default": "5s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.listener.tcp.port",
+        "Description": "Port for TCP connection",
+        "Default": 8200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.tls.key",
+        "Description": "Contents of the PEM-encoded TLS server private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.s3.endpoint",
+        "Description": "AWS S3 endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.s3.bucket",
+        "Description": "S3 bucket name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.s3.region",
+        "Description": "AWS region",
+        "Default": "us-east-1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.listener.tcp.tls.min_version",
+        "Description": "Minimum TLS version to use",
+        "Default": "tls12",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.update.step_down_token",
+        "Description": "For a true zero-downtime update to an HA cluster 'vault step-down' must be run on each node to force failover before the update. The token the must have the capabilities ['update', 'sudo'] on the '/sys/step-down' path for this to work.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.telemetry.disable_hostname",
+        "Description": "Whether or not to prepend runtime telemetry with the machines hostname. This is a global option.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.disable_mlock",
+        "Description": "Disable mlock if you're crazy",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.use_inmem",
+        "Description": "Use In Memory storage",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.ha.cluster_address",
+        "Description": "This is the address to advertise to other Vault servers in the cluster for request forwarding.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.use_consul",
+        "Description": "Use Cosul for data store",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.listener.tcp.address",
+        "Description": "Address for TCP connection",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.token",
+        "Description": "Access Token for Consul",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.tls.certificate",
+        "Description": "Contents of the PEM-encoded TLS server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.use_file",
+        "Description": "Use File storage",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.file.path",
+        "Description": "Path for File storage",
+        "Default": "/var/vcap/store/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.s3.secret_key",
+        "Description": "AWS secret key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.listener.tcp.tls.certificate",
+        "Description": "Contents of the PEM-encoded TLS server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.update.unseal_keys",
+        "Description": "For a true zero-downtime update to an HA cluster each node must be individually unsealed once it has restarted. It is highly advised to generate new unseal keys via 'vault rekey' once the update has completed.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.path",
+        "Description": "Path for Consul",
+        "Default": "vault/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.tls.min_version",
+        "Description": "Minimum TLS version to use",
+        "Default": "tls12",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.s3.access_key",
+        "Description": "AWS access key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.listener.cluster.port",
+        "Description": "Port for cluster address required for server-to-server connection",
+        "Default": 8201,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.max_parallel",
+        "Description": "The maximum number of concurrent requests to Consul.",
+        "Default": 128,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.consul.tls.skip_verify",
+        "Description": "Indicates whether host verification should be disabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.storage.use_s3",
+        "Description": "Use S3 storage",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "vault-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor877629098/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor877629098/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor877629098/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor877629098/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor877629098/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor877629098/templates/helpers/ctl_utils.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "vault-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "vault.broker.backend.token",
+        "Description": "The token that the service broker will use when interacting with the Vault.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.guid",
+        "Description": "A unique GUID to use for this service broker inside of Cloud Foundry.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.username",
+        "Description": "The username for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.service.description",
+        "Description": "A description of the service, also for the marketplace.",
+        "Default": "Vault Secure Storage",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.backend.address",
+        "Description": "The address to use when accessing the Vault to set up new policies and manage provisioned services.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.backend.advertise",
+        "Description": "The address to hand out to bound applications, along with their credentials.  Defaults to `vault.broker.backend.address`.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.password",
+        "Description": "The password for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.service.name",
+        "Description": "Name of the service, as shown in the marketplace.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.service.tags",
+        "Description": "A list of tags to apply to the service.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.backend.skip_verify",
+        "Description": "Instructs the broker to ignore SSL/TLS certificate problems (self-signedness, domain mismatch, expiration, etc.). Set this at your own risk.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
