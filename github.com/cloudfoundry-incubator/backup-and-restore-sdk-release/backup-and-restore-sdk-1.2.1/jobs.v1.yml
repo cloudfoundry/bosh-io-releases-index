@@ -1,0 +1,113 @@
+[
+  {
+    "Name": "aws-s3-versioned-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor274401680/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor274401680/templates/backup"
+      },
+      {
+        "SrcPathEnd": "restore",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor274401680/templates/restore"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "region",
+        "Description": "S3 bucket region",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_access_key_id",
+        "Description": "AWS access key id to connect to s3 blobstore",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secret_access_key",
+        "Description": "AWS secret key to connect to s3 blobstore",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "droplets_bucket_name",
+        "Description": "Current droplet bucket name to backup from/restore to.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "packages_bucket_name",
+        "Description": "Current package bucket name to backup from/restore to.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buildpacks_bucket_name",
+        "Description": "Current buildpack bucket name to backup from/restore to.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "database-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor229993282/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup",
+        "DstPathEnd": "bin/backup",
+        "Path": "/tmp/tar-CmdExtractor229993282/templates/backup"
+      },
+      {
+        "SrcPathEnd": "restore",
+        "DstPathEnd": "bin/restore",
+        "Path": "/tmp/tar-CmdExtractor229993282/templates/restore"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "database-backup-restorer"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-9.6"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-9.4"
+      },
+      {
+        "Name": "database-backup-restorer-mysql"
+      }
+    ],
+    "Properties": null
+  }
+]
