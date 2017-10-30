@@ -1,0 +1,119 @@
+[
+  {
+    "Name": "redis",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor436868386/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/redis.conf.erb",
+        "DstPathEnd": "config/redis.conf",
+        "Path": "/tmp/tar-CmdExtractor436868386/templates/config/redis.conf.erb"
+      },
+      {
+        "SrcPathEnd": "bin/health_check",
+        "DstPathEnd": "bin/health_check",
+        "Path": "/tmp/tar-CmdExtractor436868386/templates/bin/health_check"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor436868386/templates/config/bpm.yml"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "redis"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "health.interval",
+        "Description": "Interval for consul to perform health checks",
+        "Default": "20s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.disk.critical",
+        "Description": "Percentage of persistent disk full to trigger critial health alert",
+        "Default": 98,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.disk.warning",
+        "Description": "Percentage of persistent disk full to trigger warning health alert",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port to listen for requests to redis server",
+        "Default": 6379,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Password to access redis server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "base_dir",
+        "Description": "Base dir for storing database files",
+        "Default": "/var/vcap/store/redis",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "redis_save_intervals",
+        "Description": "save \u003cseconds\u003e \u003cchanges\u003e; save points to the rdb snapshot after",
+        "Default": [
+          "900 1",
+          "300 10",
+          "60 10000"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "consul.service.name",
+        "Description": "Name for advertising/discovering this service over consul (defaults to deployment name)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "sanity-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor412027044/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor412027044/templates/bin/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "redis"
+      }
+    ],
+    "Properties": null
+  }
+]
