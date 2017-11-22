@@ -1,0 +1,278 @@
+[
+  {
+    "Name": "acceptance-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor505076199/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "test.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor505076199/templates/test.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor505076199/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "acceptance-tests"
+      },
+      {
+        "Name": "golang1.7"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "postgres.acceptance_tests.postgresql_version",
+        "Description": "The PostgreSQL version that is expected to be deployed. If not specified, we expect that the one in the latest published postgres-release is deployed.",
+        "Default": "current",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.bosh.password",
+        "Description": "BOSH Director password",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.bosh.director_ca_cert",
+        "Description": "BOSH Director CA Cert",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.cloud_configs.default_persistent_disk_type",
+        "Description": "Persistent disk type used by acceptance tests while deploying",
+        "Default": "10GB",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.postgres_release_version",
+        "Description": "The postgres-release version to test. If not specified, the latest uploaded to the director is used.",
+        "Default": "latest",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.cloud_configs.default_vm_type",
+        "Description": "VM type used by acceptance tests while deploying",
+        "Default": "m3.medium",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.bosh.target",
+        "Description": "Location of the BOSH Director to target when deploying postgres",
+        "Default": "192.168.50.4",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.bosh.username",
+        "Description": "BOSH Director username",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.cloud_configs.default_azs",
+        "Description": "List of availability zones used by acceptance tests while deploying",
+        "Default": [
+          "z1"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.acceptance_tests.cloud_configs.default_networks",
+        "Description": "List of networks used by acceptance tests while deploying",
+        "Default": [
+          {
+            "name": "private"
+          }
+        ],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "postgres",
+    "Description": "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor356132529/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pg_hba.conf.erb",
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/pg_hba.conf.erb"
+      },
+      {
+        "SrcPathEnd": "server.public_cert.erb",
+        "DstPathEnd": "config/certificates/server.public_cert",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/server.public_cert.erb"
+      },
+      {
+        "SrcPathEnd": "server.ca_cert.erb",
+        "DstPathEnd": "config/certificates/server.ca_cert",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/server.ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_ctl.sh.erb",
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/postgres_ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "utils.sh.erb",
+        "DstPathEnd": "bin/utils.sh",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/utils.sh.erb"
+      },
+      {
+        "SrcPathEnd": "postgresql.conf.erb",
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/postgresql.conf.erb"
+      },
+      {
+        "SrcPathEnd": "pg_ident.conf.erb",
+        "DstPathEnd": "config/pg_ident.conf",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/pg_ident.conf.erb"
+      },
+      {
+        "SrcPathEnd": "server.private_key.erb",
+        "DstPathEnd": "config/certificates/server.private_key",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/server.private_key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/pre-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_start.sh.erb",
+        "DstPathEnd": "bin/postgres_start.sh",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/postgres_start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pgconfig.sh.erb",
+        "DstPathEnd": "bin/pgconfig.sh",
+        "Path": "/tmp/tar-CmdExtractor356132529/templates/pgconfig.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "postgres-common"
+      },
+      {
+        "Name": "postgres-9.6.4"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "databases.tls.ca",
+        "Description": "PEM-encoded certification authority for secure TLS communication",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.tls.private_key",
+        "Description": "PEM-encoded key for secure TLS communication",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.databases",
+        "Description": "A list of databases and associated properties to create",
+        "Default": null,
+        "Example": "- name: sandbox\n  citext: true\n- name: sandbox2\n  citext: false\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.roles",
+        "Description": "A list of database roles and associated properties to create",
+        "Default": null,
+        "Example": "- name: pgadmin\n  password: passwd\n  permissions:\n  - \"CONNECTION LIMIT 33\"\n- name: bud_spencer\n  common_name: \"Carlo Pedersoli\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.max_connections",
+        "Description": "Maximum number of database connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.log_line_prefix",
+        "Description": "The postgres `printf` style string that is output at the beginning of each log line",
+        "Default": "%m: ",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.collect_statement_statistics",
+        "Description": "Enable the `pg_stat_statements` extension and collect statement execution statistics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.additional_config",
+        "Description": "A map of additional key/value pairs to include as extra configuration properties",
+        "Default": null,
+        "Example": "shared_buffers: 4GB\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.trust_local_connections",
+        "Description": "Whether to trust or not local connections. Note that vcap is always trusted.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.skip_data_copy_in_minor",
+        "Description": "If false, during a PostgreSQL minor upgrade a copy of the data directory is created.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.port",
+        "Description": "The database port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.monit_timeout",
+        "Description": "Monit timout in seconds for the postgres job start. If not specified, no timeout statement will be added so that the global monit timeout applies.",
+        "Default": 90,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.tls.certificate",
+        "Description": "PEM-encoded certificate for secure TLS communication",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
