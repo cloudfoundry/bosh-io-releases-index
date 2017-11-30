@@ -1,0 +1,213 @@
+[
+  {
+    "Name": "broker-delete",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor883520380/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor883520380/templates/bin/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cf-cli"
+      },
+      {
+        "Name": "jq"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cf.appname",
+        "Description": "Name of broker within CF space",
+        "Default": "dingo-kafka-broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.redis.service_instance_name",
+        "Description": "Name of redis service instance used by broker",
+        "Default": "redis-for-kafka",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.api_url",
+        "Description": "Full URL of Cloud Foundry API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.username",
+        "Description": "Username of the admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.password",
+        "Description": "Password of the admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.skip_ssl_validation",
+        "Description": "Skip SSL validation when connecting to Cloud Foundry API",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.org",
+        "Description": "Organization to host broker",
+        "Default": "system",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.space",
+        "Description": "Space within organization to run broker",
+        "Default": "dingo-kafka",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "broker-deploy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor874976782/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor874976782/templates/bin/run"
+      },
+      {
+        "SrcPathEnd": "config/manifest.yml",
+        "DstPathEnd": "config/manifest.yml",
+        "Path": "/tmp/tar-CmdExtractor874976782/templates/config/manifest.yml"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "kafka-service-broker"
+      },
+      {
+        "Name": "cf-cli"
+      },
+      {
+        "Name": "jq"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "username",
+        "Description": "Service broker basic auth username",
+        "Default": "user",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Service broker basic auth password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.api_url",
+        "Description": "Full URL of Cloud Foundry API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.org",
+        "Description": "Organization to host broker",
+        "Default": "system",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.space",
+        "Description": "Space within organization to run broker",
+        "Default": "dingo-kafka",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.appname",
+        "Description": "Name of broker within CF space",
+        "Default": "dingo-kafka-broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.routes",
+        "Description": "Override the default route (cf.appname + shared apps domain)",
+        "Default": null,
+        "Example": [
+          "kafka-broker.system.domain.com"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "cf.redis.service_instance_name",
+        "Description": "Name of redis service instance used by broker",
+        "Default": "redis-for-kafka",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.username",
+        "Description": "Username of the admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.password",
+        "Description": "Password of the admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.skip_ssl_validation",
+        "Description": "Skip SSL validation when connecting to Cloud Foundry API",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.redis.service_name",
+        "Description": "CF marketplace service name to use to get Redis instance",
+        "Default": "dingo-redis",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.redis.service_plan",
+        "Description": "CF marketplace service plan to use to get Redis instance (from service_name)",
+        "Default": "ready",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
