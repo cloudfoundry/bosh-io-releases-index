@@ -1,0 +1,92 @@
+[
+  {
+    "Name": "concourse_windows",
+    "Description": "Concourse worker for Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor041009882/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "concourse_windows.ps1.erb",
+        "DstPathEnd": "bin/concourse_windows.ps1",
+        "Path": "/tmp/tar-CmdExtractor041009882/templates/concourse_windows.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "tsa-public-key.pub.erb",
+        "DstPathEnd": "bin/tsa-public-key.pub",
+        "Path": "/tmp/tar-CmdExtractor041009882/templates/tsa-public-key.pub.erb"
+      },
+      {
+        "SrcPathEnd": "tsa-worker-private-key.erb",
+        "DstPathEnd": "bin/tsa-worker-private-key",
+        "Path": "/tmp/tar-CmdExtractor041009882/templates/tsa-worker-private-key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "concourse_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "concourse_windows.tsa_host",
+        "Description": "TSA host to forward the worker through",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.tsa_public_key",
+        "Description": "Used to ensure we're connecting to the correct TSA.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.tsa_worker_private_key",
+        "Description": "Specifies the key to use when authenticating to the TSA.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.team",
+        "Description": "Specifies the team this worker will be assigned to.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.tags",
+        "Description": "Specifies the tags this worker will be assigned.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.bind_ip",
+        "Description": "IP address on which to listen for the Garden server.",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.baggageclaim_bind_ip",
+        "Description": "IP address on which to listen for API traffic.",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_windows.work_dir",
+        "Description": "Specifies where container data should be placed.",
+        "Default": "C:\\var\\vcap\\data\\concourse_windows",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
