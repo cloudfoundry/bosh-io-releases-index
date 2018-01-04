@@ -1,0 +1,600 @@
+[
+  {
+    "Name": "acceptance-tests",
+    "Description": "errand to run the shared acceptance tests",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor357988438/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor357988438/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "ca.crt",
+        "Path": "/tmp/tar-CmdExtractor357988438/templates/ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.8-linux"
+      },
+      {
+        "Name": "acceptance-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bosh_ca_cert",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_client_secret",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_client",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_environment",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_deployment",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "base_stemcell",
+        "Description": "",
+        "Default": "ubuntu-trusty",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "acceptance-tests-windows",
+    "Description": "errand to run the windows specific acceptance tests",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor104787448/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.ps1",
+        "DstPathEnd": "bin/run.ps1",
+        "Path": "/tmp/tar-CmdExtractor104787448/templates/run.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.8-windows"
+      },
+      {
+        "Name": "acceptance-tests-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "suites",
+        "Description": "Suites to execute within acceptance_tests/windows",
+        "Default": ".",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bosh-dns",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor922321386/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bosh_dns_ctl.erb",
+        "DstPathEnd": "bin/bosh_dns_ctl",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/bosh_dns_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bosh_dns_health_ctl.erb",
+        "DstPathEnd": "bin/bosh_dns_health_ctl",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/bosh_dns_health_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/aliases.json.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "client_ca.crt.erb",
+        "DstPathEnd": "config/certs/client_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/client_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "handlers.json.erb",
+        "DstPathEnd": "dns/handlers.json",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/handlers.json.erb"
+      },
+      {
+        "SrcPathEnd": "bosh_dns_resolvconf_ctl.erb",
+        "DstPathEnd": "bin/bosh_dns_resolvconf_ctl",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/bosh_dns_resolvconf_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "health_server_config.json.erb",
+        "DstPathEnd": "config/health_server_config.json",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/health_server_config.json.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server_ca.crt.erb",
+        "DstPathEnd": "config/certs/server_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/server_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "is-system-resolver.erb",
+        "DstPathEnd": "bin/is-system-resolver",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/is-system-resolver.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "wait.erb",
+        "DstPathEnd": "bin/wait",
+        "Path": "/tmp/tar-CmdExtractor922321386/templates/wait.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-dns"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "address",
+        "Description": "Address in which the DNS server will bind",
+        "Default": "169.254.0.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "recursor_timeout",
+        "Description": "A timeout value for when dialing, writing and reading from the configured recursors",
+        "Default": "2s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.max_tracked_queries",
+        "Description": "Maximum number of DNS resolved FQDNs to maintain live health info for",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aliased_address",
+        "Description": "Address that will be added by default",
+        "Default": "169.254.0.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port that the DNS server will bind to",
+        "Default": 53,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "records_file",
+        "Description": "Path to the file containing information that the DNS server will use to create DNS records",
+        "Default": "/var/vcap/instance/dns/records.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "handlers_files_glob",
+        "Description": "Glob for any files to look for DNS handler information",
+        "Default": "/var/vcap/jobs/*/dns/handlers.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "recursors",
+        "Description": "Addresses of upstream DNS servers used for recursively resolving queries",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.server.tls",
+        "Description": "Server-side mutual TLS configuration for healthchecking",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aliases",
+        "Description": "Hash of domain key to target domains array for aliased DNS lookups",
+        "Default": null,
+        "Example": {
+          "cc.cf.consul": [
+            "one",
+            "two",
+            "..."
+          ],
+          "consul.internal": [
+            "127.0.0.1"
+          ],
+          "third.internal": [
+            "four"
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "handlers",
+        "Description": "Array of handler configurations",
+        "Default": [],
+        "Example": [
+          {
+            "cache": {
+              "enabled": true
+            },
+            "domain": "local.internal.",
+            "source": {
+              "type": "http",
+              "url": "http://some.endpoint.local"
+            }
+          },
+          {
+            "cache": {
+              "enabled": true
+            },
+            "domain": "local.internal2.",
+            "source": {
+              "recursors": [
+                "127.0.0.1"
+              ],
+              "type": "dns"
+            }
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "health.enabled",
+        "Description": "Enable healthchecks for DNS resolution",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.server.port",
+        "Description": "Port to run health server on",
+        "Default": 8853,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "alias_files_glob",
+        "Description": "Glob for any files to look for DNS alias information",
+        "Default": "/var/vcap/jobs/*/dns/aliases.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "override_nameserver",
+        "Description": "Configure ourselves as the system nameserver (e.g. /etc/resolv.conf will be watched and overwritten)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.enabled",
+        "Description": "When enabled bosh-dns will cache up to a max of 1000 recursed entries",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "upcheck_domains",
+        "Description": "Domain names that the dns server should respond to with successful answers. Answer ip will always be 127.0.0.1",
+        "Default": [
+          "upcheck.bosh-dns."
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.client.tls",
+        "Description": "Client-side mutual TLS configuration for healthchecking",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bosh-dns-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor024492204/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "server_ca.crt.erb",
+        "DstPathEnd": "config/certs/server_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/server_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "handlers.json.erb",
+        "DstPathEnd": "dns/handlers.json",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/handlers.json.erb"
+      },
+      {
+        "SrcPathEnd": "health_server_config.json.erb",
+        "DstPathEnd": "config/health_server_config.json",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/health_server_config.json.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client_ca.crt.erb",
+        "DstPathEnd": "config/certs/client_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/client_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/aliases.json.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.ps1.erb",
+        "DstPathEnd": "bin/post-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/post-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor024492204/templates/server.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-dns-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "override_nameserver",
+        "Description": "Configure ourselves as the system nameserver (e.g. network server addresses will be watched and overwritten)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "handlers",
+        "Description": "Array of handler configurations",
+        "Default": [],
+        "Example": [
+          {
+            "cache": {
+              "enabled": true
+            },
+            "domain": "local.internal.",
+            "source": {
+              "type": "http",
+              "url": "http://some.endpoint.local"
+            }
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "health.server.tls",
+        "Description": "Server-side mutual TLS configuration for healthchecking",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.max_tracked_queries",
+        "Description": "Maximum number of DNS resolved FQDNs to maintain live health info for",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "recursors",
+        "Description": "Addresses of upstream DNS servers used for recursively resolving queries",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "upcheck_domains",
+        "Description": "Domain names that the dns server should respond to with successful answers. Answer ip will always be 127.0.0.1",
+        "Default": [
+          "upcheck.bosh-dns."
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.enabled",
+        "Description": "Enable healthchecks for DNS resolution",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.client.tls",
+        "Description": "Client-side mutual TLS configuration for healthchecking",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "address",
+        "Description": "Address in which the DNS server will bind",
+        "Default": "169.254.0.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aliased_address",
+        "Description": "Address that will be added by default",
+        "Default": "169.254.0.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "handlers_files_glob",
+        "Description": "Glob for any files to look for DNS handler information",
+        "Default": "C:\\var\\vcap\\jobs\\*\\dns\\handlers.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.enabled",
+        "Description": "When enabled bosh-dns will cache up to a max of 1000 recursed entries",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.server.port",
+        "Description": "Port to run health server on",
+        "Default": 8853,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "records_file",
+        "Description": "Path to the file containing information that the DNS server will use to create DNS records",
+        "Default": "C:\\var\\vcap\\instance\\dns\\records.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aliases",
+        "Description": "Hash of domain key to target domains array for aliased DNS lookups",
+        "Default": null,
+        "Example": {
+          "cc.cf.consul": [
+            "one",
+            "two",
+            "..."
+          ],
+          "consul.internal": [
+            "127.0.0.1"
+          ],
+          "third.internal": [
+            "four"
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "alias_files_glob",
+        "Description": "Glob for any files to look for DNS alias information",
+        "Default": "C:\\var\\vcap\\jobs\\*\\dns\\aliases.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "recursor_timeout",
+        "Description": "A timeout value for when dialing, writing and reading from the configured recursors",
+        "Default": "2s",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
