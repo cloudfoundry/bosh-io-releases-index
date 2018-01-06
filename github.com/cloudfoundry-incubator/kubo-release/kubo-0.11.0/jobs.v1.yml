@@ -1,0 +1,1011 @@
+[
+  {
+    "Name": "apply-specs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor213780155/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor213780155/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "config/ca.pem.erb",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor213780155/templates/config/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bin/deploy-specs.erb",
+        "DstPathEnd": "bin/deploy-specs",
+        "Path": "/tmp/tar-CmdExtractor213780155/templates/bin/deploy-specs.erb"
+      },
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor213780155/templates/bin/run"
+      },
+      {
+        "SrcPathEnd": "specs/addon-spec.yml.erb",
+        "DstPathEnd": "specs/addon-spec.yml",
+        "Path": "/tmp/tar-CmdExtractor213780155/templates/specs/addon-spec.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "kubernetes"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "addons-spec",
+        "Description": "Spec of the addons to be deployed into the Kubernetes cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "cloud-provider",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor194739877/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/cloud-provider.ini.erb",
+        "DstPathEnd": "config/cloud-provider.ini",
+        "Path": "/tmp/tar-CmdExtractor194739877/templates/config/cloud-provider.ini.erb"
+      },
+      {
+        "SrcPathEnd": "config/service_key.json.erb",
+        "DstPathEnd": "config/service_key.json",
+        "Path": "/tmp/tar-CmdExtractor194739877/templates/config/service_key.json.erb"
+      },
+      {
+        "SrcPathEnd": "bin/cloud-provider_utils.erb",
+        "DstPathEnd": "bin/cloud-provider_utils",
+        "Path": "/tmp/tar-CmdExtractor194739877/templates/bin/cloud-provider_utils.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cloud-provider.vsphere.vm-uuid",
+        "Description": "VM Instance UUID of virtual machine which can be retrieved from instanceUuid property in VmConfigInfo, or also set as vc.uuid in VMX file. If empty, will be retrieved from sysfs (requires root)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.gce.project-id",
+        "Description": "Google Cloud project id. Required when cloud-provider.type is gce",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.server",
+        "Description": "IP/URL for vCenter",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.datacenter",
+        "Description": "Datacenter to be used",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.datastore",
+        "Description": "Datastore to use for provisioning volumes using storage classes/dynamic provisioning",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.gce.worker-node-tag",
+        "Description": "Google Cloud tag that identifies only worker nodes in this deployment.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.gce.network-name",
+        "Description": "Google Cloud network name. Required when cloud-provider.type is gce",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.gce.service_key",
+        "Description": "Google Cloud service key that is used by cloud-provider.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.port",
+        "Description": "Default 443 for vCenter",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.scsicontrollertype",
+        "Description": "vSphere vSCSI adapter type name",
+        "Default": "pvscsi",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.type",
+        "Description": "Type of Cloud Provider to use",
+        "Default": null,
+        "Example": "gce, vsphere",
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.password",
+        "Description": "Password for vCenter",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.insecure-flag",
+        "Description": "set to 1 if the host above uses a self-signed cert",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.working-dir",
+        "Description": "Folder in which VMs are provisioned",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud-provider.vsphere.user",
+        "Description": "User name for vCenter",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "flanneld",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor605536287/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/flanneld_ctl.erb",
+        "DstPathEnd": "bin/flanneld_ctl",
+        "Path": "/tmp/tar-CmdExtractor605536287/templates/bin/flanneld_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-ca.crt.erb",
+        "DstPathEnd": "config/etcd-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor605536287/templates/config/etcd-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-client.crt.erb",
+        "DstPathEnd": "config/etcd-client.crt",
+        "Path": "/tmp/tar-CmdExtractor605536287/templates/config/etcd-client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-client.key.erb",
+        "DstPathEnd": "config/etcd-client.key",
+        "Path": "/tmp/tar-CmdExtractor605536287/templates/config/etcd-client.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "etcdctl"
+      },
+      {
+        "Name": "flanneld"
+      },
+      {
+        "Name": "cni"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "kubelet",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor045877161/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ensure_kubelet_up_and_running.erb",
+        "DstPathEnd": "bin/ensure_kubelet_up_and_running",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/bin/ensure_kubelet_up_and_running.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubelet-key.pem.erb",
+        "DstPathEnd": "config/kubelet-key.pem",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/config/kubelet-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "bin/drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/bin/drain.erb"
+      },
+      {
+        "SrcPathEnd": "bin/kubelet_ctl.erb",
+        "DstPathEnd": "bin/kubelet_ctl",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/bin/kubelet_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/bin/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubelet.pem.erb",
+        "DstPathEnd": "config/kubelet.pem",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/config/kubelet.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/ca.pem.erb",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor045877161/templates/config/ca.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "kubernetes"
+      },
+      {
+        "Name": "cni"
+      },
+      {
+        "Name": "socat"
+      },
+      {
+        "Name": "govc"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "labels",
+        "Description": "Labels to give node",
+        "Default": {},
+        "Example": {
+          "gpu": true,
+          "node-type": "router"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "eviction-hard",
+        "Description": "Node eviction thresholds",
+        "Default": null,
+        "Example": "memory.available\u003c500Mi,nodefs.available\u003c10%",
+        "Examples": null
+      },
+      {
+        "Name": "tls.kubernetes",
+        "Description": "Certificate and private key for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.kubelet",
+        "Description": "Certificate and private key for the Kubernetes worker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend_port",
+        "Description": "",
+        "Default": 6789,
+        "Example": 80,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "",
+        "Default": 4567,
+        "Example": 81,
+        "Examples": null
+      },
+      {
+        "Name": "kube-reserved",
+        "Description": "Resource reservations for kubernetes system daemons",
+        "Default": null,
+        "Example": "cpu=1,memory=2Gi,storage=1Gi",
+        "Examples": null
+      },
+      {
+        "Name": "system-reserved",
+        "Description": "Resource reservations for OS system daemons",
+        "Default": null,
+        "Example": "cpu=500m,memory=1Gi,storage=1Gi",
+        "Examples": null
+      },
+      {
+        "Name": "api-token",
+        "Description": "The token to access Kubernetes API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubernetes-api",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor726096835/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/kubernetes.pem.erb",
+        "DstPathEnd": "config/kubernetes.pem",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/kubernetes.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubernetes-key.pem.erb",
+        "DstPathEnd": "config/kubernetes-key.pem",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/kubernetes-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-ca.crt.erb",
+        "DstPathEnd": "config/etcd-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/etcd-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-client.crt.erb",
+        "DstPathEnd": "config/etcd-client.crt",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/etcd-client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-client.key.erb",
+        "DstPathEnd": "config/etcd-client.key",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/etcd-client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bin/kubernetes_api_ctl.erb",
+        "DstPathEnd": "bin/kubernetes_api_ctl",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/bin/kubernetes_api_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "config/tokens.csv.erb",
+        "DstPathEnd": "config/tokens.csv",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/tokens.csv.erb"
+      },
+      {
+        "SrcPathEnd": "config/authorization_policy.jsonl.erb",
+        "DstPathEnd": "config/authorization_policy.jsonl",
+        "Path": "/tmp/tar-CmdExtractor726096835/templates/config/authorization_policy.jsonl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "kubernetes"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "backend_port",
+        "Description": "",
+        "Default": 1234,
+        "Example": 80,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "",
+        "Default": 1235,
+        "Example": 81,
+        "Examples": null
+      },
+      {
+        "Name": "kube-proxy-password",
+        "Description": "The password for the kube-proxy user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kube-scheduler-password",
+        "Description": "The password for the kube-scheduler user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.kubernetes.certificate",
+        "Description": "Certificate for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.kubernetes.private_key",
+        "Description": "Private key for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.kubernetes.ca",
+        "Description": "CA Certificate for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "authorization-mode",
+        "Description": "The authorization mode for kubernetes-api. Should be 'abac' or 'rbac'",
+        "Default": "rbac",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin-username",
+        "Description": "The admin username for the Kubernetes cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin-password",
+        "Description": "The password for the admin account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kubelet-password",
+        "Description": "The password for the kubelet user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route-sync-password",
+        "Description": "The password for the route-sync user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubernetes-api-route-registrar",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor370004205/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/announce_loop.erb",
+        "DstPathEnd": "bin/announce_loop",
+        "Path": "/tmp/tar-CmdExtractor370004205/templates/bin/announce_loop.erb"
+      },
+      {
+        "SrcPathEnd": "bin/announce_route.erb",
+        "DstPathEnd": "bin/announce_route",
+        "Path": "/tmp/tar-CmdExtractor370004205/templates/bin/announce_route.erb"
+      },
+      {
+        "SrcPathEnd": "bin/kubernetes-api-route-registrar-ctl",
+        "DstPathEnd": "bin/kubernetes-api-route-registrar-ctl",
+        "Path": "/tmp/tar-CmdExtractor370004205/templates/bin/kubernetes-api-route-registrar-ctl"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "pid_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "register_interval",
+        "Description": "Amount of time, in seconds, between registrations of routes",
+        "Default": 30,
+        "Example": 30,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend_port",
+        "Description": "Router port to set up TCP route on",
+        "Default": 8443,
+        "Example": 8443,
+        "Examples": null
+      },
+      {
+        "Name": "external_kubo_port",
+        "Description": "Externally accessible port",
+        "Default": null,
+        "Example": 2749,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubernetes-controller-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor428598183/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/kubernetes_controller_manager_ctl",
+        "DstPathEnd": "bin/kubernetes_controller_manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor428598183/templates/bin/kubernetes_controller_manager_ctl"
+      },
+      {
+        "SrcPathEnd": "config/ca.pem.erb",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor428598183/templates/config/ca.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "kubernetes"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls.kubernetes",
+        "Description": "Certificate and private key for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubernetes-proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor042411633/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor042411633/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "config/ca.pem.erb",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor042411633/templates/config/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bin/kubernetes_proxy_ctl.erb",
+        "DstPathEnd": "bin/kubernetes_proxy_ctl",
+        "Path": "/tmp/tar-CmdExtractor042411633/templates/bin/kubernetes_proxy_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "kubernetes"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls.kubernetes",
+        "Description": "Certificate and private key for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api-token",
+        "Description": "The password for the kube-proxy user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubernetes-scheduler",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor439459787/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor439459787/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "bin/kubernetes_scheduler_ctl",
+        "DstPathEnd": "bin/kubernetes_scheduler_ctl",
+        "Path": "/tmp/tar-CmdExtractor439459787/templates/bin/kubernetes_scheduler_ctl"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "kubernetes"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "api-token",
+        "Description": "The token to access kubernetes API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubernetes-system-specs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor967176245/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/post-deploy",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/bin/post-deploy"
+      },
+      {
+        "SrcPathEnd": "config/kubedns-controller.yml.erb",
+        "DstPathEnd": "config/kubedns-controller.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/kubedns-controller.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/influxdb.yml.erb",
+        "DstPathEnd": "config/influxdb.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/influxdb.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/storage-class-gce.yml",
+        "DstPathEnd": "config/storage-class-gce.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/storage-class-gce.yml"
+      },
+      {
+        "SrcPathEnd": "config/ca.pem.erb",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/rbac_policy.yml.erb",
+        "DstPathEnd": "config/rbac_policy.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/rbac_policy.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "bin/apply_rbac.erb",
+        "DstPathEnd": "bin/apply_rbac",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/bin/apply_rbac.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/deploy-specs.erb",
+        "DstPathEnd": "bin/deploy-specs",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/bin/deploy-specs.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubedns-svc.yml",
+        "DstPathEnd": "config/kubedns-svc.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/kubedns-svc.yml"
+      },
+      {
+        "SrcPathEnd": "config/heapster.yml.erb",
+        "DstPathEnd": "config/heapster.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/heapster.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubernetes-dashboard.yml.erb",
+        "DstPathEnd": "config/kubernetes-dashboard.yml",
+        "Path": "/tmp/tar-CmdExtractor967176245/templates/config/kubernetes-dashboard.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "kubernetes"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "admin-password",
+        "Description": "The admin password for the Kubernetes cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api-token",
+        "Description": "The token to access Kubernetes API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.kubernetes",
+        "Description": "Certificate and private key for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "authorization-mode",
+        "Description": "The authorization mode for kubernetes-api. Should be 'abac' or 'rbac'",
+        "Default": "rbac",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin-username",
+        "Description": "The admin username for the Kubernetes cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kubo-dns-aliases",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor290224175/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "dns/aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor290224175/templates/dns/aliases.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  },
+  {
+    "Name": "route-sync",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor781873721/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/route-sync-ctl.erb",
+        "DstPathEnd": "bin/route-sync-ctl",
+        "Path": "/tmp/tar-CmdExtractor781873721/templates/bin/route-sync-ctl.erb"
+      },
+      {
+        "SrcPathEnd": "config/route-sync.yml.erb",
+        "DstPathEnd": "config/route-sync.yml",
+        "Path": "/tmp/tar-CmdExtractor781873721/templates/config/route-sync.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor781873721/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "config/ca.pem.erb",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor781873721/templates/config/ca.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "route-sync"
+      },
+      {
+        "Name": "pid_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls.kubernetes",
+        "Description": "Certificate and private key for the Kubernetes master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IPs of each NATS cluster member",
+        "Default": null,
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port of NATS servers",
+        "Default": null,
+        "Example": 4222,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "User name for NATS authentication",
+        "Default": null,
+        "Example": "nats",
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for NATS authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api-token",
+        "Description": "The token to access kubernetes API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "secure-var-vcap",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor815036627/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor815036627/templates/bin/pre-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  },
+  {
+    "Name": "syslog-forwarding-setup",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor802925181/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/post-start.bash.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor802925181/templates/bin/post-start.bash.erb"
+      },
+      {
+        "SrcPathEnd": "config/syslog_forwarder.conf.erb",
+        "DstPathEnd": "config/syslog_forwarder.conf",
+        "Path": "/tmp/tar-CmdExtractor802925181/templates/config/syslog_forwarder.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "jobs-to-forward",
+        "Description": "List of jobs to forward logs for",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog-endpoint",
+        "Description": "Syslog drain endpoint",
+        "Default": null,
+        "Example": "drain-host:port",
+        "Examples": null
+      }
+    ]
+  }
+]
