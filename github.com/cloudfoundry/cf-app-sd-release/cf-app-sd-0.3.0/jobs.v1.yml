@@ -1,0 +1,379 @@
+[
+  {
+    "Name": "bosh-dns-adapter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor996136901/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/aliases.json.erb"
+      },
+      {
+        "SrcPathEnd": "bosh-dns-adapter_as_vcap.erb",
+        "DstPathEnd": "bin/bosh-dns-adapter_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/bosh-dns-adapter_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "bosh-dns-adapter_ctl.erb",
+        "DstPathEnd": "bin/bosh-dns-adapter_ctl",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/bosh-dns-adapter_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "handlers.json.erb",
+        "DstPathEnd": "dns/handlers.json",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/handlers.json.erb"
+      },
+      {
+        "SrcPathEnd": "server_ca.crt.erb",
+        "DstPathEnd": "config/certs/server_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor996136901/templates/server_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-dns-adapter"
+      },
+      {
+        "Name": "sd-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "address",
+        "Description": "Address which bosh-dns-adapter will listen on.",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port which bosh-dns-adapter will listen on.",
+        "Default": 8053,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.client.tls",
+        "Description": "Client-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.server.ca",
+        "Description": "server-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Forward metrics to this metron agent, listening on this port on localhost",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_port",
+        "Description": "Port which log level endpoint listens on",
+        "Default": 8066,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_address",
+        "Description": "Address which log level endpoint listens on",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "performance-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor617028159/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run-tests.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor617028159/templates/run-tests.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config.json",
+        "Path": "/tmp/tar-CmdExtractor617028159/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "performance-tests"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "route_populator",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor197233865/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor197233865/templates/ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "route_populator"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.password",
+        "Description": "Password for NATS authentication",
+        "Default": null,
+        "Example": "natSpa55w0rd",
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port of NATS servers",
+        "Default": null,
+        "Example": 4222,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IPs of each NATS cluster member",
+        "Default": null,
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null
+      },
+      {
+        "Name": "app_domain",
+        "Description": "The domain name for the routes to register.",
+        "Default": null,
+        "Example": "apps.com",
+        "Examples": null
+      },
+      {
+        "Name": "app_name",
+        "Description": "The name of the app for the route to register.",
+        "Default": null,
+        "Example": "sample",
+        "Examples": null
+      },
+      {
+        "Name": "num_routes",
+        "Description": "Number of routes to populate the routing table with.\nThe routes will be popuated as follows:\n  sample-0.apps.com, sample-1.apps.com, ..., sample-100000.apps.com\n",
+        "Default": null,
+        "Example": 100000,
+        "Examples": null
+      },
+      {
+        "Name": "route_populator.publish_delay",
+        "Description": "The HTTP route populator will emit NATS route registration messages one\nby one, with this value as the interval between each message. When set to\nzero, it will send values as fast as possible, but NATS subscribers may\nlose messages.\nBe sure to set this to a valid Golang time string.\n",
+        "Default": null,
+        "Example": "50us",
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "User name for NATS authentication",
+        "Default": null,
+        "Example": "nats",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-discovery-controller",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor342141923/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "service-discovery-controller_as_vcap.erb",
+        "DstPathEnd": "bin/service-discovery-controller_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/service-discovery-controller_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "client_ca.crt.erb",
+        "DstPathEnd": "config/certs/client_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/client_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "service-discovery-controller_ctl.erb",
+        "DstPathEnd": "bin/service-discovery-controller_ctl",
+        "Path": "/tmp/tar-CmdExtractor342141923/templates/service-discovery-controller_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "service-discovery-controller"
+      },
+      {
+        "Name": "sd-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "route_emitter_interval_seconds",
+        "Description": "Interval in seconds for which the route emitter is told to emit all routes. This value should be less than the staleness_threshold_seconds",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pruning_interval_seconds",
+        "Description": "Interval in seconds for which the process evicts stale routes",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.server.tls",
+        "Description": "Server-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_address",
+        "Description": "Address which log level endpoint listens on",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "User name for NATS authentication",
+        "Default": null,
+        "Example": "nats",
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for NATS authentication",
+        "Default": null,
+        "Example": "natSpa55w0rd",
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Forward metrics to this metron agent, listening on this port on localhost",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "address",
+        "Description": "Address which service-discovery-controller will listen on.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_port",
+        "Description": "Port which log level endpoint listens on",
+        "Default": 8055,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port of NATS servers",
+        "Default": null,
+        "Example": 4222,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IPs of each NATS cluster member",
+        "Default": null,
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port which service-discovery-controller will listen on.",
+        "Default": 8054,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "staleness_threshold_seconds",
+        "Description": "Staleness threshold in seconds for routes. If the service-discovery-controller does not receive a message about a route within this threshold, the route will be pruned from the table. This value should be greater than the route_emitter_interval_seconds",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.client.ca",
+        "Description": "client-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
