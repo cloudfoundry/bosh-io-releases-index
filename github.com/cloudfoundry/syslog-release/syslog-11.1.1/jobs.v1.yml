@@ -1,0 +1,266 @@
+[
+  {
+    "Name": "syslog_forwarder",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor490099692/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor490099692/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "syslog-release.conf.erb",
+        "DstPathEnd": "config/syslog-release.conf",
+        "Path": "/tmp/tar-CmdExtractor490099692/templates/syslog-release.conf.erb"
+      },
+      {
+        "SrcPathEnd": "ca_cert.pem.erb",
+        "DstPathEnd": "config/ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor490099692/templates/ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "blackbox_ctl.erb",
+        "DstPathEnd": "bin/blackbox_ctl",
+        "Path": "/tmp/tar-CmdExtractor490099692/templates/blackbox_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "blackbox_config.yml.erb",
+        "DstPathEnd": "config/blackbox_config.yml",
+        "Path": "/tmp/tar-CmdExtractor490099692/templates/blackbox_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "blackbox"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "syslog.forward_files",
+        "Description": "If enabled, use BlackBox to forward logs.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.port",
+        "Description": "Port of the syslog server.",
+        "Default": 514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.fallback_servers",
+        "Description": "List of fallback servers to be used if the primary syslog server is down. Only tcp or relp protocols are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys.",
+        "Default": [],
+        "Example": [
+          {
+            "address": "logs5.papertrail.com",
+            "port": 44312,
+            "transport": "tcp"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_low_water_mark",
+        "Description": "Number of messages. Assuming avg size of 512B, this is 1MiB.",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_save_on_shutdown",
+        "Description": "Save in-memory data to disk if rsyslog shuts down. Must be \"on\" or \"off\"",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_checkpoint_interval",
+        "Description": "write bookkeeping information on checkpoints (every n records)",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.blackbox.limit_cpu",
+        "Description": "limit goprocess to a single cpu via gomaxprocs",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.use_tcp_for_file_forwarding_local_transport",
+        "Description": "If enabled, Blackbox will use TCP rather than UDP when forwarding loglines from files to the local rsyslog. Does not affect forwarding to remote addresses. This prevents truncation of log lines over 1KB, but may have undesirable performance impact.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.permitted_peer",
+        "Description": "Accepted fingerprint (SHA1) or name of remote peer. Required if TLS is enabled.",
+        "Default": "",
+        "Example": "*.papertrail.com",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_size",
+        "Description": "Store no more than this number syslog messages in memory.",
+        "Default": 100000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.blackbox.source_dir",
+        "Description": "directory with subdirectories containing log files. log lines will be tagged with subdirectory name.\n",
+        "Default": "/var/vcap/sys/log",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.transport",
+        "Description": "One of `udp`, `tcp`, `relp`.",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_max_disk_space",
+        "Description": "Max size for disk queue.",
+        "Default": "128m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_discard_mark",
+        "Description": "After this number of messages are queued, purge messages whose severity is greater than or equal to DiscardSeverity.",
+        "Default": 97500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.resume_interval",
+        "Description": "When action is suspended (dest not connected), retry after this number of seconds",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_high_water_mark",
+        "Description": "Num messages. Assuming avg size of 512B, this is 4MiB. (If this is reached, messages will spill to disk until the low watermark is reached).",
+        "Default": 80000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.director",
+        "Description": "BOSH Director name",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.address",
+        "Description": "IP or DNS address of the syslog server.",
+        "Default": null,
+        "Example": "logs4.papertrail.com",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.custom_rule",
+        "Description": "Custom rsyslog rule for event forwarder.\nThis will be inserted before the forwarding rule.\nSee further discussion and examples in\nexample-custom-rules.md\nat the top level of the release repo.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.tls_enabled",
+        "Description": "Set this to true to enable TLS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.ca_cert",
+        "Description": "Trusted CAs. Necessary if TLS is enabled\nAND signing CA is not present in instance cert store.\nOverrides instance cert store if set.\n",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE-----\nMIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMC...\n-----END CERTIFICATE-----\n",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_file_name",
+        "Description": "Spill to disk if queue is full.",
+        "Default": "agg_backlog",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_discard_severity",
+        "Description": "This discards queued messages of this severity or higher when the `queue_discard_mark` is reached.\nSetting this to '0' will discard all queued messages when the `queue_discard_mark` is reached.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.queue_timeout_enqueue",
+        "Description": "Discard messages if the queue + disk is full",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "syslog_storer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor592211454/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "rsyslog.conf.erb",
+        "DstPathEnd": "config/rsyslog.conf",
+        "Path": "/tmp/tar-CmdExtractor592211454/templates/rsyslog.conf.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor592211454/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "syslog.custom_rule",
+        "Description": "Custom rule for syslog event forwarder.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.port",
+        "Description": "Port of the syslog drain.",
+        "Default": 514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.transport",
+        "Description": "One of `udp`, `tcp`, `relp`.",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
