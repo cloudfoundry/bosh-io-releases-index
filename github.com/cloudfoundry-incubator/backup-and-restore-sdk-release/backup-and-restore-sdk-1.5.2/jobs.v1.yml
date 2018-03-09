@@ -1,0 +1,105 @@
+[
+  {
+    "Name": "database-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor451469862/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup",
+        "DstPathEnd": "bin/backup",
+        "Path": "/tmp/tar-CmdExtractor451469862/templates/backup"
+      },
+      {
+        "SrcPathEnd": "restore",
+        "DstPathEnd": "bin/restore",
+        "Path": "/tmp/tar-CmdExtractor451469862/templates/restore"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "database-backup-restorer"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-9.6"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-9.4"
+      },
+      {
+        "Name": "database-backup-restorer-mariadb"
+      },
+      {
+        "Name": "database-backup-restorer-mysql"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.5"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.6"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.7"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "s3-versioned-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor661489736/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor661489736/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor661489736/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "buckets.json.erb",
+        "DstPathEnd": "config/buckets.json",
+        "Path": "/tmp/tar-CmdExtractor661489736/templates/buckets.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "blobstore-backup-restorer"
+      },
+      {
+        "Name": "backup-and-restore-sdk-aws-cli"
+      },
+      {
+        "Name": "backup-and-restore-sdk-python"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buckets",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  name: \"the_droplets_bucket\"\n  region: \"eu-west-1\"\n  aws_access_key_id: \"AWS_ACCESS_KEY_ID\"\n  aws_secret_access_key: \"AWS_SECRET_ACCESS_KEY\"",
+        "Examples": null
+      }
+    ]
+  }
+]
