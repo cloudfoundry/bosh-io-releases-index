@@ -1,0 +1,362 @@
+[
+  {
+    "Name": "loggregator_agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor056616165/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor056616165/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor056616165/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent_ctl.erb",
+        "DstPathEnd": "bin/loggregator_agent_ctl",
+        "Path": "/tmp/tar-CmdExtractor056616165/templates/loggregator_agent_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "environment.sh.erb",
+        "DstPathEnd": "bin/environment.sh",
+        "Path": "/tmp/tar-CmdExtractor056616165/templates/environment.sh.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor056616165/templates/loggregator_agent.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "listening_address",
+        "Description": "Address the agent is listening on to receive dropsonde log messages provided for BOSH links and should not be overwritten",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pprof_port",
+        "Description": "The pprof port for runtime profiling data",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_udp",
+        "Description": "Disable incoming UDP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc_port",
+        "Description": "Port the agent is listening on to receive gRPC log envelopes",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.addr",
+        "Description": "DNS name for doppler. This needs to be round robbin DNS if you want the agent to communicate with multiple dopplers.",
+        "Default": "doppler.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.cert",
+        "Description": "TLS certificate for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.key",
+        "Description": "TLS key for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listening_port",
+        "Description": "Port the agent is listening on to receive dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_dns",
+        "Description": "Enable Bosh DNS. Disabling this implies Consul DNS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "health_port",
+        "Description": "The port for the health endpoint",
+        "Default": 14824,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_agent_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor334466143/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor334466143/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor334466143/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor334466143/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor334466143/templates/loggregator_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_agent_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "syslog_daemon_config.transport",
+        "Description": "Transport to be used when forwarding logs (tcp|udp).",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.custom_rule",
+        "Description": "Custom rule for syslog forward daemon",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listening_port",
+        "Description": "Port the agent is listening on to receive dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_dns",
+        "Description": "Enable Bosh DNS. Disabling this implies Consul DNS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.addr",
+        "Description": "DNS name for doppler. This needs to be round robbin DNS if you want the agent to communicate with multiple dopplers.",
+        "Default": "doppler.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.port",
+        "Description": "Port of syslog aggregator",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pprof_port",
+        "Description": "The pprof port for runtime profiling data",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc_port",
+        "Description": "Port the agent is listening on to receive gRPC log envelopes",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_port",
+        "Description": "The port for the health endpoint",
+        "Default": 14824,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.key",
+        "Description": "TLS key for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.enable",
+        "Description": "Enable or disable rsyslog configuration for forwarding syslog messages into the agent",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.address",
+        "Description": "IP address for syslog aggregator",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.fallback_addresses",
+        "Description": "Addresses of fallback servers to be used if the primary syslog server is down. Only tcp or relp are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys. ",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.max_message_size",
+        "Description": "maximum message size to be sent",
+        "Default": "4k",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_udp",
+        "Description": "Disable incoming UDP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listening_address",
+        "Description": "Address the agent is listening on to receive dropsonde log messages provided for BOSH links and should not be overwritten",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.cert",
+        "Description": "TLS certificate for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
