@@ -1,0 +1,61 @@
+[
+  {
+    "Name": "syslog_forwarder_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor182186154/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "blackbox_config.yml.erb",
+        "DstPathEnd": "config/blackbox_config.yml",
+        "Path": "/tmp/tar-CmdExtractor182186154/templates/blackbox_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "blackbox-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "syslog.transport",
+        "Description": "One of `udp`, `tcp`",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.address",
+        "Description": "IP or DNS address of the syslog server.",
+        "Default": null,
+        "Example": "logs4.papertrail.com",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.port",
+        "Description": "Port of the syslog server.",
+        "Default": 514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.blackbox.source_dir",
+        "Description": "directory with subdirectories containing log files. log lines will be tagged with subdirectory name.\n",
+        "Default": "c:/var/vcap/sys/log",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.blackbox.limit_cpu",
+        "Description": "limit goprocess to a single cpu via gomaxprocs",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
