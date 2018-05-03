@@ -1,0 +1,609 @@
+[
+  {
+    "Name": "bbr-cfnetworkingdb",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor129736729/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor129736729/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor129736729/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor129736729/templates/restore.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "release_level_backup",
+        "Description": "Opt-in to backup and restore of policy-server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "cf-networking-acceptance",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor740409267/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run-tests.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor740409267/templates/run-tests.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config.json",
+        "Path": "/tmp/tar-CmdExtractor740409267/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.10-linux"
+      },
+      {
+        "Name": "cf-networking-acceptance"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Skip ssl validation when connecting to apis",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_client",
+        "Description": "uaa admin client name",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_security_groups",
+        "Description": "expected default security groups",
+        "Default": [
+          "dns",
+          "public_networks"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "proxy_instances",
+        "Description": "number of proxy applications to use in acceptance tests",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_secret",
+        "Description": "uaa admin client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "prefix",
+        "Description": "prefix applied to all apps, orgs and spaces created by test",
+        "Default": "cf-networking-test-",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "proxy_applications",
+        "Description": "number of proxy applications to use in acceptance tests",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "num_apps",
+        "Description": "number of applications to use in acceptance tests",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_domain",
+        "Description": "cf system domain, e.g. bosh-lite.com",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "apps_domain",
+        "Description": "cf apps domain, e.g. bosh-lite.com",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_user",
+        "Description": "cf admin user name",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_password",
+        "Description": "cf admin user password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "num_app_instances",
+        "Description": "number of app instances to use in acceptance tests",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "garden-cni",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor094045789/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor094045789/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "adapter.json.erb",
+        "DstPathEnd": "config/adapter.json",
+        "Path": "/tmp/tar-CmdExtractor094045789/templates/adapter.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "runc-cni"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nat_port_range_start",
+        "Description": "Starting value for allocating host ports to containers",
+        "Default": 61000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nat_port_range_size",
+        "Description": "Total number of host ports that may be allocated to containers",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "search_domains",
+        "Description": "An array of search domains for DNS on the containers",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "experimental_proxy_redirect_cidr",
+        "Description": "CIDR range to transparently redirect to a proxy process in the container namespace.  If empty (default), will not redirect any traffic.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cni_plugin_dir",
+        "Description": "Directory containing CNI plugins.",
+        "Default": "/var/vcap/packages/cni/bin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cni_config_dir",
+        "Description": "Directory to store CNI config files.  Other jobs may write files into here.",
+        "Default": "/var/vcap/jobs/cni/config/cni",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "policy-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor986609815/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "policy-server_ctl.erb",
+        "DstPathEnd": "bin/policy-server_ctl",
+        "Path": "/tmp/tar-CmdExtractor986609815/templates/policy-server_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server_as_vcap.erb",
+        "DstPathEnd": "bin/policy-server_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor986609815/templates/policy-server_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server.json.erb",
+        "DstPathEnd": "config/policy-server.json",
+        "Path": "/tmp/tar-CmdExtractor986609815/templates/policy-server.json.erb"
+      },
+      {
+        "SrcPathEnd": "pre-backup-lock.sh.erb",
+        "DstPathEnd": "bin/bbr/pre-backup-lock",
+        "Path": "/tmp/tar-CmdExtractor986609815/templates/pre-backup-lock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "post-backup-unlock.sh.erb",
+        "DstPathEnd": "bin/bbr/post-backup-unlock",
+        "Path": "/tmp/tar-CmdExtractor986609815/templates/post-backup-unlock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor986609815/templates/uaa_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "policy-server"
+      },
+      {
+        "Name": "ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "uaa_client_secret",
+        "Description": "UAA client secret. Must match the secret of the above UAA client.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc_hostname",
+        "Description": "Host name for the Cloud Controller server.  E.g. the service advertised via Consul DNS. Must match `cc.internal_service_hostname`.",
+        "Default": "cloud-controller-ng.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.type",
+        "Description": "Type of database: postgres or mysql.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.host",
+        "Description": "Host (IP or DNS name) for database server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tag_length",
+        "Description": "Length in bytes of the packet tags to generate for policy sources and destinations. Must be greater than 0 and less than or equal to 4. If using VXLAN GBP, must be less than or equal to 2.",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_policies_per_app_source",
+        "Description": "Maximum policies a space developer may configure for an application source. Does not affect admin users.",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_ip",
+        "Description": "IP address where the policy server will serve its API.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Port for the debug server. Use this to adjust log level at runtime or dump process stats.",
+        "Default": 31821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "connect_timeout_seconds",
+        "Description": "Connection timeout between the policy server and its database. Also used for policy server health check timeout.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_hostname",
+        "Description": "Host name for the UAA server.  E.g. the service advertised via Consul DNS.  Must match common name in the UAA server cert. Must be listed in `uaa.zones.internal.hostnames`.",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_port",
+        "Description": "Port of the UAA server. Must match `uaa.ssl.port`.",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc_port",
+        "Description": "External port of Cloud Controller server. Must match `cc.external_port`.",
+        "Default": 9022,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.username",
+        "Description": "Username for database connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_cleanup_interval",
+        "Description": "Clean up stale policies on this interval, in minutes.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_space_developer_self_service",
+        "Description": "Allows space developers to always be able to configure policies for the apps they own.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "Port where the policy server will serve its external API.",
+        "Default": 4002,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allowed_cors_domains",
+        "Description": "List of domains (including scheme) from which Cross-Origin requests will be accepted.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable container to container networking.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_client",
+        "Description": "UAA client name. Must match the name of a UAA client with the following properties:\n`authorities: uaa.resource,cloud_controller.admin_read_only`,\n`authorities: uaa.resource,cloud_controller.admin_read_only`.\"\n",
+        "Default": "network-policy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.name",
+        "Description": "Name of logical database to use.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.port",
+        "Description": "Port for database server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_ca",
+        "Description": "Trusted CA for UAA server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Skip verifying ssl certs when speaking to UAA or Cloud Controller.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.password",
+        "Description": "Password for database connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "policy-server-internal",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor159496417/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "policy-server-internal.json.erb",
+        "DstPathEnd": "config/policy-server-internal.json",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/policy-server-internal.json.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server-internal_ctl.erb",
+        "DstPathEnd": "bin/policy-server-internal_ctl",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/policy-server-internal_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server-internal_as_vcap.erb",
+        "DstPathEnd": "bin/policy-server-internal_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor159496417/templates/policy-server-internal_as_vcap.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "policy-server"
+      },
+      {
+        "Name": "ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "listen_ip",
+        "Description": "IP address where the policy server will serve its API.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Port for the debug server. Use this to adjust log level at runtime or dump process stats.",
+        "Default": 31945,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal_listen_port",
+        "Description": "Port where the policy server will serve its internal API.",
+        "Default": 4003,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_cert",
+        "Description": "Server certificate for TLS. Must have common name that matches the Consul DNS name of the policy server, eg `policy-server.service.cf.internal`.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_key",
+        "Description": "Server key for TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable container to container networking.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "connect_timeout_seconds",
+        "Description": "Connection timeout between the policy server and its database. Also used for policy server health check timeout.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_check_port",
+        "Description": "Port for the debug server. Use this to adjust log level at runtime or dump process stats.",
+        "Default": 31946,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ca_cert",
+        "Description": "Trusted CA certificate that was used to sign the vxlan policy agent's client cert and key.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
