@@ -1,0 +1,1964 @@
+[
+  {
+    "Name": "load_test",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor728000292/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor728000292/templates/bin/run"
+      },
+      {
+        "SrcPathEnd": "config/config.json.erb",
+        "DstPathEnd": "config/loadtestconfig.json",
+        "Path": "/tmp/tar-CmdExtractor728000292/templates/config/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "ssh_key.erb",
+        "DstPathEnd": ".ssh/id_rsa",
+        "Path": "/tmp/tar-CmdExtractor728000292/templates/ssh_key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "load_test"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "NumTeams",
+        "Description": "how many teams to emulate",
+        "Default": "1,",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sleep_after_seconds",
+        "Description": "for debugging purposes, this will sleep before the load test ends",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ServerURL",
+        "Description": "public url your users normal log in to",
+        "Default": "http://localhost:8065",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "SSHUsername",
+        "Description": "username to create on the mattermost server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "SkipBulkload",
+        "Description": "if you know the users, teams, etc have already been created, you can skip bulk loading them",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "WebsocketURL",
+        "Description": "public url for websockets, generally the same as ServerURL, but with ws replacing the http",
+        "Default": "ws://localhost:8065",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "SSHKey",
+        "Description": "public ssh (id_rsa) key for the ssh user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "NumChannelsPerTeam",
+        "Description": "how many channels to create per team",
+        "Default": "4000,",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ActionRateMilliseconds",
+        "Description": "How often each entity should take an action. For example, for an entity that only posts this would be the time between posts.",
+        "Default": 240000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ActionRateMaxVarianceMilliseconds",
+        "Description": "This is the maximum variance in action rate for each wait period. So if the action rate was 2000ms and the max variance was 500ms. The min and max action rate would be 1500ms and 2500ms.",
+        "Default": 60000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sleep_before_seconds",
+        "Description": "for debugging purposes, this will sleep before the load test starts",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "AdminPassword",
+        "Description": "password for the admin user above",
+        "Default": "ltpassword",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "TestLengthMinutes",
+        "Description": "how long to run the test in minutes",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "NumActiveEntities",
+        "Description": "number of active entities to use (not sure how this is different than NumUsers)",
+        "Default": 20000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "AdminEmail",
+        "Description": "login email address of an admin user in your mattermost system (will be created if not yet present)",
+        "Default": "success+ltadmin@simulator.amazonses.com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "NumUsers",
+        "Description": "number of users to emulate",
+        "Default": 20000,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "mattermost",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor555213814/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/initial-config.json.erb",
+        "DstPathEnd": "config/initial-config.json",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/config/initial-config.json.erb"
+      },
+      {
+        "SrcPathEnd": "config/license.erb",
+        "DstPathEnd": "config/license",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/config/license.erb"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor555213814/templates/data/properties.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "platform"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "mattermost.ClusterSettings.ClusterName",
+        "Description": "The cluster to join by name. Only nodes with the same cluster name will join together. This is to support Blue-Green deployments or staging pointing to the same database.  The deployment name will be used by default.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.TurnURI",
+        "Description": "Enter your TURN URI as turn:\u003cyour-turn-url\u003e:\u003cport\u003e. TURN is a standardized network protocol to allow an end host to assist devices to establish a connection by using a relay public IP address if it is located behind a symmetric NAT.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.Id",
+        "Description": "The client application ID.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.SkipCertificateVerification",
+        "Description": "Skips the certificate verification step for TLS or STARTTLS connections.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.AllowedUntrustedInternalConnections",
+        "Description": "see https://docs.mattermost.com/administration/config-settings.html#allow-untrusted-internal-connections-to",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.MaxBurst",
+        "Description": "Maximum number of requests allowed beyond the per second query limit.",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.JobSettings.RunJobs",
+        "Description": "enable running jobs on the job server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.FileLevel",
+        "Description": "Level of detail at which log events are written to log files when EnableFile = true. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ImageProxyType",
+        "Description": "proxy type such as atmos/camo",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ExperimentalGroupUnreadChannels",
+        "Description": "show an unread channel section in the webapp sidebar. The setting must first be enabled by the System Admin, by replacing disabled with either default_off or default_on",
+        "Default": "disabled",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.DataSource",
+        "Description": "This is the connection string to the master database.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.Directory",
+        "Description": "Directory to which files are written.",
+        "Default": "/var/vcap/store/mattermost/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ComplianceSettings.Enable",
+        "Description": "(E20) Compliance reporting is enabled in Mattermost. (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableLinkPreviews",
+        "Description": "Enables users to display a preview of website content below the message, if available.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.PerSec",
+        "Description": "Throttle API at this number of requests per second if rate limiting is enabled.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.TokenEndpoint",
+        "Description": "The token endpoint.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.IndexPrefix",
+        "Description": "Prefix on the Elasticsearch index name. Enables the use of Mattermost Elasticsearch on a shared Elasticsearch cluster.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnablePostUsernameOverride",
+        "Description": "Webhooks, slash commands, OAuth 2.0 apps, and other integrations such as Zapier, will be allowed to change the username they are posting as. If no username is present, the username for the post is the same as it would be for a setting of False.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.EnableDiagnostics",
+        "Description": "To improve the quality and performance of future Mattermost updates, this option sends error reporting and diagnostic information to Mattermost, Inc. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3Endpoint",
+        "Description": "Endpoint to use for S3",
+        "Default": "s3.amazonaws.com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.EnableSignInWithUsername",
+        "Description": "Mattermost allows users to sign in using their username and password. This setting is typically only used when email verification is disabled. (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.Enable",
+        "Description": "Mattermost will allow making one-on-one video calls on Chrome, Firefox and Mattermost Desktop Apps on a server running in SSL mode.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ThemeSettings.AllowedThemes",
+        "Description": "Select the themes that can be chosen by users when \"EnableThemeSelection\" is set to true.",
+        "Default": "[\"default\", \"organization\", \"mattermostDark\", \"windows10\"]",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ConnectionSecurity",
+        "Description": "Controls whether MM itself does TLS termination (set to \"TLS\" to get SSL termination) NOTE: TLSCertFile and TLSKeyFile must be set if this setting is \"TLS\"",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.SessionIdleTimeoutInMinutes",
+        "Description": "The number of minutes from the last time a user was active on the system to the expiry of the user’s session. Once expired, the user will need to log in to continue. Minimum is 5 minutes, and 0 is unlimited.  NOTE: does not apply to mobile apps, In High Availability mode, enable IP hash load balancing for reliable timeout measurement. (consider AWS NLBs for this)",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPrivateChannelCreation",
+        "Description": "Restrict the permission level required to create private channels. (all|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SupportSettings.SupportEmail",
+        "Description": "Set an email for feedback or support requests.",
+        "Default": "feedback@mattermost.com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ClusterSettings.UseExperimentalGossip",
+        "Description": "The server attempts to communicate via the gossip protocol over the gossip port. If false, use the streaming port and streaming protocol.  NOTE, this port is used for health status no matter what.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.AnalyticsSettings.MaxUsersForStatistics",
+        "Description": "Sets the maximum number of users on the server before statistics for total posts, total hashtag posts, total file posts, posts per day, and active users with posts per day are disabled.",
+        "Default": 2500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ThemeSettings.DefaultTheme",
+        "Description": "Set a default theme that applies to all new users on the system.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableOnlyAdminIntegrations",
+        "Description": "Webhooks and slash commands can only be created, edited and viewed by Team and System Admins, and OAuth 2.0 applications by System Admins.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.EnableOpenServer",
+        "Description": "Users can sign up to the server from the root page without an invite.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.EnableConfirmNotificationsToChannel",
+        "Description": "Users will be prompted to confirm when posting @channel and @all in channels with over five members.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.ConsoleLevel",
+        "Description": "Level of detail at which log events are written to the console when EnableConsole = true. (DEBUG|ERROR|INFO)",
+        "Default": "INFO",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3Region",
+        "Description": "AWS region you selected for creating your S3 bucket.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SupportSettings.ReportAProblemLink",
+        "Description": "Set the link for the support website.",
+        "Default": "https://about.mattermost.com/default-report-a-problem/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ClusterSettings.StreamingPort",
+        "Description": "port used for streaming protocol",
+        "Default": 8075,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.MaximumLoginAttempts",
+        "Description": "Failed login attempts allowed before a user is locked out and required to reset their password via email.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableTutorial",
+        "Description": "tutorial is shown to end users after account creation. This setting is experimental and may be replaced or removed in a future release.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PluginSettings.Enable",
+        "Description": "If true, plugins are enabled on this server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableEmojiPicker",
+        "Description": "Enables an emoji picker that allows users to select emoji to add as reactions or use in messages. Enabling the emoji picker with a large number of custom emoji may slow down performance.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.NativeAppSettings.AppDownloadLink",
+        "Description": "Configurable link to a download page for Mattermost Apps.",
+        "Default": "https://about.mattermost.com/downloads/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.ConnectionUrl",
+        "Description": "Url for the elasticsearch server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.PostIndexReplicas",
+        "Description": "how many replicas to use for each post index",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.EnableMobileDownload",
+        "Description": "When false, disables file downloads on mobile apps. Users can still download files from a mobile web browser.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.EnablePublicLink",
+        "Description": "Allow users to generate public links to files and images for sharing outside the Mattermost system with a public URL.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ComplianceSettings.Directory",
+        "Description": "(E20) Sets the directory where compliance reports are written.",
+        "Default": "./data/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.FileLocation",
+        "Description": "The location of the log files.  The path that you set must exist and Mattermost must have write permissions in it.",
+        "Default": "/var/vcap/sys/log/mattermost/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.DriverName",
+        "Description": "Storage system where files and image attachments are saved. (local|amazons3)",
+        "Default": "local",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SupportSettings.HelpLink",
+        "Description": "Configurable link to a Help page your organization may provide to end users.",
+        "Default": "https://about.mattermost.com/default-help/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.GatewayAdminUrl",
+        "Description": "Mattermost WebRTC uses this URL to obtain valid tokens for each peer to establish the connection. Enter https://\u003cmattermost-webrtc-gateway-url\u003e:\u003cport\u003e/admin. Make sure you use HTTP or HTTPS in your URL depending on your server configuration.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.DataRetentionSettings.MessageRetentionDays",
+        "Description": "how many days messages are kept in Mattermost.  The minimum time is one day.",
+        "Default": 365,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.SessionLengthWebInDays",
+        "Description": "Set the number of days before web sessions expire and users will need to log in again.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.SendEmailNotifications",
+        "Description": "Enables sending of email notifications.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.AnnouncementSettings.BannerColor",
+        "Description": "Color of the banner itself",
+        "Default": "#f2a93b",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.EmailAddress",
+        "Description": "The email address your Global Relay server monitors for incoming compliance exports.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.SessionCacheInMinutes",
+        "Description": "Set the number of minutes to cache a session in memory.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SupportSettings.PrivacyPolicyLink",
+        "Description": "Configurable link to Privacy Policy your organization may provide to end users.",
+        "Default": "https://about.mattermost.com/default-privacy-policy/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.StunURI",
+        "Description": "Enter your STUN URI as stun:\u003cyour-stun-url\u003e:\u003cport\u003e. STUN is a standardized network protocol to allow an end host to assist devices to access its public IP address if it is located behind a NAT.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.PostsAggregatorJobStartTime",
+        "Description": "The start time of the daily scheduled aggregator job.",
+        "Default": "03:00",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableDeveloper",
+        "Description": "Javascript errors are shown in a purple bar at the top of the user interface. Not recommended for use in production.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableOutgoingWebhooks",
+        "Description": "Developers building integrations can create webhook tokens for public channels.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.FeedbackOrganization",
+        "Description": "Organization name and mailing address displayed in the footer of email notifications from Mattermost",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.SyncIntervalMinutes",
+        "Description": "Set how often Mattermost accounts synchronize attributes with AD/LDAP, in minutes.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.DailyRunTime",
+        "Description": "to set the time for the daily export job.",
+        "Default": "01:00",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.WebsocketSecurePort",
+        "Description": "This setting defines the port on which the secured WebSocket will listen using the wss protocol.",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.EnableWebhookDebugging",
+        "Description": "Contents of incoming webhooks are printed to log files for debugging. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.FeedbackName",
+        "Description": "Name displayed on email account used when sending notification emails from Mattermost system.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.LoginButtonTextColor",
+        "Description": "set the style of the email login button for white labelling purposes.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.Password",
+        "Description": "password for ES access",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.FileLocation",
+        "Description": "to set the message export location.",
+        "Default": "export",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPublicChannelCreation",
+        "Description": "Restrict the permission level required to create public channels. (all|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3Bucket",
+        "Description": "Name you selected for your S3 bucket in AWS.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.AuthEndpoint",
+        "Description": "The authorization endpoint.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableInsecureOutgoingConnections",
+        "Description": "Outgoing HTTPS requests can accept unverified, self-signed certificates.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.RestrictPostDelete",
+        "Description": "Restrict the permission level required to delete messages. Team Admins and System Admins can delete messages only in channels where they are members. Messages can be deleted anytime. (all|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.GoroutineHealthThreshold",
+        "Description": "set a threshold for number of goroutines (-1 is unlimited?? maybe)",
+        "Default": -1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictCreationToDomains",
+        "Description": "Teams and user accounts can only be created by a verified email from this list of comma-separated domains (e.g. “corp.mattermost.com, mattermost.org”).",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.Enable",
+        "Description": "Enable GitLab authentication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.SMTPUsername",
+        "Description": "Obtain this credential from the administrator setting up your email server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.Plugins.Jira.Secret",
+        "Description": "The secret used to authenticate to Mattermost. Regenerating the secret for the webhook URL endpoint invalidates your existing JIRA integrations.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ListenAddress",
+        "Description": "The address and port to which to bind and listen. Specifying “:8065” will bind to all network interfaces. Specifying 127.0.0.1:8065 will only bind to the network interface having that IP address.",
+        "Default": ":8605",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.AnnouncementSettings.EnableBanner",
+        "Description": "Enable the announcement banner",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableCommands",
+        "Description": "Slash commands send events to external integrations that send a response back to Mattermost.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.ConnectionSecurity",
+        "Description": "Email connection Security (\"\"|PLAIN|TLS|STARTTLS)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.TurnSharedKey",
+        "Description": "Enter your TURN Server Shared Key. This is used to created dynamic passwords to establish the connection. Each password is valid for a short period of time.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.RequestTimeoutSeconds",
+        "Description": "set the timeout in seconds for Elasticseaerch calls",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableSecurityFixAlert",
+        "Description": "Enable System Admins to be notified by email if a relevant security fix alert is announced. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3SignV2",
+        "Description": "By default, Mattermost uses Signature V4 to sign API calls to AWS, but under some circumstances, V2 is required. For more information about when to use V2, see http://docs.aws.amazon.com/general/latest/gr/signature-version-2.html",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.BindUsername",
+        "Description": "The username used to perform the AD/LDAP search.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.NativeAppSettings.AndroidAppDownloadLink",
+        "Description": "Configurable link to download the Android app.",
+        "Default": "https://about.mattermost.com/mattermost-android-app/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.PublicLinkSalt",
+        "Description": "32-character salt added to the URL of public links when public links are enabled.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PasswordSettings.MinimumLength",
+        "Description": "(E10 and higher) Minimum number of characters required for a valid password. (5-64)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3AccessKeyId",
+        "Description": "Obtain this credential from your Amazon AWS administrator.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.EnableMobileUpload",
+        "Description": "When false, disables file uploads on mobile apps. All file and image uploads on messages are forbidden across clients and devices, including mobile.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.RequireEmailVerification",
+        "Description": "Require email verification after account creation prior to allowing login. (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.SiteName",
+        "Description": "Site name; it's not Slack, it is...",
+        "Default": "Mattermost",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MetricsSettings.Enable",
+        "Description": "Mattermost enables performance monitoring collection and profiling.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.Plugins.Jira.UserName",
+        "Description": "Select the username that this integration is attached to.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.MaxIdleConns",
+        "Description": "Maximum number of idle connections held open to the database.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.BaseDN",
+        "Description": "The Base Distinguished Name of the location where Mattermost should start its search for users in the AD/LDAP tree.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SupportSettings.TermsOfServiceLink",
+        "Description": "Configurable link to Terms of Service your organization may provide to end users.",
+        "Default": "https://about.mattermost.com/default-terms/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictDirectMessage",
+        "Description": "Determines who a user can direct message.  'any' - anyone on the server, 'team' - only users that share at least one team.",
+        "Default": "any",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.AtRestEncryptKey",
+        "Description": "32-character (to be randomly generated via Admin Console) salt available to encrypt and decrypt sensitive fields in database.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.QueryTimeout",
+        "Description": "The timeout value for queries to the AD/LDAP server.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ComplianceSettings.EnableDaily",
+        "Description": "(E20) Mattermost generates a daily compliance report. (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.CustomerType",
+        "Description": "to allow selecting the type of Global Relay customer account the user’s organization has.",
+        "Default": "A9",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableUserAccessTokens",
+        "Description": "enable personal access tokens for integrations to authenticate against the REST API",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SupportSettings.AboutLink",
+        "Description": "Configurable link to an About page describing your organization may provide to end users.",
+        "Default": "https://about.mattermost.com/default-about/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.EnableSignInWithEmail",
+        "Description": "Mattermost allows users to sign in using their email and password. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.InviteSalt",
+        "Description": "32-character (to be randomly generated via System Console) salt added to signing of email invites.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.EnableSMTPAuth",
+        "Description": "support SMTP servers requiring no authentication",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.DataRetentionSettings.EnableMessageDeletion",
+        "Description": "Delete messages after `MessageRetentionDays` days",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.TLSKeyFile",
+        "Description": "The path to the TLS key file to use for TLS connection security.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.SiteURL",
+        "Description": "The URL, including port number and protocol, that users will use to access Mattermost. This field is required in Mattermost v3.8 and later.  REQUIRED to be set",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.EnableCustomBrand",
+        "Description": "(E10 and greater) Enables custom branding to show a JPG image some custom text on the server login page.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.MaxOpenConns",
+        "Description": "Maximum number of open connections held open to the database.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.VaryByRemoteAddr",
+        "Description": "Rate limit API access by IP address.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.MaxUsersPerTeam",
+        "Description": "Maximum number of users per team, including both active and inactive users.",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PluginSettings.PluginStates",
+        "Description": "set whether an installed plugin is active or not",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.FeedbackEmail",
+        "Description": "Address displayed on email account used when sending notification emails from Mattermost system.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnforceMultifactorAuthentication",
+        "Description": "(E10 or higher) Require MFA for all users.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PasswordSettings.Number",
+        "Description": "At least one required",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.EnableSearching",
+        "Description": "Enables searching with Elasticsearch",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.WebserverMode",
+        "Description": "gzip compression applies to the HTML, CSS, Javascript, and other static content files that make up the Mattermost web client. It is recommended to enable gzip to improve performance unless your environment has specific restrictions, such as a web proxy that distributes gzip files poorly. This setting requires a server restart to take effect.  (gzip|Uncompressed|Disabled)",
+        "Default": "gzip",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.ExperimentalTownSquareIsReadOnly",
+        "Description": "Only Administrators can post in Town Square.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MetricsSettings.ListenAddress",
+        "Description": "The address the Mattermost server will listen on to expose performance metrics.",
+        "Default": ":8067",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.License",
+        "Description": "Enterprise Edition license file contents.  EE features will not be available unless this is set.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.EnableTeamCreation",
+        "Description": "True: Ability to create a new team is enabled for all users. False: Only System Administrators can create teams from the team selection page. The Create A New Team button is hidden in the main menu UI.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.MaxFileSize",
+        "Description": "Maximum file size for message attachments entered in megabytes in the System Console UI. Converted to bytes in config.json at 1048576 bytes per megabyte. (Default of 52428800 is 50MB)",
+        "Default": 52428800,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.Secret",
+        "Description": "The client application secret.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.PushNotificationServer",
+        "Description": "Location of Mattermost Push Notification Service (MPNS), which re-sends push notifications from Mattermost to services like Apple Push Notification Service (APNS) and Google Cloud Messaging (GCM).",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.AllowCorsFrom",
+        "Description": "Enable HTTP cross-origin requests from specific domains separated by spaces. Type * to allow CORS from any domain or leave it blank to disable it.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PrivacySettings.ShowFullName",
+        "Description": "Show full name of all users. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LdapServer",
+        "Description": "The domain or IP address of the AD/LDAP server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.EnableIndexing",
+        "Description": "Enables indexing on elasticsearch",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.Plugins.Jira.Enabled",
+        "Description": "You can configure JIRA webhooks to post message in Mattermost. To help combat phishing attacks, all posts are labelled by a BOT tag.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableTesting",
+        "Description": "/loadtest slash command is enabled to load test accounts and test data.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ExperimentalEnableDefaultChannelLeaveJoinMessages",
+        "Description": "allows disabling of leave/join messages in the default channel, usually Town Square.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PasswordSettings.Lowercase",
+        "Description": "At least one required",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableChannelViewedMessages",
+        "Description": "This setting determines whether channel_viewed WebSocket events are sent, which synchronize unread notifications across clients and devices. Disabling the setting in larger deployments may improve server performance.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PasswordSettings.Symbol",
+        "Description": "At least one required Valid symbols include: !\"#$%\u0026'()*+,-./:;\u003c=\u003e?@[]^_`|~",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.Scope",
+        "Description": "The authorization scope.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.SMTPServer",
+        "Description": "Location of SMTP email server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.Enable",
+        "Description": "Mattermost allows login using AD/LDAP or Active Directory. (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableMultifactorAuthentication",
+        "Description": "(E10 or higher) When true, users with LDAP and email authentication will be given the option to require a phone-based passcode, in addition to their password-based authentication, to sign-in to the Mattermost server.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.DataRetentionSettings.EnableFileDeletion",
+        "Description": "Delete Files after `FileRetentionDays` days",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.DataRetentionSettings.FileRetentionDays",
+        "Description": "how many days files are kept in Mattermost.  The minimum time is one day.",
+        "Default": 365,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.Enable",
+        "Description": "APIs are throttled at the rate specified by PerSec.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableOAuthServiceProvider",
+        "Description": "Mattermost acts as an OAuth 2.0 service provider allowing Mattermost to authorize API requests from external applications.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.EnableXToLeaveChannelsFromLHS",
+        "Description": "Users can leave Public and Private Channels by clicking the “x” beside the channel name.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.SMTPPassword",
+        "Description": "Obtain this credential from the administrator setting up your email server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.Username",
+        "Description": "username for ES access",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.TLSCertFile",
+        "Description": "The path to the certificate file to use for TLS connection security.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.SessionLengthSSOInDays",
+        "Description": "Set the number of days before SSO sessions expire. (gitlab)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3SSL",
+        "Description": "Enables only secure Amazon S3 Connections. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.EnableFileAttachments",
+        "Description": "When false, users cannot upload files and images by attaching them to messages.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.BindPassword",
+        "Description": "Password of the user given in Bind Username. This field is required, and anonymous bind is not currently supported.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.GatewayAdminSecret",
+        "Description": "Enter your admin secret password to access the Gateway Admin URL.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.TurnUsername",
+        "Description": "Enter your TURN Server Username.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.PostIndexShards",
+        "Description": "how many shards to use for each post index",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.SessionLengthMobileInDays",
+        "Description": "Set the number of days before native mobile sessions expire.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.AggregatePostsAfterDays",
+        "Description": "Elasticsearch indexes over the age specified by this setting will be aggregated during the daily scheduled job.",
+        "Default": 365,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableAPIv3",
+        "Description": "Set to false to disable all version 3 endpoints of the REST API. Integrations that rely on API v3 will fail and can then be identified for migration to API v4. API v3 is deprecated and will be removed in the near future. See https://api.mattermost.com for details.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.VaryByUser",
+        "Description": "user-based rate limiting, to rate limit on token and on userID.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.NicknameAttribute",
+        "Description": "(Optional) The attribute in the AD/LDAP server that will be used to populate the nickname of users in Mattermost. When set, users will not be able to edit their Nickname, since it is synchronized with the LDAP server. When blank, users can set their own Nickname in Account Settings.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.ExportFromTimestamp",
+        "Description": "to set the timestamp for which posts to include in the message export.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.Forward80To443",
+        "Description": "Determines if traffic on 80 is forwarded to 443.  When using a proxy such as NGINX in front of Mattermost this setting is unnecessary and should be set to false.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.Sniff",
+        "Description": "Enables sniffing on the ES server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.ExperimentalPrimaryTeam",
+        "Description": "to set the primary team of the server. This setting is experimental and may be replaced or removed in a future release.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.EnableFile",
+        "Description": "Typically set to true in production. When true, logged events are written to the mattermost.log file in the directory specified by the FileLocation setting.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3Trace",
+        "Description": "Additional debugging information is included in the system logs. Typically set to false in production.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ClusterSettings.GossipPort",
+        "Description": "port used for gossip protocol",
+        "Default": 8074,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.MaxNotificationsPerChannel",
+        "Description": "Maximum total number of users in a channel before @all, @here, and @channel no longer send notifications to maximize performance.",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.EnableConsole",
+        "Description": "Output log messages to the console based on ConsoleLevel option. The server writes messages to the standard output stream (stdout).",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.PushNotificationContents",
+        "Description": "Controlls how much detail is provided in push notifications. (generic|full) Generic only sends User and Channel",
+        "Default": "generic",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.UsernameAttribute",
+        "Description": "The attribute in the AD/LDAP server that will be used to populate the username field in Mattermost user interface.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.PositionAttribute",
+        "Description": "(Optional) The attribute in the AD/LDAP server that will be used to populate the position field in Mattermost (typically used to describe a person’s job title or role at the company). When set, users will not be able to edit their position, since it is synchronized with the LDAP server. When blank, users can set their own Position in Account Settings.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.CustomDescriptionText",
+        "Description": "(E10 and greater) Description of service shown in login screens and UI.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.EmailAttribute",
+        "Description": "The attribute in the AD/LDAP server that will be used to populate the email addresses of users in Mattermost.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.NativeAppSettings.IosAppDownloadLink",
+        "Description": "Configurable link to download the iOS app.",
+        "Default": "https://about.mattermost.com/mattermost-ios-app/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.UserFilter",
+        "Description": "(Optional) Enter an AD/LDAP Filter to use when searching for user objects.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.AnnouncementSettings.BannerText",
+        "Description": "Text to display in the announcemnet banner",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPrivateChannelManagement",
+        "Description": "Restrict the permission level required to rename and set the header or purpose for private channels. (all|channel_admin|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3SSE",
+        "Description": "enable S3 Server Side Encryption for file uploads",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PluginSettings.EnableUploads",
+        "Description": "Allows system administrators to upload new plugins.  Set to false unless you are uploading a plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ThemeSettings.EnableThemeSelection",
+        "Description": "Enables the Display \u003e Theme tab in Account Settings so users can select their theme.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.BatchSize",
+        "Description": "to set how many new posts are batched together to a compliance export file",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.LoginButtonBorderColor",
+        "Description": "set the style of the email login button for white labelling purposes.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableIncomingWebhooks",
+        "Description": "Developers building integrations can create webhook URLs for public channels and private channels.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.GoogleDeveloperKey",
+        "Description": "Google API developer key if request rate is too high. See https://docs.mattermost.com/administration/config-settings.html#google-api-key",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.CustomBrandText",
+        "Description": "(E10 and greater) Custom text will be shown below custom brand image on left side of server login page.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.EnableSignUpWithEmail",
+        "Description": "Allow team creation and account signup using email and password. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.WebsocketPort",
+        "Description": "This setting defines the port on which the unsecured WebSocket will listen using the ws protocol.",
+        "Default": 80,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.LiveIndexingBatchSize",
+        "Description": "set how many new posts are batched together before they are added to the Elasticsearch index",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ThemeSettings.AllowCustomThemes",
+        "Description": "Enables the Display \u003e Theme \u003e Custom Theme section in Account Settings.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnableCustomEmoji",
+        "Description": "Enables a Custom Emoji option in the Main Menu, where users can go to create customized emoji.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.MemoryStoreSize",
+        "Description": "Maximum number of user sessions connected to the system as determined by VaryByRemoteAddr and VaryByHeader variables.",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.EmailNotificationContentType",
+        "Description": "specify the amount of detail sent in email notification contents",
+        "Default": "full",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnablePreviewFeatures",
+        "Description": "Enable the pre-release features menue in the account settings menu",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.MaxChannelsPerTeam",
+        "Description": "Maximum number of channels per team, including both active and deleted channels.",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.DriverName",
+        "Description": "Either 'postgres' or 'mysql'",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.RateLimitSettings.VaryByHeader",
+        "Description": "Vary rate limiting by HTTP header field specified (\"\"|X-Real-IP|X-Forwarded-For|anything you want)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LoginFieldName",
+        "Description": "The placeholder text that appears in the login field on the login page. Typically this would be whatever name is used to refer to AD/LDAP credentials in your company, so it is recognizable to your users. Defaults to AD/LDAP Username.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.AnnouncementSettings.BannerTextColor",
+        "Description": "Color of the banner text",
+        "Default": "#333333",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.CloseUnusedDirectMessages",
+        "Description": "If true Direct message conversations with no activity for 7 days will be hidden from the sidebar.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.AnnouncementSettings.AllowBannerDismissal",
+        "Description": "Allow users to dismiss the banner after they have read the announcement",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MessageExportSettings.EnableExport",
+        "Description": "to enable message export.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.QueryTimeout",
+        "Description": "The number of seconds to wait for a response from the database after opening a connection and sending the query. Errors that you see in the UI or in the logs as a result of a query timeout can vary depending on the type of query.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPrivateChannelDeletion",
+        "Description": "Restrict the permission level required to delete private channels. (all|channel_admin|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LoginButtonTextColor",
+        "Description": "to set the style of the LDAP login button for white labelling purposes.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ClusterSettings.UseIpAddress",
+        "Description": "The cluster attempts to communicate using the IP Address, if false, hostname is used",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.DataRetentionSettings.DeletionJobStartTime",
+        "Description": "Set the start time of the daily scheduled data retention job. Choose a time when fewer people are using your system. Must be a 24-hour time stamp in the form HH:MM.",
+        "Default": "02:00",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPublicChannelDeletion",
+        "Description": "Restrict the permission level required to delete public channels. (all|channel_admin|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPrivateChannelManageMembers",
+        "Description": "Set policy on who can add and remove members from private channels. (all|channel_admin|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.FileSettings.AmazonS3SecretAccessKey",
+        "Description": "Obtain this credential from your Amazon AWS administrator.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.EnableEmailBatching",
+        "Description": "Users can select how often to receive email notifications, and multiple notifications within that timeframe will be combined into a single email.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.SMTPPort",
+        "Description": "Port of SMTP email server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.LoginButtonColor",
+        "Description": "set the style of the email login button for white labelling purposes.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.FirstNameAttribute",
+        "Description": "(Optional) The attribute in the AD/LDAP server that will be used to populate the first name of users in Mattermost.  When set, users will not be able to edit their First Name, since it is synchronized with the LDAP server. When blank, users can set their own First Name in Account Settings.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.IdAttribute",
+        "Description": "The attribute in the AD/LDAP server that will be used as a unique identifier in Mattermost.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.PostEditTimeLimit",
+        "Description": "How many seconds does a user have to edit a message after posting it.",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.MetricsSettings.BlockProfileRate",
+        "Description": "Value that controls the fraction of goroutine blocking events reported in the blocking profile.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.DisplaySettings.ExperimentalTimeZone",
+        "Description": "to allow selecting the timezone used for timestamps in the user interface and email notifications",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.UseChannelInEmailNotifications",
+        "Description": "whether email notifications contain the channel name in the subject line",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ExperimentalEnableAuthenticationTransfer",
+        "Description": "Users can change their sign-in method to any that is enabled on the server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PasswordSettings.Uppercase",
+        "Description": "At least one required",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LastNameAttribute",
+        "Description": "(Optional) The attribute in the AD/LDAP server that will be used to populate the last name of users in Mattermost.  When set, users will not be able to edit their Last Name, since it is synchronized with the LDAP server. When blank, users can set their own Last Name in Account Settings.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.EnablePostIconOverride",
+        "Description": "Webhooks, slash commands and other integrations, such as Zapier, will be allowed to change the profile picture they post with.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.GitLabSettings.UserApiEndpoint",
+        "Description": "The user api endpoint.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.ConnectionSecurity",
+        "Description": "The type of connection security Mattermost uses to connect to AD/LDAP. (\"\"|TLS|STARTTLS)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictTeamInvite",
+        "Description": "(E10 and higher) Set policy on who can invite others to a team using the Send Email Invite, Get Team Invite Link, and Add Members to Team options on the main menu. Options: (all|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ImageProxyOptions",
+        "Description": "Additional options for basic image adjustments such as the URL signing key. Contact your image proxy service provider to learn more about what options are supported.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.SqlSettings.Trace",
+        "Description": "Executing SQL statements are written to the log for development.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.MaxPageSize",
+        "Description": "The maximum number of users the Mattermost server will request from the AD/LDAP server at one time. Use this setting if your AD/LDAP server limits the number of users that can be requested at once. 0 is unlimited.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LoginButtonColor",
+        "Description": "to set the style of the LDAP login button for white labelling purposes.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.WebrtcSettings.GatewayWebsocketUrl",
+        "Description": "This is the websocket used to signal and establish communication between the peers. Enter wss://\u003cmattermost-webrtc-gateway-url\u003e:\u003cport\u003e. Make sure you use WS or WSS in your URL depending on your server configuration.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.AllowEditPost",
+        "Description": "Set the time limit that users have to edit their messages after posting. (always|never|timelimit)",
+        "Default": "always",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.EnableSyncWithLdap",
+        "Description": "when true Mattermost periodically synchronizes SAML user attributes, including user deactivation and removal, with AD/LDAP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.ImageProxyURL",
+        "Description": "URL of your image proxy server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.RestrictPublicChannelManagement",
+        "Description": "Restrict the permission level required to rename and set the header or purpose for public channels. (all|channel_admin|team_admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LogSettings.FileFormat",
+        "Description": "Format of log message output.",
+        "Default": "[%D %T] [%L] (%S) %M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ServiceSettings.RestrictCustomEmojiCreation",
+        "Description": "(E10 and greater) Determines who is allowed to create custom emoji (all|admin|system_admin)",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LdapPort",
+        "Description": "The port Mattermost will use to connect to the AD/LDAP server.",
+        "Default": 389,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.JobSettings.RunScheduler",
+        "Description": "enable scheduling jobs on the job server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.EnableUserCreation",
+        "Description": "Ability to create new accounts is enabled via inviting new members or sharing the team invite link. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.LdapSettings.LoginButtonBorderColor",
+        "Description": "to set the style of the LDAP login button for white labelling purposes.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.TeamSettings.TeammateNameDisplay",
+        "Description": "see https://docs.mattermost.com/administration/config-settings.html#teammate-name-display",
+        "Default": "username",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.EmailSettings.SendPushNotifications",
+        "Description": "Your Mattermost server sends mobile push notifications to the server specified in PushNotificationServer.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.ElasticsearchSettings.BulkIndexingTimeWindowSeconds",
+        "Description": "set the maximum time window for a batch of posts being indexed by the Bulk Indexer",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mattermost.PrivacySettings.ShowEmailAddress",
+        "Description": "Show email address of all users. (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
