@@ -1,0 +1,159 @@
+[
+  {
+    "Name": "nats",
+    "Description": "The NATS server provides publish-subscribe messaging system for the Cloud Controller, the DEA , HM9000, and other Cloud Foundry components.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor961986234/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "nats_ctl.erb",
+        "DstPathEnd": "bin/nats_ctl",
+        "Path": "/tmp/tar-CmdExtractor961986234/templates/nats_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "nats.conf.erb",
+        "DstPathEnd": "config/nats.conf",
+        "Path": "/tmp/tar-CmdExtractor961986234/templates/nats.conf.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor961986234/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nats-common"
+      },
+      {
+        "Name": "gnatsd"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.authorization_timeout",
+        "Description": "After accepting a connection, wait up to this many seconds for credentials.",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IP of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.debug",
+        "Description": "Enable debug logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.prof_port",
+        "Description": "Port for pprof. 0 means disabled.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.trace",
+        "Description": "Enable trace logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.monitor_port",
+        "Description": "Port for varz and connz monitoring. 0 means disabled.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests",
+    "Description": "The smoke tests errand run a simple check that NATs is accessible and relaying messages properly",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor274570748/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "bin/config.json",
+        "Path": "/tmp/tar-CmdExtractor274570748/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor274570748/templates/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nats-smoke"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.machines",
+        "Description": "IP of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
