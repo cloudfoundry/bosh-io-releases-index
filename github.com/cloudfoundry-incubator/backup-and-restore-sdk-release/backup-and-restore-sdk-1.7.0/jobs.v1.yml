@@ -1,0 +1,144 @@
+[
+  {
+    "Name": "database-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor636460920/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup",
+        "DstPathEnd": "bin/backup",
+        "Path": "/tmp/tar-CmdExtractor636460920/templates/backup"
+      },
+      {
+        "SrcPathEnd": "restore",
+        "DstPathEnd": "bin/restore",
+        "Path": "/tmp/tar-CmdExtractor636460920/templates/restore"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "database-backup-restorer"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-9.6"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-9.4"
+      },
+      {
+        "Name": "database-backup-restorer-mariadb"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.5"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.6"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.7"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "s3-unversioned-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor138157930/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor138157930/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor138157930/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "buckets.json.erb",
+        "DstPathEnd": "config/buckets.json",
+        "Path": "/tmp/tar-CmdExtractor138157930/templates/buckets.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "s3-blobstore-backup-restorer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buckets",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  name: \"the_droplets_bucket\"\n  region: \"eu-west-1\"\n  aws_access_key_id: \"AWS_ACCESS_KEY_ID\"\n  aws_secret_access_key: \"AWS_SECRET_ACCESS_KEY\"\n  endpoint: \"endpoint_to_s3_compatible_blobstore\" # only configure if connecting to non-aws s3-compatible blobstore. e.g. ecs\n  use_iam_profile: false # only set to true if using AWS IAM instance profile to connect to the bucket instead of AWS access keys\n  backup:\n    name: \"the_backup_droplets_bucket\"\n    region: \"eu-west-2\"\n",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "s3-versioned-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor779221548/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor779221548/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "buckets.json.erb",
+        "DstPathEnd": "config/buckets.json",
+        "Path": "/tmp/tar-CmdExtractor779221548/templates/buckets.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor779221548/templates/backup.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "s3-blobstore-backup-restorer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buckets",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  name: \"the_droplets_bucket\"\n  region: \"eu-west-1\"\n  aws_access_key_id: \"AWS_ACCESS_KEY_ID\"\n  aws_secret_access_key: \"AWS_SECRET_ACCESS_KEY\"\n  endpoint: \"endpoint_to_s3_compatible_blobstore\" # only configure if connecting to non-aws s3-compatible blobstore. e.g. ecs\n  use_iam_profile: false # only set to true if using AWS IAM instance profile to connect to the bucket instead of AWS access keys\n",
+        "Examples": null
+      }
+    ]
+  }
+]
