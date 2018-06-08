@@ -1,0 +1,262 @@
+[
+  {
+    "Name": "replication-canary",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor425241706/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "replication-canary_ctl.sh.erb",
+        "DstPathEnd": "bin/replication-canary_ctl",
+        "Path": "/tmp/tar-CmdExtractor425241706/templates/replication-canary_ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "replication-canary.yml.erb",
+        "DstPathEnd": "config/replication-canary.yml",
+        "Path": "/tmp/tar-CmdExtractor425241706/templates/replication-canary.yml.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_forwarder.conf.erb",
+        "DstPathEnd": "config/syslog_forwarder.conf",
+        "Path": "/tmp/tar-CmdExtractor425241706/templates/syslog_forwarder.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cf-mysql-common"
+      },
+      {
+        "Name": "replication-canary"
+      },
+      {
+        "Name": "syslog_aggregator"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "mysql-monitoring.replication-canary.switchboard_password",
+        "Description": "Basic Auth password to contact the Switchboard API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_aggregator.port",
+        "Description": "TCP port of syslog aggregator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_aggregator.all",
+        "Description": "Define whether forwarders should also send non-mysql syslog activity to the aggregator.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.cluster_ips",
+        "Description": "List of IP addresses of servers used to read data from",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.canary_password",
+        "Description": "Canary user password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.write_read_delay",
+        "Description": "This property configures how long the canary waits to read the chirps after writing (in seconds)",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.uaa_admin_client_username",
+        "Description": "Username of the UAA client used to create the notifications client",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.uaa_admin_client_secret",
+        "Description": "Secret of the UAA client used to create the notifications client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.canary_username",
+        "Description": "Canary username",
+        "Default": "repcanary",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.poll_frequency",
+        "Description": "Configure how frequently the canary polls the cluster for replication failure (in seconds)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.switchboard_count",
+        "Description": "The number of switchboard proxies",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_aggregator.address",
+        "Description": "IP address for syslog aggregator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.switchboard_username",
+        "Description": "Basic Auth username to contact the Switchboard API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Domain reserved for CF operator, base URL where the login, uaa, and other non-user apps listen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.canary_database",
+        "Description": "Canary database",
+        "Default": "canary_db",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.recipient_email",
+        "Description": "The email address to send mysql monitoring notifications to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.notifications_client_username",
+        "Description": "Username of the UAA client used to send mysql monitoring notifications. This will be created using the uaa admin client.",
+        "Default": "mysql-monitoring",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.notifications_client_secret",
+        "Description": "Secret of the UAA client used to send mysql monitoring notifications. This will be used when creating the client.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.replication-canary.mysql_port",
+        "Description": "Database port for contacting mysql",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.notify_only",
+        "Description": "When true, replication failure will not shut traffic off at the proxy",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_aggregator.transport",
+        "Description": "Transport to be used when forwarding logs (tcp|udp|relp).",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "send-email",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor606113068/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "send-email.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor606113068/templates/send-email.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "notifications-client"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "specifies that the job is allowed to skip ssl cert verification",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.admin_client.username",
+        "Description": "Username of the UAA admin client used to (idempotently) create the notifications client",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.admin_client.secret",
+        "Description": "Secret of the UAA admin client used to (idempotently) create the notifications client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.client.username",
+        "Description": "Username of the UAA client used to send mysql monitoring notifications",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.client.secret",
+        "Description": "Secret of the UAA client used to send mysql monitoring notifications",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.recipient_email",
+        "Description": "The email address to send mysql monitoring notifications to",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Domain reserved for CF operator, base URL where the login, uaa, and other non-user apps listen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
