@@ -1,0 +1,193 @@
+[
+  {
+    "Name": "streaming-mysql-backup-client",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor441972595/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "streaming-mysql-backup-client_ctl.erb",
+        "DstPathEnd": "bin/client",
+        "Path": "/tmp/tar-CmdExtractor441972595/templates/streaming-mysql-backup-client_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "cleanup-directories.erb",
+        "DstPathEnd": "bin/cleanup-directories",
+        "Path": "/tmp/tar-CmdExtractor441972595/templates/cleanup-directories.erb"
+      },
+      {
+        "SrcPathEnd": "streaming-mysql-backup-client.yml.erb",
+        "DstPathEnd": "config/streaming-mysql-backup-client.yml",
+        "Path": "/tmp/tar-CmdExtractor441972595/templates/streaming-mysql-backup-client.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor441972595/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "xtrabackup"
+      },
+      {
+        "Name": "streaming-mysql-backup-client"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.username",
+        "Description": "Username used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.password",
+        "Description": "Password used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.symmetric_key",
+        "Description": "Symmetric Key used to encrypt backups",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-client.output_folder",
+        "Description": "Folder to place the prepared backups",
+        "Default": "/var/vcap/store/mysql-backups",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-client.tmp_folder",
+        "Description": "Folder to download / prepare backups",
+        "Default": "/var/vcap/store/mysql-backups-tmp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-all-masters",
+        "Description": "If true, backups will be taken from all master nodes",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_mysql.mysql.cluster_ips",
+        "Description": "List of IP address of servers which can generate backups",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-server.port",
+        "Description": "Port number of server that generates backups",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_mysql.proxy.arbitrator_ip",
+        "Description": "IP address for the arbitrator nodes of the MySQL cluster to exclude from backups",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "streaming-mysql-backup-tool",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor195525149/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "streaming-mysql-backup-tool.yml.erb",
+        "DstPathEnd": "config/streaming-mysql-backup-tool.yml",
+        "Path": "/tmp/tar-CmdExtractor195525149/templates/streaming-mysql-backup-tool.yml.erb"
+      },
+      {
+        "SrcPathEnd": "simple_collect.sh.erb",
+        "DstPathEnd": "bin/simple_collect.sh",
+        "Path": "/tmp/tar-CmdExtractor195525149/templates/simple_collect.sh.erb"
+      },
+      {
+        "SrcPathEnd": "streaming-backup_ctl.erb",
+        "DstPathEnd": "bin/streaming-backup_ctl",
+        "Path": "/tmp/tar-CmdExtractor195525149/templates/streaming-backup_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "streaming-mysql-backup-tool"
+      },
+      {
+        "Name": "mysql-backup-common"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cf-mysql-backup.ulimit",
+        "Description": "Maximum concurrent number of open files",
+        "Default": 65536,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.disabled",
+        "Description": "If true, the tool will not be run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_mysql.mysql.admin_username",
+        "Description": "Username for the MySQL server admin user",
+        "Default": "root",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_mysql.mysql.admin_password",
+        "Description": "Password for the MySQL server admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-server.port",
+        "Description": "Port number used for listening for backup requests",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.username",
+        "Description": "Username used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.password",
+        "Description": "Password used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
