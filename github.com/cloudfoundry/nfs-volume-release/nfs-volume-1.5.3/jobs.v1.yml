@@ -1,0 +1,1216 @@
+[
+  {
+    "Name": "migrate_mysql_to_credhub",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor642257246/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor642257246/templates/run.sh.erb"
+      },
+      {
+        "SrcPathEnd": "db_ca.crt.erb",
+        "DstPathEnd": "db_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor642257246/templates/db_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "credhub_ca.crt.erb",
+        "DstPathEnd": "credhub_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor642257246/templates/credhub_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor642257246/templates/uaa_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "migrate_mysql_to_credhub"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "db.username",
+        "Description": "Database username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.name",
+        "Description": "Database name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.ca_cert",
+        "Description": "(optional) CA Cert to verify database SSL connection. If not included connection will not be encrypted",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.ca_cert",
+        "Description": "(optional) CA Cert to verify credhub SSL connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry system domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.client_secret",
+        "Description": "Secret of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "space",
+        "Description": "Space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.driver",
+        "Description": "mysql or postgres",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "store_id",
+        "Description": "(optional) Store ID used to namespace instance details and bindings in store (CredHub only)",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "organization",
+        "Description": "Organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "app_name",
+        "Description": "Application name of nfs broker",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_cert_verify",
+        "Description": "true if the cf api uses test certs that should not be verified",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.host",
+        "Description": "Database host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.uaa_client_id",
+        "Description": "(optional) UAA client ID when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.uaa_ca_cert",
+        "Description": "(optional) CA Cert to verify UAA SSL connection when using CredHub to store broker state",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.admin_user",
+        "Description": "Username of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.admin_password",
+        "Description": "Password of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.client_id",
+        "Description": "ID of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.url",
+        "Description": "(optional) CredHub URL when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.port",
+        "Description": "Database port",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.password",
+        "Description": "Database password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.uaa_client_secret",
+        "Description": "(optional) UAA client secret when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfsbroker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor981193792/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "db_ca.crt.erb",
+        "DstPathEnd": "db_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor981193792/templates/db_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "credhub_ca.crt.erb",
+        "DstPathEnd": "credhub_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor981193792/templates/credhub_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor981193792/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/nfsbroker_ctl",
+        "Path": "/tmp/tar-CmdExtractor981193792/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "services.json.erb",
+        "DstPathEnd": "config/services.json",
+        "Path": "/tmp/tar-CmdExtractor981193792/templates/services.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-nfsvolume"
+      },
+      {
+        "Name": "nfsbroker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfsbroker.password",
+        "Description": "basic auth password to verify on incoming Service Broker requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.listen_addr",
+        "Description": "(optional) address nfsbroker listens on",
+        "Default": "0.0.0.0:8999",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_hostname",
+        "Description": "(optional) database hostname when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.services",
+        "Description": "List of services and plans supported by broker",
+        "Default": [
+          {
+            "bindable": true,
+            "description": "Existing NFSv3 volumes (see: https://code.cloudfoundry.org/nfs-volume-release/)",
+            "id": "nfsbroker",
+            "name": "nfs",
+            "plan_updatable": false,
+            "plans": [
+              {
+                "description": "A preexisting filesystem",
+                "id": "Existing",
+                "name": "Existing"
+              }
+            ],
+            "requires": [
+              "volume_mount"
+            ],
+            "tags": [
+              "nfs"
+            ]
+          },
+          {
+            "bindable": true,
+            "description": "Experimental support for NFSv3 and v4",
+            "id": "997f8f26-e10c-11e7-80c1-9a214cf093ae",
+            "name": "nfs-experimental",
+            "plan_updatable": false,
+            "plans": [
+              {
+                "description": "A preexisting filesystem",
+                "id": "09a09260-1df5-4445-9ed7-1ba56dadbbc8",
+                "name": "Existing"
+              }
+            ],
+            "requires": [
+              "volume_mount"
+            ],
+            "tags": [
+              "nfs",
+              "experimental"
+            ]
+          }
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.data_dir",
+        "Description": "(optional) Directory on broker VM to persist instance and binding state",
+        "Default": "/var/vcap/store/nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_ca_cert",
+        "Description": "(optional) CA Cert to verify database SSL connection. If not included connection will not be encrypted",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.credhub.url",
+        "Description": "(optional) CredHub URL when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.credhub.uaa_client_secret",
+        "Description": "(optional) UAA client secret when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.store_id",
+        "Description": "(optional) Store ID used to namespace instance details and bindings in store (CredHub only)",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.default_options",
+        "Description": "comma separated list default values for options. If a default is specified but the option is not in the allowed-options, then the default value will be set and cannot be overridden.",
+        "Default": "auto_cache:true",
+        "Example": "uid:1000,gid:1000,allow_root:false,allow_other:false,nfs_uid:2000,nfs_gid:2000,auto_cache:false",
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.allowed_options",
+        "Description": "comma separated list of white-listed options that may be set during create or bind operations.",
+        "Default": "uid,gid,auto_cache,username,password,version",
+        "Example": "uid,gid,allow_root,allow_other,nfs_uid,nfs_gid,auto_cache,fsname,username,password",
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.username",
+        "Description": "basic auth username to verify on incoming Service Broker requests",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_driver",
+        "Description": "(optional) database driver name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_username",
+        "Description": "(optional) database username when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_port",
+        "Description": "(optional) database port when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.credhub.uaa_client_id",
+        "Description": "(optional) UAA client ID when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.credhub.uaa_ca_cert",
+        "Description": "(optional) CA Cert to verify UAA SSL connection when using CredHub to store broker state",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_password",
+        "Description": "(optional) database password when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_name",
+        "Description": "(optional) database name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.credhub.ca_cert",
+        "Description": "(optional) CA Cert to verify credhub SSL connection. If not included connection will not be encrypted",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfsbroker-bbr",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor840211826/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor840211826/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor840211826/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor840211826/templates/restore.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "nfsbroker.release_level_backup",
+        "Description": "Enable bbr scripts",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_driver",
+        "Description": "(optional) database driver name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_username",
+        "Description": "(optional) database username when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_password",
+        "Description": "(optional) database password when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_hostname",
+        "Description": "(optional) database hostname when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_port",
+        "Description": "(optional) database port when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_name",
+        "Description": "(optional) database name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbroker.db_ca_cert",
+        "Description": "(optional) CA Cert to verify SSL connection, if not include, connection will be plain",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfsbrokerpush",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor955695476/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "credhub.json.erb",
+        "DstPathEnd": "credhub.json",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/credhub.json.erb"
+      },
+      {
+        "SrcPathEnd": "services.json.erb",
+        "DstPathEnd": "config/services.json",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/services.json.erb"
+      },
+      {
+        "SrcPathEnd": "start.sh.erb",
+        "DstPathEnd": "start.sh",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "deploy.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/deploy.sh.erb"
+      },
+      {
+        "SrcPathEnd": "manifest.yml.erb",
+        "DstPathEnd": "manifest.yml",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/manifest.yml.erb"
+      },
+      {
+        "SrcPathEnd": "Procfile.erb",
+        "DstPathEnd": "Procfile",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/Procfile.erb"
+      },
+      {
+        "SrcPathEnd": "db_ca.crt.erb",
+        "DstPathEnd": "db_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/db_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "sql.json.erb",
+        "DstPathEnd": "sql.json",
+        "Path": "/tmp/tar-CmdExtractor955695476/templates/sql.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nfsbroker"
+      },
+      {
+        "Name": "golang-nfsvolume"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfsbrokerpush.organization",
+        "Description": "organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.password",
+        "Description": "service broker password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.credhub.url",
+        "Description": "(optional) CredHub URL when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.error_on_misconfiguration",
+        "Description": "throw error on service misconfiguration during deployment",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.ldap_enabled",
+        "Description": "true if the broker should use ldap username/password bind config instead of uid/gid",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.register_broker",
+        "Description": "true if the errand should register the service broker after pushing it to cf",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.admin_password",
+        "Description": "password of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.space",
+        "Description": "space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.port",
+        "Description": "database port",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.ca_cert",
+        "Description": "(optional) CA Cert to verify database SSL connection. If not included connection will not be encrypted",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.create_sql_security_group",
+        "Description": "true if the errand should create a security group to allow traffic to any ip on ports 3306,5432",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.domain",
+        "Description": "Cloud Foundry system domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.app_domain",
+        "Description": "domain used to host the broker app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.client_secret",
+        "Description": "Secret of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.create_credhub_security_group",
+        "Description": "true if the errand should create a security group to allow traffic to any ip on ports 8443,8844",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.driver",
+        "Description": "mysql or postgres",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.username",
+        "Description": "database username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.store_id",
+        "Description": "(optional) Store ID used to namespace instance details and bindings in store (CredHub only)",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.skip_cert_verify",
+        "Description": "true if the cf api uses test certs that should not be verified",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.admin_user",
+        "Description": "username of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.memory_in_mb",
+        "Description": "amount of memory allocated to the broker app",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.ldap_test_mode",
+        "Description": "true if the broker should allow either ldap username/password bind config or uid/gid",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.services",
+        "Description": "List of services and plans supported by broker",
+        "Default": [
+          {
+            "bindable": true,
+            "description": "Existing NFSv3 volumes (see: https://code.cloudfoundry.org/nfs-volume-release/)",
+            "id": "nfsbroker",
+            "name": "nfs",
+            "plan_updatable": false,
+            "plans": [
+              {
+                "description": "A preexisting filesystem",
+                "id": "Existing",
+                "name": "Existing"
+              }
+            ],
+            "requires": [
+              "volume_mount"
+            ],
+            "tags": [
+              "nfs"
+            ]
+          },
+          {
+            "bindable": true,
+            "description": "Experimental support for NFSv3 and v4",
+            "id": "997f8f26-e10c-11e7-80c1-9a214cf093ae",
+            "name": "nfs-experimental",
+            "plan_updatable": false,
+            "plans": [
+              {
+                "description": "A preexisting filesystem",
+                "id": "09a09260-1df5-4445-9ed7-1ba56dadbbc8",
+                "name": "Existing"
+              }
+            ],
+            "requires": [
+              "volume_mount"
+            ],
+            "tags": [
+              "nfs",
+              "experimental"
+            ]
+          }
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.credhub.uaa_client_id",
+        "Description": "(optional) UAA client ID when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.credhub.uaa_client_secret",
+        "Description": "(optional) UAA client secret when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.broker_name",
+        "Description": "name of the service broker registered in CF",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.service_name",
+        "Description": "service name in marketplace",
+        "Default": "nfs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.host",
+        "Description": "database host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.password",
+        "Description": "database password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.app_name",
+        "Description": "application name to use when pushing the broker to cloud foundry and setting the route",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.syslog_url",
+        "Description": "external log service URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.client_id",
+        "Description": "ID of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.dial_timeout",
+        "Description": "CF CLI connection dial timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.username",
+        "Description": "service broker username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.db.name",
+        "Description": "database name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfstestldapserver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor396443334/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "config/adduser.ldif",
+        "DstPathEnd": "config/adduser.ldif",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/config/adduser.ldif"
+      },
+      {
+        "SrcPathEnd": "slapd.ldif.erb",
+        "DstPathEnd": "config/slapd.ldif",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/slapd.ldif.erb"
+      },
+      {
+        "SrcPathEnd": "config/core.ldif",
+        "DstPathEnd": "config/core.ldif",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/config/core.ldif"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/core.schema",
+        "DstPathEnd": "config/core.schema",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/config/core.schema"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/addou.ldif",
+        "DstPathEnd": "config/addou.ldif",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/config/addou.ldif"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor396443334/templates/bin/monit_debugger"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openldap"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ldap.reloadConfigOnRestart",
+        "Description": "Should the config database be deleted and recreated on each deployment, this will destroy all configuration that was loaded during runtime",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.olcRootPW",
+        "Description": "The root password of the database",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.active",
+        "Description": "Configure SSL for slapd",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.server_key",
+        "Description": "PEM-encoded server key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.configDatabasePW",
+        "Description": "The root password to access the config database",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.olcSuffix",
+        "Description": "Default domain components of the database",
+        "Default": "dc=domain,dc=com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.olcRootDN",
+        "Description": "The DN for root access to the database",
+        "Default": "cn=admin,dc=domain,dc=com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.ca_cert",
+        "Description": "PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.server_cert",
+        "Description": "PEM-encoded server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfstestserver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor589787624/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "install.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor589787624/templates/install.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/nfstestserver_ctl",
+        "Path": "/tmp/tar-CmdExtractor589787624/templates/ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "nfstestserver.export_cidr",
+        "Description": "cidr range to use for nfs exports",
+        "Default": "10.0.0.0/8",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfstestserver.export_root_path",
+        "Description": "NFS root path",
+        "Default": "/var/vcap/store/nfstestserver",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfsv3driver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor915368794/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "install.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor915368794/templates/install.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/nfsv3driver_ctl",
+        "Path": "/tmp/tar-CmdExtractor915368794/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor915368794/templates/drain.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nfs-debs"
+      },
+      {
+        "Name": "fuse-nfs"
+      },
+      {
+        "Name": "nfsv3driver"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfsv3driver.default-in-mount",
+        "Description": "Comma separated list default values for options that may be configured in the mount_config options, formatted as 'option:default'. If an option is not specified in the volume mount, or the option is not white-listed, then the specified default value will be used instead.",
+        "Default": "auto_cache:true",
+        "Example": "allow_root:false,nfs_uid:2000,nfs_gid:2000,auto_cache:true,sloppy_mount:true,version:4.1",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_proto",
+        "Description": "ldap server protocol (required for LDAP integration only)",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_ca_cert",
+        "Description": "ldap server CA certificate. If not provided driver will be connecting to LDAP server without TLS",
+        "Default": "",
+        "Example": "| -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.debug_addr",
+        "Description": "address nfsv3driver will serve debug info",
+        "Default": "127.0.0.1:7689",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.driver_path",
+        "Description": "path to place driver spec/json file for volman to discover",
+        "Default": "/var/vcap/data/voldrivers",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.allowed-in-mount",
+        "Description": "Comma separated list of white-listed options that may be accepted in the mount_config options. Note a specific 'sloppy_mount:true' volume option tells the driver to ignore non-white-listed options, while a 'sloppy_mount:false' tells the driver to fail fast instead when receiving a non-white-listed option.",
+        "Default": "auto_cache,version",
+        "Example": "allow_root,allow_other,nfs_uid,nfs_gid,auto_cache,sloppy_mount,fsname,version",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_host",
+        "Description": "ldap server host name or ip address (required for LDAP integration only)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_port",
+        "Description": "ldap server port (required for LDAP integration only)",
+        "Default": 389,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_svc_user",
+        "Description": "ldap service account user name (required for LDAP integration only)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_svc_password",
+        "Description": "ldap service account password (required for LDAP integration only)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_user_fqdn",
+        "Description": "ldap fqdn for user records we will search against when looking up user uids (required for LDAP integration only)",
+        "Default": "",
+        "Example": "cn=Users,dc=corp,dc=test,dc=com",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.listen_addr",
+        "Description": "address nfsv3driver listens on",
+        "Default": "127.0.0.1:7589",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.admin_addr",
+        "Description": "address nfsv3driver listens on for admin requests",
+        "Default": "127.0.0.1:7590",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.cell_mount_path",
+        "Description": "path to mount volumes into on the cell",
+        "Default": "/var/vcap/data/volumes/nfs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.log_level",
+        "Description": "nfsv3driver log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.default-in-source",
+        "Description": "Comma separated list of default values for options in the source URL query params, formatted as 'option:default'. If an option is not specified in the volume mount, or the option is not white-listed, then the specified default value will be applied.",
+        "Default": "",
+        "Example": "uid:1000,gid=1000,auto-traverse-mounts=1",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.disable",
+        "Description": "disable nfsv3driver",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.allowed-in-source",
+        "Description": "Comma separated list of white-listed options that may be configured in supported in the mount_config.source URL query params",
+        "Default": "uid,gid",
+        "Example": "uid,gid,auto-traverse-mounts,dircache",
+        "Examples": null
+      }
+    ]
+  }
+]
