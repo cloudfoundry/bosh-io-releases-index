@@ -1,0 +1,699 @@
+[
+  {
+    "Name": "docker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor724703372/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor724703372/templates/bin/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/setup-env.erb",
+        "DstPathEnd": "bin/setup-env",
+        "Path": "/tmp/tar-CmdExtractor724703372/templates/bin/setup-env.erb"
+      },
+      {
+        "SrcPathEnd": "bin/properties.sh.erb",
+        "DstPathEnd": "bin/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor724703372/templates/bin/properties.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "data_root",
+        "Description": "Root directory of persistent Docker state",
+        "Default": "/var/vcap/store",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ulimit_nofile",
+        "Description": "Maximum number of open files",
+        "Default": 8192,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vm.max_map_count",
+        "Description": "If set, sets vm.max_map_count on VM",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "enable-bosh-dns",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor308502942/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor308502942/templates/bin/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  },
+  {
+    "Name": "harbor",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor928697984/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/bin/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/properties.sh.erb",
+        "DstPathEnd": "bin/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/bin/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/harbor.cfg",
+        "DstPathEnd": "config/harbor.cfg",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/harbor.cfg"
+      },
+      {
+        "SrcPathEnd": "config/server.crt",
+        "DstPathEnd": "config/server.crt",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/server.crt"
+      },
+      {
+        "SrcPathEnd": "config/server.key",
+        "DstPathEnd": "config/server.key",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/server.key"
+      },
+      {
+        "SrcPathEnd": "config/ca.crt",
+        "DstPathEnd": "config/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/ca.crt"
+      },
+      {
+        "SrcPathEnd": "config/uaa.json.erb",
+        "DstPathEnd": "config/uaa.json",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/uaa.json.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/bin/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/uaa.sh.erb",
+        "DstPathEnd": "bin/uaa.sh",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/bin/uaa.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/uaa_ca.crt",
+        "DstPathEnd": "config/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/uaa_ca.crt"
+      },
+      {
+        "SrcPathEnd": "config/gcs_keyfile",
+        "DstPathEnd": "config/gcs_keyfile",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/config/gcs_keyfile"
+      },
+      {
+        "SrcPathEnd": "bin/status_check.erb",
+        "DstPathEnd": "bin/status_check",
+        "Path": "/tmp/tar-CmdExtractor928697984/templates/bin/status_check.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "harbor-common"
+      },
+      {
+        "Name": "docker-compose"
+      },
+      {
+        "Name": "harbor-app"
+      },
+      {
+        "Name": "uaa"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "clair_db_password",
+        "Description": "The password of the Clair's postgres database, only effective when Harbor is deployed with Clair",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "token_expiration",
+        "Description": "The expiration time (in minute) of token created by token service, default is 30 minutes",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.insecure",
+        "Description": "Whether to verify the certificate of email server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.group_filter",
+        "Description": "Search filter for groups in LDAP/AD, make sure the syntax of the filter is correct.",
+        "Default": "objectclass=group",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "self_registration",
+        "Description": "Turn on or off the self-registration feature",
+        "Default": "on",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.basedn",
+        "Description": "The base DN from which to look up a user in LDAP/AD",
+        "Default": "ou=people,dc=mydomain,dc=com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_proxy",
+        "Description": "The http_proxy url for Clair",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.ssl",
+        "Description": "If SSL is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_id",
+        "Description": "The client id for connecting to UAA Server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.group_scope",
+        "Description": "The scope to search for users: 1-LDAP_SCOPE_BASE, 2-LDAP_SCOPE_ONELEVEL, 3-LDAP_SCOPE_SUBTREE",
+        "Default": "2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "populate_etc_hosts",
+        "Description": "Whether to add IP to hostname mapping for Harbor instance in /etc/hosts.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry_storage_provider.nfs.mount_point",
+        "Description": "The local mount point for remote NFS Server.",
+        "Default": "/harbor-registry",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ui_url_protocol",
+        "Description": "The protocol for accessing the UI and token/notification service, by default it is https",
+        "Default": "https",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "auth_mode",
+        "Description": "By default the auth mode is db_auth, i.e. the credentials are stored in a local database. Set it to ldap_auth if you want to verify a user's credentials against an LDAP server.",
+        "Default": "db_auth",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.port",
+        "Description": "The port of mysql database host",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.verify_cert",
+        "Description": "Verify SSL certificate of LDAP server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.group_basedn",
+        "Description": "The base DN from which to look up a group in LDAP/AD",
+        "Default": "ou=group,dc=mydomain,dc=com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "with_notary",
+        "Description": "An option to determine whether install the optional component Notary or not.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.user",
+        "Description": "The user name of mysql database",
+        "Default": "root",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.admin.client_id",
+        "Description": "ID of UAA admin client",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry_storage_provider.config",
+        "Description": "The comma separated 'key: value' pairs for configuring Docker Registry storage provider.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "The password for the root user of mysql db",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.password",
+        "Description": "Password of email server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.url",
+        "Description": "The url for an ldap endpoint",
+        "Default": "ldaps://ldap.mydomain.com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.timeout",
+        "Description": "Timeout (in seconds)  when connecting to an LDAP Server",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.ca",
+        "Description": "The CA of the server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_rotate_count",
+        "Description": "The max count of log files before rotated",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_job_workers",
+        "Description": "Maximum number of job workers in job service",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.key",
+        "Description": "The certificate key for server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_rotate_size",
+        "Description": "The max size of single log file",
+        "Default": "100M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.verify_cert",
+        "Description": "Whether to verify UAA Server certificate.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db.host",
+        "Description": "The address of the mysql database",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.searchdn",
+        "Description": "A user's DN who has the permission to search the LDAP/AD server. If your LDAP/AD server does not support anonymous search, you should configure this DN and ldap.searchpwd.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_upgrade",
+        "Description": "Enable upgrading Harbor",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.from",
+        "Description": "Email address of the sender",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "https_proxy",
+        "Description": "The https_proxy url for Clair",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry_storage_provider.nfs.server_uri",
+        "Description": "The URI of NFS Server, e.g. nfs_server_ip:/path/to/exported_directory .",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_password",
+        "Description": "The initial password of Harbor admin, only works for the first time when Harbor starts",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.searchpwd",
+        "Description": "The password of the ldap.searchdn",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.scope",
+        "Description": "The scope to search for users: 0-LDAP_SCOPE_BASE, 1-LDAP_SCOPE_ONELEVEL, 2-LDAP_SCOPE_SUBTREE",
+        "Default": "2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.admin.client_secret",
+        "Description": "Secret of UAA admin client",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "reload_config",
+        "Description": "Whether to reload all configurations in harbor.cfg",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "project_creation_restriction",
+        "Description": "The flag to control what users have permission to create projects. The default value [everyone] allows everyone to creates a project. Set to [adminonly] so that only admin user can create project.",
+        "Default": "everyone",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.server",
+        "Description": "Email server address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.port",
+        "Description": "Email server port",
+        "Default": 25,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.username",
+        "Description": "Username of email server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.uid",
+        "Description": "The attribute used in a search to match a user, it could be uid, cn, email, sAMAccountName or other attributes.",
+        "Default": "uid",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.cert",
+        "Description": "The certificate for server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_proxy",
+        "Description": "The no_proxy config for Clair",
+        "Default": "127.0.0.1,localhost,ui",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "The root CA of UAA Server certificate.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry_storage_provider.gcs.keyfile_content",
+        "Description": "The text content of the GCS key file.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.filter",
+        "Description": "Search filter for users in LDAP/AD, make sure the syntax of the filter is correct.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hostname",
+        "Description": "The IP address or hostname to access admin UI and registry service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "customize_crt",
+        "Description": "Determine whether or not to generate certificate for the registry's token. If the value is on, the prepare script creates new root cert and private key for generating token to access the registry. If the value is off the default key/cert will be used. This flag also controls the creation of the notary signer's cert.",
+        "Default": "on",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.group_gid",
+        "Description": "The attribute used in a search to match a group, it could be cn, name or other attributes.",
+        "Default": "cn",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.url",
+        "Description": "UAA Server URL",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry_storage_provider.name",
+        "Description": "The name of Docker Registry storage provider.",
+        "Default": "filesystem",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admiral_url",
+        "Description": "Admiral's url, comment this attribute, or set its value to NA when Harbor is standalone",
+        "Default": "NA",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "email.identity",
+        "Description": "Identity left blank to act as username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "with_clair",
+        "Description": "An option to determine whether install the optional component Clair or not.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "The client secret for connecting to UAA Server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "harbor-dns-aliases",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor946628018/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "dns/aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor946628018/templates/dns/aliases.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "aliases",
+        "Description": "A hash of domain key to target domains array for aliased DNS lookups",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-test",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor793919412/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor793919412/templates/run.sh"
+      },
+      {
+        "SrcPathEnd": "config/ca.crt",
+        "DstPathEnd": "config/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor793919412/templates/config/ca.crt"
+      },
+      {
+        "SrcPathEnd": "config/cert.crt",
+        "DstPathEnd": "config/cert.crt",
+        "Path": "/tmp/tar-CmdExtractor793919412/templates/config/cert.crt"
+      },
+      {
+        "SrcPathEnd": "config/key.crt",
+        "DstPathEnd": "config/key.crt",
+        "Path": "/tmp/tar-CmdExtractor793919412/templates/config/key.crt"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "smoke-test"
+      },
+      {
+        "Name": "docker"
+      },
+      {
+        "Name": "busybox"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "uaa-deregistration",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor889282822/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor889282822/templates/run.sh"
+      },
+      {
+        "SrcPathEnd": "config/uaa_ca.crt",
+        "DstPathEnd": "config/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor889282822/templates/config/uaa_ca.crt"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "uaa"
+      }
+    ],
+    "Properties": null
+  }
+]
