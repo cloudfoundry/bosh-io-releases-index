@@ -1,0 +1,1116 @@
+[
+  {
+    "Name": "azurefilebroker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor208103206/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/azurefilebroker_ctl",
+        "Path": "/tmp/tar-CmdExtractor208103206/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "db_ca.crt.erb",
+        "DstPathEnd": "db_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor208103206/templates/db_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-smbvolume"
+      },
+      {
+        "Name": "azurefilebroker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "db_username",
+        "Description": "[REQUIRED] - database username when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "[REQUIRED] - database password when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_port",
+        "Description": "[REQUIRED] - database port when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_name",
+        "Description": "[REQUIRED] - database name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_resource_group_name",
+        "Description": "(optional) - The default resource group name to use for storage accounts",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_location",
+        "Description": "(optional) - The default location to use for creating storage accounts",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_driver",
+        "Description": "[REQUIRED] - database driver name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "environment",
+        "Description": "(optional) - `Preexisting` (Using preexisting shares) or the environment for Azure Management Service: `AzureCloud`, `AzureChinaCloud`, `AzureUSGovernment` or `AzureGermanCloud`",
+        "Default": "Preexisting",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "azurefilebroker log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_create_storage_account",
+        "Description": "(optional) - Allow Broker to create storage accounts",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_delete_file_share",
+        "Description": "(optional) - Allow Broker to delete file shares which are created by Broker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_id",
+        "Description": "(optional) - Id of the service to be registered with cf",
+        "Default": "06948cb0-cad7-4buh-leba-9ed8b5c345a3",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tenant_id",
+        "Description": "(optional) - Required for Azure Management Service. The tenant id for your service principal",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_id",
+        "Description": "(optional) - Required for Azure Management Service. The client id for your service principal",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_hostname",
+        "Description": "[REQUIRED] - database hostname when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_options",
+        "Description": "A comma separated list of defaults specified as param:value. If a parameter has a default value and is not in the allowed list, this default value becomes a fixed value that cannot be overridden",
+        "Default": "vers:3.0",
+        "Example": "vers:3.0",
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "[REQUIRED] - Basic auth password to verify on incoming Service Broker requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_name",
+        "Description": "(optional) - name of the service to be registered with cf",
+        "Default": "azuresmbvolume",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_subscription_id",
+        "Description": "(optional) - The default Azure Subscription id to use for storage accounts",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_create_file_share",
+        "Description": "(optional) - Allow Broker to create file shares",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_addr",
+        "Description": "(optional) - address azurefilebroker listens on",
+        "Default": "0.0.0.0:9000",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_secret",
+        "Description": "(optional) - Required for Azure Management Service. The client secret for your service principal",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allowed_options",
+        "Description": "A comma separated list of parameters allowed to be set in during bind operations",
+        "Default": "file_mode,dir_mode,readonly,vers,sec",
+        "Example": "file_mode,dir_mode,readonly,vers,sec",
+        "Examples": null
+      },
+      {
+        "Name": "allow_delete_storage_account",
+        "Description": "(optional) - Allow Broker to delete storage accounts which are created by Broker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "[REQUIRED] - Basic auth username to verify on incoming Service Broker requests",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_ca_cert",
+        "Description": "(optional) - CA Cert to verify SSL connection, if not include, connection will be plain",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "azurefilebroker-bbr",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor599741768/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor599741768/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor599741768/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor599741768/templates/restore.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "db_username",
+        "Description": "(optional) database username when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "(optional) database password when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_hostname",
+        "Description": "(optional) database hostname when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_port",
+        "Description": "(optional) database port when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_name",
+        "Description": "(optional) database name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_ca_cert",
+        "Description": "(optional) CA Cert to verify SSL connection, if not include, connection will be plain",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "release_level_backup",
+        "Description": "Enable bbr scripts",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_driver",
+        "Description": "(optional) database driver name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "azurefilebrokerpush",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor378800570/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "start.sh.erb",
+        "DstPathEnd": "start.sh",
+        "Path": "/tmp/tar-CmdExtractor378800570/templates/start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "deploy.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor378800570/templates/deploy.sh.erb"
+      },
+      {
+        "SrcPathEnd": "manifest.yml.erb",
+        "DstPathEnd": "manifest.yml",
+        "Path": "/tmp/tar-CmdExtractor378800570/templates/manifest.yml.erb"
+      },
+      {
+        "SrcPathEnd": "Procfile.erb",
+        "DstPathEnd": "Procfile",
+        "Path": "/tmp/tar-CmdExtractor378800570/templates/Procfile.erb"
+      },
+      {
+        "SrcPathEnd": "db_ca.crt.erb",
+        "DstPathEnd": "db_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor378800570/templates/db_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "sql.json.erb",
+        "DstPathEnd": "sql.json",
+        "Path": "/tmp/tar-CmdExtractor378800570/templates/sql.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "azurefilebroker"
+      },
+      {
+        "Name": "golang-smbvolume"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "create_credhub_security_group",
+        "Description": "unused",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "space",
+        "Description": "space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "[REQUIRED] - Basic auth password to verify on incoming Service Broker requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_secret",
+        "Description": "(optional) - Required for Azure Management Service. The client secret for your service principal",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_username",
+        "Description": "[REQUIRED] - database username when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "create_sql_security_group",
+        "Description": "(optional) - true if the errand should create a security group to allow traffic to any ip on ports 3306,5432",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_create_storage_account",
+        "Description": "(optional) - Allow Broker to create storage accounts",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_create_file_share",
+        "Description": "(optional) - Allow Broker to create file shares",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_admin_password",
+        "Description": "password of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_cert_verify",
+        "Description": "skip ssl validation when setting the cf api endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_id",
+        "Description": "(optional) - Required for Azure Management Service. The client id for your service principal",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_hostname",
+        "Description": "[REQUIRED] - database hostname when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_name",
+        "Description": "[REQUIRED] - database name when using SQL to store broker state",
+        "Default": "azurefilebroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allowed_options",
+        "Description": "A comma separated list of parameters allowed to be set in during bind operations",
+        "Default": "file_mode,dir_mode,readonly,vers,sec",
+        "Example": "file_mode,dir_mode,readonly,vers,sec",
+        "Examples": null
+      },
+      {
+        "Name": "default_location",
+        "Description": "(optional) - The default location to use for creating storage accounts",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "(optional) - azurefilebroker log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "[REQUIRED] - database password when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "app_domain",
+        "Description": "domain used to host the broker app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_admin_user",
+        "Description": "username of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memory_in_mb",
+        "Description": "amount of memory allocated to the broker app",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "environment",
+        "Description": "(optional) - `Preexisting` (Using preexisting shares) or the environment for Azure Management Service: `AzureCloud`, `AzureChinaCloud`, `AzureUSGovernment` or `AzureGermanCloud`",
+        "Default": "Preexisting",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_driver",
+        "Description": "[REQUIRED] - database driver name when using SQL to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_id",
+        "Description": "(optional) - Id of the service to be registered with cf",
+        "Default": "38e48614-e5ee-4730-a7db-ea8e5416897a",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_delete_storage_account",
+        "Description": "(optional) - Allow Broker to delete storage accounts which are created by Broker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "app_name",
+        "Description": "(optional) - application name to use when pushing the broker to cloud foundry and setting the route",
+        "Default": "azurefilebroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_url",
+        "Description": "(optional) - external log service URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "register_broker",
+        "Description": "true if the errand should register the service broker after pushing it to cf",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_dial_timeout",
+        "Description": "CF CLI connection dial timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_name",
+        "Description": "(optional) - name of the service to be registered with cf",
+        "Default": "azuresmbvolume",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tenant_id",
+        "Description": "(optional) - Required for Azure Management Service. The tenant id for your service principal",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_ca_cert",
+        "Description": "(optional) - CA Cert to verify SSL connection, if not include, connection will be plain",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_resource_group_name",
+        "Description": "(optional) - The default resource group name to use for storage accounts",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry system domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_port",
+        "Description": "[REQUIRED] - database port when using SQL to store broker state",
+        "Default": "3306",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_subscription_id",
+        "Description": "(optional) - The default Azure Subscription id to use for storage accounts",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "organization",
+        "Description": "organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "[REQUIRED] - Basic auth username to verify on incoming Service Broker requests",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_options",
+        "Description": "A comma separated list of defaults specified as param:value. If a parameter has a default value and is not in the allowed list, this default value becomes a fixed value that cannot be overridden",
+        "Default": "vers:3.0",
+        "Example": "vers:3.0",
+        "Examples": null
+      },
+      {
+        "Name": "allow_delete_file_share",
+        "Description": "(optional) - Allow Broker to delete file shares which are created by Broker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smbbrokerpush",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor960064764/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "deploy.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor960064764/templates/deploy.sh.erb"
+      },
+      {
+        "SrcPathEnd": "manifest.yml.erb",
+        "DstPathEnd": "manifest.yml",
+        "Path": "/tmp/tar-CmdExtractor960064764/templates/manifest.yml.erb"
+      },
+      {
+        "SrcPathEnd": "Procfile.erb",
+        "DstPathEnd": "Procfile",
+        "Path": "/tmp/tar-CmdExtractor960064764/templates/Procfile.erb"
+      },
+      {
+        "SrcPathEnd": "credhub.json.erb",
+        "DstPathEnd": "credhub.json",
+        "Path": "/tmp/tar-CmdExtractor960064764/templates/credhub.json.erb"
+      },
+      {
+        "SrcPathEnd": "services.json.erb",
+        "DstPathEnd": "config/services.json",
+        "Path": "/tmp/tar-CmdExtractor960064764/templates/services.json.erb"
+      },
+      {
+        "SrcPathEnd": "start.sh.erb",
+        "DstPathEnd": "start.sh",
+        "Path": "/tmp/tar-CmdExtractor960064764/templates/start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "smbbroker"
+      },
+      {
+        "Name": "golang-smbvolume"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "memory_in_mb",
+        "Description": "amount of memory allocated to the broker app",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.url",
+        "Description": "CredHub URL when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.uaa_client_id",
+        "Description": "UAA client ID when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.create_security_group",
+        "Description": "true if the errand should create a security group to allow traffic to any ip on ports 8443,8844",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_cert_verify",
+        "Description": "true if the cf api uses test certs that should not be verified",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "app_domain",
+        "Description": "domain used to host the broker app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.client_id",
+        "Description": "ID of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "organization",
+        "Description": "organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "register_broker",
+        "Description": "true if the errand should register the service broker after pushing it to cf",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "app_name",
+        "Description": "application name to use when pushing the broker to cloud foundry and setting the route",
+        "Default": "smbbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.uaa_client_secret",
+        "Description": "UAA client secret when using CredHub to store broker state",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker_name",
+        "Description": "name of the service broker registered in CF",
+        "Default": "smbbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.dial_timeout",
+        "Description": "CF CLI connection dial timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "space",
+        "Description": "space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "service broker password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.client_secret",
+        "Description": "Secret of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "error_on_misconfiguration",
+        "Description": "throw error on service misconfiguration during deployment",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "services",
+        "Description": "List of services and plans supported by broker",
+        "Default": [
+          {
+            "bindable": true,
+            "description": "Existing SMB shares (see: https://code.cloudfoundry.org/smb-volume-release/)",
+            "id": "9db9cca4-8fd5-4b96-a4c7-0a48f47c3bad",
+            "name": "smb",
+            "plan_updatable": false,
+            "plans": [
+              {
+                "description": "A preexisting share",
+                "id": "0da18102-48dc-46d0-98b3-7a4ff6dc9c54",
+                "name": "Existing"
+              }
+            ],
+            "requires": [
+              "volume_mount"
+            ],
+            "tags": [
+              "smb"
+            ]
+          }
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_url",
+        "Description": "external log service URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry system domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "service broker username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.store_id",
+        "Description": "Store ID used to namespace instance details and bindings in store",
+        "Default": "smbbroker",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smbdriver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor746826638/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "install.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor746826638/templates/install.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/smbdriver_ctl",
+        "Path": "/tmp/tar-CmdExtractor746826638/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor746826638/templates/drain.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cifs-utils"
+      },
+      {
+        "Name": "smbdriver"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "log_level",
+        "Description": "smbdriver log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "disable smbdriver",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allowed_in_mount",
+        "Description": "Comma separated list of white-listed options that may be accepted in the mount_config options.",
+        "Default": "username,password,uid,gid,file_mode,dir_mode,readonly,domain,vers,sec",
+        "Example": "username,password,uid,gid,file_mode,dir_mode,readonly,domain,vers,sec",
+        "Examples": null
+      },
+      {
+        "Name": "driver_path",
+        "Description": "path to place driver spec/json file for volman to discover",
+        "Default": "/var/vcap/data/voldrivers",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_addr",
+        "Description": "address smbdriver will serve debug info",
+        "Default": "127.0.0.1:8689",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "adminPort",
+        "Description": "port smbdriver listens on for admin requests",
+        "Default": 8590,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cell_mount_path",
+        "Description": "path to mount volumes into on the cell",
+        "Default": "/var/vcap/data/volumes/smb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_in_mount",
+        "Description": "Comma separated list default values for options that may be configured in the mount_config options, formatted as 'option:default'. If an option is not specified in the volume mount, or the option is not white-listed, then the specified default value will be used instead.",
+        "Default": "uid:2000,gid:2000",
+        "Example": "uid:2000,gid:2000,vers:3.0",
+        "Examples": null
+      },
+      {
+        "Name": "enable_unique_volume_ids",
+        "Description": "opt-in to unique volume IDs",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "port smbdriver listens on",
+        "Default": 8589,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smbdriver-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor156805104/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "check_mount.ps1.erb",
+        "DstPathEnd": "scripts/check_mount.ps1",
+        "Path": "/tmp/tar-CmdExtractor156805104/templates/check_mount.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "mounter.ps1.erb",
+        "DstPathEnd": "scripts/mounter.ps1",
+        "Path": "/tmp/tar-CmdExtractor156805104/templates/mounter.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "unmounter.ps1.erb",
+        "DstPathEnd": "scripts/unmounter.ps1",
+        "Path": "/tmp/tar-CmdExtractor156805104/templates/unmounter.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "install.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor156805104/templates/install.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "smbdriver-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cell_mount_path",
+        "Description": "path to mount volumes into on the cell",
+        "Default": "C:\\\\var\\\\vcap\\\\data\\\\volumes\\\\smb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "smbdriver_windows log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_in_mount",
+        "Description": "Comma separated list default values for options that may be configured in the mount_config options, formatted as 'option:default'. If an option is not specified in the volume mount, or the option is not white-listed, then the specified default value will be used instead.",
+        "Default": "uid:2000,gid:2000",
+        "Example": "uid:2000,gid:2000,vers:3.0",
+        "Examples": null
+      },
+      {
+        "Name": "driver_path",
+        "Description": "path to place driver spec/json file for volman to discover",
+        "Default": "C:\\\\var\\\\vcap\\\\data\\\\voldrivers",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_port",
+        "Description": "port smbdriver_windows listens on for admin requests",
+        "Default": "8590",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "disable smbdriver_windows",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allowed_in_mount",
+        "Description": "Comma separated list of white-listed options that may be accepted in the mount_config options.",
+        "Default": "username,password,uid,gid,file_mode,dir_mode,readonly,domain,vers,sec",
+        "Example": "username,password,uid,gid,file_mode,dir_mode,readonly,domain,vers,sec",
+        "Examples": null
+      },
+      {
+        "Name": "enable_unique_volume_ids",
+        "Description": "opt-in to unique volume IDs",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "port smbdriver listens on",
+        "Default": "8589",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smbtestserver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor313016994/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "install.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor313016994/templates/install.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/smbtestserver_ctl",
+        "Path": "/tmp/tar-CmdExtractor313016994/templates/ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "export_cidr",
+        "Description": "cidr range to use for smb exports",
+        "Default": "10.0.0.0/8",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "export_root_path",
+        "Description": "SMB root path",
+        "Default": "/var/vcap/store/smbtestserver",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "SMB username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "SMB password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
