@@ -1,0 +1,684 @@
+[
+  {
+    "Name": "loggr-expvar-forwarder",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor793823816/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor793823816/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.crt.erb",
+        "DstPathEnd": "config/certs/forwarder.crt",
+        "Path": "/tmp/tar-CmdExtractor793823816/templates/forwarder.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.key.erb",
+        "DstPathEnd": "config/certs/forwarder.key",
+        "Path": "/tmp/tar-CmdExtractor793823816/templates/forwarder.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor793823816/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "expvar-forwarder"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "interval",
+        "Description": "How often the expvar-forwarder should scrape registered\nendpoints and report values.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "counters",
+        "Description": "An array of Objects that have the following fields:\n- addr: address of the expvar endpoint\n- name: The output name of the Counter\n- source_id: The output sourceID of the Counter\n- template: The golang text/template to find the metric in the expvar\n  output.\n- tags: An object that can only have string values. They will be\n  passed as tags on the envelope.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gauges",
+        "Description": "An array of Objects that have the following fields:\n- addr: address of the expvar endpoint\n- name: The output name of the Counter\n- unit: The output unit of the Counter\n- source_id: The output sourceID of the Counter\n- template: The golang text/template to find the metric in the expvar\n  output.\n- tags: An object that can only have string values. They will be\n  passed as tags on the envelope.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_agent.addr",
+        "Description": "The Loggregator ingress address. This is the gRPC host that metrics will\nbe written to.\n",
+        "Default": "127.0.0.1:3458",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_agent.ca_cert",
+        "Description": "The Loggregator CA certificate in PEM format.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_agent.client_cert",
+        "Description": "The client certificate used to connect to the Loggregator Agent.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_agent.client_key",
+        "Description": "The client private key used to connect to the Loggregator Agent.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_source_id",
+        "Description": "Source ID to use for reported metrics when none is provided.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-forwarder-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor843326138/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "api_ca.crt.erb",
+        "DstPathEnd": "config/certs/api_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/api_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_client.crt.erb",
+        "DstPathEnd": "config/certs/api_client.crt",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/api_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_client.key.erb",
+        "DstPathEnd": "config/certs/api_client.key",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/api_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.crt.erb",
+        "DstPathEnd": "config/certs/forwarder.crt",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/forwarder.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.key.erb",
+        "DstPathEnd": "config/certs/forwarder.key",
+        "Path": "/tmp/tar-CmdExtractor843326138/templates/forwarder.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "forwarder-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for forwarder signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.ca_cert",
+        "Description": "When the forwarder communicates with the Cloud Controller it must\nvalidate the Cloud Controller's certificate was signed by a trusted CA.\nThis is the CA trusted by the forwarder for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.cert",
+        "Description": "This certificate is sent to the Cloud Controller when initiating a\nconnection. It must be signed by a CA that is trusted by the Cloud\nController.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.key",
+        "Description": "This is the private key for the certificate sent to the Cloud Controller\nwhen initiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.polling_interval",
+        "Description": "The interval at which the forwarder will poll the Cloud Controller for\nbindings.\n",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "downstream_ingress_ports",
+        "Description": "Each port will be bound to (via 127.0.0.1:{port}) with the provided mTLS\nconfiguration. The forwarder assumes the downstream server is serving\nLoggregator's V2 IngressService.\nSee code.cloudfoundry.org/loggregator-api.\n",
+        "Default": [
+          3459
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_skip_cert_verify",
+        "Description": "If set to true the SSL hostname validation will be disabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "TLS loggregator root CA certificate. It is required for key/cert\nverification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS private key for forwarder signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.cn",
+        "Description": "When the forwarder communicates with the Cloud Controller it must\nvalidate the Cloud Controller's common name (CN) or subject alternative\nnames (SANs) against the hostname or IP address used to initiate the\nconnection. Most of the time this should be the hostname defined in\napi.url.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.batch_size",
+        "Description": "The batch size the forwarder will request the Cloud Controller for\nbindings.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-udp-forwarder",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor799178236/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor799178236/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor799178236/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor799178236/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor799178236/templates/loggregator_agent.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "udp-forwarder"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.tls.ca",
+        "Description": "When the forwarder communicates with the Loggregator Agent it must\nvalidate the Loggregator Agent's certificate was signed by a trusted CA.\nThis is the CA trusted by the forwarder for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cert",
+        "Description": "This certificate is sent to the Loggregator Agent when initiating a\nconnection. It must be signed by a CA that is trusted by the Loggregator\nAgent.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.key",
+        "Description": "This is the private key for the certificate sent to the Loggregator Agent\nwhen initiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ingress_port",
+        "Description": "The gRPC port to forward the converted v2 envelopes to.\n",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "udp_port",
+        "Description": "The port to listen for incoming v1 (dropsonde) envelopes via UDP.\n",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor076393102/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor076393102/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor076393102/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor076393102/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor076393102/templates/loggregator_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "listening_port",
+        "Description": "Port the agent is listening on to receive dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "pprof_port",
+        "Description": "The pprof port for runtime profiling data",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_port",
+        "Description": "The port for the health endpoint",
+        "Default": 14824,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.cert",
+        "Description": "TLS certificate for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_udp",
+        "Description": "Disable incoming UDP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc_port",
+        "Description": "Port the agent is listening on to receive gRPC log envelopes",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.key",
+        "Description": "TLS key for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_agent_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor529131760/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor529131760/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor529131760/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor529131760/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor529131760/templates/loggregator_agent.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_agent_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "syslog_daemon_config.transport",
+        "Description": "Transport to be used when forwarding logs (tcp|udp).",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.fallback_addresses",
+        "Description": "Addresses of fallback servers to be used if the primary syslog server is down. Only tcp or relp are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys. ",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_udp",
+        "Description": "Disable incoming UDP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.enable",
+        "Description": "Enable or disable rsyslog configuration for forwarding syslog messages into the agent",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.port",
+        "Description": "Port of syslog aggregator",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listening_port",
+        "Description": "Port the agent is listening on to receive dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.cert",
+        "Description": "TLS certificate for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.address",
+        "Description": "IP address for syslog aggregator",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.max_message_size",
+        "Description": "maximum message size to be sent",
+        "Default": "4k",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.key",
+        "Description": "TLS key for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.custom_rule",
+        "Description": "Custom rule for syslog forward daemon",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pprof_port",
+        "Description": "The pprof port for runtime profiling data",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc_port",
+        "Description": "Port the agent is listening on to receive gRPC log envelopes",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_port",
+        "Description": "The port for the health endpoint",
+        "Default": 14824,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "prom_scraper",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor166350754/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor166350754/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor166350754/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor166350754/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor166350754/templates/loggregator_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "prom_scraper"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics_url",
+        "Description": "The URL of the local endpoint that provides prometheus metrics",
+        "Default": "http://localhost:9100/metrics",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape_interval",
+        "Description": "The interval to scrape the metrics URL (golang duration)",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
