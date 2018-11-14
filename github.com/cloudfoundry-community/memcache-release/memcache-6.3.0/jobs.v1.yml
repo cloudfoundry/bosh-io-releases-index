@@ -1,0 +1,476 @@
+[
+  {
+    "Name": "memcache_broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor449702590/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "application-bosh.yml.erb",
+        "DstPathEnd": "config/application-bosh.yml",
+        "Path": "/tmp/tar-CmdExtractor449702590/templates/application-bosh.yml.erb"
+      },
+      {
+        "SrcPathEnd": "memcache_broker.erb",
+        "DstPathEnd": "bin/memcache_broker",
+        "Path": "/tmp/tar-CmdExtractor449702590/templates/memcache_broker.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "memcache-utils"
+      },
+      {
+        "Name": "memcache-java"
+      },
+      {
+        "Name": "memcache_broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "memcache_hazelcast.host.password",
+        "Description": "The memcache rest endpoint password.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.broker_password",
+        "Description": "The shared secret between the CC and the service broker.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.memcache.vip",
+        "Description": "A vip an application can use to provide simpler access to the memcache cluster.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.memcache.servers",
+        "Description": "The machines in this hazelcast cluster.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.plans",
+        "Description": "The plans this server will support.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.host.username",
+        "Description": "The memcache rest endpoint username.",
+        "Default": "hazelcast-user",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.secret_key",
+        "Description": "The shared secret used for memcache authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.startup_timeout",
+        "Description": "The time to wait for app to startup before we kill it and let monit try again.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.max_heap",
+        "Description": "The Xmx of this process.",
+        "Default": "32m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_broker.host.port",
+        "Description": "The http port the Memcache hazelcast service will listen for REST calls on",
+        "Default": 21080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.host.srv_api",
+        "Description": "The service endpoint url on memcache_hazelcast",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "memcache_hazelcast",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor697409184/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor697409184/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "memcache_hazelcast.erb",
+        "DstPathEnd": "bin/memcache_hazelcast",
+        "Path": "/tmp/tar-CmdExtractor697409184/templates/memcache_hazelcast.erb"
+      },
+      {
+        "SrcPathEnd": "application-bosh.yml.erb",
+        "DstPathEnd": "config/application-bosh.yml",
+        "Path": "/tmp/tar-CmdExtractor697409184/templates/application-bosh.yml.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor697409184/templates/drain.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "memcache-utils"
+      },
+      {
+        "Name": "memcache-java"
+      },
+      {
+        "Name": "memcache_hazelcast"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "memcache_hazelcast.debug",
+        "Description": "Set debug port and enable debug mode.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.java_opts",
+        "Description": "Any Java opts we wish to apply beyond Xmx and TMP_DIR",
+        "Default": "-Xms32m -XX:+UseG1GC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Duser.timezone=UTC -Djava.net.preferIPv4Stack=true -Xss256k",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.max_value_size",
+        "Description": "The biggest a value can be in bytes.",
+        "Default": 1048576,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.minimum_cluster_members",
+        "Description": "Minimum number of cluster members this node can see to determine if this node is healthy in the cluster.",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.local_member_safe_timeout",
+        "Description": "Number of seconds to wait for local member to be safe before shutting it down.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.partition_count",
+        "Description": "How many partitions exist in this cluster.  Effects total cluster scalability.",
+        "Default": 271,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.operation_call_timeout",
+        "Description": "The maximum amount of time in milliseconds hazelcast will wait to get a response from a call to another node before erroring out.  Making the default short cause these operations should be fast.",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.max_no_heartbeat_seconds",
+        "Description": "The maximum amount of time hazelcast will fail to communicate with another node before dropping it from the cluster.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.heap_size",
+        "Description": "The amount of Heap the cache should be configured with.",
+        "Default": "1G",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.host.password",
+        "Description": "The memcache rest endpoint password.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.test_user",
+        "Description": "The username that non cf clients can use to hit the cache for ping/testing purposes.",
+        "Default": "test",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.event_thread_count",
+        "Description": "Number of event handler threads.",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.startup_timeout",
+        "Description": "The time to wait for app to startup before we kill it and let monit try again.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.host.port",
+        "Description": "The http port the Memcache hazelcast service will listen for REST calls on",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.test_password",
+        "Description": "The password to use when connecting with the test user.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.machines",
+        "Description": "The machines in this hazelcast cluster.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.plans",
+        "Description": "The plans this server will support.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.executor_pool_size",
+        "Description": "The size of the executor pool to handle asyncronous requests.  A value of zero will use the default of cores * 2.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.trim_delay",
+        "Description": "How often in seconds should the node check to see if max cache size is exceeded.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.receive_buffer_size",
+        "Description": "The size of the network receive buffer in KB.  Hazelcast recommends this be 1M+ for a 10GB Network.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.send_buffer_size",
+        "Description": "The size of the network send buffer in KB.  Hazelcast recommends this be 1M+ for a 10GB Network.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.operation_generic_thread_count",
+        "Description": "Number of generic operation handler threads. -1 means CPU core count x 2.",
+        "Default": -1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.test_cache",
+        "Description": "The cache name the test user is linked to.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.max_cache_size",
+        "Description": "The maximum amount of heap you wish to be reserved for cache entries.  Once total cache size gets bigger than this then node will start LRU evicting a % from each cache.  Should be less than heap_size.",
+        "Default": 536870912,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.percent_to_trim",
+        "Description": "When max cache size is exceeded how much should be evicted from each cache.",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.operation_thread_count",
+        "Description": "Number of partition based operation handler threads. -1 means CPU core count x 2.",
+        "Default": -1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.io_thread_count",
+        "Description": "Number of input and output threads.",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.max_queue_size",
+        "Description": "The maximum size of the memcache request queue before the memcache server begins to apply back pressure.",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.port",
+        "Description": "The port this server will listen on for memcache requests.",
+        "Default": 5701,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.hazelcast.client_event_thread_count",
+        "Description": "Thread count for handling incoming event packets.",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.host.username",
+        "Description": "The memcache rest endpoint username.",
+        "Default": "hazelcast-user",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.port",
+        "Description": "The port this server will listen on for memcache requests.",
+        "Default": 11211,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.secret_key",
+        "Description": "The shared secret used for memcache authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_hazelcast.memcache.request_rate_limit",
+        "Description": "Maximum number of requests per user to allow within a 10 second window.  Default is a huge value just to be safe.",
+        "Default": 500000,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "memcache_ping",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor245362898/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "memcache_ping.erb",
+        "DstPathEnd": "bin/memcache_ping",
+        "Path": "/tmp/tar-CmdExtractor245362898/templates/memcache_ping.erb"
+      },
+      {
+        "SrcPathEnd": "application-bosh.yml.erb",
+        "DstPathEnd": "config/application-bosh.yml",
+        "Path": "/tmp/tar-CmdExtractor245362898/templates/application-bosh.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "memcache-utils"
+      },
+      {
+        "Name": "memcache-java"
+      },
+      {
+        "Name": "memcache_ping"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "memcache_ping.startup_timeout",
+        "Description": "The time to wait for app to startup before we kill it and let monit try again.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_ping.max_heap",
+        "Description": "The Xmx of this process.",
+        "Default": "16m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_ping.ping_interval",
+        "Description": "The interval in ms the application will ping memcache.",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_ping.memcache.servers",
+        "Description": "The severs the memcache ping client will be configured with in the format \"server:port\"",
+        "Default": [
+          "localhost:11211"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_ping.memcache.username",
+        "Description": "The test username to use when connecting to memcache.",
+        "Default": "test",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memcache_ping.memcache.password",
+        "Description": "The test password to use when connecting to memcache.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
