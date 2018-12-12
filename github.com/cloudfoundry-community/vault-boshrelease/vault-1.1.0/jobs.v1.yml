@@ -1,0 +1,210 @@
+[
+  {
+    "Name": "sanity-test",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor802026918/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/bin/run"
+      },
+      {
+        "SrcPathEnd": "bin/run-vault-tests.sh",
+        "DstPathEnd": "bin/run-vault-tests.sh",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/bin/run-vault-tests.sh"
+      },
+      {
+        "SrcPathEnd": "bin/run-broker-tests.sh",
+        "DstPathEnd": "bin/run-broker-tests.sh",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/bin/run-broker-tests.sh"
+      },
+      {
+        "SrcPathEnd": "bin/create-service",
+        "DstPathEnd": "bin/create-service",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/bin/create-service"
+      },
+      {
+        "SrcPathEnd": "bin/delete-service",
+        "DstPathEnd": "bin/delete-service",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/bin/delete-service"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor802026918/templates/helpers/ctl_setup.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "vault"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "vault.broker.backend.token",
+        "Description": "The token that the service broker will use when interacting with the Vault. If 'TODO' then skip tests.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.backend.address",
+        "Description": "The address to use when accessing the Vault to set up new policies and manage provisioned services.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.host",
+        "Description": "The hostname for accessing the vault broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.port",
+        "Description": "The port for accessing the vault broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.username",
+        "Description": "The username for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.broker.password",
+        "Description": "The password for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "vault",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor162097096/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/vault.conf.erb",
+        "DstPathEnd": "config/server.hcl",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/config/vault.conf.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/post-start",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/bin/post-start"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "data/unseal_keys.erb",
+        "DstPathEnd": "data/unseal_keys",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/data/unseal_keys.erb"
+      },
+      {
+        "SrcPathEnd": "tls/certs.ttar",
+        "DstPathEnd": "tls/certs.ttar",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/tls/certs.ttar"
+      },
+      {
+        "SrcPathEnd": "bin/vault_ctl",
+        "DstPathEnd": "bin/vault_ctl",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/bin/vault_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor162097096/templates/bin/monit_debugger"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "vault"
+      },
+      {
+        "Name": "ttar"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls",
+        "Description": "SSL certificate PEM or an array of SSL certificate PEM files",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.skip_verify",
+        "Description": "Do not verify Vault's presented certificate before communicating with it. Set in the environment when monit scripts run the Vault CLI",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.addr",
+        "Description": "Address of the Vault server expressed as a URL and port. Set in the environment when monit scripts run the Vault CLI",
+        "Default": "https://127.0.0.1:8200",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.config",
+        "Description": "HCL string literal representing the full Vault configuration, will take precedence over any other configuration properties",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.update.step_down_token",
+        "Description": "For a true zero-downtime update to an HA cluster 'vault step-down' must be run on each node to force failover before the update. The token the must have the capabilities ['update', 'sudo'] on the '/sys/step-down' path for this to work.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.update.unseal_keys",
+        "Description": "For a true zero-downtime update to an HA cluster each node must be individually unsealed once it has restarted. It is highly advised to generate new unseal keys via 'vault rekey' once the update has completed.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
