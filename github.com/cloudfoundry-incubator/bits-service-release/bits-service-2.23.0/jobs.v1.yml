@@ -1,0 +1,587 @@
+[
+  {
+    "Name": "bits-service",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor681488614/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "syslog_utils.sh.erb",
+        "DstPathEnd": "bin/syslog_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/syslog_utils.sh.erb"
+      },
+      {
+        "SrcPathEnd": "dashboard.erb",
+        "DstPathEnd": "bin/dashboard",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/dashboard.erb"
+      },
+      {
+        "SrcPathEnd": "packages_ca_cert.pem.erb",
+        "DstPathEnd": "config/certs/packages_ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/packages_ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bits_tls.key.erb",
+        "DstPathEnd": "config/certs/bits_tls.key",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/bits_tls.key.erb"
+      },
+      {
+        "SrcPathEnd": "mutual_ca_cert.pem.erb",
+        "DstPathEnd": "config/certs/mutual_ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/mutual_ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bits_config.yml.erb",
+        "DstPathEnd": "config/bits_config.yml",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/bits_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "signing_users.erb",
+        "DstPathEnd": "config/signing_users",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/signing_users.erb"
+      },
+      {
+        "SrcPathEnd": "app_stash_ca_cert.pem.erb",
+        "DstPathEnd": "config/certs/app_stash_ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/app_stash_ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "droplets_ca_cert.pem.erb",
+        "DstPathEnd": "config/certs/droplets_ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/droplets_ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bits-service_ctl.erb",
+        "DstPathEnd": "bin/bits-service_ctl",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/bits-service_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "mutual_client_cert.pem.erb",
+        "DstPathEnd": "config/certs/mutual_client_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/mutual_client_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bits_tls.crt.erb",
+        "DstPathEnd": "config/certs/bits_tls.crt",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/bits_tls.crt.erb"
+      },
+      {
+        "SrcPathEnd": "blobstore_waiter.sh.erb",
+        "DstPathEnd": "bin/blobstore_waiter.sh",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/blobstore_waiter.sh.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "buildpacks_ca_cert.pem.erb",
+        "DstPathEnd": "config/certs/buildpacks_ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/buildpacks_ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "mutual_client_key.pem.erb",
+        "DstPathEnd": "config/certs/mutual_client_key.pem",
+        "Path": "/tmp/tar-CmdExtractor681488614/templates/mutual_client_key.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bitsgo"
+      },
+      {
+        "Name": "bits-common"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bits-service.max_body_size",
+        "Description": "Maximum body size for nginx",
+        "Default": "1536M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.cc_updates.client_cert",
+        "Description": "PEM-encoded certificate for secure, mutually authenticated TLS communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.tls.port",
+        "Description": "Post for https endpoint",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.signing_users",
+        "Description": "List of Username and Password pairs that are allowed to sign urls. Cloud Controller must use one of these to access the /sign endpoint via HTTP Basic Auth.\n",
+        "Default": null,
+        "Example": "signing_users:\n- username: user1\n  password: password1\n- username: user2\n  password: password2\n",
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.fog_aws_storage_options",
+        "Description": "Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse for example configuration.",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.fog_aws_storage_options",
+        "Description": "Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse for example configuration.",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.private_endpoint",
+        "Description": "Private endpoint for the Bits Service. Does not include URI scheme.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.webdav_config.private_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.internal",
+        "Default": "https://blobstore.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.fog_aws_storage_options",
+        "Description": "Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse for example configuration.",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.blobstore_type",
+        "Description": "The type of blobstore backing to use. Valid values: ['fog', 'webdav']",
+        "Default": "fog",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.minimum_size",
+        "Description": "Minimum size of a resource to cache in App-Stash",
+        "Default": "64K",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.cc_updates.client_key",
+        "Description": "PEM-encoded key for secure, mutually authenticated TLS communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.webdav_config.username",
+        "Description": "The basic auth user that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.s3_debug_log_level",
+        "Description": "Specifies log level for low-level S3 logging. Valid values are: LogDebug, LogDebugWithSigning, LogDebugWithHTTPBody, LogDebugWithRequestRetries, LogDebugWithRequestErrors",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.directory_key",
+        "Description": "Directory (bucket) used to store app stash blobs.",
+        "Default": "app_stash",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.secret",
+        "Description": "The secret used for signing URLs.\nDeprecated: Use active_signing_key and alternative_signing_keys instead and use client side signed URLs through the provided active_signing_key BOSH links.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.alternative_signing_keys",
+        "Description": "List of alternative access key ID and secret pairs that can be used to sign and validate URLs. Clients should use active_signing_key.key_id\nand active_signing_key.secret to generate signed URLs to make sure they don't use a key that is being removed with the next deployment.\n",
+        "Default": [],
+        "Example": "signing_keys:\n  - key_id: some_key_id\n    secret: some_secret\n  - key_id: some_other_key_id\n    secret: some_other_secret\n",
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.webdav_config.ca_cert",
+        "Description": "The ca cert to use when communicating with webdav",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.s3_debug_log_level",
+        "Description": "Specifies log level for low-level S3 logging. Valid values are: LogDebug, LogDebugWithSigning, LogDebugWithHTTPBody, LogDebugWithRequestRetries, LogDebugWithRequestErrors",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.blobstore_type",
+        "Description": "The type of blobstore backing to use. Valid values: ['fog', 'webdav']",
+        "Default": "fog",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.blobstore_type",
+        "Description": "The type of blobstore backing to use. Valid values: ['fog', 'webdav']",
+        "Default": "fog",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.gcp_retry_timeout_seconds",
+        "Description": "Specifies a timeout for calls against Google Cloud Storage. Only used when bucket is in Google Cloud and access method is through Google service account.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.directory_key",
+        "Description": "Directory (bucket) used to store package blobs.",
+        "Default": "packages",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpack_cache.max_body_size",
+        "Description": "Maximum body size for nginx",
+        "Default": "1536M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.public_endpoint",
+        "Description": "Public endpoint for the Bits Service. Does not include URI scheme.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.max_body_size",
+        "Description": "Maximum body size for nginx",
+        "Default": "1536M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.webdav_config.ca_cert",
+        "Description": "The ca cert to use when communicating with webdav",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.cc_updates.ca_cert",
+        "Description": "PEM-encoded CA certificate for secure, mutually authenticated TLS communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "request_timeout_in_seconds",
+        "Description": "Timeout for requests in seconds.",
+        "Default": 900,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.directory_key",
+        "Description": "Directory (bucket) used to store droplet blobs.",
+        "Default": "droplets",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.webdav_config.ca_cert",
+        "Description": "The ca cert to use when communicating with webdav",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.max_body_size",
+        "Description": "Maximum body size for nginx",
+        "Default": "1536M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.gcp_retry_timeout_seconds",
+        "Description": "Specifies a timeout for calls against Google Cloud Storage. Only used when bucket is in Google Cloud and access method is through Google service account.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.gcp_retry_timeout_seconds",
+        "Description": "Specifies a timeout for calls against Google Cloud Storage. Only used when bucket is in Google Cloud and access method is through Google service account.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.active_signing_key.key_id",
+        "Description": "This is the key ID Bits-Service uses and clients should use to generate signed URLs. When rotating active signing keys, they should first go to\nalternative_signing_keys before removing them completely.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.webdav_config.private_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.internal",
+        "Default": "https://blobstore.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.webdav_config.public_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.com",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.webdav_config.password",
+        "Description": "The basic auth password that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.active_signing_key.secret",
+        "Description": "This is the key secret Bits-Service uses and clients should use to generate signed URLs. When rotating active signing keys, they should first go to\nalternative_signing_keys before removing them completely.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.directory_key",
+        "Description": "Directory (bucket) used to store buildpack blobs.",
+        "Default": "buildpacks",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.fog_connection",
+        "Description": "Fog connection properties.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.maximum_size",
+        "Description": "Maximum size of a resource to cache in App-Stash",
+        "Default": "512M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.webdav_config.username",
+        "Description": "The basic auth user that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.webdav_config.password",
+        "Description": "The basic auth password that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.s3_debug_log_level",
+        "Description": "Specifies log level for low-level S3 logging. Valid values are: LogDebug, LogDebugWithSigning, LogDebugWithHTTPBody, LogDebugWithRequestRetries, LogDebugWithRequestErrors",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.fog_connection",
+        "Description": "Fog connection properties.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.webdav_config.ca_cert",
+        "Description": "The ca cert to use when communicating with webdav",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.webdav_config.public_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.com",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.webdav_config.username",
+        "Description": "The basic auth user that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.logging.level",
+        "Description": "Log level for bits-service. See Steno logger for details.",
+        "Default": "debug",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.tls.cert",
+        "Description": "The TLS server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.webdav_config.public_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.com",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.webdav_config.password",
+        "Description": "The basic auth password that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.proxy_get_requests",
+        "Description": "When set to true, GET requests get proxied through Bits-Service and not redirected to the backend blobstore (such as S3)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.fog_connection",
+        "Description": "Fog connection properties.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.fog_connection",
+        "Description": "Fog connection properties.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.max_body_size",
+        "Description": "Maximum body size for nginx",
+        "Default": "1536M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.fog_aws_storage_options",
+        "Description": "Storage options passed to fog for aws blobstores. See http://docs.cloudfoundry.org/deploying/common/cc-blobstore-config.html#fog-aws-sse for example configuration.",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.webdav_config.password",
+        "Description": "The basic auth password that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.webdav_config.private_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.internal",
+        "Default": "https://blobstore.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.cc_updates.cc_url",
+        "Description": "CloudController endpoint for sending package status updates",
+        "Default": "https://cloud-controller-ng.service.cf.internal:9023/internal/v4/packages",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.buildpacks.s3_debug_log_level",
+        "Description": "Specifies log level for low-level S3 logging. Valid values are: LogDebug, LogDebugWithSigning, LogDebugWithHTTPBody, LogDebugWithRequestRetries, LogDebugWithRequestErrors",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.droplets.blobstore_type",
+        "Description": "The type of blobstore backing to use. Valid values: ['fog', 'webdav']",
+        "Default": "fog",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.webdav_config.username",
+        "Description": "The basic auth user that CC uses to connect to the admin endpoint on webdav",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.gcp_retry_timeout_seconds",
+        "Description": "Specifies a timeout for calls against Google Cloud Storage. Only used when bucket is in Google Cloud and access method is through Google service account.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.app_stash.max_body_size",
+        "Description": "Maximum body size for nginx",
+        "Default": "1536M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.tls.key",
+        "Description": "The TLS server private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.webdav_config.public_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.com",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bits-service.packages.webdav_config.private_endpoint",
+        "Description": "The location of the webdav server eg: https://blobstore.internal",
+        "Default": "https://blobstore.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
