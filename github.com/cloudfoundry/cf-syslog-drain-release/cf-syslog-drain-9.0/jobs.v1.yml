@@ -1,0 +1,620 @@
+[
+  {
+    "Name": "adapter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor966368844/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "adapter.key.erb",
+        "DstPathEnd": "certs/adapter.key",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/adapter.key.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "adapter_rlp.crt.erb",
+        "DstPathEnd": "certs/adapter_rlp.crt",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/adapter_rlp.crt.erb"
+      },
+      {
+        "SrcPathEnd": "adapter_rlp.key.erb",
+        "DstPathEnd": "certs/adapter_rlp.key",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/adapter_rlp.key.erb"
+      },
+      {
+        "SrcPathEnd": "adapter.crt.erb",
+        "DstPathEnd": "certs/adapter.crt",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/adapter.crt.erb"
+      },
+      {
+        "SrcPathEnd": "rlp_ca.crt.erb",
+        "DstPathEnd": "certs/rlp_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor966368844/templates/rlp_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "adapter"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "scalablesyslog.adapter.syslog_dial_timeout",
+        "Description": "The timeout duration for dialing syslog drains.",
+        "Default": "5s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.metrics_to_syslog_enabled",
+        "Description": "By setting this value to true, the adapter will support writing\nmetrics into a syslog drain. Note, this feature requires Loggregator\nv101 or higher.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.max_bindings",
+        "Description": "The maximum number of bindings that can be serviced by an adapter.\n",
+        "Default": 500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.tls.cert",
+        "Description": "This certificate is sent to gRPC clients when they initiate a connection.\nIt must be signed by a CA that is trusted by the client.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter_rlp.tls.key",
+        "Description": "This is the private key for the certificate sent to the RLP when\ninitiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metric_emitter.interval",
+        "Description": "The interval that metrics are emitted to metron.",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.pprof",
+        "Description": "The port for pprof on the adapter.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.logs.addr",
+        "Description": "The address of the Reverse Log Proxy (RLP) if Bosh DNS is not enabled.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter_rlp.tls.cn",
+        "Description": "When the adapter communicates with the RLP it must validate the RLP's\ncommon name (CN) or subject alternative names (SANs) against the hostname\nor IP address used to initiate the connection. Since we use a custom CN\nfor RLP this must be set to that value for validation to be successful.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.syslog_skip_cert_verify",
+        "Description": "This disables TLS verification when connecting to a HTTPS or a Syslog TLS drain.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.tls.cn",
+        "Description": "The common name for the adapters TLS certificate.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.tls.ca",
+        "Description": "When the adapter accepts connections via gRPC it must validate the\nclients' certificates were signed by a trusted CA. This is the CA\ntrusted by the adapter.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter_rlp.tls.ca",
+        "Description": "When the adapter communicates with the RLP it must validate the\nRLP's certificates were signed by a trusted CA. This is the CA\ntrusted by the adapter for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter_rlp.tls.cert",
+        "Description": "This certificate is sent to the RLP when initiating a connection.\nIt must be signed by a CA that is trusted by the RLP.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.metric_ingress_addr",
+        "Description": "The address used to send metric data to metron.\n",
+        "Default": "localhost:3458",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.port",
+        "Description": "The port for the adapter to listen on gRPC.",
+        "Default": 4443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.bosh_dns",
+        "Description": "Enable Bosh DNS. Disabling this implies Consul DNS.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.syslog_io_timeout",
+        "Description": "The timeout duration for writing to syslog drains.",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.tls.key",
+        "Description": "This is the private key for the certificate sent to gRPC clients when\nthey initiate a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.metric_ingress_cn",
+        "Description": "When the adapter communicates with metron it must validate metron's\ncommon name (CN) or subject alternative names (SANs) against the\nhostname or IP address used to initiate the connection. Since we use a\ncustom CN for metron this must be set to that value for validation to be\nsuccessful.\n",
+        "Default": "metron",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.health",
+        "Description": "The port for the adapter health endpoint.",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.keepalive",
+        "Description": "The duration for sending keepalive packets for TCP and TLS syslog\ndrains. Setting this to zero disables keepalives.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "fake_consumer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor553931614/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor553931614/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "fake_consumer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "fake_consumer.addr",
+        "Description": "The host port of the process",
+        "Default": "0.0.0.0:8080",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_consumer.delay",
+        "Description": "Delay between reads",
+        "Default": "1ns",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "fake_cups_provider",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor336998464/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor336998464/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor336998464/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cups_ca.crt.erb",
+        "DstPathEnd": "certs/cups_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor336998464/templates/cups_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor336998464/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor336998464/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "response_body.erb",
+        "DstPathEnd": "bin/response_body",
+        "Path": "/tmp/tar-CmdExtractor336998464/templates/response_body.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "fake_cups_provider"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "fake_cups_provider.tls.ca",
+        "Description": "The CA for fake CUPS provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_cups_provider.tls.cert",
+        "Description": "The cert for the fake CUPS provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_cups_provider.tls.key",
+        "Description": "The key for the fake CUPS provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_cups_provider.port",
+        "Description": "The port for the fake CUPS provider",
+        "Default": 9023,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "fake_logs_provider",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor212415858/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor212415858/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor212415858/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor212415858/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor212415858/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor212415858/templates/server.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "fake_logs_provider"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "reverse_log_proxy.egress.port",
+        "Description": "The port for the fake logs provider",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_logs_provider.tls.ca",
+        "Description": "The TLS CA for the fake logs provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_logs_provider.tls.cert",
+        "Description": "The TLS cert for the fake logs provider server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_logs_provider.tls.key",
+        "Description": "The TLS private key for the fake logs provider server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "fake_logs_provider.tls.cn",
+        "Description": "The common name for the TLS certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "scheduler",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor138858868/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "scheduler.crt.erb",
+        "DstPathEnd": "certs/scheduler.crt",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/scheduler.crt.erb"
+      },
+      {
+        "SrcPathEnd": "scheduler.key.erb",
+        "DstPathEnd": "certs/scheduler.key",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/scheduler.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "api_ca.crt.erb",
+        "DstPathEnd": "certs/api_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/api_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_client.crt.erb",
+        "DstPathEnd": "certs/api_client.crt",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/api_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_client.key.erb",
+        "DstPathEnd": "certs/api_client.key",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/api_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor138858868/templates/ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "scheduler"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "scalablesyslog.scheduler.tls.client.ca",
+        "Description": "When the scheduler communicates with the adapters it must validate the\nadapters' certificates were signed by a trusted CA. This is the CA\ntrusted by the scheduler for that communication.\nNote: This is also used when communicating with the metron agent when\nsending metric data.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.api.skip_cert_verify",
+        "Description": "Allows insecure TLS connections to the Cloud Controller.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.api.batch_size",
+        "Description": "The batch size the scheduler will request the Cloud Controller for\nbindings.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.pprof",
+        "Description": "The port for pprof on the scheduler.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.port",
+        "Description": "The port used to communicate with the adapters via gRPC.",
+        "Default": 4443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.api.key",
+        "Description": "This is the private key for the certificate sent to the Cloud Controller\nwhen initiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.api.url",
+        "Description": "The URL of the Cloud Controller, used for getting syslog drain bindings.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.metric.cn",
+        "Description": "When the scheduler communicates with metron it must validate metron's\ncommon name (CN) or subject alternative names (SANs) against the\nhostname or IP address used to initiate the connection. Since we use a\ncustom CN for metron this must be set to that value for validation to be\nsuccessful.\n",
+        "Default": "metron",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metric_emitter.interval",
+        "Description": "The interval that metrics are emitted to metron.",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.health",
+        "Description": "The port for the scheduler health endpoint.",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.adapter.addrs",
+        "Description": "A collection of adapter addresses. This is used only if the\nadapter_adders link is not provided.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.api.polling_interval",
+        "Description": "The interval at which the scheduler will poll the Cloud Controller for\nbindings.\n",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.metric.addr",
+        "Description": "The address used to send metric data to metron.\n",
+        "Default": "localhost:3458",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.bosh_dns",
+        "Description": "Enable Bosh DNS. Disabling this implies Consul DNS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.blacklisted_syslog_ranges",
+        "Description": "A list of IP address ranges that are not allowed to be specified in\nsyslog drain binding URLs.\n",
+        "Default": [],
+        "Example": [
+          {
+            "end": "10.10.10.10",
+            "start": "10.10.10.1"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.client.cert",
+        "Description": "This certificate is sent to the adapters when initiating a connection.\nIt must be signed by a CA that is trusted by the adapters.\nNote: This is also used when communicating with the metron agent when\nsending metric data.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.client.key",
+        "Description": "This is the private key for the certificate sent to the adapters when\ninitiating a connection.\nNote: This is also used when communicating with the metron agent when\nsending metric data.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.client.adapter_cn",
+        "Description": "When the scheduler communicates with the adapters it must validate the\nadapters' common name (CN) or subject alternative names (SANs) against\nthe hostname or IP address used to initiate the connection. Since we\nuse a custom CN for adapters this must be set to that value for\nvalidation to be successful.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.api.ca",
+        "Description": "When the scheduler communicates with the Cloud Controller it must\nvalidate the Cloud Controller's certificate was signed by a trusted CA.\nThis is the CA trusted by the scheduler for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.api.cert",
+        "Description": "This certificate is sent to the Cloud Controller when initiating a\nconnection. It must be signed by a CA that is trusted by the Cloud\nController.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scalablesyslog.scheduler.tls.api.cn",
+        "Description": "When the scheduler communicates with the Cloud Controller it must\nvalidate the Cloud Controller's common name (CN) or subject alternative\nnames (SANs) against the hostname or IP address used to initiate the\nconnection. Most of the time this should be the hostname defined in\nscalablesyslog.scheduler.api.url.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
