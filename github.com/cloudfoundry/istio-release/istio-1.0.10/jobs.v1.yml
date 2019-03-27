@@ -1,0 +1,374 @@
+[
+  {
+    "Name": "copilot",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor267575081/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "certs/cloud-controller-client-ca.crt.erb",
+        "DstPathEnd": "config/certs/cloud-controller-client-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/certs/cloud-controller-client-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/certs/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs/certs/client.crt.erb",
+        "DstPathEnd": "config/bbs/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/bbs/certs/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs/certs/client.key.erb",
+        "DstPathEnd": "config/bbs/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/bbs/certs/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "certs/pilot-client-ca.crt.erb",
+        "DstPathEnd": "config/certs/pilot-client-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/certs/pilot-client-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs/certs/ca.crt.erb",
+        "DstPathEnd": "config/bbs/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/bbs/certs/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "certs/server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor267575081/templates/certs/server.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "copilot"
+      },
+      {
+        "Name": "golang-1-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "pilot_client_ca_cert",
+        "Description": "PEM-encoded CA certificate that signed the client cert used by Pilot platform adapter",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "experimental_vip_cidr",
+        "Description": "Virtual IP addresses for internal routes will be assigned out of this CIDR range.",
+        "Default": "127.128.0.0/9",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.client_key",
+        "Description": "PEM-encoded client private key used to connect to BBS",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "frontend_tls_keypairs",
+        "Description": "Array of private keys and certificates used for TLS handshakes with downstream clients. Each element in the array is an object containing fields 'private_key' and 'cert_chain', each of which supports a PEM block. ",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_key",
+        "Description": "PEM-encoded server private key used to communicate with all clients",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.server_ca_cert",
+        "Description": "PEM-encoded CA certificate that signed BBS's server cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.address",
+        "Description": "Address of BBS",
+        "Default": "https://bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.client_session_cache_size",
+        "Description": "Capacity of the tls client cache",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port_for_mcp",
+        "Description": "The port that Pilot MCP client will connect to, to retrieve route info",
+        "Default": 9009,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port_for_cloud_controller",
+        "Description": "The port that Cloud Controller will connect to, to provide route info",
+        "Default": 9001,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_controller_client_ca_cert",
+        "Description": "PEM-encoded CA certificate that signed the client cert used by Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_cert",
+        "Description": "PEM-encoded server certificate used to communicate with all clients",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.sync_interval",
+        "Description": "Interval at which copilot will query diego for all LRPs and replace its state",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.client_cert",
+        "Description": "PEM-encoded client certificate used to connect to BBS",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.max_idle_conns_per_host",
+        "Description": "Maximum number of idle http connections",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_address_for_mcp",
+        "Description": "The dns address that Pilot MCP client will connect to, to retrieve route info",
+        "Default": "copilot.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Sets the log level. Can be one of debug, info, error, or fatal.",
+        "Default": "fatal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port_for_vip_resolver",
+        "Description": "The port that clients will connect to, to query inter istio route virtual IPs",
+        "Default": 9002,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "envoy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor231158595/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor231158595/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor231158595/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "envoy.json.erb",
+        "DstPathEnd": "config/envoy.json",
+        "Path": "/tmp/tar-CmdExtractor231158595/templates/envoy.json.erb"
+      },
+      {
+        "SrcPathEnd": "librarian.json.erb",
+        "DstPathEnd": "config/librarian.json",
+        "Path": "/tmp/tar-CmdExtractor231158595/templates/librarian.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "envoy"
+      },
+      {
+        "Name": "librarian"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "statsd.protocol",
+        "Description": "The protocol used for statsd communication",
+        "Default": "UDP",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "open_files",
+        "Description": "The maximum number of open files.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "statsd.enabled",
+        "Description": "Should a statsd sink be configured",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "statsd.address",
+        "Description": "The address of the statsd sink",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "statsd.port",
+        "Description": "The port of the statsd sink",
+        "Default": 8125,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "pilot-discovery",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor939888237/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "mesh-config.json.erb",
+        "DstPathEnd": "config/mesh-config.json",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/mesh-config.json.erb"
+      },
+      {
+        "SrcPathEnd": "certs/ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/certs/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/certs/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/certs/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "capi-cli.erb",
+        "DstPathEnd": "bin/capi-cli",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/capi-cli.erb"
+      },
+      {
+        "SrcPathEnd": "istio-cli.erb",
+        "DstPathEnd": "bin/istio-cli",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/istio-cli.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor939888237/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pilot"
+      },
+      {
+        "Name": "grpcurl"
+      },
+      {
+        "Name": "golang-1-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "copilot.client_cert",
+        "Description": "PEM-encoded client certificate used to communicate with copilot-server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "copilot.client_key",
+        "Description": "PEM-encoded client private key used to communicate with copilot-server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "copilot.address",
+        "Description": "Address of the copilot-server",
+        "Default": "copilot.service.cf.internal:9000",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Listen port for pilot discovery service",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Sets the log-level for all registered scopes of pilot.\nCan be one of debug, info, warn, error, fatal or none.\nThe default of info is going to be extremely verbose\nin most cases.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "copilot.server_ca_cert",
+        "Description": "PEM-encoded CA certificate used to communicate with copilot-server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
