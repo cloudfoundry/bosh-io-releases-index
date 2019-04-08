@@ -1,0 +1,85 @@
+[
+  {
+    "Name": "cron",
+    "Description": "This BOSH job creates a customized crontab, and installs it for the host OS's cron\nprocess to manage. Upon stopping, it should clean up after itself\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor040486185/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/sleeper",
+        "DstPathEnd": "bin/sleeper",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/bin/sleeper"
+      },
+      {
+        "SrcPathEnd": "bin/setup_crontab.erb",
+        "DstPathEnd": "bin/setup_crontab",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/bin/setup_crontab.erb"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/cron_ctl",
+        "DstPathEnd": "bin/cron_ctl",
+        "Path": "/tmp/tar-CmdExtractor040486185/templates/bin/cron_ctl"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "cron.variables",
+        "Description": "A key-value map of environment variables that should be set in the crontab",
+        "Default": null,
+        "Example": {
+          "HOME": "/home/vcap",
+          "PATH": "/var/vcap/package/mypackage/bin:/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/bin"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "cron.entries",
+        "Description": "A list of key-value objects representing cron entries. Each entry must contain\nproperties for 'minute', 'hour', 'day', 'month', 'wday', 'user', and 'command'. These\nproperties are directly injected into the crontab, and should follow cron syntax\nconventions.\n\nIf command is specified, that path is executed by cron and must already exist.\nIf script is specified, the contents of that key are written out to disk and executed by cron.\n\nIf command and script are specified for the same entry, the contents of script will be executed, and command ignored\n\nIf lock is specified, the cronjob will be wrapped by flock(1) -n ensuring only one instance runs at a time.\n\nIf log is specified, the cronjob's stdout and stderr will be redirected to specified path. those scripts are recommend to start with \"set -x\".\n\nIf a hash of variables is specified, the cronjob will run with those environment variables.\n",
+        "Default": null,
+        "Example": [
+          {
+            "command": "/var/vcap/packages/mypackage/bin/myhourlyscript",
+            "day": "*",
+            "hour": "*",
+            "lock": "/var/vcap/sys/run/cron/myhourly.lock",
+            "log": "/var/vcap/sys/log/cron/myhourlyscrip.log",
+            "minute": 0,
+            "month": "*",
+            "script": {
+              "contents": "#!/bin/bash\n\ntouch /tmp/i-am-running\n",
+              "name": "touch.sh"
+            },
+            "user": "root",
+            "wday": "*"
+          }
+        ],
+        "Examples": null
+      }
+    ]
+  }
+]
