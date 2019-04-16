@@ -1,0 +1,164 @@
+[
+  {
+    "Name": "odb-service-adapter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor026919983/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "odb-service-adapter"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-metrics",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor809007673/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor809007673/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor809007673/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor809007673/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor809007673/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor809007673/templates/drain.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "service-metrics"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "service_metrics.origin",
+        "Description": "Used for the origin tag on every envelope. Should be set to something descriptive of the deployment (e.g. service-name)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.mount_paths",
+        "Description": "Filesystem paths to be mounted for reading by the metrics_command",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.execution_interval_seconds",
+        "Description": "Interval to repeatedly obtain and emit metrics, in seconds. If the\ninterval seconds is set to a negative number this will disable service\nmetrics process.\n",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.monit_dependencies",
+        "Description": "Array of monit service dependencies",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.ca",
+        "Description": "Loggregator CA certificate file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.key",
+        "Description": "Service metrics client private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.source_id",
+        "Description": "The source ID to set on every envelope sent by Service Metrics.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.metrics_command",
+        "Description": "Command to obtain metrics in JSON format",
+        "Default": "/var/vcap/jobs/service-metrics-adapter/bin/collect-service-metrics",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.metrics_command_args",
+        "Description": "Arguments to be passed to the metrics command (see service_metrics.metrics_command)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.debug",
+        "Description": "boolean value to turn on verbose mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.cert",
+        "Description": "Service metrics client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.ingress_port",
+        "Description": "Incoming port for log messages",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-metrics-test-script",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor841606355/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "service-metrics-test-script"
+      }
+    ],
+    "Properties": null
+  }
+]
