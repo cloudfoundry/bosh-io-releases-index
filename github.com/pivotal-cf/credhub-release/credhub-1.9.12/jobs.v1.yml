@@ -1,0 +1,444 @@
+[
+  {
+    "Name": "bbr-credhubdb",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor641569759/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bbr.json.erb",
+        "DstPathEnd": "config/bbr.json",
+        "Path": "/tmp/tar-CmdExtractor641569759/templates/bbr.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor641569759/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor641569759/templates/restore.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "credhub.data_storage.type",
+        "Description": "Database type. Accepted values are in-memory, mysql, or postgres",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.password",
+        "Description": "Password for authenticating with targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.port",
+        "Description": "Listening port of targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.require_tls",
+        "Description": "Requires only TLS connections to targeted database server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.tls_ca",
+        "Description": "CA trusted for making TLS connections to targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "release_level_backup",
+        "Description": "Include credhub DB in backup and restore operations",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.username",
+        "Description": "Username for authenticating with targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.host",
+        "Description": "Host address of targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.database",
+        "Description": "Name of database in which to store data on targeted database server (must exist prior to deployment)",
+        "Default": "credhub",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "credhub",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor251880809/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-backup-lock.sh",
+        "DstPathEnd": "bin/bbr/pre-backup-lock",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/pre-backup-lock.sh"
+      },
+      {
+        "SrcPathEnd": "pre-restore-lock.sh",
+        "DstPathEnd": "bin/bbr/pre-restore-lock",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/pre-restore-lock.sh"
+      },
+      {
+        "SrcPathEnd": "post-restore-unlock.sh",
+        "DstPathEnd": "bin/bbr/post-restore-unlock",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/post-restore-unlock.sh"
+      },
+      {
+        "SrcPathEnd": "wait-for-stop.sh.erb",
+        "DstPathEnd": "bin/bbr/wait-for-stop",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/wait-for-stop.sh.erb"
+      },
+      {
+        "SrcPathEnd": "database_ca.pem.erb",
+        "DstPathEnd": "config/database_ca.pem",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/database_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "credhub.erb",
+        "DstPathEnd": "bin/credhub",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/credhub.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "post-backup-unlock.sh",
+        "DstPathEnd": "bin/bbr/post-backup-unlock",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/post-backup-unlock.sh"
+      },
+      {
+        "SrcPathEnd": "post-bbr-start.erb",
+        "DstPathEnd": "bin/bbr/post-bbr-start",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/post-bbr-start.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "validation.yml.erb",
+        "DstPathEnd": "config/validation.yml.bak",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/validation.yml.erb"
+      },
+      {
+        "SrcPathEnd": "log4j2.properties.erb",
+        "DstPathEnd": "config/log4j2.properties",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/log4j2.properties.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "configure_hsm.erb",
+        "DstPathEnd": "bin/configure_hsm.sh",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/configure_hsm.erb"
+      },
+      {
+        "SrcPathEnd": "identify-postgres-server-version.erb",
+        "DstPathEnd": "bin/bbr/identify-postgres-server-version",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/identify-postgres-server-version.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "init_key_stores.erb",
+        "DstPathEnd": "bin/init_key_stores.sh",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/init_key_stores.erb"
+      },
+      {
+        "SrcPathEnd": "encryption.conf.erb",
+        "DstPathEnd": "config/encryption.conf",
+        "Path": "/tmp/tar-CmdExtractor251880809/templates/encryption.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openjdk_1.8.0"
+      },
+      {
+        "Name": "lunaclient"
+      },
+      {
+        "Name": "credhub"
+      },
+      {
+        "Name": "configurator"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "credhub.data_storage.password",
+        "Description": "Password for authenticating with targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.database",
+        "Description": "Name of database in which to store data on targeted database server (must exist prior to deployment)",
+        "Default": "credhub",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.hostname_verification.enabled",
+        "Description": "Enables hostname verification for TLS connections to targeted database server. This property is only respected when targeting a MariaDB database. Hostname verification cannot be disabled for TLS connections to postgres databases.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.port",
+        "Description": "Listening port for the CredHub API",
+        "Default": 8844,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.ca_certificate",
+        "Description": "Optional parameter to provide the CA certificate for TLS connection to CredHub API as a link",
+        "Default": "",
+        "Example": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+        "Examples": null
+      },
+      {
+        "Name": "credhub.internal_url",
+        "Description": "Optional parameter to provide the CredHub internal URL as a link",
+        "Default": "",
+        "Example": "credhub.service.cf.internal",
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.type",
+        "Description": "Database type. Accepted values are in-memory, mysql, or postgres",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.username",
+        "Description": "Username for authenticating with targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.authentication.uaa.url",
+        "Description": "URL of UAA server which issues trusted tokens for authentication",
+        "Default": null,
+        "Example": "https://uaa.example.com:8443",
+        "Examples": null
+      },
+      {
+        "Name": "credhub.authentication.mutual_tls.trusted_cas",
+        "Description": "List of CAs trusted to sign client certificates for mutual TLS authentication",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "Enable Bosh Process Manager",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls",
+        "Description": "Certificate and private key for TLS connection to CredHub API",
+        "Default": null,
+        "Example": "certificate: |\n  -----BEGIN CERTIFICATE-----\n  ...\n  -----END CERTIFICATE-----\nprivate_key: |\n  -----BEGIN RSA PRIVATE KEY-----\n  ...\n  -----END RSA PRIVATE KEY-----\n",
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.require_tls",
+        "Description": "Requires only TLS connections to targeted database server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.tls_ca",
+        "Description": "CA trusted for making TLS connections to targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.authorization.acls.enabled",
+        "Description": "Enables authorization via credential access control lists",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.max_heap_size",
+        "Description": "Maximum memory heap size in MB for CredHub JVM",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.encryption.providers",
+        "Description": "A list of all providers used for the current set of encryption keys.\nSee below for example structures of all supported provider types.\nHSM port will default to 1792, if not provided.\n",
+        "Default": null,
+        "Example": [
+          {
+            "name": "internal-provider",
+            "type": "internal"
+          },
+          {
+            "client_certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+            "client_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+            "name": "hsm-provider",
+            "partition": "my-hsm-partition",
+            "partition_password": "example-hsm-password",
+            "servers": [
+              {
+                "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+                "host": "10.0.1.1",
+                "partition_serial_number": 123123,
+                "port": 1792
+              },
+              {
+                "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+                "host": "10.0.1.2",
+                "partition_serial_number": 456456,
+                "port": 1792
+              }
+            ],
+            "type": "hsm"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.port",
+        "Description": "Listening port of targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.authentication.uaa.internal_url",
+        "Description": "Optional URL for reaching UAA server over internal networking",
+        "Default": null,
+        "Example": "https://uaa.example.internal:8443",
+        "Examples": null
+      },
+      {
+        "Name": "credhub.java7_tls_ciphers_enabled",
+        "Description": "Enables CBC TLS cipher suites to enable TLS communication with Java 7 clients",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.encryption.keys",
+        "Description": "A list of active and inactive encryption keys, specifying the provider name and the encryption key name or value. One key must be marked as active.\nSee below for example keys for each supported provider type.\nThe internal provider accepts an encryption_password (minimum length 20).\n",
+        "Default": null,
+        "Example": [
+          {
+            "encryption_password": "example-encryption-password",
+            "provider_name": "internal-provider"
+          },
+          {
+            "active": true,
+            "encryption_key_name": "active-hsm-key-name",
+            "provider_name": "hsm-provider"
+          },
+          {
+            "encryption_key_name": "inactive-hsm-key-name",
+            "provider_name": "hsm-provider"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "credhub.data_storage.host",
+        "Description": "Host address of targeted database server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.authentication.uaa.enabled",
+        "Description": "Enables authentication via OAuth using UAA",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.authentication.uaa.ca_certs",
+        "Description": "List of CAs trusted when making TLS connections to UAA server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.log_level",
+        "Description": "Application log level. Accepted values are none, error, warn, info or debug",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
