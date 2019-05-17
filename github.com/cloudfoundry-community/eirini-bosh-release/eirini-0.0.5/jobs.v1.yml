@@ -1,0 +1,271 @@
+[
+  {
+    "Name": "eirinifs",
+    "Description": "This job copies the eirinifs to a desired location",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor142262001/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor142262001/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirinifs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirinifs.path",
+        "Description": "Where to copy the eirinifs tarball",
+        "Default": "/var/vcap/store/bits-service/assets",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "opi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor457218123/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "opi.yml.erb",
+        "DstPathEnd": "config/opi.yml",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/opi.yml.erb"
+      },
+      {
+        "SrcPathEnd": "kube.conf.erb",
+        "DstPathEnd": "config/kube.conf",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/kube.conf.erb"
+      },
+      {
+        "SrcPathEnd": "certs/cc.crt.erb",
+        "DstPathEnd": "certs/cc.crt",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/certs/cc.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/doppler-ca-crt.erb",
+        "DstPathEnd": "certs/doppler-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/certs/doppler-ca-crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/doppler.crt.erb",
+        "DstPathEnd": "certs/doppler.crt",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/certs/doppler.crt.erb"
+      },
+      {
+        "SrcPathEnd": "opi_as_vcap.erb",
+        "DstPathEnd": "bin/opi_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/opi_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "node_ca.crt.erb",
+        "DstPathEnd": "config/node_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/node_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/cc-ca.crt.erb",
+        "DstPathEnd": "certs/cc-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/certs/cc-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/cc.key.erb",
+        "DstPathEnd": "certs/cc.key",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/certs/cc.key.erb"
+      },
+      {
+        "SrcPathEnd": "certs/doppler.key.erb",
+        "DstPathEnd": "certs/doppler.key",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/certs/doppler.key.erb"
+      },
+      {
+        "SrcPathEnd": "opi_ctl.erb",
+        "DstPathEnd": "bin/opi_ctl",
+        "Path": "/tmp/tar-CmdExtractor457218123/templates/opi_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "eirini"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "opi.loggregator_cert",
+        "Description": "Doppler cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_key",
+        "Description": "Doppler key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_ca",
+        "Description": "Doppler CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.host_url",
+        "Description": "URL of k8s node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.service_account.name",
+        "Description": "Username of service account Eirini will operate on k8s with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.service_account.token",
+        "Description": "Token of service account Eirini will operate on k8s with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.certs_secret_name",
+        "Description": "Name of the kube secret containing SCF certs",
+        "Default": "scf-credentials",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.stager_image",
+        "Description": "Base docker image for staging",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_ca",
+        "Description": "Cloud Controller CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.node_ca",
+        "Description": "CA certificate for k8s node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_service_port",
+        "Description": "Kubernetes service port. Should be set to the value of KUBERNETES_SERVICE_PORT.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.eirini_address",
+        "Description": "Address of Eirini",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.nats_ip",
+        "Description": "nats_ip",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_address",
+        "Description": "Doppler address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_cert",
+        "Description": "Cloud Controller cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_namespace",
+        "Description": "Kubernetes namespace where to run deployments and tasks",
+        "Default": "default",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.registry_address",
+        "Description": "Address of registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.nats_password",
+        "Description": "password for nats",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_internal_api",
+        "Description": "Internal URL for the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_uploader_ip",
+        "Description": "IP Address of the Cloud Controller uploader",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.metrics_source_address",
+        "Description": "Source URL for metrics",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_key",
+        "Description": "Cloud Controller key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_service_host",
+        "Description": "Kubernetes service host. Should be set to the value of KUBERNETES_SERVICE_HOST.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
