@@ -1,0 +1,86 @@
+[
+  {
+    "Name": "ntpd",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor564906225/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ntp.conf.erb",
+        "DstPathEnd": "config/ntp.conf",
+        "Path": "/tmp/tar-CmdExtractor564906225/templates/ntp.conf.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor564906225/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor564906225/templates/ctl"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "ntp"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ntp_conf",
+        "Description": "ntpd's configuration file (ntp.conf)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "post_start",
+        "Description": "post-start script (remove `ntpdate`). Must start with `#!`",
+        "Default": "#!/bin/bash -x\ncrontab -l | egrep -v \"/var/vcap/bosh/bin/sync-time\" \u003e crontab\ncrontab crontab\n",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "ntpd_server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor758456395/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor758456395/templates/ctl"
+      },
+      {
+        "SrcPathEnd": "ntp.conf",
+        "DstPathEnd": "config/ntp.conf",
+        "Path": "/tmp/tar-CmdExtractor758456395/templates/ntp.conf"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "ntp"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ntp_conf",
+        "Description": "ntpd's configuration file (ntp.conf)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
