@@ -1,0 +1,471 @@
+[
+  {
+    "Name": "auditd",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor498508273/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor498508273/templates/pre-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "rules",
+        "Description": "Array of auditd rules to add. Note that this job does not update rules after rules are installed for the first time. Removal of a job does not remove rules. For new rules to be applied you must force VM recreation. This behaviour is due to auditd going into its immutable state.",
+        "Default": [],
+        "Example": [
+          "-a always,exit -F perm=x -F auid\u003e=500 -F auid!=4294967295 -F path=/usr/bin/who -k privileged"
+        ],
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "ca_certs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor998900555/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "certs.erb",
+        "DstPathEnd": "config/certs.crt",
+        "Path": "/tmp/tar-CmdExtractor998900555/templates/certs.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor998900555/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "certs",
+        "Description": "Concatenated set of certificates in PEM format",
+        "Default": "",
+        "Example": "-----BEGIN CERTIFICATE-----\nMIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAk...\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIClTCCAf4CCQDc6hJtvGB8RjANBgkqhkiG9w0BAQUFADCBjjELMAk...\n-----END CERTIFICATE-----\n",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "disable_agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor559503285/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor559503285/templates/post-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "wait_before_killing",
+        "Description": "Seconds to wait before shutting off the agent",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "limits",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor647478703/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor647478703/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "nofile.soft",
+        "Description": "Modifies the soft max number of open files. Linux defaults to 1024.\n",
+        "Default": 16384,
+        "Example": 16384,
+        "Examples": null
+      },
+      {
+        "Name": "nofile.hard",
+        "Description": "Modifies the hard max number of open files. Linux defaults to 4096.\nIt needs to be greater or equal to the soft limit\n",
+        "Default": 16384,
+        "Example": 16384,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "limits_not_recommended",
+    "Description": "This job is not recommended. Firstly, it blindly copies in a configuration\nfile with no error-checking, potentially causing deployment failures.\nSecondly, it encourages the increase of system limits to work around\nbroken BOSH jobs, when effort is better spent fixing the BOSH jobs (e.g.\nincreasing `nofile` to get around a faulty long-running BOSH job that leaks file\ndescriptors and finally fails).\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor265956281/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor265956281/templates/pre-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "limits.conf.erb",
+        "DstPathEnd": "etc/limits.conf",
+        "Path": "/tmp/tar-CmdExtractor265956281/templates/limits.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "limits_systemd_default_nofile",
+        "Description": "Ubuntu xenial needs this set for systemd.conf, DefaultLimitNOFILE\nAll limits.conf and limit.d settings are ignored.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "limits_conf",
+        "Description": "Linux `limits.conf` file https://linux.die.net/man/5/limits.conf'\nDoes not overwrite the existing limits.conf file; instead, it installs\na secondary limits.conf file in `/etc/security/limits.d/`.\n",
+        "Default": "",
+        "Example": "vcap  soft  nofile  16384\nvcap  hard  nofile  16384\n",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "login_banner",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor238535251/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor238535251/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "login_banner.text",
+        "Description": "Login banner text",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "modprobe",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor379577341/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor379577341/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "modules",
+        "Description": "List of kernel modules to be loaded (modprobed)",
+        "Default": [],
+        "Example": {
+          "modules": [
+            "aufs",
+            "speedstep-lib"
+          ]
+        },
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "monit",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor894510903/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor894510903/templates/pre-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "reload_after_start",
+        "Description": "Reload monit to potentially resolve monit flakiness during startup",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "ntpdate",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor388980865/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor388980865/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "unprivileged_port",
+        "Description": "Direct ntpdate to use an unprivileged port for outgoing packets.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "pre-start-script",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor034537563/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor034537563/templates/pre-start.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "script",
+        "Description": "Script that is run during pre-start to allow additional setup of environment, run as root user.",
+        "Default": null,
+        "Example": "#!/bin/bash\napt-get update \u0026\u0026 apt-get install wget git tmux -y",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "resolv",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor614021445/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor614021445/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "search",
+        "Description": "Set search domain",
+        "Default": null,
+        "Example": "pivotal.io",
+        "Examples": null
+      },
+      {
+        "Name": "options",
+        "Description": "Set options set",
+        "Default": [],
+        "Example": [
+          "rotate",
+          "timeout:1"
+        ],
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "sysctl",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor394060735/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor394060735/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "sysctl",
+        "Description": "Array of sysctls to be applied; each sysctl should be in the form \"sysctlname=value\"",
+        "Default": null,
+        "Example": [
+          "vm.swappiness=10",
+          "net.core.somaxconn=1024"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "sysctl_conf_prefix",
+        "Description": "Prefix to be used for the file placed in /etc/sysctl.d. Can be used to change the priority of the applied sysctls",
+        "Default": "71",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "tcp_keepalive",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor176599625/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor176599625/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "tcp_keepalive.time",
+        "Description": "The interval between the last data packet sent and the first keepalive probe (seconds).",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_keepalive.interval",
+        "Description": "The interval between subsequential keepalive probes, regardless of what the connection has exchanged in the meantime (seconds).",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_keepalive.probes",
+        "Description": "The number of unacknowledged probes to send before considering the connection dead and notifying the application layer.",
+        "Default": 8,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "user_add",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor630399331/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor630399331/templates/pre-start.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "users",
+        "Description": "Array of user hashes. Each user should specify a `name` attribute, and one of\neither `crypted_password` or `public_key`. Users will not be deleted if\nthey are removed from this list after a successful update. All of the\nauthorized keys for the users will be overwritten with the public key you\nspecify.\n",
+        "Default": null,
+        "Example": {
+          "users": [
+            {
+              "name": "user1",
+              "public_key": "ssh-rsa AAAA ..."
+            },
+            {
+              "crypted_password": "$6$saltysalt$eF06vmEKaMhOr8jcnyfJJGuaU/Khq3DpH4M/7T.ziGNjhEEv3o9tgaX5VciMGAbgfE0CH9XrcpHi9kgmVv1Z2.",
+              "name": "user2"
+            },
+            {
+              "name": "rbash",
+              "shell": "/bin/rbash"
+            },
+            {
+              "name": "nosudo",
+              "sudo": false
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "persistent_homes",
+        "Description": "If set to true, user home directories are created on persistent storage\nin /var/vcap/store/home.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
