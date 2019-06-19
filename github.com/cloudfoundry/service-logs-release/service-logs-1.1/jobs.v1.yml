@@ -1,0 +1,135 @@
+[
+  {
+    "Name": "service-logs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor971077832/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor971077832/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "fluentbit.conf.erb",
+        "DstPathEnd": "config/fluentbit.conf",
+        "Path": "/tmp/tar-CmdExtractor971077832/templates/fluentbit.conf.erb"
+      },
+      {
+        "SrcPathEnd": "metric_port.yml.erb",
+        "DstPathEnd": "config/metric_port.yml",
+        "Path": "/tmp/tar-CmdExtractor971077832/templates/metric_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor971077832/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor971077832/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor971077832/templates/loggregator_agent.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator-output-plugin"
+      },
+      {
+        "Name": "fluent-bit"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "port",
+        "Description": "Port to Loggregator Agent",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Port to expose service-logs metrics",
+        "Default": 3461,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "source_id",
+        "Description": "The source ID for all logs emitted",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "path",
+        "Description": "Pattern specifying log file(s) that will be the source of logs for the service logs plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cert",
+        "Description": "This certificate is sent to the Loggregator Agent when initiating a connection. It must be signed by a CA that is trusted by the Loggregator Agent.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "key",
+        "Description": "This is the private key for the certificate sent to the Loggregator Agent when initiating a connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ca",
+        "Description": "When the service logs plugin communicates with the Loggregator Agent it must validate the Loggregator Agent's certificate was signed by a trusted CA. This is the CA trusted by the service logs for that communication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "test-logger",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor897607482/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor897607482/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "test-logger.sh.erb",
+        "DstPathEnd": "bin/test-logger.sh",
+        "Path": "/tmp/tar-CmdExtractor897607482/templates/test-logger.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "delay",
+        "Description": "Delay in seconds between logs emitted",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
