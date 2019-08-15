@@ -1,0 +1,226 @@
+[
+  {
+    "Name": "redis",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor812003336/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor812003336/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/redis.conf.erb",
+        "DstPathEnd": "config/redis.conf",
+        "Path": "/tmp/tar-CmdExtractor812003336/templates/config/redis.conf.erb"
+      },
+      {
+        "SrcPathEnd": "bin/health_check",
+        "DstPathEnd": "bin/health_check",
+        "Path": "/tmp/tar-CmdExtractor812003336/templates/bin/health_check"
+      },
+      {
+        "SrcPathEnd": "bin/pre_start.sh",
+        "DstPathEnd": "bin/pre_start.sh",
+        "Path": "/tmp/tar-CmdExtractor812003336/templates/bin/pre_start.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "redis-4"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "redis_save_intervals",
+        "Description": "save \u003cseconds\u003e \u003cchanges\u003e; save points to the rdb snapshot after",
+        "Default": [
+          "900 1",
+          "300 10",
+          "60 10000"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "consul.service.name",
+        "Description": "Name for advertising/discovering this service over consul (defaults to deployment name)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "redis.replication",
+        "Description": "When set to false, master/slave replication will be disabled and all instances will run as standalone deployments.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "redis.raw_config",
+        "Description": "Block literal representing redis configuration.  Appended at the end of redis.conf, the raw values provided will take precedence over any other configuration properties",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.interval",
+        "Description": "Interval for consul to perform health checks",
+        "Default": "20s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.disk.critical",
+        "Description": "Percentage of persistent disk full to trigger critial health alert",
+        "Default": 98,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health.disk.warning",
+        "Description": "Percentage of persistent disk full to trigger warning health alert",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "redis.maxclients",
+        "Description": "Set the max number of connected clients at the same time.",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port to listen for requests to redis server",
+        "Default": 6379,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Password to access redis server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "base_dir",
+        "Description": "Base dir for storing database files",
+        "Default": "/var/vcap/store/redis",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_static_ip",
+        "Description": "Specify this property if you would like the bind address of a given instance to be automatically set to its assigned static IP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "redis-sentinel",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor870922362/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor870922362/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/sentinel.conf.erb",
+        "DstPathEnd": "config/sentinel.conf",
+        "Path": "/tmp/tar-CmdExtractor870922362/templates/config/sentinel.conf.erb"
+      },
+      {
+        "SrcPathEnd": "bin/pre_start.sh",
+        "DstPathEnd": "bin/pre_start.sh",
+        "Path": "/tmp/tar-CmdExtractor870922362/templates/bin/pre_start.sh"
+      },
+      {
+        "SrcPathEnd": "bin/wrapper.sh",
+        "DstPathEnd": "bin/wrapper.sh",
+        "Path": "/tmp/tar-CmdExtractor870922362/templates/bin/wrapper.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "redis-4"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "redis.maxclients",
+        "Description": "Set the max number of connected clients at the same time.",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "base_dir",
+        "Description": "Base dir for storing database files",
+        "Default": "/var/vcap/data/redis-sentinel",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sentinel.port",
+        "Description": "Port to listen for requests to redis server",
+        "Default": 26379,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sentinel.redis_port",
+        "Description": "Port your redis slaves are running on",
+        "Default": 6379,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sentinel.quorum",
+        "Description": "Quorum for \"# sentinel monitor \u003cmaster-name\u003e \u003cip\u003e \u003credis-port\u003e \u003cquorum\u003e\"",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "sanity-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor013696444/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor013696444/templates/bin/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "redis-4"
+      }
+    ],
+    "Properties": null
+  }
+]
