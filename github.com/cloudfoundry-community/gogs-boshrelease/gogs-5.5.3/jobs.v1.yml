@@ -1,0 +1,382 @@
+[
+  {
+    "Name": "gogs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor051012932/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "env/HOME",
+        "DstPathEnd": "env/HOME",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/env/HOME"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/gogs_ctl",
+        "DstPathEnd": "bin/gogs_ctl",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/bin/gogs_ctl"
+      },
+      {
+        "SrcPathEnd": "config/gogs.crt.erb",
+        "DstPathEnd": "config/gogs.crt",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/config/gogs.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/gogs.key.erb",
+        "DstPathEnd": "config/gogs.key",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/config/gogs.key.erb"
+      },
+      {
+        "SrcPathEnd": "env/USER",
+        "DstPathEnd": "env/USER",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/env/USER"
+      },
+      {
+        "SrcPathEnd": "env/PATH",
+        "DstPathEnd": "env/PATH",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/env/PATH"
+      },
+      {
+        "SrcPathEnd": "bbr/restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/bbr/restore.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/app.ini.erb",
+        "DstPathEnd": "config/app.ini",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/config/app.ini.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "bbr/backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor051012932/templates/bbr/backup.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "gogs"
+      },
+      {
+        "Name": "git"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "databases.databases",
+        "Description": "A list of databases and associated properties to create",
+        "Default": [],
+        "Example": {
+          "databases": "- name: gogs\n  citext: true\n  tag: gogs\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "authentication",
+        "Description": "A list of authentication backends to add",
+        "Default": null,
+        "Example": {
+          "authentication": "- type:\n    name: LDAP\n    id: 101\n    type: ldap_bind_dn\n    is_activated: true\n    is_default: true\n  config:\n    host: 10.244.0.100\n    port: 389\n    security_protocol: 0\n    skip_verify: true\n    bind_dn: cn=binduser,dc=example,dc=org\n    bind_password: bindpassword\n    user_base: dc=example,dc=org\n    attribute_username: uid\n    attribute_name: givenName\n    attribute_surname: sn\n    attribute_mail: mail\n    attributes_in_bind:\n    filter: (\u0026(objectClass=inetOrgPerson)(|(uid=%s)(mail=%s)))\n    admin_filter:\n    group_enabled: false\n    group_dn:\n    group_filter:\n    group_member_uid:\n    user_uid:\n- type:\n    name: GMail\n    id: 102\n    type: smtp\n    is_activated: true\n    is_default: false\n  config:\n    auth: PLAIN\n    host: smtp.gmail.com\n    port: 587\n    allowed_domains:\n    tls: true\n    skip_verify: false\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "gogs.domain",
+        "Description": "Domain name of your server. Defaults to current IP.",
+        "Default": null,
+        "Example": "git.example.com",
+        "Examples": null
+      },
+      {
+        "Name": "gogs.protocol",
+        "Description": "",
+        "Default": "http",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.ssh_port",
+        "Description": "Port for Gogs SSH",
+        "Default": "2222",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.start_ssh_server",
+        "Description": "Start SSH Server",
+        "Default": "true",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.secret_key",
+        "Description": "Global secret key for your server security",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.type",
+        "Description": "The database type you choose, either mysql, postgres, mssql or sqlite3.",
+        "Default": "postgres",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.tls_key",
+        "Description": "Private key TLS for gogs web",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.port",
+        "Description": "The database port",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.address",
+        "Description": "The database address",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.port",
+        "Description": "Port that gogs listen on",
+        "Default": "8080",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.tls_cert",
+        "Description": "Certificat TLS for gogs web",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.roles",
+        "Description": "A list of database roles and associated properties to create",
+        "Default": [],
+        "Example": {
+          "roles": "- name: gogs\n  password: MyGogsPassword\n  tag: gogs\n"
+        },
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "gogs-admin",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor318186262/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor318186262/templates/run.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "gogs.admin",
+        "Description": "Admin user for gogs",
+        "Default": "gogs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.password",
+        "Description": "Password for admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.email",
+        "Description": "Email for admin account",
+        "Default": "admin@example.com",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "postgres",
+    "Description": "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor241691320/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "postgres_ctl.erb",
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/tmp/tar-CmdExtractor241691320/templates/postgres_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "postgresql.conf.erb",
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/tmp/tar-CmdExtractor241691320/templates/postgresql.conf.erb"
+      },
+      {
+        "SrcPathEnd": "pg_hba.conf.erb",
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/tmp/tar-CmdExtractor241691320/templates/pg_hba.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "common"
+      },
+      {
+        "Name": "postgres"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "databases.max_connections",
+        "Description": "Maximum number of database connections",
+        "Default": 500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.log_line_prefix",
+        "Description": "The postgres `printf` style string that is output at the beginning of each log line",
+        "Default": "%m: ",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.db_scheme",
+        "Description": "The database scheme",
+        "Default": "postgres",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.port",
+        "Description": "The database port",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.address",
+        "Description": "The database address",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.databases",
+        "Description": "A list of databases and associated properties to create",
+        "Default": [],
+        "Example": {
+          "databases": "- name: gogs\n  citext: true\n  tag: gogs\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "databases.roles",
+        "Description": "A list of database roles and associated properties to create",
+        "Default": [],
+        "Example": {
+          "roles": "- name: gogs\n  password: MyGogsPassword\n  tag: gogs\n"
+        },
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "sanity_test",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor145012394/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor145012394/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor145012394/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor145012394/templates/bin/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "gogs.domain",
+        "Description": "The URL domain to access Gogs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.protocol",
+        "Description": "http or https",
+        "Default": "https",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.admin",
+        "Description": "Admin user for gogs",
+        "Default": "gogs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gogs.password",
+        "Description": "Password for admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
