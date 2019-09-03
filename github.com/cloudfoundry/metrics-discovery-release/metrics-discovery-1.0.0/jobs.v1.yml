@@ -1,0 +1,220 @@
+[
+  {
+    "Name": "metrics-discovery-registrar",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor117080532/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor117080532/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metric_targets.yml.erb",
+        "DstPathEnd": "config/metric_targets.yml",
+        "Path": "/tmp/tar-CmdExtractor117080532/templates/metric_targets.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "metrics-discovery-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "target_refresh_interval",
+        "Description": "Interval to refresh the Prometheus endpoint targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "publish_interval",
+        "Description": "Interval to publish targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "targets_glob",
+        "Description": "Files matching the glob are expected to contain targets to Prometheus metrics endpoints",
+        "Default": "/var/vcap/jobs/**/config/metric_targets.yml",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "metrics-discovery-registrar-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor641580582/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor641580582/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "metric_targets.yml.erb",
+        "DstPathEnd": "config/metric_targets.yml",
+        "Path": "/tmp/tar-CmdExtractor641580582/templates/metric_targets.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "metrics-discovery-registrar-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "publish_interval",
+        "Description": "Interval to publish targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "targets_glob",
+        "Description": "Files matching the glob are expected to contain targets to Prometheus metrics endpoints",
+        "Default": "/var/vcap/jobs/**/config/metric_targets.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "target_refresh_interval",
+        "Description": "Interval to refresh the Prometheus scrape targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15821,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "scrape-config-generator",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor906913352/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor906913352/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "scrape-config-generator"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "config_ttl",
+        "Description": "This determines how long a scrape config lives before being expired",
+        "Default": "45s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15822,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape_config_file_path",
+        "Description": "The path to the generated scrape config file",
+        "Default": "/var/vcap/data/scrape-config-generator/scrape_configs.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "expiration_interval",
+        "Description": "This interval determines how often scrape endpoints are expired",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "scrape-config-generator-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor216557242/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor216557242/templates/pre-start.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "scrape-config-generator-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "scrape_config_file_path",
+        "Description": "The path to the generated scrape config file",
+        "Default": "/var/vcap/data/scrape-config-generator-windows/scrape_configs.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "expiration_interval",
+        "Description": "This interval determines how often scrape endpoints are expired",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_ttl",
+        "Description": "This determines how long a scrape config lives before being expired",
+        "Default": "45s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15822,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
