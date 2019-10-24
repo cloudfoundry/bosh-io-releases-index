@@ -1,0 +1,1975 @@
+[
+  {
+    "Name": "atc",
+    "Description": "The ATC (Air Traffic Controller) provides UI and API access. It is\nresponsible for scheduling builds and detecting versions of your resources.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor015165245/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "atc_ctl.erb",
+        "DstPathEnd": "bin/atc_ctl",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/atc_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "github_ca_cert.erb",
+        "DstPathEnd": "config/github_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/github_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "ldap_ca_cert.erb",
+        "DstPathEnd": "config/ldap_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/ldap_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "downgrade_db.erb",
+        "DstPathEnd": "bin/experimental_downgrade_db",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/downgrade_db.erb"
+      },
+      {
+        "SrcPathEnd": "cf_ca_cert.erb",
+        "DstPathEnd": "config/cf_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/cf_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "vault_client_key.erb",
+        "DstPathEnd": "config/vault_client_key",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/vault_client_key.erb"
+      },
+      {
+        "SrcPathEnd": "credhub_client_cert.erb",
+        "DstPathEnd": "config/credhub_client_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/credhub_client_cert.erb"
+      },
+      {
+        "SrcPathEnd": "credhub_client_key.erb",
+        "DstPathEnd": "config/credhub_client_key",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/credhub_client_key.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_ca_cert.erb",
+        "DstPathEnd": "config/syslog_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/syslog_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "tls_cert.erb",
+        "DstPathEnd": "config/tls_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/tls_cert.erb"
+      },
+      {
+        "SrcPathEnd": "tls_key.erb",
+        "DstPathEnd": "config/tls_key",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/tls_key.erb"
+      },
+      {
+        "SrcPathEnd": "oidc_ca_cert.erb",
+        "DstPathEnd": "config/oidc_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/oidc_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "vault_client_cert.erb",
+        "DstPathEnd": "config/vault_client_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/vault_client_cert.erb"
+      },
+      {
+        "SrcPathEnd": "credhub_ca_cert.erb",
+        "DstPathEnd": "config/credhub_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/credhub_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "token_signing_key.erb",
+        "DstPathEnd": "config/token_signing_key",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/token_signing_key.erb"
+      },
+      {
+        "SrcPathEnd": "oauth_ca_cert.erb",
+        "DstPathEnd": "config/oauth_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/oauth_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_ca_cert.erb",
+        "DstPathEnd": "config/postgres_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/postgres_ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_client_cert.erb",
+        "DstPathEnd": "config/postgres_client_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/postgres_client_cert.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_client_key.erb",
+        "DstPathEnd": "config/postgres_client_key",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/postgres_client_key.erb"
+      },
+      {
+        "SrcPathEnd": "vault_ca_cert.erb",
+        "DstPathEnd": "config/vault_ca_cert",
+        "Path": "/tmp/tar-CmdExtractor015165245/templates/vault_ca_cert.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "atc"
+      },
+      {
+        "Name": "fly"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "build_log_retention.default",
+        "Description": "Default (can be overriden by job) number of build logs to retain,\n0 (or not set) means retain all (database will grow indefinitely).\n",
+        "Default": null,
+        "Example": 100,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_group_attr",
+        "Description": "Adds an additional requirement to the filter that an attribute in the group match the user's attribute value. The exact filter being added is (\u003cgroupAttr\u003e=\u003cuserAttrvalue\u003e)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_name_attr",
+        "Description": "The attribute of the group that represents its name.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.service_prefix",
+        "Description": "An optional prefix for emitted Riemann services\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.tags",
+        "Description": "An optional map of tags in key: value format\n",
+        "Default": {},
+        "Example": {
+          "env": "dev",
+          "foo": "bar"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.scopes",
+        "Description": "OAuth scopes to request during authorization.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.spaces",
+        "Description": "List of CloudFoundry Spaces that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "myorg:myspace"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "bind_port",
+        "Description": "Port on which the ATC should listen for HTTP traffic.\n",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_url",
+        "Description": "Externally reachable URL of the ATCs. Required for OAuth. This will be\nauto-generated using the IP of each ATC VM if not specified, however\nthis is only a reasonable default if you have a single instance.\n\nTypically this is the URL that you as a user would use to reach your CI.\nFor multiple ATCs it would go to some sort of load balancer.\n",
+        "Default": null,
+        "Example": "https://ci.concourse-ci.org",
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.client_secret",
+        "Description": "UAA client secret to use for OAuth.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_scope",
+        "Description": "Can either be 'sub' - search the whole sub tree or 'one' - only search one level. Defaults to 'sub' if empty.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.session_token",
+        "Description": "AWS Session Token used as credentials for accessing SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.transport",
+        "Description": "Transport protocol for syslog messages (Currently supporting tcp, udp \u0026 tls).",
+        "Default": null,
+        "Example": "tcp",
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.client_id",
+        "Description": "GitHub client ID to use for OAuth.\n\nThe application must be configured with its callback URL as\n`{external_url}/sky/issuer/callback` (replacing `{external_url}`\nwith the actual value).\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.maximum",
+        "Description": "If set, this will cap the maximum number of build logs to retain for any job,\ncapping any value set in a job itself or the build_log_retention.default.\n0 (or not set) means no maximum is specified.\n",
+        "Default": null,
+        "Example": 1000,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.local.users",
+        "Description": "An array of local users that are authorized for the main team.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.session_token",
+        "Description": "AWS Session Token used as credentials for accessing SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.insecure_skip_verify",
+        "Description": "Enable insecure SSL verification.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "encryption_key",
+        "Description": "A 16 or 32 byte passphrase. This is used to generate an AES key to encrypt\nsensitive iinformation in the database.\n\nIf specified, all existing data will be encrypted on start and any new\ndata will be encrypted.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.api_url",
+        "Description": "Cloud Foundry api endpoint url.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_username",
+        "Description": "Attribute to match against the inputted username. This will be translated and combined with the other filter as '(\u003cattr\u003e=\u003cusername\u003e)'.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.host",
+        "Description": "IP address or DNS name of a PostgreSQL server to connect to.\n\nIf not specified, one will be autodiscovered via BOSH links.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.hostname",
+        "Description": "Client hostname with which the build logs will be sent to the syslog server.\n",
+        "Default": "atc-syslog-drainer",
+        "Example": "atc-syslog-drainer",
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.start_tls",
+        "Description": "Start on insecure port, then negotiate TLS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.client_id",
+        "Description": "Application client ID for enabling generic OIDC.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.orgs",
+        "Description": "List of CloudFoundry Orgs that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "myorg"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "vault.url",
+        "Description": "Vault server URL to use for parameterizing credentials.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.prefix",
+        "Description": "An optional prefix for emitted Datadog events.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.database",
+        "Description": "InfluxDB database to which metrics will be emitted.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.region",
+        "Description": "AWS region to use for fetching entries from SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_ip",
+        "Description": "IP address on which the ATC should listen for HTTP traffic.\n",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_key",
+        "Description": "SSL private key to use for encrypting HTTPS traffic.\n\nIf not specified, only HTTP will be enabled.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.display_name",
+        "Description": "Name of the authentication method to be displayed on the Web UI",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.ldap.groups",
+        "Description": "List of LDAP groups that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "cookie_secure",
+        "Description": "Set secure flag on auth cookies",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.github.teams",
+        "Description": "An array of GitHub teams that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-github-org:my-github-team"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oidc.groups",
+        "Description": "List of Generic OIDC groups that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tls_bind_port",
+        "Description": "Port on which the ATC should listen for HTTPS traffic.\n",
+        "Default": 4443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.address",
+        "Description": "Remote syslog server address with port.\n",
+        "Default": null,
+        "Example": "0.0.0.0:514",
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.server_name",
+        "Description": "If set, is used to set the SNI host when connecting via TLS.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.allow_all_users",
+        "Description": "Whitelist all authenticated users for the main team.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oauth.users",
+        "Description": "List of Generic OAuth users that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "riemann.host",
+        "Description": "If configured, detailed metrics will be emitted to the specified Riemann\nserver.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.url",
+        "Description": "If configured, detailed metrics will be emitted to the specified InfluxDB\nserver.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.display_name",
+        "Description": "Name of the authentication method to be displayed on the Web UI",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.sslmode",
+        "Description": "Whether or not to use SSL. Defaults to `verify-ca` when `postgresql.address`\nor `postgresql.host` is provided. Otherwise, defaults to `disable`.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.password",
+        "Description": "InfluxDB password for authorizing access.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "token_signing_key",
+        "Description": "PEM RSA private key used for minting ATC tokens.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "add_local_users",
+        "Description": "List of local concourse users to add with their bcrypted passwords.\nbcrypted password must have a strength of 10 or higher or the user will not be able to login\n",
+        "Default": [],
+        "Example": [
+          "some-user:$2a$10$sKZelZprWWcBAWbp28rB1uFef0Ybxsiqh05uo.H8EIm0sWc6IZGJu",
+          "some-other-user:$2a$10$.YIYH.5EWQcCvfE49xH/.OhIhGFiNtn.tQq.4pznpcrqZvoLxuKeC"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.client_id",
+        "Description": "UAA client ID to use for OAuth.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_id_attr",
+        "Description": "A mapping of attributes on the user entry to claims. Defaults to 'uid' if empty.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.client_secret",
+        "Description": "GitHub client secret to use for OAuth.\n\nThe application must be configured with its callback URL as\n`{external_url}/sky/issuer/callback` (replacing `{external_url}`\nwith the actual value).\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.client_secret",
+        "Description": "Application client secret for enabling generic OAuth.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_tracker_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to run\nbuild tracking to keep track of build status.\n",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.port",
+        "Description": "Port of the Riemann server to emit events to.\n",
+        "Default": 5555,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.password",
+        "Description": "Password to use when connecting.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.pipeline_secret_template",
+        "Description": "AWS SSM parameter name template used to resolve pipeline specific secrets. If this flag contains slashes, be sure\nto start it with a /. Maximum 5 slashes are permitted by AWS in parameter names.\n",
+        "Default": "/concourse/{{.Team}}/{{.Pipeline}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.team_secret_template",
+        "Description": "AWS SSM parameter name template used to resolve team specific secrets. If this flag contains slashes, be sure\nto start it with a /. Maximum 5 slashes are permitted by AWS in parameter names.\nnames.\n",
+        "Default": "/concourse/{{.Team}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.token_url",
+        "Description": "Generic OAuth provider token endpoint URL.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.name",
+        "Description": "Name of role to connect with.\n",
+        "Default": "atc",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.url",
+        "Description": "CredHub server address used to access secrets.\n",
+        "Default": null,
+        "Example": "https://credhub-server:9000",
+        "Examples": null
+      },
+      {
+        "Name": "default_task_cpu_limit",
+        "Description": "Default limit for cpu shares used per task. This can be overridden by specifying\na different limit in the task yaml.\n",
+        "Default": null,
+        "Example": 256,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Credhub server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls.client_cert",
+        "Description": "Client certificate for CredHub mutual TLS auth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_db_queries",
+        "Description": "Log database queries. Log level is debug, so you'll need to set the\nlog_level property as well. This is mainly useful for Concourse\ndevelopers to analyze query counts.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "old_encryption_key",
+        "Description": "The key used previously to encrypt sensitive information in the database.\n\nTo rotate your encryption key, set both old_encryption_key and\nencryption_key. This will result in the ATC re-encrypting all data on\nstart.\n\nTo disable encryption, specify old_encryption_key and do *not* set\nencryption_key. This will result in the ATC decrypting all data on start,\nrestoring it to plaintext.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.ca_cert",
+        "Description": "The CA certificate for the LDAP auth provider's endpoints.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.agent_port",
+        "Description": "Port of the Datadog Agent's dogstatsd server to emit events to.\n",
+        "Default": 8125,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.ca_cert",
+        "Description": "Cloud Foundry CA Certificate.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.connect_timeout",
+        "Description": "Dialing timeout, in Go duration format (1m = 1 minute). 0 means wait indefinitely.\n",
+        "Default": "5m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.client_token",
+        "Description": "Client token to use for accessing your Vault server.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.params",
+        "Description": "Key-value parameters to provide when logging in with the backend.\n",
+        "Default": {},
+        "Example": {
+          "role_id": "abc123",
+          "secret_id": "def456"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "tls_cert",
+        "Description": "SSL cert to use for HTTPS.\n\nIf not specified, only HTTP will be enabled.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.host",
+        "Description": "The host and optional port of the LDAP server. If port isn't supplied, it will be guessed based on the TLS configuration. 389 or 636.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.auth_url",
+        "Description": "Generic OAuth provider authorization endpoint url.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.port",
+        "Description": "Port on which to connect to the server specified by `postgresql.host`.\n\nIf `postgresql.host` is not specified, this will be autodiscovered via\nBOSH links, along with the host.\n",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.users",
+        "Description": "List of CloudFoundry userids/usernames that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.client_cert",
+        "Description": "Client certificate to use when connecting with the server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.client_id",
+        "Description": "Client ID for CredHub authorization.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.team_secret_template",
+        "Description": "AWS SecretsManager secret name template used to resolve team specific secrets.\n",
+        "Default": "/concourse/{{.Team}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.bind_dn",
+        "Description": "Bind DN for searching LDAP users and groups. Typically this is a read-only user.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.userinfo_url",
+        "Description": "Generic OAuth provider user info endpoint URL.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.groups_key",
+        "Description": "Groups claim key used to map groups from the OIDC userinfo/token",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.github.users",
+        "Description": "An array of GitHub userids/logins that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-github-login"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_scope",
+        "Description": "Can either be 'sub' - search the whole sub tree or 'one' - only search one level. Defaults to 'sub' if empty.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_filter",
+        "Description": "Optional filter to apply when searching the directory. For example '(objectClass=posixGroup)'.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.github.orgs",
+        "Description": "An array of GitHub orgs that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-github-org"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.username",
+        "Description": "InfluxDB username for authorizing access.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.drain_interval",
+        "Description": "Interval over which checking is done for new build logs to send to syslog server (duration measurement units are s/m/h)\n",
+        "Default": "30s",
+        "Example": "30s",
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.host",
+        "Description": "Override default hostname for Github Enterprise. (No scheme, No trailing slash)\n",
+        "Default": "",
+        "Example": "github.example.com",
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_email_attr",
+        "Description": "A mapping of attributes on the user entry to claims. Defaults to 'mail' if empty.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_name_attr",
+        "Description": "A mapping of attributes on the user entry to claims.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.groups_key",
+        "Description": "Groups claim key used to map groups from the OAuth userinfo/token",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.ca_cert",
+        "Description": "The CA certificate for the Generic OAuth provider's endpoints.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.backend",
+        "Description": "Auth backend to use for logging in to Vault.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the ATC. When set to debug, you'll see a lot more\ninformation about scheduling, resource scanning, etc., but it'll be quite\nchatty.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "auth_duration",
+        "Description": "Length of time for which tokens are valid. Afterwards, users will have to log back in.\nUse Go duration format (48h = 48 hours).\n",
+        "Default": "24h",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.scopes",
+        "Description": "OIDC scopes to request during authorization.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "resource_cache_cleanup_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor and release old caches of resource versions.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_base_dn",
+        "Description": "BaseDN to start the search from. For example 'cn=users,dc=example,dc=com'.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.secret_key",
+        "Description": "AWS Secret Access Key used as credentials for accessing SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.pipeline_secret_template",
+        "Description": "AWS SecretsManager secret name template used to resolve pipeline specific secrets.\n",
+        "Default": "/concourse/{{.Team}}/{{.Pipeline}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "x_frame_options",
+        "Description": "The value to set for X-Frame-Options.\n\nIf omitted, the header is not set.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.issuer",
+        "Description": "Generic OIDC provider issuer url.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_placement_strategy",
+        "Description": "Method by which a worker is selected during container placement.\n\nOptions are \"volume-locality\" and \"random\".\n",
+        "Default": "volume-locality",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "prometheus.bind_port",
+        "Description": "If configured, expose Prometheus metrics at specified port\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "prometheus.bind_ip",
+        "Description": "If configured, expose Prometheus metrics at specified address\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.client_secret",
+        "Description": "Client secret for CredHub authorization.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "peer_url",
+        "Description": "Address used internally to reach the ATC. This will be auto-generated\nusing the IP of each ATC VM if not specified.\n\nNote that this refers to an *individual ATC*, not the whole cluster. This\nproperty is only useful if you're deploying in a way that cannot\nautodetect its own IP, e.g. a `bosh-init` deployment.\n\nYou should otherwise leave this value blank.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.client_id",
+        "Description": "Application client ID for enabling generic OAuth.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gc_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to garbage\ncollect containers, volumes, and other internal data.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.ca_cert",
+        "Description": "CA certificate to verify the server against.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.client_cert",
+        "Description": "Client certificate for Vault TLS auth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.ca_cert",
+        "Description": "GitHub Enterprise CA Certificate.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.insecure_skip_verify",
+        "Description": "Skip certificate verification.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql_database",
+        "Description": "Name of the database to use from the `postgresql` link.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.agent_host",
+        "Description": "If configured, detailed metrics will be emitted to the specified Datadog Agent's\ndogstatsd server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oidc.users",
+        "Description": "List of Generic OIDC users that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "credhub.path_prefix",
+        "Description": "Path under which to namespace team/pipeline credentials.\n",
+        "Default": "/concourse",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.secret_key",
+        "Description": "AWS Secret Access Key used as credentials for accessing SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_check_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor new versions of resources.\n\nThis can also be specified on a per-resource basis by specifying\n`check_every` on the resource config.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.insecure_skip_verify",
+        "Description": "Skip SSL verification when emitting to InfluxDB.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.access_key",
+        "Description": "AWS Access key ID used as credentials for accessing SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.access_key",
+        "Description": "AWS Access key ID used as credentials for accessing SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.insecure_no_ssl",
+        "Description": "Required if LDAP host does not use TLS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_filter",
+        "Description": "Optional filter to apply when searching the directory. For example '(objectClass=person)'.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.client_secret",
+        "Description": "Application client secret for enabling generic OIDC.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.ca_cert",
+        "Description": "The CA certificate for the Generic OIDC provider's endpoints.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Vault server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.region",
+        "Description": "AWS region to use for fetching SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.bind_pw",
+        "Description": "Bind Password for the user specified by 'bind-dn'.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_user_attr",
+        "Description": "Adds an additional requirement to the filter that an attribute in the group match the user's attribute value. The exact filter being added is (\u003cgroupAttr\u003e=\u003cuserAttrvalue\u003e).",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.ldap.users",
+        "Description": "List of LDAP users that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "default_resource_type_check_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor new versions of resource types.\n\nThis can also be specified on a per-resource_type basis by specifying\n`check_every` on the resource type config.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.database",
+        "Description": "Name of the database to use.\n",
+        "Default": "atc",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.cache",
+        "Description": "Enable Vault cache for secrets lease duration in memory.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls.insecure_skip_verify",
+        "Description": "Enable insecure SSL verification.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_task_memory_limit",
+        "Description": "Default limit for memory used per task. This can be overridden by specifying\na different limit in the task yaml.\n",
+        "Default": null,
+        "Example": "200mb",
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_base_dn",
+        "Description": "BaseDN to start the search from. For example 'cn=groups,dc=example,dc=com'.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oauth.groups",
+        "Description": "List of Generic OAuth groups that are authorized for the main team\n",
+        "Default": [],
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim_response_header_timeout",
+        "Description": "How long to wait for Baggageclaim to send the response header. Use Go duration\nformat (1m = 1 minute).\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.address",
+        "Description": "Deprecated. Shorthand for specifying `postgresql.host` and\n`postgresql.port`.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "intercept_idle_timeout",
+        "Description": "Length of time for a intercepted session to be idle before terminating, in Go duration format.",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "vault.path_prefix",
+        "Description": "Path under which to namespace team/pipeline credentials.\n",
+        "Default": "/concourse",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Syslog server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "baggageclaim",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor428162167/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "baggageclaim_ctl.erb",
+        "DstPathEnd": "bin/baggageclaim_ctl",
+        "Path": "/tmp/tar-CmdExtractor428162167/templates/baggageclaim_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "permit_device_control",
+        "DstPathEnd": "bin/permit_device_control",
+        "Path": "/tmp/tar-CmdExtractor428162167/templates/permit_device_control"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "btrfs_tools"
+      },
+      {
+        "Name": "baggageclaim"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "driver",
+        "Description": "Driver to use for the volume store. One of detect, overlay, btrfs, or naive.\n",
+        "Default": "detect",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_ip",
+        "Description": "IP address on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_port",
+        "Description": "Port on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": 7788,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for Baggageclaim.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "baggageclaim-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor976714177/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "start.ps1",
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/tmp/tar-CmdExtractor976714177/templates/start.ps1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor976714177/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "baggageclaim-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bind_ip",
+        "Description": "IP address on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_port",
+        "Description": "Port on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": 7788,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for Baggageclaim.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "driver",
+        "Description": "Driver to use for the volume store. One of detect, overlay, btrfs, or naive.\n",
+        "Default": "detect",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bbr-atcdb",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor473887643/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor473887643/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor473887643/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor473887643/templates/restore.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "postgresql.host",
+        "Description": "IP address or DNS name of a PostgreSQL server to connect to.\n\nIf not specified, one will be autodiscovered via BOSH links.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.port",
+        "Description": "Port on which to connect to the server specified by `postgresql.host`.\n\nIf `postgresql.host` is not specified, this will be autodiscovered via\nBOSH links, along with the host.\n",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.address",
+        "Description": "Deprecated. Shorthand for specifying `postgresql.host` and\n`postgresql.port`.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.database",
+        "Description": "Name of the database to use.\n",
+        "Default": "atc",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.name",
+        "Description": "Name of role to connect with.\n",
+        "Default": "atc",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.password",
+        "Description": "Password to use when connecting.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql_database",
+        "Description": "Name of the database to use from the `postgresql` link.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "blackbox",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor276975749/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "blackbox_ctl",
+        "DstPathEnd": "bin/blackbox_ctl",
+        "Path": "/tmp/tar-CmdExtractor276975749/templates/blackbox_ctl"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor276975749/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "blackbox"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "blackbox.syslog.destination.address",
+        "Description": "address for syslog drain (including port)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blackbox.syslog.destination.transport",
+        "Description": "transport protocol for syslog drain (udp/tcp/tls)",
+        "Default": "tls",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blackbox.syslog.source_dir",
+        "Description": "directory with subdirectories containing log files. log lines will be tagged with subdirectory name.\n",
+        "Default": "/var/vcap/sys/log",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "houdini-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor263531263/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "start.ps1",
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/tmp/tar-CmdExtractor263531263/templates/start.ps1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor263531263/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "houdini-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bind_ip",
+        "Description": "IP address on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_port",
+        "Description": "Port on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": 7777,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "tsa",
+    "Description": "TSA registers workers with the ATC via a SSH interface.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor304426889/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "tsa_ctl.erb",
+        "DstPathEnd": "bin/tsa_ctl",
+        "Path": "/tmp/tar-CmdExtractor304426889/templates/tsa_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "host_key.erb",
+        "DstPathEnd": "config/host_key",
+        "Path": "/tmp/tar-CmdExtractor304426889/templates/host_key.erb"
+      },
+      {
+        "SrcPathEnd": "token_signing_key.erb",
+        "DstPathEnd": "config/token_signing_key",
+        "Path": "/tmp/tar-CmdExtractor304426889/templates/token_signing_key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "tsa"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "forward_host",
+        "Description": "Address to advertise forwarded worker connections to.\n\nIf not specified, the instance's address is used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "host_key",
+        "Description": "Must be specified, bosh can auto-generate, see sample manifest.yml.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "ssh-rsa ...\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "team_authorized_keys",
+        "Description": "Public keys to authorize team workers for SSH connections.\n",
+        "Default": [],
+        "Example": "- team: concourse\n  ssh_key: ssh-rsa key key@pivotal.io\n",
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the TSA.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "heartbeat_interval",
+        "Description": "Interval on which to register workers with the ATC.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_port",
+        "Description": "Port on which to listen for SSH connections.\n",
+        "Default": 2222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "token_signing_key",
+        "Description": "PEM RSA key used for minting ATC tokens.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "authorized_keys",
+        "Description": "Public keys to authorize for SSH connections.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "atc.urls",
+        "Description": "ATC API endpoints to which workers will be advertised.\nIf not specified, they will be autodiscovered via BOSH links.\n",
+        "Default": [
+          "http://127.0.0.1:8080"
+        ],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "worker",
+    "Description": "The ground crew registers a Garden worker with the ATC on an interval, advertises supported resource types, and cleans up ephemeral containers on shutdown.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor407829667/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor407829667/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "worker_ctl.erb",
+        "DstPathEnd": "bin/worker_ctl",
+        "Path": "/tmp/tar-CmdExtractor407829667/templates/worker_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "tsa_host_key.pub.erb",
+        "DstPathEnd": "config/tsa_host_key.pub",
+        "Path": "/tmp/tar-CmdExtractor407829667/templates/tsa_host_key.pub.erb"
+      },
+      {
+        "SrcPathEnd": "worker_key.erb",
+        "DstPathEnd": "config/worker_key",
+        "Path": "/tmp/tar-CmdExtractor407829667/templates/worker_key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "resource_discovery"
+      },
+      {
+        "Name": "worker"
+      },
+      {
+        "Name": "worker_version"
+      },
+      {
+        "Name": "bosh_io_release_resource"
+      },
+      {
+        "Name": "bosh_io_stemcell_resource"
+      },
+      {
+        "Name": "cf_resource"
+      },
+      {
+        "Name": "docker_image_resource"
+      },
+      {
+        "Name": "git_resource"
+      },
+      {
+        "Name": "github_release_resource"
+      },
+      {
+        "Name": "hg_resource"
+      },
+      {
+        "Name": "pool_resource"
+      },
+      {
+        "Name": "s3_resource"
+      },
+      {
+        "Name": "semver_resource"
+      },
+      {
+        "Name": "time_resource"
+      },
+      {
+        "Name": "tracker_resource"
+      },
+      {
+        "Name": "registry_image_resource"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tsa.port",
+        "Description": "Port of the TSA server to register with.\n\nOnly used when `tsa.host` is also specified. Otherwise the port is\nautodiscovered via the `tsa` link.\n",
+        "Default": 2222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.address",
+        "Description": "Garden server connection address to advertise directly to the TSA.\n\nIf not specified, either the `garden` link is used, or\nthe instance's address is advertised if the link is not\nfound.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.forward_address",
+        "Description": "Baggageclaim server connection address to forward through SSH to the TSA.\n\nIf not specified, the Baggageclaim server address is registered directly.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "team",
+        "Description": "Register the worker for a single team.\n\nIf not specified, the worker will be shared across all teams.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "https_proxy_url",
+        "Description": "Proxy to use for outgoing https requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_timeout",
+        "Description": "Maximum wait time in Go duration format (1m = 1 minute) for worker drain\nto be finished. Only applies when worker is getting shutdown.\n\nIf not specified, it will be indefinite.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tsa.host",
+        "Description": "IP or DNS address of the TSA server to register with.\n\nIf not specified, the `tsa` link is used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.url",
+        "Description": "Baggageclaim server URL to advertise directly to the\nTSA.\n\nIf not specified, either the `baggageclaim` link is\nused.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "platform",
+        "Description": "Platform to advertise for each worker.\n",
+        "Default": "linux",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "An array of tags to advertise for each worker.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_proxy_url",
+        "Description": "Proxy to use for outgoing http requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_proxy",
+        "Description": "A list domains and IPs with optional port for which the proxy should be bypassed, e.g. [localhost, 127.0.0.1, example.com, domain.com:8080]\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tsa.registration_mode",
+        "Description": "The registration 'mode' (direct, or forward), to use when registering the\nworker with the ATC.\nIf \"forward\" is specified, the worker's Baggageclaim and Garden address\nwill be forwarded through SSH to the TSA.\n\nIf \"direct\" is specified, the worker will be registered directly without\nforwarding over SSH.\n",
+        "Default": "direct",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the worker. When set to debug, you'll see a lot more\ninformation.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.forward_address",
+        "Description": "Garden server connection address to forward through SSH to the TSA.\n\nIf not specified, the Garden server address is registered directly.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "certs_path",
+        "Description": "A path to a directory on the instance to create the resource certificates volume from.\n",
+        "Default": "/etc/ssl/certs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tsa.host_public_key",
+        "Description": "Public key to verify for the TSA server.\nIf not specified, the `tsa` link is used.\n",
+        "Default": null,
+        "Example": "ssh-rsa ...",
+        "Examples": null
+      },
+      {
+        "Name": "tsa.worker_key",
+        "Description": "SSH key to use when authenticating with the TSA.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "ssh-rsa ..."
+        },
+        "Examples": null
+      },
+      {
+        "Name": "additional_resource_types",
+        "Description": "Additional resource types supported by the workers in `[{type: string, image: string}]` format.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ephemeral",
+        "Description": "If set, the worker will immediately disappear upon stalling.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "worker-windows",
+    "Description": "The ground crew registers a Garden worker with the ATC on an interval, advertises supported resource types, and cleans up ephemeral containers on shutdown.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor366903501/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "start.ps1",
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/tmp/tar-CmdExtractor366903501/templates/start.ps1"
+      },
+      {
+        "SrcPathEnd": "tsa_host_key.pub.erb",
+        "DstPathEnd": "config/tsa_host_key.pub",
+        "Path": "/tmp/tar-CmdExtractor366903501/templates/tsa_host_key.pub.erb"
+      },
+      {
+        "SrcPathEnd": "worker_key.erb",
+        "DstPathEnd": "config/worker_key",
+        "Path": "/tmp/tar-CmdExtractor366903501/templates/worker_key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "worker-windows"
+      },
+      {
+        "Name": "worker_version-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tsa.worker_key",
+        "Description": "SSH key to use when authenticating with the TSA.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "ssh-rsa ..."
+        },
+        "Examples": null
+      },
+      {
+        "Name": "tsa.registration_mode",
+        "Description": "The registration 'mode' (direct, or forward), to use when registering the\nworker with the ATC.\nIf \"forward\" is specified, the worker's Baggageclaim and Garden address\nwill be forwarded through SSH to the TSA.\n\nIf \"direct\" is specified, the worker will be registered directly without\nforwarding over SSH.\n",
+        "Default": "direct",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.forward_address",
+        "Description": "Garden server connection address to forward through SSH to the TSA.\n\nIf not specified, the Garden server address is registered directly.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.forward_address",
+        "Description": "Baggageclaim server connection address to forward through SSH to the TSA.\n\nIf not specified, the Baggageclaim server address is registered directly.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "platform",
+        "Description": "Platform to advertise for each worker.\n",
+        "Default": "windows",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_proxy_url",
+        "Description": "Proxy to use for outgoing http requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the worker. When set to debug, you'll see a lot more\ninformation.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tsa.host",
+        "Description": "IP or DNS address of the TSA server to register with.\n\nIf not specified, the `tsa` link is used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "An array of tags to advertise for each worker.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_proxy",
+        "Description": "A list domains and IPs with optional port for which the proxy should be\nbypassed.\n",
+        "Default": null,
+        "Example": [
+          "localhost",
+          "127.0.0.1",
+          "example.com",
+          "domain.com:8080"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "drain_timeout",
+        "Description": "Maximum wait time in Go duration format (1m = 1 minute) for worker drain\nto be finished. Only applies when worker is getting shutdown.\n\nIf not specified, it will be indefinite.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tsa.port",
+        "Description": "Port of the TSA server to register with.\n\nOnly used when `tsa.host` is also specified. Otherwise the port is\nautodiscovered via the `tsa` link.\n",
+        "Default": 2222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tsa.host_public_key",
+        "Description": "Public key to verify for the TSA server.\nIf not specified, the `tsa` link is used.\n",
+        "Default": null,
+        "Example": "ssh-rsa ...",
+        "Examples": null
+      },
+      {
+        "Name": "garden.address",
+        "Description": "Garden server connection address to advertise directly to the TSA.\n\nIf not specified, either the `garden` link is used, or\nthe instance's address is advertised if the link is not\nfound.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.url",
+        "Description": "Baggageclaim server URL to advertise directly to the\nTSA.\n\nIf not specified, either the `baggageclaim` link is\nused.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "team",
+        "Description": "Register the worker for a single team.\n\nIf not specified, the worker will be shared across all teams.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "https_proxy_url",
+        "Description": "Proxy to use for outgoing https requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
