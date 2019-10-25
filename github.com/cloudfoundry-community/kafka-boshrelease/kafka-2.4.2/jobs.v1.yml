@@ -1,0 +1,337 @@
+[
+  {
+    "Name": "kafka",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor388849463/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/post-deploy",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/bin/post-deploy"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "config/log4j.properties",
+        "DstPathEnd": "config/log4j.properties",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/log4j.properties"
+      },
+      {
+        "SrcPathEnd": "config/cert.pem",
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/cert.pem"
+      },
+      {
+        "SrcPathEnd": "config/server.properties",
+        "DstPathEnd": "config/server.properties",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/server.properties"
+      },
+      {
+        "SrcPathEnd": "config/ca_certs.pem",
+        "DstPathEnd": "config/ca_certs.pem",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/ca_certs.pem"
+      },
+      {
+        "SrcPathEnd": "config/key.pem",
+        "DstPathEnd": "config/key.pem",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/key.pem"
+      },
+      {
+        "SrcPathEnd": "config/kafka_server_jaas.conf",
+        "DstPathEnd": "config/kafka_server_jaas.conf",
+        "Path": "/tmp/tar-CmdExtractor388849463/templates/config/kafka_server_jaas.conf"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openjdk-8-kafka"
+      },
+      {
+        "Name": "kafka"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enable_sasl_scram",
+        "Description": "Whether to use SASL/SCRAM for authentication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "The port to listen for client connections",
+        "Default": 9092,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "delete_topic",
+        "Description": "Switch to enable topic deletion or not",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "transaction.state.log.replication.factor",
+        "Description": "The replication factor for the transaction topic",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jaas_admin.username",
+        "Description": "admin username used in JAAS configuration",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "auto.create.topics.enable",
+        "Description": "Controls when Kafka enables auto creation of topic on the server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "offsets.topic.replication.factor",
+        "Description": "The replication factor for the offsets topic",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "transaction.state.log.min.isr",
+        "Description": "Overridden min.insync.replicas config for the transaction topic",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.certificate",
+        "Description": "Certificate (needs private_key and certificate) used to act as both server, and client to other brokers\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keystore_password",
+        "Description": "Keystore password",
+        "Default": "notasecret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jaas_admin.password",
+        "Description": "admin password used in JAAS configuration",
+        "Default": "admin-secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "heap_size",
+        "Description": "set KAFKA_HEAP_OPTS",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "advertised.listener",
+        "Description": "List of hostname and port of an advertised listener for each kafka broker, e.g.\n- cluster1.foo.com:9092 # for broker1\n- cluster2.foo.com:9092 # for broker2\n- cluster3.foo.com:9092 # for broker3",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_certs",
+        "Description": "List of CA certs used to verify clients (and other Kafka brokers) that connect to us\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jmx_port",
+        "Description": "The port to listen for JMX connections, disabled by default",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "topics",
+        "Description": "List of topics to create\n- name: test\n  replication_factor: 1\n  partitions: 1",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kafka-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor810431617/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/post-deploy",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/bin/post-deploy"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "config/application.conf",
+        "DstPathEnd": "config/application.conf",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/application.conf"
+      },
+      {
+        "SrcPathEnd": "config/jaas.conf",
+        "DstPathEnd": "config/jaas.conf",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/jaas.conf"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "config/consumer.properties",
+        "DstPathEnd": "config/consumer.properties",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/consumer.properties"
+      },
+      {
+        "SrcPathEnd": "config/ca_certs.pem",
+        "DstPathEnd": "config/ca_certs.pem",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/ca_certs.pem"
+      },
+      {
+        "SrcPathEnd": "config/cert.pem",
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/cert.pem"
+      },
+      {
+        "SrcPathEnd": "config/key.pem",
+        "DstPathEnd": "config/key.pem",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/key.pem"
+      },
+      {
+        "SrcPathEnd": "config/logback.xml",
+        "DstPathEnd": "config/logback.xml",
+        "Path": "/tmp/tar-CmdExtractor810431617/templates/config/logback.xml"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openjdk-8-kafka"
+      },
+      {
+        "Name": "kafka-manager"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "name",
+        "Description": "Name given to cluster when it is automatically registered",
+        "Default": "BOSH",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Basic auth credentials",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Basic auth credentials",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "The port to listen for http connections",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "sanitytest",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor895503963/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/key.pem",
+        "DstPathEnd": "config/key.pem",
+        "Path": "/tmp/tar-CmdExtractor895503963/templates/config/key.pem"
+      },
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor895503963/templates/bin/run"
+      },
+      {
+        "SrcPathEnd": "config/client.properties",
+        "DstPathEnd": "config/client.properties",
+        "Path": "/tmp/tar-CmdExtractor895503963/templates/config/client.properties"
+      },
+      {
+        "SrcPathEnd": "config/ca_certs.pem",
+        "DstPathEnd": "config/ca_certs.pem",
+        "Path": "/tmp/tar-CmdExtractor895503963/templates/config/ca_certs.pem"
+      },
+      {
+        "SrcPathEnd": "config/cert.pem",
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor895503963/templates/config/cert.pem"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openjdk-8-kafka"
+      },
+      {
+        "Name": "kafka"
+      }
+    ],
+    "Properties": null
+  }
+]
