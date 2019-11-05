@@ -1,0 +1,1181 @@
+[
+  {
+    "Name": "configure-eirini-bosh",
+    "Description": "Creates and configures components needed for Eirini (e.g. fluentd)",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor581935161/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "kube.conf.erb",
+        "DstPathEnd": "config/kube.conf",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/kube.conf.erb"
+      },
+      {
+        "SrcPathEnd": "eirini-daemonset.yaml.erb",
+        "DstPathEnd": "config/eirini-daemonset.yaml",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/eirini-daemonset.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator-ca.crt.erb",
+        "DstPathEnd": "config/loggregator-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/loggregator-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator-agent.crt.erb",
+        "DstPathEnd": "config/loggregator-agent.crt",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/loggregator-agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "eirini-staging-secret.yaml.erb",
+        "DstPathEnd": "config/eirini-staging-secret.yaml",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/eirini-staging-secret.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "node_ca.crt.erb",
+        "DstPathEnd": "config/node_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/node_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "fluentd-configmap.yaml.erb",
+        "DstPathEnd": "config/fluentd-configmap.yaml",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/fluentd-configmap.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator-agent.key.erb",
+        "DstPathEnd": "config/loggregator-agent.key",
+        "Path": "/tmp/tar-CmdExtractor581935161/templates/loggregator-agent.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "kubectl"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirini.k8s.service_account.name",
+        "Description": "The service account used by fluentd to access pod information",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.system_namespace",
+        "Description": "Kubernetes namespace where to deploy Eirini components",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.agent-cert",
+        "Description": "Certificate of the loggregator agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.k8s.node_ca",
+        "Description": "CA certificate for k8s node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.workloads_namespace",
+        "Description": "Kubernetes namespace where to run deployments and tasks",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.agent-cert-key",
+        "Description": "Private key of the loggregator agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.ca_cert",
+        "Description": "CA certificate that is signing the server certificate of the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.server_cert",
+        "Description": "TLS certificate for Eirini server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "errand.daemonset_rollout_timeout",
+        "Description": "String (e.g., '3s', '4m', '2h') indicating the time to allow the Eirini daemonset rollout to become healthy. The errand will exit with an error if the rollout takes longer than this time.",
+        "Default": "20m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.doppler_address_with_az",
+        "Description": "CF's doppler address for the current AZ, used to stream application logs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca-cert",
+        "Description": "CA certificate that is signing the server certificate of the target doppler and loggregator agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.fluentd_image",
+        "Description": "The docker image used by Eirini to consume Kubernetes container logs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.config_copier_image",
+        "Description": "The docker image used to copy the fluentd config to an accessible volume mount",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.doppler_address",
+        "Description": "CF's doppler address, used to stream application logs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.k8s.host_url",
+        "Description": "URL of k8s node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.k8s.service_account.token",
+        "Description": "Token for the service account fluentd uses to access pod information",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.certs_secret_name",
+        "Description": "Name to use for Kubernetes secret used by Eirini for staging",
+        "Default": "cf_secrets",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.server_cert",
+        "Description": "Certificate of the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.server_cert_key",
+        "Description": "Private key of the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.loggregator_agent_image",
+        "Description": "The docker image used by Eirini to forward Kubernetes container logs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.server_key",
+        "Description": "Private key associated with TLS certificate for Eirini server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "configure-eirini-scf",
+    "Description": "Creates and configures components needed for Eirini",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor386646227/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor386646227/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "eirini-cert-copier.yaml.erb",
+        "DstPathEnd": "config/eirini-cert-copier.yaml",
+        "Path": "/tmp/tar-CmdExtractor386646227/templates/eirini-cert-copier.yaml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "kubectl"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cc.opi.client_key",
+        "Description": "Private key associated with TLS certificate for Eirini server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini.cert_copier_image",
+        "Description": "The docker image used by Eirini to register the image registry CA cert with Docker, on each Kubernetes node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_cert",
+        "Description": "Cloud Controller cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_ca",
+        "Description": "Cloud Controller CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_namespace",
+        "Description": "Kubernetes namespace where to run deployments and tasks",
+        "Default": "default",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.registry_address",
+        "Description": "Address of registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "capi.cc_uploader.mutual_tls.server_cert",
+        "Description": "The PEM-encoded certificate for internal cloud controller uploader traffic.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "capi.cc_uploader.mutual_tls.server_key",
+        "Description": "The PEM-encoded private key for internal cloud controller uploader traffic.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.opi.client_cert",
+        "Description": "TLS certificate for Eirini server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_key",
+        "Description": "Cloud Controller key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.certs_secret_name",
+        "Description": "Name of the kube secret containing CF certs. It should live in the opi.kube_namespace.",
+        "Default": "cf_secrets",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "eirini-loggregator-bridge",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor474057853/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "eirini-loggregator-bridge.yaml.erb",
+        "DstPathEnd": "config/eirini-loggregator-bridge.yaml",
+        "Path": "/tmp/tar-CmdExtractor474057853/templates/eirini-loggregator-bridge.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "ca.erb",
+        "DstPathEnd": "config/ca",
+        "Path": "/tmp/tar-CmdExtractor474057853/templates/ca.erb"
+      },
+      {
+        "SrcPathEnd": "cert.erb",
+        "DstPathEnd": "config/cert",
+        "Path": "/tmp/tar-CmdExtractor474057853/templates/cert.erb"
+      },
+      {
+        "SrcPathEnd": "key.erb",
+        "DstPathEnd": "config/key",
+        "Path": "/tmp/tar-CmdExtractor474057853/templates/key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor474057853/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirini-loggregator-bridge"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirini-loggregator-bridge.loggregator_endpoint",
+        "Description": "Loggregator endpoint",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.loggregator_ca",
+        "Description": "The CA cert with which the loggregator cert is signed",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.loggregator_cert",
+        "Description": "The Cert to talk to loggregator over TLS",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.loggregator_key",
+        "Description": "The private key of the certificate",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.kubeconfig",
+        "Description": "The path to the kubeconfig (if running from outside the cluster)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.kube_service_host",
+        "Description": "Kubernetes in cluster host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.kube_service_port",
+        "Description": "Kubernetes in cluster Port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-loggregator-bridge.namespace",
+        "Description": "Kubernetes namespace where to watch for Eirini applications.",
+        "Default": "eirini",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "eirini-persi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor637311415/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor637311415/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirini-persi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirini-persi.operator_webhook_servicename",
+        "Description": "Service name where the webhook is listening.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi.operator_webhook_namespace",
+        "Description": "Namespace where the webhook service is listening.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi.kube_service_host",
+        "Description": "Kubernetes service host. Should be set to the value of KUBERNETES_SERVICE_HOST.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi.kube_service_port",
+        "Description": "Kubernetes service port. Should be set to the value of KUBERNETES_SERVICE_PORT.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi.namespace",
+        "Description": "Kubernetes namespace where to watch for Eirini applications.",
+        "Default": "eirini",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi.operator_webhook_host",
+        "Description": "Hostname/IP under which the webhook server can be reached from the cluster (defaults to service).",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi.operator_webhook_port",
+        "Description": "Port the webhook server listens on.",
+        "Default": "2999",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "eirini-persi-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor263227137/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor263227137/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "eirini-persi-broker.yml.erb",
+        "DstPathEnd": "config/eirini-persi-broker.yml",
+        "Path": "/tmp/tar-CmdExtractor263227137/templates/eirini-persi-broker.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirini-persi-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirini-persi-broker.description",
+        "Description": "short description of the broker",
+        "Default": "Eirini persistence broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.icon_image",
+        "Description": "broker icon image",
+        "Default": "Eirini broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.auth_password",
+        "Description": "basic auth password to verify on incoming Service Broker requests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.namespace",
+        "Description": "Kubernetes namespace where to watch for Eirini applications.",
+        "Default": "eirini",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.kube_service_port",
+        "Description": "Kubernetes service port. Should be set to the value of KUBERNETES_SERVICE_PORT.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.long_description",
+        "Description": "long description of the broker",
+        "Default": "Eirini persistence broker to provide Kubernete storage classes",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.provider_display_name",
+        "Description": "provider display name",
+        "Default": "Eirini broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.kube_service_host",
+        "Description": "Kubernetes service host. Should be set to the value of KUBERNETES_SERVICE_HOST.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.support_url",
+        "Description": "broker support url",
+        "Default": "https://github.com/SUSE/eirini-persi-broker/issues",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.display_name",
+        "Description": "broker name display",
+        "Default": "Eirini broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.backend_host",
+        "Description": "broker backend host",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.service_plans",
+        "Description": "List of plans supported by broker",
+        "Default": [
+          {
+            "default_size": "1Gi",
+            "description": "Existing default storage class",
+            "free": true,
+            "id": "default",
+            "kube_storage_class": "default",
+            "name": "default"
+          }
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.documentation_url",
+        "Description": "broker documentation url",
+        "Default": "https://github.com/SUSE/eirini-persi-broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.auth_username",
+        "Description": "basic auth username to verify on incoming Service Broker requests",
+        "Default": "admin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-persi-broker.backend_port",
+        "Description": "broker backend port",
+        "Default": "8999",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "eirini-ssh-extension",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor103045339/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor103045339/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirini-ssh-extension"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirini-ssh-extension.kube_service_port",
+        "Description": "Kubernetes service port. Should be set to the value of KUBERNETES_SERVICE_PORT.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-extension.namespace",
+        "Description": "Kubernetes namespace where to watch for Eirini applications.",
+        "Default": "eirini",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-extension.operator_webhook_host",
+        "Description": "Hostname/IP under which the webhook server can be reached from the cluster (defaults to service).",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-extension.operator_webhook_port",
+        "Description": "Port the webhook server listens on.",
+        "Default": "2999",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-extension.operator_webhook_servicename",
+        "Description": "Service name where the webhook is listening.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-extension.operator_webhook_namespace",
+        "Description": "Namespace where the webhook service is listening.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-extension.kube_service_host",
+        "Description": "Kubernetes service host. Should be set to the value of KUBERNETES_SERVICE_HOST.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "eirini-ssh-proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor183497157/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor183497157/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "eirini-ssh-proxy.json.erb",
+        "DstPathEnd": "config/eirini-ssh-proxy.json",
+        "Path": "/tmp/tar-CmdExtractor183497157/templates/eirini-ssh-proxy.json.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor183497157/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc_api_ca_cert.crt.erb",
+        "DstPathEnd": "config/certs/cc/cc_api_ca_cert.crt",
+        "Path": "/tmp/tar-CmdExtractor183497157/templates/cc_api_ca_cert.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirini-ssh-proxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirini-ssh-proxy.ssl.skip_cert_verify",
+        "Description": "Skip UAA SSL certificate verification",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.url",
+        "Description": "The url to access UAA",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.sshd_port",
+        "Description": "The port where the ssh proxy is connecting to",
+        "Default": "2222",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.cc.ca_cert",
+        "Description": "CA certificate to talk to the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.port",
+        "Description": "The port to which the ssh-proxy should listen for connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.host_key",
+        "Description": "The SSH host key of the ssh-proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.kube_namespace",
+        "Description": "Kubernetes namespace of the SSH auth secrets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.kube_service_host",
+        "Description": "Kubernetes in cluster host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.kube_service_port",
+        "Description": "Kubernetes in cluster Port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.uaa.ca_cert",
+        "Description": "CA certificate to talk to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "eirini-ssh-proxy.api_url",
+        "Description": "The CloudFoundry API service url",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.clients.ssh-proxy.secret",
+        "Description": "The password of the ssh-proxy account in UAA",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "eirinifs",
+    "Description": "This job copies the eirinifs to a desired location",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor755675199/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor755675199/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "eirinifs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "eirinifs.path",
+        "Description": "Where to copy the eirinifs tarball",
+        "Default": "/var/vcap/store/bits-service/assets",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "opi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor695275721/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "certs/cc.key.erb",
+        "DstPathEnd": "certs/cc.key",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/cc.key.erb"
+      },
+      {
+        "SrcPathEnd": "certs/doppler.key.erb",
+        "DstPathEnd": "certs/doppler.key",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/doppler.key.erb"
+      },
+      {
+        "SrcPathEnd": "certs/server.crt.erb",
+        "DstPathEnd": "certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "kube.conf.erb",
+        "DstPathEnd": "config/kube.conf",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/kube.conf.erb"
+      },
+      {
+        "SrcPathEnd": "node_ca.crt.erb",
+        "DstPathEnd": "config/node_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/node_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/cc.crt.erb",
+        "DstPathEnd": "certs/cc.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/cc.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/client-ca.crt.erb",
+        "DstPathEnd": "certs/client-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/client-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/doppler.crt.erb",
+        "DstPathEnd": "certs/doppler.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/doppler.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "certs/cc-ca.crt.erb",
+        "DstPathEnd": "certs/cc-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/cc-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "certs/doppler-ca-crt.erb",
+        "DstPathEnd": "certs/doppler-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/doppler-ca-crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "opi.yml.erb",
+        "DstPathEnd": "config/opi.yml",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/opi.yml.erb"
+      },
+      {
+        "SrcPathEnd": "certs/server.key.erb",
+        "DstPathEnd": "certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor695275721/templates/certs/server.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "eirini"
+      },
+      {
+        "Name": "kubectl"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "opi.server_key",
+        "Description": "Private key associated with TLS certificate for Eirini server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.client_ca",
+        "Description": "CA certificate Eirini will use to trust client certificates for mTLS",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.eirini_address",
+        "Description": "Address of Eirini",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.nats_ip",
+        "Description": "IP of the NATS server Eirini will send app route events to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.uploader_image",
+        "Description": "Uploads the Droplet to the bits-service",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.metrics_source_address",
+        "Description": "Source URL for metrics",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_key",
+        "Description": "Cloud Controller key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.server_cert",
+        "Description": "TLS certificate for Eirini server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.service_account.token",
+        "Description": "Token of service account Eirini will operate on k8s with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_namespace",
+        "Description": "Kubernetes namespace where to run deployments and tasks",
+        "Default": "default",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.nats_password",
+        "Description": "password for nats",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.downloader_image",
+        "Description": "Downloads app-bits and buildpacks from the bits-service",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_cert",
+        "Description": "Cloud Controller cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.registry_username",
+        "Description": "Basic auth username for registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_internal_api",
+        "Description": "Internal URL for the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_cert",
+        "Description": "Doppler cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_ca",
+        "Description": "Cloud Controller CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.service_account.name",
+        "Description": "Username of service account Eirini will operate on k8s with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_service_host",
+        "Description": "Kubernetes service host. Should be set to the value of KUBERNETES_SERVICE_HOST.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.executor_image",
+        "Description": "Executes the buildpackapplifecyle to build a Droplet",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.host_url",
+        "Description": "URL of k8s node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_address",
+        "Description": "Doppler address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_key",
+        "Description": "Doppler key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.tls_port",
+        "Description": "Port Eirini server will listen on when TLS is enabled",
+        "Default": 8484,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.k8s.node_ca",
+        "Description": "CA certificate for k8s node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.registry_address",
+        "Description": "Address of registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.registry_password",
+        "Description": "Basic auth user credentials for registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.nats_port",
+        "Description": "Port of the NATS server Eirini will send app route events to",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.loggregator_ca",
+        "Description": "Doppler CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.kube_service_port",
+        "Description": "Kubernetes service port. Should be set to the value of KUBERNETES_SERVICE_PORT.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.certs_secret_name",
+        "Description": "Name of the kube secret containing CF certs",
+        "Default": "cf_secrets",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opi.cc_uploader_ip",
+        "Description": "IP Address of the Cloud Controller uploader",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
