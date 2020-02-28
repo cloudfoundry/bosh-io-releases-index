@@ -1,0 +1,118 @@
+[
+  {
+    "Name": "filesystem-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor820719325/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor820719325/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor820719325/templates/restore.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "post_restore_script",
+        "Description": "Script to be run after restore (directory copy)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup_path",
+        "Description": "Path to directory to be backuped up",
+        "Default": null,
+        "Example": "/var/vcap/store/redis",
+        "Examples": null
+      },
+      {
+        "Name": "restore_path",
+        "Description": "Optional path to restore",
+        "Default": null,
+        "Example": "/var/vcap/store/example",
+        "Examples": null
+      },
+      {
+        "Name": "backup_name",
+        "Description": "Name of directory for backup",
+        "Default": null,
+        "Example": "redis",
+        "Examples": null
+      },
+      {
+        "Name": "pre_backup_script",
+        "Description": "Script to be run before backup (directory copy)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "post_backup_script",
+        "Description": "Script to be run after backup (directory copy)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pre_restore_script",
+        "Description": "Script to be run before restore (directory copy)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "job-lock",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor851543319/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-backup-unlock.erb",
+        "DstPathEnd": "bin/bbr/post-backup-unlock",
+        "Path": "/tmp/tar-CmdExtractor851543319/templates/post-backup-unlock.erb"
+      },
+      {
+        "SrcPathEnd": "pre-restore-lock.erb",
+        "DstPathEnd": "bin/bbr/pre-restore-lock",
+        "Path": "/tmp/tar-CmdExtractor851543319/templates/pre-restore-lock.erb"
+      },
+      {
+        "SrcPathEnd": "post-restore-unlock.erb",
+        "DstPathEnd": "bin/bbr/post-restore-unlock",
+        "Path": "/tmp/tar-CmdExtractor851543319/templates/post-restore-unlock.erb"
+      },
+      {
+        "SrcPathEnd": "pre-backup-lock.erb",
+        "DstPathEnd": "bin/bbr/pre-backup-lock",
+        "Path": "/tmp/tar-CmdExtractor851543319/templates/pre-backup-lock.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "lock",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
