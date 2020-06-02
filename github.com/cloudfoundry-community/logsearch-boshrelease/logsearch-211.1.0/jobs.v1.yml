@@ -1,0 +1,2029 @@
+[
+  {
+    "Name": "archiver_syslog",
+    "Description": "This job runs Logstash to forward Syslog data to archive",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor522151547/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/input_and_output.conf.erb",
+        "DstPathEnd": "config/input_and_output.conf",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/config/input_and_output.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config/syslog_tls.crt.erb",
+        "DstPathEnd": "config/syslog_tls.crt",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/config/syslog_tls.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/logstash.yml.erb",
+        "DstPathEnd": "config/logstash.yml",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/config/logstash.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/jvm.options.erb",
+        "DstPathEnd": "config/jvm.options",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/config/jvm.options.erb"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/archiver_syslog_ctl",
+        "DstPathEnd": "bin/archiver_syslog_ctl",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/bin/archiver_syslog_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/syslog_tls.key.erb",
+        "DstPathEnd": "config/syslog_tls.key",
+        "Path": "/tmp/tar-CmdExtractor522151547/templates/config/syslog_tls.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "logsearch-config"
+      },
+      {
+        "Name": "openjdk-11"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "logstash.queue.page_capacity",
+        "Description": "The page data files size. The queue data consists of append-only data files separated into pages.",
+        "Default": "250mb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.health.disable_post_start",
+        "Description": "Skip post-start health checks? (true / false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.outputs",
+        "Description": "A list of output plugins, with a hash of options for each of them.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.log_level",
+        "Description": "The default logging level (e.g. WARN, DEBUG, INFO)",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.plugins",
+        "Description": "Array of hashes describing logstash plugins to install",
+        "Default": [],
+        "Example": [
+          {
+            "name": "logstash-output-cloudwatchlogs",
+            "version": "2.0.0"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.port",
+        "Description": "Port to listen for syslog-TLS messages (omit to disable)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.heap_size",
+        "Description": "sets jvm heap sized",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.health.timeout",
+        "Description": "Logstash syslog health check number of attempts (seconds)",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.type",
+        "Description": "Internal queuing model, \"memory\" for legacy in-memory based queuing and \"persisted\" for disk-based acked queueing.",
+        "Default": "persisted",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.jvm_options",
+        "Description": "additional jvm options",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.workers",
+        "Description": "The number of worker threads that logstash should use (default: auto = one per CPU)",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.relp.port",
+        "Description": "Port to listen for RELP messages",
+        "Default": 2514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_archiver.files",
+        "Description": "Number of files open which the system ulimit settings allow",
+        "Default": 4096,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.max_bytes",
+        "Description": "The total capacity of the queue in number of bytes.",
+        "Default": "1024mb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.ssl_cert",
+        "Description": "Syslog-TLS SSL certificate (file contents, not a path) - required if logstash_ingestor.syslog_tls.port set",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.checkpoint.interval",
+        "Description": "The interval in milliseconds when a checkpoint is forced on the head page.",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.skip_ssl_validation",
+        "Description": "Verify the identity of the other end of the SSL connection against the CA.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.env",
+        "Description": "a list of arbitrary key-value pairs to be passed on as process environment variables. eg: FOO: 123",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.checkpoint.writes",
+        "Description": "The maximum number of written events before forcing a checkpoint.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog.port",
+        "Description": "Port to listen for syslog messages",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog.transport",
+        "Description": "Transport protocol to use",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.ssl_key",
+        "Description": "Syslog-TLS SSL key (file contents, not a path) - required if logstash_ingestor.syslog_tls.port set",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.debug",
+        "Description": "Debug level logging",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.checkpoint.acks",
+        "Description": "The maximum number of acked events before forcing a checkpoint.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.max_events",
+        "Description": "The maximum number of unread events in the queue.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.health.interval",
+        "Description": "Logstash syslog health check interval (seconds)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.metadata_level",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Default": "NONE",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.filters",
+        "Description": "Filters to execute on the ingestors",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "cerebro",
+    "Description": "This job runs Cerebro - an Admin UI for Elasticsearch cluster",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor287117925/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/cerebro",
+        "DstPathEnd": "bin/cerebro.sh",
+        "Path": "/tmp/tar-CmdExtractor287117925/templates/bin/cerebro"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor287117925/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/application.conf.erb",
+        "DstPathEnd": "config/application.conf",
+        "Path": "/tmp/tar-CmdExtractor287117925/templates/config/application.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cerebro"
+      },
+      {
+        "Name": "openjdk-11"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cerebro.password",
+        "Description": "Password for HTTP basic auth.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cerebro.ldap.enabled",
+        "Description": "Set to true to enable LDAP authentication.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cerebro.ldap.options",
+        "Description": "Config options for LDAP authentication type.",
+        "Default": null,
+        "Example": "method: simple\nurl: ldap://host:port\n",
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cluster_name",
+        "Description": "The name of the elastic search cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cerebro.exec.options",
+        "Description": "An array of additional options to pass when starting cerebro",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cerebro.secret",
+        "Description": "Secret will be used to sign Cerebro session cookies and CSRF tokens.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cerebro.user",
+        "Description": "Username for HTTP basic auth.",
+        "Default": "cerebro",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "curator",
+    "Description": "This job runs Curator process to purge outdated info from Elasticsearch cluster",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor523606495/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor523606495/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/run-curator",
+        "DstPathEnd": "bin/run-curator",
+        "Path": "/tmp/tar-CmdExtractor523606495/templates/bin/run-curator"
+      },
+      {
+        "SrcPathEnd": "config/actions.yml.erb",
+        "DstPathEnd": "config/actions.yml",
+        "Path": "/tmp/tar-CmdExtractor523606495/templates/config/actions.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor523606495/templates/config/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "curator"
+      },
+      {
+        "Name": "python3"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "curator.elasticsearch.port",
+        "Description": "Port address of elasticsearch host to proxy requests for (eg, 9200)",
+        "Default": 9200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.purge_logs.retention_period",
+        "Description": "The value of this setting will be used as a multiplier for unit",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.actions",
+        "Description": "List of Elasticsearch Curator actions in YAML format.",
+        "Default": null,
+        "Example": "- action: delete_indices\n  description: \u003e-\n    Delete indices older than 45 days (based on index name), for logstash-\n    prefixed indices. Ignore the error if the filter does not result in an\n    actionable list of indices (ignore_empty_list) and exit cleanly.\n  options:\n    ignore_empty_list: True\n    disable_action: True\n  filters:\n  - filtertype: pattern\n    kind: prefix\n    value: logstash-\n  - filtertype: age\n    source: name\n    direction: older\n    timestring: '%Y.%m.%d'\n    unit: days\n    unit_count: 45\n",
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.snapshots.repository",
+        "Description": "Repository name for automatic snapshots",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.bucket",
+        "Description": "Bucket name on S3 where to keep snapshots",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.execute.daily",
+        "Description": "Execute Curator daily?",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.execute.weekly",
+        "Description": "Execute Curator weekly?",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.elasticsearch.hosts",
+        "Description": "IP address of elasticsearch host to proxy requests for (eg, 127.0.0.1)",
+        "Default": [
+          "127.0.0.1"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.purge_logs.unit",
+        "Description": "One of the following values: seconds, minutes, hours, days, weeks, months, years",
+        "Default": "days",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.loglevel",
+        "Description": "Set the minimum acceptable log severity to display.",
+        "Default": "INFO",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.logformat",
+        "Description": "This should default, json, logstash.",
+        "Default": "default",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.path_repo",
+        "Description": "Shared file system to store snapshots.\nIn order to register the shared file system repository it is\nnecessary to mount the same shared filesystem to the same location\non all master and data nodes.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "curator.execute.hourly",
+        "Description": "Execute Curator hourly?",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "elasticsearch",
+    "Description": "This job runs Elasticsearch node (master or data)",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor603358057/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/elasticsearch",
+        "DstPathEnd": "bin/elasticsearch.sh",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/bin/elasticsearch"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/node-crt.erb",
+        "DstPathEnd": "config/ssl/elasticsearch-node.crt",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/node-crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/config.yml.erb",
+        "DstPathEnd": "config/elasticsearch.yml",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/admin-pem.erb",
+        "DstPathEnd": "config/ssl/elasticsearch-admin.pem",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/admin-pem.erb"
+      },
+      {
+        "SrcPathEnd": "bin/drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/bin/drain.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/node-pem.erb",
+        "DstPathEnd": "config/ssl/elasticsearch-node.pem",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/node-pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/jvm.options.erb",
+        "DstPathEnd": "config/jvm.options",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/jvm.options.erb"
+      },
+      {
+        "SrcPathEnd": "config/log4j2.properties.erb",
+        "DstPathEnd": "config/log4j2.properties",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/log4j2.properties.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-deploy.erb",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/bin/post-deploy.erb"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "config/ca.erb",
+        "DstPathEnd": "config/ssl/elasticsearch.ca",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/ca.erb"
+      },
+      {
+        "SrcPathEnd": "config/admin-crt.erb",
+        "DstPathEnd": "config/ssl/elasticsearch-admin.crt",
+        "Path": "/tmp/tar-CmdExtractor603358057/templates/config/admin-crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "elasticsearch"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "elasticsearch.port",
+        "Description": "Port address of elasticsearch host to proxy requests for",
+        "Default": 9200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.health.disable_post_start",
+        "Description": "Allow node to run post-start script? (true / false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.plugins",
+        "Description": "Plugins to run elasticsearch with (array[] = { plugin-name: install-source }; e.g. [ { kopf: 'lmenezes/elasticsearch-kopf' } ])",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.secret_key",
+        "Description": "Secret access key for AWS account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.path_repo",
+        "Description": "Shared file system to store snapshots.\nIn order to register the shared file system repository it is\nnecessary to mount the same shared filesystem to the same location\non all master and data nodes.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.ssl.certificate",
+        "Description": "Node certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.ssl.private_key",
+        "Description": "Private key for node certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.recovery.delay_allocation_restart",
+        "Description": "Delay allocation interval during restart",
+        "Default": "5m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.discovery.minimum_master_nodes",
+        "Description": "The minimum number of master eligible nodes a node should \"see\" in order to operate within the cluster. Recommended to set it to a higher value than 1 when running more than 2 nodes in the cluster.",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.config_options",
+        "Description": "Additional options to append to elasticsearch's config.yml (YAML format).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.region",
+        "Description": "Specify the AWS region to use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.allow_master",
+        "Description": "Allow node to become master? (true / false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.admin.dn",
+        "Description": "Admin DN to operate SSL plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.health.connect_timeout",
+        "Description": "Post-start timeout for node to become available (seconds)",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.health.connect_interval",
+        "Description": "Post-start interval for node to become available (seconds)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.tags",
+        "Description": "A hash of additional tags for the node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.limits.fd",
+        "Description": "Maximum file descriptors",
+        "Default": 65536,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.log_level",
+        "Description": "The default logging level (e.g. WARN, DEBUG, INFO)",
+        "Default": "INFO",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.allow_ingest",
+        "Description": "Allow node to become ingest node? (true / false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.ssl.ca",
+        "Description": "CA certificate for SSL plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.exec.environment",
+        "Description": "A hash of additional environment variables for the process",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.exec.options",
+        "Description": "An array of additional options to pass when starting elasticsearch",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.read_timeout",
+        "Description": "The amount of time to wait for data to be transferred over an established, open connection before the connection is timed out",
+        "Default": "50s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.heap_size",
+        "Description": "sets jvm heap sized",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.health.timeout",
+        "Description": "Post-start timeout for node to join cluster (seconds)",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.access_key",
+        "Description": "Access key ID for AWS account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cluster_name",
+        "Description": "The name of the elastic search cluster",
+        "Default": "logsearch",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.jvm_options",
+        "Description": "Additional Java Virtual Machine options",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.admin.private_key",
+        "Description": "Private key for admin certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.bucket",
+        "Description": "Bucket name on S3 where to keep snapshots",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.snapshots.repository",
+        "Description": "Repository name for automatic snapshots",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.master_hosts",
+        "Description": "The list of elasticsearch master node IPs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.allow_data",
+        "Description": "Allow node to store data? (true / false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.logging_options",
+        "Description": "Additional options to append to elasticsearch's logging.yml (YAML format).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.cloud.aws.protocol",
+        "Description": "Protocol to use for all API calls to AWS endpoints",
+        "Default": "https",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.heap_percentage",
+        "Description": "The percentage value used in the calculation to set the heap size.",
+        "Default": 46,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.node.ssl.dn",
+        "Description": "Nodes DN pattern",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.admin.certificate",
+        "Description": "Admin certificate to operate SSL plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.health.interval",
+        "Description": "Post-start interval for node to join cluster (seconds)",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.recovery.delay_allocation",
+        "Description": "Delay allocation interval",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch.http_host",
+        "Description": "The host address to bind the elasticsearch HTTP service to and to publish for HTTP clients to connect to",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "elasticsearch_config",
+    "Description": "This job loads pre-defined configuration into Elasticsearch cluster",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor200927619/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/upload-config.erb",
+        "DstPathEnd": "bin/upload-config",
+        "Path": "/tmp/tar-CmdExtractor200927619/templates/bin/upload-config.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job.process",
+        "DstPathEnd": "bin/job.process",
+        "Path": "/tmp/tar-CmdExtractor200927619/templates/bin/job.process"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor200927619/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "index-templates/shards-and-replicas.json.erb",
+        "DstPathEnd": "index-templates/shards-and-replicas.json",
+        "Path": "/tmp/tar-CmdExtractor200927619/templates/index-templates/shards-and-replicas.json.erb"
+      },
+      {
+        "SrcPathEnd": "index-templates/index-settings.json.erb",
+        "DstPathEnd": "index-templates/index-settings.json",
+        "Path": "/tmp/tar-CmdExtractor200927619/templates/index-templates/index-settings.json.erb"
+      },
+      {
+        "SrcPathEnd": "index-templates/index-mappings.json.erb",
+        "DstPathEnd": "index-templates/index-mappings.json",
+        "Path": "/tmp/tar-CmdExtractor200927619/templates/index-templates/index-mappings.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "elasticsearch_config.elasticsearch.host",
+        "Description": "The elasticsearch master node hostname",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch_config.elasticsearch.port",
+        "Description": "the elasticsearch master node port",
+        "Default": 9200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch_config.index_prefix",
+        "Description": "Name prefix of your log indices that can uniquely distinguish them among other ES indices if apply pattern '*' to it, e.g. 'logs-*'.\nIt is used in the index templates predefined in the job to specify index pattern.\nMake sure the prefix matches `logstash_parser.elasticsearch.index` property set for your parser.\n",
+        "Default": "logstash-",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch_config.templates",
+        "Description": "An array with key-value hashes; keys being template name, value being template content",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch_config.docs",
+        "Description": "An array with key-value hashes; keys being doc path, value being doc source",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elasticsearch_config.license",
+        "Description": "The ElasticSearch License string",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "haproxy",
+    "Description": "This job runs Haproxy which act as a single entry point to the cluster (LB)",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor044416685/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "haproxy.config.erb",
+        "DstPathEnd": "config/haproxy.config",
+        "Path": "/tmp/tar-CmdExtractor044416685/templates/haproxy.config.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy",
+        "DstPathEnd": "bin/haproxy.sh",
+        "Path": "/tmp/tar-CmdExtractor044416685/templates/haproxy"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor044416685/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cert.pem.erb",
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor044416685/templates/cert.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "haproxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "haproxy.syslog_server",
+        "Description": "An IPv4 address optionally followed by a colon and a UDP port. It can also be an IPv6 address or filesystem path to a UNIX domain socket.",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.connect_timeout",
+        "Description": "Timeout waiting for connections to establish to a server (in seconds)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.backend_servers",
+        "Description": "Array of the ingestor backend IPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.inbound_port.https",
+        "Description": "The public port of the kibana service",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.enable_ssl",
+        "Description": "Enable or Disable SSL for Kibana traffic on haproxy",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.auth.username",
+        "Description": "Basic auth username for kibana. Optional",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.enable_ssl",
+        "Description": "Enable or Disable SSL for for syslog/ingestor traffic on haproxy",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.auth.password",
+        "Description": "Basic auth password for kibana. Optional",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ssl_pem",
+        "Description": "SSL certificate (PEM file).  Omit if you don't want to use SSL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.elastic.auth.username",
+        "Description": "Basic auth username for Elasticsearch. Optional",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.cluster_monitor.inbound_port",
+        "Description": "The public port of the cluster monitor UI",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.queue_timeout",
+        "Description": "Timeout for requests queued waiting for free connection slots (in seconds)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.backend_port",
+        "Description": "The port of the kibana backend server(s)",
+        "Default": 5601,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.syslog.inbound_port",
+        "Description": "The public port of the ingestor service",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.elastic.inbound_port",
+        "Description": "The public port for Elasticsearch interface. IMPORTANT: Do not set this value unless you understand what are you doing! External access to Elasticsearch allows to do everything with it, including index deletion. Once enabled this feature, it is strictly recommended to set the password below.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.cluster_monitor.auth.username",
+        "Description": "Basic auth username for cluster monitor kibana. Optional",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.fd_limit",
+        "Description": "File descriptors limit (uname -n)",
+        "Default": 256000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.client_timeout",
+        "Description": "Timeout waiting for data from a client (in seconds)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.server_timeout",
+        "Description": "Timeout waiting for data from a server (in seconds)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.syslog.backend_port",
+        "Description": "The port number the ingestor backends are listening on",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.relp.inbound_port",
+        "Description": "The public port of the ingestor service",
+        "Default": 2514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.tls.inbound_port",
+        "Description": "The public port of the ingestor service",
+        "Default": 6514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.backend_port",
+        "Description": "The port number the ingestor backends are listening on",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.inbound_port.http",
+        "Description": "The public port of the kibana service",
+        "Default": 80,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.elastic.enable_ssl",
+        "Description": "Enable or Disable SSL for for Elasticsearch traffic on haproxy",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.elastic.auth.password",
+        "Description": "Basic auth password for Elasticsearch. Optional",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.cluster_monitor.backend_port",
+        "Description": "The port number the cluster monitor backends are listening on",
+        "Default": 5601,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.tls.backend_port",
+        "Description": "The port number the ingestor backends are listening on",
+        "Default": 6514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.kibana.backend_servers",
+        "Description": "The list of kibana servers",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.elastic.backend_servers",
+        "Description": "List of Elasticsearch nodes",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.cluster_monitor.backend_servers",
+        "Description": "Array of the cluster monitor backend IPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.enable_stats_socket",
+        "Description": "Whether to enable a socket that can be used to query errors and status",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.ingestor.relp.backend_port",
+        "Description": "The port number the ingestor backends are listening on",
+        "Default": 2514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "haproxy.cluster_monitor.auth.password",
+        "Description": "Basic auth password for cluster monitor kibana. Optional",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "ingestor_syslog",
+    "Description": "This job runs Logstash process which ingests data by standard Syslog protocol, make some processing,\nthen forward it to Elasticsearch cluster\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor625530727/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/filters_post.conf.erb",
+        "DstPathEnd": "config/filters_post.conf",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/filters_post.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config/syslog_tls.crt.erb",
+        "DstPathEnd": "config/syslog_tls.crt",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/syslog_tls.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/syslog_tls.key.erb",
+        "DstPathEnd": "config/syslog_tls.key",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/syslog_tls.key.erb"
+      },
+      {
+        "SrcPathEnd": "config/jvm.options.erb",
+        "DstPathEnd": "config/jvm.options",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/jvm.options.erb"
+      },
+      {
+        "SrcPathEnd": "config/filters_pre.conf.erb",
+        "DstPathEnd": "config/filters_pre.conf",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/filters_pre.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config/filters_override.conf.erb",
+        "DstPathEnd": "config/filters_override.conf",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/filters_override.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config/logstash.yml.erb",
+        "DstPathEnd": "config/logstash.yml",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/logstash.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ingestor_syslog",
+        "DstPathEnd": "bin/ingestor_syslog.sh",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/bin/ingestor_syslog"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/input_and_output.conf.erb",
+        "DstPathEnd": "config/input_and_output.conf",
+        "Path": "/tmp/tar-CmdExtractor625530727/templates/config/input_and_output.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "logstash"
+      },
+      {
+        "Name": "logsearch-config"
+      },
+      {
+        "Name": "openjdk-11"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "logstash.jvm_options",
+        "Description": "additional jvm options",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.log_level",
+        "Description": "The default logging level (e.g. WARN, DEBUG, INFO)",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog.use_keepalive",
+        "Description": "Instruct the socket to use TCP keep alives",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.message_max_size",
+        "Description": "Maximum log message length.  Anything larger is truncated (TODO: move this to ingestor?)",
+        "Default": 1048576,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.outputs",
+        "Description": "A list of output plugins, with a hash of options for each of them. Please refer to example below.\n",
+        "Default": [
+          {
+            "options": {},
+            "plugin": "elasticsearch"
+          }
+        ],
+        "Example": {
+          "inputs": [
+            {
+              "options": {
+                "collection": "logs",
+                "database": "logsearch",
+                "uri": "192.168.1.1"
+              },
+              "plugin": "mongodb"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.checkpoint.acks",
+        "Description": "The maximum number of acked events before forcing a checkpoint.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog.transport",
+        "Description": "Transport protocol to use",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.health.timeout",
+        "Description": "Logstash syslog health check number of attempts (seconds)",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.metadata_level",
+        "Description": "Whether to include additional metadata throughout the event lifecycle. NONE = disabled, DEBUG = fully enabled",
+        "Default": "NONE",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.page_capacity",
+        "Description": "The page data files size. The queue data consists of append-only data files separated into pages.",
+        "Default": "250mb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.health.disable_post_start",
+        "Description": "Skip post-start health checks?",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.timecop.reject_greater_than_hours",
+        "Description": "Logs with timestamps greater than this many hours in the future won't be parsed and will get tagged with fail/timecop",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.heap_percentage",
+        "Description": "The percentage value used in the calculation to set the heap size.",
+        "Default": 46,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.filters",
+        "Description": "Filters to execute on the ingestors",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.health.interval",
+        "Description": "Logstash syslog health check interval (seconds)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.filters",
+        "Description": "The configuration to embed into the logstash filters section. Can either be a set of parsing rules as a string or a list of hashes in the form of [{name: path_to_parsing_rules.conf}]",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.elasticsearch.idle_flush_time",
+        "Description": "How frequently to flush events if the output queue is not full.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.elasticsearch.index",
+        "Description": "The specific, dynamic index name to write events to.",
+        "Default": "logstash-%{+YYYY.MM.dd}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.port",
+        "Description": "Port to listen for syslog-TLS messages (omit to disable)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.ssl_key",
+        "Description": "Syslog-TLS SSL key (file contents, not a path) - required if logstash_ingestor.syslog_tls.port set",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.deployment_dictionary",
+        "Description": "A list of files concatenated into one deployment dictionary file. Each file contains a hash of job name-deployment name keypairs for @source.deployment lookup.",
+        "Default": [
+          "/var/vcap/packages/logsearch-config/deployment_lookup.yml"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.inputs",
+        "Description": "A list of input plugins, with a hash of options for each of them. Please refer to example below.\n",
+        "Default": null,
+        "Example": {
+          "inputs": [
+            {
+              "options": {
+                "host": "192.168.1.1",
+                "password": "c1oudbunny",
+                "user": "logsearch"
+              },
+              "plugin": "rabbitmq"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.max_events",
+        "Description": "The maximum number of unread events in the queue.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.max_bytes",
+        "Description": "The total capacity of the queue in number of bytes.",
+        "Default": "1024mb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.checkpoint.writes",
+        "Description": "The maximum number of written events before forcing a checkpoint.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog.port",
+        "Description": "Port to listen for syslog messages",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.skip_ssl_validation",
+        "Description": "Verify the identity of the other end of the SSL connection against the CA.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.debug",
+        "Description": "Debug level logging",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.plugins",
+        "Description": "Array of hashes describing logstash plugins to install",
+        "Default": [],
+        "Example": [
+          {
+            "name": "logstash-output-cloudwatchlogs",
+            "version": "2.0.0"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.type",
+        "Description": "Internal queuing model, \"memory\" for legacy in-memory based queuing and \"persisted\" for disk-based acked queueing.",
+        "Default": "persisted",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.queue.checkpoint.interval",
+        "Description": "The interval in milliseconds when a checkpoint is forced on the head page.",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.use_keepalive",
+        "Description": "Instruct the socket to use TCP keep alives",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.relp.port",
+        "Description": "Port to listen for RELP messages",
+        "Default": 2514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.timecop.reject_less_than_hours",
+        "Description": "Logs with timestamps less than this many hours in the past won't be parsed and will get tagged with fail/timecop",
+        "Default": 24,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.elasticsearch.routing",
+        "Description": "The routing to be used when indexing a document.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.elasticsearch.data_hosts",
+        "Description": "The list of elasticsearch data node IPs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.heap_size",
+        "Description": "sets jvm heap sized",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash.env",
+        "Description": "a list of arbitrary key-value pairs to be passed on as process environment variables. eg: FOO: 123",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_ingestor.syslog_tls.ssl_cert",
+        "Description": "Syslog-TLS SSL certificate (file contents, not a path) - required if logstash_ingestor.syslog_tls.port set",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.workers",
+        "Description": "The number of worker threads that logstash should use (default: auto = one per CPU)",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.elasticsearch.document_id",
+        "Description": "Use a specific, dynamic ID rather than an auto-generated identifier.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.elasticsearch.index_type",
+        "Description": "The specific, dynamic index type name to write events to.",
+        "Default": "%{@type}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.enable_json_filter",
+        "Description": "Toggles the if_it_looks_like_json.conf filter rule",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logstash_parser.wait_for_templates",
+        "Description": "A list of index templates that need to be present in ElasticSearch before the process starts",
+        "Default": [
+          "index_template"
+        ],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "kibana",
+    "Description": "This job runs Kibana UI",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor004343345/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor004343345/templates/bin/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor004343345/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/kibana.conf.erb",
+        "DstPathEnd": "config/kibana.conf",
+        "Path": "/tmp/tar-CmdExtractor004343345/templates/config/kibana.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor004343345/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/kibana",
+        "DstPathEnd": "bin/kibana.sh",
+        "Path": "/tmp/tar-CmdExtractor004343345/templates/bin/kibana"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "kibana"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "kibana.health.interval",
+        "Description": "Kibana health check interval (seconds)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.health.timeout",
+        "Description": "Kibana health check number of attempts (seconds)",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.host",
+        "Description": "This setting specifies the IP address of the back end server.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.source_files",
+        "Description": "List of files to source in kibana control script",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.memory_limit",
+        "Description": "Configure the GC in nodejs to treat this number as the available memory for this process. The value is in the form of % of VM memory.",
+        "Default": 75,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.health.disable_post_start",
+        "Description": "Allow node to run post-start script? (true / false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.elasticsearch.host",
+        "Description": "IP address of elasticsearch master to send elasticsearch requests to",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.elasticsearch.port",
+        "Description": "Port of elasticsearch master to send elasticsearch requests to",
+        "Default": "9200",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.env",
+        "Description": "a list of arbitrary key-value pairs to be passed on as process environment variables. eg: FOO: 123",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.console_enabled",
+        "Description": "Enable Kibana development console; should be set to `false` in a multi-tenant deployment.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.config_options",
+        "Description": "Additional options to append to kibana's config.yml (YAML format).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.plugins",
+        "Description": "a list of key-value pairs of plugins. e.b. Kibana-auth: /var/vcap/packagaes/kibana/kibana-auth",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.default_app_id",
+        "Description": "The default application to load.",
+        "Default": "discover",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.kibana_index",
+        "Description": "Kibana uses an index in Elasticsearch to store saved searches, visualizations and dashboards",
+        "Default": ".kibana",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.port",
+        "Description": "Kibana is served by a back end server. This controls which port to use.",
+        "Default": 5601,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.request_timeout",
+        "Description": "Time in milliseconds to wait for responses from the back end or elasticsearch.  This must be \u003e 0",
+        "Default": 300000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kibana.shard_timeout",
+        "Description": "Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable",
+        "Default": 30000,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nats_to_syslog",
+    "Description": "This job forwards NATs messages to Syslog",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor904523659/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/nats_to_syslog_ctl",
+        "DstPathEnd": "bin/nats_to_syslog_ctl",
+        "Path": "/tmp/tar-CmdExtractor904523659/templates/bin/nats_to_syslog_ctl"
+      },
+      {
+        "SrcPathEnd": "helpers/utils.sh",
+        "DstPathEnd": "helpers/utils.sh",
+        "Path": "/tmp/tar-CmdExtractor904523659/templates/helpers/utils.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nats_to_syslog"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats_to_syslog.nats.user",
+        "Description": "Username for server authentication.",
+        "Default": "nats",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.nats.port",
+        "Description": "The port of the NATS server to connect to.",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.nats.machines",
+        "Description": "IP of each NATS cluster member to connect to. Only the first one is used.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.nats.subject",
+        "Description": "NATS subject to subscribe to",
+        "Default": "\u003e",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.debug",
+        "Description": "Enable debug logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.syslog.host",
+        "Description": "The host of the syslog endpoint",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_to_syslog.syslog.port",
+        "Description": "The port of the syslog endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke_tests",
+    "Description": "This job runs Smoke tests to make sure the cluster is configured properly",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor667677685/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor667677685/templates/run.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "smoke_tests.syslog_ingestor.host",
+        "Description": "IP of the syslog ingestor",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.syslog_ingestor.port",
+        "Description": "Port of the syslog ingestor",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.elasticsearch_master.host",
+        "Description": "IP of the elasticsearch master node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.elasticsearch_master.port",
+        "Description": "Port of the elasticsearch master node",
+        "Default": 9200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.use_tls",
+        "Description": "Set it to true if the ingestor or the ls-router expects TCP-TLS traffic",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "syslog_forwarder",
+    "Description": "This job forwards Syslog messages from different sources",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor959988207/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/rsyslog_file_forwarder.conf",
+        "DstPathEnd": "config/rsyslog_file_forwarder.conf",
+        "Path": "/tmp/tar-CmdExtractor959988207/templates/config/rsyslog_file_forwarder.conf"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor959988207/templates/bin/pre-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "syslog_forwarder.config",
+        "Description": "List of service name and logfile definitions.\nService is the syslog_program in the final log message.\nFile is the path to the log file rsyslogd should stream to the remote syslog server\n",
+        "Default": [],
+        "Example": "- { service: elasticsearch, file: /var/vcap/sys/log/elasticsearch.stdout.log }\n- { service: elasticsearch, file: /var/vcap/sys/log/elasticsearch.stderr.log }\n- { service: kibana, file: /var/vcap/sys/log/kibana/kibana.stdout.log }\n",
+        "Examples": null
+      },
+      {
+        "Name": "syslog_forwarder.host",
+        "Description": "Hostname of the remote syslog server",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_forwarder.port",
+        "Description": "Port of the remote syslog server",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
