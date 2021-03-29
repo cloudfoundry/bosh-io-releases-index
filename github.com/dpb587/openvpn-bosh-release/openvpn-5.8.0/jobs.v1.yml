@@ -1,0 +1,319 @@
+[
+  {
+    "Name": "openvpn",
+    "Description": "The `openvpn` job provides an OpenVPN server for clients to connect to.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor099187924/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/write-ccd.erb",
+        "DstPathEnd": "bin/write-ccd",
+        "Path": "/tmp/tar-CmdExtractor099187924/templates/bin/write-ccd.erb"
+      },
+      {
+        "SrcPathEnd": "bin/client-connect",
+        "DstPathEnd": "bin/client-connect",
+        "Path": "/tmp/tar-CmdExtractor099187924/templates/bin/client-connect"
+      },
+      {
+        "SrcPathEnd": "bin/control",
+        "DstPathEnd": "bin/control",
+        "Path": "/tmp/tar-CmdExtractor099187924/templates/bin/control"
+      },
+      {
+        "SrcPathEnd": "etc/openvpn.conf.erb",
+        "DstPathEnd": "etc/openvpn.conf",
+        "Path": "/tmp/tar-CmdExtractor099187924/templates/etc/openvpn.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openvpn"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "push_dns",
+        "Description": "A list of DNS servers to push to connecting clients to enable DNS resolution over the VPN tunnel",
+        "Default": [],
+        "Example": [
+          "8.8.4.4",
+          "8.8.8.8"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "push_dns_search_domains",
+        "Description": "List of search domains to push to clients",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "protocol",
+        "Description": "Protocol for the server",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "extra_config",
+        "Description": "Custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "compress",
+        "Description": "Default compression (or empty to disable)",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keysize",
+        "Description": "Size of cipher key in bits (deprecated)",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_version_min",
+        "Description": "The minimum TLS version accepted from peers",
+        "Default": "1.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Bind Port for the server",
+        "Default": 1194,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "push_routes",
+        "Description": "A list of routes to push to connecting clients (in the format of \"192.0.2.0 255.255.255.0\")",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routes",
+        "Description": "A list of routes for the local routing table (in the format of \"192.0.2.0 255.255.255.0\")",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cipher",
+        "Description": "Cipher for encrypting packets",
+        "Default": "AES-256-CBC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_crypt",
+        "Description": "Encrypt control channel packets with private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_server",
+        "Description": "Certificate and Private Key for the server",
+        "Default": null,
+        "Example": {
+          "ca": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+          "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "tls_crl",
+        "Description": "Certificate Revocation List (`X509 CRL`, including the begin/end markers)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dh_pem",
+        "Description": "Diffie-Hellmann Key (`DH PARAMETERS`, including the begin/end markers)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "local",
+        "Description": "Bind IP for the server",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "device",
+        "Description": "Virtual network device to use",
+        "Default": "tun0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ccd",
+        "Description": "A list of Client Configuration Directives. This value is an array, with each client being an array whose first value is the client's common name and second value is the OpenVPN directives.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_cipher",
+        "Description": "A colon-separated list of allowable TLS ciphers",
+        "Default": null,
+        "Example": "DEFAULT:!EXP:!LOW:!MEDIUM",
+        "Examples": null
+      },
+      {
+        "Name": "extra_configs",
+        "Description": "A list of custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server",
+        "Description": "VPN IP and netmask (basis of the IP pool which the server will allocate to clients)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "openvpn-client",
+    "Description": "The `openvpn-client` job runs an OpenVPN client, connecting to a remote server.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor416098598/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/control",
+        "DstPathEnd": "bin/control",
+        "Path": "/tmp/tar-CmdExtractor416098598/templates/bin/control"
+      },
+      {
+        "SrcPathEnd": "etc/profile.ovpn.erb",
+        "DstPathEnd": "etc/profile.ovpn",
+        "Path": "/tmp/tar-CmdExtractor416098598/templates/etc/profile.ovpn.erb"
+      },
+      {
+        "SrcPathEnd": "etc/user-pass.erb",
+        "DstPathEnd": "etc/user-pass",
+        "Path": "/tmp/tar-CmdExtractor416098598/templates/etc/user-pass.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openvpn"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls_client",
+        "Description": "Certificate and Private Key for the server",
+        "Default": null,
+        "Example": {
+          "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "device",
+        "Description": "Virtual network device to use",
+        "Default": "tun1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "extra_config",
+        "Description": "Custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "extra_configs",
+        "Description": "A list of custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Username for remote authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Password for remote authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "openvpn-clients",
+    "Description": "The `openvpn-clients` job runs OpenVPN clients, connecting to a remote server.\n\nUse this to establish multiple connections or for more advanced configurations which are unsupported by the `openvpn-client` job.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor420060488/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/control",
+        "DstPathEnd": "bin/control",
+        "Path": "/tmp/tar-CmdExtractor420060488/templates/bin/control"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor420060488/templates/bin/pre-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openvpn"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "clients",
+        "Description": "An array of Client Configuration connections",
+        "Default": [],
+        "Example": [
+          {
+            "config": "remote vpn.aws-us-east-1.staging-snowstorm.internal.example.com 1194 tcp\n...snip...\n\u003ccert\u003e\n...\n\u003c/cert\u003e\n\u003ckey\u003e\n...\n\u003c/key\u003e\n",
+            "name": "aws-us-east-1"
+          },
+          {
+            "config": "remote vpn.google-a1.staging-snowstorm.internal.example.com 1194 tcp\n...snip...\n\u003ccert\u003e\n...\n\u003c/cert\u003e\n\u003ckey\u003e\n...\n\u003c/key\u003e\n",
+            "name": "google-a1"
+          }
+        ],
+        "Examples": null
+      }
+    ]
+  }
+]
