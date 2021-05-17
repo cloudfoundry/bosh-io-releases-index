@@ -1,0 +1,87 @@
+[
+  {
+    "Name": "bosh-dns-aliases",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor245455992/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor245455992/templates/aliases.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "aliases",
+        "Description": "List of generated aliases",
+        "Default": null,
+        "Example": [
+          {
+            "domain": "credhub.cf.internal",
+            "targets": [
+              {
+                "deployment": "cf_123",
+                "domain": "bosh",
+                "instance_group": "diego_cell1",
+                "network": "default_123",
+                "query": "*"
+              },
+              {
+                "deployment": "cf_123",
+                "domain": "bosh",
+                "instance_group": "diego_cell2",
+                "network": "default",
+                "query": "*"
+              }
+            ]
+          }
+        ],
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bosh-dns-handlers",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor421047914/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "handlers.json.erb",
+        "DstPathEnd": "dns/handlers.json",
+        "Path": "/tmp/tar-CmdExtractor421047914/templates/handlers.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "handlers",
+        "Description": "List of generated handlers",
+        "Default": null,
+        "Example": [
+          {
+            "cache": {
+              "enabled": true
+            },
+            "domain": "local.internal.",
+            "source": {
+              "type": "http",
+              "url": "http://some.endpoint.local"
+            }
+          }
+        ],
+        "Examples": null
+      }
+    ]
+  }
+]
