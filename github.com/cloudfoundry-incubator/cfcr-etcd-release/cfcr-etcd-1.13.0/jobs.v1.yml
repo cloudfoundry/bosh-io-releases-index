@@ -1,0 +1,365 @@
+[
+  {
+    "Name": "acceptance-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor753783345/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/client.crt.erb",
+        "DstPathEnd": "config/client.crt",
+        "Path": "/tmp/tar-CmdExtractor753783345/templates/config/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/client.key.erb",
+        "DstPathEnd": "config/client.key",
+        "Path": "/tmp/tar-CmdExtractor753783345/templates/config/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "run.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor753783345/templates/run.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/integration_config.json.erb",
+        "DstPathEnd": "config/integration_config.json",
+        "Path": "/tmp/tar-CmdExtractor753783345/templates/config/integration_config.json.erb"
+      },
+      {
+        "SrcPathEnd": "config/ca.crt.erb",
+        "DstPathEnd": "config/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor753783345/templates/config/ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "acceptance"
+      },
+      {
+        "Name": "golang-1.13-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls.etcd_client.ca",
+        "Description": "TLS CA certificate for the etcd client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcd_client.certificate",
+        "Description": "TLS certificate for the etcd client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcd_client.private_key",
+        "Description": "TLS private key for the etcd client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bbr-etcd",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor381757835/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor381757835/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor381757835/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.sh.erb",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor381757835/templates/metadata.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pre-restore-lock.sh.erb",
+        "DstPathEnd": "bin/bbr/pre-restore-lock",
+        "Path": "/tmp/tar-CmdExtractor381757835/templates/pre-restore-lock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "post-restore-unlock.sh.erb",
+        "DstPathEnd": "bin/bbr/post-restore-unlock",
+        "Path": "/tmp/tar-CmdExtractor381757835/templates/post-restore-unlock.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "bbr.backup_one_restore_all",
+        "Description": "This property must be set to true in the manifest in order for bbr to work correctly with this job. BBR reads this property from the BOSH manifest to generate the correct artifact files.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "dummy-aliases",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor363870709/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "dns/aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor363870709/templates/dns/aliases.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  },
+  {
+    "Name": "etcd",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor459834863/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/etcdctl-root.crt.erb",
+        "DstPathEnd": "config/etcdctl-root.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcdctl-root.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/peer.crt.erb",
+        "DstPathEnd": "config/peer.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/peer.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/setup.erb",
+        "DstPathEnd": "bin/setup",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/setup.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-ca.crt.erb",
+        "DstPathEnd": "config/etcd-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcd-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcdctl-ca.crt.erb",
+        "DstPathEnd": "config/etcdctl-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcdctl-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcdctl.key.erb",
+        "DstPathEnd": "config/etcdctl.key",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcdctl.key.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd.key.erb",
+        "DstPathEnd": "config/etcd.key",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcd.key.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcdctl.crt.erb",
+        "DstPathEnd": "config/etcdctl.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcdctl.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bin/drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/drain.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ensure-member-healthy.erb",
+        "DstPathEnd": "bin/ensure-member-healthy",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/ensure-member-healthy.erb"
+      },
+      {
+        "SrcPathEnd": "bin/etcd.erb",
+        "DstPathEnd": "bin/etcd",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/etcd.erb"
+      },
+      {
+        "SrcPathEnd": "bin/etcdctl.erb",
+        "DstPathEnd": "bin/etcdctl",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/etcdctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/utils.sh.erb",
+        "DstPathEnd": "bin/utils.sh",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/utils.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bin/authentication-setup.erb",
+        "DstPathEnd": "bin/authentication-setup",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/authentication-setup.erb"
+      },
+      {
+        "SrcPathEnd": "config/peer-ca.crt.erb",
+        "DstPathEnd": "config/peer-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/peer-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/bin/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd.crt.erb",
+        "DstPathEnd": "config/etcd.crt",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcd.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcdctl-root.key.erb",
+        "DstPathEnd": "config/etcdctl-root.key",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/etcdctl-root.key.erb"
+      },
+      {
+        "SrcPathEnd": "config/peer.key.erb",
+        "DstPathEnd": "config/peer.key",
+        "Path": "/tmp/tar-CmdExtractor459834863/templates/config/peer.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "etcd"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls.etcdctl-root.private_key",
+        "Description": "Private key for etcdctl client authentication with CN root",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.peer.certificate",
+        "Description": "Certificate for peer authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcd.certificate",
+        "Description": "Certificate for etcd client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcdctl.certificate",
+        "Description": "Certificate for etcdctl client authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.peer.ca",
+        "Description": "CA for peer authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcd.ca",
+        "Description": "CA for etcd client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcdctl-root.certificate",
+        "Description": "Certificate for etcdctl client authentication with CN root",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "users",
+        "Description": "List of user's name, permissions, path, and whether the path is a prefix. Etcd will use these info to set up rbac rules for these users",
+        "Default": null,
+        "Example": "- name: root\n  password: ((etcd_user_root_password))\n  versions: [ \"v2\", \"v3\" ]\n- name: flanneld\n  permissions:\n    read:\n    - /coreos.com/network/*\n    write:\n    - /coreos.com/network/*\n  password: ((etcd_user_flanneld_password))\n  versions: [ \"v2\" ]\n- name: foo\n  permissions:\n    read:\n    - /bar\n  password: pass\n  versions: [ \"v2\", \"v3\" ]\n",
+        "Examples": null
+      },
+      {
+        "Name": "etcd.dns_suffix",
+        "Description": "If provided, used as a DNS suffix for all nodes in the etcd cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcd.private_key",
+        "Description": "Private key for etcd client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcdctl.ca",
+        "Description": "CA for etcdctl client authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.etcdctl.private_key",
+        "Description": "Private key for etcdctl client authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.peer.private_key",
+        "Description": "Private key for peer authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "etcd.metrics_protocol",
+        "Description": "IF provided with etcd.metrics_port, metrics endpoints listen with the protocol. http or https.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "etcd.metrics_port",
+        "Description": "IF provided with etcd.metrics_protocol, metrics endpoints listen on the port. 2379 and 2380 can not be used.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
