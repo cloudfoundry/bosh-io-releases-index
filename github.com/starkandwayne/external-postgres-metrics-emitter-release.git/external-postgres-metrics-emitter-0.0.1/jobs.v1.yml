@@ -1,0 +1,90 @@
+[
+  {
+    "Name": "external-postgres-metrics-emitter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor886104743/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor886104743/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor886104743/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor886104743/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor886104743/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor886104743/templates/loggregator_agent.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "external-postgres-metrics-emitter"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.address",
+        "Description": "IP address and port where the loggregator agent is running",
+        "Default": "127.0.0.1:3459",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cert",
+        "Description": "PEM-encoded tls client certificate to connect to loggregator ingress client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.key",
+        "Description": "PEM-encoded tls client key to connect to loggregator ingress client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "PEM-encoded ca certificate of loggregator ingress client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases",
+        "Description": "Array of database connections with host, port, username, password properties",
+        "Default": null,
+        "Example": {
+          "databases": [
+            {
+              "host": "127.0.0.1",
+              "password": "postgres",
+              "port": 5432,
+              "username": "postgres"
+            }
+          ]
+        },
+        "Examples": null
+      }
+    ]
+  }
+]
