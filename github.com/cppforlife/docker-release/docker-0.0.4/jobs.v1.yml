@@ -1,0 +1,383 @@
+[
+  {
+    "Name": "bootstrap_swarm",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor581589944/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor581589944/templates/run.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "docker"
+      },
+      {
+        "Name": "docker_swarm"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "listen_port",
+        "Description": "Port for swarm manage",
+        "Default": 2375,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_store",
+        "Description": "Docker's cluster store to use",
+        "Default": null,
+        "Example": "etcd://10.244.0.58:4001",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "docker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor317767594/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/cert",
+        "DstPathEnd": "config/cert",
+        "Path": "/tmp/tar-CmdExtractor317767594/templates/config/cert"
+      },
+      {
+        "SrcPathEnd": "config/private_key",
+        "DstPathEnd": "config/private_key",
+        "Path": "/tmp/tar-CmdExtractor317767594/templates/config/private_key"
+      },
+      {
+        "SrcPathEnd": "bin/cgroupfs-mount",
+        "DstPathEnd": "bin/cgroupfs-mount",
+        "Path": "/tmp/tar-CmdExtractor317767594/templates/bin/cgroupfs-mount"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor317767594/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/props.sh",
+        "DstPathEnd": "bin/props.sh",
+        "Path": "/tmp/tar-CmdExtractor317767594/templates/bin/props.sh"
+      },
+      {
+        "SrcPathEnd": "config/ca",
+        "DstPathEnd": "config/ca",
+        "Path": "/tmp/tar-CmdExtractor317767594/templates/config/ca"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "userland_proxy",
+        "Description": "Use userland proxy for loopback traffic",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_servers",
+        "Description": "Array of DNS servers to be used by Docker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "labels",
+        "Description": "Array of key=value labels for the daemon",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "HTTPS proxy that Docker should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_ulimits",
+        "Description": "Array of default ulimits for containers",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "iptables",
+        "Description": "Enable Docker's addition of iptables rules",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cidr_prefix",
+        "Description": "CIDR notation prefix (first 2 octets) for the network bridges IP",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "exec_options",
+        "Description": "Array of exec driver options",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry_mirrors",
+        "Description": "Array of preferred Docker registry mirrors",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "inside_container",
+        "Description": "This job is running inside another container",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "group",
+        "Description": "Group which will own the Docker services",
+        "Default": "vcap",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_address",
+        "Description": "TCP address where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "HTTP proxy that Docker should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_gateway_v6",
+        "Description": "Container default gateway IPv6 address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ip_masq",
+        "Description": "Enable IP masquerading for bridge's IP range",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Set the logging level (debug, info, warn, error, fatal)",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "selinux_enable",
+        "Description": "Enable selinux support",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "storage_options",
+        "Description": "Array of storage driver options",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "List of comma-separated hosts that Docker should skip connecting to the proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "user",
+        "Description": "User which will own the Docker services",
+        "Default": "root",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ipv6",
+        "Description": "Enable IPv6 networking",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "storage_driver",
+        "Description": "Use a specific storage driver",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls",
+        "Description": "TLS certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_store",
+        "Description": "Cluster store URL",
+        "Default": null,
+        "Example": "etcd://some-host:port",
+        "Examples": null
+      },
+      {
+        "Name": "bridge",
+        "Description": "Name of the network bridge to attach containers (defaults to docker0)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "icc",
+        "Description": "Allow unrestricted inter-container and Docker daemon host communication",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_gateway",
+        "Description": "Container default gateway IPv4 address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_domains",
+        "Description": "Array of DNS search domains to be used by Docker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "insecure_registries",
+        "Description": "Array of insecure registries (no certificate verification for HTTPS and enable HTTP fallback)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ip_forward",
+        "Description": "Enable net.ipv4.ip_forward and IPv6 forwarding",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mtu",
+        "Description": "Set the containers network MTU (if no value is provided: default to the default route MTU or 1500 if no default route is available)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "TCP port where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Default": "4243",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug",
+        "Description": "Enable debug mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "docker-tools",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor853642860/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "docker",
+        "DstPathEnd": "bin/docker",
+        "Path": "/tmp/tar-CmdExtractor853642860/templates/docker"
+      },
+      {
+        "SrcPathEnd": "ca",
+        "DstPathEnd": "config/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor853642860/templates/ca"
+      },
+      {
+        "SrcPathEnd": "cert",
+        "DstPathEnd": "config/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor853642860/templates/cert"
+      },
+      {
+        "SrcPathEnd": "private_key",
+        "DstPathEnd": "config/key.pem",
+        "Path": "/tmp/tar-CmdExtractor853642860/templates/private_key"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tls",
+        "Description": "Client TLS certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "address",
+        "Description": "Docker daemon connection address",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Docker daemon connection port",
+        "Default": 4243,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
