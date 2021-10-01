@@ -1,0 +1,249 @@
+[
+  {
+    "Name": "cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor810584949/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi_ctl.erb",
+        "DstPathEnd": "bin/cpi_ctl",
+        "Path": "/tmp/tar-CmdExtractor810584949/templates/cpi_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor810584949/templates/cpi.json.erb"
+      },
+      {
+        "SrcPathEnd": "sudoers",
+        "DstPathEnd": "config/sudoers",
+        "Path": "/tmp/tar-CmdExtractor810584949/templates/sudoers"
+      },
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor810584949/templates/cpi.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cpi.actions.disks_dir",
+        "Description": "Directory where disks are stored",
+        "Default": "/var/vcap/store/cpi/disks",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.host_ip",
+        "Description": "IP address of the host that will be used by containers, must be the same as mbus IP",
+        "Default": null,
+        "Example": "10.254.50.4",
+        "Examples": null
+      },
+      {
+        "Name": "cpi.agent.ntp",
+        "Description": "NTP configuration used by deployed BOSH agents",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.agent.blobstore.options",
+        "Description": "Options for the blobstore used by deployed BOSH agents",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.warden.connect_address",
+        "Description": "Address warden client will use to connect (ip:port or sock path)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.host_ephemeral_bind_mounts_dir",
+        "Description": "Directory with sub-directories at which ephemeral disks are mounted on the host",
+        "Default": "/var/vcap/store/cpi/ephemeral_bind_mounts_dir",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.registry.password",
+        "Description": "Password for registry",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.host_persistent_bind_mounts_dir",
+        "Description": "Directory with sub-directories at which persistent disks are mounted on the host",
+        "Default": "/var/vcap/store/cpi/persistent_bind_mounts_dir",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.guest_ephemeral_bind_mount_path",
+        "Description": "Path at which ephemeral disk is mounted inside VMs",
+        "Default": "/var/vcap/data",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.agent_env_service",
+        "Description": "Type of Agent Env Service to use, e.g. registry or file",
+        "Default": "file",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.registry.host",
+        "Description": "Hostname of registry",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.agent.mbus",
+        "Description": "Mbus URL used by deployed BOSH agents",
+        "Default": null,
+        "Example": "nats://nats:nats-password@10.254.50.4:4222",
+        "Examples": null
+      },
+      {
+        "Name": "cpi.agent.blobstore.provider",
+        "Description": "Provider type for the blobstore used by deployed BOSH agents (e.g. dav, s3)",
+        "Default": "dav",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.stemcells_dir",
+        "Description": "Directory where stemcells are stored",
+        "Default": "/var/vcap/store/cpi/stemcells",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.registry.username",
+        "Description": "Username for registry",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.warden.connect_network",
+        "Description": "Connection type warden client will use to connect (tcp or unix)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.guest_persistent_bind_mounts_dir",
+        "Description": "Directory with sub-directories at which persistent disks are mounted inside VMs",
+        "Default": "/warden-cpi-dev",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cpi.actions.registry.port",
+        "Description": "Port of registry",
+        "Default": 6301,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "warden",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor590497135/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "warden_ctl.erb",
+        "DstPathEnd": "bin/warden_ctl",
+        "Path": "/tmp/tar-CmdExtractor590497135/templates/warden_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "warden-linux"
+      },
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "iptables"
+      },
+      {
+        "Name": "shadow"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "warden.allow_networks",
+        "Description": "List of CIDR blocks to which containers will be allowed access (applied after deny).",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden.network_pool",
+        "Description": "Network pool CIDR for containers; each container will get a /30",
+        "Default": "10.254.0.0/16",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden.kernel_network_tuning_enabled",
+        "Description": "enable or disable kernel network tuning; disable for Warden CPI",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden.listen_network",
+        "Description": "Warden server connection mode (tcp or unix).",
+        "Default": "unix",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden.listen_address",
+        "Description": "Warden server listening address.",
+        "Default": "/var/vcap/data/warden/warden.sock",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden.disk_quota_enabled",
+        "Description": "Enforce disk quotas.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden.deny_networks",
+        "Description": "List of CIDR blocks to which containers will be denied access.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
