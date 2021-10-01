@@ -1,0 +1,394 @@
+[
+  {
+    "Name": "guest-additions",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor349192978/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor349192978/templates/pre-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "shared_folders",
+        "Description": "A list of shared folders",
+        "Default": [],
+        "Example": [
+          {
+            "guest_path": "/any/path/here"
+          }
+        ],
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "virtualbox_cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor651618324/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor651618324/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor651618324/templates/cpi.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "virtualbox_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "blobstore.s3_port",
+        "Description": "Port of blobstore server used by s3 blobstore plugin",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.path",
+        "Description": "local blobstore path",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.mbus",
+        "Description": "Agent mbus",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "Username to connect to nats with",
+        "Default": "nats",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.credentials_source",
+        "Description": "Where to get AWS credentials for the virtualbox cpi. This can be set to `static` for to use an `access_key_id` and `secret_access_key` or `env_or_profile` to get the credentials from environment variables or an EC2 instance profile.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.s3_port",
+        "Description": "Port of agent blobstore server used by s3 blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_multipart_threshold",
+        "Description": "Simple blobstore threshold for multipart uploads",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.port",
+        "Description": "Port of blobstore server used by simple blobstore plugin",
+        "Default": 25250,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.agent.password",
+        "Description": "Password agent uses to connect to blobstore used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "store_dir",
+        "Description": "Directory path to use to store stemcells, disks, and VMs managed by VirtualBox ('~' will be expanded)",
+        "Default": "~/.bosh_virtualbox_cpi",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.host",
+        "Description": "Host of blobstore server used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.access_key_id",
+        "Description": "AWS access_key_id used by s3 blobstore plugin (Required when blobstore.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_force_path_style",
+        "Description": "Whether the blobstore plugin will always use path style for bucket access",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.agent.user",
+        "Description": "Username agent uses to connect to blobstore used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "Port that the nats server listens on",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.secret_access_key",
+        "Description": "AWS secret_access_key for agent used by s3 blobstore plugin (Required when blobstore.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.s3_force_path_style",
+        "Description": "Whether the agent blobstore plugin will always use path style for bucket access",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Username to use when SSH-ing into machine that's running VirtualBox",
+        "Default": "ubuntu",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "No proxy environment variable",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.address",
+        "Description": "Address for agent to connect to blobstore server used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.provider",
+        "Description": "Provider of the blobstore used by director and agent (dav|simple|s3)",
+        "Default": "dav",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_region",
+        "Description": "AWS region used by s3 blobstore plugin (Required when blobstore.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "Http proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "host",
+        "Description": "Address where VirtualBox is running. If not set, assumes that VirtualBox CLI is accessible.",
+        "Default": "",
+        "Example": "192.168.50.1",
+        "Examples": null
+      },
+      {
+        "Name": "bin_path",
+        "Description": "Path to VBoxManage binary on the SSH-ed machine",
+        "Default": "VBoxManage",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.bucket_name",
+        "Description": "AWS S3 Bucket used by s3 blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.secret_access_key",
+        "Description": "AWS secret_access_key used by s3 blobstore plugin (Required when blobstore.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.use_ssl",
+        "Description": "Whether the simple blobstore plugin should use SSL to connect to the blobstore server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.ssl_verify_peer",
+        "Description": "Whether the simple blobstore plugin should verify its peer when using SSL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password to connect to nats with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.ssl_verify_peer",
+        "Description": "Whether the agent blobstore plugin should verify its peer when using SSL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.s3_signature_version",
+        "Description": "Signature version used to connect to an s3 blobstore",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ntp",
+        "Description": "List of ntp server IPs. pool.ntp.org attempts to return IPs closest to your location, but you can still specify if needed.",
+        "Default": [
+          "0.pool.ntp.org",
+          "1.pool.ntp.org"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.access_key_id",
+        "Description": "AWS access_key_id for agent used by s3 blobstore plugin (Required when blobstore.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.s3_region",
+        "Description": "AWS region for agent used by s3 blobstore plugin (Required when blobstore.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.host",
+        "Description": "Host of agent blobstore server used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.address",
+        "Description": "Address of blobstore server used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "Https proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "private_key",
+        "Description": "Private key to use when SSH-ing into machine that's running VirtualBox",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "auto_enable_networks",
+        "Description": "Automatically enabled necessary networks on first use.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.s3_multipart_threshold",
+        "Description": "Agent blobstore threshold for multipart uploads",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.credentials_source",
+        "Description": "Where to get AWS credentials for the virtualbox cpi. This can be set to `static` for to use an `access_key_id` and `secret_access_key` or `env_or_profile` to get the credentials from environment variables or an EC2 instance profile.",
+        "Default": "static",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_signature_version",
+        "Description": "Signature version used to connect to an s3 blobstore",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "storage_controller",
+        "Description": "For VirtualBox 6.1+ only sata works. Available: scsi, ide or sata.",
+        "Default": "sata",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore.use_ssl",
+        "Description": "Whether the agent blobstore plugin should use SSL to connect to the blobstore server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
