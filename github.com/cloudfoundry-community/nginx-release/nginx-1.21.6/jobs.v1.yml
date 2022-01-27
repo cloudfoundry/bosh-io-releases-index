@@ -1,0 +1,98 @@
+[
+  {
+    "Name": "nginx",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor865518116/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ssl_chained_cert.erb",
+        "DstPathEnd": "etc/ssl_chained.crt.pem",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/ssl_chained_cert.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.sh",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/ctl.sh"
+      },
+      {
+        "SrcPathEnd": "nginx.conf.erb",
+        "DstPathEnd": "etc/nginx.conf",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/nginx.conf.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "ssl_key.erb",
+        "DstPathEnd": "etc/ssl.key.pem",
+        "Path": "/tmp/tar-CmdExtractor865518116/templates/ssl_key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nginx"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ssl_key",
+        "Description": "The SSL key, can be empty, should be in PEM format. Its location is\n/var/vcap/jobs/nginx/etc/ssl.key.pem\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl_chained_cert",
+        "Description": "This is the chained SSL certificate for the website; This is in PEM\nformat.  The topmost certificate should be the certificate for the\nwebsite itself.  (e.g. in the case of sslip.io, the certificate for\nsslip.io). The second-from-top certificate should be the intermediate\ncertificate (e.g.  \"COMODO RSA Domain Validation Secure Server CA\"). If\nthere is another intermediate certificate, that should follow (e.g.\n\"COMODO RSA Certification Authority\").  There is no reason to include the\nroot certificate, but there is no harm in including it either. It should\nbe the last certificate (bottom-most). Its location is\n/var/vcap/jobs/nginx/etc/ssl_chained.crt.pem\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nginx_conf",
+        "Description": "The contents of nginx.conf, the primary configuration file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain",
+        "Description": "A placeholder to add a custom drain script",
+        "Default": "#!/bin/bash\necho 0\n",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pre_start",
+        "Description": "The contents of the pre-start script. This can be used to populate the\nnginx server's document_root, e.g.\n  #!/bin/bash -ex\n  NGINX_DIR=/var/vcap/store/nginx\n  if [ ! -d $NGINX_DIR ]; then\n    mkdir -p $(basename $NGINX_DIR)\n    cd $(basename $NGINX_DIR)\n    curl -L https://github.com/cunnie/sslip.io/archive/v1.tar.gz |\n      tar xzf -\n    mv sslip.io-1 $NGINX_DIR\n    chown -R vcap:vcap $NGINX_DIR\n  fi\n",
+        "Default": "#!/bin/bash",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "post_start",
+        "Description": "A placeholder to to run steps after nginx has started",
+        "Default": "#!/bin/bash",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
