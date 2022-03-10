@@ -1,0 +1,263 @@
+[
+  {
+    "Name": "broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor341284916/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/broker",
+        "DstPathEnd": "bin/broker",
+        "Path": "/tmp/tar-CmdExtractor341284916/templates/bin/broker"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "vault-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "guid",
+        "Description": "A unique GUID to use for this service broker inside of Cloud Foundry.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service.tags",
+        "Description": "A list of tags to apply to the service.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend.address",
+        "Description": "The address to use when accessing the Vault to set up new policies and manage provisioned services.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend.token",
+        "Description": "The token that the service broker will use when interacting with the Vault.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend.skip_verify",
+        "Description": "Instructs the broker to ignore SSL/TLS certificate problems (self-signedness, domain mismatch, expiration, etc.). Set this at your own risk.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Binding port for broker API",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "The username for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "The password for authenticating interaction with Cloud Foundry.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service.name",
+        "Description": "Name of the service, as shown in the marketplace.",
+        "Default": "vault",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service.description",
+        "Description": "A description of the service, also for the marketplace.",
+        "Default": "Vault Secure Storage",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend.advertise",
+        "Description": "The address to hand out to bound applications, along with their credentials.  Defaults to `backend.address`.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "vault",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor760663430/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/vault",
+        "DstPathEnd": "bin/vault",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/bin/vault"
+      },
+      {
+        "SrcPathEnd": "bin/strongbox",
+        "DstPathEnd": "bin/strongbox",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/bin/strongbox"
+      },
+      {
+        "SrcPathEnd": "config/vault.conf",
+        "DstPathEnd": "config/vault.config",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/config/vault.conf"
+      },
+      {
+        "SrcPathEnd": "config/consul.conf",
+        "DstPathEnd": "config/consul.json",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/config/consul.conf"
+      },
+      {
+        "SrcPathEnd": "tls/peer/ca.pem",
+        "DstPathEnd": "tls/peer/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/tls/peer/ca.pem"
+      },
+      {
+        "SrcPathEnd": "tls/peer/key.pem",
+        "DstPathEnd": "tls/peer/key.pem",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/tls/peer/key.pem"
+      },
+      {
+        "SrcPathEnd": "bin/consul",
+        "DstPathEnd": "bin/consul",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/bin/consul"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "tls/vault/cert.pem",
+        "DstPathEnd": "tls/vault/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/tls/vault/cert.pem"
+      },
+      {
+        "SrcPathEnd": "tls/vault/key.pem",
+        "DstPathEnd": "tls/vault/key.pem",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/tls/vault/key.pem"
+      },
+      {
+        "SrcPathEnd": "tls/peer/cert.pem",
+        "DstPathEnd": "tls/peer/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor760663430/templates/tls/peer/cert.pem"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "consul"
+      },
+      {
+        "Name": "vault"
+      },
+      {
+        "Name": "certifier"
+      },
+      {
+        "Name": "strongbox"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "safe.tls.key",
+        "Description": "TLS private key to use for securing communication with clients.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.port",
+        "Description": "TCP port to use for peer-to-peer communication",
+        "Default": 8100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.tls.use_self_signed_certs",
+        "Description": "Indicate whether we generate self-signed peer certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.port",
+        "Description": "TCP port to bind the Vault on.  Defaults to 443.",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.tls.certificate",
+        "Description": "TLS certificate to use for securing communnication with clients.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.tls.certificate",
+        "Description": "TLS certificate to use for peer-to-peer communication.\nIf not provided, a self-signed certificate will be automatically generated and used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.tls.key",
+        "Description": "TLS private key to use for peer-to-peer communication.\nIf not provided, a self-signed certificate will be automatically generated and used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.tls.verify",
+        "Description": "Verify the TLS certificates presented by the Consul backend",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.ui",
+        "Description": "If set to true, the Vault UI will be enabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.force_bind_default_ip",
+        "Description": "Forces Consul agent to bind to the default ip address, necessary when using non\nRFC1918 space in a private context.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "safe.peer.tls.ca",
+        "Description": "TLS CA certificate to use for verifying peer-to-peer communication.\nIf not provided, a self-signed certificate will be automatically generated and used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
