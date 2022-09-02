@@ -1,0 +1,417 @@
+[
+  {
+    "Name": "mc",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor430612129/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor430612129/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/CAs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor430612129/templates/ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "mc"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "script",
+        "Description": "BASH script to run mc commands.\n\nThe pre-configured host configuration is called 'myminio'. For example,\nif you need to create a bucket, you can write such code:\n\n    mc mb myminio/((bucket_name))\n\nSupport for TLS-enabled minio server is provided with a pre-configured\nconfig folder that is abailable at '/var/vcap/jobs/mc/config'. There is\nlocated the custom Certificate Athority certs that the 'mc' should\ntrust. So, in a TLS-enabled server, the example bucket creation above\nbecomes:\n\n    mc --config-folder /var/vcap/jobs/mc/config mb myminio/((bucket_name))\n\nNote: we advise you to use the '--ignore-existing' flag to 'mc' when\nwriting bucket creation code as above.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "minio-azure",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor723761531/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor723761531/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "health_check.erb",
+        "DstPathEnd": "bin/health_check",
+        "Path": "/tmp/tar-CmdExtractor723761531/templates/health_check.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "minio"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "pcf_tile_version",
+        "Description": "PCF Tile version",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.accesskey",
+        "Description": "The access key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.secretkey",
+        "Description": "The secret key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "The port on which the Minio server should bind",
+        "Default": 9000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "console_port",
+        "Description": "The port on which the Minio Console UI should bind",
+        "Default": 9001,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "minio-gcs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor050036581/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "health_check.erb",
+        "DstPathEnd": "bin/health_check",
+        "Path": "/tmp/tar-CmdExtractor050036581/templates/health_check.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor050036581/templates/ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "minio"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "console_port",
+        "Description": "The port on which the Minio Console UI should bind",
+        "Default": 9001,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pcf_tile_version",
+        "Description": "PCF Tile version",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.accesskey",
+        "Description": "The access key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.secretkey",
+        "Description": "The secret key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.googlecredentials",
+        "Description": "Google credentials JSON",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.googleprojectid",
+        "Description": "Google Project ID",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "The port on which the Minio server should bind",
+        "Default": 9000,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "minio-nas",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor260938975/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor260938975/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "health_check.erb",
+        "DstPathEnd": "bin/health_check",
+        "Path": "/tmp/tar-CmdExtractor260938975/templates/health_check.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "minio"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "credential.accesskey",
+        "Description": "The access key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.secretkey",
+        "Description": "The secret key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "data_dir",
+        "Description": "The directory on NAS mount point which needs to be exported as S3.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_dir",
+        "Description": "The directory on NAS mount point which should be used as Minio's config directory.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "The port on which the Minio server should bind",
+        "Default": 9000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "console_port",
+        "Description": "The port on which the Minio Console UI should bind",
+        "Default": 9001,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pcf_tile_version",
+        "Description": "PCF Tile version",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "minio-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor388267625/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "health_check.erb",
+        "DstPathEnd": "bin/dns/healthy",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/health_check.erb"
+      },
+      {
+        "SrcPathEnd": "dns/aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/dns/aliases.json.erb"
+      },
+      {
+        "SrcPathEnd": "public.crt.erb",
+        "DstPathEnd": "config/public.crt",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/public.crt.erb"
+      },
+      {
+        "SrcPathEnd": "private.key.erb",
+        "DstPathEnd": "config/private.key",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/private.key.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor388267625/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "minio"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "pcf_tile_version",
+        "Description": "PCF Tile version",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_alias",
+        "Description": "When set, the nodes in the minio cluster will communicate with each other using '$NODE_ID.$DNS_ALIAS' as the hostname.\nHTTPS certs should use this domain as the Common Name plus a wildcard Subject Alt Name, e.g. 'minio-server.service.cf.internal' and '*.minio-server.service.cf.internal'.\nThis is a temporary workaround until BOSH DNS supports autogenerated certs for BOSH DNS records.\n",
+        "Default": null,
+        "Example": "minio-server.service.cf.internal",
+        "Examples": null
+      },
+      {
+        "Name": "licensekey",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.secretkey",
+        "Description": "The secret key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "console_port",
+        "Description": "The port on which the Minio Console UI should bind",
+        "Default": 9001,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "envs",
+        "Description": "environmental variable settings for MinIO process",
+        "Default": "",
+        "Example": "export MINIO_STORAGE_CLASS_STANDARD=EC:2\nexport MINIO_BROWSER=off\n",
+        "Examples": null
+      },
+      {
+        "Name": "ca_cert",
+        "Description": "PEM-encoded certificate used to sign the certificates of the other Minio nodes.\nRequired if `server_cert` is specified and `server_cert` was signed by a third-party CA.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credential.accesskey",
+        "Description": "The access key the server should accept",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "The port on which the Minio server should bind",
+        "Default": 9000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_cert",
+        "Description": "PEM-encoded certificate for the Minio server. When set, nodes will communicate with each other over HTTPS rather than HTTP.\nSee 'dns_alias' property below for hostname information.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_key",
+        "Description": "PEM-encoded private key for the Minio server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor059284611/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor059284611/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/CAs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor059284611/templates/ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "mc"
+      }
+    ],
+    "Properties": null
+  }
+]
