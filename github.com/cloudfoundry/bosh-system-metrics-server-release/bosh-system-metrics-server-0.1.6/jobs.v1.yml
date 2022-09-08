@@ -1,0 +1,138 @@
+[
+  {
+    "Name": "system-metrics-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor457107496/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor457107496/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor457107496/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "uaa-ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor457107496/templates/uaa-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/system-metrics/server.crt",
+        "Path": "/tmp/tar-CmdExtractor457107496/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/system-metrics/server.key",
+        "Path": "/tmp/tar-CmdExtractor457107496/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "run_plugin.sh.erb",
+        "DstPathEnd": "bin/bosh-monitor/run.sh",
+        "Path": "/tmp/tar-CmdExtractor457107496/templates/run_plugin.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "system-metrics-server"
+      },
+      {
+        "Name": "system-metrics-plugin"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "bosh.director.addr",
+        "Description": "The address and port of the director",
+        "Default": "localhost:25555",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.egress_port",
+        "Description": "The port which the grpc metrics server will listen on",
+        "Default": 25595,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.ingress_port",
+        "Description": "The port which the grpc metrics server will listen on",
+        "Default": 25594,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.trusted_uaa_authority",
+        "Description": "The client authority required to connect",
+        "Default": "bosh.system_metrics.read",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.tls.key",
+        "Description": "The TLS private key for the system metrics server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_id",
+        "Description": "The UAA client identity which has access to check token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "The UAA client secret which has access to check token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.tls.cert",
+        "Description": "The TLS certificate for the system metrics server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.health_port",
+        "Description": "The port used to obtain health metrics on localhost",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_metrics_server.pprof_port",
+        "Description": "The port for the pprof endpoint on localhost",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.url",
+        "Description": "The UAA url",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca",
+        "Description": "The UAA CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
