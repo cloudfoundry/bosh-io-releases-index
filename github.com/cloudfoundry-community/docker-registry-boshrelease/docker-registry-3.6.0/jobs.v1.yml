@@ -1,0 +1,852 @@
+[
+  {
+    "Name": "cache",
+    "Description": "Redis provides caching features for Docker Registry",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor457866166/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor457866166/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor457866166/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor457866166/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/redis.conf",
+        "DstPathEnd": "config/redis.conf",
+        "Path": "/tmp/tar-CmdExtractor457866166/templates/config/redis.conf"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor457866166/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor457866166/templates/helpers/ctl_setup.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "redis"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "docker.cache.redis.bind",
+        "Description": "IP Address to bind the Redis server to",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.port",
+        "Description": "What port to run Redis server on",
+        "Default": 6379,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.maxmemory",
+        "Description": "Don't use more memory than the specified amount of bytes.",
+        "Default": null,
+        "Example": 1000000000000,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.timeout",
+        "Description": "Close the connection after a client is idle for N seconds (0 to disable)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.tcp_keepalive",
+        "Description": "TCP keepalive. If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients if no communication",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.loglevel",
+        "Description": "Log verbosity level for Redis cache server",
+        "Default": "warning",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.password",
+        "Description": "Require clients to issue AUTH \u003cPASSWORD\u003e before processing any command",
+        "Default": null,
+        "Example": "mypasswordredis",
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.maxclients",
+        "Description": "Set the max number of connected clients at the same time",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.redis.databases",
+        "Description": "Set the number of redis databases.",
+        "Default": 16,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "debian_nfs_server",
+    "Description": "The NFS Server provides a storage server that can be used with the Cloud\nControllers to store uploaded application source code and compiled\napplication assets.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor444568152/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor444568152/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/post-stop",
+        "DstPathEnd": "bin/post-stop",
+        "Path": "/tmp/tar-CmdExtractor444568152/templates/bin/post-stop"
+      },
+      {
+        "SrcPathEnd": "config/exports",
+        "DstPathEnd": "config/exports",
+        "Path": "/tmp/tar-CmdExtractor444568152/templates/config/exports"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nfs-debs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfs_server.no_root_squash",
+        "Description": "Exports /var/vcap/store with no_root_squash when set to true",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.allow_from_entries",
+        "Description": "An array of Hosts, Domains, Wildcard Domains, CIDR Networks and/or IPs from which /var/vcap/store is accessible",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.idmapd_domain",
+        "Description": "Domain name for NFS idmapd -- DEPRECATED",
+        "Default": "localdomain",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.pipefs_directory",
+        "Description": "Pipefs directory for NFS idmapd -- DEPRECATED",
+        "Default": "/var/lib/nfs/rpc_pipef",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfs_mounter",
+    "Description": "The NFS Mounter sets up an NFS mount at a specific location. It can be used with the Cloud Controller to save assets to the NFS Server.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor112554826/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor112554826/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/post-stop",
+        "DstPathEnd": "bin/post-stop",
+        "Path": "/tmp/tar-CmdExtractor112554826/templates/bin/post-stop"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nfs-debs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfs_server.address",
+        "Description": "NFS server for droplets and apps",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.share",
+        "Description": "Path to share from the remote NFS server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.nfsv4",
+        "Description": "bool to use NFS4",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.idmapd_domain",
+        "Description": "Domain name for NFS idmapd",
+        "Default": "localdomain",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.pipefs_directory",
+        "Description": "Pipefs directory for NFS idmapd",
+        "Default": "/var/lib/nfs/rpc_pipefs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfs_server.share_path",
+        "Description": "Location to mount the nfs share",
+        "Default": "/var/vcap/nfs",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "proxy",
+    "Description": "Nginx provides proxy and auth functionalities for Docker Registry",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor367492876/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "tls/cert.pem",
+        "DstPathEnd": "tls/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/tls/cert.pem"
+      },
+      {
+        "SrcPathEnd": "tls/dhparam.pem",
+        "DstPathEnd": "tls/dhparam.pem",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/tls/dhparam.pem"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "tls/key.pem",
+        "DstPathEnd": "tls/key.pem",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/tls/key.pem"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/nginx.conf",
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/config/nginx.conf"
+      },
+      {
+        "SrcPathEnd": "config/auth/registry.erb",
+        "DstPathEnd": "config/auth/registry",
+        "Path": "/tmp/tar-CmdExtractor367492876/templates/config/auth/registry.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nginx"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "docker.proxy.readonly_port",
+        "Description": "Port to listen to for only GET incoming connections. Defaults to 444 if ssl, otherwise 81",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.ssl.cert",
+        "Description": "PEM-encoded SSL certificate for HTTPS proxy operation",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.ssl.protocols",
+        "Description": "TLS Protocols to enable in the Docker proxy (space separated)",
+        "Default": "TLSv1.1 TLSv1.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.ssl.dhparam",
+        "Description": "Custom DH param for nginx to use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.keepalive_timeout",
+        "Description": "Time to keep a keep-alive connection open",
+        "Default": "75s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.keepalive_timeout_header",
+        "Description": "Show Keep-alive header",
+        "Default": "20s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.backend.hosts",
+        "Description": "A list of the IP addresses of each Docker proxy to load-balance",
+        "Default": [
+          "127.0.0.1"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.ssl.key",
+        "Description": "PEM-encoded private key for HTTPS proxy operation",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.worker_priority",
+        "Description": "Priority of the worker processes",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.backend.port",
+        "Description": "TCP Port that each backend registry is listening on",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.address",
+        "Description": "IP address where to listen for incoming connections. (For all interfaces, do not use 0.0.0.0, use *)",
+        "Default": "*",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.loglevel",
+        "Description": "Error loglevel",
+        "Default": "error",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.auth_basic",
+        "Description": "If defined, it will enable Auth Basic authentication in the proxy",
+        "Default": null,
+        "Example": {
+          "user": "{PLAIN}password",
+          "user2": "$(openssl passwd -crypt PASSWORD)"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.only_auth_for_admin",
+        "Description": "If true, only administrative actions require authentication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.worker_processes",
+        "Description": "Number of worker processes",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.proxy.port",
+        "Description": "Port to listen to for all incoming connections. Defaults to 443 if ssl, otherwise 80",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "registry",
+    "Description": "Docker Registry v2 API",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor254188574/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/registry.conf",
+        "DstPathEnd": "config/registry.conf",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/config/registry.conf"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "tls/cert.pem",
+        "DstPathEnd": "tls/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/tls/cert.pem"
+      },
+      {
+        "SrcPathEnd": "tls/key.pem",
+        "DstPathEnd": "tls/key.pem",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/tls/key.pem"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/gcs.key",
+        "DstPathEnd": "config/gcs.key",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/config/gcs.key"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor254188574/templates/helpers/ctl_utils.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang"
+      },
+      {
+        "Name": "distribution"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "docker.registry.reporting",
+        "Description": "Configures error and metrics reporting tools. At the moment only two services are supported, New Relic and Bugsnag",
+        "Default": null,
+        "Example": {
+          "newrelic": {
+            "licensekey": "newreliclicensekey",
+            "name": "newrelicname"
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.notifications",
+        "Description": "Notifications are sent in response to manifest pushes and pulls and layer pushes and pulls",
+        "Default": null,
+        "Example": {
+          "endpoints": [
+            {
+              "backoff": "1s",
+              "headers": {
+                "Authorization": [
+                  "Bearer token"
+                ]
+              },
+              "name": "alistener",
+              "threshold": 5,
+              "timeout": "500ms",
+              "url": "https://mylistener.example.com/event"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.https_proxy",
+        "Description": "HTTPS proxy to access other resources, like the upstream docker registry.",
+        "Default": null,
+        "Example": "https://proxy.company.com:8443",
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.bind",
+        "Description": "What address to bind the Docker Registry v2 API",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.ssl.cert",
+        "Description": "PEM-encoded SSL certificate for HTTPS registry operation",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.ssl.key",
+        "Description": "PEM-encoded private key for HTTPS registry operation",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.root",
+        "Description": "Path (on-disk, locally) where the Docker registry should store its data (filesystem storage backend)",
+        "Default": "/var/vcap/store/registry",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.port",
+        "Description": "Port address of the cache host",
+        "Default": 6379,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.password",
+        "Description": "Password to access the cache host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.http_proxy",
+        "Description": "HTTP proxy to access other resources, like the upstream docker registry.",
+        "Default": null,
+        "Example": "http://proxy.company.com:8888",
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.port",
+        "Description": "What port to run the Docker Registry v2 API on",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.debug_endpoint_monit",
+        "Description": "Enable monit restart capability using the debug endpoint. Setting to true will enable the debug endpoint.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.health_cache_enabled",
+        "Description": "In case of cache is defined, enables a periodic health check on the redis host and port",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.mirror.password",
+        "Description": "Docker registry password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.host",
+        "Description": "IP address of the redis cache host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.relativeurls",
+        "Description": "Configure the registry to return relative URLs inm the Location headers, without the full hostname / IP.  This is not compatible with Docker 1.7 and prior.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.debug_endpoint_enabled",
+        "Description": "Debug endpoint enabled or disabled. It will create a log file with the dump of the health endpoint everytime the app it is stopped, useful with monit.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.storage",
+        "Description": "Defines which storage backend is in use, otherwise filesystem backend will be used",
+        "Default": null,
+        "Example": {
+          "s3": {
+            "accesskey": "awsaccesskey",
+            "bucket": "bucketname",
+            "chunksize": 5242880,
+            "encrypt": true,
+            "keyid": "mykeyid",
+            "region": "us-west-1",
+            "regionendpoint": "http://myobjects.local",
+            "rootdirectory": "/s3/object/name/prefix",
+            "secretkey": "awssecretkey",
+            "secure": true,
+            "v4auth": true
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.cookie",
+        "Description": "A secret cookie used to sign state against tampering.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.storage_delete",
+        "Description": "Enable the deletion of image blobs and manifests by digest",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.health_storagedriver_enabled",
+        "Description": "Enable periodic health check on the storage driver's backend storage",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.mirror.host",
+        "Description": "Enables a registry to be configured as a pull through cache to the official Docker Hub. See mirror for more information",
+        "Default": null,
+        "Example": "https://registry-1.docker.io",
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.pool",
+        "Description": "Configure the behavior of the Redis connection pool.",
+        "Default": {
+          "idletimeout": "300s",
+          "maxactive": 64,
+          "maxidle": 16
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.debug_endpoint",
+        "Description": "Debug endpoint can be used for monitoring registry metrics and health, as well as profiling",
+        "Default": "127.0.0.1:5001",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.ofiles",
+        "Description": "Open files (ulimit)",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cache.disabled",
+        "Description": "Set to true to disable blobdescriptor cache.  This can be useful in pullthrough cache deployments where a container may be cached as not existing if it hasnt finished uploading to the upstream registry.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.no_proxy",
+        "Description": "Comma separated list of ips, hosts to exclude from the HTTP proxy connections",
+        "Default": null,
+        "Example": "localhost,.local,.internal.mycompany.com,192.168.0.1,192.168.0.2",
+        "Examples": null
+      },
+      {
+        "Name": "docker.mirror.username",
+        "Description": "Docker registry username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.storage_disable_redirect",
+        "Description": "Route all data through the Registry, or redirect the client to the backend in order to download from there",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.storage_maintenance",
+        "Description": "Maintenance jobs for storage, upload purging and read-only mode are the only functions available",
+        "Default": {
+          "readonly": {
+            "enabled": false
+          },
+          "uploadpurging": {
+            "age": "168h",
+            "dryrun": false,
+            "enabled": true,
+            "interval": "24h"
+          }
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.loglevel",
+        "Description": "Sets the sensitivity of logging output. Permitted values are error, warn, info and debug",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry.endpoint",
+        "Description": "Externally-reachable address for the registry, as a fully qualified URL. If present, it is used when creating generated URLs. Otherwise, these URLs are derived from client requests",
+        "Default": null,
+        "Example": "https://myregistryaddress.org:5000",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor708795136/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor708795136/templates/bin/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "docker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "docker.smoke-tests.image",
+        "Description": "Image to pull from Dockerhub",
+        "Default": "alpine",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.retag",
+        "Description": "Unique string to use for verifying a push",
+        "Default": "smoke-tests-95115f",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.registry.ip",
+        "Description": "IP address of hostname of the registry to test",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.registry.port",
+        "Description": "Port of the registry to test",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.registry.username",
+        "Description": "Username to use for authenticating (HTTP Basic Auth) to the registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.registry.password",
+        "Description": "Password to use for authenticating (HTTP Basic Auth) to the registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.ssl.enabled",
+        "Description": "Connect to the registry over SSL/TLS (requires the HTTPS proxy)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.smoke-tests.ssl.verify",
+        "Description": "Verify the SSL/TLS certificate of the registry",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
