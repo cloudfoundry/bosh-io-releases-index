@@ -1,0 +1,1118 @@
+[
+  {
+    "Name": "bootstrap",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor144411794/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor144411794/templates/errand.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor144411794/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bootstrap"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "mysql",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor235086228/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "mylogin.cnf.erb",
+        "DstPathEnd": "config/mylogin.cnf",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/mylogin.cnf.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "thermostat.yml.erb",
+        "DstPathEnd": "config/thermostat.yml",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/thermostat.yml.erb"
+      },
+      {
+        "SrcPathEnd": "init.sql.erb",
+        "DstPathEnd": "scripts/init.sql",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/init.sql.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/restore",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "mysql_tls_ca.pem.erb",
+        "DstPathEnd": "certificates/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/mysql_tls_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "mysql_tls_certificate.pem.erb",
+        "DstPathEnd": "certificates/server-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/mysql_tls_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "mysql_ctl.erb",
+        "DstPathEnd": "bin/mysql_ctl",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/mysql_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "my.cnf.erb",
+        "DstPathEnd": "config/my.cnf",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/my.cnf.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "mysql_tls_private_key.pem.erb",
+        "DstPathEnd": "certificates/server-key.pem",
+        "Path": "/tmp/tar-CmdExtractor235086228/templates/mysql_tls_private_key.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "auto-tune-mysql"
+      },
+      {
+        "Name": "mysql-restore"
+      },
+      {
+        "Name": "pxc"
+      },
+      {
+        "Name": "pxc-utils"
+      },
+      {
+        "Name": "thermostat"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "admin_password",
+        "Description": "Password for the MySQL server admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker_admin_password",
+        "Description": "Password for broker-admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_schema",
+        "Description": "A default schema to create",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_lower_case_table_names",
+        "Description": "Enable or disable the \"lower_case_table_names\" MySQL server variable via a boolean of true/false.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.username",
+        "Description": "Username used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "leader_follower.replication_mode",
+        "Description": "Which replication mode to use of asynchronous (`async`) or semi-synchronous (`semi-sync`)",
+        "Default": "async",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "read_only_admin_password",
+        "Description": "Password for the MySQL server read-only admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_collation",
+        "Description": "The collation configuration for the MySQL server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_metrics_password",
+        "Description": "Password for the MySQL metrics user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "userstat.enabled",
+        "Description": "Enables collection of user statistics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.password",
+        "Description": "Password used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_tls",
+        "Description": "MySQL Server TLS configuration",
+        "Default": null,
+        "Example": {
+          "properties": {
+            "mysql_tls": "((my_generated_certificate))"
+          },
+          "variables": [
+            {
+              "name": "my_generated_certificate",
+              "options": {
+                "ca": "/services/tls_ca",
+                "common_name": "some-common-name",
+                "extended_key_usage": [
+                  "server_auth"
+                ]
+              },
+              "type": "certificate"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "enforce_client_tls",
+        "Description": "Require a secure transport for all client connections to the MySQL database server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "audit_log.enabled",
+        "Description": "If the Audit Log should be enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_char_set",
+        "Description": "The character set configuration for the MySQL server",
+        "Default": "utf8",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-server.port",
+        "Description": "Port number used for sending backup requests",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "leader_follower.enabled",
+        "Description": "Indicate that the VM is spun up with the intention of replication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "leader_follower.semi_sync_ack_timeout_in_ms",
+        "Description": "The acknowledgment timeout before the replication mode will fall back to asynchronous",
+        "Default": 9223372036854775807,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "workload",
+        "Description": "Workload configuration. Can be one of \"mixed,read-heavy\"",
+        "Default": "mixed",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "replication_admin_password",
+        "Description": "Password for the MySQL replication-admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "replication_password",
+        "Description": "Password for the MySQL replication user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_backup_password",
+        "Description": "Password for mysql-backup user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "local_infile",
+        "Description": "Enable the ability to send files from the client host",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor272087526/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor272087526/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "proxy-ctl.erb",
+        "DstPathEnd": "bin/proxy-ctl",
+        "Path": "/tmp/tar-CmdExtractor272087526/templates/proxy-ctl.erb"
+      },
+      {
+        "SrcPathEnd": "proxy.yml.erb",
+        "DstPathEnd": "config/proxy.yml",
+        "Path": "/tmp/tar-CmdExtractor272087526/templates/proxy.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "proxy"
+      },
+      {
+        "Name": "pxc-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "port",
+        "Description": "Port for the proxy to listen on",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthcheck_timeout_millis",
+        "Description": "Timeout (milliseconds) before assuming a backend is unhealthy",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_aggregator_port",
+        "Description": "Port for the proxy aggregator API to listen on",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_port",
+        "Description": "Port for the proxy API to listen on",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "consul_service_name",
+        "Description": "If consul_enabled is true, proxy will register with consul using this name\n",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_open_files",
+        "Description": "Configure this number to be twice as large as mysql.max_connections\n",
+        "Default": 3000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "profiling_enabled",
+        "Description": "When set to true, the proxy will listen on port 6060 and enable\nprofiling of the process\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "shutdown_delay",
+        "Description": "If using a load balancer above the proxies,\nenter your load balancer's unhealthy total threshold time here in seconds.\nE.g., if your LB polls every 30 seconds, and immediately fails over upon failure,\nthen set this property to 30 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_port",
+        "Description": "Port for checking the health of the proxy process",
+        "Default": 1936,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "consul_enabled",
+        "Description": "Enable discovery of proxy through consul\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "startup_delay",
+        "Description": "If using a load balancer above the proxies,\nenter your load balancer's healthy total threshold time here in seconds.\nE.g., if your LB polls every 30 seconds and requires 3 successful attempts,\nthen set this property to 90 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "type",
+        "Description": "Used by consumers of the database link to configure database properties",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_uri",
+        "Description": "Optional, Base URI registered to the proxies.\nUsed by the proxy aggregator.\n",
+        "Default": null,
+        "Example": "proxy-cf-mysql.my-system-domain.com",
+        "Examples": null
+      },
+      {
+        "Name": "api_force_https",
+        "Description": "Redirect all HTTP requests to the API to HTTPS",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_username",
+        "Description": "Username for Basic Auth used to secure API",
+        "Default": "proxy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_password",
+        "Description": "Password for Basic Auth used to secure API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "pxc-mysql",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor164253704/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "mylogin.cnf.erb",
+        "DstPathEnd": "config/mylogin.cnf",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/mylogin.cnf.erb"
+      },
+      {
+        "SrcPathEnd": "pxc-ctl.erb",
+        "DstPathEnd": "bin/pxc-ctl",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/pxc-ctl.erb"
+      },
+      {
+        "SrcPathEnd": "pxc-sudoers",
+        "DstPathEnd": "config/pxc-sudoers",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/pxc-sudoers"
+      },
+      {
+        "SrcPathEnd": "galera-cert.pem.erb",
+        "DstPathEnd": "certificates/galera-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "drain.sh",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/drain.sh"
+      },
+      {
+        "SrcPathEnd": "pre-start-execution.sh.erb",
+        "DstPathEnd": "bin/pre-start-execution",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/pre-start-execution.sh.erb"
+      },
+      {
+        "SrcPathEnd": "galera-agent-setup.sql.erb",
+        "DstPathEnd": "config/galera-agent-setup.sql",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-agent-setup.sql.erb"
+      },
+      {
+        "SrcPathEnd": "cluster_health_logger_setup.sql.erb",
+        "DstPathEnd": "config/cluster_health_logger_setup.sql",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/cluster_health_logger_setup.sql.erb"
+      },
+      {
+        "SrcPathEnd": "disable_mysql_cli_history.sh.erb",
+        "DstPathEnd": "config/disable_mysql_cli_history.sh",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/disable_mysql_cli_history.sh.erb"
+      },
+      {
+        "SrcPathEnd": "audit_logs.logrotate.erb",
+        "DstPathEnd": "config/mysql_clustered_audit_logs.logrotate",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/audit_logs.logrotate.erb"
+      },
+      {
+        "SrcPathEnd": "db_init.erb",
+        "DstPathEnd": "config/db_init",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/db_init.erb"
+      },
+      {
+        "SrcPathEnd": "my.cnf.erb",
+        "DstPathEnd": "config/my.cnf",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/my.cnf.erb"
+      },
+      {
+        "SrcPathEnd": "galera-agent-ctl.erb",
+        "DstPathEnd": "bin/galera-agent-ctl",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-agent-ctl.erb"
+      },
+      {
+        "SrcPathEnd": "gra-log-purger_ctl.sh.erb",
+        "DstPathEnd": "bin/gra-log-purger_ctl",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/gra-log-purger_ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "gra-log-purger.sh.erb",
+        "DstPathEnd": "bin/gra-log-purger.sh",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/gra-log-purger.sh.erb"
+      },
+      {
+        "SrcPathEnd": "cluster_health_logger_ctl.sh.erb",
+        "DstPathEnd": "bin/cluster_health_logger_ctl",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/cluster_health_logger_ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "cluster_health_logger_config.yml.erb",
+        "DstPathEnd": "config/cluster_health_logger_config.yml",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/cluster_health_logger_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "server-cert.pem.erb",
+        "DstPathEnd": "certificates/server-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/server-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "galera-init-config.yml.erb",
+        "DstPathEnd": "config/galera-init-config.yml",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-init-config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/pre-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "galera-agent-config.yaml.erb",
+        "DstPathEnd": "config/galera-agent-config.yaml",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-agent-config.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "galera-ca.pem.erb",
+        "DstPathEnd": "certificates/galera-ca.pem",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "galera-key.pem.erb",
+        "DstPathEnd": "certificates/galera-key.pem",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/galera-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "server-ca.pem.erb",
+        "DstPathEnd": "certificates/server-ca.pem",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/server-ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "server-key.pem.erb",
+        "DstPathEnd": "certificates/server-key.pem",
+        "Path": "/tmp/tar-CmdExtractor164253704/templates/server-key.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "auto-tune-mysql"
+      },
+      {
+        "Name": "galera-agent"
+      },
+      {
+        "Name": "galera-init"
+      },
+      {
+        "Name": "pxc-gra-log-purger"
+      },
+      {
+        "Name": "libgalera"
+      },
+      {
+        "Name": "migrate-to-pxc"
+      },
+      {
+        "Name": "percona-xtrabackup"
+      },
+      {
+        "Name": "pxc"
+      },
+      {
+        "Name": "pxc-cluster-health-logger"
+      },
+      {
+        "Name": "pxc-utils"
+      },
+      {
+        "Name": "socat"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "galera_agent.db_password",
+        "Description": "Password used by the sidecar to connect to the database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_conflicts",
+        "Description": "Defines whether the node logs additional information about conflicts. The values that were in conflict are logged, so it is possible for user data to end up in the logs.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_audit_excluded_users_csv",
+        "Description": "Additional database users to exclude from audit logging, will be combined with uses specified in server_audit_excluded_users",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_buffer_pool_size",
+        "Description": "Optional, the size in bytes of the memory buffer InnoDB uses to cache data and indexes of its tables",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cli_history",
+        "Description": "When set to false, disables cli history on the mysql vms.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_audit_logs_enabled",
+        "Description": "Enable audit logging",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gcache_size",
+        "Description": "Cache size used by galera (maximum amount of data possible in an IST), in MB",
+        "Default": 512,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_health.password",
+        "Description": "Password for the cluster logger health user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pxc_enabled",
+        "Description": "",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_galera",
+        "Description": "Advanced feature. Only use this when deploying a single MySQL node with no intention to run any other components of pxc-release.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_lock_wait_timeout",
+        "Description": "Optional, time in seconds that an InnoDB transaction waits for an InnoDB row lock",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_username",
+        "Description": "Username for the MySQL server admin user",
+        "Default": "root",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "previous_admin_username",
+        "Description": "Optional. Previous username of the MySQL server admin user to be removed. Use this when changing the admin_username to avoid leaving around an unused user with root access.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.galera",
+        "Description": "TLS certificate for galera cluster encryption",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_connections",
+        "Description": "Maximum total number of database connections for the node",
+        "Default": 1500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_name",
+        "Description": "A unique name for this cluster. ONLY set before first deployment. DO NOT attempt to change an existing multi-node cluster.",
+        "Default": "galera-cluster",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_password",
+        "Description": "Password for the MySQL server admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_flush_method",
+        "Description": "Advanced configuration variable, consult the documentation before changing. Controls how MySQL opens data files; by default uses fsync(). Set to O_DIRECT if innodb_buffer_pool is sufficiently large that you can use O_DIRECT thus avoiding double-buffering.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tmp_table_size",
+        "Description": "The maximum size (in bytes) of internal in-memory temporary tables",
+        "Default": 33554432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "advertise_host",
+        "Description": "Optional. IP address used to reach mysql from other cluster members\nIf not provided, the IP is automatically determined.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "galera_agent.endpoint_password",
+        "Description": "Password used by the sidecar endpoints for Basic Auth",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_open_files",
+        "Description": "Configure this number to be comfortably larger than the maximum number of tables you expect the database to support.",
+        "Default": 65536,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_heap_table_size",
+        "Description": "The maximum size (in rows) to which user-created MEMORY tables are permitted to grow",
+        "Default": 16777216,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.server",
+        "Description": "TLS certificate for client-server encryption",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_log_buffer_size",
+        "Description": "Size in bytes of the buffer for writing log files to disk. Increasing this means larger transactions can run without needing to perform disk I/O before committing.",
+        "Default": "32M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "wsrep_max_ws_rows",
+        "Description": "Maximum permitted number of rows per writeset.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "seeded_databases",
+        "Description": "Set of databases to seed",
+        "Default": {},
+        "Example": "- name: db1\n  username: user1\n  password: pw1\n- name: db2\n  username: user2\n  password: pw2\n",
+        "Examples": null
+      },
+      {
+        "Name": "userstat",
+        "Description": "Enables user statistics, adding several new information schema tables and new FLUSH and SHOW commands.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "binlog_expire_days",
+        "Description": "Time in days to store binlogs before purging",
+        "Default": 7,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "wsrep_debug",
+        "Description": "When set to on, enables additional debugging output for the database server error log.",
+        "Default": "OFF",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "galera_port",
+        "Description": "Port which Galera Cluster uses for communication across nodes",
+        "Default": 4567,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "collation_server",
+        "Description": "Default collation. Use SHOW COLLATION to view the valid collations for your character set.",
+        "Default": "utf8_unicode_ci",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_large_prefix_enabled",
+        "Description": "Whether innodb_large_prefix is enabled",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the mysql server should bind to",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_flush_log_at_trx_commit",
+        "Description": "Optional, control balance between performance and full ACID compliance. Valid values are: 0, 1, 2",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ib_log_file_size",
+        "Description": "Size of the ib_log_file used by innodb, in MB",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event_scheduler",
+        "Description": "Events are named database objects containing SQL statements that are to be executed at a later stage, either once off, or at regular intervals.",
+        "Default": "OFF",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_probe_timeout",
+        "Description": "The maximum time, in seconds, that a new node will search for an existing cluster.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "startup_timeout",
+        "Description": "Number of seconds that monit should wait for mysql to start before giving up",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_name_resolve",
+        "Description": "Do not restrict connections to database based on hostname",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "roadmin_enabled",
+        "Description": "Whether read only user is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_health.log_interval",
+        "Description": "Time in seconds between log entries for cluster health",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pxc_strict_mode",
+        "Description": "pxc_strict_mode. Defaults to MASTER.",
+        "Default": "MASTER",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "galera_agent.port",
+        "Description": "Port used by sidecar process to listen on",
+        "Default": 9200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_audit_excluded_users",
+        "Description": "Database users to exclude from audit logging",
+        "Default": [],
+        "Example": "- monitoring_user\n- other_excluded_user\n- bot_user\n",
+        "Examples": null
+      },
+      {
+        "Name": "innodb_strict_mode",
+        "Description": "Whether innodb_strict_mode is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "table_open_cache",
+        "Description": "Configure the number of table handles to keep open",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "wsrep_max_ws_size",
+        "Description": "Maximum permitted size in bytes per writeset.",
+        "Default": 1073741824,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_queries_not_using_indexes",
+        "Description": "Queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows, will be logged to the slow query log.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_local_file",
+        "Description": "Allow or disallow clients to access local files",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "remote_admin_access",
+        "Description": "When enabled, admin and roadmin will be able to connect from any remote host.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "character_set_server",
+        "Description": "Default character set. Note that while the MySQL default is latin1, we default to utf8.",
+        "Default": "utf8",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_buffer_pool_instances",
+        "Description": "Optional, number of buffer pool instances for InnoDB used if innodb_buffer_pool_size \u003e 1GB",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "long_query_time",
+        "Description": "Threshold in seconds above which SQL queries get logged in the slow query log file",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_audit_file_rotations",
+        "Description": "Number of audit file rotations to keep",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_audit_file_rotate_size_in_mb",
+        "Description": "Size in MB of each audit log file",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "roadmin_password",
+        "Description": "Password for the MySQL server read-only admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "galera_agent.endpoint_username",
+        "Description": "Username used by the sidecar endpoints for Basic Auth",
+        "Default": "galera-agent",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "binlog_enabled",
+        "Description": "Enable binlogs across all nodes",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "innodb_buffer_pool_size_percent",
+        "Description": "Set this to an integer which represents the percentage of system RAM to reserve for InnoDB's buffer pool",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_allowed_packet",
+        "Description": "The maximum size in bytes of a packet or a generated/intermediate string",
+        "Default": "256M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "table_definition_cache_size",
+        "Description": "Set this to a number relative to the number of tables the server will manage.",
+        "Default": 8192,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor293956218/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor293956218/templates/errand.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "smoke-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "db_username",
+        "Description": "Username for generated database user",
+        "Default": "smoke-tests-user",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "Password for generated database user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests-user",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor993992636/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor993992636/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "smoke_tests_user_setup.sql.erb",
+        "DstPathEnd": "config/smoke_tests_user_setup.sql",
+        "Path": "/tmp/tar-CmdExtractor993992636/templates/smoke_tests_user_setup.sql.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  }
+]
