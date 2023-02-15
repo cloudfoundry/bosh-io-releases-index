@@ -1,0 +1,820 @@
+[
+  {
+    "Name": "broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor393209856/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor393209856/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "broker-ctl.sh.erb",
+        "DstPathEnd": "bin/broker-ctl.sh",
+        "Path": "/tmp/tar-CmdExtractor393209856/templates/broker-ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "broker.yml.erb",
+        "DstPathEnd": "config/broker.yml",
+        "Path": "/tmp/tar-CmdExtractor393209856/templates/broker.yml.erb"
+      },
+      {
+        "SrcPathEnd": "drain.sh.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor393209856/templates/drain.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "broker"
+      },
+      {
+        "Name": "broker-post-start"
+      },
+      {
+        "Name": "broker_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "use_stdin",
+        "Description": "Pass arguments to service adapter over standard input instead of as command line arguments. Requires a compatible service adapter.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.authentication.uaa.ca_cert",
+        "Description": "Internal UAA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.root_ca_cert",
+        "Description": "Bosh Director Root CA certificate for broker to trust (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.documentation_url",
+        "Description": "apps manager documentation url",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.requires",
+        "Description": "string array of permissions required by broker",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.tags",
+        "Description": "string array of tags for catalog",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.bindable",
+        "Description": "is service bindable?",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.support_url",
+        "Description": "apps manager support url",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.shareable",
+        "Description": "is service shareable?",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.dashboard_client",
+        "Description": "client ID for dashboard",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_ssl_cert_verification",
+        "Description": "Disable SSL certificate verification. DO NOT USE IN PRODUCTION",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "shutdown_timeout_in_seconds",
+        "Description": "In seconds, allow the broker to close open connections before shutting down",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_plan_schemas",
+        "Description": "If the service adapter supports service plan schemas and you would like the schema to appear in the service catalog, set this flag to true",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.service_description",
+        "Description": "service description for CF marketplace",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "startup_banner",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.uaa.client_secret",
+        "Description": "UAA client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.authentication.client_credentials.client_id",
+        "Description": "UAA client ID with cloud_controller.read authority",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.stemcell.version",
+        "Description": "stemcell version to use for every job in the service deployment",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.plans",
+        "Description": "the service plans to be presented to Cloud Foundry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.basic.username",
+        "Description": "BOSH director username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.authentication.uaa.client_id",
+        "Description": "UAA client id for secure binding credential authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.authentication.uaa.client_credentials.client_secret",
+        "Description": "Secret of UAA client with permissions to read and write to BOSH CredHub",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.plan_updatable",
+        "Description": "are plan migrations allowed?",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Broker basic auth username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.root_ca_cert",
+        "Description": "Public certificate of root certificate authority used to sign BOSH CredHub's certificate. Used to authenticate the service.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_properties",
+        "Description": "properties applied to every plan. if in conflict, plan properties take precedence",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.root_ca_cert",
+        "Description": "CF Root CA certificate for broker to trust (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.enabled",
+        "Description": "Flag to activate secure binding",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.releases",
+        "Description": "releases to deploy for each instance",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Broker basic auth password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_cf_startup_checks",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.long_description",
+        "Description": "apps manager long description",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.display_name",
+        "Description": "apps manager display name",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata",
+        "Description": "service metadata - accepts arbitrary key / value pairs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port for the broker",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.authentication.client_credentials.secret",
+        "Description": "UAA client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_adapter.path",
+        "Description": "the path to the service adapter binary located on the host with the broker",
+        "Default": "/var/vcap/packages/odb-service-adapter/bin/service-adapter",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.id",
+        "Description": "service ID for CF marketplace",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "expose_operational_errors",
+        "Description": "The On Demand Broker will return BOSH errors to the platform when a failure occurs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.authentication.url",
+        "Description": "UAA URL for Cloud Foundry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_quotas.service_instance_limit",
+        "Description": "the maximum number of instances that may be provisioned by on-demand broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.basic.password",
+        "Description": "BOSH director password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.uaa.client_id",
+        "Description": "UAA client ID",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.authentication.uaa.client_secret",
+        "Description": "UAA client secret for secure binding credential authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "resolve_manifest_secrets_at_bind",
+        "Description": "Allow ODB to read and write service instance secrets using the BOSH CredHub. Required for removing plain text secrets from service instance manifests.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.authentication.user_credentials.password",
+        "Description": "CF admin password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.url",
+        "Description": "Full URL of BOSH CredHub service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.url",
+        "Description": "BOSH URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.authentication.user_credentials.username",
+        "Description": "CF admin username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.provider_display_name",
+        "Description": "apps manager provider display name",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_quotas.resource_limits",
+        "Description": "hash of resource names and limit (integer) that may may be provisioned by on-demand broker",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.image_url",
+        "Description": "apps manager image url",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.url",
+        "Description": "CF API URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.authentication.uaa.client_credentials.client_id",
+        "Description": "ID of UAA client with permissions to read and write to BOSH CredHub",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.stemcell.os",
+        "Description": "stemcell OS to use for every job in the service deployment",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.service_name",
+        "Description": "service offering for CF marketplace",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "delete-all-service-instances",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor887512882/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor887512882/templates/errand.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor887512882/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "delete-all-service-instances"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be deleted",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_initial_offset_seconds",
+        "Description": "offset in seconds before starting to poll Cloud Foundry to check if the instance has been deleted",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "delete-all-service-instances-and-deregister-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor317730612/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor317730612/templates/errand.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor317730612/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "delete-all-service-instances-and-deregister-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_name",
+        "Description": "name of the broker to be deregistered from the cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be deleted",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_initial_offset_seconds",
+        "Description": "offset in seconds before starting to poll Cloud Foundry to check if the instance has been deleted",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "deregister-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor107123334/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor107123334/templates/errand.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor107123334/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "deregister-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_name",
+        "Description": "name of broker to deregister with cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "orphan-deployments",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor740451752/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor740451752/templates/errand.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "orphan-deployments"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_uri",
+        "Description": "URI of broker, if a route has been registered (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "register-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor458073370/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor458073370/templates/errand.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cf-cli"
+      },
+      {
+        "Name": "broker_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_uri",
+        "Description": "URI of broker, if a route has been registered (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_ssl_cert_verification",
+        "Description": "disable TLS certificate verification",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.api_url",
+        "Description": "Cloud Foundry API URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.admin_username",
+        "Description": "Cloud Foundry admin username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.admin_password",
+        "Description": "Cloud Foundry admin password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_service_access",
+        "Description": "Enable service access to the listed service plans",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker_name",
+        "Description": "name of broker to register with cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-metrics-adapter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor828500828/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor828500828/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "collect-service-metrics.sh.erb",
+        "DstPathEnd": "bin/collect-service-metrics",
+        "Path": "/tmp/tar-CmdExtractor828500828/templates/collect-service-metrics.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "collect-service-metrics"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_uri",
+        "Description": "URI of broker, if a route has been registered (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "upgrade-all-service-instances",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor624446702/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor624446702/templates/errand.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor624446702/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "broker_utils"
+      },
+      {
+        "Name": "upgrade-all-service-instances"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "request_timeout",
+        "Description": "timeout in seconds when sending requests during the errand",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.root_ca_cert",
+        "Description": "root CA cert to validate TLS connection to service instances API provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.authentication.basic.password",
+        "Description": "HTTP basic auth password for connections to service instances API provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.authentication.basic.username",
+        "Description": "HTTP basic auth username for connections to service instances API provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be upgraded",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "attempt_interval_seconds",
+        "Description": "interval in seconds between upgrade attempt batches",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "attempt_limit",
+        "Description": "maximum number of times the errand will try to upgrade the set of instances",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_in_flight",
+        "Description": "the maximum number of instances that will be in an upgrading state at the same time",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "canaries",
+        "Description": "number of instances to upgrade first before upgrading the rest of the instances",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "canary_selection_params",
+        "Description": "parameters to filter the canary instances",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.url",
+        "Description": "service instances API provider URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
