@@ -1,0 +1,234 @@
+[
+  {
+    "Name": "enable_rdp",
+    "Description": "Enables RDP on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor175108442/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain.ps1",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor175108442/templates/drain.ps1"
+      },
+      {
+        "SrcPathEnd": "disable-rdp.ps1",
+        "DstPathEnd": "bin/disable-rdp.ps1",
+        "Path": "/tmp/tar-CmdExtractor175108442/templates/disable-rdp.ps1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor175108442/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_rdp.enabled",
+        "Description": "If enabled, this job enabled RDP",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "enable_ssh",
+    "Description": "Enables SSH on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor603714972/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "disable-ssh.ps1",
+        "DstPathEnd": "bin/disable-ssh.ps1",
+        "Path": "/tmp/tar-CmdExtractor603714972/templates/disable-ssh.ps1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor603714972/templates/pre-start.ps1"
+      },
+      {
+        "SrcPathEnd": "drain.ps1",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor603714972/templates/drain.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_ssh.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "enable_windowsdefender",
+    "Description": "Enables Windows Defender on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor794983726/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor794983726/templates/pre-start.ps1"
+      },
+      {
+        "SrcPathEnd": "drain.ps1",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor794983726/templates/drain.ps1"
+      },
+      {
+        "SrcPathEnd": "modules/WindowsDefenderManager.psd1",
+        "DstPathEnd": "modules/WindowsDefenderManager.psd1",
+        "Path": "/tmp/tar-CmdExtractor794983726/templates/modules/WindowsDefenderManager.psd1"
+      },
+      {
+        "SrcPathEnd": "modules/WindowsDefenderManager.psm1",
+        "DstPathEnd": "modules/WindowsDefenderManager.psm1",
+        "Path": "/tmp/tar-CmdExtractor794983726/templates/modules/WindowsDefenderManager.psm1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_windowsdefender.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "randomize_password",
+    "Description": "Sets password for the Administrator user on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor421505680/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor421505680/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "randomize_password.username",
+        "Description": "Username",
+        "Default": "Administrator",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "randomize_password.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "set_kms_host",
+    "Description": "Enables KMS activation on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor216950850/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor216950850/templates/pre-start.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "set_kms_host.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kms_host.host",
+        "Description": "Host of KMS server",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kms_host.port",
+        "Description": "Port of KMS server",
+        "Default": 1688,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "set_password",
+    "Description": "Sets password for a user on Windows (defaults to Administrator)",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor786939588/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor786939588/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "set_password.username",
+        "Description": "Username",
+        "Default": "Administrator",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_password.password",
+        "Description": "New password",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_password.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
