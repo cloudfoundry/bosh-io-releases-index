@@ -1,0 +1,256 @@
+[
+  {
+    "Name": "streaming-mysql-backup-client",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor236963972/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cleanup-directories.erb",
+        "DstPathEnd": "bin/cleanup-directories",
+        "Path": "/tmp/tar-CmdExtractor236963972/templates/cleanup-directories.erb"
+      },
+      {
+        "SrcPathEnd": "streaming-mysql-backup-client.yml.erb",
+        "DstPathEnd": "config/streaming-mysql-backup-client.yml",
+        "Path": "/tmp/tar-CmdExtractor236963972/templates/streaming-mysql-backup-client.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor236963972/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "streaming-mysql-backup-client_ctl.sh.erb",
+        "DstPathEnd": "bin/client",
+        "Path": "/tmp/tar-CmdExtractor236963972/templates/streaming-mysql-backup-client_ctl.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "xtrabackup"
+      },
+      {
+        "Name": "xtrabackup-8.0"
+      },
+      {
+        "Name": "streaming-mysql-backup-client"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cf-mysql-backup.tls.client_certificate",
+        "Description": "client certificate",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.ca_certificate",
+        "Description": "CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.xtrabackup_path",
+        "Description": "The path to the bin folder containing the binary. For use with pxc-release, use `/var/vcap/packages/percona-xtrabackup/bin`. The default is for cf-mysql-release",
+        "Default": "/var/vcap/packages/xtrabackup/bin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.symmetric_key",
+        "Description": "Symmetric Key used to encrypt backups",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-all-masters",
+        "Description": "If true, backups will be taken from all master nodes",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup_from_inactive_node",
+        "Description": "If true, backups will be taken from the galera node with the highest wsrep_local_index",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-server.port",
+        "Description": "Port number of server that generates backups",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.enable_mutual_tls",
+        "Description": "If true, the backup client will present a certificate to the server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.client_key",
+        "Description": "client private key",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.server_name",
+        "Description": "Common Name of the server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup_local_node_only",
+        "Description": "If true, backup will be taken from local node",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-client.output_folder",
+        "Description": "Folder to place the prepared backups",
+        "Default": "/var/vcap/store/mysql-backups",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-client.tmp_folder",
+        "Description": "Folder to download / prepare backups",
+        "Default": "/var/vcap/store/mysql-backups-tmp",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "streaming-mysql-backup-tool",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor315206742/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "streaming-backup_ctl.erb",
+        "DstPathEnd": "bin/streaming-backup_ctl",
+        "Path": "/tmp/tar-CmdExtractor315206742/templates/streaming-backup_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "streaming-mysql-backup-tool.yml.erb",
+        "DstPathEnd": "config/streaming-mysql-backup-tool.yml",
+        "Path": "/tmp/tar-CmdExtractor315206742/templates/streaming-mysql-backup-tool.yml.erb"
+      },
+      {
+        "SrcPathEnd": "mysql-defaults-file.cnf.erb",
+        "DstPathEnd": "config/mysql-defaults-file.cnf",
+        "Path": "/tmp/tar-CmdExtractor315206742/templates/mysql-defaults-file.cnf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "streaming-mysql-backup-tool"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cf_mysql.mysql.defaults_file_path",
+        "Description": "Path to the mysql defaults file used to authenticate to the database",
+        "Default": "/var/vcap/jobs/mysql/config/mylogin.cnf",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.username",
+        "Description": "Username used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.server_certificate",
+        "Description": "certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.server_key",
+        "Description": "private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.xtrabackup_path",
+        "Description": "The path to the bin folder containing the binary. For use with pxc-release, use `/var/vcap/packages/percona-xtrabackup/bin`. The default is for cf-mysql-release",
+        "Default": "/var/vcap/packages/xtrabackup/bin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.backup-server.port",
+        "Description": "Port number used for listening for backup requests",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.endpoint_credentials.password",
+        "Description": "Password used by backup client to stream a backup from the mysql node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.ulimit",
+        "Description": "Maximum concurrent number of open files",
+        "Default": 65536,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.disabled",
+        "Description": "If true, the tool will not be run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.enable_mutual_tls",
+        "Description": "If true, the backup server will validate the certificate from backup client",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.client_ca",
+        "Description": "CA for validating client certs",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf-mysql-backup.tls.client_hostnames",
+        "Description": "Acceptable identities in the SAN of the backup client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
