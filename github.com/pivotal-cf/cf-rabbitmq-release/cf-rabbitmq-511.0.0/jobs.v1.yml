@@ -1,0 +1,679 @@
+[
+  {
+    "Name": "rabbitmq-haproxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor305810091/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "rabbitmq-haproxy.init.erb",
+        "DstPathEnd": "bin/rabbitmq-haproxy.init",
+        "Path": "/tmp/tar-CmdExtractor305810091/templates/rabbitmq-haproxy.init.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy.config.erb",
+        "DstPathEnd": "haproxy.config",
+        "Path": "/tmp/tar-CmdExtractor305810091/templates/haproxy.config.erb"
+      },
+      {
+        "SrcPathEnd": "known-packages.bash",
+        "DstPathEnd": "bin/known-packages.bash",
+        "Path": "/tmp/tar-CmdExtractor305810091/templates/known-packages.bash"
+      },
+      {
+        "SrcPathEnd": "pre-start.bash.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor305810091/templates/pre-start.bash.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy_syslog.conf",
+        "DstPathEnd": "config/haproxy_syslog.conf",
+        "Path": "/tmp/tar-CmdExtractor305810091/templates/haproxy_syslog.conf"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "haproxy"
+      },
+      {
+        "Name": "rabbitmq-common"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "rabbitmq-haproxy.do-not-configure-syslog",
+        "Description": "The haproxy_syslog.conf file will not be configured (can be used if you configure syslog-release)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "rabbitmq-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor217895445/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.bash",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/pre-start.bash"
+      },
+      {
+        "SrcPathEnd": "prepare-for-upgrade.bash",
+        "DstPathEnd": "lib/prepare-for-upgrade.bash",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/prepare-for-upgrade.bash"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/11-tlsConfig.conf.erb",
+        "DstPathEnd": "etc/conf.d/11-tlsConfig.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/11-tlsConfig.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/12-managementConfig.conf.erb",
+        "DstPathEnd": "etc/conf.d/12-managementConfig.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/12-managementConfig.conf.erb"
+      },
+      {
+        "SrcPathEnd": "enable-feature-flags.bash",
+        "DstPathEnd": "bin/enable-feature-flags",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/enable-feature-flags.bash"
+      },
+      {
+        "SrcPathEnd": "config-files/15-webMQTT.conf.erb",
+        "DstPathEnd": "etc/conf.d/15-webMQTT.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/15-webMQTT.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/inter_node_tls.config.erb",
+        "DstPathEnd": "etc/inter_node_tls.config",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/inter_node_tls.config.erb"
+      },
+      {
+        "SrcPathEnd": "pre-stop.bash.erb",
+        "DstPathEnd": "bin/pre-stop",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/pre-stop.bash.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_detailed_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_detailed_config.yml",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/prom_scraper_detailed_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/16-stream.conf.erb",
+        "DstPathEnd": "etc/conf.d/16-stream.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/16-stream.conf.erb"
+      },
+      {
+        "SrcPathEnd": "cluster-check.bash",
+        "DstPathEnd": "bin/cluster-check",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/cluster-check.bash"
+      },
+      {
+        "SrcPathEnd": "rabbitmq-server.init.bash",
+        "DstPathEnd": "bin/rabbitmq-server.init",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/rabbitmq-server.init.bash"
+      },
+      {
+        "SrcPathEnd": "management-key.pem.erb",
+        "DstPathEnd": "etc/management-key.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/management-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "add-rabbitmqctl-to-path.bash",
+        "DstPathEnd": "bin/add-rabbitmqctl-to-path",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/add-rabbitmqctl-to-path.bash"
+      },
+      {
+        "SrcPathEnd": "node-check.bash.erb",
+        "DstPathEnd": "bin/node-check",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/node-check.bash.erb"
+      },
+      {
+        "SrcPathEnd": "cacert.pem.erb",
+        "DstPathEnd": "etc/cacert.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/cacert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "key.pem.erb",
+        "DstPathEnd": "etc/key.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "management-cert.pem.erb",
+        "DstPathEnd": "etc/management-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/management-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "users.erb",
+        "DstPathEnd": "etc/users",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/users.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/advanced.config.erb",
+        "DstPathEnd": "etc/advanced.config",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/advanced.config.erb"
+      },
+      {
+        "SrcPathEnd": "kill-with-fire.bash",
+        "DstPathEnd": "bin/kill-with-fire",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/kill-with-fire.bash"
+      },
+      {
+        "SrcPathEnd": "cert.pem.erb",
+        "DstPathEnd": "etc/cert.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "delete_old_files.bash",
+        "DstPathEnd": "lib/delete_old_files.bash",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/delete_old_files.bash"
+      },
+      {
+        "SrcPathEnd": "config-files/10-clusterDefaults.conf.erb",
+        "DstPathEnd": "etc/conf.d/10-clusterDefaults.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/10-clusterDefaults.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/13-oAuth.conf.erb",
+        "DstPathEnd": "etc/conf.d/13-oAuth.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/13-oAuth.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config-files/14-webSTOMP.conf.erb",
+        "DstPathEnd": "etc/conf.d/14-webSTOMP.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/14-webSTOMP.conf.erb"
+      },
+      {
+        "SrcPathEnd": "post-deploy.bash",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/post-deploy.bash"
+      },
+      {
+        "SrcPathEnd": "setup.bash",
+        "DstPathEnd": "bin/setup.sh",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/setup.bash"
+      },
+      {
+        "SrcPathEnd": "rabbitmq-config-vars.bash.erb",
+        "DstPathEnd": "lib/rabbitmq-config-vars.bash",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/rabbitmq-config-vars.bash.erb"
+      },
+      {
+        "SrcPathEnd": "cleanup-http-logs.bash",
+        "DstPathEnd": "bin/cleanup-http-logs",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/cleanup-http-logs.bash"
+      },
+      {
+        "SrcPathEnd": "env.erb",
+        "DstPathEnd": "bin/env",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/env.erb"
+      },
+      {
+        "SrcPathEnd": "plugins.sh.erb",
+        "DstPathEnd": "bin/plugins.sh",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/plugins.sh.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.bash",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/post-start.bash"
+      },
+      {
+        "SrcPathEnd": "config.erb",
+        "DstPathEnd": "etc/config",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config.erb"
+      },
+      {
+        "SrcPathEnd": "definitions.json.erb",
+        "DstPathEnd": "etc/definitions.json",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/definitions.json.erb"
+      },
+      {
+        "SrcPathEnd": "management-cacert.pem.erb",
+        "DstPathEnd": "etc/management-cacert.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/management-cacert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "oAuth-signing-key.pem.erb",
+        "DstPathEnd": "etc/oAuth-signing-key.pem",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/oAuth-signing-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "drain.bash",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/drain.bash"
+      },
+      {
+        "SrcPathEnd": "config-files/50-overrideConfig.conf.erb",
+        "DstPathEnd": "etc/conf.d/50-overrideConfig.conf",
+        "Path": "/tmp/tar-CmdExtractor217895445/templates/config-files/50-overrideConfig.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "erlang-25"
+      },
+      {
+        "Name": "rabbitmq-server-3.10"
+      },
+      {
+        "Name": "rabbitmq-server-3.11"
+      },
+      {
+        "Name": "rabbitmq-common"
+      },
+      {
+        "Name": "rabbitmq-upgrade-preparation"
+      },
+      {
+        "Name": "rabbitmq-admin"
+      },
+      {
+        "Name": "openssl"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "rabbitmq-server.prom_scraper_scrape_interval",
+        "Description": "The scrape interval for scraping the metrics endpoint",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.management_tls.key",
+        "Description": "RabbitMQ management private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.provider_url",
+        "Description": "URL of the OAuth2 provider (e.g. http://localhost:8080/uaa)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.create_swap_delete",
+        "Description": "If true, configure rabbitmq-server to use vm_strategy create-swap-delete (i.e. use RabbitMQ long node names, FQDNs for Rabbit nodes names, and no hosts in erl_inetrc).",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.prom_scraper_source_id",
+        "Description": "The source ID to set on scraped metrics. Must be 48 characters or less to be compatible with log-cache. Warning: Changing this on a live deployment will cause discontinuity in metrics from that deployment.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.stream.advertised_host",
+        "Description": "Hostname returned when asked for the stream topology.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.plugins",
+        "Description": "List of RabbitMQ plugins",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.signing_key",
+        "Description": "The public key (verification key) of the RSA key pair used by UAA to sign the JWT token.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.config",
+        "Description": "DEPRECATED. Use rabbitmq-server.override_advanced_config.",
+        "Default": "W10u",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.cluster_name",
+        "Description": "The cluster_name is used by plugins such as rabbitmq_prometheus and rabbitmq_federation. Warning: do not change the cluster_name across BOSH deployments when federation is already set up.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.version",
+        "Description": "Version of RabbitMQ to use",
+        "Default": "3.11",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.management_tls.cacert",
+        "Description": "RabbitMQ management CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ensure_log_cache_compatibility",
+        "Description": "Ensures the prom_scraper source_id is compatible with log cache",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.inter_node_enabled",
+        "Description": "Whether to use TLS for inter-node communications through the Erlang distribution, including by RabbitMQ CLIs. This uses the same certificates and key provided under rabbitmq-server.ssl.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.timeouts.port",
+        "Description": "Server and client timeout for a specific port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.enabled",
+        "Description": "Enables RabbitMQ OAuth plugin.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.uaa_location",
+        "Description": "Deprecated. Do not use this property. Use rabbitmq-server.oauth.provider_url instead.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.check_queue_sync",
+        "Description": "If true, waits for quorum and mirror queues to sync before stopping the node",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.disable_non_ssl_listeners",
+        "Description": "Should RabbitMQ reject connections on non-TLS ports when TLS is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.load_definitions",
+        "Description": "Definitions to be loaded by RabbitMQ at startup.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.force_cluster_shutdown_on_version_change",
+        "Description": "Force a cluster shutdown in the event of a Erlang major version upgrade, to ensure cluster consistency. This will lead to app downtime.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.verify",
+        "Description": "Peer verification method used by RabbitMQ server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.management_tls.cert",
+        "Description": "RabbitMQ management certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.uaa_client_id",
+        "Description": "Deprecated. Do not use this property. Use rabbitmq-server.oauth.client_id instead.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.client_id",
+        "Description": "The OAuth client which presents a valid access_token acquired from an OAuth server as the password in order to authenticate with RabbitMQ.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.prom_scraper_labels",
+        "Description": "Optional metric labels (see loggregator-agent's prom_scraper job for details)",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.stream.advertised_tls_port",
+        "Description": "Port returned when asked for the stream topology over TLS.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.ciphers",
+        "Description": "TLS ciphers to use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.override_config",
+        "Description": "RabbitMQ configuration in Cuttlefish format. Overrides any config set by the release.",
+        "Default": null,
+        "Example": "prometheus.return_per_object_metrics = true\ncollect_statistics_interval = 10000\n",
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.administrators.broker.password",
+        "Description": "RabbitMQ admin password for broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.stream.advertised_port",
+        "Description": "Port returned when asked for the stream topology.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.enabled",
+        "Description": "Use TLS listeners. Will not accept non-TLS connections",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.cacert",
+        "Description": "RabbitMQ server CA certificate(s).  If there is more than one certificate, they should be concatenated",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ports",
+        "Description": "List of ports on which the RabbitMQ cluster accepts connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.cert",
+        "Description": "RabbitMQ server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.versions",
+        "Description": "TLS protocol versions to support. Note that TLS 1.3 is incompatible with TLS 1.1 and TLS 1.0. The deployment will fail if TLS 1.3 is enabled alongside TLS 1.0 or TLS 1.1.",
+        "Default": [
+          "tlsv1.3",
+          "tlsv1.2"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.jwks_url",
+        "Description": "URL for dynamically retreiving JWK Set",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.administrators.broker.username",
+        "Description": "RabbitMQ admin username for broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.fd_limit",
+        "Description": "The file descriptor limit for the RabbitMQ process",
+        "Default": 300000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.erlang_major_version",
+        "Description": "Major version of Erlang to use on RabbitMQ instances in this deployment",
+        "Default": 25,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.cluster_partition_handling",
+        "Description": "Cluster partition recover mode property. Valid values are: pause_minority, autoheal",
+        "Default": "pause_minority",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.resource_server_id",
+        "Description": "Prefix used for scopes in UAA to avoid scope collisions",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.signing_key_id",
+        "Description": "The ID of the JWT signing key to be used when signing tokens.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.administrators.management.password",
+        "Description": "RabbitMQ admin password for operator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.override_advanced_config",
+        "Description": "RabbitMQ advanced configuration in Erlang format, as a base64-encoded string. Overrides any config set by the release. Does not work if rabbitmq-server.oauth.enabled.",
+        "Default": null,
+        "Example": "WwogIHtyYWJiaXQsIFsKICAgICAge3RjcF9saXN0ZW5lcnMsIFs1NjczXX0KICAgIF0KICB9Cl0u",
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.management_tls.enabled",
+        "Description": "Use HTTPS listeners on management. Will not accept HTTP connections",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.disk_alarm_threshold",
+        "Description": "The threshold in bytes of free disk space at which rabbitmq will raise an alarm",
+        "Default": "{mem_relative,0.4}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.key",
+        "Description": "RabbitMQ server private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.fail_if_no_peer_cert",
+        "Description": "Should RabbitMQ server reject connection if there is no peer cert",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.prom_scraper_detailed_endpoint_query",
+        "Description": "Query parameters to append to the prom_scraper target endpoint for `/metrics/detailed`, including the leading `?`. See https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_prometheus/README.md#selective-querying-of-per-object-metrics",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.cookie",
+        "Description": "Erlang cookie used by RabbitMQ nodes and rabbitmqctl. You should set this to a secure password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.oauth.client_secret",
+        "Description": "The OAuth client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.ssl.verification_depth",
+        "Description": "Peer verification depth used by RabbitMQ server",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rabbitmq-server.administrators.management.username",
+        "Description": "RabbitMQ admin username for operator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
