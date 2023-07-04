@@ -1,0 +1,2883 @@
+[
+  {
+    "Name": "docker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor249459649/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/docker_ctl.erb",
+        "DstPathEnd": "bin/docker_ctl",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/bin/docker_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bin/lvmvd_ctl.erb",
+        "DstPathEnd": "bin/lvmvd_ctl",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/bin/lvmvd_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "config/docker.cacert.erb",
+        "DstPathEnd": "config/docker.cacert",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/config/docker.cacert.erb"
+      },
+      {
+        "SrcPathEnd": "config/docker.key.erb",
+        "DstPathEnd": "config/docker.key",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/config/docker.key.erb"
+      },
+      {
+        "SrcPathEnd": "bin/cgroupfs-mount",
+        "DstPathEnd": "bin/cgroupfs-mount",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/bin/cgroupfs-mount"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/docker.cert.erb",
+        "DstPathEnd": "config/docker.cert",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/config/docker.cert.erb"
+      },
+      {
+        "SrcPathEnd": "config/docker-logrotate.erb",
+        "DstPathEnd": "config/docker-logrotate",
+        "Path": "/tmp/tar-CmdExtractor249459649/templates/config/docker-logrotate.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "docker"
+      },
+      {
+        "Name": "lvm2"
+      },
+      {
+        "Name": "lvmvd"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "docker.ip_masq",
+        "Description": "Enable IP masquerading",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.tls",
+        "Description": "Use TLS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.enable_userns",
+        "Description": "Enable usernamespace",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.mount_dir",
+        "Description": "Directory where mount points will be created",
+        "Default": "/var/vcap/store/lvmvd/mountpoints",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.api_cors_header",
+        "Description": "Set CORS headers in the remote API",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.dns_options",
+        "Description": "Array of DNS options to be used",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.insecure_registries",
+        "Description": "Array of insecure registries (no certificate verification for HTTPS and enable HTTP fallback)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.log_options",
+        "Description": "Array of log driver options",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.ulimit.nofile",
+        "Description": "Maximum number of open files",
+        "Default": 8192,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.default_gateway_v6",
+        "Description": "Container default gateway IPv6 address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.labels",
+        "Description": "Array of key=value labels for the daemon",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.userland_proxy",
+        "Description": "Use userland proxy for loopback traffic",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.volume.mount_dir",
+        "Description": "directory on which NFS volume is mounted on docker node",
+        "Default": "/var/vcap/store",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "List of comma-separated hosts that Docker should skip connecting to the proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.daemon.keyfile",
+        "Description": "location where docker keeps key file in persistence disk",
+        "Default": "/var/vcap/store/docker/key.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.exec_options",
+        "Description": "Array of exec driver options",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "common.tls_cacert",
+        "Description": "Trust only remotes providing a certificate signed by the CA given here",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.logs_dir",
+        "Description": "logs directory of docker",
+        "Default": "/var/vcap/sys/log/docker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.dns_search",
+        "Description": "Array of DNS search domains to be used",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.selinux_enable",
+        "Description": "Enable selinux support",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.logrotate.interval",
+        "Description": "Specify the interval of daily, weekly,  monthly or yearly",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.volume_file_location",
+        "Description": "Location of the volume group file (the name will be derived from the volume group name)",
+        "Default": "/var/vcap/store/lvmvd/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.default_gateway",
+        "Description": "Container default gateway IPv4 address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.ipv6",
+        "Description": "Enable IPv6 networking",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.log_level",
+        "Description": "Set the logging level (debug, info, warn, error, fatal)",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.tls_cert",
+        "Description": "TLS certificate file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.tls_key",
+        "Description": "TLS key file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.mtu",
+        "Description": "Set the containers network MTU (if no value is provided: default to the default route MTU or 1500 if no default route is available)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.tls_verify",
+        "Description": "Use TLS and verify the remote",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.ip",
+        "Description": "Default IP when binding container ports",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.ip_forward",
+        "Description": "Enable net.ipv4.ip_forward and IPv6 forwarding",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.iptables",
+        "Description": "Enable Docker's addition of iptables rules",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.socket_file",
+        "Description": "Socket file where the lvmvd daemon will be listening on (note: docker currently does not look into the /var/vcap/run/docker/plugins directory for plugin socket files)",
+        "Default": "/run/docker/plugins/lvm-volume-driver.sock",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.name",
+        "Description": "Name of service fabrik docker, used for syslog shipper",
+        "Default": "service_fabrik_docker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.debug",
+        "Description": "Enable debug mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.dns_servers",
+        "Description": "Array of DNS servers to be used",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.default_size",
+        "Description": "Default size for a Docker volume (in megabytes) if no size can be deduced from volume name",
+        "Default": 768,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.volume_group_name",
+        "Description": "Name of volume group which will be used for creating the logical volumes",
+        "Default": "service-vg",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker.syslog.port",
+        "Description": "Syslog ingestor Port",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.bridge",
+        "Description": "Name of the network bridge to attach containers (defaults to docker0)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.cidr_prefix",
+        "Description": "CIDR notation prefix (first 2 octets) for the network bridges IP",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.default_ulimits",
+        "Description": "Array of default ulimits for containers",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.logrotate.count",
+        "Description": "Max number of log files per container",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "HTTP proxy that Docker should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.logrotate.size",
+        "Description": "Log file size threshold per container",
+        "Default": "2M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "HTTPS proxy that Docker should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.disabled",
+        "Description": "Disable use of the Docker volume driver (e.g. bosh-lite).",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.tcp_port",
+        "Description": "TCP port where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Default": "4243",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.registry_mirrors",
+        "Description": "Array of preferred Docker registry mirrors",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.storage_options",
+        "Description": "Array of storage driver options",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.tcp_address",
+        "Description": "TCP address where Docker daemon will listen to (if not set, TCP will not be available)",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.icc",
+        "Description": "true: Allow unrestricted inter-container and Docker daemon host communication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.pv_size",
+        "Description": "Size of physical volume (sparse file in gigabytes; must match desired \u003cmax_containers_per_node\u003e x \u003cdefault_volume_size\u003e + some extra bytes)",
+        "Default": "61",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker.syslog.host",
+        "Description": "Syslog ingestor host IP of ELK stack",
+        "Default": "10.1.4.3",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.log_driver",
+        "Description": "Default driver for container logs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.storage_driver",
+        "Description": "Use a specific storage driver",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lvmvd.loop_device",
+        "Description": "The Loopback device to be use with the Volume Driver",
+        "Default": "/dev/loop1",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "iptables-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2970638327/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/iptables-manager_ctl.erb",
+        "DstPathEnd": "bin/iptables-manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor2970638327/templates/bin/iptables-manager_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_connection",
+        "Description": "If set to true iptables rules will be dropped to enable connectivity across deployments",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_ips_list",
+        "Description": "Comma seperated list of ips from which requests are ACCEPTED",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "block_ips_list",
+        "Description": "Comma seperated List of ips from which the requests will be DROPPED",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-admin-app",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1374942984/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/eventlog-config-admin_app.yml.erb",
+        "DstPathEnd": "config/eventlog-config-admin_app.yml",
+        "Path": "/tmp/tar-CmdExtractor1374942984/templates/config/eventlog-config-admin_app.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/circuit-breaker-config.yml.erb",
+        "DstPathEnd": "config/circuit-breaker-config.yml",
+        "Path": "/tmp/tar-CmdExtractor1374942984/templates/config/circuit-breaker-config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/service-fabrik-admin-app_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-admin-app_ctl",
+        "Path": "/tmp/tar-CmdExtractor1374942984/templates/bin/service-fabrik-admin-app_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor1374942984/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor1374942984/templates/config/settings.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      },
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "yaml2json"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ip",
+        "Description": "IP address of host for admin app",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port on which admin app should listen",
+        "Default": 9297,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-apiserver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3182461946/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/ensure_apiserver_healthy.erb",
+        "DstPathEnd": "bin/ensure_apiserver_healthy",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/bin/ensure_apiserver_healthy.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd.key.erb",
+        "DstPathEnd": "config/etcd.key",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/etcd.key.erb"
+      },
+      {
+        "SrcPathEnd": "config/apiserver-key.pem.erb",
+        "DstPathEnd": "config/apiserver-key.pem",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/apiserver-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/apiserver.pem.erb",
+        "DstPathEnd": "config/apiserver.pem",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/apiserver.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.erb",
+        "DstPathEnd": "config/kubeconfig",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/kubeconfig.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd-ca.crt.erb",
+        "DstPathEnd": "config/etcd-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/etcd-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/etcd.crt.erb",
+        "DstPathEnd": "config/etcd.crt",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/etcd.crt.erb"
+      },
+      {
+        "SrcPathEnd": "config/tokens.csv.erb",
+        "DstPathEnd": "config/tokens.csv",
+        "Path": "/tmp/tar-CmdExtractor3182461946/templates/config/tokens.csv.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "apiserver"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "etcd.ssl.ca",
+        "Description": "CA for etcd client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "etcd.ssl.crt",
+        "Description": "Certificate for etcd client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.apiserver.private_key",
+        "Description": "Private key for the apiserver master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ip",
+        "Description": "IP address used for apiserver",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port used for apiserver",
+        "Default": 9443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "etcd.url",
+        "Description": "ETCD host URL to connect",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.apiserver.certificate",
+        "Description": "Certificate for the apiserver master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "crds",
+        "Description": "CRD list to be deployed on apiserver",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "etcd.ssl.key",
+        "Description": "Private key for etcd client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging-level",
+        "Description": "V-leveled logging at the specified level. See https://github.com/golang/glog",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin-username",
+        "Description": "The admin username for the apiserver cluster",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin-password",
+        "Description": "The password for the admin account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.apiserver.ca",
+        "Description": "CA Certificate for the apiserver master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-backup-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4030985711/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/eventlog-config-external.yml.erb",
+        "DstPathEnd": "config/eventlog-config-external.yml",
+        "Path": "/tmp/tar-CmdExtractor4030985711/templates/config/eventlog-config-external.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/service-fabrik-backup-manager_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-backup-manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor4030985711/templates/bin/service-fabrik-backup-manager_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor4030985711/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor4030985711/templates/config/settings.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-bosh-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor634769812/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-bosh-manager_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-bosh-manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor634769812/templates/bin/service-fabrik-bosh-manager_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor634769812/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor634769812/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/eventlog-config-internal.yml.erb",
+        "DstPathEnd": "config/eventlog-config-internal.yml",
+        "Path": "/tmp/tar-CmdExtractor634769812/templates/config/eventlog-config-internal.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3471583727/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/bin/drain.erb"
+      },
+      {
+        "SrcPathEnd": "bin/service-fabrik-broker_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-broker_ctl",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/bin/service-fabrik-broker_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bin/health_check.erb",
+        "DstPathEnd": "bin/health_check",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/bin/health_check.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/eventlog-config-internal.yml.erb",
+        "DstPathEnd": "config/eventlog-config-internal.yml",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/config/eventlog-config-internal.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/circuit-breaker-config.yml.erb",
+        "DstPathEnd": "config/circuit-breaker-config.yml",
+        "Path": "/tmp/tar-CmdExtractor3471583727/templates/config/circuit-breaker-config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      },
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "yaml2json"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "event.defaults.log_inprogress_state",
+        "Description": "Determines if an in-progress event is to be logged or not",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event.defaults.ignore_service_fabrik_operation",
+        "Description": "Determines if a broker API is being invoked via service fabrik API operation",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Determines whether the broker should verify SSL certificates when communicating with other endpoints such as the cloud controller or the UAA",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "multi_az_enabled",
+        "Description": "Switch used to turn on/off the multi-az support",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.session_expiry",
+        "Description": "Session expiry time of the session in seconds",
+        "Default": 86400,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "common.tls_cacert",
+        "Description": "Trust only remotes providing a certificate signed by the CA given here",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.port",
+        "Description": "Syslog ingestor Port",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.max_num_on_demand_backup",
+        "Description": "Maximum number of on-demand backups",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.backup_restore_status_poller_timeout",
+        "Description": "Timeout for backup/restore status checker in ms",
+        "Default": 86400000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.ssl.cert",
+        "Description": "Signed certificate used for internal communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.provision.plan_id",
+        "Description": "Mongo Plan Id from the service catalog which is to be used for provisioning internal mongodb by Fabrik",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.backup_restore_status_check_every",
+        "Description": "Status of deployment backup/restore once in every ms",
+        "Default": 120000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.url",
+        "Description": "Docker URL (HTTP address or Unix socket)",
+        "Default": "https://10.11.252.10:2376",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "quota.password",
+        "Description": "Client secret for quota service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "name",
+        "Description": "Name of the service broker as it will be registered at the Cloud Foundry cloud controller",
+        "Default": "service-fabrik-broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_circuit_breaker",
+        "Description": "Switch used to turn on/off circuit breaker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lockttl.restore",
+        "Description": "LockTTL in seconds for restore operation",
+        "Default": 86400,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.volume_driver",
+        "Description": "Volume driver used for Docker containers (only local or lvm-volume-driver are currently supported)",
+        "Default": "local",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event.defaults.include_response_body",
+        "Description": "Determines wheter HTTP response body is to be logged or not",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.ssl",
+        "Description": "Private key used for external communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.ip",
+        "Description": "IP address used for internal endpoints such as administration or the service broker API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "monitoring.unauthorized.include_response_body",
+        "Description": "Determines if the unauthorized event should contain the HTTP method response while logging",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.error_threshold_hours",
+        "Description": "Time in hours after which an error in sending to MaaS is reported to Riemann",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "feature.AllowInstanceSharing",
+        "Description": "Switch used to turn on/off sharing instances on CF",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lockttl.backup",
+        "Description": "LockTTL in seconds for backup operation",
+        "Default": 86400,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.record_max_fetch_count",
+        "Description": "Max number of records that can be fetched at a time from DB",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.api_requires_admin_scope",
+        "Description": "Only Administrators of the Cloud Foundry cloud controller are allowed to use the Service Fabrik API endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.abort_time_out",
+        "Description": "Timeout time for abort of backup to complete in ms (defaults to 5 mins)",
+        "Default": 300000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.transaction_logs_delete_buffer_time",
+        "Description": "Delete transaction logs older than latest successful backup + this buffer time in minutes",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.url",
+        "Description": "MongoDB connection URL for service-fabrik's internal needs. ex : mongodb://user:pass@localhost:port/database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.backup.schedule_interval",
+        "Description": "Cron expression defining the backup interval for service fabrik's internal mongodb's backup job",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.lock_check_delay_on_restart",
+        "Description": "On restart of service fabrik queries all deployments to see if there is a lock on it. This delay ensures each call is spaced with this delay (ms)",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.binding.region",
+        "Description": "The region provided by the metering binding",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.num_of_allowed_restores",
+        "Description": "Number of allowed restore in backup.restore_history_days",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "common.tls_client_cert",
+        "Description": "TLS certificate file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.binding.clientid",
+        "Description": "The client id provided by the metering service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_cross_organization_sharing",
+        "Description": "Determines whether instances can be shared across CF organizations",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "feature.ServiceInstanceAutoUpdate",
+        "Description": "Switch used to turn on/off schedule update feature",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.restore_history_days",
+        "Description": "Number days to consider for restore quota check",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "quota.whitelist",
+        "Description": "List of whitelisted organitions for which quota check should not happen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.trust_proxy",
+        "Description": "This is required when running an Express app behind a proxy (see http://expressjs.com/en/guide/behind-proxies.html)",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.provision.network_index",
+        "Description": "Network segment index within the service fabrik network where the internal mongodb is to be provisioned",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "services",
+        "Description": "Services and plans offered by the broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.host",
+        "Description": "Domain name used for external endpoints such as dashboards or the Service Fabrik API (will be registered at the router)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.allocate_docker_host_ports",
+        "Description": "Allocate Docker host ports when creating a container",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.http_status_codes_to_be_skipped",
+        "Description": "Broker events with http response codes matching this list will be skipped from logging to riemann",
+        "Default": [
+          400,
+          409
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.retry_connect.min_delay",
+        "Description": "Minimum delay before retry attempt to connect to DB",
+        "Default": 120000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.prefix",
+        "Description": "Riemann Prefix",
+        "Default": "CF",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.binding.clientsecret",
+        "Description": "The client secret provided by the metering service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.binding.metering_url",
+        "Description": "The metering url provided by the metering service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.provider",
+        "Description": "IaaS-specific backup provider configuration",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_addon_jobs",
+        "Description": "Add on jobs that will be added onto the services deployment",
+        "Default": [
+          "iptables-manager"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.show_errors",
+        "Description": "Determines whether Riemann errors are to be logged or not",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent_operation_timeout",
+        "Description": "(milliseconds) Timeout duration for any operation done on broker agent",
+        "Default": 35000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.internal_url",
+        "Description": "Domain name used for internal endpoints such as administration or the service broker API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "quota.enabled",
+        "Description": "If Quota Management Service is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.enabled",
+        "Description": "True if metering in enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_bosh_rate_limit",
+        "Description": "Switch used to turn on/off rate limiting against BOSH director",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.status_check_every",
+        "Description": "Interval in milliseconds to check the status of service fabrik backup",
+        "Default": 120000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.log_additional_event",
+        "Description": "Boolean configuration to log additional event to Riemann",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "quota.serviceDomain",
+        "Description": "Onboarding Service domain for quota service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "circuit_breaker",
+        "Description": "Overridden circuit breaker configuration",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_swarm_manager",
+        "Description": "Determines whether the broker has dependency on swarm manager",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sys_log_level",
+        "Description": "Log level of the messages that are to be forwarded to ELK via syslog transport",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "send_binding_metadata",
+        "Description": "When set to false, any metadata will be omitted from the create_binding response. To be used when metadata contains sensitive information",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.agent.provider.container",
+        "Description": "S3/Swift container name where service fabrik's mongodb backup blobs will be stored",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.password",
+        "Description": "Admin password for the Cloud Foundry cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event.defaults.http_success_codes",
+        "Description": "Defines the default HTTP success codes",
+        "Default": [
+          200,
+          201
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_service_fabrik_v2",
+        "Description": "Determines whether to enable service fabrik v20",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_enabled",
+        "Description": "Switch used to turn on/off the HA support",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker_drain_message",
+        "Description": "Drain message that is updated into broker maintenance state. If undefined, then during drain maintenance state is not updated",
+        "Default": "BROKER_DRAIN_INITIATED",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "monitoring.events_logged_in_db",
+        "Description": "Comma seperated list of event names that are to be logged in DB",
+        "Default": "create_backup, update_instance",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.binding.token_url",
+        "Description": "The token url provided by the metering service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event.delete.http_success_codes",
+        "Description": "Defines the HTTP success codes for Delete operation",
+        "Default": [
+          200,
+          410
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Log level of the broker",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_concurrent_operations",
+        "Description": "When set to true, it will disable the check for parallel create/update/delete operation of the service instance",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.retry_connect.max_attempt",
+        "Description": "Maximum retry attempts for connecting to DB on errors",
+        "Default": 8,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.url",
+        "Description": "URL of the Cloud Foundry cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.host",
+        "Description": "Riemann Host IP",
+        "Default": "10.1.3.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.job",
+        "Description": "Name of the swarm/docker job",
+        "Default": "swarm_manager",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event.defaults.http_inprogress_codes",
+        "Description": "Defines the default in progress HTTP status codes",
+        "Default": [
+          202
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "quota.oauthDomain",
+        "Description": "Oauth domain for quota service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Broker's basic auth username",
+        "Default": "broker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_concurrent_binding_operations",
+        "Description": "When set to true, it will disable the check for parallel binding/unbinding operation during any OSB operation",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.port",
+        "Description": "Port used for external endpoints such as dashboards or the Service Fabrik API",
+        "Default": 9292,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.cookie_secret",
+        "Description": "Unique secret key, used to sign sessions",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_timeout",
+        "Description": "Timeout duration for any request to broker",
+        "Default": 175000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.identity_provider",
+        "Description": "Identity provider for the Cloud Foundry cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.host",
+        "Description": "Syslog ingestor host IP of ELK stack",
+        "Default": "10.1.4.3",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker.skip_ssl_validation",
+        "Description": "Determines whether the broker should verify SSL certificates when communicating with the Swarm Manager",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.port",
+        "Description": "Riemann Port",
+        "Default": 5555,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Broker's basic auth password",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment_action_timeout",
+        "Description": "Timeout duration for deployment hook actions",
+        "Default": 80000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.port",
+        "Description": "Port used for internal endpoints such as administration or the service broker API",
+        "Default": 9443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.consecutive_backup_failure_sla_count",
+        "Description": "Max allowed no backup days in a row (defaults to 3 days)",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.username",
+        "Description": "Admin username for the Cloud Foundry cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.domain_socket.path",
+        "Description": "domain socket path used to communicate with broker monitoring agent",
+        "Default": "/tmp/sfevents",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lockttl.lifecycle",
+        "Description": "LockTTL in seconds for lifecycle operations create, update, delete",
+        "Default": 86400,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mongodb.deployment_name",
+        "Description": "Bosh deployment name of the internal mongo-db",
+        "Default": "service-fabrik-mongodb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "monitoring.event_name_prefix",
+        "Description": "All riemann events originating from service fabrik will have this prefix",
+        "Default": "CF.service-fabrik",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "feature.EnableSecurityGroupsOps",
+        "Description": "Switch used to enable security groups related operations",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external.log_event",
+        "Description": "Determines whether event logging must be enabled or not",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.retry_delay_on_error",
+        "Description": "In case of unlock failure 3 retry attempts will be done with this configured delay (milliseconds) in exponential manner",
+        "Default": 60000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "monitoring.include_response_body",
+        "Description": "Determines if the riemann event should contain the HTTP method response while logging",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "riemann.enabled",
+        "Description": "Determines whether events should be forwarded to Riemann",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metering.create_metering_events",
+        "Description": "Create sfevents crds",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.ssl.key",
+        "Description": "Private key used for internal communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.log_event",
+        "Description": "Determines whether event logging must be enabled or not",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.retention_period_in_days",
+        "Description": "Scheduled backups are going to be maintained during this period \u0026 cannot be deleted. Beyond this period backups are automatically deleted by backup job",
+        "Default": 14,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "common.tls_client_key",
+        "Description": "TLS key file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "event.defaults.cf_last_operation",
+        "Description": "Determines if an HTTP operation is to be additionally treated with cf-last operation semantics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal.ssl.ca",
+        "Description": "CA for internal app SSL certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backup.reschedule_backup_delay_after_restore",
+        "Description": "Delay to reschedule backup after restore in minutes",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "directors",
+        "Description": "URL of the Bosh directors",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "quota.username",
+        "Description": "clientId for quota service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-broker-ext",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2623387938/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-broker-ext_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-broker-ext_ctl",
+        "Path": "/tmp/tar-CmdExtractor2623387938/templates/bin/service-fabrik-broker-ext_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor2623387938/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor2623387938/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/eventlog-config-external.yml.erb",
+        "DstPathEnd": "config/eventlog-config-external.yml",
+        "Path": "/tmp/tar-CmdExtractor2623387938/templates/config/eventlog-config-external.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/circuit-breaker-config.yml.erb",
+        "DstPathEnd": "config/circuit-breaker-config.yml",
+        "Path": "/tmp/tar-CmdExtractor2623387938/templates/config/circuit-breaker-config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      },
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "yaml2json"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-deployment-hooks",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor960099580/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-deployment-hooks_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-deployment-hooks_ctl",
+        "Path": "/tmp/tar-CmdExtractor960099580/templates/bin/service-fabrik-deployment-hooks_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor960099580/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor960099580/templates/config/settings.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-deployment-hooks"
+      },
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "yaml2json"
+      },
+      {
+        "Name": "libseccomp"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enable_circuit_breaker",
+        "Description": "Switch used to turn on/off circuit breaker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_timeout",
+        "Description": "Timeout duration for any request to deployment hooks",
+        "Default": 80000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "whitelisted_syscalls",
+        "Description": "Space separated string of syscalls",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hook.ip",
+        "Description": "IP address used for reporting endpoints",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Deployment Hook's basic auth username",
+        "Default": "hook",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_syscall_filters",
+        "Description": "Determines whether to enable syscall filtering for action scripts",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hook.protocol",
+        "Description": "Protocol for reporting endpoints",
+        "Default": "https",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Determines whether the deployment hooks should verify SSL certificates when communicating with other endpoints such as broker",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hook.port",
+        "Description": "Port used for reporting endpoints",
+        "Default": 9295,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hook.ssl.cert",
+        "Description": "Signed certificate used for communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Deployment Hook's basic auth password",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Log level of the deployment hooks",
+        "Default": "debug",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hook.ssl.key",
+        "Description": "Private key used for communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hook.log_event",
+        "Description": "Determines whether event logging must be enabled or not",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "actions",
+        "Description": "Deployment actions template",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-docker-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3788149562/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-docker-manager_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-docker-manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor3788149562/templates/bin/service-fabrik-docker-manager_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor3788149562/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor3788149562/templates/config/settings.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-interoperator",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor530620112/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre_start.erb",
+        "DstPathEnd": "bin/pre_start",
+        "Path": "/tmp/tar-CmdExtractor530620112/templates/bin/pre_start.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor530620112/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.yaml.erb",
+        "DstPathEnd": "config/kubeconfig.yaml",
+        "Path": "/tmp/tar-CmdExtractor530620112/templates/config/kubeconfig.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/cluster.yaml.erb",
+        "DstPathEnd": "config/cluster.yaml",
+        "Path": "/tmp/tar-CmdExtractor530620112/templates/config/cluster.yaml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "interoperator"
+      },
+      {
+        "Name": "kubectl"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-postgresqlmt-operator",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2294539730/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2294539730/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor2294539730/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.yaml.erb",
+        "DstPathEnd": "config/kubeconfig.yaml",
+        "Path": "/tmp/tar-CmdExtractor2294539730/templates/config/kubeconfig.yaml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-quota-app",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1797967983/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-quota-app_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-quota-app_ctl",
+        "Path": "/tmp/tar-CmdExtractor1797967983/templates/bin/service-fabrik-quota-app_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor1797967983/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor1797967983/templates/config/settings.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      },
+      {
+        "Name": "jq"
+      },
+      {
+        "Name": "yaml2json"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "endpoint",
+        "Description": "Endpoint to check quota valid status",
+        "Default": "/v1/account",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "host",
+        "Description": "IP address of host for quota app",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port on which quota app should listen",
+        "Default": 9296,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Username for basic authentication with quota application",
+        "Default": "quota",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Password for basic authentication with quota application",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-report",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1444146693/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-report_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-report_ctl",
+        "Path": "/tmp/tar-CmdExtractor1444146693/templates/bin/service-fabrik-report_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor1444146693/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor1444146693/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/circuit-breaker-config.yml.erb",
+        "DstPathEnd": "config/circuit-breaker-config.yml",
+        "Path": "/tmp/tar-CmdExtractor1444146693/templates/config/circuit-breaker-config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/eventlog-config-report.yml.erb",
+        "DstPathEnd": "config/eventlog-config-report.yml",
+        "Path": "/tmp/tar-CmdExtractor1444146693/templates/config/eventlog-config-report.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "report.port",
+        "Description": "Port used for reporting endpoints",
+        "Default": 9294,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "report.ip",
+        "Description": "IP address used for reporting endpoints",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "report.ssl.key",
+        "Description": "Private key used for communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "report.ssl.cert",
+        "Description": "Signed certificate used for communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "report.log_event",
+        "Description": "Determines whether event logging must be enabled or not",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-scheduler",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1063027345/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-scheduler_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-scheduler_ctl",
+        "Path": "/tmp/tar-CmdExtractor1063027345/templates/bin/service-fabrik-scheduler_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor1063027345/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor1063027345/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/eventlog-config-external.yml.erb",
+        "DstPathEnd": "config/eventlog-config-external.yml",
+        "Path": "/tmp/tar-CmdExtractor1063027345/templates/config/eventlog-config-external.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/eventlog-config-internal.yml.erb",
+        "DstPathEnd": "config/eventlog-config-internal.yml",
+        "Path": "/tmp/tar-CmdExtractor1063027345/templates/config/eventlog-config-internal.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/circuit-breaker-config.yml.erb",
+        "DstPathEnd": "config/circuit-breaker-config.yml",
+        "Path": "/tmp/tar-CmdExtractor1063027345/templates/config/circuit-breaker-config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "max_concurrency",
+        "Description": "A number which specifies the max number of batch jobs that can be running at any given moment",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "job_history_retention_in_days",
+        "Description": "Retention period in number of days, for which the job run history is maintained. (for ex. 30 - job run history for 30 days will be maintained)",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.scheduled_backup.max_attempts",
+        "Description": "If an update is in-progess while backup is to be run, then the backup will be rescheduled after a delay. This will be repeated for the below configured times if update is long running",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.should_start_after_hr",
+        "Description": "Service instance update job schedule is randomized but this param specifies the start time (hrs) after which the randomization must be done",
+        "Default": 7,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.should_start_before_min",
+        "Description": "Service instance update job schedule is randomized but this param specifies the start time (mins) before which the randomization must be done",
+        "Default": 59,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.dbcollection_reaper.jobrun_detail.retention_in_days",
+        "Description": "Retention period in days for the agenda job run details. Data older than this is deleted",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.archive_metered_events.interval",
+        "Description": "Cron expression defining schedule interval for archive_metered_events job",
+        "Default": "0 */4 * * *",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.meter_instance.enabled",
+        "Description": "true if metering is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.archive_metered_events.job_data.events_to_patch",
+        "Description": "Number of events to patch in one job run",
+        "Default": 500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scheduler.name",
+        "Description": "Name of the service fabrik job scheduler",
+        "Default": "service-fabrik-scheduler",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "run_with_web_process",
+        "Description": "Flag which indicates if scheduler can run in the same process as that of service fabrik broker web process",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_lock_lifetime",
+        "Description": "Specifies the default lock lifetime of a batchjob in milliseconds. A job cannot be re-run when within this locktime period (in case of errors, crash etc.)",
+        "Default": 180000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "downtime_maintenance_phases",
+        "Description": "Maintenance phases during which (even any one of them) the scheduler must be shut down as ZDM is not in place across dependent components",
+        "Default": [
+          "BROKER_DRAIN_INITIATED"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.run_every_xdays",
+        "Description": "Runs the service instance update job once every configured number of days",
+        "Default": 7,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.should_start_before_hr",
+        "Description": "Service instance update job schedule is randomized but this param specifies the start time (hrs) before which the randomization must be done",
+        "Default": 16,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.time_zone",
+        "Description": "Timezone in which the service instance update job runs",
+        "Default": "Asia/Kolkata",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.backup_reaper.job_data.delete_delay",
+        "Description": "delay in processing between two tasks (in millisecond)",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.meter_instance.interval",
+        "Description": "Cron expression defining schedule interval for metering job",
+        "Default": "0 2 * * *",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "process_every",
+        "Description": "Interval at which scheduler will query the database looking for jobs that need to be processed",
+        "Default": "1 minute",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "job_types",
+        "Description": "Comma seperated list of batch job types that are enabled in service fabrik. Jobs can be enabled disabled by changing this list.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "maintenance_check_interval",
+        "Description": "Once scheduler is placed in maintenace mode, it checks every configured (ms) for status of maitenance mode",
+        "Default": 90000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.reschedule_delay",
+        "Description": "Jobs when found to be conflicting with each other are rescheduled after this delay (human-interval)",
+        "Default": "20 minutes from now",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.max_attempts",
+        "Description": "In case of an error while trigerring an update, max retry attempts will be done based on the below configured value (note errors due to running backups are not considered)",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.dbcollection_reaper.event_detail.retention_in_days",
+        "Description": "Retention period in days for the event details (create_backup/update_instance) stored in SF. Data older than this is deleted",
+        "Default": 90,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "start_delay",
+        "Description": "Scheduler start must be delayed for DB connections to happen",
+        "Default": 120000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "maintenance_mode_time_out",
+        "Description": "(ms) - wait for sf deployment to complete. Beyond this timeout out time scheduler starts",
+        "Default": 36000000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.backup_reaper.interval",
+        "Description": "Cron expression defining schedule interval for backup reaper job",
+        "Default": "0 1 * * *",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_jobs.dbcollection_reaper.interval",
+        "Description": "Cron expression defining schedule interval for db collection reaper job",
+        "Default": "0 2 * * *",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_workers",
+        "Description": "Max number of Job process workers",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_concurrency",
+        "Description": "A number which specifies the default number of a specific job that can be running at any given moment",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agenda_collection",
+        "Description": "Name of the collection in mongodb which is to be used by agendaJS to store the scheduled job meta info",
+        "Default": "agendaJobs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jobs.service_instance_update.should_start_after_min",
+        "Description": "Service instance update job schedule is randomized but this param specifies the start time (mins) after which the randomization must be done",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-fabrik-serviceflow-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3289675650/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3289675650/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor3289675650/templates/config/settings.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.yaml.erb",
+        "DstPathEnd": "config/kubeconfig.yaml",
+        "Path": "/tmp/tar-CmdExtractor3289675650/templates/config/kubeconfig.yaml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "service-fabrik-virtualhost-manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1051117594/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/service-fabrik-virtualhost-manager_ctl.erb",
+        "DstPathEnd": "bin/service-fabrik-virtualhost-manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor1051117594/templates/bin/service-fabrik-virtualhost-manager_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor1051117594/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/settings.yml.erb",
+        "DstPathEnd": "config/settings.yml",
+        "Path": "/tmp/tar-CmdExtractor1051117594/templates/config/settings.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "service-fabrik-broker"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "swarm_manager",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3707005606/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/job_properties.sh.erb",
+        "DstPathEnd": "bin/job_properties.sh",
+        "Path": "/tmp/tar-CmdExtractor3707005606/templates/bin/job_properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bin/swarm_manager_ctl",
+        "DstPathEnd": "bin/swarm_manager_ctl",
+        "Path": "/tmp/tar-CmdExtractor3707005606/templates/bin/swarm_manager_ctl"
+      },
+      {
+        "SrcPathEnd": "config/docker.cacert.erb",
+        "DstPathEnd": "config/docker.cacert",
+        "Path": "/tmp/tar-CmdExtractor3707005606/templates/config/docker.cacert.erb"
+      },
+      {
+        "SrcPathEnd": "config/docker.cert.erb",
+        "DstPathEnd": "config/docker.cert",
+        "Path": "/tmp/tar-CmdExtractor3707005606/templates/config/docker.cert.erb"
+      },
+      {
+        "SrcPathEnd": "config/docker.key.erb",
+        "DstPathEnd": "config/docker.key",
+        "Path": "/tmp/tar-CmdExtractor3707005606/templates/config/docker.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-helpers"
+      },
+      {
+        "Name": "swarm"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "swarm_manager.debug",
+        "Description": "Enable debug mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.replication_ttl",
+        "Description": "Leader lock release time on failure",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.api_enable_cors",
+        "Description": "Enable CORS headers in the remote API",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.port",
+        "Description": "Listen port",
+        "Default": "2376",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.tls_cert",
+        "Description": "TLS certificate file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.tls_verify",
+        "Description": "Use TLS and verify the remote",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "HTTPS proxy that Docker should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker.syslog.port",
+        "Description": "Syslog ingestor Port",
+        "Default": 5514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.listen_address",
+        "Description": "Listen address",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.strategy",
+        "Description": "Placement strategy to use [spread, binpack, random]",
+        "Default": "spread",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.advertise",
+        "Description": "Address of the Swarm Manager joining the cluster. Other Swarm Manager(s) MUST be able to reach the Swarm Manager at this address.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "HTTP proxy that Docker should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.log_level",
+        "Description": "Log level (options: debug, info, warn, error, fatal, panic)",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.heartbeat",
+        "Description": "Time in second between each heartbeat",
+        "Default": "20s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.node_heartbeat_retries",
+        "Description": "No of retries swarm manager makes to check if docker nodes is healthy again if it was un-healthy previously",
+        "Default": "60",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "common.tls_cacert",
+        "Description": "Trust only remotes providing a certificate signed by the CA given here",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "List of comma-separated hosts that Docker should skip connecting to the proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker.syslog.host",
+        "Description": "Syslog ingestor host IP of ELK stack",
+        "Default": "10.1.4.3",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.overcommit",
+        "Description": "Overcommit to apply on resources",
+        "Default": "0.5",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.discovery_options",
+        "Description": "Swarm discovery options",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.discovery",
+        "Description": "Swarm discovery string (ie: consul://\u003cip\u003e/\u003cpath\u003e, etcd://\u003cip1\u003e,\u003cip2\u003e/\u003cpath\u003e, zk://\u003cip1\u003e,\u003cip2\u003e/\u003cpath\u003e, [nodes://]\u003cip1\u003e,\u003cip2\u003e",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.filters",
+        "Description": "Filters to use [health, port, dependency, affinity, constraint]",
+        "Default": [
+          "health",
+          "port",
+          "dependency",
+          "affinity",
+          "constraint"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.replication",
+        "Description": "Enable Swarm manager replication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.tls_key",
+        "Description": "TLS key file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.name",
+        "Description": "Name for swarm manager, used syslog shipper name",
+        "Default": "service_fabrik_swarm_manager",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm_manager.logs_dir",
+        "Description": "logs directory of swarm_manager",
+        "Default": "/var/vcap/sys/log/swarm_manager",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "swarm.tls",
+        "Description": "Use TLS",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "webhooks",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3380618475/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/client-key.pem.erb",
+        "DstPathEnd": "config/client-key.pem",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/config/client-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/webhooks.json.erb",
+        "DstPathEnd": "config/webhooks.json",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/config/webhooks.json.erb"
+      },
+      {
+        "SrcPathEnd": "config/metering_webhooks.json.erb",
+        "DstPathEnd": "config/metering_webhooks.json",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/config/metering_webhooks.json.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config/client-cert.pem.erb",
+        "DstPathEnd": "config/client-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/config/client-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubeconfig.yaml.erb",
+        "DstPathEnd": "config/kubeconfig.yaml",
+        "Path": "/tmp/tar-CmdExtractor3380618475/templates/config/kubeconfig.yaml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "webhooks"
+      },
+      {
+        "Name": "jq"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "log_level",
+        "Description": "Log level of the webhook",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port used for reporting endpoints",
+        "Default": 9444,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
