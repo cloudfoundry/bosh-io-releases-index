@@ -1,0 +1,167 @@
+[
+  {
+    "Name": "event_logger",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor943496717/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "event_logger.ps1.erb",
+        "DstPathEnd": "bin/event_logger.ps1",
+        "Path": "/tmp/tar-CmdExtractor943496717/templates/event_logger.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "event_types",
+        "Description": "which LogName's to fetch event logs from",
+        "Default": [
+          "Security",
+          "Application",
+          "System"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sleep_miliseconds",
+        "Description": "how long to sleep between fetches",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_log_size",
+        "Description": "when to file rotate the event logs on disk",
+        "Default": "10MB",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "syslog_forwarder_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4240167506/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "blackbox_config.yml.erb",
+        "DstPathEnd": "config/blackbox_config.yml",
+        "Path": "/tmp/tar-CmdExtractor4240167506/templates/blackbox_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor4240167506/templates/ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "blackbox-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "syslog.blackbox.max_retries",
+        "Description": "maximum number of times to retry the connection with an exponential backoff between attempts",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.migration.disabled",
+        "Description": "Allows systems that cannot modify their deployment toplogy\nto use this release.\nDo not use if you're not already relying on this capability.\nIf true, does not forward syslogs,\nand does not require any other properties be provided.\nOverrides all other configuration.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in log file forwarder logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.director",
+        "Description": "String to be used in \"director\" field in structured data of forwarded logs.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.port",
+        "Description": "Port of the syslog server.",
+        "Default": 514,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.tls_enabled",
+        "Description": "Set this to true to enable TLS over tcp. Validates certs via Windows API unless syslog.ca_cert is set.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.blackbox.source_dir",
+        "Description": "directory with subdirectories containing log files. log lines will be tagged with subdirectory name.\n",
+        "Default": "c:/var/vcap/sys/log",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.blackbox.limit_cpu",
+        "Description": "limit goprocess to a single cpu via gomaxprocs",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "golang.x509ignoreCN",
+        "Description": "Environment Flag to temporarily ignore golang's strict checking for at least one SAN in a TLS certificate. See: https://golang.org/doc/go1.15#commonname for more info.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.environment",
+        "Description": "Optional environment identifier",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.transport",
+        "Description": "One of `udp`, `tcp`",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.address",
+        "Description": "IP or DNS address of the syslog server.",
+        "Default": null,
+        "Example": "logs4.papertrail.com",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.ca_cert",
+        "Description": "Trusted CAs. Only necessary if TLS is enabled AND signing CA will not be validated by Windows. Ignores windows cert validation API, The entire applicable cert chain must be provided.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
