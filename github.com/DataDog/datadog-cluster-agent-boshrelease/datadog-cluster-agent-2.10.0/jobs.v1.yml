@@ -1,0 +1,294 @@
+[
+  {
+    "Name": "datadog-cluster-agent",
+    "Description": "Datadog Cluster Agent for Cloud Foundry",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3292653216/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "datadog-cluster.yaml.erb",
+        "DstPathEnd": "config/datadog-cluster.yaml",
+        "Path": "/tmp/tar-CmdExtractor3292653216/templates/datadog-cluster.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ca.crt.erb",
+        "DstPathEnd": "config/bbs_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3292653216/templates/bbs_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.crt.erb",
+        "DstPathEnd": "config/bbs_client.crt",
+        "Path": "/tmp/tar-CmdExtractor3292653216/templates/bbs_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.key.erb",
+        "DstPathEnd": "config/bbs_client.key",
+        "Path": "/tmp/tar-CmdExtractor3292653216/templates/bbs_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "cloud_foundry_api.yaml.erb",
+        "DstPathEnd": "config/conf.d/cloud_foundry_api.d/conf.yaml",
+        "Path": "/tmp/tar-CmdExtractor3292653216/templates/cloud_foundry_api.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "datadog-cluster-agent-ctl.erb",
+        "DstPathEnd": "bin/datadog-cluster-agent-ctl",
+        "Path": "/tmp/tar-CmdExtractor3292653216/templates/datadog-cluster-agent-ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "datadog-cluster-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cluster_agent.log_level",
+        "Description": "Logging level for the cluster agent",
+        "Default": "INFO",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.cloud_foundry_api_check_config",
+        "Description": "Cloud Foundry API integration YAML configuration. See [example configuration](http://github.com/DataDog/integrations-core/blob/master/cloud_foundry_api/datadog_checks/cloud_foundry_api/data/conf.yaml.example) for all available options.\nUse this instead of the following individual properties for full customization of the integration.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.advanced_tagging",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.https_proxy",
+        "Description": "URL of the HTTPS Proxy.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.no_proxy",
+        "Description": "List of domains for which requests should skip proxy.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.api_key",
+        "Description": "Datadog API key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.apps_batch_size",
+        "Description": "Number of apps per page to collect when calling the list apps endpoint of the CC API. Max 5000.",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.http_proxy",
+        "Description": "URL of the HTTP Proxy.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_bbs.env_exclude",
+        "Description": "List of regular expressions to forbid a set of environment variables to be included as container tags.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.enabled",
+        "Description": "Whether or not to enable the Cluster Agent",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.tags",
+        "Description": "A list of custom tags to attach to the data sent to Datadog.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_bbs.env_include",
+        "Description": "List of regular expressions to allow a set of environment variables to be included as container tags.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.bbs_url",
+        "Description": "URL of the BBS API",
+        "Default": "https://bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.warmup_duration",
+        "Description": "Number of seconds to wait for Node agents to report before starting to dispatch configurations",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.ulimit_files",
+        "Description": "The limit of open file descriptors for the cluster agent process. Increase if you have a large number of VMs in your environmnent, to allow more HTTP connections to the cluster agent API.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.enable_cloud_foundry_api_check",
+        "Description": "Whether or not to enable the Cloud Foundry API integration.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.refresh_on_cache_miss",
+        "Description": "Whether or not to query the CAPI on cache miss in the cluster agent.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.bbs_ca_crt",
+        "Description": "PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.bbs_client_key",
+        "Description": "PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.enable_cloud_foundry_api_apps_polling",
+        "Description": "Whether or not to poll the apps endpoint of the Cloud Foundry API for improved tagging functionality of containers.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.isolation_segments_tags",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.event_filter",
+        "Description": "A list of audit event types to collect from the API.",
+        "Default": [
+          "audit.app.restage",
+          "audit.app.update",
+          "audit.app.create",
+          "app.crash"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.skip_ssl_validation",
+        "Description": "Whether or not to validate the SSL certificate when connecting to the Cloud Foundry API.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.bbs_poll_interval",
+        "Description": "Interval for refreshing autodiscovery data from BBS API (in seconds)",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.force_tls_12",
+        "Description": "Whether or not to force TLS 1.2 for agent HTTPS communications.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.serve_nozzle_data",
+        "Description": "Whether or not to serve preprocessed data for the nozzles.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.api_url",
+        "Description": "Cloud Foundry API URL where the integration collects events.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.client_id",
+        "Description": "Client ID to authenticate with the UAA server. It needs to have the `admin.read_only` scope for the integration to work properly.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.token",
+        "Description": "Token for Node Agent \u003c-\u003e Cluster Agent authentication. This has to be 32 or more characters.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.port",
+        "Description": "Port on which the Cluster Agent can be reached by Node Agents",
+        "Default": 5005,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.poll_interval",
+        "Description": "Polling rate of CC API, in seconds. Values lower than 10 might influence performance of other operations in the cluster.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cloud_foundry_api.client_secret",
+        "Description": "Client secret to authenticate with the UAA server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.bbs_client_crt",
+        "Description": "PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.sidecars_tags",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
