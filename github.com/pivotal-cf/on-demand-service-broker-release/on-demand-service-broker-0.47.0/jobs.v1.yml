@@ -1,0 +1,1104 @@
+[
+  {
+    "Name": "broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor364368356/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "broker.yml.erb",
+        "DstPathEnd": "config/broker.yml",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/broker.yml.erb"
+      },
+      {
+        "SrcPathEnd": "drain.sh.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/drain.sh.erb"
+      },
+      {
+        "SrcPathEnd": "broker.crt.erb",
+        "DstPathEnd": "certs/broker.crt",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/broker.crt.erb"
+      },
+      {
+        "SrcPathEnd": "broker.key.erb",
+        "DstPathEnd": "certs/broker.key",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/broker.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor364368356/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "broker"
+      },
+      {
+        "Name": "broker-post-start"
+      },
+      {
+        "Name": "broker_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "service_catalog.service_name",
+        "Description": "service offering for CF marketplace",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_quotas.service_instance_limit",
+        "Description": "the maximum number of instances that may be provisioned by on-demand broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.plans",
+        "Description": "the service plans to be presented to Cloud Foundry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.maintenance_info.description",
+        "Description": "maintenance information description of the impact of the maintenance update for all plans. See https://github.com/openservicebrokerapi/servicebroker/blob/master/spec.md#maintenance-info-object",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.maintenance_info.private",
+        "Description": "maintenance information to be returned as a single hashed string in the service catalog for all plans",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.basic.password",
+        "Description": "BOSH director password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.uaa.client_secret",
+        "Description": "UAA client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.authentication.uaa.ca_cert",
+        "Description": "Internal UAA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.authentication.uaa.client_credentials.client_id",
+        "Description": "ID of UAA client with permissions to read and write to BOSH CredHub",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.authentication.uaa.client_id",
+        "Description": "UAA client id for secure binding credential authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_quotas.resources",
+        "Description": "hash of resources that will be verified when provisioned by on-demand broker. A resource object contains \"limit\" as integer.",
+        "Default": {},
+        "Example": {
+          "global_quotas": {
+            "resources": {
+              "any_resource_name": {
+                "limit": 10
+              }
+            }
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "disable_ssl_cert_verification",
+        "Description": "Disable SSL certificate verification by the broker when communicating with any CF component. DO NOT USE IN PRODUCTION",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.url",
+        "Description": "CF API URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.enabled",
+        "Description": "Flag to activate secure binding",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.requires",
+        "Description": "string array of permissions required by broker",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.image_url",
+        "Description": "apps manager image url",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "support_backup_agent_binding",
+        "Description": "If the service adapter supports backup agent URL bindings, set this flag to true",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password",
+        "Description": "Broker basic auth password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.basic.username",
+        "Description": "BOSH director username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.authentication.uaa.client_credentials.client_secret",
+        "Description": "Secret of UAA client with permissions to read and write to BOSH CredHub",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.documentation_url",
+        "Description": "apps manager documentation url",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_persist_manifest",
+        "Description": "If true, the broker will record manifests in /var/vcap/data/manifests/",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "expose_operational_errors",
+        "Description": "The On Demand Broker will return BOSH errors to the platform when a failure occurs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.url",
+        "Description": "service instances API provider URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.stemcell.os",
+        "Description": "stemcell OS to use for every job in the service deployment",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.private_key",
+        "Description": "the matching private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secure_binding_credentials.authentication.uaa.client_secret",
+        "Description": "UAA client secret for secure binding credential authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.maintenance_info.public",
+        "Description": "maintenance information to be returned as plain text in the service catalog for all plans",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.maintenance_info.version",
+        "Description": "maintenance information version for all plans. See https://github.com/openservicebrokerapi/servicebroker/blob/master/spec.md#maintenance-info-object",
+        "Default": null,
+        "Example": "1.2.3",
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.stemcells",
+        "Description": "stemcells to deploy for each instance",
+        "Default": [],
+        "Example": [
+          {
+            "os": "ubuntu",
+            "version": 1234
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.plan_updatable",
+        "Description": "are plan migrations allowed?",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_quotas.resource_limits",
+        "Description": "deprecated property",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.uaa.client_definition",
+        "Description": "Client to be created by the broker during provision. See example below for valid fields.",
+        "Default": null,
+        "Example": "scopes: \u003ccomma separated list of scopes\u003e\nresource_ids: \u003ccomma separated list of resource ids\u003e\nauthorized_grant_types: \u003ccomma separated list of grant types\u003e\nauthorities: \u003ccomma separated list of authorities\u003e\nname: \u003cname\u003e\n",
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.bindable",
+        "Description": "is service bindable?",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.dashboard_client",
+        "Description": "client ID for dashboard",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "startup_banner",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_bosh_configs",
+        "Description": "Deactivate the feature where when a service adapter returns BOSH configs, ODB applies the configs to BOSH",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "shutdown_timeout_in_seconds",
+        "Description": "In seconds, allow the broker to close open connections before shutting down",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.uaa.authentication.user_credentials.password",
+        "Description": "CF Admin password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.root_ca_cert",
+        "Description": "root CA cert to validate TLS connection to service instances API provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.releases",
+        "Description": "releases to deploy for each instance",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.long_description",
+        "Description": "apps manager long description",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.shareable",
+        "Description": "is service shareable?",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.authentication",
+        "Description": "(Deprecated) UAA authentication object. See cf.uaa.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_cf_startup_checks",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_telemetry",
+        "Description": "Enables telemetry logging when set to true. If true, broker id must be set.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.root_ca_cert",
+        "Description": "Bosh Director Root CA certificate for broker to trust (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.root_ca_cert",
+        "Description": "Public certificate of root certificate authority used to sign BOSH CredHub's certificate. Used to authenticate the service.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_deployment.stemcell.version",
+        "Description": "stemcell version to use for every job in the service deployment",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.service_description",
+        "Description": "service description for CF marketplace",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.tags",
+        "Description": "string array of tags for catalog",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.global_properties",
+        "Description": "properties applied to every plan. if in conflict, plan properties take precedence",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port for the broker",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.url",
+        "Description": "BOSH URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.authentication.basic.username",
+        "Description": "HTTP basic auth username for connections to service instances API provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh_credhub_api.url",
+        "Description": "Full URL of BOSH CredHub service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_adapter.mount_paths",
+        "Description": "Filesystem paths to be mounted for use by the service adapter. This should include the paths to any config files.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.id",
+        "Description": "service ID for CF marketplace",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_plan_schemas",
+        "Description": "If the service adapter supports service plan schemas and you would like the schema to appear in the service catalog, set this flag to true",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.uaa.url",
+        "Description": "UAA URL for Cloud Foundry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.uaa.authentication.user_credentials.username",
+        "Description": "CF Admin username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.support_url",
+        "Description": "apps manager support url",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "username",
+        "Description": "Broker basic auth username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.uaa.authentication.client_credentials.client_id",
+        "Description": "UAA client ID with cloud_controller.read authority",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_secure_manifests",
+        "Description": "Allow ODB to read and write service instance secrets using the BOSH CredHub. Required for removing plain text secrets from service instance manifests.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.disable_ssl_cert_verification",
+        "Description": "Disable SSL certificate verification by the broker when communicating with Service Instances API.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_instances_api.authentication.basic.password",
+        "Description": "HTTP basic auth password for connections to service instances API provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.display_name",
+        "Description": "apps manager display name",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata.provider_display_name",
+        "Description": "apps manager provider display name",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_catalog.metadata",
+        "Description": "service metadata - accepts arbitrary key / value pairs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "use_stdin",
+        "Description": "Pass arguments to service adapter over standard input instead of as command line arguments. Requires a compatible service adapter.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.root_ca_cert",
+        "Description": "CF Root CA certificate for broker to trust (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf.uaa.authentication.client_credentials.client_secret",
+        "Description": "UAA client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.certificate",
+        "Description": "a server certificate for the broker to use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bosh.authentication.uaa.client_id",
+        "Description": "UAA client ID",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_adapter.path",
+        "Description": "The path to the service adapter binary located on the host with the broker",
+        "Default": "/var/vcap/packages/odb-service-adapter/bin/service-adapter",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "delete-all-service-instances",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor438001731/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor438001731/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor438001731/templates/errand.sh"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor438001731/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "delete-all-service-instances"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be deleted",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_initial_offset_seconds",
+        "Description": "offset in seconds before starting to poll Cloud Foundry to check if the instance has been deleted",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "delete-all-service-instances-and-deregister-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor106785633/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor106785633/templates/errand.sh"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor106785633/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor106785633/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "delete-all-service-instances-and-deregister-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_name",
+        "Description": "name of the broker to be deregistered from the cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be deleted",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_initial_offset_seconds",
+        "Description": "offset in seconds before starting to poll Cloud Foundry to check if the instance has been deleted",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "deregister-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor101484127/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor101484127/templates/errand.sh"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor101484127/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor101484127/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "deregister-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_name",
+        "Description": "name of broker to deregister with cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "orphan-deployments",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2569317472/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor2569317472/templates/errand.sh"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor2569317472/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2569317472/templates/bpm.yml"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "orphan-deployments"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_uri",
+        "Description": "Broker URI, if a route is registered or TLS is enabled",
+        "Default": null,
+        "Example": "https://broker.example.com, https://broker-job.default-network.broker-deployment.bosh",
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "The ca certificate used when communicating with the broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.disable_ssl_cert_verification",
+        "Description": "Do not perform TLS certificate verification when communicating to the broker. Not recommended for production use.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "recreate-all-service-instances",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor910334477/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor910334477/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor910334477/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor910334477/templates/errand.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "broker_utils"
+      },
+      {
+        "Name": "recreate-all-service-instances"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "attempt_limit",
+        "Description": "maximum number of times the errand will try to process each instance if another task is in progress",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "request_timeout",
+        "Description": "timeout in seconds when sending requests during the errand",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_in_flight",
+        "Description": "the maximum number of instances that will be recreated at the same time",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker_uri",
+        "Description": "Broker URI, if a route is registered or TLS is enabled",
+        "Default": null,
+        "Example": "https://broker.example.com, https://broker-job.default-network.broker-deployment.bosh",
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "The ca certificate used when communicating with the broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.disable_ssl_cert_verification",
+        "Description": "Do not perform TLS certificate verification when communicating to the broker. Not recommended for production use.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be processed",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "attempt_interval_seconds",
+        "Description": "interval in seconds between attempt batches",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "register-broker",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2880812502/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor2880812502/templates/errand.sh"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor2880812502/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2880812502/templates/bpm.yml"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "register-broker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_name",
+        "Description": "name of broker to register with cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "broker_uri",
+        "Description": "URI of broker, if a route has been registered (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-metrics-adapter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4286578451/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "collect-service-metrics.sh.erb",
+        "DstPathEnd": "bin/collect-service-metrics",
+        "Path": "/tmp/tar-CmdExtractor4286578451/templates/collect-service-metrics.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor4286578451/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "collect-service-metrics"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_uri",
+        "Description": "Broker URI, if a route is registered or TLS is enabled",
+        "Default": null,
+        "Example": "https://broker.example.com, https://broker-job.default-network.broker-deployment.bosh",
+        "Examples": null
+      },
+      {
+        "Name": "tls.disable_ssl_cert_verification",
+        "Description": "Set to true to disable SSL certificate verification when communicating with broker",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "The ca certificate used when communicating with the broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "upgrade-all-service-instances",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4188622753/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor4188622753/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor4188622753/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor4188622753/templates/errand.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "broker_utils"
+      },
+      {
+        "Name": "upgrade-all-service-instances"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "broker_uri",
+        "Description": "Broker URI, if a route is registered or TLS is enabled",
+        "Default": null,
+        "Example": "https://broker.example.com, https://broker-job.default-network.broker-deployment.bosh",
+        "Examples": null
+      },
+      {
+        "Name": "request_timeout",
+        "Description": "timeout in seconds when sending requests during the errand",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "canaries",
+        "Description": "number of instances to upgrade first before upgrading the rest of the instances",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.disable_ssl_cert_verification",
+        "Description": "Do not perform TLS certificate verification when communicating to the broker. Not recommended for production use.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "polling_interval_seconds",
+        "Description": "interval in seconds when waiting for service instance to be upgraded",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "attempt_interval_seconds",
+        "Description": "interval in seconds between upgrade attempt batches",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "attempt_limit",
+        "Description": "maximum number of times the errand will try to upgrade the set of instances",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_in_flight",
+        "Description": "the maximum number of instances that will be in an upgrading state at the same time",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "canary_selection_params",
+        "Description": "parameters to filter the canary instances",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "The ca certificate used when communicating with the broker",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
