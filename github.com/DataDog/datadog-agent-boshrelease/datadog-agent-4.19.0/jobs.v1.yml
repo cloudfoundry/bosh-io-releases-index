@@ -1,0 +1,956 @@
+[
+  {
+    "Name": "dd-agent",
+    "Description": "Datadog Agent",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1004415132/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/confd.sh.erb",
+        "DstPathEnd": "config/confd.sh",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/config/confd.sh.erb"
+      },
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bin/system_probe_ctl",
+        "DstPathEnd": "bin/system_probe_ctl",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/system_probe_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/process_agent_bpm",
+        "DstPathEnd": "bin/process_agent_bpm",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/process_agent_bpm"
+      },
+      {
+        "SrcPathEnd": "bin/system_probe_bpm",
+        "DstPathEnd": "bin/system_probe_bpm",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/system_probe_bpm"
+      },
+      {
+        "SrcPathEnd": "config/datadog.yaml.erb",
+        "DstPathEnd": "config/datadog.yaml",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/config/datadog.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/extra-integrations.sh.erb",
+        "DstPathEnd": "config/extra-integrations.sh",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/config/extra-integrations.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/system-probe.yaml.erb",
+        "DstPathEnd": "config/system-probe.yaml",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/config/system-probe.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/config/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/trace_agent_bpm",
+        "DstPathEnd": "bin/trace_agent_bpm",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/trace_agent_bpm"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/pre-start"
+      },
+      {
+        "SrcPathEnd": "bin/agent_ctl",
+        "DstPathEnd": "bin/agent_ctl",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/agent_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/process_agent_ctl",
+        "DstPathEnd": "bin/process_agent_ctl",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/process_agent_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/trace_agent_ctl",
+        "DstPathEnd": "bin/trace_agent_ctl",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/trace_agent_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/agent_bpm",
+        "DstPathEnd": "bin/agent_bpm",
+        "Path": "/tmp/tar-CmdExtractor1004415132/templates/bin/agent_bpm"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "dd-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "dd.cf_os_hostname_aliasing",
+        "Description": "If enabled, send the OS hostname as an alias. Useful in coordination with the Friendly Hostname option.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.enabled",
+        "Description": "Whether or not the cluster agent is enabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.process_agent_containers_only",
+        "Description": "Enable only the container collection of the process agent.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.secret_backend_timeout",
+        "Description": "The timeout to execute the command in second.",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "Use BPM (Bosh Process Manager) to manage datadog agent processes. Requires bpm-release to be installed.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.api_key",
+        "Description": "Datadog API key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.use_dogstatsd",
+        "Description": "Should the dogstatsd agent be started for statsd metrics collection",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.dogstatsd_target",
+        "Description": "By default dogstatsd will post aggregate metrics to the Agent, but you can define a different endpoint here",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.dogstreams",
+        "Description": "List of logs to parse and optionally custom parsers to use",
+        "Default": null,
+        "Example": [
+          "/path/to/log1:/path/to/my/parsers_module.py:custom_parser",
+          "/path/to/log2"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "dd.run_path",
+        "Description": "Path to the run folder of the agent.",
+        "Default": "/var/vcap/jobs/dd-agent/packages/dd-agent/run",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.address",
+        "Description": "Address of the cluster agent.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.enable_logs_agent",
+        "Description": "Enable logs agent for integrations",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.use_jmxfetch",
+        "Description": "Should the jmxfetch agent be started",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.secret_backend_output_max_size",
+        "Description": "The size in bytes of the buffer used to store the command answer.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.system_probe_enabled",
+        "Description": "Enable System Probe.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.non_local_traffic",
+        "Description": "Allow non-local traffic to this Agent, required when using it as a proxy for other agents",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.strip_proc_arguments",
+        "Description": "This setting will strip the process arguments from the processes sent by the process agent.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.enable_gohai",
+        "Description": "Enable gohai metadata collection (default is yes)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.extra_integrations",
+        "Description": "Additional agent integrations to be installed. Each key should be the integration name and the value should be the integration version; the integration configuration has to be added to `dd.integrations` property",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.agent.processes",
+        "Description": "The number of processes which the agent process is allowed to have running at any one moment (inclusive of the main process).",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.url",
+        "Description": "The host of the Datadog intake server for metrics",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.force_tls_12",
+        "Description": "Whether or not to force TLS 1.2 for agent HTTPS communications.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.no_proxy_nonexact_match",
+        "Description": "Enable more flexible no_proxy matching",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.friendly_hostname_append_vm_guid",
+        "Description": "Append the VM UUID to the friendly hostname, to make it unique. Set this to `true` to generate unique friendly hostnames across your entire Cloud Foundry environment.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.proxy.no_proxy",
+        "Description": "Domains that the agent proxy should skip",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.system_probe.memory",
+        "Description": "The memory limit to apply to the system-probe. It is formatted as a number and then a single character for units e.g. 1G, 256M.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.bosh_tags",
+        "Description": "Enable autogenerated bosh tags",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.graphite_listen_port",
+        "Description": "Start a graphite listener on this port",
+        "Default": 17124,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.process_agent.processes",
+        "Description": "The number of processes which the process-agent process is allowed to have running at any one moment (inclusive of the main process).",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.utf8_decoding",
+        "Description": "Dogstatsd supports plain ASCII packets, this enables support for UTF8 metric names",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_disk_config_tag_by_filesystem",
+        "Description": "Add tags to mountpoints by filesystem type",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.system_probe.processes",
+        "Description": "The number of processes which the system-probe process is allowed to have running at any one moment (inclusive of the main process).",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.collect_monit_children_processes",
+        "Description": "Enable collection of children processes of monit processes",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.trace_agent_enabled",
+        "Description": "Enable the trace agent.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.process_agent.open_files",
+        "Description": "The number of files the process-agent process is allowed to have open at any one time.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.disable_network_performance_monitoring",
+        "Description": "Disable Network Performance Monitoring.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_tagger.retry_interval",
+        "Description": "How often the Agent tries to inject tags in a Container.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.trace_agent.memory",
+        "Description": "The memory limit to apply to the trace-agent. It is formatted as a number and then a single character for units e.g. 1G, 256M.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.proxy.https",
+        "Description": "The proxy for https endpoints",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.create_dd_check_tags",
+        "Description": "Add dd_check:checkname tag per running check",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.histogram_percentiles",
+        "Description": "List of histogram percentiles",
+        "Default": [
+          "0.95"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_ntp_config_host",
+        "Description": "NTP host",
+        "Default": "0.ubuntu.pool.ntp.org",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_ntp_config",
+        "Description": "Generate NTP monitoring ntp.yaml",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_disk_config",
+        "Description": "Generate disk configuration, disk.yaml",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.address_tag",
+        "Description": "Include the address tag",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.secret_backend_command",
+        "Description": "Path to the executable to use to fetch secrets.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.forwarder_num_workers",
+        "Description": "The number of workers used by the forwarder. Please note each worker will open an outbound HTTP connection towards Datadog's metrics intake at every flush.",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_url_1",
+        "Description": "Additional Endpoint URL 1 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_url_2",
+        "Description": "Additional Endpoint URL 2 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_network_config_excluded_interfaces",
+        "Description": "List of the network interfaces to exclude from reporting metrics",
+        "Default": [
+          "lo",
+          "lo0"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.expvar_port",
+        "Description": "The port that the agent reports expvar metrics over. (Set to a different port if there's a collision)",
+        "Default": 15000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_tagger.shell_path",
+        "Description": "Path to the shell to use to run the update container tags script.",
+        "Default": "/bin/sh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.trace_agent.open_files",
+        "Description": "The number of files the trace-agent process is allowed to have open at any one time.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.statsd_metric_namespace",
+        "Description": "Define a namespace for statsd metrics, metric.name will instead become namespace.metric.name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.use_ganglia",
+        "Description": "Enable Ganglia support for collecting metrics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_ntp_config_min_collection_interval",
+        "Description": "Metrics collection interval",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.enable_inventories_configuration",
+        "Description": "Enable Inventories Configuration. The Agent can send its own configuration to Datadog to be displayed in the Agent Configuration section of the host detail panel.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.proxy",
+        "Description": "Proxy settings to connect to the Internet",
+        "Default": null,
+        "Example": {
+          "host": "proxy",
+          "password": "pass",
+          "port": 8080,
+          "user": "user"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_processes",
+        "Description": "Automatically generate process monitoring integration, process.yaml",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.token",
+        "Description": "Token to connect to the cluster agent.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_url_3",
+        "Description": "Additional Endpoint URL 3 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.enable_metadata_collection",
+        "Description": "Metadata collection should always be enabled, except if you are running several agents/dsd instances per host. In that case, only one agent should have it on. WARNING: disabling it on every agent will lead to display and billing issues",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.agent.memory",
+        "Description": "The memory limit to apply to the agent. It is formatted as a number and then a single character for units e.g. 1G, 256M.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.dogstatsd_port",
+        "Description": "Statsd listening port",
+        "Default": 18125,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.ganglia_port",
+        "Description": "Ganglia port where gmetad is running",
+        "Default": 8651,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_network_config_connection_state",
+        "Description": "Report metrics including the state of the nics",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_agent.port",
+        "Description": "Port to connect to the cluster agent.",
+        "Default": 5005,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.exclude_process_args",
+        "Description": "Remove the 'ww' flag from ps catching the arguments of processes",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_disk_config_all_partitions",
+        "Description": "Include all partitions in the system",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.ip_tag",
+        "Description": "Include the ip tag",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.apm_dd_url",
+        "Description": "The host of the Datadog intake server for APM data",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_key_1",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 1",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_key_5",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 5",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.collect_security_groups",
+        "Description": "Incorporate security-groups into tags collected from AWS EC2",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.use_uuid_hostname",
+        "Description": "By default we use a friendly hostname, this might cause problems with some setups. Set this to use the UUID instead. (In an environment where there are multiple hosts of the same type on different deployments or in different foundries, this will be necessary.) If dd.hostname is set, it will take precedence over the uuid hostname.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.check_timings",
+        "Description": "The collector will capture a metric for check run times",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.listen_port",
+        "Description": "Change port the Agent is listening to",
+        "Default": 17123,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.log_format_json",
+        "Description": "Set this option to \"yes\" to output logs in JSON format",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.site",
+        "Description": "The site of the Datadog intake to send Agent data to. Defaults to 'datadoghq.com', set to 'datadoghq.eu' to send data to the EU site.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_key_3",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 3",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_url_4",
+        "Description": "Additional Endpoint URL 4 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.hostname",
+        "Description": "Force the hostname to whatever you want. Default is autogenerated",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.bosh_tags_prefix",
+        "Description": "Prefix for autogenerated bosh tags",
+        "Default": "bosh_",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.ganglia_host",
+        "Description": "Ganglia host where gmetad is running",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.check_runners",
+        "Description": "The Agent runs workers in parallel to execute checks. By default the number of workers is set to 1. If set to 0 the agent will automatically determine the best number of runners needed based on the number of checks running. This would optimize the check collection time but may produce CPU spikes.",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.agent_config",
+        "Description": "Add any additional agent config options here. (Warning: any options you add here will override the options set previously.)",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.process_agent.memory",
+        "Description": "The memory limit to apply to the process-agent. It is formatted as a number and then a single character for units e.g. 1G, 256M.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.process_dd_url",
+        "Description": "The host of the Datadog intake server for process data",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.proxy.http",
+        "Description": "The proxy for http endpoints",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_system_processes",
+        "Description": "Add basic system processes to process check",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.system_probe.open_files",
+        "Description": "The number of files the system-probe process is allowed to have open at any one time.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.secret_backend_arguments",
+        "Description": "List of arguments to give to the command.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_tagger.retry_count",
+        "Description": "How many attempts the Agent tries to inject tags in a Container.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.agent.open_files",
+        "Description": "The number of files the agent process is allowed to have open at any one time.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.trace_agent.processes",
+        "Description": "The number of processes which the trace-agent process is allowed to have running at any one moment (inclusive of the main process).",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_key_2",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 2",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.unique_friendly_hostname",
+        "Description": "Append the CloudFoundry deployment to the friendly hostname, to make it unique. If the deployments across your foundations are not unique, set the option `dd.friendly_hostname_append_vm_guid` to true instead.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_network_config",
+        "Description": "Automatically generate network monitoring integration, network.yaml",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.process_agent_enabled",
+        "Description": "Enable the process agent.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.logs_dd_url",
+        "Description": "The host of the Datadog intake server for logs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.gce_updated_hostname",
+        "Description": "Use unique hostname for GCE hosts, see http://dtdg.co/1eAynZk",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.custom_emitters",
+        "Description": "List of emitters to be used in addition to the standard one",
+        "Default": null,
+        "Example": [
+          "/usr/local/my-code/emitters/rabbitmq.py:RabbitMQEmitter"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "dd.disk_yaml_config",
+        "Description": "Disk integration YAML configuration",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.collect_ec2_tags",
+        "Description": "Collect AWS EC2 custom tags as agent tags (requires an IAM role associated with the instance)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.use_graphite",
+        "Description": "Enable a graphite endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.log_level",
+        "Description": "Logging level",
+        "Default": "INFO",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_ntp_config_offset_threshold",
+        "Description": "Max offset threshold in seconds",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.integrations",
+        "Description": "Agent integration configuration. Each key will have \".yaml\" appended to it and the value dumped a file",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.tags",
+        "Description": "List of tags which will be applied to the data sent from this agent",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.histogram_aggregates",
+        "Description": "List of histogram aggregates functions",
+        "Default": [
+          "max",
+          "median",
+          "avg",
+          "count"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.statsd_forward_host",
+        "Description": "Forward packets received by the dogstatsd server to another statsd server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.enable_remote_configuration",
+        "Description": "Enable Remote Configuration",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.skip_ssl_validation",
+        "Description": "Skip SSL validation for the Datadog url",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.friendly_hostname",
+        "Description": "Use a friendly hostname. If this is enabled, along with the UUID option, uuid will take precedence. If you have several foundations, set one or both of the options `dd.unique_friendly_hostname` and `dd.friendly_hostname_append_vm_guid` to true to generate unique hostnames across foundations.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.cmd_port",
+        "Description": "The port on which the IPC api listens. (Set to a different port if there's a collision)",
+        "Default": 15001,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.cluster_agent_poll_interval",
+        "Description": "How often to poll the Cluster Agent for new config checks (in seconds).",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_key_4",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 4",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.additional_api_url_5",
+        "Description": "Additional Endpoint URL 5 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.statsd_forward_port",
+        "Description": "Forward packets received by the dogstatsd server to another statsd server port",
+        "Default": 8125,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dd.generate_monit_processes",
+        "Description": "Add monit processes to process check",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
