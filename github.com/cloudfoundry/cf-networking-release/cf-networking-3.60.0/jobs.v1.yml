@@ -1,0 +1,1211 @@
+[
+  {
+    "Name": "bbr-cfnetworkingdb",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor743870186/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor743870186/templates/restore.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor743870186/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor743870186/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor743870186/templates/backup.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "release_level_backup",
+        "Description": "Opt-in to backup and restore of policy-server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bosh-dns-adapter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2186084057/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "handlers.json.erb",
+        "DstPathEnd": "dns/handlers.json",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/handlers.json.erb"
+      },
+      {
+        "SrcPathEnd": "healthchecker.yml.erb",
+        "DstPathEnd": "config/healthchecker.yml",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/healthchecker.yml.erb"
+      },
+      {
+        "SrcPathEnd": "server_ca.crt.erb",
+        "DstPathEnd": "config/certs/server_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/server_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "aliases.json.erb",
+        "DstPathEnd": "dns/aliases.json",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/aliases.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2186084057/templates/client.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bosh-dns-adapter"
+      },
+      {
+        "Name": "cf-networking-healthchecker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "log_level_port",
+        "Description": "Port which log level endpoint listens on",
+        "Default": 8066,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthchecker_log_level",
+        "Description": "Log level for the healthchecker",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal_domains",
+        "Description": "TLD for internal app resolution with service discovery.",
+        "Default": [],
+        "Example": [
+          "apps.internal.",
+          "my.apps.internal."
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "healthchecker.failure_counter_file",
+        "Description": "File used by the healthchecker to monitor consecutive failures.",
+        "Default": "/var/vcap/data/bosh-dns-adapter/counters/consecutive_healthchecker_failures.count",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_app_sd_disable",
+        "Description": "Disable c2c service discovery for apps.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "address",
+        "Description": "Address which bosh-dns-adapter will listen on.",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Forward metrics to this metron agent, listening on this port on localhost",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_address",
+        "Description": "Address which log level endpoint listens on",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal_service_mesh_domains",
+        "Description": "TLD for internal app resolution with istio service discovery.",
+        "Default": [],
+        "Example": [
+          "istio.apps.internal."
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "internal_route_vip_range",
+        "Description": "The ipv4 CIDR range of virtual IP addresses to be assigned to routes on internal domains. The value for this property should come from cloud_controller_container_networking_info link from capi-release. This property is here only for override purposes.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port which bosh-dns-adapter will listen on.",
+        "Default": 8053,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.client.tls",
+        "Description": "Client-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.server.ca",
+        "Description": "server-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "garden-cni",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1361274664/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "adapter.json.erb",
+        "DstPathEnd": "config/adapter.json",
+        "Path": "/tmp/tar-CmdExtractor1361274664/templates/adapter.json.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor1361274664/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "runc-cni"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nat_port_range_start",
+        "Description": "Starting value for allocating host ports to containers",
+        "Default": 61000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nat_port_range_size",
+        "Description": "Total number of host ports that may be allocated to containers",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "search_domains",
+        "Description": "An array of search domains for DNS on the containers",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "experimental_enable_proxy_redirect",
+        "Description": "Enable transparently redirecting traffic to proxy process in the container namespace. This\nproperty should only need to be used to override the value provided by the cloud controller link.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "experimental_proxy_redirect_cidr",
+        "Description": "CIDR range to transparently redirect to a proxy process in the container namespace.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "experimental_enable_ingress_proxy_redirect",
+        "Description": "Redirect ingress traffic for a container to a proxy sidecar. If false (default), will go directly to the application.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cni_plugin_dir",
+        "Description": "Directory containing CNI plugins.",
+        "Default": "/var/vcap/packages/cni/bin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cni_config_dir",
+        "Description": "Directory to store CNI config files.  Other jobs may write files into here.",
+        "Default": "/var/vcap/jobs/cni/config/cni",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "performance-test-sd",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3292678175/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run-tests.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3292678175/templates/run-tests.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config.json",
+        "Path": "/tmp/tar-CmdExtractor3292678175/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.23-linux"
+      },
+      {
+        "Name": "performance-test-sd"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "policy-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor341535046/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server.json.erb",
+        "DstPathEnd": "config/policy-server.json",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/policy-server.json.erb"
+      },
+      {
+        "SrcPathEnd": "post-backup-unlock.sh.erb",
+        "DstPathEnd": "bin/bbr/post-backup-unlock",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/post-backup-unlock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "pre-backup-lock.sh.erb",
+        "DstPathEnd": "bin/bbr/pre-backup-lock",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/pre-backup-lock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "cc_ca.crt.erb",
+        "DstPathEnd": "config/certs/cc_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/cc_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "database_ca.crt.erb",
+        "DstPathEnd": "config/certs/database_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/database_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor341535046/templates/post-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "policy-server"
+      },
+      {
+        "Name": "networking-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "policy_cleanup_interval",
+        "Description": "Clean up stale policies on this interval, in minutes.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_key",
+        "Description": "External API server key for TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_client_secret",
+        "Description": "UAA client secret. Must match the secret of the above UAA client.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_ca",
+        "Description": "Trusted CA for UAA server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Skip verifying ssl certs when speaking to UAA or Cloud Controller.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.skip_hostname_validation",
+        "Description": "Skip hostname validation when true. Requires 'database.require_ssl' to be true",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_idle_connections",
+        "Description": "Maximum number of idle connections to the SQL database.\n\nIdle connections will be retained until their `connections_max_lifetime_seconds` has been reached.\n",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allowed_cors_domains",
+        "Description": "List of domains (including scheme) from which Cross-Origin requests will be accepted.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable container to container networking.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_space_developer_self_service",
+        "Description": "Allows space developers to always be able to configure policies for the apps they own.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc_hostname",
+        "Description": "Host name for the Cloud Controller server for connecting to the non-secure api endpoint.\nIf this value is not provided, policy-server will obtain the secure api endpoint by consuming\nthe `cloud_controller_https_endpoint` link.\nThe value supplied to this property must match the value supplied to the Cloud Controller\nproperty `cc.internal_service_hostname`.\n",
+        "Default": null,
+        "Example": "cloud-controller-ng.service.cf.internal",
+        "Examples": null
+      },
+      {
+        "Name": "database.type",
+        "Description": "Type of database: postgres or mysql.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.port",
+        "Description": "Port for database server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_ip",
+        "Description": "IP address where the policy server will serve its API.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_client",
+        "Description": "UAA client name. Must match the name of a UAA client with the following properties:\n`authorities: uaa.resource,cloud_controller.admin_read_only`,\n`authorities: uaa.resource,cloud_controller.admin_read_only`.\n",
+        "Default": "network-policy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_hostname",
+        "Description": "Host name for the UAA server.  E.g. the service advertised via Bosh DNS.  Must match common name in the UAA server cert. Must be listed in `uaa.zones.internal.hostnames`.",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc_port",
+        "Description": "External port of Cloud Controller server for connecting to the non-secure api endpoint.\nIf this value is not provided, policy-server will obtain the secure api port by consuming\nthe `cloud_controller_https_endpoint` link.\nThe value supplied to this property must match the value supplied to the Cloud Controller\nproperty `cc.external_port`.\n",
+        "Default": null,
+        "Example": 9022,
+        "Examples": null
+      },
+      {
+        "Name": "database.connect_timeout_seconds",
+        "Description": "Connection timeout between the policy server and its database.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "Port where the policy server will serve its external API.",
+        "Default": 4002,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_cert",
+        "Description": "External API server certificate for TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tag_length",
+        "Description": "Length in bytes of the packet tags to generate for policy sources and destinations. Must be greater than 0 and less than or equal to 4. If using VXLAN GBP, must be less than or equal to 2.",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_tls",
+        "Description": "Use TLS server for external API server.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.ca_cert",
+        "Description": "ca cert for db connectivity. Requires 'database.require_ssl' to be true.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_port",
+        "Description": "Port of the UAA server. Must match `uaa.ssl.port`.",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.username",
+        "Description": "Username for database connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.password",
+        "Description": "Password for database connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_open_connections",
+        "Description": "Maximum number of open connections to the SQL database.\n\nThe number of necessary connections will scale with the number of requests to the `/networking/...` cf api endpoints.\n",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "connections_max_lifetime_seconds",
+        "Description": "Sets the maximum amount of time a connection may be reused. Expired connections may be closed lazily before reuse.\nIf value \u003c= 0, connections are reused forever\n\nIf there is a spike in connection usage, all of these connections have the potential to stick around with a high lifetime.\nLowering the lifetime will result in connections getting reaped sooner, but the policy server may have to renegotiate connections\nmore often, which could add some latency. We recommend using the default unless you have seen specific needs to change it.\n",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_policies_per_app_source",
+        "Description": "Maximum policies a space developer may configure for an application source. Does not affect admin users.",
+        "Default": 150,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Port for the debug server. Use this to adjust log level at runtime or dump process stats.",
+        "Default": 31821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.host",
+        "Description": "Host (IP or DNS name) for database server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.name",
+        "Description": "Name of logical database to use.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.require_ssl",
+        "Description": "Require ssl db connectivity when true. Must be used in conjuncture with a release that is configured with ssl.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "policy-server-asg-syncer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor32275485/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cc_internal_client.key.erb",
+        "DstPathEnd": "config/certs/cc_internal_client.key",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/cc_internal_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "locket.crt.erb",
+        "DstPathEnd": "config/certs/locket.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/locket.crt.erb"
+      },
+      {
+        "SrcPathEnd": "locket.key.erb",
+        "DstPathEnd": "config/certs/locket.key",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/locket.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server-asg-syncer.json.erb",
+        "DstPathEnd": "config/policy-server-asg-syncer.json",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/policy-server-asg-syncer.json.erb"
+      },
+      {
+        "SrcPathEnd": "cc_ca.crt.erb",
+        "DstPathEnd": "config/certs/cc_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/cc_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc_internal_ca.crt.erb",
+        "DstPathEnd": "config/certs/cc_internal_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/cc_internal_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc_internal_client.crt.erb",
+        "DstPathEnd": "config/certs/cc_internal_client.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/cc_internal_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "database_ca.crt.erb",
+        "DstPathEnd": "config/certs/database_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/database_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "locket_ca.crt.erb",
+        "DstPathEnd": "config/certs/locket_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor32275485/templates/locket_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "policy-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cc_port",
+        "Description": "External port of Cloud Controller server for connecting to the non-secure api endpoint.\nIf this value is not provided, policy-server will obtain the secure api port by consuming\nthe `cloud_controller_https_endpoint` link.\nThe value supplied to this property must match the value supplied to the Cloud Controller\nproperty `cc.external_port`.\n",
+        "Default": null,
+        "Example": 9022,
+        "Examples": null
+      },
+      {
+        "Name": "cc_internal.client_cert",
+        "Description": "Client certificate for cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locket.ca_cert",
+        "Description": "The CA certificiate for the CA for Locket.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_client_secret",
+        "Description": "UAA client secret. Must match the secret of the above UAA client.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_ca",
+        "Description": "Trusted CA for UAA server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_hostname",
+        "Description": "Host name for the UAA server.  E.g. the service advertised via Bosh DNS.  Must match common name in the UAA server cert. Must be listed in `uaa.zones.internal.hostnames`.",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "retry_deadline_seconds",
+        "Description": "Maximum amount of time that policy-server-asg-syncer will retry CAPI for when detecting unstable ASG lists",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "asg_poll_interval_seconds",
+        "Description": "Interval in seconds that policy-server will poll CAPI for ASG data. Requires asg_sync_enabled. Must be \u003e 0",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc_internal.client_key",
+        "Description": "Client private key for cloud controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locket.client_key",
+        "Description": "The private key for Locket.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable syncing application security groups for dynamic security group updates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locket.client_cert",
+        "Description": "The client certificate for Locket.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_client",
+        "Description": "UAA client name. Must match the name of a UAA client with the following properties:\n`authorities: uaa.resource,cloud_controller.admin_read_only`,\n`authorities: uaa.resource,cloud_controller.admin_read_only`.\n",
+        "Default": "network-policy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa_port",
+        "Description": "Port of the UAA server. Must match `uaa.ssl.port`.",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locket.address",
+        "Description": "Hostname and port of the Locket server. Must be set when asg_sync_enabled is set to true.",
+        "Default": "locket.service.cf.internal:8891",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.connect_timeout_seconds",
+        "Description": "Connection timeout between the policy server and its database.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Skip verifying ssl certs when speaking to UAA or Cloud Controller.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc_hostname",
+        "Description": "Host name for the Cloud Controller server for connecting to the non-secure api endpoint.\nIf this value is not provided, policy-server-asg-syncer will obtain the secure api endpoint by consuming\nthe `cloud_controller_https_endpoint` link.\nThe value supplied to this property must match the value supplied to the Cloud Controller\nproperty `cc.internal_service_hostname`.\n",
+        "Default": null,
+        "Example": "cloud-controller-ng.service.cf.internal",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "policy-server-internal",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3546538994/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "policy-server-internal.json.erb",
+        "DstPathEnd": "config/policy-server-internal.json",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/policy-server-internal.json.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "database_ca.crt.erb",
+        "DstPathEnd": "config/certs/database_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/database_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3546538994/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "policy-server"
+      },
+      {
+        "Name": "networking-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "max_open_connections",
+        "Description": "Maximum number of open connections to the SQL database.\n\nThe number of necessary connections will scale with the number of diego-cells in the deployment.\nThe handlers that use the db conns in this job respond to the vxlan-policy-agent, which runs on the diego-cells.\nEach agent polls this server once every 5s, by default.\nAnecdote: in an environment with ~300 diego-cells has seen use up to ~200 conns.\nAnecdote: in an environment with ~200 diego-cells has seen use up to ~170 conns.\nIn these scenarios, each instance of this job would expect total-number-of-conns/job-instance-count conns each.\nIdle state will likely use fewer connections.\n",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_idle_connections",
+        "Description": "Maximum number of idle connections to the SQL database\n\nIdle connections will be retained until their `connections_max_lifetime_seconds` has been reached.\n",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ca_cert",
+        "Description": "Trusted CA certificate that was used to sign the vxlan policy agent's client cert and key.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_check_timeout_seconds",
+        "Description": "Health check timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal_listen_port",
+        "Description": "Port where the policy server will serve its internal API.",
+        "Default": 4003,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.connect_timeout_seconds",
+        "Description": "Connection timeout between the policy server and its database.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable container to container networking.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Port for the debug server. Use this to adjust log level at runtime or dump process stats.",
+        "Default": 31945,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_check_port",
+        "Description": "The port for the health endpoint",
+        "Default": 31946,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "connections_max_lifetime_seconds",
+        "Description": "Sets the maximum amount of time a connection may be reused. Expired connections may be closed lazily before reuse.\nIf value \u003c= 0, connections are reused forever\n\nIf there is a spike in connection usage, all of these connections have the potential to stick around with a high lifetime.\nLowering the lifetime will result in connections getting reaped sooner, but the policy server may have to renegotiate connections\nmore often, which could add some latency. We recommend using the default unless you have seen specific needs to change it.\n",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_ip",
+        "Description": "IP address where the policy server will serve its API.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_key",
+        "Description": "Server key for TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_cert",
+        "Description": "Server certificate for TLS. Must have common name that matches the Bosh DNS name of the policy server, eg `policy-server.service.cf.internal`.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-discovery-controller",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3931264154/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "nats_ca_certs.crt.erb",
+        "DstPathEnd": "config/certs/nats_ca_certs.crt",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/nats_ca_certs.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_cert_chain.crt.erb",
+        "DstPathEnd": "config/certs/nats_cert_chain.crt",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/nats_cert_chain.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "nats_private_key.key.erb",
+        "DstPathEnd": "config/certs/nats_private_key.key",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/nats_private_key.key.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client_ca.crt.erb",
+        "DstPathEnd": "config/certs/client_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3931264154/templates/client_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "service-discovery-controller"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "dnshttps.server.tls",
+        "Description": "Server-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls_enabled",
+        "Description": "When enabled, Gorouter will prefer to connect to NATS over TLS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dnshttps.client.ca",
+        "Description": "client-side mutual TLS configuration for dns over http",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_port",
+        "Description": "Port which log level endpoint listens on",
+        "Default": 8055,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "User name for NATS authentication",
+        "Default": null,
+        "Example": "nats",
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port of NATS servers",
+        "Default": null,
+        "Example": 4222,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IPs of each NATS cluster member",
+        "Default": null,
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null
+      },
+      {
+        "Name": "address",
+        "Description": "Address which service-discovery-controller will listen on.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_emitter_interval_seconds",
+        "Description": "Interval in seconds for which the route emitter is told to emit all routes. This value should be less than the staleness_threshold_seconds",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "read_header_timeout",
+        "Description": "The amount of time allowed to read request headers",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for NATS authentication",
+        "Default": null,
+        "Example": "natSpa55w0rd",
+        "Examples": null
+      },
+      {
+        "Name": "nats.ca_certs",
+        "Description": "String of concatenated certificate authorities in PEM format, used to validate certificates presented by NATS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.cert_chain",
+        "Description": "Certificate chain used for client authentication to NATS. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Forward metrics to this metron agent, listening on this port on localhost",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "staleness_threshold_seconds",
+        "Description": "Staleness threshold in seconds for routes. If the service-discovery-controller does not receive a message about a route within this threshold, the route will be pruned from the table. This value is recommended to be three times the value of route_emitter_interval_seconds",
+        "Default": 180,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level_address",
+        "Description": "Address which log level endpoint listens on",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port which service-discovery-controller will listen on.",
+        "Default": 8054,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.private_key",
+        "Description": "Private key used for client authentication to NATS. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
