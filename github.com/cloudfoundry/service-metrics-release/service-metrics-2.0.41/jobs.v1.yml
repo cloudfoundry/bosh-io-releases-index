@@ -1,0 +1,159 @@
+[
+  {
+    "Name": "service-metrics",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2636799653/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor2636799653/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "service_metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/service_metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2636799653/templates/service_metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "service_metrics.crt.erb",
+        "DstPathEnd": "config/certs/service_metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor2636799653/templates/service_metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "service_metrics.key.erb",
+        "DstPathEnd": "config/certs/service_metrics.key",
+        "Path": "/tmp/tar-CmdExtractor2636799653/templates/service_metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2636799653/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2636799653/templates/drain.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "service-metrics"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "service_metrics.metrics_command",
+        "Description": "Command to obtain metrics in JSON format",
+        "Default": "/var/vcap/jobs/service-metrics-adapter/bin/collect-service-metrics",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.execution_interval_seconds",
+        "Description": "Interval to repeatedly obtain and emit metrics, in seconds. If the\ninterval seconds is set to a negative number this will disable service\nmetrics process.\n",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.debug",
+        "Description": "boolean value to turn on verbose mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.origin",
+        "Description": "Used for the origin tag on every envelope. Should be set to something descriptive of the deployment (e.g. service-name)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.source_id",
+        "Description": "The source ID to set on every envelope sent by Service Metrics.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.monit_dependencies",
+        "Description": "Array of monit service dependencies",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.port",
+        "Description": "The port service metrics will expose parsed metrics on",
+        "Default": 14828,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.tls.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.metrics_command_args",
+        "Description": "Arguments to be passed to the metrics command (see service_metrics.metrics_command)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "service_metrics.mount_paths",
+        "Description": "Filesystem paths to be mounted for reading by the metrics_command",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "service-metrics-test-script",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3962035306/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "service-metrics-test-script"
+      }
+    ],
+    "Properties": null
+  }
+]
