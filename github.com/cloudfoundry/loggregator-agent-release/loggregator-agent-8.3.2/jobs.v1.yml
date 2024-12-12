@@ -1,0 +1,2280 @@
+[
+  {
+    "Name": "loggr-forwarder-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3550621338/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "forwarder.key.erb",
+        "DstPathEnd": "config/certs/forwarder.key",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/forwarder.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.crt.erb",
+        "DstPathEnd": "config/certs/forwarder.crt",
+        "Path": "/tmp/tar-CmdExtractor3550621338/templates/forwarder.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "forwarder-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14823,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "downstream_ingress_port_glob",
+        "Description": "Files matching the glob are expected to contain ports of downstream\nconsumers that will be bound to 127.0.0.1:{port} with the provided\nmTLS configuration. The forwarder assumes the downstream server is\nserving Loggregator's V2 IngressService. See code.cloudfoundry.org/loggregator-api.\n",
+        "Default": "/var/vcap/jobs/*/config/ingress_port.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "TLS loggregator root CA certificate. It is required for key/cert\nverification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for forwarder signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "emit_otel_traces",
+        "Description": "Emit traces to downstream OpenTelemetry consumers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "emit_otel_metrics",
+        "Description": "Emit metrics to downstream OpenTelemetry consumers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "emit_otel_logs",
+        "Description": "Emit logs to downstream OpenTelemetry consumers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS private key for forwarder signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-forwarder-agent-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor218518751/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.crt.erb",
+        "DstPathEnd": "config/certs/forwarder.crt",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/forwarder.crt.erb"
+      },
+      {
+        "SrcPathEnd": "forwarder.key.erb",
+        "DstPathEnd": "config/certs/forwarder.key",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/forwarder.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor218518751/templates/metrics.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "forwarder-agent-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "emit_otel_metrics",
+        "Description": "Emit metrics to downstream OpenTelemetry consumers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for forwarder signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS private key for forwarder signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "TLS loggregator root CA certificate. It is required for key/cert\nverification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14823,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "downstream_ingress_port_glob",
+        "Description": "Files matching the glob are expected to contain ports of downstream \nconsumers that will be bound to 127.0.0.1:{port} with the provided \nmTLS configuration. The forwarder assumes the downstream server is \nserving Loggregator's V2 IngressService. See code.cloudfoundry.org/loggregator-api.\n",
+        "Default": "/var/vcap/jobs/*/config/ingress_port.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "emit_otel_logs",
+        "Description": "Emit logs to downstream OpenTelemetry consumers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "emit_otel_traces",
+        "Description": "Emit traces to downstream OpenTelemetry consumers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-syslog-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2242271684/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cache_ca.crt.erb",
+        "DstPathEnd": "config/certs/cache_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/cache_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cache_client.key.erb",
+        "DstPathEnd": "config/certs/cache_client.key",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/cache_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "drain_ca.crt.erb",
+        "DstPathEnd": "config/certs/drain_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/drain_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_agent.key.erb",
+        "DstPathEnd": "config/certs/syslog_agent.key",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/syslog_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cache_client.crt.erb",
+        "DstPathEnd": "config/certs/cache_client.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/cache_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_agent.crt.erb",
+        "DstPathEnd": "config/certs/syslog_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor2242271684/templates/syslog_agent.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "syslog-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cache.tls.cert",
+        "Description": "This certificate is sent to the Cloud Controller when initiating a\nconnection. It must be signed by a CA that is trusted by the Cloud\nController.\nThis field is required if binding cache is included.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_cipher_suites",
+        "Description": "An ordered, colon-delimited list of golang supported TLS cipher suites in OpenSSL or RFC format.\nThe selected cipher suite will be negotiated according to the order of this list during a TLS handshake.\n\nThe following cipher suites are supported:\n  - TLS_RSA_WITH_RC4_128_SHA\n  - AES128-SHA256\n  - TLS_RSA_WITH_3DES_EDE_CBC_SHA\n  - TLS_RSA_WITH_AES_128_CBC_SHA\n  - TLS_RSA_WITH_AES_256_CBC_SHA\n  - TLS_RSA_WITH_AES_128_CBC_SHA256\n  - AES128-GCM-SHA256\n  - AES256-GCM-SHA384\n  - ECDHE-ECDSA-RC4-SHA\n  - ECDHE-ECDSA-AES128-SHA\n  - ECDHE-ECDSA-AES256-SHA\n  - ECDHE-RSA-RC4-SHA\n  - ECDHE-RSA-DES-CBC3-SHA\n  - ECDHE-RSA-AES128-SHA\n  - ECDHE-RSA-AES256-SHA\n  - ECDHE-ECDSA-AES128-SHA256\n  - ECDHE-RSA-AES128-SHA256\n  - ECDHE-ECDSA-AES128-GCM-SHA256\n  - ECDHE-ECDSA-AES256-GCM-SHA384\n  - ECDHE-RSA-AES128-GCM-SHA256\n  - ECDHE-RSA-AES256-GCM-SHA384\n  - ECDHE-RSA-CHACHA20-POLY1305\n  - ECDHE-ECDSA-CHACHA20-POLY1305\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.polling_interval",
+        "Description": "The interval at which the syslog will poll the Cloud Controller for\nbindings.\n",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warn_on_invalid_drains",
+        "Description": "Whether to output log warnings on invalid drains",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_ca_cert",
+        "Description": "The CA certificate for key/cert verification.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aggregate_drains",
+        "Description": "DEPRECATED: Syslog server URLs that will receive the logs from all sources. Use binding cache instead if possible",
+        "Default": "",
+        "Example": "syslog-tls://some-drain-1,syslog-tls://some-drain-1",
+        "Examples": null
+      },
+      {
+        "Name": "cache.batch_size",
+        "Description": "The batch size the syslog will request the Cloud Controller for\nbindings.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "binding_cache_override_url",
+        "Description": "URL to use if required to override the default bosh-dns binding cache address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "TLS loggregator root CA certificate. It is required for key/cert\nverification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for syslog signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.key",
+        "Description": "This is the private key for the certificate sent to the Cloud Controller\nwhen initiating a connection.\nThis field is required if binding cache is included.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14822,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_skip_cert_verify",
+        "Description": "If set to true the SSL hostname validation will be disabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Syslog agent is enabled on VM",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blacklisted_syslog_ranges",
+        "Description": "A list of IP address ranges that are not allowed to be specified in\nsyslog drain binding URLs.\n",
+        "Default": [],
+        "Example": [
+          {
+            "end": "10.10.10.10",
+            "start": "10.10.10.1"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.cn",
+        "Description": "When the syslog communicates with the cache it must\nvalidate the Cloud Controller's common name (CN) or subject alternative\nnames (SANs) against the hostname or IP address used to initiate the\nconnection. Most of the time this should be the hostname defined in\napi.url.\nThis field is required if binding cache is included.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_drain_metadata",
+        "Description": "Whether metadata is included in structured data by default",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS private key for syslog signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.ca_cert",
+        "Description": "When the syslog communicates with the Cloud Controller it must\nvalidate the Cloud Controller's certificate was signed by a trusted CA.\nThis is the CA trusted by the syslog for that communication.\nThis field is required if binding cache is included.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-syslog-agent-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1414709729/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain_ca.crt.erb",
+        "DstPathEnd": "config/certs/drain_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/drain_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cache_client.crt.erb",
+        "DstPathEnd": "config/certs/cache_client.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/cache_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cache_client.key.erb",
+        "DstPathEnd": "config/certs/cache_client.key",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/cache_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_agent.crt.erb",
+        "DstPathEnd": "config/certs/syslog_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/syslog_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_agent.key.erb",
+        "DstPathEnd": "config/certs/syslog_agent.key",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/syslog_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "cache_ca.crt.erb",
+        "DstPathEnd": "config/certs/cache_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/cache_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor1414709729/templates/metrics.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "syslog-agent-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "drain_skip_cert_verify",
+        "Description": "If set to true the SSL hostname validation will be disabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "TLS loggregator root CA certificate. It is required for key/cert\nverification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS private key for syslog signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "binding_cache_override_url",
+        "Description": "URL to use if required to override the default bosh-dns binding cache address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for syslog signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.ca_cert",
+        "Description": "When the syslog communicates with the Cloud Controller it must\nvalidate the Cloud Controller's certificate was signed by a trusted CA.\nThis is the CA trusted by the syslog for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.key",
+        "Description": "This is the private key for the certificate sent to the Cloud Controller\nwhen initiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warn_on_invalid_drains",
+        "Description": "Whether to output log warnings on invalid drains",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_cipher_suites",
+        "Description": "An ordered, colon-delimited list of golang supported TLS cipher suites in OpenSSL or RFC format. The selected cipher suite will be negotiated according to the order of this list during a TLS handshake. See https://github.com/golang/go/blob/release-branch.go1.9/src/crypto/tls/cipher_suites.go#L369-L390 for golang supported cipher suites. The first four of these arn't supported. See https://www.openssl.org/docs/man1.1.0/apps/ciphers.html for a mapping of OpenSSL and RFC suite names.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.cn",
+        "Description": "When the syslog communicates with the cache it must\nvalidate the Cloud Controller's common name (CN) or subject alternative\nnames (SANs) against the hostname or IP address used to initiate the\nconnection. Most of the time this should be the hostname defined in\napi.url.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.batch_size",
+        "Description": "The batch size the syslog will request the Cloud Controller for\nbindings.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14822,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_ca_cert",
+        "Description": "The CA certificate for key/cert verification.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.polling_interval",
+        "Description": "The interval at which the syslog will poll the Cloud Controller for\nbindings.\n",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Syslog agent is enabled on VM",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache.tls.cert",
+        "Description": "This certificate is sent to the Cloud Controller when initiating a\nconnection. It must be signed by a CA that is trusted by the Cloud\nController.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_drain_metadata",
+        "Description": "Whether metadata is included in structured data by default",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aggregate_drains",
+        "Description": "DEPRECATED: Syslog server URLs that will receive the logs from all sources. Use binding cache instead if possible",
+        "Default": "",
+        "Example": "syslog-tls://some-drain-1,syslog-tls://some-drain-1",
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-syslog-binding-cache",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor473606820/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "binding_cache.key.erb",
+        "DstPathEnd": "config/certs/binding_cache.key",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/binding_cache.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "api_ca.crt.erb",
+        "DstPathEnd": "config/certs/api_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/api_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_client.crt.erb",
+        "DstPathEnd": "config/certs/api_client.crt",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/api_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_client.key.erb",
+        "DstPathEnd": "config/certs/api_client.key",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/api_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "binding_cache.crt.erb",
+        "DstPathEnd": "config/certs/binding_cache.crt",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/binding_cache.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "aggregate_drains.yml.erb",
+        "DstPathEnd": "config/aggregate_drains.yml",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/aggregate_drains.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor473606820/templates/prom_scraper_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "binding-cache"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS private key for binding-cache signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.override_url",
+        "Description": "Use to override the default use of cloud_controller bosh link as the URL\nmost commonly change to cloud_controller_ng.service.cf.internal rather than the bosh specific address\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.key",
+        "Description": "This is the private key for the certificate sent to the Cloud Controller\nwhen initiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.cn",
+        "Description": "When the syslog communicates with the Cloud Controller it must\nvalidate the Cloud Controller's common name (CN) or subject alternative\nnames (SANs) against the hostname or IP address used to initiate the\nconnection. Most of the time this should be the hostname defined in\napi.url.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.disable_keep_alives",
+        "Description": "Configures if the polling connection to API is reused or not.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_port",
+        "Description": "The port where the cache serves bindings\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "TLS loggregator root CA certificate. It is required for key/cert\nverification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for binding-cache signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.ca_cert",
+        "Description": "When the syslog communicates with the Cloud Controller it must\nvalidate the Cloud Controller's certificate was signed by a trusted CA.\nThis is the CA trusted by the syslog for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.batch_size",
+        "Description": "The batch size the syslog will request the Cloud Controller for\nbindings.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.polling_interval",
+        "Description": "The interval at which the syslog will poll the Cloud Controller for\nbindings.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Syslog binding cache is enabled on VM",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_drain_metadata",
+        "Description": "Whether metadata is included in structured data by default",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aggregate_drains",
+        "Description": "Syslog server URLs that will receive the logs from all sources",
+        "Default": "",
+        "Example": "deprecated format: \"syslog-tls://some-drain-1,syslog-tls://some-drain-1\"\n\nnew format:\naggregate_drains:\n-  url: syslog-tls://some-drain-1:1000\n   cert: |\n      cert\n   key: |\n      key\n   CA: |\n      ca\n",
+        "Examples": null
+      },
+      {
+        "Name": "tls.cn",
+        "Description": "The common name the cache will use to validate certs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api.tls.cert",
+        "Description": "This certificate is sent to the Cloud Controller when initiating a\nconnection. It must be signed by a CA that is trusted by the Cloud\nController.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14828,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggr-udp-forwarder",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1057456894/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1057456894/templates/prom_scraper_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "udp-forwarder"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.tls.key",
+        "Description": "This is the private key for the certificate sent to the Loggregator Agent\nwhen initiating a connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v2 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca",
+        "Description": "When the forwarder communicates with the Loggregator Agent it must\nvalidate the Loggregator Agent's certificate was signed by a trusted CA.\nThis is the CA trusted by the forwarder for that communication.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ingress_port",
+        "Description": "The gRPC port to forward the converted v2 envelopes to.\n",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14829,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cert",
+        "Description": "This certificate is sent to the Loggregator Agent when initiating a\nconnection. It must be signed by a CA that is trusted by the Loggregator\nAgent.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "udp_port",
+        "Description": "The port to listen for incoming v1 (dropsonde) envelopes via UDP.\n",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3856695520/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3856695520/templates/metrics.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable v1 Firehose and v2 Logstream",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_logs",
+        "Description": "Disable log egress from the agent",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listening_port",
+        "Description": "Port the agent is listening on to receive dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc_port",
+        "Description": "Port the agent is listening on to receive gRPC log envelopes",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.override_url",
+        "Description": "URL to use for dopplers instead of bosh link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.override_az_url",
+        "Description": "URL to use for dopplers AZ qualifies instead of using bosh links",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.key",
+        "Description": "TLS key for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.cert",
+        "Description": "TLS certificate for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_udp",
+        "Description": "Disable incoming UDP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14824,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_agent_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3723808026/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3723808026/templates/metrics_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_agent_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "syslog_daemon_config.port",
+        "Description": "Port of syslog aggregator",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc_port",
+        "Description": "Port the agent is listening on to receive gRPC log envelopes",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.override_url",
+        "Description": "URL to use for dopplers instead of bosh link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.cert",
+        "Description": "TLS certificate for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.custom_rule",
+        "Description": "Custom rule for syslog forward daemon",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.agent.key",
+        "Description": "TLS key for agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14824,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.transport",
+        "Description": "Transport to be used when forwarding logs (tcp|udp).",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.max_message_size",
+        "Description": "maximum message size to be sent",
+        "Default": "4k",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable v1 Firehose and v2 Logstream",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.enable",
+        "Description": "Enable or disable rsyslog configuration for forwarding syslog messages into the agent",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listening_port",
+        "Description": "Port the agent is listening on to receive dropsonde log messages",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_logs",
+        "Description": "Disable log egress from the agent",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.fallback_addresses",
+        "Description": "Addresses of fallback servers to be used if the primary syslog server is down. Only tcp or relp are supported. Each list entry should consist of \"address\", \"transport\" and \"port\" keys. ",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, job, index and IP will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_udp",
+        "Description": "Disable incoming UDP",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "zone",
+        "Description": "Availability zone where this agent is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deployment",
+        "Description": "Name of deployment (added as tag on all outgoing v1 envelopes)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.override_az_url",
+        "Description": "URL to use for dopplers AZ qualifies instead of using bosh links",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.address",
+        "Description": "IP address for syslog aggregator",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "prom_scraper",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1559948822/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "scrape.key.erb",
+        "DstPathEnd": "config/certs/scrape.key",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/scrape.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "scrape.crt.erb",
+        "DstPathEnd": "config/certs/scrape.crt",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/scrape.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "scrape_ca.crt.erb",
+        "DstPathEnd": "config/certs/scrape_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1559948822/templates/scrape_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "prom_scraper"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "scrape_interval",
+        "Description": "The interval to scrape the metrics URL (golang duration)",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "additional_volumes",
+        "Description": "Files matching these globs will be added to the bpm.yml but will not be attempted to be scraped",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.tls.key",
+        "Description": "The key used to communicate with loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "If true, Skips SSL Validation when scraping",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.key",
+        "Description": "The key used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.ca_cert",
+        "Description": "The CA used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.cert",
+        "Description": "The cert used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.tls.ca_cert",
+        "Description": "The CA used to communicate with loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_globs",
+        "Description": "Files matching the globs are expected to contain information to scrape a Prometheus metrics endpoint on localhost.",
+        "Default": [
+          "/var/vcap/jobs/*/config/prom_scraper_config.yml",
+          "/var/vcap/jobs/*/config/metric_port.yml"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.grpc_port",
+        "Description": "The gRPC port used to connect to loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.tls.cert",
+        "Description": "The cert used to communicate with loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "prom_scraper_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1292911662/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "scrape_ca.crt.erb",
+        "DstPathEnd": "config/certs/scrape_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/scrape_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.crt",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/loggregator_agent.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_agent.key.erb",
+        "DstPathEnd": "config/certs/loggregator_agent.key",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/loggregator_agent.key.erb"
+      },
+      {
+        "SrcPathEnd": "scrape.crt.erb",
+        "DstPathEnd": "config/certs/scrape.crt",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/scrape.crt.erb"
+      },
+      {
+        "SrcPathEnd": "scrape.key.erb",
+        "DstPathEnd": "config/certs/scrape.key",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/scrape.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1292911662/templates/metrics_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "prom_scraper_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "If true, Skips SSL Validation when scraping",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.grpc_port",
+        "Description": "The gRPC port used to connect to loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.tls.cert",
+        "Description": "The cert used to communicate with loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.tls.key",
+        "Description": "The key used to communicate with loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator_agent.tls.ca_cert",
+        "Description": "The CA used to communicate with loggregator agent. Can come from loggregator link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_globs",
+        "Description": "Files matching the globs are expected to contain information to scrape a Prometheus metrics endpoint on localhost.",
+        "Default": [
+          "/var/vcap/jobs/*/config/prom_scraper_config.yml",
+          "/var/vcap/jobs/*/config/metric_port.yml"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.cert",
+        "Description": "The cert used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.key",
+        "Description": "The key used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.ca_cert",
+        "Description": "The CA used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape_interval",
+        "Description": "The interval to scrape the metrics URL (golang duration)",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
