@@ -1,0 +1,905 @@
+[
+  {
+    "Name": "metrics-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor891481223/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "scrape.key.erb",
+        "DstPathEnd": "config/certs/scrape.key",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/scrape.key.erb"
+      },
+      {
+        "SrcPathEnd": "scrape_ca.crt.erb",
+        "DstPathEnd": "config/certs/scrape_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/scrape_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "scrape.crt.erb",
+        "DstPathEnd": "config/certs/scrape.crt",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/scrape.crt.erb"
+      },
+      {
+        "SrcPathEnd": "grpc_ca.crt.erb",
+        "DstPathEnd": "config/certs/grpc_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/grpc_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "grpc.crt.erb",
+        "DstPathEnd": "config/certs/grpc.crt",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/grpc.crt.erb"
+      },
+      {
+        "SrcPathEnd": "grpc.key.erb",
+        "DstPathEnd": "config/certs/grpc.key",
+        "Path": "/tmp/tar-CmdExtractor891481223/templates/grpc.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "metrics-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "scrape.tls.cert",
+        "Description": "The cert used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.key",
+        "Description": "The key used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc.key",
+        "Description": "TLS private key for GRPC ingress server signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_globs",
+        "Description": "Files matching the globs are expected to contain information to scrape a Prometheus metrics endpoint on localhost.",
+        "Default": [
+          "/var/vcap/jobs/*/config/prom_scraper_config.yml"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this job so that it will not run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc.cert",
+        "Description": "TLS certificate for GRPC ingress server signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_exporter_port",
+        "Description": "Port the agent uses to serve the Prometheus endpoint",
+        "Default": 14726,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.ca_cert",
+        "Description": "The CA used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_targets_file",
+        "Description": "The location of the generated metrics_targets.yml containing on-vm locations to scrape",
+        "Default": "/var/vcap/data/metrics-agent/metric_targets.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14727,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, instance group, and index will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "grpc.ca_cert",
+        "Description": "TLS loggregator root CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.whitelisted_timer_tags",
+        "Description": "A list of tags allowed for aggregating timer metrics into histograms",
+        "Default": "source_id,deployment,job,index,ip",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3461,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "metrics-agent-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4060995626/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "scrape.key.erb",
+        "DstPathEnd": "config/certs/scrape.key",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/scrape.key.erb"
+      },
+      {
+        "SrcPathEnd": "scrape_ca.crt.erb",
+        "DstPathEnd": "config/certs/scrape_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/scrape_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "grpc.crt.erb",
+        "DstPathEnd": "config/certs/grpc.crt",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/grpc.crt.erb"
+      },
+      {
+        "SrcPathEnd": "grpc_ca.crt.erb",
+        "DstPathEnd": "config/certs/grpc_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/grpc_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "grpc.key.erb",
+        "DstPathEnd": "config/certs/grpc.key",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/grpc.key.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "scrape.crt.erb",
+        "DstPathEnd": "config/certs/scrape.crt",
+        "Path": "/tmp/tar-CmdExtractor4060995626/templates/scrape.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "metrics-agent-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "scrape.tls.cert",
+        "Description": "The cert used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.ca_cert",
+        "Description": "The CA used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc.cert",
+        "Description": "TLS certificate for GRPC ingress server signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_globs",
+        "Description": "Files matching the globs are expected to contain information to scrape a Prometheus metrics endpoint on localhost.",
+        "Default": [
+          "/var/vcap/jobs/*/config/prom_scraper_config.yml"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.whitelisted_timer_tags",
+        "Description": "A list of tags allowed for aggregating timer metrics into histograms",
+        "Default": "source_id,deployment,job,index,ip",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this job so that it will not run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the agent is serving gRPC via mTLS",
+        "Default": 3461,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape.tls.key",
+        "Description": "The key used to communicate with scrape targets",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_exporter_port",
+        "Description": "Port the agent uses to serve the Prometheus endpoint",
+        "Default": 14726,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc.ca_cert",
+        "Description": "TLS loggregator root CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grpc.key",
+        "Description": "TLS private key for GRPC ingress server signed by the loggregator CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_targets_file",
+        "Description": "The location of the generated metrics_targets.yml containing on-vm locations to scrape",
+        "Default": "/var/vcap/data/metrics-agent-windows/metric_targets.yml",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "Collection of tags to add on all outgoing v2 envelopes. Bosh deployment, instance group, and index will be merged with this property if they are not provided",
+        "Default": {},
+        "Example": {
+          "deployment": "cf"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 14727,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "metrics-discovery-registrar",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor726262790/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "nats_ca.crt.erb",
+        "DstPathEnd": "config/certs/nats_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/nats_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.crt.erb",
+        "DstPathEnd": "config/certs/nats.crt",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/nats_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.key.erb",
+        "DstPathEnd": "config/certs/nats.key",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/nats_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor726262790/templates/metrics_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "metrics-discovery-registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "disable",
+        "Description": "Disable this job so that it will not run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "targets_glob",
+        "Description": "Files matching the glob are expected to contain targets to Prometheus metrics endpoints",
+        "Default": "/var/vcap/data/*",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_client.cert",
+        "Description": "TLS certificate to communicate with the NATs server signed by the NATs CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "target_refresh_interval",
+        "Description": "Interval to refresh the Prometheus endpoint targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_client.key",
+        "Description": "TLS private key to communicate with the NATs server signed by the NATs CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_instance_group",
+        "Description": "When deployed to this instance group, connect to the same instance via its IP address rather than via DNS lookup",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "publish_interval",
+        "Description": "Interval to publish targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "metrics-discovery-registrar-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3463911035/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "nats_ca.crt.erb",
+        "DstPathEnd": "config/certs/nats_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/nats_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.crt.erb",
+        "DstPathEnd": "config/certs/nats.crt",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/nats_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.key.erb",
+        "DstPathEnd": "config/certs/nats.key",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/nats_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3463911035/templates/metrics.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "metrics-discovery-registrar-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "disable",
+        "Description": "Disable this job so that it will not run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "target_refresh_interval",
+        "Description": "Interval to refresh the Prometheus endpoint targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "publish_interval",
+        "Description": "Interval to publish targets",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "targets_glob",
+        "Description": "Files matching the glob are expected to contain targets to Prometheus metrics endpoints",
+        "Default": "/var/vcap/data/*",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15821,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_client.cert",
+        "Description": "TLS certificate to communicate with the NATs server signed by the NATs CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_client.key",
+        "Description": "TLS private key to communicate with the NATs server signed by the NATs CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "scrape-config-generator",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3478227630/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "nats_client.crt.erb",
+        "DstPathEnd": "config/certs/nats.crt",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/nats_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.key.erb",
+        "DstPathEnd": "config/certs/nats.key",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/nats_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "nats_ca.crt.erb",
+        "DstPathEnd": "config/certs/nats_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3478227630/templates/nats_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "scrape-config-generator"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_client.cert",
+        "Description": "TLS certificate to communicate with the NATs server signed by the NATs CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_client.key",
+        "Description": "TLS private key to communicate with the NATs server signed by the NATs CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "scrape_config_file_path",
+        "Description": "The path to the generated scrape config file",
+        "Default": "/var/vcap/data/scrape-config-generator/scrape_targets.json",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "expiration_interval",
+        "Description": "This interval determines how often scrape endpoints are expired",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_ttl",
+        "Description": "This determines how long a scrape config lives before being expired",
+        "Default": "45s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port to host metrics endpoint",
+        "Default": 15822,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats_instance_group",
+        "Description": "When deployed to this instance group, connect to the same instance via its IP address rather than via DNS lookup",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
