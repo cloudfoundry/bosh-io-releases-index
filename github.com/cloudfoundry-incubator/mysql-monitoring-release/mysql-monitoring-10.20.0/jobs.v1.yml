@@ -1,0 +1,314 @@
+[
+  {
+    "Name": "mysql-diag",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor439915327/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "mysql-diag-config.yml.erb",
+        "DstPathEnd": "config/mysql-diag-config.yml",
+        "Path": "/tmp/tar-CmdExtractor439915327/templates/mysql-diag-config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor439915327/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "mysql-diag"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "db_username",
+        "Description": "MySQL username to connect to cluster nodes",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "MySQL password to connect to cluster nodes",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "mysql-diag-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2359862822/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "mysql-diag-agent.yml.erb",
+        "DstPathEnd": "config/mysql-diag-agent.yml",
+        "Path": "/tmp/tar-CmdExtractor2359862822/templates/mysql-diag-agent.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2359862822/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "mysql-diag"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.tls.enabled",
+        "Description": "Enable TLS for client connections to mysql-diag-agent",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.tls.ca",
+        "Description": "PEM-encoded authority certificate for mysql-diag-agent",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.tls.certificate",
+        "Description": "PEM-encoded certificate for securing TLS communication to mysql-diag-agent",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.tls.private_key",
+        "Description": "PEM-encoded key for securing TLS communication to mysql-diag-agent",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.tls.server_name",
+        "Description": "ServerName is used to advertise the expected hostname on the mysql-diag-agent certificate",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.port",
+        "Description": "The agent will provide information on this port via HTTP",
+        "Default": 8112,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.username",
+        "Description": "Basic auth username for the agent",
+        "Default": "mysql-diag-user",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-monitoring.mysql-diag-agent.password",
+        "Description": "Basic auth password for the agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "mysql-metrics",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3461961275/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "mysql-metrics-config.yml.erb",
+        "DstPathEnd": "config/mysql-metrics-config.yml",
+        "Path": "/tmp/tar-CmdExtractor3461961275/templates/mysql-metrics-config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator-ca.erb",
+        "DstPathEnd": "certs/loggregator-ca.pem",
+        "Path": "/tmp/tar-CmdExtractor3461961275/templates/loggregator-ca.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator-client-cert.erb",
+        "DstPathEnd": "certs/loggregator-client-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor3461961275/templates/loggregator-client-cert.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator-client-key.erb",
+        "DstPathEnd": "certs/loggregator-client-key.pem",
+        "Path": "/tmp/tar-CmdExtractor3461961275/templates/loggregator-client-key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3461961275/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "mysql-metrics"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "mysql-metrics.metrics_frequency",
+        "Description": "interval to poll metrics in seconds",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.heartbeat_database",
+        "Description": "schema where heartbeat table exists",
+        "Default": "replication_monitoring",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.heartbeat_table",
+        "Description": "table where heartbeat data is stored",
+        "Default": "heartbeat",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.galera_metrics_enabled",
+        "Description": "enabled galera metrics",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.password",
+        "Description": "database password for mysql metrics",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.host",
+        "Description": "hostname for accessing mysql",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.minimum_metrics_frequency",
+        "Description": "internal property: enforce minimum bound for metrics",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.log_metrics_to_disk",
+        "Description": "when enabled, metrics will be emitted through the firehose and also logged onto disk",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.disk_metrics_enabled",
+        "Description": "enable disk metrics",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.broker_metrics_enabled",
+        "Description": "enable broker metrics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.port",
+        "Description": "port for accessing mysql",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.origin",
+        "Description": "metric prefix when metrics are emitted",
+        "Default": "p-mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.cpu_metrics_enabled",
+        "Description": "enable cpu metrics",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.tls",
+        "Description": "TLS configuration for loggregator client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.username",
+        "Description": "database username for mysql metrics",
+        "Default": "mysql-metrics",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.source_id",
+        "Description": "the source_id when metrics are emitted",
+        "Default": "p-mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.leader_follower_metrics_enabled",
+        "Description": "enable leader follower metrics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.mysql_metrics_enabled",
+        "Description": "enable mysql metrics",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql-metrics.backup_metrics_enabled",
+        "Description": "enable backup metrics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'unix-epoch'. 'rfc3339' is the recommended\nformat. It will result in all timestamps controlled by this job to be in RFC3339 format, which is human readable.\nThis includes stdout, pre-start, and post-start logs. This does not include stderr logs from golang libraries.\n'unix-epoch' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\nThis format is different for different logs. We do not recommend using this flag unless you have scripts that\nexpect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
