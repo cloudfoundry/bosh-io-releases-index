@@ -1,0 +1,73 @@
+[
+  {
+    "Name": "cflinuxfs4-rootfs-setup",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2278495778/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2278495778/templates/pre-start"
+      },
+      {
+        "SrcPathEnd": "trusted_ca.crt.erb",
+        "DstPathEnd": "config/certs/trusted_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2278495778/templates/trusted_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cflinuxfs4"
+      },
+      {
+        "Name": "rootfs-certsplitter-cflinuxfs4"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "cflinuxfs4-rootfs.trusted_certs",
+        "Description": "Array or concatenation of PEM-encoded CA certficates to add to the rootfs trust store.",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE-----\n(contents of certificate #1)\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n(contents of certificate #2)\n-----END CERTIFICATE-----\n",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "cflinuxfs4-smoke-test",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1713984204/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor1713984204/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "trusted_ca.crt.erb",
+        "DstPathEnd": "config/certs/trusted_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1713984204/templates/trusted_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "cflinuxfs4-rootfs.trusted_certs",
+        "Description": "Concatenation of PEM-encoded CA certficates to add to the rootfs trust store.",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE-----\n(contents of certificate #1)\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n(contents of certificate #2)\n-----END CERTIFICATE-----\n",
+        "Examples": null
+      }
+    ]
+  }
+]
