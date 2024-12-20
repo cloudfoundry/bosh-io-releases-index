@@ -1,0 +1,327 @@
+[
+  {
+    "Name": "azure_cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3169591135/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor3169591135/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor3169591135/templates/cpi.json.erb"
+      },
+      {
+        "SrcPathEnd": "azure_stack_ca_cert.pem.erb",
+        "DstPathEnd": "config/azure_stack_ca_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor3169591135/templates/azure_stack_ca_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "service_principal_certificate.pem.erb",
+        "DstPathEnd": "config/service_principal_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor3169591135/templates/service_principal_certificate.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "azure-cpi-ruby-3.3"
+      },
+      {
+        "Name": "bosh_azure_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.user",
+        "Description": "Username to connect to nats with",
+        "Default": "nats",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "Https proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.resource_group_name",
+        "Description": "Resource group name to use when spinning up new vms",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.use_managed_disks",
+        "Description": "Enable managed disks",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.pip_idle_timeout_in_minutes",
+        "Description": "Idle timeouts in minutes for dynamic public IPs",
+        "Default": 4,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.use_default_account_for_cleaning",
+        "Description": "Use the default storage account when cleaning stemcells, to get around the issue where all subscription storage accounts cannot be listed or read from. If multiple accounts are being used by BOSH, this will cause stemcells to be not fully deleted and leak storage space.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.azure_stack.domain",
+        "Description": "The domain for your AzureStack deployment",
+        "Default": "local.azurestack.external",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.tenant_id",
+        "Description": "The tenant ID for the azure cpi (Required when azure.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.client_secret",
+        "Description": "The client secret for the azure cpi (One of `client_id` or `certificate` is required when azure.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.ssh_user",
+        "Description": "Default ssh user for new vms",
+        "Default": "vcap",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.ssh_public_key",
+        "Description": "The content of the SSH public key for new vms",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.keep_failed_vms",
+        "Description": "Enable keeping the VM which failed in provisioning for troubleshooting",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "No proxy environment variable",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.default_managed_identity.type",
+        "Description": "The type of managed identity used for the VM. The type `SystemAssigned` includes an implicitly created identity and the type `UserAssigned` includes a set of user assigned identities. For the type specified here to be used, azure.credentials_source has to be set to `managed_identity`.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.enable_vm_boot_diagnostics",
+        "Description": "Enable VM boot diagnostics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.azure_stack.authentication",
+        "Description": "The authentication type for your AzureStack deployment. AzureAD, AzureChinaCloudAD or ADFS",
+        "Default": "AzureAD",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.mbus",
+        "Description": "Agent mbus",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "Http proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.isv_tracking_guid",
+        "Description": "ISV tracking GUID for usage association",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.azure_stack.resource",
+        "Description": "The token resource for your AzureStack deployment",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.azure_stack.ca_cert",
+        "Description": "All required custom CA certificates for AzureStack",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "azure.credentials_source",
+        "Description": "Where to get Azure credentials for the azure cpi. This can be set to `static` to use `tenant_id`, `client_id` and `client_secret`/`certificate`, or set to `managed_identity` to get the credentials from Azure managed service identity.",
+        "Default": "static",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.client_id",
+        "Description": "The client ID for the azure cpi (Required when azure.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.default_managed_identity.user_assigned_identity_name",
+        "Description": "The user-assigned identity name associated with the VM. For the user-assigned identity specified here to be used, azure.credentials_source has to be set to `managed_identity`.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.default_security_group",
+        "Description": "The name of the default security group that will be applied to all created VMs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.debug_mode",
+        "Description": "Enable debug mode to log all raw HTTP requests/responses",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.subscription_id",
+        "Description": "Azure Subscription ID",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.enable_telemetry",
+        "Description": "Enable telemetry on CPI calls",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.location",
+        "Description": "Azure region name",
+        "Default": null,
+        "Example": "eastus",
+        "Examples": null
+      },
+      {
+        "Name": "ntp",
+        "Description": "List of ntp server IPs. pool.ntp.org attempts to return IPs closest to your location, but you can still specify if needed.",
+        "Default": [
+          "0.pool.ntp.org",
+          "1.pool.ntp.org"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.storage_account_name",
+        "Description": "Azure storage account name. This property is required when use_managed_disks is false or upgrading from an existing deployment whose use_managed_disks is false.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password to connect to nats with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "Port that the nats server listens on",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.environment",
+        "Description": "The environment for Azure Management Service. AzureCloud, AzureChinaCloud, AzureUSGovernment, AzureGermanCloud or AzureStack",
+        "Default": "AzureCloud",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.certificate",
+        "Description": "The certificate for the azure cpi (One of `client_id` or `certificate` is required when azure.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": "-----BEGIN PRIVATE KEY----- MII... -----END PRIVATE KEY----- -----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "azure.managed_identity_resource_id",
+        "Description": "The specific resource ID of the managed identity to use for the azure cpi. This is required if the VM the cpi is being called from has multiple managed identities assigned to it.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.parallel_upload_thread_num",
+        "Description": "The number of threads to upload stemcells in parallel",
+        "Default": 16,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "azure.azure_stack.endpoint_prefix",
+        "Description": "The endpoint prefix for your AzureStack deployment",
+        "Default": "management",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
