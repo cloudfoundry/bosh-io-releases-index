@@ -1,0 +1,359 @@
+[
+  {
+    "Name": "otel-collector",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3534021207/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "otel-collector-ca.crt.erb",
+        "DstPathEnd": "config/certs/otel-collector-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/otel-collector-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "otel-collector.crt.erb",
+        "DstPathEnd": "config/certs/otel-collector.crt",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/otel-collector.crt.erb"
+      },
+      {
+        "SrcPathEnd": "otel-collector.key.erb",
+        "DstPathEnd": "config/certs/otel-collector.key",
+        "Path": "/tmp/tar-CmdExtractor3534021207/templates/otel-collector.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "otel-collector"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ingress.grpc.address",
+        "Description": "Address to listen on to receive OTLP over gRPC",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.port",
+        "Description": "Port the collector is listening on to receive OTLP over gRPC",
+        "Default": 9100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.tls.ca_cert",
+        "Description": "CA root required for key/cert verification in gRPC ingress",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.tls.key",
+        "Description": "TLS server key for gRPC ingress",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "telemetry.metrics.level",
+        "Description": "Level of metrics the collector exposes about itself",
+        "Default": "basic",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_list.processors",
+        "Description": "Processors allowed for use in otel-collector config. Must be a subset of list included in otel-collector builder config. Empty list means allow all possible.",
+        "Default": null,
+        "Example": [
+          "batch"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "limits.cpu",
+        "Description": "Controls how many CPU cores this process can use simultaneously.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config",
+        "Description": "Collector configuration",
+        "Default": {},
+        "Example": "receivers:\n  otlp/placeholder:\n\nprocessors:\n  batch:\n\nexporters:\n  otlp:\n    endpoint: otelcol:4317\n\nservice:\n  pipelines:\n    traces:\n      receivers: [otlp/placeholder]\n      processors: [batch]\n      exporters: [otlp]\n    metrics:\n      receivers: [otlp/placeholder]\n      processors: [batch]\n      exporters: [otlp]\n",
+        "Examples": null
+      },
+      {
+        "Name": "telemetry.metrics.port",
+        "Description": "Port to serve the collector's internal metrics",
+        "Default": 14830,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secrets",
+        "Description": "Variables to interpolate into the configuration",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "trace_exporters",
+        "Description": "Exporter configuration for aggregate trace egress. Deprecated, please use 'config' property.",
+        "Default": {},
+        "Example": "otlp/trace:\n  endpoint: otelcol:4317\notlp/trace2:\n  endpoint: otelcol:4318\n",
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable OTel Collector",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_list.exporters",
+        "Description": "Exporters allowed for use in otel-collector config. Must be a subset of list included in otel-collector builder config. Empty list means allow all possible.",
+        "Default": null,
+        "Example": [
+          "otlp",
+          "prometheus",
+          "prometheusremotewrite"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "allow_list.extensions",
+        "Description": "Extensions allowed for use in otel-collector config. Must be a subset of list included in otel-collector builder config. Empty list means allow all possible.",
+        "Default": null,
+        "Example": [
+          "pprof"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "limits.memory_mib",
+        "Description": "Memory limit to apply to this process, in mebibytes.",
+        "Default": 512,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.tls.cert",
+        "Description": "TLS server certificate for gRPC ingress",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metric_exporters",
+        "Description": "Exporter configuration for aggregate metric egress. Deprecated, please use 'config' property.",
+        "Default": {},
+        "Example": "otlp:\n  endpoint: otelcol:4317\notlp/2:\n  endpoint: otelcol:4318\n",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "otel-collector-windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3233687668/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor3233687668/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ingress_port.yml.erb",
+        "DstPathEnd": "config/ingress_port.yml",
+        "Path": "/tmp/tar-CmdExtractor3233687668/templates/ingress_port.yml.erb"
+      },
+      {
+        "SrcPathEnd": "otel-collector.crt.erb",
+        "DstPathEnd": "config/certs/otel-collector.crt",
+        "Path": "/tmp/tar-CmdExtractor3233687668/templates/otel-collector.crt.erb"
+      },
+      {
+        "SrcPathEnd": "otel-collector.key.erb",
+        "DstPathEnd": "config/certs/otel-collector.key",
+        "Path": "/tmp/tar-CmdExtractor3233687668/templates/otel-collector.key.erb"
+      },
+      {
+        "SrcPathEnd": "otel-collector-ca.crt.erb",
+        "DstPathEnd": "config/certs/otel-collector-ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3233687668/templates/otel-collector-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3233687668/templates/prom_scraper_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "otel-collector-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "limits.memory_mib",
+        "Description": "Memory limit to apply to this process, in mebibytes.",
+        "Default": 512,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "allow_list.exporters",
+        "Description": "Exporters allowed for use in otel-collector config. Must be a subset of list included in otel-collector builder config. Empty list means allow all possible.",
+        "Default": null,
+        "Example": [
+          "otlp",
+          "prometheus",
+          "prometheusremotewrite"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "telemetry.metrics.port",
+        "Description": "Port to serve the collector's internal metrics",
+        "Default": 14830,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metric_exporters",
+        "Description": "Exporter configuration for aggregate metric egress. Deprecated, please use 'config' property.",
+        "Default": {},
+        "Example": "otlp:\n  endpoint: otelcol:4317\notlp/2:\n  endpoint: otelcol:4318\n",
+        "Examples": null
+      },
+      {
+        "Name": "trace_exporters",
+        "Description": "Exporter configuration for aggregate trace egress. Deprecated, please use 'config' property.",
+        "Default": {},
+        "Example": "otlp/trace:\n  endpoint: otelcol:4317\notlp/trace2:\n  endpoint: otelcol:4318\n",
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable OTel Collector",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.tls.ca_cert",
+        "Description": "CA root required for key/cert verification in gRPC ingress",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.tls.key",
+        "Description": "TLS server key for gRPC ingress",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "telemetry.metrics.level",
+        "Description": "Level of metrics the collector exposes about itself",
+        "Default": "basic",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.port",
+        "Description": "Port the collector is listening on to receive OTLP over gRPC",
+        "Default": 9100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secrets",
+        "Description": "Variables to interpolate into the configuration",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "limits.cpu",
+        "Description": "Controls how many CPU cores this process can use simultaneously.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config",
+        "Description": "Collector configuration",
+        "Default": {},
+        "Example": "receivers:\n  otlp/placeholder:\n\nprocessors:\n  batch:\n\nexporters:\n  otlp:\n    endpoint: otelcol:4317\n\nservice:\n  pipelines:\n    traces:\n      receivers: [otlp/placeholder]\n      processors: [batch]\n      exporters: [otlp]\n    metrics:\n      receivers: [otlp/placeholder]\n      processors: [batch]\n      exporters: [otlp]\n",
+        "Examples": null
+      },
+      {
+        "Name": "allow_list.processors",
+        "Description": "Processors allowed for use in otel-collector config. Must be a subset of list included in otel-collector builder config. Empty list means allow all possible.",
+        "Default": null,
+        "Example": [
+          "batch"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "allow_list.extensions",
+        "Description": "Extensions allowed for use in otel-collector config. Must be a subset of list included in otel-collector builder config. Empty list means allow all possible.",
+        "Default": null,
+        "Example": [
+          "pprof"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.address",
+        "Description": "Address to listen on to receive OTLP over gRPC",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ingress.grpc.tls.cert",
+        "Description": "TLS server certificate for gRPC ingress",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
