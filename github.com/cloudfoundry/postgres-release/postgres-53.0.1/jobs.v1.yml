@@ -1,0 +1,432 @@
+[
+  {
+    "Name": "bbr-postgres-db",
+    "Description": "This sample job must be collocated with the postgres job since leverages local db connections.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1460921393/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ca_cert.erb",
+        "DstPathEnd": "config/ca_cert",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/ca_cert.erb"
+      },
+      {
+        "SrcPathEnd": "client_certificate.erb",
+        "DstPathEnd": "config/client_certificate",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/client_certificate.erb"
+      },
+      {
+        "SrcPathEnd": "client_certificate_key.erb",
+        "DstPathEnd": "config/client_certificate_key",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/client_certificate_key.erb"
+      },
+      {
+        "SrcPathEnd": "config.sh.erb",
+        "DstPathEnd": "config/config.sh",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/config.sh.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/restore.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pgpass.erb",
+        "DstPathEnd": "config/pgpass",
+        "Path": "/tmp/tar-CmdExtractor1460921393/templates/pgpass.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "postgres-common"
+      },
+      {
+        "Name": "postgres-13"
+      },
+      {
+        "Name": "postgres-15"
+      },
+      {
+        "Name": "postgres-16"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "postgres.databases",
+        "Description": "Databases to backup and restore (not used when using links)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.dbuser",
+        "Description": "Database user to run backup and restore",
+        "Default": "vcap",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.port",
+        "Description": "The database port (not used when using links)",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.ssl_verify_hostname",
+        "Description": "If postgres is configured with a ca, setting this to 'true' changes sslmode to 'verify-full' rather than 'verify-ca'.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.client_certificate",
+        "Description": "Client certificate. Specify it if you want to auhtenticate using certificates.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.client_certificate_key",
+        "Description": "Secret key used for the client certificate. Specify it if you want to auhtenticate using certificates.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.single-transaction",
+        "Description": "uses singele transaction when restoring databases",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.version",
+        "Description": "The database version e.g. 11, 13, 15 or 16",
+        "Default": 16,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "release_level_backup",
+        "Description": "Include postgres in backup and restore operations",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "postgres",
+    "Description": "The Postgres server provides a single instance Postgres database that can be used with the Cloud Controller or the UAA. It does not provide highly-available configuration.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4115096404/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "hooks/call-hooks.sh.erb",
+        "DstPathEnd": "bin/hooks/call-hooks.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/hooks/call-hooks.sh.erb"
+      },
+      {
+        "SrcPathEnd": "hooks/postgres-pre-start.sh.erb",
+        "DstPathEnd": "bin/hooks/postgres-pre-start.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/hooks/postgres-pre-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "hooks/postgres-pre-stop.sh.erb",
+        "DstPathEnd": "bin/hooks/postgres-pre-stop.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/hooks/postgres-pre-stop.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pg_janitor_ctl.sh.erb",
+        "DstPathEnd": "bin/pg_janitor_ctl",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/pg_janitor_ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pgconfig.sh.erb",
+        "DstPathEnd": "bin/pgconfig.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/pgconfig.sh.erb"
+      },
+      {
+        "SrcPathEnd": "utils.sh.erb",
+        "DstPathEnd": "bin/utils.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/utils.sh.erb"
+      },
+      {
+        "SrcPathEnd": "postgresql.conf.erb",
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/postgresql.conf.erb"
+      },
+      {
+        "SrcPathEnd": "hooks/postgres-post-start.sh.erb",
+        "DstPathEnd": "bin/hooks/postgres-post-start.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/hooks/postgres-post-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_ctl.sh.erb",
+        "DstPathEnd": "bin/postgres_ctl",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/postgres_ctl.sh.erb"
+      },
+      {
+        "SrcPathEnd": "pg_janitor.sh.erb",
+        "DstPathEnd": "bin/pg_janitor.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/pg_janitor.sh.erb"
+      },
+      {
+        "SrcPathEnd": "postgres_start.sh.erb",
+        "DstPathEnd": "bin/postgres_start.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/postgres_start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "hooks/janitor.sh.erb",
+        "DstPathEnd": "bin/hooks/janitor.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/hooks/janitor.sh.erb"
+      },
+      {
+        "SrcPathEnd": "hooks/postgres-post-stop.sh.erb",
+        "DstPathEnd": "bin/hooks/postgres-post-stop.sh",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/hooks/postgres-post-stop.sh.erb"
+      },
+      {
+        "SrcPathEnd": "used_postgresql_versions.yml",
+        "DstPathEnd": "config/used_postgresql_versions.yml",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/used_postgresql_versions.yml"
+      },
+      {
+        "SrcPathEnd": "pg_hba.conf.erb",
+        "DstPathEnd": "config/pg_hba.conf",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/pg_hba.conf.erb"
+      },
+      {
+        "SrcPathEnd": "pg_ident.conf.erb",
+        "DstPathEnd": "config/pg_ident.conf",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/pg_ident.conf.erb"
+      },
+      {
+        "SrcPathEnd": "roles.sql.erb",
+        "DstPathEnd": "config/roles.sql",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/roles.sql.erb"
+      },
+      {
+        "SrcPathEnd": "server.private_key.erb",
+        "DstPathEnd": "config/certificates/server.private_key",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/server.private_key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/pre-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "server.public_cert.erb",
+        "DstPathEnd": "config/certificates/server.public_cert",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/server.public_cert.erb"
+      },
+      {
+        "SrcPathEnd": "server.ca_cert.erb",
+        "DstPathEnd": "config/certificates/server.ca_cert",
+        "Path": "/tmp/tar-CmdExtractor4115096404/templates/server.ca_cert.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "postgres-common"
+      },
+      {
+        "Name": "postgres-13"
+      },
+      {
+        "Name": "postgres-15"
+      },
+      {
+        "Name": "postgres-16"
+      },
+      {
+        "Name": "postgres-yq-4"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "databases.collect_statement_statistics",
+        "Description": "Enable the `pg_stat_statements` extension and collect statement execution statistics",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.tls.certificate",
+        "Description": "PEM-encoded certificate for secure TLS communication",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.hooks.timeout",
+        "Description": "Time limit in seconds for the hook script. By default it's set to 0 that means no time limit",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.logging.format.timestamp",
+        "Description": "Format for timestamp in component logs.\nThis includes pre-start, postgres_ctl, pg_janitor_ctl, janitor, and hooks; PostgreSQL logs are not included.\nValid values are 'rfc3339', and 'deprecated'.\"\n'rfc3339' is the recommended format, which is human readable.\n'deprecated' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.version",
+        "Description": "The database version e.g. 11, 13, 15 or 16",
+        "Default": 16,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.max_connections",
+        "Description": "Maximum number of database connections",
+        "Default": 500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.log_line_prefix",
+        "Description": "The postgres `printf` style string that is output at the beginning of each log line",
+        "Default": "%m: ",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.skip_data_copy_in_minor",
+        "Description": "If false, during a PostgreSQL minor upgrade a copy of the data directory is created.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "janitor.timeout",
+        "Description": "Time limit in seconds for the janitor script. By default it's set to 0 that means no time limit",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.databases",
+        "Description": "A list of databases and associated properties to create",
+        "Default": null,
+        "Example": "- name: sandbox\n  citext: true\n- name: sandbox2\n  citext: false\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.roles",
+        "Description": "A list of database roles and associated properties to create",
+        "Default": null,
+        "Example": "- name: pgadmin\n  password: passwd\n  permissions:\n  - \"CONNECTION LIMIT 33\"\n- name: bud_spencer\n  common_name: \"Carlo Pedersoli\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.tls.ca",
+        "Description": "PEM-encoded certification authority for secure TLS communication",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.tls.private_key",
+        "Description": "PEM-encoded key for secure TLS communication",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.trust_local_connections",
+        "Description": "Whether to trust or not local connections. Note that vcap is always trusted.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.enable_trace",
+        "Description": "Print additional traces in control scripts",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "janitor.script",
+        "Description": "If specified, janitor would periodically run this script",
+        "Default": "",
+        "Example": "#!/bin/bash\necho \"Run VACUUM\"\n${PACKAGE_DIR}/bin/psql -p ${PORT} -U vcap sandbox -c \"VACUUM ANALYZE\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "janitor.interval",
+        "Description": "Interval in seconds between two invocations of the janitor script. By default it's set to 1 day.",
+        "Default": 86400,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.port",
+        "Description": "The database port",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.additional_config",
+        "Description": "A map of additional key/value pairs to include as extra configuration properties",
+        "Default": null,
+        "Example": "shared_buffers: 4GB\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.monit_timeout",
+        "Description": "Monit timout in seconds for the postgres job start. If not specified, no timeout statement will be added so that the global monit timeout applies.",
+        "Default": 90,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.hooks.pre_start",
+        "Description": "Script to run before starting PostgreSQL",
+        "Default": "",
+        "Example": "#!/bin/bash\necho \"Going to start Postgres\"\necho \"PostgreSQL data directory is ${DATA_DIR}\"\necho \"PostgreSQL port is ${PORT}\"\necho \"Package directory is ${PACKAGE_DIR}\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.hooks.post_start",
+        "Description": "Script to run after PostgreSQL has started",
+        "Default": "",
+        "Example": "#!/bin/bash\necho \"The following databases are available:\"\n${PACKAGE_DIR}/bin/psql -p ${PORT} -U vcap postgres -c \"\\l\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "databases.hooks.pre_stop",
+        "Description": "Script to run before stopping PostgreSQL",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "databases.hooks.post_stop",
+        "Description": "Script to run after PostgreSQL has stopped",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
