@@ -1,0 +1,99 @@
+[
+  {
+    "Name": "docker_cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor288789414/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor288789414/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi_ctl.erb",
+        "DstPathEnd": "bin/cpi_ctl",
+        "Path": "/tmp/tar-CmdExtractor288789414/templates/cpi_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor288789414/templates/cpi.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "docker_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "docker_cpi.host_ip",
+        "Description": "IP address of the host that will be used by containers, must be the same as mbus IP",
+        "Default": null,
+        "Example": "10.254.50.4",
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.docker.api_version",
+        "Description": "Expected Docker API version",
+        "Default": "1.44",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.docker.tls",
+        "Description": "Mutual TLS client certificate for connecting to Docker daemon.\nOptional with unix:// host, otherwise required.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.start_containers_with_systemd",
+        "Description": "Containers will use /sbin/init as the entry point. Enabling this is required for Noble stemcells, but currently breaks all pre-Noble stemcells",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.docker.host",
+        "Description": "Docker host will use to connect (tcp or unix)",
+        "Default": null,
+        "Example": "tcp://10.10.0.62:32768",
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.agent.mbus",
+        "Description": "Mbus URL used by deployed BOSH agents",
+        "Default": null,
+        "Example": "nats://nats:nats-password@10.254.50.4:4222",
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.agent.ntp",
+        "Description": "NTP configuration used by deployed BOSH agents",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.agent.blobstore.provider",
+        "Description": "Provider type for the blobstore used by deployed BOSH agents (e.g. dav, s3)",
+        "Default": "dav",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "docker_cpi.agent.blobstore.options",
+        "Description": "Options for the blobstore used by deployed BOSH agents",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
