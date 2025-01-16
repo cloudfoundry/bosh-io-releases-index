@@ -1,0 +1,272 @@
+[
+  {
+    "Name": "elastalert",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1819536350/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "elastalert"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "elastalert-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor295784145/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/elastalert.yaml",
+        "DstPathEnd": "config/config.yaml",
+        "Path": "/tmp/tar-CmdExtractor295784145/templates/config/elastalert.yaml"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor295784145/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/ctl_utils.sh",
+        "DstPathEnd": "bin/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor295784145/templates/bin/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.sh",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor295784145/templates/bin/pre-start.sh"
+      },
+      {
+        "SrcPathEnd": "config/config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor295784145/templates/config/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "elastalert-server"
+      },
+      {
+        "Name": "node"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "elastalert.rules_folder",
+        "Description": "The name of the folder which contains rule configuration files.",
+        "Default": "/var/vcap/jobs/elastalert/rules",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.run_every",
+        "Description": "how often ElastAlert will query Elasticsearch.",
+        "Default": {
+          "minutes": 1
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.buffer_time",
+        "Description": "the size of the query window, stretching backwards from the time each query is run.",
+        "Default": {
+          "minutes": 15
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_host",
+        "Description": "the address of an Elasticsearch cluster where ElastAlert will store data about its state, queries run, alerts, and errors.",
+        "Default": "localhost",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_port",
+        "Description": " the port corresponding to es_host.",
+        "Default": "9200",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.writeback_index",
+        "Description": "the name of the index in which ElastAlert will store data.",
+        "Default": "elastalert_status",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.alert_time_limit",
+        "Description": "the retry window for failed alerts.",
+        "Default": {
+          "days": 2
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.rules",
+        "Description": "List of ElastAlert rules",
+        "Default": null,
+        "Example": "- name: Example rule\n  type: frequency\n  index: logstash-*\n  num_events: 50\n  timeframe:\n      hours: 4\n  filter:\n  - term:\n      some_field: \"some_value\"\n  alert:\n  - \"email\"\n  email:\n  - \"elastalert@example.com\"\n",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "praeco",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1808016146/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor1808016146/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/ctl_utils.sh",
+        "DstPathEnd": "bin/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor1808016146/templates/bin/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.sh",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor1808016146/templates/bin/pre-start.sh"
+      },
+      {
+        "SrcPathEnd": "config/praeco.config.json.erb",
+        "DstPathEnd": "config/praeco.config.json",
+        "Path": "/tmp/tar-CmdExtractor1808016146/templates/config/praeco.config.json.erb"
+      },
+      {
+        "SrcPathEnd": "config/BaseRule.config",
+        "DstPathEnd": "config/BaseRule.config",
+        "Path": "/tmp/tar-CmdExtractor1808016146/templates/config/BaseRule.config"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "node"
+      },
+      {
+        "Name": "praeco"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "elastalert.run_every",
+        "Description": "how often ElastAlert will query Elasticsearch.",
+        "Default": {
+          "minutes": 1
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.buffer_time",
+        "Description": "the size of the query window, stretching backwards from the time each query is run.",
+        "Default": {
+          "minutes": 15
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_host",
+        "Description": "the address of an Elasticsearch cluster where ElastAlert will store data about its state, queries run, alerts, and errors.",
+        "Default": "localhost",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.writeback_index",
+        "Description": "the name of the index in which ElastAlert will store data.",
+        "Default": "elastalert_status",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.rules",
+        "Description": "List of ElastAlert rules",
+        "Default": null,
+        "Example": "- name: Example rule\n  type: frequency\n  index: logstash-*\n  num_events: 50\n  timeframe:\n      hours: 4\n  filter:\n  - term:\n      some_field: \"some_value\"\n  alert:\n  - \"email\"\n  email:\n  - \"elastalert@example.com\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "praeco.smtp_port",
+        "Description": "xxx",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.rules_folder",
+        "Description": "The name of the folder which contains rule configuration files.",
+        "Default": "/var/vcap/jobs/elastalert/rules",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.smtp_host",
+        "Description": "xxx",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.config_options",
+        "Description": "Additional options to append to BaseRule.config (YAML format).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_port",
+        "Description": " the port corresponding to es_host.",
+        "Default": "9200",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.alert_time_limit",
+        "Description": "the retry window for failed alerts.",
+        "Default": {
+          "days": 2
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.slack_webhook_url",
+        "Description": "Slack URL for `rules/BaseRule.config`",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.external_url",
+        "Description": "xxx",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
