@@ -1,0 +1,273 @@
+[
+  {
+    "Name": "elastalert-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor411554092/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor411554092/templates/config/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "config/elastalert.yaml",
+        "DstPathEnd": "config/config.yaml",
+        "Path": "/tmp/tar-CmdExtractor411554092/templates/config/elastalert.yaml"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor411554092/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/ctl_utils.sh",
+        "DstPathEnd": "bin/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor411554092/templates/bin/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.sh",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor411554092/templates/bin/pre-start.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "elastalert-server"
+      },
+      {
+        "Name": "node"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "elastalert.smtp_host",
+        "Description": "The SMTP host to use.",
+        "Default": "localhost",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.rules",
+        "Description": "List of ElastAlert rules",
+        "Default": null,
+        "Example": "- name: Example rule\n  type: frequency\n  index: logstash-*\n  num_events: 50\n  timeframe:\n      hours: 4\n  filter:\n  - term:\n      some_field: \"some_value\"\n  alert:\n  - \"email\"\n  email:\n  - \"elastalert@example.com\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.from_addr",
+        "Description": "This sets the From header in the email. By default, the from address is ElastAlert@ and the domain will be set by the smtp server.",
+        "Default": "ElastAlert@localhost",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.buffer_time",
+        "Description": "the size of the query window, stretching backwards from the time each query is run.",
+        "Default": {
+          "minutes": 15
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_port",
+        "Description": " the port corresponding to es_host.",
+        "Default": "9200",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.verify_certs",
+        "Description": "Whether or not to verify TLS certificates.",
+        "Default": "true",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.smtp_port",
+        "Description": "The port to use.",
+        "Default": 25,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.rules_folder",
+        "Description": "The name of the folder which contains rule configuration files.",
+        "Default": "/var/vcap/jobs/elastalert/rules",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.run_every",
+        "Description": "how often ElastAlert will query Elasticsearch.",
+        "Default": {
+          "minutes": 1
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_username",
+        "Description": "basic-auth username for connecting to es_host.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.writeback_index",
+        "Description": "the name of the index in which ElastAlert will store data.",
+        "Default": "elastalert_status",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.smtp_ssl",
+        "Description": "Connect the SMTP host using TLS. If smtp_ssl is not used, ElastAlert will still attempt STARTTLS.",
+        "Default": "false",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_host",
+        "Description": "the address of an Elasticsearch cluster where ElastAlert will store data about its state, queries run, alerts, and errors.",
+        "Default": "localhost",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.es_password",
+        "Description": "basic-auth password for connecting to es_host.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.use_ssl",
+        "Description": "Whether or not to connect to es_host using TLS.",
+        "Default": "false",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "elastalert.alert_time_limit",
+        "Description": "the retry window for failed alerts.",
+        "Default": {
+          "days": 2
+        },
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "praeco",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2950597534/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config/BaseRule.config.erb",
+        "DstPathEnd": "config/BaseRule.config",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/config/BaseRule.config.erb"
+      },
+      {
+        "SrcPathEnd": "config/nginx.conf.erb",
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/config/nginx.conf.erb"
+      },
+      {
+        "SrcPathEnd": "config/nginx.praeco.conf.erb",
+        "DstPathEnd": "config/nginx.praeco.conf",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/config/nginx.praeco.conf.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/bin/ctl"
+      },
+      {
+        "SrcPathEnd": "bin/ctl_utils.sh",
+        "DstPathEnd": "bin/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/bin/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.sh",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/bin/pre-start.sh"
+      },
+      {
+        "SrcPathEnd": "config/praeco.config.json.erb",
+        "DstPathEnd": "config/praeco.config.json",
+        "Path": "/tmp/tar-CmdExtractor2950597534/templates/config/praeco.config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "praeco"
+      },
+      {
+        "Name": "elastalert-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "praeco.nginx.config_options",
+        "Description": "Additional options to append to nginx.conf.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.port",
+        "Description": "",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.slack_webhook_url",
+        "Description": "Slack URL for `rules/BaseRule.config`",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.external_url",
+        "Description": "Host for your Praeco Web GUI",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.elastalert-server.schema",
+        "Description": "",
+        "Default": "http",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.elastalert-server.host",
+        "Description": "",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "praeco.config_options",
+        "Description": "Additional options to append to BaseRule.config (YAML format).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
