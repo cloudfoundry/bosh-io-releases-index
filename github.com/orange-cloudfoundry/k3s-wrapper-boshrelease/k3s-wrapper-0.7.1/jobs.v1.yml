@@ -1,0 +1,798 @@
+[
+  {
+    "Name": "k3s-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4121345880/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-stop.erb",
+        "DstPathEnd": "bin/post-stop",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/post-stop.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bin/envrc",
+        "DstPathEnd": "bin/envrc",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/envrc"
+      },
+      {
+        "SrcPathEnd": "bin/setup-user-env.erb",
+        "DstPathEnd": "bin/setup-user-env",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/setup-user-env.erb"
+      },
+      {
+        "SrcPathEnd": "config/token.csv.erb",
+        "DstPathEnd": "config/token.csv",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/token.csv.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "bin/post-deploy.erb",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/post-deploy.erb"
+      },
+      {
+        "SrcPathEnd": "bin/drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/drain.erb"
+      },
+      {
+        "SrcPathEnd": "config/registry.key.erb",
+        "DstPathEnd": "config/registry.key",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/registry.key.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/pre-stop.erb",
+        "DstPathEnd": "bin/pre-stop",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/pre-stop.erb"
+      },
+      {
+        "SrcPathEnd": "bin/clean-cilium.sh",
+        "DstPathEnd": "bin/clean-cilium.sh",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/clean-cilium.sh"
+      },
+      {
+        "SrcPathEnd": "config/registries.yaml.erb",
+        "DstPathEnd": "config/registries.yaml",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/registries.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/registry.ca.erb",
+        "DstPathEnd": "config/registry.ca",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/registry.ca.erb"
+      },
+      {
+        "SrcPathEnd": "config/registry.cert.erb",
+        "DstPathEnd": "config/registry.cert",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/registry.cert.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubelet-config.yaml.erb",
+        "DstPathEnd": "config/kubelet-config.yaml",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/config/kubelet-config.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/k3s-killall.sh",
+        "DstPathEnd": "bin/k3s-killall.sh",
+        "Path": "/tmp/tar-CmdExtractor4121345880/templates/bin/k3s-killall.sh"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "k3s.token",
+        "Description": "(cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.node-labels",
+        "Description": "(agent/node) Registering and starting kubelet with set of labels format is key=value",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.skip-wait-for-delete-timeout",
+        "Description": "If pod DeletionTimestamp older than N seconds, skip waiting for the pod. Seconds must be greater than 0 to skip.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kubelet-config-file",
+        "Description": "content of kubelet config file, to enable eg GraceFull Node Shutdown",
+        "Default": "apiVersion: kubelet.config.k8s.io/v1beta1\nkind: KubeletConfiguration\nshutdownGracePeriod: 30s\nshutdownGracePeriodCriticalPods: 10s\n# See https://kubernetes.io/docs/concepts/cluster-administration/system-traces/#kubelet-traces\n# This is an example config that records spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint\n# featureGates:\n#   KubeletTracing: true\n# tracing:\n#   # default value\n#   #endpoint: localhost:4317\n#   samplingRatePerMillion: 100\n  \n",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.mirrors.tls.cert",
+        "Description": "private registry certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.node-taints",
+        "Description": "(agent/node) Registering kubelet with set of taints.format is key=value:Effect)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.delete-emptydir-data",
+        "Description": "continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.grace-period",
+        "Description": "period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used.",
+        "Default": -1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.pod-selector",
+        "Description": "Label selector to filter pods on the node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kube-proxy-arg",
+        "Description": "(agent/flags) Customized flag for kube-proxy process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.disable-vxlan-hardware-options",
+        "Description": "Disable VxLAN harware options on private interface",
+        "Default": [
+          "tx-udp_tnl-segmentation",
+          "tx-udp_tnl-csum-segmentation"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.kubeconfig",
+        "Description": "bosh drain for agents need a k3s kubeconfig. If set, the drain will occur and use this kubeconfig",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.disable-eviction",
+        "Description": "Force drain to use delete, even if eviction is supported. This will bypass checking PodDisruptionBudgets, use with caution",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.bosh-post-start-delay-seconds",
+        "Description": "bosh post start tempo, to let the kubelet start the pods before bosh triggers another node update",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.master_vip_api",
+        "Description": "externaly defined vip ip for HA k3s (enables multi master instance groups). This is used for public api access, tls-san, and agents to server communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.mirrors.tls.key",
+        "Description": "private registry private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.selector",
+        "Description": "Selector (label query) to filter on",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.mirrors.tls.ca",
+        "Description": "private registry ca",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.v",
+        "Description": "(logging) Number for the log level verbosity (default: 0)",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.set-provider-id-prefix",
+        "Description": "If set, the default provider id (k3s://\u003cinstance\u003e-\u003cindex\u003e will be set as kubelet arg as \u003cprefix\u003e://\u003cinstance\u003e-\u003cindex\u003e",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.ignore-daemonsets",
+        "Description": "Ignore DaemonSet-managed pods.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.timeout",
+        "Description": "The length of time to wait before giving up, zero means infinite",
+        "Default": "90s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.node_name_prefix",
+        "Description": "explicitly set k8s node name. If not set, \u003cinstance-group-name\u003e-\u003cindex\u003e is set automatically. If set, name is \u003cnode_name_prefix\u003e-\u003cindex\u003e",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.vmodule",
+        "Description": "Comma-separated list of FILE_PATTERN=LOG_LEVEL settings for file-filtered logging",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kubelet-args",
+        "Description": "(agent/flags) Customized flag for kubelet process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd_registry",
+        "Description": "containerd registry configuration",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.bind-address value",
+        "Description": "(listener) k3s bind address (default: 0.0.0.0)",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.do-not-killall-on-post-stop",
+        "Description": "if set, the bosh post-stop script wont leverage k3s-killall.sh script",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.token-file-content",
+        "Description": "token-file content. see https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.containerd_additional_env_vars",
+        "Description": "additional env vars to set for containerd (the key will be prefixed with CONTAINERD_, and set in k3s launch context",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "k3s-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor870289982/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/setup-user-env.erb",
+        "DstPathEnd": "bin/setup-user-env",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/setup-user-env.erb"
+      },
+      {
+        "SrcPathEnd": "config/datastore-keyfile.erb",
+        "DstPathEnd": "config/datastore-keyfile",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/datastore-keyfile.erb"
+      },
+      {
+        "SrcPathEnd": "config/additional-manifest.yaml.erb",
+        "DstPathEnd": "config/additional-manifest.yaml",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/additional-manifest.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "bin/pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "config/registry.key.erb",
+        "DstPathEnd": "config/registry.key",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/registry.key.erb"
+      },
+      {
+        "SrcPathEnd": "config/token.csv.erb",
+        "DstPathEnd": "config/token.csv",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/token.csv.erb"
+      },
+      {
+        "SrcPathEnd": "config/audit-policy.yaml.erb",
+        "DstPathEnd": "config/audit-policy.yaml",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/audit-policy.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-deploy.erb",
+        "DstPathEnd": "bin/post-deploy",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/post-deploy.erb"
+      },
+      {
+        "SrcPathEnd": "bin/k3s-killall.sh",
+        "DstPathEnd": "bin/k3s-killall.sh",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/k3s-killall.sh"
+      },
+      {
+        "SrcPathEnd": "config/api-server-tracing-config.yaml.erb",
+        "DstPathEnd": "config/api-server-tracing-config.yaml",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/api-server-tracing-config.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/kubelet-config.yaml.erb",
+        "DstPathEnd": "config/kubelet-config.yaml",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/kubelet-config.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "bin/pre-stop.erb",
+        "DstPathEnd": "bin/pre-stop",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/pre-stop.erb"
+      },
+      {
+        "SrcPathEnd": "config/registry.cert.erb",
+        "DstPathEnd": "config/registry.cert",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/registry.cert.erb"
+      },
+      {
+        "SrcPathEnd": "bin/envrc",
+        "DstPathEnd": "bin/envrc",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/envrc"
+      },
+      {
+        "SrcPathEnd": "config/datastore-cafile.erb",
+        "DstPathEnd": "config/datastore-cafile",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/datastore-cafile.erb"
+      },
+      {
+        "SrcPathEnd": "config/datastore-certfile.erb",
+        "DstPathEnd": "config/datastore-certfile",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/datastore-certfile.erb"
+      },
+      {
+        "SrcPathEnd": "bin/post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bin/drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/bin/drain.erb"
+      },
+      {
+        "SrcPathEnd": "config/registries.yaml.erb",
+        "DstPathEnd": "config/registries.yaml",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/registries.yaml.erb"
+      },
+      {
+        "SrcPathEnd": "config/registry.ca.erb",
+        "DstPathEnd": "config/registry.ca",
+        "Path": "/tmp/tar-CmdExtractor870289982/templates/config/registry.ca.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "k3s.drain.delete-emptydir-data",
+        "Description": "continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.pod-selector",
+        "Description": "Label selector to filter pods on the node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.selector",
+        "Description": "Selector (label query) to filter on",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kube-apiserver-arg",
+        "Description": "(flags) Customized flag for kube-apiserver process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kube-scheduler-arg",
+        "Description": "(flags) Customized flag for kube-scheduler process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kube-controller-manager-arg",
+        "Description": "(flags) Customized flag for kube-controller-manager process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kube-cloud-controller-manager-arg",
+        "Description": "(flags) Customized flag for kube-cloud-controller-manager process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.mirrors.tls.ca",
+        "Description": "private registry ca",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.disable-eviction",
+        "Description": "force drain to use delete, even if eviction is supported. This will bypass checking PodDisruptionBudgets, use with caution",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.datastore-endpoint",
+        "Description": "Specify etcd, Mysql, Postgres, or Sqlite (default) data source name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.additional_tls_sans",
+        "Description": "array of additionnal tls-san for k8s api (added to default, ip, bosh-dns alias, or master vip if set)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.v",
+        "Description": "(logging) Number for the log level verbosity (default: 0)",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.vmodule",
+        "Description": "Comma-separated list of FILE_PATTERN=LOG_LEVEL settings for file-filtered logging",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kubelet-args",
+        "Description": "(agent/flags) Customized flag for kubelet process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.node_name_prefix",
+        "Description": "explicitly set k8s node name. If not set, \u003cinstance-group-name\u003e-\u003cindex\u003e is set automatically. If set, name is \u003cnode_name_prefix\u003e-\u003cindex\u003e",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.disable",
+        "Description": "(components) Do not deploy packaged components and delete any deployed components (valid itemms are coredns, servicelb, traefik, local-storage, metrics-server)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.node-taints",
+        "Description": "(agent/node) Registering kubelet with set of taints.format is key=value:Effect)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.datastore-cafile",
+        "Description": "TLS Certificate Authority file used to secure datastore backend communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.datastore-certfile",
+        "Description": "TLS certification file used to secure datastore backend communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kube-proxy-arg",
+        "Description": "(agent/flags) Customized flag for kube-proxy process",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.master_vip_api",
+        "Description": "externaly defined vip ip for HA k3s (enables multi master instance groups). This is used for public api access, tls-san, and agents to server communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.api-server-tracing-config-file",
+        "Description": "if set, defines and activate k8s api tracing config. See https://kubernetes.io/docs/concepts/cluster-administration/system-traces/#kube-apiserver-traces",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.bind-address value",
+        "Description": "(listener) k3s bind address (default: 0.0.0.0)",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.disable-network-policy",
+        "Description": "(components) Disable k3s default network policy controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.disable-kube-proxy",
+        "Description": "(components) Disable running kube-proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.additional-manifests",
+        "Description": "array of additionnel yaml to apply at k3s start",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.grace-period",
+        "Description": "period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used.",
+        "Default": -1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.timeout",
+        "Description": "The length of time to wait before giving up, zero means infinite",
+        "Default": "90s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.token-file-content",
+        "Description": "token-file content. see https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.containerd_additional_env_vars",
+        "Description": "additional env vars (name/value map array) to set for containerd (the key will be prefixed with CONTAINERD_, and set in k3s launch context",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.cluster-dns",
+        "Description": "(networking) IPv4 Cluster IP for coredns service. Should be in your service-cidr range (default: 10.43.0.10)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.audit-policy-file",
+        "Description": "if set, defines and activate audit policy for k8s server",
+        "Default": "apiVersion: audit.k8s.io/v1 # This is required.\nkind: Policy\n\n# Prevent requests in the RequestReceived stage from generating audit events.\nomitStages:\n  - \"RequestReceived\"\n\nrules:\n  # Log \"pods/log\", \"pods/status\" at Metadata level\n  - level: Metadata\n    resources:\n    - group: \"\"\n      resources: [\"pods/log\", \"pods/status\"]\n  # Exclude logging requests to a configmap called \"controller-config\"\n  - level: None\n    resources:\n    - group: \"\"\n      resources: [\"configmaps\"]\n      resourceNames: [\"controller-config\"]\n  # Don't log watch requests by the \"system:kube-proxy\" on endpoints or services\n  - level: None\n    users: [\"system:kube-proxy\"]\n    verbs: [\"watch\"]\n    resources:\n    - group: \"\" # core API group\n      resources: [\"endpoints\", \"services\"]\n  # Log deployment changes at RequestResponse level\n  - level: Metadata\n    resources:\n    - group: \"\"\n      resources: [\"deployments\"]\n  # Log service changes at metadata level\n  - level: Metadata\n    resources:\n    - group: \"\"\n      resources: [\"services\"]\n  # Log the request body of configmap changes in the kube-system namespace.\n  - level: Request\n    resources:\n    - group: \"\" # core API group\n      resources: [\"configmaps\"]\n    # You can use an empty string [\"\"] to select resources not associated with a namespace.\n    namespaces: [\"kube-system\"]\n  # Log configmap and secret changes in all other namespaces at the Metadata level.\n  - level: Metadata\n    resources:\n    - group: \"\" # core API group\n      resources: [\"secrets\", \"configmaps\",\"serviceaccounts/token\"] #see https://github.com/kubernetes/kubernetes/issues/98612#issuecomment-962088315\n  # Log all other resources in core and extensions at the Request level.\n  - level: Request\n    resources:\n    - group: \"\" # core API group\n    - group: \"extensions\" # Version of group should NOT be included.\n  # A wild-card rule to log all other requests at the Metadata level.\n  - level: Metadata\n    # Long-running requests like watches that fall under this rule will not\n    # generate an audit event in RequestReceived.\n    omitStages:\n      - \"RequestReceived\"\n",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.mirrors.tls.cert",
+        "Description": "private registry certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.disable-vxlan-hardware-options",
+        "Description": "Disable VxLAN harware options on private interface",
+        "Default": [
+          "tx-udp_tnl-segmentation",
+          "tx-udp_tnl-csum-segmentation"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.set-provider-id-prefix",
+        "Description": "If set, the default provider id (k3s://\u003cinstance\u003e-\u003cindex\u003e will be set as kubelet arg as \u003cprefix\u003e://\u003cinstance\u003e-\u003cindex\u003e",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.node-labels",
+        "Description": "(agent/node) Registering and starting kubelet with set of labels",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.skip-wait-for-delete-timeout",
+        "Description": "If pod DeletionTimestamp older than N seconds, skip waiting for the pod. Seconds must be greater than 0 to skip.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.kubelet-config-file",
+        "Description": "content of kubelet config file, to enable eg GraceFull Node Shutdown",
+        "Default": "apiVersion: kubelet.config.k8s.io/v1beta1\nkind: KubeletConfiguration\nshutdownGracePeriod: 30s\nshutdownGracePeriodCriticalPods: 10s\n",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.cluster-cidr",
+        "Description": "(networking) IPv4/IPv6 network CIDRs to use for pod IPs (default: 10.42.0.0/16)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.service-cidr",
+        "Description": "(networking) IPv4/IPv6 network CIDRs to use for service IPs (default: 10.43.0.0/16)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.disable-cloud-controller",
+        "Description": "(components) If set,  Disable k3s default cloud controller manager",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.do-not-killall-on-post-stop",
+        "Description": "if set, the bosh post-stop script wont leverage k3s-killall.sh script",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.embedded-ha-etcd",
+        "Description": "if set, use embedded etcd in ha mode. requires an odd number of servers, overrides datastore-endpoints",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.datastore-keyfile",
+        "Description": "TLS key file used to secure datastore backend communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd_registry",
+        "Description": "containerd registry configuration",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.mirrors.tls.key",
+        "Description": "private registry private key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.flannel-backend",
+        "Description": "(networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard'",
+        "Default": "vxlan",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.token",
+        "Description": "(cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.drain.ignore-daemonsets",
+        "Description": "Ignore DaemonSet-managed pods.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "k3s.bosh-post-start-delay-seconds",
+        "Description": "bosh post start tempo, to let the kubelet start the pods before bosh triggers another node update",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
