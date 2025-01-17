@@ -1,0 +1,666 @@
+[
+  {
+    "Name": "backup-restore-notifications",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor756908900/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-restore-lock.sh.erb",
+        "DstPathEnd": "bin/bbr/pre-restore-lock",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/pre-restore-lock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "post-restore-unlock.sh.erb",
+        "DstPathEnd": "bin/bbr/post-restore-unlock",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/post-restore-unlock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.sh",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/metadata.sh"
+      },
+      {
+        "SrcPathEnd": "common.sh.erb",
+        "DstPathEnd": "bin/common",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/common.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/backup-restore-notifications-db-config.json",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/backup.sh.erb"
+      },
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor756908900/templates/restore.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "notifications.database.username",
+        "Description": "Username for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.space",
+        "Description": "Space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.host",
+        "Description": "Host (IP or domain) for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.ca_cert",
+        "Description": "CA certificate for authenticating the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.client_id",
+        "Description": "Client id of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.client_secret",
+        "Description": "Client secret of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "Whether to verify SSL certs when making HTTP and SMTP requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "release_level_backup",
+        "Description": "Use newer bbr scripts which are split by release",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry System Domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.database",
+        "Description": "Database name for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.password",
+        "Description": "Password for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.port",
+        "Description": "Port for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.organization",
+        "Description": "Organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.app_domain",
+        "Description": "Domain used to host application",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "deploy-notifications",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1202782109/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor1202782109/templates/run.sh.erb"
+      },
+      {
+        "SrcPathEnd": "deploy.sh.erb",
+        "DstPathEnd": "bin/deploy.sh",
+        "Path": "/tmp/tar-CmdExtractor1202782109/templates/deploy.sh.erb"
+      },
+      {
+        "SrcPathEnd": "manifest.yml.erb",
+        "DstPathEnd": "manifest.yml",
+        "Path": "/tmp/tar-CmdExtractor1202782109/templates/manifest.yml.erb"
+      },
+      {
+        "SrcPathEnd": "database.crt.erb",
+        "DstPathEnd": "database.crt",
+        "Path": "/tmp/tar-CmdExtractor1202782109/templates/database.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1202782109/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "notifications"
+      },
+      {
+        "Name": "notifications-jq"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "notifications.database.tls.enable_identity_verification",
+        "Description": "Whether to verify the identity of the database host when connecting with TLS. Set this to `false` to allow TLS connections to database providers that do not configure the database's TLS certificate to include its hostname or IP, such as Google Cloud SQL or Azure SQL Database.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.default_template",
+        "Description": "default template to use for the service",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.tls",
+        "Description": "Uses SMTP TLS",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.url",
+        "Description": "URL pointing to database. When present, overrides database adapter, username, password, host, port, and database properties.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.ca_cert",
+        "Description": "CA certificate for authenticating the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.buildpack_url",
+        "Description": "Optional parameter that specifies the url of the buildpack to use.  Helpful if your environment does not have the latest Go buildpack.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.auth_mechanism",
+        "Description": "SMTP Authentication mechanism, should be one of [none plain cram-md5]",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.crammd5_secret",
+        "Description": "Secret to use with CRAMMD5 auth mechanism",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.port",
+        "Description": "SMTP port number",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "Whether to verify SSL certs when making HTTP and SMTP requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.app_go_package_name",
+        "Description": "Go package name used to enable native vendoring in the Go Buildpack",
+        "Default": "github.com/cloudfoundry-incubator/notifications",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.app_go_version",
+        "Description": "Targeted Go version used to run the application",
+        "Default": "go\u003e=1.20.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry System Domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.space",
+        "Description": "Space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.host",
+        "Description": "SMTP Host name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.enable_diego",
+        "Description": "Enable deployment to diego",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.organization",
+        "Description": "Organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.admin_client_secret",
+        "Description": "Admin client secret of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.max_queue_length",
+        "Description": "Maximum number of jobs to have at a time",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.app_domain",
+        "Description": "Domain used to host application",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.network",
+        "Description": "Network used to host application",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.common_name",
+        "Description": "CA common name for authenticating the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.encryption_key",
+        "Description": "key used to encrypt unsubscribe IDs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.instance_count",
+        "Description": "number of instances of service to run",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.password",
+        "Description": "Password for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.database",
+        "Description": "Database name for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.user",
+        "Description": "Username for the SMTP host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.client_secret",
+        "Description": "Client secret of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.username",
+        "Description": "Username for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.host",
+        "Description": "Host (IP or domain) for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.port",
+        "Description": "Port for the database connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.database.max_open_connections",
+        "Description": "Maximum number of open connections to the database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.cf.dial_timeout",
+        "Description": "CF CLI connection dial timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.smtp.pass",
+        "Description": "Password of the SMTP user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.max_retries",
+        "Description": "Maximum number of retries.",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.admin_client_id",
+        "Description": "Admin client id of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.syslog_url",
+        "Description": "External log service URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.error_on_misconfiguration",
+        "Description": "Throw error on service misconfiguration during deployment",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.sender",
+        "Description": "Sender of the notification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.client_id",
+        "Description": "Client id of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "destroy-notifications",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3476257985/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3476257985/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "run.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3476257985/templates/run.sh.erb"
+      },
+      {
+        "SrcPathEnd": "destroy.sh.erb",
+        "DstPathEnd": "bin/destroy.sh",
+        "Path": "/tmp/tar-CmdExtractor3476257985/templates/destroy.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "notifications.space",
+        "Description": "Space where the app is deployed",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "Whether to verify SSL certs when making HTTP and SMTP requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry System Domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.cf.dial_timeout",
+        "Description": "CF CLI connection dial timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.client_id",
+        "Description": "Client id of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.client_secret",
+        "Description": "Client secret of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.app_domain",
+        "Description": "Domain used to host application",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.organization",
+        "Description": "Organization where the app is deployed",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "test-notifications",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3007149764/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3007149764/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "run.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3007149764/templates/run.sh.erb"
+      },
+      {
+        "SrcPathEnd": "test.sh.erb",
+        "DstPathEnd": "bin/test.sh",
+        "Path": "/tmp/tar-CmdExtractor3007149764/templates/test.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "notifications"
+      },
+      {
+        "Name": "golang-1-linux"
+      },
+      {
+        "Name": "acceptance"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "notifications.uaa.admin_client_secret",
+        "Description": "UAA Admin client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.organization",
+        "Description": "Organization that contains the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.space",
+        "Description": "Space that contains the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.cf.admin_user",
+        "Description": "Username of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.cf.admin_password",
+        "Description": "Password of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.app_domain",
+        "Description": "Domain used to host application",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.uaa.admin_client_id",
+        "Description": "UAA Admin client ID",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "notifications.tests.performance",
+        "Description": "Toggle for running the performance tests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "domain",
+        "Description": "Cloud Foundry System Domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
