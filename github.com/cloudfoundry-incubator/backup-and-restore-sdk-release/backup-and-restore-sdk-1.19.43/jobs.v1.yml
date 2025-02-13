@@ -1,0 +1,336 @@
+[
+  {
+    "Name": "azure-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3772645425/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor3772645425/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.erb",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor3772645425/templates/metadata.erb"
+      },
+      {
+        "SrcPathEnd": "containers.json.erb",
+        "DstPathEnd": "config/containers.json",
+        "Path": "/tmp/tar-CmdExtractor3772645425/templates/containers.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3772645425/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor3772645425/templates/backup.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "azure-blobstore-backup-restorer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  name: \"the_droplets_container\"\n  azure_storage_account: \"AZURE_STORAGE_ACCOUNT\"\n  azure_storage_key: \"AZURE_STORAGE_KEY\"\n  environment:  # only configure for Azure sovereign clouds. Valid values include 'AzureChinaCloud', 'AzureUSGovernment', and 'AzureGermanCloud'.\n  restore_from:  # optional, configure when restoring from a different storage account\n    azure_storage_account:  # storage account to restore from\n    azure_storage_key:  # storage key for the account\n",
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "Enable Bosh Process Manager",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "database-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3645583820/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup",
+        "DstPathEnd": "bin/backup",
+        "Path": "/tmp/tar-CmdExtractor3645583820/templates/backup"
+      },
+      {
+        "SrcPathEnd": "restore",
+        "DstPathEnd": "bin/restore",
+        "Path": "/tmp/tar-CmdExtractor3645583820/templates/restore"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "database-backup-restorer"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-13"
+      },
+      {
+        "Name": "database-backup-restorer-postgres-15"
+      },
+      {
+        "Name": "database-backup-restorer-mariadb"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-8.0"
+      },
+      {
+        "Name": "database-backup-restorer-mysql-5.7"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "gcs-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor480647941/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor480647941/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor480647941/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.erb",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor480647941/templates/metadata.erb"
+      },
+      {
+        "SrcPathEnd": "buckets.json.erb",
+        "DstPathEnd": "config/buckets.json",
+        "Path": "/tmp/tar-CmdExtractor480647941/templates/buckets.json.erb"
+      },
+      {
+        "SrcPathEnd": "gcp-service-account-key.json.erb",
+        "DstPathEnd": "config/gcp-service-account-key.json",
+        "Path": "/tmp/tar-CmdExtractor480647941/templates/gcp-service-account-key.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor480647941/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "gcs-blobstore-backup-restorer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "gcp_service_account_key",
+        "Description": "GCP service account key JSON",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buckets",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  bucket_name: \"the_droplets_bucket\"\n  backup_bucket_name: \"the_droplets_backup_bucket\"",
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "use bpm to run gcs backup and restore scripts",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "s3-unversioned-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1780673646/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor1780673646/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "post-backup-unlock.erb",
+        "DstPathEnd": "bin/bbr/post-backup-unlock",
+        "Path": "/tmp/tar-CmdExtractor1780673646/templates/post-backup-unlock.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor1780673646/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "buckets.json.erb",
+        "DstPathEnd": "config/buckets.json",
+        "Path": "/tmp/tar-CmdExtractor1780673646/templates/buckets.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1780673646/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.erb",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor1780673646/templates/metadata.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "s3-blobstore-backup-restorer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buckets",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  name: \"the_droplets_bucket\"\n  region: \"eu-west-1\"\n  aws_access_key_id: \"AWS_ACCESS_KEY_ID\"\n  aws_secret_access_key: \"AWS_SECRET_ACCESS_KEY\"\n  endpoint: \"endpoint_to_s3_compatible_blobstore\" # only configure if connecting to non-aws s3-compatible blobstore. e.g. ecs\n  use_iam_profile: false # only set to true if using AWS IAM instance profile to connect to the bucket instead of AWS access keys\n  backup:\n    name: \"the_backup_droplets_bucket\"\n    region: \"eu-west-2\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "force_path_style",
+        "Description": "Use path-style access for S3 buckets",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "Enable Bosh Process Manager",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "s3-versioned-blobstore-backup-restorer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor255426894/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor255426894/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.erb",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor255426894/templates/metadata.erb"
+      },
+      {
+        "SrcPathEnd": "buckets.json.erb",
+        "DstPathEnd": "config/buckets.json",
+        "Path": "/tmp/tar-CmdExtractor255426894/templates/buckets.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor255426894/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor255426894/templates/backup.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "s3-blobstore-backup-restorer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "enabled",
+        "Description": "Enable backup and restore scripts in this job",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "buckets",
+        "Description": "Hash of buckets to backup/restore to",
+        "Default": {},
+        "Example": "droplets:\n  name: \"the_droplets_bucket\"\n  region: \"eu-west-1\"\n  aws_access_key_id: \"AWS_ACCESS_KEY_ID\"\n  aws_secret_access_key: \"AWS_SECRET_ACCESS_KEY\"\n  endpoint: \"endpoint_to_s3_compatible_blobstore\" # only configure if connecting to non-aws s3-compatible blobstore. e.g. ecs\n  use_iam_profile: false # only set to true if using AWS IAM instance profile to connect to the bucket instead of AWS access keys\n",
+        "Examples": null
+      },
+      {
+        "Name": "force_path_style",
+        "Description": "Use path-style access for S3 buckets",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "Enable Bosh Process Manager",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
