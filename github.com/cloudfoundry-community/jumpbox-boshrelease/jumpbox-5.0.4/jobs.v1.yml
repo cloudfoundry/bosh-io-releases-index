@@ -1,0 +1,168 @@
+[
+  {
+    "Name": "inventory",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1694096785/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor1694096785/templates/bin/run"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "jumpbox"
+      },
+      {
+        "Name": "golang-1-linux"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "jumpbox",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1025307112/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bin/jumpbox_ctl",
+        "DstPathEnd": "bin/jumpbox_ctl",
+        "Path": "/tmp/tar-CmdExtractor1025307112/templates/bin/jumpbox_ctl"
+      },
+      {
+        "SrcPathEnd": "bin/watcher",
+        "DstPathEnd": "bin/watcher",
+        "Path": "/tmp/tar-CmdExtractor1025307112/templates/bin/watcher"
+      },
+      {
+        "SrcPathEnd": "config/banner",
+        "DstPathEnd": "config/banner",
+        "Path": "/tmp/tar-CmdExtractor1025307112/templates/config/banner"
+      },
+      {
+        "SrcPathEnd": "config/bashrc",
+        "DstPathEnd": "config/bashrc",
+        "Path": "/tmp/tar-CmdExtractor1025307112/templates/config/bashrc"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "jumpbox"
+      },
+      {
+        "Name": "golang-1-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "jumpbox.one_time_setup",
+        "Description": "Send new users through a one-time setup.  You generally want to do this.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.users",
+        "Description": "List of users to create\n- name: jhunt\n  shell: /bin/bash\n  env: https://github.com/jhunt/devbox-env.git  # specifies a git environment to clone\n  ssh_keys:\n    - ssh-rsa AAAAB3NzaC1yabcd\n    - ssh-rsa AAAAB3NzaC1y1234",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.ssh.allow_tcp_forwarding",
+        "Description": "Configure SSHD to allow TCP forwarding.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.ssh.client_alive_count_max",
+        "Description": "the number of client alive messages which are sent without getting any messages from the client",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.delete",
+        "Description": "A list of users to delete, specified via account name.\nBy default, users that are removed from the BOSH deployment manifest will be deactivated\non the jumpbox deployment, but their files will be retained for reference / forensics.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.env",
+        "Description": "Additional environment variables to set for all users, as well as the start up scripts.\nThis can be used for setting site-wide HTTP proxy configuration.\nSpecified as a map of NAME: VALUE",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.bashrc",
+        "Description": "Additional bash startup commands, to be included verbatim in the system-wide configuration.\nThis can be used to provide additional conveniences or implement site-wide policy.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.setup.enabled",
+        "Description": "enable or disbale the setup that will install rvm (only disable this if you don't have internet access)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.hostname",
+        "Description": "Hostname to set on the jumpbox",
+        "Default": "jumpbox.local",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.banner",
+        "Description": "A login banner, or MoTD, to display to users when they log in",
+        "Default": "nil",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.hosts",
+        "Description": "A list of entries to append to /etc/hosts",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.ssh.password_auth",
+        "Description": "Configure SSHD to allow users to authenticate via passwords when using SSH.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.ssh.allow_agent_forwarding",
+        "Description": "Configure SSHD to allow agent forwarding.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "jumpbox.ssh.client_alive_interval",
+        "Description": "Configure SSHD to allow agent forwarding.",
+        "Default": 1200,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
