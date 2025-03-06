@@ -1,0 +1,713 @@
+[
+  {
+    "Name": "openstack_cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor518267577/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor518267577/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor518267577/templates/cpi.json.erb"
+      },
+      {
+        "SrcPathEnd": "cacert.pem.erb",
+        "DstPathEnd": "config/cacert.pem",
+        "Path": "/tmp/tar-CmdExtractor518267577/templates/cacert.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openstack-ruby-3.1"
+      },
+      {
+        "Name": "bosh_openstack_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "openstack.tenant",
+        "Description": "OpenStack tenant name (required for Keystone API V2)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.config_drive",
+        "Description": "Config drive device (cdrom or disk) to use as metadata service on OpenStack (optional)",
+        "Default": null,
+        "Example": "cdrom",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.use_dhcp",
+        "Description": "Whether to use DHCP when configuring networking on VM (for both manual and dynamic)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.human_readable_vm_names",
+        "Description": "When creating a VM, use the job name as VM name if true. Otherwise use a generated UUID as name. If this parameter is set to true, the registry.endpoint parameter has to be set.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "NATS username used by agent to subscribe to agent requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.use_nova_networking",
+        "Description": "Use Nova networking APIs instead of Neutron APIs. Note: Nova networking APIs are deprecated with the Newton release, hence this switch will likely not work in future releases.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.enable_auto_anti_affinity",
+        "Description": "No longer supported (see https://www.pivotaltracker.com/story/show/159522260)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.project_domain_name",
+        "Description": "Defines the specific project domain to be used by the connection to the authentication service.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.application_credential_id",
+        "Description": "OpenStack application credential id (required, if username and api_key are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.region",
+        "Description": "OpenStack region (optional)",
+        "Default": null,
+        "Example": "nova",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.default_key_name",
+        "Description": "Default OpenStack keypair to use when spinning up new VMs (required)",
+        "Default": null,
+        "Example": "bosh",
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "Https proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "No proxy environment variable",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.auth_url",
+        "Description": "URL of the OpenStack Identity endpoint to connect to (required)",
+        "Default": null,
+        "Example": null,
+        "Examples": [
+          {
+            "Description": "Keystone V2 endpoint",
+            "Value": "http://192.168.0.1:5000/v2.0"
+          },
+          {
+            "Description": "Keystone V3 endpoint",
+            "Value": "http://192.168.0.1:5000/v3"
+          }
+        ]
+      },
+      {
+        "Name": "openstack.application_credential_secret",
+        "Description": "OpenStack application credential secret (required, if username and api_key are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.project_id",
+        "Description": "OpenStack project id (required for Keystone API V3. Also can be used the project property)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "NATS port used by agent to subscribe to agent requests",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.domain",
+        "Description": "OpenStack domain (required for Keystone API V3)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ntp",
+        "Description": "List of NTP servers",
+        "Default": null,
+        "Example": [
+          "0.us.pool.ntp.org",
+          "1.us.pool.ntp.org"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "agent.mbus",
+        "Description": "Message bus endpoint for the agent to start accepting agent requests",
+        "Default": null,
+        "Example": "https://user:password@192.168.0.1:5000",
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "NATS address used by agent to subscribe to agent requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.api_key",
+        "Description": "OpenStack API key (required, if application_credential_id and application_credential_secret are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.endpoint_type",
+        "Description": "OpenStack endpoint type",
+        "Default": "publicURL",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.state_timeout",
+        "Description": "Timeout (in seconds) for OpenStack resources desired state",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.boot_from_volume",
+        "Description": "Boot from volume",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.default_volume_type",
+        "Description": "Default OpenStack volume type to use when creating new disks (optional)",
+        "Default": null,
+        "Example": "SSD",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.ignore_server_availability_zone",
+        "Description": "When creating a disk, do not use the availability zone of the server, fall back to Openstacks default",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "Http proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.user_domain_name",
+        "Description": "Defines the specific user domain to be used by the connection to the authentication service.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.project",
+        "Description": "OpenStack project name (required for Keystone API V3. Also can be used the project_id property )",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.wait_resource_poll_interval",
+        "Description": "Changes the delay (in seconds) between each status check to OpenStack when creating a resource (optional, by default 5)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.username",
+        "Description": "Username to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.endpoint",
+        "Description": "Full URL for the registry endpoint that may include basic auth credentials",
+        "Default": null,
+        "Example": "http://admin:admin-password@some-ip:port",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.stemcell_public_visibility",
+        "Description": "Set public visibility for stemcells",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.default_security_groups",
+        "Description": "Default OpenStack security groups to use when spinning up new VMs (required)",
+        "Default": null,
+        "Example": [
+          "bosh-grp"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "registry.port",
+        "Description": "Port of the Registry for CPI and agent to connect to",
+        "Default": 25777,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.password",
+        "Description": "Password to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.connection_options",
+        "Description": "Hash containing additional connection parameters (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": [
+          {
+            "Description": "Provide all required custom CA certificates",
+            "Value": {
+              "ca_cert": "-----BEGIN CERTIFICATE-----\nMII...\n-----END CERTIFICATE-----\n"
+            }
+          },
+          {
+            "Description": "Disable SSL verification for DevStack",
+            "Value": {
+              "ssl_verify_peer": false
+            }
+          },
+          {
+            "Description": "Any other excon [connection option](https://github.com/excon/excon#options), e.g. setting the read timeout",
+            "Value": {
+              "read_timeout": 360
+            }
+          }
+        ]
+      },
+      {
+        "Name": "nats.password",
+        "Description": "NATS password used by agent to subscribe to agent requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.host",
+        "Description": "Address of the Registry to connect to (required)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.username",
+        "Description": "OpenStack user name (required, if application_credential_id and application_credential_secret are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "openstack_cpi_golang",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1995304517/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor1995304517/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor1995304517/templates/cpi.json.erb"
+      },
+      {
+        "SrcPathEnd": "cacert.pem.erb",
+        "DstPathEnd": "config/cacert.pem",
+        "Path": "/tmp/tar-CmdExtractor1995304517/templates/cacert.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openstack_cpi_golang"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "openstack.boot_from_volume",
+        "Description": "Boot from volume",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.stemcell_public_visibility",
+        "Description": "Set public visibility for stemcells",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.tenant",
+        "Description": "OpenStack tenant name (required for Keystone API V2)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.project_domain_name",
+        "Description": "Defines the specific project domain to be used by the connection to the authentication service.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.host",
+        "Description": "Address of the Registry to connect to (required)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.port",
+        "Description": "Port of the Registry for CPI and agent to connect to",
+        "Default": 25777,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.mbus",
+        "Description": "Message bus endpoint for the agent to start accepting agent requests",
+        "Default": null,
+        "Example": "https://user:password@192.168.0.1:5000",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.username",
+        "Description": "OpenStack user name (required, if application_credential_id and application_credential_secret are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.connection_options",
+        "Description": "Hash containing additional connection parameters (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": [
+          {
+            "Description": "Provide all required custom CA certificates",
+            "Value": {
+              "ca_cert": "-----BEGIN CERTIFICATE-----\nMII...\n-----END CERTIFICATE-----\n"
+            }
+          },
+          {
+            "Description": "Disable SSL verification for DevStack",
+            "Value": {
+              "ssl_verify_peer": false
+            }
+          },
+          {
+            "Description": "Any other excon [connection option](https://github.com/excon/excon#options), e.g. setting the read timeout",
+            "Value": {
+              "read_timeout": 360
+            }
+          }
+        ]
+      },
+      {
+        "Name": "openstack.default_key_name",
+        "Description": "Default OpenStack keypair to use when spinning up new VMs (required)",
+        "Default": null,
+        "Example": "bosh",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.use_dhcp",
+        "Description": "Whether to use DHCP when configuring networking on VM (for both manual and dynamic)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "NATS password used by agent to subscribe to agent requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.domain",
+        "Description": "OpenStack domain (required for Keystone API V3)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.endpoint_type",
+        "Description": "OpenStack endpoint type",
+        "Default": "publicURL",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.config_drive",
+        "Description": "Config drive device (cdrom or disk) to use as metadata service on OpenStack (optional)",
+        "Default": null,
+        "Example": "cdrom",
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "NATS username used by agent to subscribe to agent requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "Https proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.default_security_groups",
+        "Description": "Default OpenStack security groups to use when spinning up new VMs (required)",
+        "Default": null,
+        "Example": [
+          "bosh-grp"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "openstack.default_volume_type",
+        "Description": "Default OpenStack volume type to use when creating new disks (optional)",
+        "Default": null,
+        "Example": "SSD",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.user_domain_name",
+        "Description": "Defines the specific user domain to be used by the connection to the authentication service.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.username",
+        "Description": "Username to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ntp",
+        "Description": "List of NTP servers",
+        "Default": null,
+        "Example": [
+          "0.us.pool.ntp.org",
+          "1.us.pool.ntp.org"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "No proxy environment variable",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.project",
+        "Description": "OpenStack project name (required for Keystone API V3. Also can be used the project_id property )",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.state_timeout",
+        "Description": "Timeout (in seconds) for OpenStack resources desired state",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.human_readable_vm_names",
+        "Description": "When creating a VM, use the job name as VM name if true. Otherwise use a generated UUID as name. If this parameter is set to true, the registry.endpoint parameter has to be set.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "NATS address used by agent to subscribe to agent requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "NATS port used by agent to subscribe to agent requests",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.auth_url",
+        "Description": "URL of the OpenStack Identity endpoint to connect to (required)",
+        "Default": null,
+        "Example": null,
+        "Examples": [
+          {
+            "Description": "Keystone V2 endpoint",
+            "Value": "http://192.168.0.1:5000/v2.0"
+          },
+          {
+            "Description": "Keystone V3 endpoint",
+            "Value": "http://192.168.0.1:5000/v3"
+          }
+        ]
+      },
+      {
+        "Name": "openstack.application_credential_id",
+        "Description": "OpenStack application credential id (required, if username and api_key are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.application_credential_secret",
+        "Description": "OpenStack application credential secret (required, if username and api_key are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.wait_resource_poll_interval",
+        "Description": "Changes the delay (in seconds) between each status check to OpenStack when creating a resource (optional, by default 5)",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.use_nova_networking",
+        "Description": "Use Nova networking APIs instead of Neutron APIs. Note: Nova networking APIs are deprecated with the Newton release, hence this switch will likely not work in future releases.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.enable_auto_anti_affinity",
+        "Description": "No longer supported (see https://www.pivotaltracker.com/story/show/159522260)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.endpoint",
+        "Description": "Full URL for the registry endpoint that may include basic auth credentials",
+        "Default": null,
+        "Example": "http://admin:admin-password@some-ip:port",
+        "Examples": null
+      },
+      {
+        "Name": "openstack.api_key",
+        "Description": "OpenStack API key (required, if application_credential_id and application_credential_secret are not provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.project_id",
+        "Description": "OpenStack project id (required for Keystone API V3. Also can be used the project property)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.region",
+        "Description": "OpenStack region (optional)",
+        "Default": null,
+        "Example": "nova",
+        "Examples": null
+      },
+      {
+        "Name": "registry.password",
+        "Description": "Password to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "Http proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "openstack.ignore_server_availability_zone",
+        "Description": "When creating a disk, do not use the availability zone of the server, fall back to Openstacks default",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
