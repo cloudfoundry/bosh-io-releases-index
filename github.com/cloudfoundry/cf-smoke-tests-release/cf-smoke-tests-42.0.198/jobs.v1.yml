@@ -1,0 +1,401 @@
+[
+  {
+    "Name": "smoke_tests",
+    "Description": "The smoke tests errand can be configured to run quick set of tests against a specific Cloud Foundry API endpoint to determine is basic push-application functionality works. Consider running the acceptance tests errand for a more extensive set of tests.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3701571834/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3701571834/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "test.erb",
+        "DstPathEnd": "bin/test",
+        "Path": "/tmp/tar-CmdExtractor3701571834/templates/test.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor3701571834/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3701571834/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1-linux"
+      },
+      {
+        "Name": "smoke_tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "smoke_tests.ginkgo_opts",
+        "Description": "Ginkgo options for the smoke tests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.isolation_segment_name",
+        "Description": "The name of isolation segment that you deployed",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.enable_isolation_segment_tests",
+        "Description": "Flag to true if you wish to run routing isolation segment tests",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bpm.enabled",
+        "Description": "Use the BOSH Process Manager(BPM) to manage to run Smoke Tests errand.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.use_existing_org",
+        "Description": "Toggles setup and cleanup of the Cloud Foundry organization",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.timeout_scale",
+        "Description": "Scaling factor for all timeouts",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.isolation_segment_domain",
+        "Description": "The domain of your routing isolation segment",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.suite_name",
+        "Description": "A token used by the tests when creating Apps / Spaces",
+        "Default": "CF_SMOKE_TESTS",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.client_secret",
+        "Description": "The Cloud Foundry API client's secret. Cannot be used with 'user' or 'password'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.org",
+        "Description": "The Cloud Foundry organization name to use when running tests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.space",
+        "Description": "The Cloud Foundry space name to use when running tests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.use_existing_space",
+        "Description": "Toggles setup and cleanup of the Cloud Foundry space",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.enable_windows_tests",
+        "Description": "Toggles a portion of the suite that exercises Windows platform support",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.artifacts_directory",
+        "Description": "The directory in which to store test CF_TRACE output",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.cf_dial_timeout_in_seconds",
+        "Description": "Sets the cli timeout (CF_DIAL_TIMEOUT)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.api",
+        "Description": "The Cloud Foundry API endpoint URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.user",
+        "Description": "The Cloud Foundry API user. Cannot be used with 'client' or 'client_secret'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.client",
+        "Description": "The Cloud Foundry API client. Cannot be used with 'user' or 'password'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.logging_app",
+        "Description": "The Cloud Foundry app name to use when running logging tests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.runtime_app",
+        "Description": "The Cloud Foundry app name to use when running runtime tests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.skip_ssl_validation",
+        "Description": "Toggles cli verification of the Cloud Foundry API SSL certificate",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.apps_domain",
+        "Description": "The Cloud Foundry Application Domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.password",
+        "Description": "The Cloud Foundry API user's password. Cannot be used with 'client' or 'client_secret'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke_tests_windows",
+    "Description": "The smoke tests errand can be configured to run quick set of tests against a specific Cloud Foundry API endpoint to determine is basic push-application functionality works. Consider running the acceptance tests errand for a more extensive set of tests.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3295314225/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.ps1.erb",
+        "DstPathEnd": "bin/run.ps1",
+        "Path": "/tmp/tar-CmdExtractor3295314225/templates/run.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "bin/config.json",
+        "Path": "/tmp/tar-CmdExtractor3295314225/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1-windows"
+      },
+      {
+        "Name": "cf_cli_windows"
+      },
+      {
+        "Name": "smoke_tests_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "smoke_tests.password",
+        "Description": "The Cloud Foundry API user's password. Cannot be used with 'client' or 'client_secret'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.org",
+        "Description": "The Cloud Foundry organization name to use when running tests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.space",
+        "Description": "The Cloud Foundry space name to use when running tests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.windows_stack",
+        "Description": "Specifies the Windows stack on which the Windows tests will run if enable_windows_tests is true",
+        "Default": "windows",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.isolation_segment_name",
+        "Description": "The name of isolation segment that you deployed",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.enable_isolation_segment_tests",
+        "Description": "Flag to true if you wish to run routing isolation segment tests",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.client",
+        "Description": "The Cloud Foundry API client. Cannot be used with 'user' or 'password'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.use_existing_org",
+        "Description": "Toggles setup and cleanup of the Cloud Foundry organization",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.ginkgo_opts",
+        "Description": "Ginkgo options for the smoke tests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.enable_windows_tests",
+        "Description": "Toggles a portion of the suite that exercises Windows platform support",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.cf_dial_timeout_in_seconds",
+        "Description": "Sets the cli timeout (CF_DIAL_TIMEOUT)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.suite_name",
+        "Description": "A token used by the tests when creating Apps / Spaces",
+        "Default": "CF_SMOKE_TESTS",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.api",
+        "Description": "The Cloud Foundry API endpoint URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.user",
+        "Description": "The Cloud Foundry API user. Cannot be used with 'client' or 'client_secret'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.logging_app",
+        "Description": "The Cloud Foundry app name to use when running logging tests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.runtime_app",
+        "Description": "The Cloud Foundry app name to use when running runtime tests",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.skip_ssl_validation",
+        "Description": "Toggles cli verification of the Cloud Foundry API SSL certificate",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.timeout_scale",
+        "Description": "Scaling factor for all timeouts",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.client_secret",
+        "Description": "The Cloud Foundry API client's secret. Cannot be used with 'user' or 'password'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.use_existing_space",
+        "Description": "Toggles setup and cleanup of the Cloud Foundry space",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.artifacts_directory",
+        "Description": "The directory in which to store test CF_TRACE output",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.isolation_segment_domain",
+        "Description": "The domain of your routing isolation segment",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.apps_domain",
+        "Description": "The Cloud Foundry Application Domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
