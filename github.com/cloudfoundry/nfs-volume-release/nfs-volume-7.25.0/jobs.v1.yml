@@ -1,0 +1,867 @@
+[
+  {
+    "Name": "dockerdriver-integration",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor560424471/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor560424471/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor560424471/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor560424471/templates/run.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "dockerdriver-integration"
+      },
+      {
+        "Name": "nfs-debs"
+      },
+      {
+        "Name": "map-fs"
+      },
+      {
+        "Name": "nfsv3driver"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfs_remote_path",
+        "Description": "Address for SMB Remote Path",
+        "Default": "nfs://nfstestserver.service.cf.internal/export",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mapfs_path",
+        "Description": "Path to mapfs binary",
+        "Default": "/var/vcap/packages/map-fs/bin/mapfs",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "map-fs-performance-acceptance-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3635577752/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor3635577752/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3635577752/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor3635577752/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "map-fs-performance-acceptance-tests"
+      },
+      {
+        "Name": "map-fs"
+      },
+      {
+        "Name": "map-fs-fuse"
+      },
+      {
+        "Name": "nfs-debs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfs_remote_path",
+        "Description": "Address for SMB Remote Path",
+        "Default": "nfstestserver.service.cf.internal:export",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mapfs_path",
+        "Description": "Path to mapfs binary",
+        "Default": "/var/vcap/packages/map-fs/bin/mapfs",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfsbroker-bbr-lock",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor73312419/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-restore-unlock.sh.erb",
+        "DstPathEnd": "bin/bbr/post-restore-unlock",
+        "Path": "/tmp/tar-CmdExtractor73312419/templates/post-restore-unlock.sh.erb"
+      },
+      {
+        "SrcPathEnd": "metadata.sh.erb",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor73312419/templates/metadata.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  },
+  {
+    "Name": "nfsbrokerpush",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2027823575/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "services.json.erb",
+        "DstPathEnd": "config/services.json",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/services.json.erb"
+      },
+      {
+        "SrcPathEnd": "start.sh.erb",
+        "DstPathEnd": "start.sh",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "Procfile.erb",
+        "DstPathEnd": "Procfile",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/Procfile.erb"
+      },
+      {
+        "SrcPathEnd": "credhub.json.erb",
+        "DstPathEnd": "credhub.json",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/credhub.json.erb"
+      },
+      {
+        "SrcPathEnd": "credhub_ca.crt.erb",
+        "DstPathEnd": "credhub_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/credhub_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "deploy.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/deploy.sh.erb"
+      },
+      {
+        "SrcPathEnd": "manifest.yml.erb",
+        "DstPathEnd": "manifest.yml",
+        "Path": "/tmp/tar-CmdExtractor2027823575/templates/manifest.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nfsbroker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfsbrokerpush.memory_in_mb",
+        "Description": "amount of memory allocated to the broker app",
+        "Default": 256,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.error_on_misconfiguration",
+        "Description": "throw error on service misconfiguration during deployment",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.ldap_enabled",
+        "Description": "true if the broker should use ldap username/password bind config instead of uid/gid",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.register_broker",
+        "Description": "true if the errand should register the service broker after pushing it to cf",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.app_name",
+        "Description": "application name to use when pushing the broker to cloud foundry and setting the route",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.create_credhub_security_group",
+        "Description": "true if the errand should create a security group to allow traffic to any ip on ports 8443,8844",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.client_secret",
+        "Description": "Secret of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.space",
+        "Description": "space that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.service_name",
+        "Description": "service name in marketplace",
+        "Default": "nfs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.syslog_url",
+        "Description": "external log service URL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.services",
+        "Description": "List of services and plans supported by broker",
+        "Default": [
+          {
+            "bindable": true,
+            "description": "Existing NFSv3 and v4 volumes (see: https://code.cloudfoundry.org/nfs-volume-release/)",
+            "id": "997f8f26-e10c-11e7-80c1-9a214cf093ae",
+            "metadata": {
+              "display_name": "NFS V3 / V4 Volume Broker",
+              "documentation_url": "https://docs.cloudfoundry.org/devguide/services/using-vol-services.html",
+              "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABdCAYAAAA7ZEEJAAAKw2lDQ1BJQ0MgUHJvZmlsZQAASImVlgdUU1kax+976Y2WEIqUUEOR3gJICT2AgnSwEZKQhBJCCip2ZXAEx4KICNjQEREFxwLIWBALFgYBex2QQUVdBws2VPYBS9jZPbt79p9zc3/5ct/3vu+9e8/5A0B+z5VKs2ANALIlCllMaAAjKTmFgXsCIOSDB5aAwuXJpezo6EiAaHL+qz7cRtYiumE3luvf//+v0uQL5DwAoGiE0/hyXjbCx5FxnyeVKQBAbULiZgsV0jFG4oAmQwpE+PIYCyf44RinTfDQ+Jq4mEAA0GgA8GQuVyYEgIx0CBh5PCGSh+yIsKOEL5YgnIqwL0/E5SO8G+Hp2dk5Y9yBsFXaP+UR/iVnmionlytU8UQv48IHieXSLO7i//Nx/G9lZykn72GGDLJIFhaDzJZjzy0zJ0LFkrRZUZMs5o+vH2eRMix+knnywJRJ5nODIiZZmRnPnmSubOrafFFc4iTLcmJU+SVZsyJV+QUcFQvkwbGTnC4O4ajqUXDiJjlPnDBrkuWZsRFT9wpUxWXKGFXN2fKpetJlIap+RWKOar1CFBem6pE7VYNAnqSqjS8IClbFJfGqNVJFgCqnNCt6qpesUFVcnherulaBbLZJzuCGR0/liVb1COKACCiBBPCBAMhAGsgBWUABGCAIiIEcSJFfXIBsFYVgkWKsucAc6WKZWChSMNjIiRIwOBKe/XSGs6MTC4Cx8znx+t/Rx88dRL86FcttBcCzCAkKp2JcZJ+cfAoA9cNUzOwtsnWQs3W6i6eU5U3E0GNfGEAE6oAG9IARsr+sgB1wBu7AG/iDYBAOopBOksF8wEP6yUY6WQiWglWgEBSDTWArqAC7wF5wABwGR0ETOAXOgUvgGugCt8AD0AsGwEswBD6AEQiCcBAFokJ6kDFkAdlCzhAL8oWCoUgoBkqGUiEhJIGU0FJoDVQMlUAV0B6oFvoFOgmdg65A3dA9qA8ahN5CX2AUTIZpsCFsCTvALJgNR8Bx8DxYCOfC+XABvAEuh6vhQ3AjfA6+Bt+Ce+GX8DAKoEgoOsoEZYdioQJRUagUVDpKhlqOKkKVoapR9agWVDvqBqoX9Qr1GY1FU9EMtB3aGx2Gjkfz0Lno5ej16Ar0AXQj+gL6BroPPYT+jqFgDDC2GC8MB5OEEWIWYgoxZZj9mBOYi5hbmAHMBywWS8cysR7YMGwyNgO7BLseuwPbgG3FdmP7scM4HE4PZ4vzwUXhuDgFrhC3HXcIdxbXgxvAfcKT8MZ4Z3wIPgUvwa/Gl+EP4s/ge/DP8CMEDYIFwYsQReATFhM2EvYRWgjXCQOEEaImkUn0IcYRM4iriOXEeuJF4kPiOxKJZEryJM0miUkrSeWkI6TLpD7SZ7IW2YYcSJ5LVpI3kGvIreR75HcUCsWS4k9JoSgoGyi1lPOUx5RPalQ1ezWOGl9thVqlWqNaj9prdYK6hTpbfb56vnqZ+jH16+qvNAgalhqBGlyN5RqVGic17mgMa1I1nTSjNLM112se1Lyi+VwLp2WpFazF1yrQ2qt1XqufiqKaUQOpPOoa6j7qReoADUtj0ji0DFox7TCtkzakraXtqp2gvUi7Uvu0di8dRbekc+hZ9I30o/Tb9C86hjpsHYHOOp16nR6dj7rTdP11BbpFug26t3S/6DH0gvUy9TbrNek90kfr2+jP1l+ov1P/ov6rabRp3tN404qmHZ123wA2sDGIMVhisNegw2DY0Mgw1FBquN3wvOErI7qRv1GGUanRGaNBY6qxr7HYuNT4rPELhjaDzchilDMuMIZMDEzCTJQme0w6TUZMmabxpqtNG0wfmRHNWGbpZqVmbWZD5sbmM82XmteZ37cgWLAsRBbbLNotPloyLRMt11o2WT5n6jI5zHxmHfOhFcXKzyrXqtrqpjXWmmWdab3DussGtnGzEdlU2ly3hW3dbcW2O2y7p2Ome06XTK+efseObMe2y7Ors+uzp9tH2q+2b7J/7WDukOKw2aHd4bujm2OW4z7HB05aTuFOq51anN462zjznCudb7pQXEJcVrg0u7xxtXUVuO50vetGdZvpttatze2bu4e7zL3efdDD3CPVo8rjDovGimatZ132xHgGeK7wPOX52cvdS+F11OtPbzvvTO+D3s9nMGcIZuyb0e9j6sP12ePT68vwTfXd7dvrZ+LH9av2e+Jv5s/33+//jG3NzmAfYr8OcAyQBZwI+BjoFbgssDUIFRQaVBTUGawVHB9cEfw4xDREGFIXMhTqFroktDUMExYRtjnsDseQw+PUcobCPcKXhV+IIEfERlREPIm0iZRFtsyEZ4bP3DLz4SyLWZJZTVEgihO1JepRNDM6N/rX2djZ0bMrZz+NcYpZGtMeS41dEHsw9kNcQNzGuAfxVvHK+LYE9YS5CbUJHxODEksSe5MckpYlXUvWTxYnN6fgUhJS9qcMzwmes3XOwFy3uYVzb89jzls078p8/flZ808vUF/AXXAsFZOamHow9Ss3ilvNHU7jpFWlDfECedt4L/n+/FL+oMBHUCJ4lu6TXpL+XOgj3CIcFPmJykSvxIHiCvGbjLCMXRkfM6MyazJHsxKzGrLx2anZJyVakkzJhRyjnEU53VJbaaG0N9crd2vukCxCtl8OyefJmxU0xAh1KK2UPyj78nzzKvM+LUxYeGyR5iLJoo7FNovXLX6WH5L/8xL0Et6StqUmS1ct7VvGXrZnObQ8bXnbCrMVBSsGVoauPLCKuCpz1W+rHVeXrH6/JnFNS4FhwcqC/h9Cf6grVCuUFd5Z671214/oH8U/dq5zWbd93fciftHVYsfisuKv63nrr/7k9FP5T6Mb0jd0bnTfuHMTdpNk0+3NfpsPlGiW5Jf0b5m5pbGUUVpU+n7rgq1XylzLdm0jblNu6y2PLG/ebr590/avFaKKW5UBlQ1VBlXrqj7u4O/o2em/s36X4a7iXV92i3ff3RO6p7HasrpsL3Zv3t6n+xL2tf/M+rl2v/7+4v3faiQ1vQdiDlyo9aitPWhwcGMdXKesGzw091DX4aDDzfV29Xsa6A3FR8AR5ZEXv6T+cvtoxNG2Y6xj9cctjledoJ4oaoQaFzcONYmaepuTm7tPhp9sa/FuOfGr/a81p0xOVZ7WPr3xDPFMwZnRs/lnh1ulra/OCc/1ty1oe3A+6fzNC7MvdF6MuHj5Usil8+3s9rOXfS6fuuJ15eRV1tWma+7XGjvcOk785vbbiU73zsbrHtebuzy7WrpndJ/p8es5dyPoxqWbnJvXbs261X07/vbdO3Pv9N7l331+L+vem/t590cerHyIeVj0SONR2WODx9W/W//e0Ovee7ovqK/jSeyTB/28/pd/yP/4OlDwlPK07Jnxs9rnzs9PDYYMdr2Y82LgpfTlyKvCv2n+req11evjf/r/2TGUNDTwRvZm9O36d3rvat67vm8bjh5+/CH7w8jHok96nw58Zn1u/5L45dnIwq+4r+XfrL+1fI/4/nA0e3RUypVxx60AChlwejoAb2sAoCQj3qELAOKcCf88LmjC848T+E884bHH5Q5AjT8A8SsBiEQ8yk5kWCBMRuYxyxTnD2AXF9X4h+TpLs4TuciIC8V8Gh19ZwgArgWAb7LR0ZEdo6Pf9iHF3gOgNXfCt48Ji3jxEqaOCe5BpwNzJfgX/R2N5g2xmShwcwAAAZtpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iPgogICAgICAgICA8ZXhpZjpQaXhlbFhEaW1lbnNpb24+ODQ8L2V4aWY6UGl4ZWxYRGltZW5zaW9uPgogICAgICAgICA8ZXhpZjpQaXhlbFlEaW1lbnNpb24+OTM8L2V4aWY6UGl4ZWxZRGltZW5zaW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KE9hEygAADTRJREFUeAHtXVtsHNUZ/ry7s3d7196s4xuJc3GEExpiQahCASWioJJSBdSkVdOqiAf61IqiSnlAPPJE2wceSiUUCfUiJGQqelEBJW3ltmlQiwIEGofimNgEG19315e9X9z/n9nZnZmd3aztsyYxc+Tjc5kz/5zzzX8u+885/9+0Qg6WE4aATRgli5CMgAWoYEawABUMqEMwvRK5fGEFc4tpzEQTWExksJTMks9hOZXFcoLjFCY5P4dMLo9srkBhAbliqKY5zOYLkOw2SA4bnOTV0KFJuyQ7fG4Hmj1O8hJ85Dls9nCehIDPiS0BD8IBN+y2plI9RUea1jMppTJ5fPzZEkY+W8C1mWXMLKRkAKeiKUSWUrgRp7smwrK12YWOVg+2Br3oaPOge4sPfZ0B7O5qgVNaX6ddFaDzS2mcfedTDH8Sw5UJAnE2bv6CqdIOhwS75ICDvcOBJhtVlP6ammywUaua2FMeJeU8OS3nU5rzi2UoAhtxVIE4nt8QL0pkXyjIL6yUXqF0gYtwfrFMXgkLK3nks+xzyLHP5WRaxsrTo9BD4O7uDmDf9lZ8daAbIQJ/Ne66gC6nchh6fxJnLnyK90bn5UbID6BGS05J8ZIEh4s8pwk8GwPYuF61mvaZluWek6dhJp/LIptRfK4YZtOZEtjchoFdITx4Rw+O3N4Fr+v6I2RVQHnceuXvH+NXZz8Cd212DpcTPr8PnmYfXJ7VvTnTlt2gmelkGonlZSSXEpABpnp6nHY89uAefPu+XXDYq3OLKaBv/28WP3v1fUxGEuBVf3NrC1ragjI33qAYNKxa2XQWi9EYlqKLYBi72rw49a39uKMvbPrMCkD/OxbFD3/xL/As7WnxozXc9oUE0ogWDw2xmXkkluLyKuGXP7oH/duCxmI8TZTdTCyFU6f/LYPZ0hpAe/dWC8wiPDxfhHs64CdcmNkYp2nCy+h0gL7yj1F5fehlzuzYYixrpQmBEOHibfYjFs9gkPAyOh2gH1yNyNf9wRZjOSutQcAfbJZTl8ajmlwlqgP0Mq0v2Tndm3cGV5q9vv9Ot1smwPON0ekAVS9mUmk1aoUmCGRSlWOnWswU0KXYonrdCk0QWK6BjymgycVlRKfnTUhZWZGpOXnpVA0J099SNrsdi5EYstksAqHWTf2rqBowxvw0DYMLs1Ekl+NoIsnXCv2SNHOmgHbu6EGUF7HEqUlayPIk5Q8GaLnghd1hN6OzKfPy+TxhEAd3cXVekZeU7SFMXBk3bbMpoCwhCtOiPk2L2AgBm0mSOG5qhjyIW91gom6vRxaIsORos7gCSU1y9FMzGU8QJyaQTiRLTXNRe/lXo8urzPClC4aIKaBqGb65s7ebBARZxJeWsbywhDSBy54di9gcxL0utxOSywUn/Zqw0cuwU5ew2ew3pMSJJU2FAkmaqMsWSIzHPymZ+9KpDLK8uuECRcfSM1+gmbwfEknU6nE1AVUJSCSaC7paEdzSSmCmkaI3l06kkEomkSVw2Zs5HovZ20myzgDbGGg5j0Mlbi/KPs3uX00ey0DzJCMtUDctMFjkeZzjbssAcn6epP8cVnNcN+6BbmIk5si1SNTqAlRbAX6I/KCQksviLQY5Q6EswCUZY46Eufz2lcblkSMR443kWF7roE8mqhDcSWJJbpNE4XrdqgE1PpArYVYR5hiWjjPIBZlzFK4pkES9QMLdUh5do35mJLuGNEn25aGGe0OxJ8hhuTcwiAxmI8f9dQNareU8vqoS/WplNmO+6cJ+MzZ0o9pkASoYaQtQC1DBCAgmZ3GoBahgBASTszjUAlQwAoLJWRxqASoYAcHkLA61ABWMgGByFodagApGQDA5i0MtQAUjIJicUAHz3ru248f99FVwxYb44gKe+v1k9eqG2vHcQ/SdiqTs8ZkInnpjWimr5nPfMf/0raMp2XJ4/c+jGNTuywi14cmvtGJfyAmvYbdxlk6hjE0tYfAvUxjWURKTENrlg14HvPSZwetsQnhLEM8e8lWvZZD2W7qprNSEoE/zXtV82oLt5evX8ZLTibB23+u+Hrz0aAcOtrsqwOTKSG4Jfb1tePqxXThWvXZrviIUUNDhCq3r7e/CCW2GNm7+oRQw5GfpJEdtn0NcvSe0FS8eaoH2g2+CTq6MfBbHyFwKC1nNtyvJhRPf34m7tXUSENewhgBqRhI2CUePd2Pw1QnjlfrS+TR++tJo3V1zb78fXpVyPovXz4zgZcOjD9+zA4/d6lFAd7px+HY3zl9U34h689pDsRxqrAeNgRJt4anZ9Y33GNLthnSt5IEtZf6YHZupAJPvHTp3FWfnyt/mw+HSK6hFuu5rjQW0SL1m179OVVf1SV8ziTlprKzmzl+jzRk0lCRSdCSyzh0h1WgZ88uv1HhlnemxKzE4dwTRxXvL1tz1V6Dsqa6vMu9FcjjarmxmC3S348XjPgxdnsPLl/Qn/sYujOPxC/XRXG2phgHqzC3g1DsSfntQmemVrh/DM2/pG1ezwnYXHjnSjcO09DHjtyztJH7h3FyJxPC5KCb7OpSXSLneoA9HaaVx9C7iRjrAO0FnUPlY5eCHq6hDiXp9kYYBSntdgIvjGNrZj8MhZYde7z6a9d8awWB9daNSTdi7K1C9dMGFYQJ0qFQiglN/tOG5r7ejS7urhl6Il85s9rHfFsCxQ3mM0VnV02emMFa6V0yksWMo1fH0a9OYLc0ByqwvV732rsC6W1cxxs7P4dSvh3H63RhGonSOs/RsDUnaFNa7rQ3Pfnf7TbZsktsQwfPvN+PZAW3Xn8czH2nWhJq26qKFLM6en8E4AWDe5dM4r7uhnBi6MImh4ji5d1cbDt7iR187HeVu0dDy+PDEN7tx/ncT5RvXGWtcl9dUjCeBoW3arn8Ljs3EkaUyZkCVbqWNZSMfLlQFrVSuGLn71jaEfRKcNLYOXlooXR4ejYC94gJ48jj9kgoqk5fU4pa5tNqLKRGpM9LwLq/Ww9j1HzlEm1g1yxy13JrD7i48cU8HTgyEcOy25hpkFvD8q9OYVJ9td2Jvd43iq7y0YYAC3PXLs6tE6izWqTxB31S3Zms6HT8/Wdy/qi+kprTDTR6kiEKY20BAAbnrz2sbI6wdwGgMEzyGyM6Oow+T8KMKqCcfolWA2vJ8Dpe0kiqVxBrDDRlDtXXjrr/n8fJaUXttffE4Xr6cxNP7PQoZFn482o8HY2lcnU9jNrWCYNCF3rAbYZKGqW52YrFuWYF6T61QfU+1ygi+FsELmq5fQdywnNIuJyvKGjKG/3MVg5+U2JSuNiEQdOMArWUf2BfEwW7SiqMBMzFPMtsz5R8GBnJrSgoGtNydM+ly3Fgz7vpaAYX25AWIk0qQ0O/tGePN10n/gSRML7y7gMlk9ednaZv68JUZ/OA1ccsltVo6jQ73/uRPcv72/l3q9Zs89OHwPuJKX3HtSSdAJqeWMTSx/llo/PKojM0/f/4NHUYbPobqnt7wRBxDBsFIox8puMs3uro3Pn0LUMHvyALUAlQwAoLJWRxqASoYAcHkLA61ABWMgGByFodagApGQDA5i0MtQAUjIJicxaEWoIIREEzO4lALUMEICCZncagFqGAEBJPTcSibc2CXyxg2ywt+6M1OjtW7sVPx0rZHB+gBsirALhkv7/DQFrbiCgKsaJDdwO5Kxd86QE8e6ZMtwSySnkz1LSgkrP8qAtx7F+eishGWk0d2q9mlUAfojg4/Tp3Yjxx9bp0emyCthRW7L0s3fhEjjMfU+KeygsJnvjOA3q3+ChgqPiN/7c5b8M6Vebzx9jVMXr0Gj88rm63w+ItbXCpIbO4M1n7J+kSXIgtIUcju4S9vk42tmLVct9FBLcCWBP52cQK/+esVXCV7SezYlI+HDKt42bAKqYNspEI+tR6fV8iKEFOkzpPNVLCWX1VF5s7OZnzv/t24/0APtd+8dqaAaouyoZU3yfTP0MVJ2SIXX2Pth6xf00nWtVidsIv0ut/MqoTzpJqTu7OimJX0o8aTZJtJ2UDqpqOW9+3vxEN39uDOPWEtNKbx6wKq3sUmgM5dmpLtKl38mPQzp/Wb1xlQPndpo1BRwkohAW+n7dx8jRVBq2ooWQNuox1rsGVQWCGrqpiVbShxnOcIWbcpm27LkN5TCrXO67LjwO4QHhjowb23dcK1io2sdQOqfSAb3+Kh4OLYPNjcxQcEsJmhEe09ujipwlTAVXR7qlbAuB+xmkybYgasaA1MyStZ8WLGoS7Jekg5jyL0x5a9ivpJCTDWTarbgKZ7eGWC15O37WjDl8jvp4O1Oztbqnbpyrv1OWsCVE9CSTHHTkeTmI0lMM226WJJ2U/LRv7YoB97xcgf49BoR+8FfjpN5ycjf34y8tfidaI96FF8qxtbyeAfpzvJPpKbTj6LcsIArbdCDGY8TcDKACtAZ+jsC1tMZCtjGfJai4lyPl1TLSXqQho62JoiW1Jkq4leArDZyyCSMmoyd8agbrTbcEA3uoEb/bzGzw4b3aLP+Xn/BwZ8DglkGHaWAAAAAElFTkSuQmCC",
+              "long_description": "Broker for existing NFSv3 and v4 volumes",
+              "provider_display_name": "Dell / Pivotal"
+            },
+            "name": "nfs",
+            "plan_updatable": false,
+            "plans": [
+              {
+                "description": "A preexisting filesystem",
+                "id": "09a09260-1df5-4445-9ed7-1ba56dadbbc8",
+                "metadata": {
+                  "costs": [
+                    {
+                      "amount": {
+                        "usd": 0
+                      },
+                      "unit": "MONTHLY"
+                    }
+                  ],
+                  "display_name": "Existing Filesystems"
+                },
+                "name": "Existing"
+              }
+            ],
+            "requires": [
+              "volume_mount"
+            ],
+            "tags": [
+              "nfs"
+            ]
+          }
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.log_time_format",
+        "Description": "Format for timestamp in component logs. Valid values are 'unix-epoch' and 'rfc3339'.",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.domain",
+        "Description": "Cloud Foundry system domain",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.username",
+        "Description": "service broker username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.credhub.uaa_ca_cert",
+        "Description": "(optional) CA Cert to verify UAA SSL connection when using CredHub to store broker state",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.skip_cert_verify",
+        "Description": "true if the cf api uses test certs that should not be verified",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.broker_name",
+        "Description": "name of the service broker registered in CF",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.log_level",
+        "Description": "nfsbroker log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.credhub.uaa_client_id",
+        "Description": "UAA client ID when using CredHub to store broker state",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.admin_password",
+        "Description": "password of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.client_id",
+        "Description": "ID of the CF client",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.dial_timeout",
+        "Description": "CF CLI connection dial timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.organization",
+        "Description": "organization that hosts the app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.password",
+        "Description": "service broker password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.credhub.uaa_client_secret",
+        "Description": "UAA client secret when using CredHub to store broker state",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.store_id",
+        "Description": "(optional) Store ID used to namespace instance details and bindings in store (CredHub only)",
+        "Default": "nfsbroker",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.app_domain",
+        "Description": "domain used to host the broker app",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsbrokerpush.cf.admin_user",
+        "Description": "username of the CF admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfstestldapserver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4267953663/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "data/properties.sh.erb",
+        "DstPathEnd": "data/properties.sh",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/data/properties.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config/adduser1000.ldif",
+        "DstPathEnd": "config/adduser1000.ldif",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/config/adduser1000.ldif"
+      },
+      {
+        "SrcPathEnd": "config/adduser2000.ldif",
+        "DstPathEnd": "config/adduser2000.ldif",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/config/adduser2000.ldif"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_setup.sh",
+        "DstPathEnd": "helpers/ctl_setup.sh",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/helpers/ctl_setup.sh"
+      },
+      {
+        "SrcPathEnd": "bin/monit_debugger",
+        "DstPathEnd": "bin/monit_debugger",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/bin/monit_debugger"
+      },
+      {
+        "SrcPathEnd": "config/core.schema",
+        "DstPathEnd": "config/core.schema",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/config/core.schema"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "config/core.ldif",
+        "DstPathEnd": "config/core.ldif",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/config/core.ldif"
+      },
+      {
+        "SrcPathEnd": "config/addou.ldif",
+        "DstPathEnd": "config/addou.ldif",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/config/addou.ldif"
+      },
+      {
+        "SrcPathEnd": "helpers/ctl_utils.sh",
+        "DstPathEnd": "helpers/ctl_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/helpers/ctl_utils.sh"
+      },
+      {
+        "SrcPathEnd": "slapd.ldif.erb",
+        "DstPathEnd": "config/slapd.ldif",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/slapd.ldif.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "bin/ctl",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor4267953663/templates/bin/ctl"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "openldap"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ldap.olcRootDN",
+        "Description": "The DN for root access to the database",
+        "Default": "cn=admin,dc=domain,dc=com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.olcRootPW",
+        "Description": "The root password of the database",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.active",
+        "Description": "Configure SSL for slapd",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.server_key",
+        "Description": "PEM-encoded server key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.reloadConfigOnRestart",
+        "Description": "Should the config database be deleted and recreated on each deployment, this will destroy all configuration that was loaded during runtime",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.configDatabasePW",
+        "Description": "The root password to access the config database",
+        "Default": "secret",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.olcSuffix",
+        "Description": "Default domain components of the database",
+        "Default": "dc=domain,dc=com",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.ca_cert",
+        "Description": "PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap.ssl.server_cert",
+        "Description": "PEM-encoded server certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfstestserver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor111969660/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "install.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor111969660/templates/install.erb"
+      },
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/nfstestserver_ctl",
+        "Path": "/tmp/tar-CmdExtractor111969660/templates/ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "nfstestserver.export_root_path",
+        "Description": "NFS root path",
+        "Default": "/var/vcap/store/nfstestserver",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfstestserver.export_cidr",
+        "Description": "cidr range to use for nfs exports",
+        "Default": "10.0.0.0/8",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nfsv3driver",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3050623384/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "statd.erb",
+        "DstPathEnd": "bin/statd_ctl",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/statd.erb"
+      },
+      {
+        "SrcPathEnd": "rpcbind.erb",
+        "DstPathEnd": "bin/rpcbind_ctl",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/rpcbind.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "start.sh.erb",
+        "DstPathEnd": "bin/start.sh",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "nfsv3driver_ctl.erb",
+        "DstPathEnd": "bin/nfsv3driver_ctl",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/nfsv3driver_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor3050623384/templates/drain.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nfs-debs"
+      },
+      {
+        "Name": "nfsv3driver"
+      },
+      {
+        "Name": "map-fs"
+      },
+      {
+        "Name": "map-fs-fuse"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nfsv3driver.tls.client_cert",
+        "Description": "PEM encoded client certificate",
+        "Default": "",
+        "Example": "| -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.statd_port",
+        "Description": "port rpc-statd listens on",
+        "Default": 41793,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.listen_addr",
+        "Description": "address nfsv3driver listens on",
+        "Default": "127.0.0.1:7589",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.cell_mount_path",
+        "Description": "path to mount volumes into on the cell",
+        "Default": "/var/vcap/data/volumes/nfs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_svc_password",
+        "Description": "ldap service account password (required for LDAP integration only)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_proto",
+        "Description": "ldap server protocol (required for LDAP integration only)",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_ca_cert",
+        "Description": "ldap server CA certificate. If not provided driver will be connecting to LDAP server without TLS",
+        "Default": "",
+        "Example": "| -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ssl.insecure_skip_verify",
+        "Description": "When connecting over SSL, skip verification of server IP addresses in the certificate",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.admin_addr",
+        "Description": "address nfsv3driver listens on for admin requests",
+        "Default": "127.0.0.1:7590",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.log_time_format",
+        "Description": "Format for timestamp in component logs. Valid values are 'unix-epoch' and 'rfc3339'.",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_host",
+        "Description": "ldap server host name or ip address (required for LDAP integration only)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_port",
+        "Description": "ldap server port (required for LDAP integration only)",
+        "Default": 389,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.tls.server_cert",
+        "Description": "PEM encoded server certificate",
+        "Default": "",
+        "Example": "| -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.debug_addr",
+        "Description": "address nfsv3driver will serve debug info",
+        "Default": "127.0.0.1:7689",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.log_level",
+        "Description": "nfsv3driver log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.disable",
+        "Description": "disable nfsv3driver",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_user_fqdn",
+        "Description": "ldap fqdn for user records we will search against when looking up user uids (required for LDAP integration only)",
+        "Default": "",
+        "Example": "cn=Users,dc=corp,dc=test,dc=com",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.tls.ca_cert",
+        "Description": "PEM encoded CA certificate. If not provided, driver will not accept TLS connections",
+        "Default": "",
+        "Example": "| -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.tls.client_key",
+        "Description": "PEM encoded client private key",
+        "Default": "",
+        "Example": "| -----BEGIN RSA PRIVATE KEY----- // EXAMPLE ... -----END RSA PRIVATE KEY-----",
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.driver_path",
+        "Description": "path to place driver spec/json file for volman to discover",
+        "Default": "/var/vcap/data/voldrivers",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.ldap_svc_user",
+        "Description": "ldap service account user name (required for LDAP integration only)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nfsv3driver.tls.server_key",
+        "Description": "PEM encoded server private key",
+        "Default": "",
+        "Example": "| -----BEGIN RSA PRIVATE KEY----- // EXAMPLE ... -----END RSA PRIVATE KEY-----",
+        "Examples": null
+      }
+    ]
+  }
+]
