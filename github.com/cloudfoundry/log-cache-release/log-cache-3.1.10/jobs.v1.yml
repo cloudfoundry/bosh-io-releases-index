@@ -1,0 +1,761 @@
+[
+  {
+    "Name": "log-cache",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3836722374/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "log_cache.key.erb",
+        "DstPathEnd": "config/certs/log_cache.key",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/log_cache.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "log_cache.crt.erb",
+        "DstPathEnd": "config/certs/log_cache.crt",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/log_cache.crt.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3836722374/templates/prom_scraper_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "log-cache"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "append_node_addresses",
+        "Description": "Array of log-cache instances to add to bosh links",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "memory_limit_percent",
+        "Description": "Percentage of system memory to use for the cache. Must be an integer.",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_per_source",
+        "Description": "The maximum number of items stored in LogCache per source.",
+        "Default": 100000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "The Certificate Authority for log cache mutual TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "The client private key for log cache mutual TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disabled",
+        "Description": "Turns off log cache.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "The port for the log-cache to listen on",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "truncation_interval",
+        "Description": "The amount of time between log-cache checking if it needs to prune",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "prunes_per_gc",
+        "Description": "Number of consecutive prunes to do before running garbage collection. Lowering the value increase CPU utilization",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "promql.query_timeout",
+        "Description": "The maximum allowed runtime for a single PromQL query. Smaller timeouts are recommended.",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "prepend_node_addresses",
+        "Description": "Array of log-cache instances to add to bosh links",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "The client cert for log cache mutual TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "The port for LogCache to bind a health endpoint",
+        "Default": 6060,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "log-cache-cf-auth-proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor178495557/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "external.key.erb",
+        "DstPathEnd": "config/certs/external.key",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/external.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cc_ca.crt.erb",
+        "DstPathEnd": "config/certs/cc_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/cc_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "proxy_ca.crt.erb",
+        "DstPathEnd": "config/certs/proxy_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/proxy_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "external.crt.erb",
+        "DstPathEnd": "config/certs/external.crt",
+        "Path": "/tmp/tar-CmdExtractor178495557/templates/external.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "log-cache-cf-auth-proxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "proxy_ca_cert",
+        "Description": "The CA used to sign the certificates that the reverse proxy uses to talk to the gateway",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "The client secret to authenticate to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.override_address",
+        "Description": "Override as alternative to using CC link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "The CA for internal UAA api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_cert_verify",
+        "Description": "Whether to accept invalid certs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "security_event_log",
+        "Description": "When provided, the path to a file where security events will be logged",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "token_pruning_interval",
+        "Description": "The interval at which expired tokens are purged from the cache",
+        "Default": "60s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.common_name",
+        "Description": "The CN for the CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "The port for the auth proxy to bind a health endpoint",
+        "Default": 6065,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.ca_cert",
+        "Description": "The CA for the internal api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_id",
+        "Description": "The client id to authenticate to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.internal_addr",
+        "Description": "The endpoint used for the internal UAA api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_cert",
+        "Description": "The TLS cert for the auth proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_key",
+        "Description": "The TLS key for the auth proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "proxy_port",
+        "Description": "The port for the cf-auth-proxy to listen on",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cache_expiration_interval",
+        "Description": "The expiration lifetime assigned to new cache entries",
+        "Default": "60s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "log-cache-gateway",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3169375783/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "log_cache.crt.erb",
+        "DstPathEnd": "config/certs/log_cache.crt",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/log_cache.crt.erb"
+      },
+      {
+        "SrcPathEnd": "log_cache.key.erb",
+        "DstPathEnd": "config/certs/log_cache.key",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/log_cache.key.erb"
+      },
+      {
+        "SrcPathEnd": "proxy.key.erb",
+        "DstPathEnd": "config/certs/proxy.key",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/proxy.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "proxy.crt.erb",
+        "DstPathEnd": "config/certs/proxy.crt",
+        "Path": "/tmp/tar-CmdExtractor3169375783/templates/proxy.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "log-cache-gateway"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gateway_addr",
+        "Description": "The address for the log-cache-gateway to listen on",
+        "Default": "localhost:8081",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "proxy_cert",
+        "Description": "The TLS cert for the proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "The port for the gateway to bind a health endpoint",
+        "Default": 6063,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "proxy_key",
+        "Description": "The TLS key for the proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "log-cache-syslog-server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2585412819/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "log_cache.crt.erb",
+        "DstPathEnd": "config/certs/log_cache.crt",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/log_cache.crt.erb"
+      },
+      {
+        "SrcPathEnd": "syslog.crt.erb",
+        "DstPathEnd": "config/certs/syslog.crt",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/syslog.crt.erb"
+      },
+      {
+        "SrcPathEnd": "syslog.key.erb",
+        "DstPathEnd": "config/certs/syslog.key",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/syslog.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/metrics.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "log_cache_ca.crt.erb",
+        "DstPathEnd": "config/certs/log_cache_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/log_cache_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "log_cache.key.erb",
+        "DstPathEnd": "config/certs/log_cache.key",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/log_cache.key.erb"
+      },
+      {
+        "SrcPathEnd": "syslog_client_ca.crt.erb",
+        "DstPathEnd": "config/certs/syslog_client_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/syslog_client_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor2585412819/templates/metrics.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "log-cache-syslog-server"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enabled",
+        "Description": "Enable Log Cache Syslog Ingress",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_port",
+        "Description": "The port for the Syslog Server",
+        "Default": 6067,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "TLS certificate for the Syslog Server connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_idle_timeout",
+        "Description": "Timeout for the Syslog Server connection",
+        "Default": "2m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_client_ca_cert",
+        "Description": "The CA certificate for key/cert verification.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.debug",
+        "Description": "Enables go_ and process_ metrics along with a pprof endpoint",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.pprof_port",
+        "Description": "If debug metrics is enabled, pprof will start at this port, ideally set to something other then 0",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "TLS key for the Syslog Server connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_trim_message_whitespace",
+        "Description": "Defines if the leading and trailing whitespace in the Syslog log messages should be trimmed",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "The port for the Syslog Server to bind a health endpoint",
+        "Default": 6066,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
