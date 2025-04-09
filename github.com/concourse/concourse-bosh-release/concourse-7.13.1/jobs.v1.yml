@@ -1,0 +1,3191 @@
+[
+  {
+    "Name": "bbr-atcdb",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor760598894/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "restore.sh.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor760598894/templates/restore.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor760598894/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "connection_data.erb",
+        "DstPathEnd": "config/connection_data",
+        "Path": "/tmp/tar-CmdExtractor760598894/templates/connection_data.erb"
+      },
+      {
+        "SrcPathEnd": "backup.sh.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor760598894/templates/backup.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "postgresql.tls.skip_host_verify",
+        "Description": "Skip host verification for Server CA certificate. Needs to be set to `true` on GCP.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.tls.cert.ca",
+        "Description": "Server CA certificate. This must be included if any of the tls block is specified.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.tls.cert.certificate",
+        "Description": "Client certificate for Mutual TLS. This must be specified if `private_key` is given.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.tls.cert.private_key",
+        "Description": "Client private key for Mutual TLS. This must be specified if `certificate` is given.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.port",
+        "Description": "Port on which to connect to the server specified by `postgresql.host`.\n\nIf `postgresql.host` is not specified, this will be autodiscovered via\nBOSH links, along with the host. By default will use port 5432.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.database",
+        "Description": "Name of the database to use.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.name",
+        "Description": "Name of role to connect with.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.password",
+        "Description": "Password to use when connecting.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.host",
+        "Description": "IP address or DNS name of a PostgreSQL server to connect to.\n\nIf not specified, one will be autodiscovered via BOSH links.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.tls.enabled",
+        "Description": "Whether or not to use TLS when connecting to the database.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "web",
+    "Description": "The 'web' node provides the Concourse web UI and API, along with a worker\ngateway for registering workers via SSH.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3796847035/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3796847035/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre_start.erb",
+        "DstPathEnd": "bin/pre_start",
+        "Path": "/tmp/tar-CmdExtractor3796847035/templates/pre_start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "concourse"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "secrets.retry_attempts",
+        "Description": "The number of attempts secret will be retried to be fetched, in case a\nretryable error happens.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.groups_key",
+        "Description": "Groups claim key used to map groups from the OAuth userinfo/token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.batch_duration",
+        "Description": "The duration to wait before emitting a batch of points to InfluxDB,\ndisregarding `influxdb.batch_size`.\n",
+        "Default": "300s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.backend",
+        "Description": "Auth backend to use for logging in to Vault.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "audit.resource",
+        "Description": "Enable auditing of resource API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_base_dn",
+        "Description": "BaseDN to start the search from.\n",
+        "Default": null,
+        "Example": "cn=groups,dc=example,dc=com",
+        "Examples": null
+      },
+      {
+        "Name": "gitlab_auth.client_id",
+        "Description": "GitLab client ID to use for OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gc.hijack_grace_period",
+        "Description": "Period after which hijacked containers will be garbage-collected.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gc.check_recycle_period",
+        "Description": "Period after which finished checks will get garbage-collected.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "check_container_placement_strategies",
+        "Description": "Chained strategies by which a worker is selected during container\nplacement that is used for resource checks.\n\nSupported options are \"fewest-build-containers\",\n\"limit-active-tasks\", \"limit-active-containers\", and\n\"limit-active-volumes\".\n",
+        "Default": null,
+        "Example": [
+          "limit-active-containers",
+          "fewest-build-containers"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tracing.honeycomb_api_key",
+        "Description": "Honeycomb.io API Key.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.maximum_builds",
+        "Description": "Maximum build logs to retain. Will override values configured in jobs.\n",
+        "Default": null,
+        "Example": 1000,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.client_id",
+        "Description": "UAA client ID to use for OAuth.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_user_attr",
+        "Description": "Adds an additional requirement to the filter that an attribute in the\ngroup match the user's attribute value. The exact filter being added is\n(\u003cgroupAttr\u003e=\u003cuserAttrvalue\u003e).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.host",
+        "Description": "IP address or DNS name of a PostgreSQL server to connect to.\n\nIf not specified, one will be autodiscovered via BOSH links.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_max_conns",
+        "Description": "The maximum number of open connections for the api connection pool.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.password",
+        "Description": "InfluxDB password for authorizing access.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.access_key",
+        "Description": "AWS Access key ID used as credentials for accessing SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.skip_ssl_validation",
+        "Description": "Skip SSL validation.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_id_attr",
+        "Description": "A mapping of attributes on the user entry to claims. Defaults to 'uid' if\nempty.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "base_resource_type_defaults",
+        "Description": "YAML file for specifying defaults for base resource types\n",
+        "Default": null,
+        "Example": "registry-image:\n  registry_mirror:\n    host: https://registry.mirror.example.com\n",
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.insecure_skip_verify",
+        "Description": "Enable insecure SSL verification.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "conjur.account",
+        "Description": "Conjur account name.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.pipeline_secret_template",
+        "Description": "AWS SSM parameter name template used to resolve pipeline specific secrets. If this flag contains slashes, be sure\nto start it with a /. Maximum 5 slashes are permitted by AWS in parameter names.\n",
+        "Default": "/concourse/{{.Team}}/{{.Pipeline}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.gitlab.users",
+        "Description": "An array of GitLab users that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-gitlab-login"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.bitbucket_cloud.teams",
+        "Description": "List of whitelisted Bitbucket Cloud teams.\n",
+        "Default": null,
+        "Example": [
+          "my-bitbucket-cloud-team"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "x_frame_options",
+        "Description": "The value to set for X-Frame-Options header.\n",
+        "Default": null,
+        "Example": "deny",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.token_url",
+        "Description": "Generic OAuth provider token endpoint URL.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.display_name",
+        "Description": "Name of the authentication method to be displayed on the Web UI",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "microsoft_auth.client_secret",
+        "Description": "Microsoft client secret to use for OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_across_step",
+        "Description": "Enable the experimental across step to be used in jobs. The API is subject to change.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.jaeger_tags",
+        "Description": "Tags to include in components.\n",
+        "Default": null,
+        "Example": "foo:bar,caz:zaz",
+        "Examples": null
+      },
+      {
+        "Name": "tracing.otlp_headers",
+        "Description": "Headers to attach to each tracing message.\n",
+        "Default": null,
+        "Example": {
+          "lightstep-access-token": "mysecrettoken"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.account_id",
+        "Description": "New Relic Account ID.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.username_attr",
+        "Description": "Name of the username attribute in the returned assertions to map to ID\ntoken claims.\n",
+        "Default": null,
+        "Example": "name",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.client_id",
+        "Description": "Application client ID for enabling generic OIDC.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.host",
+        "Description": "Override default hostname for Github Enterprise. (No scheme, No trailing slash)\n",
+        "Default": null,
+        "Example": "github.example.com",
+        "Examples": null
+      },
+      {
+        "Name": "cluster_name",
+        "Description": "A name for this Concourse cluster, to be displayed on the dashboard page.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "displayer_user_id_per_connector",
+        "Description": "Define how to display user ID for each authentication connector. Format is \u003cconnector\u003e:\u003cfieldname\u003e. Valid field names are user_id, name, username and email, where name maps to claims field username, and username maps to claims field preferred username\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.saml.users",
+        "Description": "List of SAML users that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "garden_request_timeout",
+        "Description": "How long to wait for requests to Garden to complete, in Go duration format (48h = 48 hours).\n0 means no timeout.\n",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "auth_duration",
+        "Description": "Length of time for which tokens are valid. Afterwards, users will have to log back in.\nUse Go duration format (48h = 48 hours).\n",
+        "Default": "24h",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_username",
+        "Description": "Attribute to match against the inputted username. This will be translated\nand combined with the other filter as '(\u003cattr\u003e=\u003cusername\u003e)'.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.agent_port",
+        "Description": "Port of the Datadog Agent's dogstatsd server to emit events to.\n",
+        "Default": 8125,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "conjur.auth.token_file",
+        "Description": "Path to token file used if Conjur instance is running in Kubernetes or IAM.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.team_secret_template",
+        "Description": "AWS SSM parameter name template used to resolve team specific secrets. If this flag contains slashes, be sure\nto start it with a /. Maximum 5 slashes are permitted by AWS in parameter names.\nnames.\n",
+        "Default": "/concourse/{{.Team}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_check.filter_http_methods",
+        "Description": "Array of HTTP methods to filter through policy checking.\n",
+        "Default": null,
+        "Example": [
+          "PUT",
+          "POST"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.ca_cert",
+        "Description": "The CA certificate for the LDAP auth provider's endpoints.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_input_container_placement_strategies",
+        "Description": "Chained strategies by which a worker is selected during container\nplacement that is used for get and nested check steps.\n\nSupported options are \"fewest-build-containers\",\n\"limit-active-tasks\", \"limit-active-containers\", and\n\"limit-active-volumes\".\n",
+        "Default": null,
+        "Example": [
+          "limit-active-containers",
+          "fewest-build-containers"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "credhub.client_id",
+        "Description": "Client ID for CredHub authorization.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.client_secret",
+        "Description": "Client secret for CredHub authorization.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.maximum_days",
+        "Description": "Maximum days to retain build logs. Will override values configured in\njobs.\n",
+        "Default": null,
+        "Example": 1000,
+        "Examples": null
+      },
+      {
+        "Name": "audit.worker",
+        "Description": "Enable auditing of worker API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.email_attr",
+        "Description": "Name of the email attribute in the returned assertions to map to ID token\nclaims.\n",
+        "Default": null,
+        "Example": "email",
+        "Examples": null
+      },
+      {
+        "Name": "gitlab_auth.host",
+        "Description": "Hostname of Gitlab Enterprise deployment (Include scheme, No trailing\nslash)\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "component_runner_interval",
+        "Description": "Interval on which runners are kicked off for builds, locks, scans, and checks\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gc.missing_grace_period",
+        "Description": "Period after which to reap containers and volumes that were created but\nwent missing from the worker.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.client_cert",
+        "Description": "Client certificate to use when connecting with the server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_task_cpu_limit",
+        "Description": "Default limit for cpu shares used per task. This can be overridden by specifying\na different limit in the task yaml.\n",
+        "Default": null,
+        "Example": 256,
+        "Examples": null
+      },
+      {
+        "Name": "vault.lookup_templates",
+        "Description": "Path templates for credential lookup.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Credhub server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.garden_request_timeout",
+        "Description": "How long to wait for requests to Garden to complete. 0 means no timeout.\n",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "prometheus.bind_ip",
+        "Description": "If configured, expose Prometheus metrics at specified address\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.user_name_key",
+        "Description": "User name claim key used to map groups from the OAuth userinfo/token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_check.filter_actions",
+        "Description": "Array of ATC API actions to filter through policy checking.\n",
+        "Default": null,
+        "Example": [
+          "SaveConfig",
+          "UseImage"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tls_bind_port",
+        "Description": "Deprecated in favor of tls.bind_port.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_key",
+        "Description": "Deprecated in favor of tls.cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "encryption_key",
+        "Description": "A 16 or 32 byte passphrase. This is used to generate an AES key to encrypt\nsensitive iinformation in the database.\n\nIf specified, all existing data will be encrypted on start and any new\ndata will be encrypted.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_filter",
+        "Description": "Optional filter to apply when searching the directory.\n",
+        "Default": null,
+        "Example": "(objectClass=posixGroup)",
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.access_key",
+        "Description": "AWS Access key ID used as credentials for accessing SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.entity_issuer",
+        "Description": "Manually specify Concourse's Issuer value. When provided Concourse will\ninclude this as the Issuer value during AuthnRequest. If not provided, will\ndefault to the redirect URI when evaluating AudienceRestriction elements\nin the response.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "audit.job",
+        "Description": "Enable auditing of job API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "num_goroutine_threshold",
+        "Description": "Work will be distributed to other ATCs when this number of go routines is reached.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "config_rbac",
+        "Description": "YAML file content to customize RBAC role-action mapping.\n",
+        "Default": null,
+        "Example": "pipeline-operator:\n- OrderPipelines\n- PausePipelines\n",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.scopes",
+        "Description": "OAuth scopes to request during authorization.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.github.orgs",
+        "Description": "An array of GitHub orgs that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-github-org"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "max_active_volumes_per_worker",
+        "Description": "Maximum allowed number of active volumes per worker.\n\nHas effect only when used with \"limit-active-volumes\" placement strategy.\n\n0 means no limit.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_cert",
+        "Description": "Deprecated in favor of tls.cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.insecure_skip_verify",
+        "Description": "Skip signature verification.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "streaming_size_limitation",
+        "Description": "Internal volume streaming size limitation in MB. In case of small limitation\nneeded, float can be used like 0.01.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gc.var_source_recycle_period",
+        "Description": "Period after which unused var_sources will get garbage-collected.\n",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.backend_max_ttl",
+        "Description": "Time after which to force a re-login. If not set, the token will just be\ncontinuously renewed.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls.insecure_skip_verify",
+        "Description": "Enable insecure SSL verification.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "audit.build",
+        "Description": "Enable auditing of build API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.github.users",
+        "Description": "An array of GitHub userids/logins that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-github-login"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oidc.users",
+        "Description": "List of Generic OIDC users that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "max_checks_per_second",
+        "Description": "Maximum number of checks that can be started per second. If not\nspecified, this will be calculated as (# of resources)/(resource checking\ninterval). -1 value will remove this maximum limit of checks per second.\n",
+        "Default": null,
+        "Example": 100,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.groups_attr",
+        "Description": "Name of the groups attribute in the returned assertions to map to ID\ntoken claims.\n",
+        "Default": null,
+        "Example": "groups",
+        "Examples": null
+      },
+      {
+        "Name": "enable_cache_streamed_volumes",
+        "Description": "Enable caching of streamed resource volumes on the destination worker.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_check_interval_with_webhook",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor new versions of resources which have a webhook token configured.\n",
+        "Default": null,
+        "Example": "1m",
+        "Examples": null
+      },
+      {
+        "Name": "tracing.service_name",
+        "Description": "Service name to attach to traces as metadata.\n",
+        "Default": null,
+        "Example": "concourse-web",
+        "Examples": null
+      },
+      {
+        "Name": "capture_error_metrics",
+        "Description": "Enable capturing of error log metrics.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_task_memory_limit",
+        "Description": "Default limit for memory used per task. This can be overridden by specifying\na different limit in the task yaml.\n",
+        "Default": null,
+        "Example": "200mb",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.address",
+        "Description": "Remote syslog server address with port.\n",
+        "Default": null,
+        "Example": "0.0.0.0:514",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.client_secret",
+        "Description": "Application client secret for enabling generic OIDC.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bitbucket_cloud_auth.client_secret",
+        "Description": "BitBucket Cloud client secret.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_rerun_when_worker_disappears",
+        "Description": "Enable rerunning of builds when worker disappears.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "conjur.auth.api_key",
+        "Description": "API key related to the host.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lets_encrypt.acme_url",
+        "Description": "URL of the ACME CA directory endpoint.\n",
+        "Default": "https://acme-v02.api.letsencrypt.org/directory",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_url",
+        "Description": "Externally reachable URL of the ATCs. Required for OAuth. This will be\nauto-generated using the IP of each ATC VM if not specified, however\nthis is only a reasonable default if you have a single instance.\n\nTypically this is the URL that you as a user would use to reach your CI.\nFor multiple ATCs it would go to some sort of load balancer.\n",
+        "Default": null,
+        "Example": "https://ci.concourse-ci.org",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.ca_cert",
+        "Description": "The CA certificate for the Generic OIDC provider's endpoints.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.spaces_with_developer_role",
+        "Description": "List of CloudFoundry Spaces whose 'developer' users are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "myorg:myspace"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "audit.pipeline",
+        "Description": "Enable auditing of pipeline API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_pipeline_instances",
+        "Description": "Enable the creation of instanced pipelines.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.pipeline_secret_template",
+        "Description": "AWS SecretsManager secret name template used to resolve pipeline specific secrets.\n",
+        "Default": "/concourse/{{.Team}}/{{.Pipeline}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_port",
+        "Description": "Port on which the ATC should listen for HTTP traffic.\n",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "audit.team",
+        "Description": "Enable auditing of team API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "redact_secrets",
+        "Description": "Enable redacting secrets in build logs.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.microsoft.groups",
+        "Description": "List of whitelisted Microsoft groups for the main team.\n",
+        "Default": null,
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tracing.honeycomb_dataset",
+        "Description": "Name of dataset.\n",
+        "Default": null,
+        "Example": "web",
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.server_name",
+        "Description": "If set, is used to set the SNI host when connecting via TLS.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_id",
+        "Description": "The concourse client_id to use when logging into the web interface\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.ca_cert",
+        "Description": "The CA certificate to use when verifying the signature of the SAML\nresponse.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.sso_issuer",
+        "Description": "Issuer value expected in the SAML response.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secrets.cache.duration",
+        "Description": "Maximum duration for which to keep cached credentials.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.login_timeout",
+        "Description": "The maximum time to wait to authenticate with Vault.\n",
+        "Default": null,
+        "Example": "60s",
+        "Examples": null
+      },
+      {
+        "Name": "datadog.agent_host",
+        "Description": "If configured, detailed metrics will be emitted to the specified Datadog Agent's\ndogstatsd server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.shared_path",
+        "Description": "Path under which to lookup shared credentials.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.retry.initial",
+        "Description": "The initial time between retries when logging in or re-authing a secret.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "password_connector",
+        "Description": "The connector to use for password authentication for `fly login -u ... -p ...`.\nEither \"local\" or \"ldap\".\n",
+        "Default": null,
+        "Example": "local",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.groups_key",
+        "Description": "Groups claim key used to map groups from the OIDC userinfo/token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_task_timeout",
+        "Description": "Default timeout of task steps\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.insecure_skip_verify",
+        "Description": "Skip SSL verification when emitting to InfluxDB.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.gitlab.groups",
+        "Description": "An array of GitLab groups that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-gitlab-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "streaming_artifacts_compression",
+        "Description": "Compression to use when streaming artifacts (values: zstd, gzip, raw)\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.stackdriver_projectid",
+        "Description": "GCP's Project ID\n",
+        "Default": null,
+        "Example": "my-projectid",
+        "Examples": null
+      },
+      {
+        "Name": "secrets.cache.enabled",
+        "Description": "Enable in-memory caching of secrets fetched from the credential manager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.ca_cert",
+        "Description": "Cloud Foundry CA Certificate.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.skip_ssl_validation",
+        "Description": "Skip SSL validation.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim_response_header_timeout",
+        "Description": "How long to wait for Baggageclaim to send the response header. Use Go duration\nformat (1m = 1 minute).\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backend_max_conns",
+        "Description": "The maximum number of open connections for the backend connection pool.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.disable_compression",
+        "Description": "Disables compression of the batch before sending it.\n",
+        "Default": null,
+        "Example": false,
+        "Examples": null
+      },
+      {
+        "Name": "lets_encrypt.enabled",
+        "Description": "Automatically configure TLS certificates via Let's Encrypt/ACME.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opa.result.should_block_key",
+        "Description": "Name of key in the Open Policy Agent result to check if it should hard block and fail, or soft block and emit warning on failure.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.client_secret",
+        "Description": "Configure the client_secret to use when requesting a token\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug.bind_port",
+        "Description": "Port on which to listen for the pprof debugger endpoints.\n",
+        "Default": 8079,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "microsoft_auth.client_id",
+        "Description": "Microsoft client ID to use for OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.bitbucket_cloud.users",
+        "Description": "List of whitelisted Bitbucket Cloud users.\n",
+        "Default": null,
+        "Example": [
+          "my-bitbucket-cloud-login"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "default_resource_type_check_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor new versions of resource types.\n\nThis can also be specified on a per-resource-type basis by specifying\n`check_every` on the resource type config.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_placement_strategy",
+        "Description": "Method by which a worker is selected during container placement.\n\nSupported options are \"volume-locality\", \"random\",\n\"fewest-build-containers\", \"limit-active-tasks\",\n\"limit-active-containers\", and \"limit-active-volumes\".\n",
+        "Default": null,
+        "Example": "volume-locality",
+        "Examples": null
+      },
+      {
+        "Name": "prometheus.bind_port",
+        "Description": "If configured, expose Prometheus metrics at specified port\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.secret_key",
+        "Description": "AWS Secret Access Key used as credentials for accessing SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.default_days",
+        "Description": "Default days to retain build logs. 0 means unlimited.\n",
+        "Default": null,
+        "Example": 100,
+        "Examples": null
+      },
+      {
+        "Name": "log_db_queries",
+        "Description": "Log database queries. Log level is debug, so you'll need to set the\nlog_level property as well. This is mainly useful for Concourse\ndevelopers to analyze query counts.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.ca_cert",
+        "Description": "The CA certificate for the Generic OAuth provider's endpoints.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oauth.groups",
+        "Description": "List of Generic OAuth groups that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "vault.disable_srv_lookup",
+        "Description": "When vault url does not include port, use this var to control vault SRV lookup. If vault url includes port, SRV lookup is disabled.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bitbucket_cloud_auth.client_id",
+        "Description": "BitBucket Cloud client ID.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "audit.container",
+        "Description": "Enable auditing of container API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_secret",
+        "Description": "The concourse client_secret to use when logging into the web interface\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.client_secret",
+        "Description": "UAA client secret to use for OAuth.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.spaces_with_any_role",
+        "Description": "List of CloudFoundry Spaces whose users with any role are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "myorg:myspace"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "log_cluster_name",
+        "Description": "Add cluster name (CONCOURSE_CLUSTER_NAME) to logs.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.insecure_skip_verify",
+        "Description": "Skip certificate verification.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_put_timeout",
+        "Description": "Default timeout of put steps\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.batch_size",
+        "Description": "Number of points to batch together when emitting to InfluxDB.\n",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.ca_cert",
+        "Description": "GitHub Enterprise CA Certificate.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.disable_get_user_info",
+        "Description": "Disable connector to query the UserInfo endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "global_resource_check_timeout",
+        "Description": "Time limit on checking for new versions of resources.\n",
+        "Default": "1h",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_placement_strategies",
+        "Description": "Chained strategies by which a worker is selected during container\nplacement.\n\nSupported options are \"volume-locality\", \"fewest-build-containers\",\n\"limit-active-tasks\", \"limit-active-containers\", and\n\"limit-active-volumes\".\n",
+        "Default": null,
+        "Example": [
+          "limit-active-tasks",
+          "volume-locality"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.name",
+        "Description": "Name of role to connect with.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.log_level",
+        "Description": "The log level for the TSA.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_base_dn",
+        "Description": "BaseDN to start the search from.\n",
+        "Default": null,
+        "Example": "cn=users,dc=example,dc=com",
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.groups_delim",
+        "Description": "Delimiter for splitting groups returned as a single string.\n\nBy default, multiple groups are assumed to be represented as multiple\nattributes with the same name.\n\nIf \"groups_delim\" is provided groups are assumed to be represented as a\nsingle attribute and the delimiter is used to split the attribute's value\ninto multiple groups.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.client_secret",
+        "Description": "Application client secret for enabling generic OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_check_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to check\nfor new versions of resources.\n\nThis can also be specified on a per-resource basis by specifying\n`check_every` on the resource config.\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Syslog server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.client_secret",
+        "Description": "GitHub client secret to use for OAuth.\n\nThe application must be configured with its callback URL as\n`{external_url}/sky/issuer/callback` (replacing `{external_url}`\nwith the actual value).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "intercept_idle_timeout",
+        "Description": "Length of time for a intercepted session to be idle before terminating, in Go duration format.",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.url",
+        "Description": "If configured, detailed metrics will be emitted to the specified InfluxDB\nserver.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.client_token_path",
+        "Description": "Path to a file containing a Vault client authentication token\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "conjur.auth.login",
+        "Description": "Host username. Example: host/concourse\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.team_authorized_keys",
+        "Description": "Public keys to authorize for per-team workers.\n\nMap from team name to authorized keys, either as a string with one key\nper line or an array of public keys.\n",
+        "Default": null,
+        "Example": {
+          "concourse": "ssh-rsa key key@pivotal.io\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "old_encryption_key",
+        "Description": "The key used previously to encrypt sensitive information in the database.\n\nTo rotate your encryption key, set both old_encryption_key and\nencryption_key. This will result in the ATC re-encrypting all data on\nstart.\n\nTo disable encryption, specify old_encryption_key and do *not* set\nencryption_key. This will result in the ATC decrypting all data on start,\nrestoring it to plaintext.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.host",
+        "Description": "The host and optional port of the LDAP server. If port isn't supplied, it\nwill be guessed based on the TLS configuration. 389 or 636.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.socket",
+        "Description": "Path to a UNIX domain socket to connect to.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.url",
+        "Description": "CredHub server address used to access secrets.\n",
+        "Default": null,
+        "Example": "https://credhub-server:9000",
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.bind_port",
+        "Description": "Port on which to listen for SSH connections.\n",
+        "Default": 2222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_group_attr",
+        "Description": "Adds an additional requirement to the filter that an attribute in the\ngroup match the user's attribute value. The exact filter being added is\n(\u003cgroupAttr\u003e=\u003cuserAttrvalue\u003e)\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.spaces",
+        "Description": "(Deprecated) List of CloudFoundry Spaces whose 'developer' users are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "myorg:myspace"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "build_tracker_interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to run\nbuild tracking to keep track of build status.\n",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.region",
+        "Description": "AWS region to use for fetching SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.maximum",
+        "Description": "Deprecated. See build_log_retention.maximum_builds.\n",
+        "Default": null,
+        "Example": 1000,
+        "Examples": null
+      },
+      {
+        "Name": "db_notification_bus_queue_size",
+        "Description": "DB notification bus queue size, default is 10000. If UI often misses loading\nrunning build logs, then consider to increase the queue size.\n",
+        "Default": null,
+        "Example": 10000,
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.name_id_policy_format",
+        "Description": "Requested format of the NameID.\n\nThe NameID value is is mapped to the user ID of the user. This can be an\nabbreviated form of the full URI with just the last component. For example,\nif this value is set to \"emailAddress\" the format will resolve to:\n\n    urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress\n\nIf no value is specified, this value defaults to:\n\n    urn:oasis:names:tc:SAML:2.0:nameid-format:persistent\n",
+        "Default": null,
+        "Example": "persistent",
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.auth_url",
+        "Description": "Generic OAuth provider authorization endpoint url.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "github_auth.client_id",
+        "Description": "GitHub client ID to use for OAuth.\n\nThe application must be configured with its callback URL as\n`{external_url}/sky/issuer/callback` (replacing `{external_url}`\nwith the actual value).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_name_attr",
+        "Description": "The attribute of the group that represents its name.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.port",
+        "Description": "Port on which to connect to the server specified by `postgresql.host`.\n\nIf `postgresql.host` is not specified, this will be autodiscovered via\nBOSH links, along with the host.\n",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.path_prefix",
+        "Description": "Path under which to look up shared team/pipeline credentials.\n",
+        "Default": "/concourse",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.shared_secret_template",
+        "Description": "AWS SecretsManager secret name template used to resolve shared secrets.\n",
+        "Default": "/concourse/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.hostname",
+        "Description": "Client hostname with which the build logs will be sent to the syslog server.\n",
+        "Default": "atc-syslog-drainer",
+        "Example": "atc-syslog-drainer",
+        "Examples": null
+      },
+      {
+        "Name": "audit.volume",
+        "Description": "Enable auditing of volume API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.bind_pw",
+        "Description": "Bind Password for the user specified by 'bind-dn'.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.query_timeout",
+        "Description": "The maximum time to wait for Vault queries to resolve.\n",
+        "Default": null,
+        "Example": "60s",
+        "Examples": null
+      },
+      {
+        "Name": "conjur.tls.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Conjur server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.default",
+        "Description": "Deprecated. See build_log_retention.default_builds.\n",
+        "Default": null,
+        "Example": 100,
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.service_prefix",
+        "Description": "An optional prefix for emitted New Relic events.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics_buffer_size",
+        "Description": "The size of the buffer used in emitting event metrics.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.ca_cert",
+        "Description": "A PEM-encoded CA cert to use to verify the Vault server SSL cert.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.retry.max",
+        "Description": "The maximum time between retries when logging in or re-authing a secret.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.tls.client_cert",
+        "Description": "Client certificate for CredHub mutual TLS auth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opa.result.messages_key",
+        "Description": "Name of key in the Open Policy Agent result to extract the messages from.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_active_containers_per_worker",
+        "Description": "Maximum allowed number of active containers per worker.\n\nHas effect only when used with \"limit-active-containers\" placement strategy.\n\n0 means no limit.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.database",
+        "Description": "Name of the database to use.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secrets.cache.duration_notfound",
+        "Description": "If the cache is enabled, secret not found responses will be cached for this duration.\n",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.namespace",
+        "Description": "Vault namespace to use for authentication and secret lookup. Currently only supported for Enterprise Vault.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.region",
+        "Description": "AWS region to use for fetching entries from SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.session_token",
+        "Description": "AWS Session Token used as credentials for accessing SecretsManager.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug.godebug",
+        "Description": "A list of name=value pairs separated by commas, where each name is a runtime debugging facility.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cf_auth.api_url",
+        "Description": "Cloud Foundry api endpoint url.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_name_attr",
+        "Description": "A mapping of attributes on the user entry to claims.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.skip_ssl_validation",
+        "Description": "Skip SSL validation.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.orgs",
+        "Description": "List of CloudFoundry Orgs that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "myorg"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.spaces_with_auditor_role",
+        "Description": "List of CloudFoundry Spaces whose 'auditor' users are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "myorg:myspace"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "emit_metrics_to_logs",
+        "Description": "Emit metrics to logs.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.url",
+        "Description": "Vault server URL to use for parameterizing credentials.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pause_pipelines_after",
+        "Description": "The number of days after which a pipeline will be automatically paused if\nnone of its jobs have run in less than the given number of days. A value\nof zero disables this component.\n",
+        "Default": null,
+        "Example": 90,
+        "Examples": null
+      },
+      {
+        "Name": "add_local_users",
+        "Description": "List of username:password combinations for all your local users. The\npassword can be bcrypted. Bcrypted password must have a strength of 10 or\nhigher or the user will not be able to login.\n",
+        "Default": null,
+        "Example": {
+          "some-other-user": "$2a$10$.YIYH.5EWQcCvfE49xH/.OhIhGFiNtn.tQq.4pznpcrqZvoLxuKeC",
+          "some-plaintext-user": "a-plaintext-password",
+          "some-user": "$2a$10$sKZelZprWWcBAWbp28rB1uFef0Ybxsiqh05uo.H8EIm0sWc6IZGJu"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_scope",
+        "Description": "Can either be 'sub' - search the whole sub tree or 'one' - only search\none level. Defaults to 'sub' if empty.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.batch_size",
+        "Description": "Number of events to batch together before emitting.\n",
+        "Default": null,
+        "Example": 2000,
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.batch_duration",
+        "Description": "Length of time to wait between emitting until all currently batched events are emitted.\n",
+        "Default": null,
+        "Example": "60s",
+        "Examples": null
+      },
+      {
+        "Name": "vault.tls.client_cert",
+        "Description": "Client certificate for Vault TLS auth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.client_token",
+        "Description": "Client token to use for accessing your Vault server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "conjur.team_secret_template",
+        "Description": "Conjur secret identifier template used for team specific parameter.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "concourse_strict_transport_security",
+        "Description": "The value to set for the Strict-Transport-Security header.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "p2p.stream_timeout",
+        "Description": "Timeout for peer-to-peer volume streaming. Use Go duration format (15m =\n15 minutes).\n",
+        "Default": null,
+        "Example": "15m",
+        "Examples": null
+      },
+      {
+        "Name": "token_signing_key",
+        "Description": "PEM RSA private key used for minting ATC tokens.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "microsoft_auth.tenant",
+        "Description": "Microsoft tenant limitation to use for OAuth (common, consumers, organizations, tenant name or tenant uuid).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.github.teams",
+        "Description": "An array of GitHub teams that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-github-org:my-github-team"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.secret_key",
+        "Description": "AWS Secret Access Key used as credentials for accessing SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug.bind_ip",
+        "Description": "IP address on which to listen for the pprof debugger endpoints.\n",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.disable_groups",
+        "Description": "Disable groups claim fetching.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secrets.retry_interval",
+        "Description": "The interval between secret retry retrieval attempts.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.session_token",
+        "Description": "AWS Session Token used as credentials for accessing SSM parameters.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.host_key",
+        "Description": "Must be specified, bosh can auto-generate, see sample manifest.yml.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "ssh-rsa ...\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "microsoft_auth.groups",
+        "Description": "Allowed Active Directory groups to use for Microsoft OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.users",
+        "Description": "List of CloudFoundry userids/usernames that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "gc.one_off_grace_period",
+        "Description": "Period after which one-off build containers will be garbage-collected.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_input_container_placement_strategy",
+        "Description": "A second method by which a worker is selected during container placement\nthat is used for get and nested check steps.\n\nSupported options are \"random\",\n\"fewest-build-containers\", \"limit-active-tasks\",\n\"limit-active-containers\", and \"limit-active-volumes\".\n",
+        "Default": null,
+        "Example": "fewest-build-containers",
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.ca_cert",
+        "Description": "CA certificate to verify the server against.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cookie_secure",
+        "Description": "Set secure flag on auth cookies.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.insecure_no_ssl",
+        "Description": "Required if LDAP host does not use TLS.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "microsoft_auth.only_security_groups",
+        "Description": "Only fetch security groups for Microsoft OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "gc.failed_grace_period",
+        "Description": "Period after which failed builds will get garbage-collected.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.api_key",
+        "Description": "New Relic Insights API Key.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "newrelic.url",
+        "Description": "New Relic Insights Base Url\n",
+        "Default": null,
+        "Example": "https://insights-collector.newrelic.com",
+        "Examples": null
+      },
+      {
+        "Name": "policy_check.skip_actions",
+        "Description": "Array of ATC API actions to skip policy checking.\n",
+        "Default": null,
+        "Example": [
+          "PausePipeline",
+          "UnpausePipeline"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.group_search_scope",
+        "Description": "Can either be 'sub' - search the whole sub tree or 'one' - only search\none level. Defaults to 'sub' if empty.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oidc.groups",
+        "Description": "List of Generic OIDC groups that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "max_active_tasks_per_worker",
+        "Description": "Maximum allowed number of active build tasks per worker.\n\nHas effect only when used with \"limit-active-tasks\" placement strategy.\n\n0 means no limit.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.otlp_use_tls",
+        "Description": "Whether to use TLS for the OTLP connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.user_id_key",
+        "Description": "User ID claim key used to map groups from the OAuth userinfo/token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.database",
+        "Description": "InfluxDB database to which metrics will be emitted.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.jaeger_service",
+        "Description": "Name of the service being traced.\n",
+        "Default": null,
+        "Example": "web",
+        "Examples": null
+      },
+      {
+        "Name": "tls.bind_port",
+        "Description": "Port on which the ATC should listen for HTTPS traffic.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "content_security_policy",
+        "Description": "The value to set for Content-Security-Policy header.\n",
+        "Default": null,
+        "Example": "no-store, private",
+        "Examples": null
+      },
+      {
+        "Name": "syslog.transport",
+        "Description": "Transport protocol for syslog messages (Currently supporting tcp, udp \u0026 tls).",
+        "Default": null,
+        "Example": "tcp",
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.sso_url",
+        "Description": "SSO URL used for POST value.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.config",
+        "Description": "YAML file content for the main team's role configuration.\n",
+        "Default": null,
+        "Example": "roles:\n- name: owner\n  github:\n    users: [\"admin\"]\n- name: member\n  github:\n    teams: [\"org:team\"]\n- name: viewer\n  github:\n    orgs: [\"org\"]\n  local:\n    users: [\"visitor\"]\n",
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.local.users",
+        "Description": "An array of local users that are authorized for the main team.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.saml.groups",
+        "Description": "List of SAML groups that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "conjur.secret_template",
+        "Description": "Conjur secret identifier template used for full path conjur secrets\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opa.url",
+        "Description": "Open Policy Agent policy check endpoint.\n",
+        "Default": null,
+        "Example": "http://opa.example.com:8181/v1/data/concourse/allow",
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.client_id",
+        "Description": "Configure the client_id to use when requesting a token\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.heartbeat_interval",
+        "Description": "Interval on which to register workers with the ATC.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.role.password",
+        "Description": "Password to use when connecting.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.authorized_keys",
+        "Description": "Public keys to authorize for SSH connections. Either a string with one\npublic key per line, or an array of public keys.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "SSL cert to use for HTTPS.\n\nIf not specified, only HTTP will be enabled.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "p2p.enable",
+        "Description": "Enable peer-to-peer volume streaming between workers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_email_attr",
+        "Description": "A mapping of attributes on the user entry to claims. Defaults to 'mail'\nif empty.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "job_scheduling_max_in_flight",
+        "Description": "Maximum number of jobs to be scheduling at the same time.\n",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.attributes",
+        "Description": "Attributes to attach to traces as metadata.\n",
+        "Default": null,
+        "Example": {
+          "environment": "ci"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "conjur.appliance_url",
+        "Description": "URL of the Conjur instance.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.display_name",
+        "Description": "The auth provider name displayed to users on the login page.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bind_ip",
+        "Description": "IP address on which the ATC should listen for HTTP traffic.\n",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.ldap.groups",
+        "Description": "List of LDAP groups that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-group"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.start_tls",
+        "Description": "Start on insecure port, then negotiate TLS.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.username_prompt",
+        "Description": "The prompt that's displayed when logging in through the UI when\npassword_connector is set to \"ldap\".\n",
+        "Default": null,
+        "Example": "Username",
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.spaces_with_manager_role",
+        "Description": "List of CloudFoundry Spaces whose 'manager' users are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "myorg:myspace"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "default_get_timeout",
+        "Description": "Default timeout of get steps\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.sslmode",
+        "Description": "Whether or not to use SSL. Defaults to `verify-ca` when `postgresql.address`\nor `postgresql.host` is provided. Otherwise, defaults to `disable`.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.otlp_address",
+        "Description": "OTLP address to send traces to.\n",
+        "Default": null,
+        "Example": "otel-collector:55860",
+        "Examples": null
+      },
+      {
+        "Name": "opa.result.allowed_key",
+        "Description": "Name of key in the Open Policy Agent result to check if the action is allowed.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.client_id",
+        "Description": "Application client ID for enabling generic OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oauth.userinfo_url",
+        "Description": "Generic OAuth provider user info endpoint URL.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.cf.space_guids",
+        "Description": "List of CloudFoundry Space GUIDs that are authorized for the main team\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.agent_uds_filepath",
+        "Description": "Datadog agent unix domain socket (uds) filepath to expose dogstatsd metrics\n",
+        "Default": null,
+        "Example": "/tmp/datadog.socket",
+        "Examples": null
+      },
+      {
+        "Name": "conjur.pipeline_secret_template",
+        "Description": "Conjur secret identifier template used for pipeline specific parameter.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog.drain_interval",
+        "Description": "Interval over which checking is done for new build logs to send to syslog server (duration measurement units are s/m/h)\n",
+        "Default": "30s",
+        "Example": "30s",
+        "Examples": null
+      },
+      {
+        "Name": "gc.interval",
+        "Description": "The interval, in Go duration format (1m = 1 minute), on which to garbage\ncollect containers, volumes, and other internal data.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "secrets.cache.purge_interval",
+        "Description": "Interval on which to purge expired cached credentials.\n",
+        "Default": "10m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lidar_scanner_interval",
+        "Description": "Interval on which the resource scanner will run to see if new checks need to be scheduled\n",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.prefix",
+        "Description": "An optional prefix for emitted Datadog events.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.bind_dn",
+        "Description": "Bind DN for searching LDAP users and groups. Typically this is a\nread-only user.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.issuer",
+        "Description": "Generic OIDC provider issuer url.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.user_name_key",
+        "Description": "User name claim key used to map groups from the OIDC userinfo/token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgresql.connect_timeout",
+        "Description": "Dialing timeout, in Go duration format (1m = 1 minute). 0 means wait indefinitely.\n",
+        "Default": "5m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.jaeger_endpoint",
+        "Description": "jaeger HTTP-based Thrift collector.\n",
+        "Default": null,
+        "Example": "http://jaeger:14268/api/traces",
+        "Examples": null
+      },
+      {
+        "Name": "audit.system",
+        "Description": "Enable auditing of system API requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.ldap.users",
+        "Description": "List of LDAP users that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "enable_global_resources",
+        "Description": "Enable equivalent resources across pipelines and teams to share a single\nversion history.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vault.auth.params",
+        "Description": "Key-value parameters to provide when logging in with the backend.\n",
+        "Default": null,
+        "Example": {
+          "role_id": "abc123",
+          "secret_id": "def456"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the ATC. When set to debug, you'll see a lot more\ninformation about scheduling, resource scanning, etc., but it'll be quite\nchatty.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.scopes",
+        "Description": "OIDC scopes to request during authorization.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.microsoft.users",
+        "Description": "List of whitelisted Microsoft users for the main team.\n",
+        "Default": null,
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "enable_resource_causality",
+        "Description": "Enable web UI and API endpoint for resource causality\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_ssm.shared_path",
+        "Description": "Path under which to lookup shared credentials.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "opa.timeout",
+        "Description": "Open Policy Agent API request timeout.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ldap_auth.user_search_filter",
+        "Description": "Optional filter to apply when searching the directory.\n",
+        "Default": null,
+        "Example": "(objectClass=person)",
+        "Examples": null
+      },
+      {
+        "Name": "gitlab_auth.client_secret",
+        "Description": "GitLab client secret to use for OAuth.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "influxdb.username",
+        "Description": "InfluxDB username for authorizing access.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "credhub.path_prefix",
+        "Description": "Path under which to namespace team/pipeline credentials.\n",
+        "Default": "/concourse",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws_secretsmanager.team_secret_template",
+        "Description": "AWS SecretsManager secret name template used to resolve team specific secrets.\n",
+        "Default": "/concourse/{{.Team}}/{{.Secret}}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "build_log_retention.default_builds",
+        "Description": "Default build logs to retain. 0 means unlimited.\n",
+        "Default": null,
+        "Example": 100,
+        "Examples": null
+      },
+      {
+        "Name": "concurrent_request_limits",
+        "Description": "Limit the number of concurrent requests to an API endpoint.\n",
+        "Default": null,
+        "Example": {
+          "ListAllJobs": 5
+        },
+        "Examples": null
+      },
+      {
+        "Name": "saml_auth.display_name",
+        "Description": "The auth provider name displayed to users on the login page.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.display_name",
+        "Description": "Name of the authentication method to be displayed on the Web UI",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "generic_oidc.skip_email_verified_validation",
+        "Description": "Ignore the email_verified claim from the upstream provider, treating all users as if email_verified were true.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "main_team.auth.oauth.users",
+        "Description": "List of Generic OAuth users that are authorized for the main team\n",
+        "Default": null,
+        "Example": [
+          "my-username"
+        ],
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "worker",
+    "Description": "The 'worker' nodes are what actually run Concourse workloads (builds, resource checking, etc). They register with Concourse via the SSH worker gateway running on the 'web' nodes.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor814219710/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "pre_start.erb",
+        "DstPathEnd": "bin/pre_start",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/pre_start.erb"
+      },
+      {
+        "SrcPathEnd": "concourse_start.erb",
+        "DstPathEnd": "bin/concourse_start",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/concourse_start.erb"
+      },
+      {
+        "SrcPathEnd": "garden.ini.erb",
+        "DstPathEnd": "config/garden.ini",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/garden.ini.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "concourse_stop.erb",
+        "DstPathEnd": "bin/concourse_stop",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/concourse_stop.erb"
+      },
+      {
+        "SrcPathEnd": "env.sh.erb",
+        "DstPathEnd": "config/env.sh",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/env.sh.erb"
+      },
+      {
+        "SrcPathEnd": "concourse.service",
+        "DstPathEnd": "config/concourse.service",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/concourse.service"
+      },
+      {
+        "SrcPathEnd": "worker_gateway_host_key.pub.erb",
+        "DstPathEnd": "config/worker_gateway_host_key.pub",
+        "Path": "/tmp/tar-CmdExtractor814219710/templates/worker_gateway_host_key.pub.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "concourse"
+      },
+      {
+        "Name": "btrfs_tools"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "worker_gateway.hosts",
+        "Description": "Addresses (host:port) of TSA servers to register with.\n\nIf not specified, the `web` link is used.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.ipv6.enabled",
+        "Description": "Enable IPv6 networking for worker containers\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.honeycomb_dataset",
+        "Description": "Name of dataset.\n",
+        "Default": null,
+        "Example": "web",
+        "Examples": null
+      },
+      {
+        "Name": "containerd.seccomp_profile",
+        "Description": "Path to a seccomp filter override. By default will use a restrictive default set.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the worker. When set to debug, you'll see a lot more\ninformation.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "https_proxy_url",
+        "Description": "Proxy to use for outgoing https requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_garden_url",
+        "Description": "API endpoint of an externally managed Garden server to use instead of\nrunning the embedded Garden server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.driver",
+        "Description": "Driver to use for the volume store. One of detect, overlay, btrfs, or naive.\n",
+        "Default": "detect",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.disable_user_namespaces",
+        "Description": "Disable remapping of user/group IDs in unprivileged volumes.\n\nFor use in combination with 'runtime.type=houdini'.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthcheck.bind_ip",
+        "Description": "IP address on which to listen for health checking requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.jaeger_endpoint",
+        "Description": "jaeger HTTP-based Thrift collector.\n",
+        "Default": null,
+        "Example": "http://jaeger:14268/api/traces",
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.rebalance_interval",
+        "Description": "The interval on which the worker will connect to a new SSH gateway and\ndrain the old connection. This has the effect of rebalancing the\nforwarded workers across the SSH gateways over time.\n",
+        "Default": null,
+        "Example": "4h",
+        "Examples": null
+      },
+      {
+        "Name": "garden.config_ini",
+        "Description": "Contents of the Garden configuration. Use to customize the container runtime.\nThis may over-ride any other environment variables specified.\nSee: https://concourse-ci.org/concourse-worker.html#configuring-gdn-server\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthcheck.timeout",
+        "Description": "HTTP timeout for the full duration of health checking.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "team",
+        "Description": "Register the worker for a single team.\n\nIf not specified, the worker will be shared across all teams.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_proxy",
+        "Description": "A list domains and IPs with optional port for which the proxy should be\nbypassed.\n",
+        "Default": null,
+        "Example": [
+          "localhost",
+          "127.0.0.1",
+          "example.com",
+          "domain.com:8080"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "volume_sweeper_max_in_flight",
+        "Description": "Maximum number of volumes which can be swept in parallel.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.host_public_key",
+        "Description": "Public key to verify for the TSA server.\nIf not specified, the `web` link is used.\n",
+        "Default": null,
+        "Example": "ssh-rsa ...",
+        "Examples": null
+      },
+      {
+        "Name": "connection_drain_timeout",
+        "Description": "Duration after which a worker should give up draining forwarded\nconnections on shutdown.\n",
+        "Default": "1h",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug.bind_ip",
+        "Description": "IP address on which to listen for the pprof debugger endpoints.\n",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug.bind_port",
+        "Description": "Port on which to listen for the pprof debugger endpoints.\n",
+        "Default": 7776,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.jaeger_tags",
+        "Description": "Tags to include in components.\n",
+        "Default": null,
+        "Example": "foo:bar,caz:zaz",
+        "Examples": null
+      },
+      {
+        "Name": "garden.max_containers",
+        "Description": "Maximum container capacity to advertise. 0 means no limit. Defaults to 250.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.config",
+        "Description": "Path to a config file to use for the Containerd daemon.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.restricted_networks",
+        "Description": "List of network ranges to which traffic from containers will be restricted.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.request_timeout",
+        "Description": "Time to wait for requests to Containerd to complete. 0 means no timeout.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.privileged_mode",
+        "Description": "How many privileges privileged containers get. Options are 'full'\n(default), 'fuse-only', 'ignore'. 'full' is equivalent to root on host.\n'ignore' means no extra privileges. 'fuse-only' means enough privileges\nto use fuse-overlayfs.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.init_bin",
+        "Description": "Path to an init executable. For BOSH this defaults to /var/vcap/packages/concourse/bin/init when containerd\nis selected as the runtime.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.attributes",
+        "Description": "Attributes to attach to traces as metadata.\n",
+        "Default": null,
+        "Example": {
+          "environment": "ci"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "tracing.jaeger_service",
+        "Description": "Name of the service being traced.\n",
+        "Default": null,
+        "Example": "web",
+        "Examples": null
+      },
+      {
+        "Name": "tracing.otlp_use_tls",
+        "Description": "Whether to use TLS for the OTLP connection.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.p2p.interface_family",
+        "Description": "Interface family to use for peer-to-peer volume streaming.\n\nSet 4 for IPv4 or 6 for IPv6.\n",
+        "Default": null,
+        "Example": 4,
+        "Examples": null
+      },
+      {
+        "Name": "garden.dns_servers",
+        "Description": "DNS servers IP addresses to use instead of automatically\npropagating the host's DNS configuration.\n",
+        "Default": null,
+        "Example": [],
+        "Examples": null
+      },
+      {
+        "Name": "garden.network_pool",
+        "Description": "Network range to use for dynamically allocated container subnets. Defaults to \"10.80.0.0/16\".\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.dns_servers",
+        "Description": "List of DNS server IP addresses to use instead of automatically determined servers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthcheck.bind_port",
+        "Description": "Port on which to listen for health checking requests.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ephemeral",
+        "Description": "If set, the worker will immediately disappear upon stalling.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.bind_port",
+        "Description": "Port on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": 7788,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.deny_networks",
+        "Description": "Network ranges to which traffic from containers will be denied.\n",
+        "Default": null,
+        "Example": [],
+        "Examples": null
+      },
+      {
+        "Name": "containerd.ipv6.disable_masquerade",
+        "Description": "Disable masquerading of container traffic with the worker's address\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.honeycomb_api_key",
+        "Description": "Honeycomb.io API Key.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sweep_interval",
+        "Description": "Interval on which to destroy containers and volumes marked for garbage\ncollection.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.network_pool",
+        "Description": "Network range to use for dynamically allocated container subnets. Defaults to \"10.80.0.0/16\".\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.bind_ip",
+        "Description": "IP on which Baggageclaim should listen for HTTP traffic.\nWhen p2p is enabled this needs to be set to 0.0.0.0\n",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.bin",
+        "Description": "Path to a gdn executable (non-absolute names get resolved from $PATH).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.cni_bin",
+        "Description": "Path to CNI network plugins. For BOSH this defaults to /var/vcap/packages/concourse/bin when containerd is\nselected as the runtime.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "runtime",
+        "Description": "Container runtime for worker. Possible values are \"guardian\", \"containerd\", and \"houdini\".\nPlease note that Houdini is insecure and does not run tasks in containers.\n",
+        "Default": null,
+        "Example": "guardian",
+        "Examples": null
+      },
+      {
+        "Name": "garden.allow_host_access",
+        "Description": "Allow containers to reach the worker VM's network.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.mtu",
+        "Description": "MTU size for container network interfaces. Defaults to the MTU of the interface used for outbound access by the host.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.ipv6.pool",
+        "Description": "Network range to use for dynamically allocated container subnets. Defaults to \"fd9c:31a6:c759::/64\".\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.request_timeout",
+        "Description": "How long to wait for requests to Garden to complete, in Go duration format (48h = 48 hours).\n0 means no timeout.\n",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "tracing.stackdriver_projectid",
+        "Description": "GCP's Project ID\n",
+        "Default": null,
+        "Example": "my-projectid",
+        "Examples": null
+      },
+      {
+        "Name": "tracing.otlp_headers",
+        "Description": "Headers to attach to each tracing message.\n",
+        "Default": null,
+        "Example": {
+          "lightstep-access-token": "mysecrettoken"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "An array of tags to advertise for each worker.\n",
+        "Default": null,
+        "Example": [
+          "special"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "container_sweeper_max_in_flight",
+        "Description": "Maximum number of containers which can be swept in parallel.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.worker_key",
+        "Description": "SSH key to use when authenticating with the TSA.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "ssh-rsa ..."
+        },
+        "Examples": null
+      },
+      {
+        "Name": "containerd.dns_proxy_enable",
+        "Description": "Enable a proxy DNS server for Garden. Note: this implicitly turns on container access to host network.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.external_ip",
+        "Description": "IP address to use to reach container's mapped ports. Autodetected if not specified.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.allow_host_access",
+        "Description": "Allows containers to reach host network\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.service_name",
+        "Description": "Service name to attach to traces as metadata.\n",
+        "Default": null,
+        "Example": "concourse-web",
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.p2p.interface_name_pattern",
+        "Description": "Regex for determining the network interface to use for peer-to-peer\nvolume streaming.\n",
+        "Default": null,
+        "Example": "eth0",
+        "Examples": null
+      },
+      {
+        "Name": "containerd.bin",
+        "Description": "Path to a containerd executable (non-absolute names get resolved from $PATH).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.max_containers",
+        "Description": "Maximum container capacity. 0 means no limit. Defaults to 250.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tracing.otlp_address",
+        "Description": "OTLP address to send traces to.\n",
+        "Default": null,
+        "Example": "otel-collector:55860",
+        "Examples": null
+      },
+      {
+        "Name": "http_proxy_url",
+        "Description": "Proxy to use for outgoing http requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "certs_path",
+        "Description": "A path to a directory on the instance to create the resource certificates\nvolume from.\n",
+        "Default": "/etc/ssl/certs",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "drain_timeout",
+        "Description": "Maximum wait time in Go duration format (1m = 1 minute) for worker drain\nto be finished. Only applies when worker is getting shutdown.\n",
+        "Default": "1h",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containerd.oci_hooks_dir",
+        "Description": "Path to the oci hooks dir. By default none is provided.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "worker-windows",
+    "Description": "The 'worker' nodes are what actually run Concourse workloads (builds, resource checking, etc). They register with Concourse via the SSH worker gateway running on the 'web' nodes.\n",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3221053307/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "env.ps1.erb",
+        "DstPathEnd": "config/env.ps1",
+        "Path": "/tmp/tar-CmdExtractor3221053307/templates/env.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "worker_gateway_host_key.pub.erb",
+        "DstPathEnd": "config/worker_gateway_host_key.pub",
+        "Path": "/tmp/tar-CmdExtractor3221053307/templates/worker_gateway_host_key.pub.erb"
+      },
+      {
+        "SrcPathEnd": "start.ps1",
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3221053307/templates/start.ps1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3221053307/templates/pre-start.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "concourse-windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "https_proxy_url",
+        "Description": "Proxy to use for outgoing https requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.host_public_key",
+        "Description": "Public key to verify for the TSA server.\nIf not specified, the `web` link is used.\n",
+        "Default": null,
+        "Example": "ssh-rsa ...",
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.rebalance_interval",
+        "Description": "The interval on which the worker will connect to a new SSH gateway and\ndrain the old connection. This has the effect of rebalancing the\nforwarded workers across the SSH gateways over time.\n",
+        "Default": null,
+        "Example": "4h",
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.bind_port",
+        "Description": "Port on which Baggageclaim should listen for HTTP traffic.\n",
+        "Default": 7788,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "team",
+        "Description": "Register the worker for a single team.\n\nIf not specified, the worker will be shared across all teams.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_proxy",
+        "Description": "A list domains and IPs with optional port for which the proxy should be\nbypassed.\n",
+        "Default": null,
+        "Example": [
+          "localhost",
+          "127.0.0.1",
+          "example.com",
+          "domain.com:8080"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "garden.request_timeout",
+        "Description": "How long to wait for requests to Garden to complete, in Go duration format (48h = 48 hours).\n0 means no timeout.\n",
+        "Default": null,
+        "Example": "5m",
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.hosts",
+        "Description": "Addresses (host:port) of TSA servers to register with.\n\nIf not specified, the `web` link is used.\n",
+        "Default": null,
+        "Example": [
+          "localhost:2222",
+          "example.com"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "http_proxy_url",
+        "Description": "Proxy to use for outgoing http requests from containers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sweep_interval",
+        "Description": "Interval on which to destroy containers and volumes marked for garbage\ncollection.\n",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "baggageclaim.driver",
+        "Description": "Driver to use for the volume store. One of detect, overlay, btrfs, or naive.\n",
+        "Default": "detect",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "external_garden_url",
+        "Description": "API endpoint of an externally managed Garden server to use instead of\nrunning the embedded Garden server.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "The log level for the worker. When set to debug, you'll see a lot more\ninformation.\n",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tags",
+        "Description": "An array of tags to advertise for each worker.\n",
+        "Default": null,
+        "Example": [
+          "special"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "drain_timeout",
+        "Description": "Maximum wait time in Go duration format (1m = 1 minute) for worker drain\nto be finished. Only applies when worker is getting shutdown.\n\nIf not specified, it will be indefinite.\n",
+        "Default": "1h",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ephemeral",
+        "Description": "If set, the worker will immediately disappear upon stalling.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "worker_gateway.worker_key",
+        "Description": "SSH key to use when authenticating with the TSA.\n",
+        "Default": null,
+        "Example": {
+          "private_key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n",
+          "public_key": "ssh-rsa ..."
+        },
+        "Examples": null
+      }
+    ]
+  }
+]
