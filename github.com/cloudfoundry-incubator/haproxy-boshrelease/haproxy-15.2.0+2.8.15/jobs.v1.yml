@@ -1,0 +1,1280 @@
+[
+  {
+    "Name": "haproxy",
+    "Description": "The HAProxy server can be used to terminate SSL in front of the Routers. Each HAProxy instance should point to multiple Routers.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2661862982/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "certs.ttar.erb",
+        "DstPathEnd": "config/certs.ttar",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/certs.ttar.erb"
+      },
+      {
+        "SrcPathEnd": "ssl_redirect.map.erb",
+        "DstPathEnd": "config/ssl_redirect.map",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/ssl_redirect.map.erb"
+      },
+      {
+        "SrcPathEnd": "backend-ca-certs.erb",
+        "DstPathEnd": "config/backend-ca-certs.pem",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/backend-ca-certs.erb"
+      },
+      {
+        "SrcPathEnd": "backend-crt.erb",
+        "DstPathEnd": "config/backend-crt.pem",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/backend-crt.erb"
+      },
+      {
+        "SrcPathEnd": "client-revocation-list.erb",
+        "DstPathEnd": "config/client-revocation-list.pem",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/client-revocation-list.erb"
+      },
+      {
+        "SrcPathEnd": "whitelist_cidrs.txt.erb",
+        "DstPathEnd": "config/whitelist_cidrs.txt",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/whitelist_cidrs.txt.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy_wrapper.erb",
+        "DstPathEnd": "bin/haproxy_wrapper",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/haproxy_wrapper.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "cidrs.ttar.erb",
+        "DstPathEnd": "config/cidrs.ttar",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/cidrs.ttar.erb"
+      },
+      {
+        "SrcPathEnd": "client-ca-certs.erb",
+        "DstPathEnd": "config/client-ca-certs.pem",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/client-ca-certs.erb"
+      },
+      {
+        "SrcPathEnd": "expect_proxy_cidrs.txt.erb",
+        "DstPathEnd": "config/expect_proxy_cidrs.txt",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/expect_proxy_cidrs.txt.erb"
+      },
+      {
+        "SrcPathEnd": "trusted_domain_cidrs.txt.erb",
+        "DstPathEnd": "config/trusted_domain_cidrs.txt",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/trusted_domain_cidrs.txt.erb"
+      },
+      {
+        "SrcPathEnd": "reload.erb",
+        "DstPathEnd": "bin/reload",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/reload.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy.config.erb",
+        "DstPathEnd": "config/haproxy.config",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/haproxy.config.erb"
+      },
+      {
+        "SrcPathEnd": "blacklist_cidrs.txt.erb",
+        "DstPathEnd": "config/blacklist_cidrs.txt",
+        "Path": "/tmp/tar-CmdExtractor2661862982/templates/blacklist_cidrs.txt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "haproxy"
+      },
+      {
+        "Name": "ttar"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ha_proxy.disable_http",
+        "Description": "Disable port 80 traffic",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.https_redirect_domains",
+        "Description": "For each domain in this array, a HTTPS redirect rule will be put in the config file. Redirect will be applied for all subdomains",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_monit_health_check_http",
+        "Description": "The HAProxy health check endpoint returns a healthy status if at least one backend server is responding. By default when enable_health_check_http: true, Bosh will consider the HAProxy VM unhealthy if the HAProxy health check returns an unhealthy status. In some cases this might not be desired, for example when deploying HAProxy before deploying the backend servers. To prevent Bosh from considering the HAProxy VM unhealthy when all backend servers are unhealthy set disable_monit_health_check_http: true. Note that this flag is ignored unless enable_health_check_http: true.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.trusted_stats_cidrs",
+        "Description": "Trusted ip range that can access the stats UI",
+        "Default": "0.0.0.0/32",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_tls_13",
+        "Description": "Disable TLS 1.3 in HA Proxy. Use 'ssl_min_ver' and 'ssl_max_ver' instead.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_promex_enable",
+        "Description": "If true, haproxy will enable native prometheus exporter.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.resolvers",
+        "Description": "List of DNS servers",
+        "Default": null,
+        "Example": {
+          "resolvers": [
+            {
+              "private": "10.0.0.2"
+            },
+            {
+              "public": "8.8.8.8"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.v4v6",
+        "Description": "Boolean, disabled by default. Enables binding to all IPv4 and IPv6 interfaces. Only applies if `ha_proxy.binding_ip` is set to `::`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_http_health_port",
+        "Description": "Port to check the backend health on",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.master_cli_enable",
+        "Description": "If true, enables the master CLI which can be used to manage HAProxy",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.pre_start_script",
+        "Description": "This script will be appended to the pre-start script and run before the job starts.\nThe pre-start script allows the job to prepare the machine before starting HAProxy,\nfor example, by setting the MTU to a custom value.\n",
+        "Default": null,
+        "Example": "# customize MTU\nCUST_MTU=((custom_mtu))\nINTERFACE=$(ip -4 route get 8.8.8.8 | grep -Po '(?\u003c=dev )\\S+') #'\nCURR_MTU=$(ip link show \"$INTERFACE\" | grep -Po 'mtu \\K\\d+')\nif [[ $CURR_MTU -ne $CUST_MTU ]]; then\n  sudo ip link set dev \"$INTERFACE\" mtu \"$CUST_MTU\"\n  echo \"MTU changed from $CURR_MTU to $CUST_MTU, interface: $INTERFACE.\"\nfi\nCURR_MTU=$(ip link show \"$INTERFACE\" | grep -Po 'mtu \\K\\d+')\necho \"MTU: $CURR_MTU, interface: $INTERFACE\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_ssl",
+        "Description": "Optionally enable SSL verification for backend servers, one of `verify`, `noverify`, any other value assumes no ssl backend.  Setting `verify` requires `ha_proxy.backend_ca_file` key to be set. Note that `off` will disable all backend HTTP2 support regardless of other properties.",
+        "Default": "off",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.forwarded_client_cert",
+        "Description": "This option lets you decide how to handle the X-Forwarded-Client-Cert (XFCC) http header on any https frontend.\nOn http frontends the `always_forward_only` option is active by default and can't be changed.\nOn https frontends your options are:\n\n- always_forward_only: Least secure option. Always forward the X-Forwarded-Client-Cert header in the request, regardless of whether the client connection is mTLS. The following headers will also be forwarded if they are present in the original request: X-SSL-Client, X-SSL-Client-Session-ID, X-SSL-Client-Verify, X-SSL-Client-Subject-DN, X-SSL-Client-Subject-CN, X-SSL-Client-Issuer-DN, X-SSL-Client-NotBefore, X-SSL-Client-NotAfter.\n    Use this value when your load balancer is forwarding the client certificate and requests are not forwarded to HAProxy over mTLS.\n    In the case where the connection between load balancer and HAProxy is mTLS, the client certificate received by HAProxy in the mTLS handshake will not be forwarded.\n\n- forward_only: Secure version of `always_forward_only`. Forward the X-Forwarded-Client-Cert header received from the client only when the client connection is mTLS. The following headers will also be forwarded for mTLS connections if they are present in the original request: X-SSL-Client, X-SSL-Client-Session-ID, X-SSL-Client-Verify, X-SSL-Client-Subject-DN, X-SSL-Client-Subject-CN, X-SSL-Client-Issuer-DN, X-SSL-Client-NotBefore, X-SSL-Client-NotAfter.\n    If the client connection does not use mTLS, these X-Forwarded-Client-Cert and X-SSL-Client-* headers will be removed if they are present.\n    In the case where the connection between load balancer and HAProxy is mTLS, the client certificate received by HAProxy in the mTLS handshake will not be forwarded.\n\n- sanitize_set: Most secure option. Strip any instances of XFCC headers from the client request.\n\n    When the client connection is mTLS, the following headers will be overwritten in the request\n\n      - X-Forwarded-Client-Cert: Contains the client certificate in binary DER format (Base64 encoded). Backends should use this header to authenticate incoming requests.\n\n      - X-SSL-Client: Contains the number 1 if the request was made using a client certificate, 0 otherwise. For easy checks on the backend.\n\n      - X-SSL-Client-Session-ID: The SSL session ID of the client connection. Useful for debugging purposes.\n\n      - X-SSL-Client-Verify: Contains the number 0 if the client certificate verification was successful. Otherwise it contains the appropriate OpenSSL return code (see https://github.com/openssl/openssl/blob/master/include/openssl/x509_vfy.h.in#L206)\n\n      - X-SSL-Client-Subject-DN: Contains the base64-encoded subject distinguished name of the client certificate\n\n      - X-SSL-Client-Subject-CN: Contains the base64-encoded subject common name of the client certificate\n\n      - X-SSL-Client-Issuer-DN: Contains the base64-encoded issuer distinguished name of the client certificate\n\n      - X-SSL-Client-Root-CA-DN: X-SSL-Client-Root-CA-DN: Contains base64-encoded subject DN of the root CA which signed the client certificate\n\n      - X-SSL-Client-NotBefore: Contains the start date of the client certificate in YYMMDDhhmmss[Z] format.\n\n      - X-SSL-Client-NotAfter: Contains the expiration date of the client certificate in YYMMDDhhmmss[Z] format.\n\n- forward_only_if_route_service:\n    This option is useful to support Mutual TLS with CF Route Services.\n    When the client connection is not mTLS, the X-Forwarded-Client-Cert and X-SSL-Client-* headers will be removed UNLESS there is an X-Cf-Proxy-Signature header.\n    When the client connection is mTLS, the following headers will be overwritten in the request\n\n      - X-Forwarded-Client-Cert: Contains the client certificate in binary DER format (Base64 encoded). Backends should use this header to authenticate incoming requests.\n\n      - X-SSL-Client: Contains the number 1 if the request was made using a client certificate, 0 otherwise. For easy checks on the backend.\n\n      - X-SSL-Client-Session-ID: The SSL session ID of the client connection. Useful for debugging purposes.\n\n      - X-SSL-Client-Verify: Contains the number 0 if the client certificate verification was successful. Otherwise it contains the appropriate OpenSSL return code (see https://github.com/openssl/openssl/blob/master/include/openssl/x509_vfy.h.in#L206)\n\n      - X-SSL-Client-Subject-DN: Contains the base64-encoded subject distinguished name of the client certificate\n\n      - X-SSL-Client-Subject-CN: Contains the base64-encoded subject common name of the client certificate\n\n      - X-SSL-Client-Issuer-DN: Contains the base64-encoded issuer distinguished name of the client certificate\n\n      - X-SSL-Client-NotBefore: Contains the start date of the client certificate in YYMMDDhhmmss[Z] format.\n\n      - X-SSL-Client-NotAfter: Contains the expiration date of the client certificate in YYMMDDhhmmss[Z] format.\n\n    This option is only secure if Gorouter is deployed behind Haproxy to validate that X-Cf-Proxy-Signature is coming from a route service.\n",
+        "Default": "sanitize_set",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.cidrs_in_file",
+        "Description": "List of cidrs that will be placed in /var/vcap/jobs/haproxy/config/cidrs/\u003cname\u003e. Useful for acl's that reference\na long list of cidrs (invoke the file with -f /var/vcap/jobs/haproxy/config/cidrs/\u003cname\u003e).\n",
+        "Default": null,
+        "Example": {
+          "cidrs_in_file": [
+            {
+              "cidrs": [
+                "5.22.1.3",
+                "5.22.12.3"
+              ],
+              "name": "sample_cidrs"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_domain_fronting",
+        "Description": "Must be one of true, false, or \"mtls_only\"\nIf set to true, it will prevent clients from setting a host header different from the SNI value for HTTPS and WSS (secured websockets) connections. This is called domain fronting and is mostly used by CDNs.\nIf domain fronting is disabled, such requests will result in a 421 Misdirected Request error.\nIf set to \"mtls_only\", the host header will only be checked against the SNI for mtls connections\nExample\n  curl -H \"Host: bob.com\" https://alice.com    \u003c-- This will result in a 421 Misdirected Request\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ext_crt_list_policy",
+        "Description": "What to do if the external certificates list located at `ha_proxy.ext_crt_list_file` does not appear within the time\ndenoted by `ha_proxy.ext_crt_list_timeout`. Set to either 'fail' (HAproxy will not start) or 'continue' (HAproxy will start without external certificates)\n",
+        "Default": "fail",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_ca_file",
+        "Description": "Optional SSL CA certificate chain (PEM file) concatenated together for backend SSL servers, only used when one of the `backend_ssl` options is set to `verify`",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.strip_headers",
+        "Description": "List of custom headers to delete on each request. Spaces are automatically escaped, but any other haproxy delimiters will need to be escaped manually",
+        "Default": null,
+        "Example": "strip_headers:\n  - MyHeader\n  - MyCustomHeaderToDelete\n",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.client_cert_ignore_err",
+        "Description": "Error code(s) to ignore from verifying a client cert during a mutual ssl handshake, in a comma-separated list.\nFor example, 2 is if it cannot get the issuer certificate, 10 if the certificate has expired and 18 if the certificate is self-signed.\nThe keyword 'all' will ignore all possible errors.\nNote that the errors will be ignored on both the certificate and the CA verification.\nSee the openssl verify documentation [https://www.openssl.org/docs/manmaster/man3/X509_STORE_CTX_get_error.html] for a full list of all error codes and their meanings.\nSee https://github.com/openssl/openssl/blob/master/include/openssl/x509_vfy.h.in#L206 for a mapping of error codes to symbols.\n",
+        "Default": null,
+        "Example": "2,10,18",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.dns_hold",
+        "Description": "DNS Hold time",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.tcp_routing.port_range",
+        "Description": "A range of ports for haproxy to listen on to enable CF TCP Routing. Used only if 'tcp_router' link is present.",
+        "Default": "1024-1123",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.requests_rate_limit.window_size",
+        "Description": "Window size for counting requests. See docs/rate_limiting.md",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.crt_list",
+        "Description": "Array of private keys and certificates used for TLS handshakes with downstream clients. Each element in the array is an object containing at least the field 'ssl_pem'.\nThe field 'ssl_pem' itself is either an object containing fields 'cert_chain' and 'private_key', or a single string containing the cert chain and the private key.\nThe following fields are optional:\n- 'alpn' (a optional array of strings). If both HTTP/2 and HTTP/1.1 are expected to be supported, both versions can be advertised, in order of preference\n- 'client_ca_file' (replaces ha_proxy.client_ca_file)\n- 'verify' (allowed values: [none|optional|required])\n- 'ssl_ciphers' (overrides ha_proxy.ssl_ciphers)\n- 'ssl_ciphersuites' (overrides ha_proxy.ssl_ciphersuites)\n- 'ssl_min_version' (allowed values: [SSLv3 | TLSv1.0 | TLSv1.1 | TLSv1.2 | TLSv1.3])\n- 'ssl_max_version' (allowed values: [SSLv3 | TLSv1.0 | TLSv1.1 | TLSv1.2 | TLSv1.3])\n- 'client_revocation_list' (replaces ha_proxy.client_revocation_list)\n- 'snifilter' (either a string or an array of strings)\nThe global option ha_proxy.client_cert has to be set to 'true', if there are crt_list entries with mutual auth configuration ('client_ca_file', 'client_revocation_list' and 'verify'!='none')\nTo avoid confusing configurations, it's not allowed to specify 'client_ca_file' and 'client_revocation_list' both globally AND in crt_list entries.\n",
+        "Default": null,
+        "Example": {
+          "crt_list": [
+            {
+              "ssl_pem": "-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN RSA PRIVATE KEY-----\n-----END RSA PRIVATE KEY-----\n"
+            },
+            {
+              "alpn": [
+                "h2",
+                "http/1.1"
+              ],
+              "client_ca_file": "-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n",
+              "client_revocation_list": "-----BEGIN X509 CRL-----\n-----END X509 CRL-----\n-----BEGIN X509 CRL-----\n-----END X509 CRL-----\n",
+              "snifilter": [
+                "*.domain.tld",
+                "!secure.domain.tld"
+              ],
+              "ssl_ciphers": "AES:ALL:!aNULL:!eNULL:+RC4:@STRENGTH",
+              "ssl_ciphersuites": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256",
+              "ssl_max_version": "TLSv1.3",
+              "ssl_min_version": "TLSv1.2",
+              "ssl_pem": {
+                "cert_chain": "-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n",
+                "private_key": "-----BEGIN RSA PRIVATE KEY-----\n-----END RSA PRIVATE KEY-----\n"
+              },
+              "verify": "required"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ssl_ciphersuites",
+        "Description": "List of TLSv1.3 Ciphers that are passed to HAProxy, requires at least openssl version 1.1.1",
+        "Default": null,
+        "Example": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_password",
+        "Description": "Password to authenticate haproxy stats, ignored when 'stats_user' is empty",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.rsp_headers",
+        "Description": "Hash of custom headers you wish you have set on each request. Spaces are automatically escaped, but any other haproxy delimiters will need to be escaped manually",
+        "Default": null,
+        "Example": "rsp_headers:\n  X-Application-ID: my-custom-header\n  MyCustomHeader: 3\n",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_use_http_health",
+        "Description": "Enables HTTP based health checks for the default backend\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.requests_rate_limit.table_size",
+        "Description": "Size of the stick table in which the IPs and counters are stored. See docs/rate_limiting.md",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.binding_ip",
+        "Description": "If there are multiple ethernet interfaces, specify which one to bind. Set to `::` to bind to all IPv6 interfaces (no IPv4). IPv6 must be enabled on the HAProxy VM in the deployment manifest.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.config_mode",
+        "Description": "'auto' - utilizes raw_config if defined and mixes it with raw_blocks; otherwise, it uses traditional configuration mixed with raw_blocks\n'raw_blocks_only' - uses only raw_blocks, ignoring other configurations.\n",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.request_timeout",
+        "Description": "Timeout (in floating point seconds) applied to any connection to limit the maximum time for a complete HTTP request (headers only). Used to limit DoS attacks that send data slowly to not trigger the client/server timeouts",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_ssl_verifyhost",
+        "Description": "Optional hostname to verify in the x509 certificate subject for SSL-enabled backend servers.  Requires `ha_proxy.backend_ssl` is set to `verify` when using this.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.legacy_xfcc_header_mapping",
+        "Description": "",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.client_ca_file",
+        "Description": "path for CA certs to validate client certificate",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE-----\n******\n-----END CERTIFICATE-----\n-----BEGIN PRIVATE KEY-----\n******\n-----END PRIVATE KEY-----\n",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.block_all",
+        "Description": "Optionally block all incoming traffic to http(s). Use in conjunction with whitelist.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.frontend_config",
+        "Description": "Raw HAProxy config that will be added to each HA proxy frontend definition, provided either as a multiline text blob or as an array of lines.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.tcp_backend_config",
+        "Description": "Raw HAProxy config that will be added to the CF TCP Router + Generic TCP backend definitions, provided either as a multiline text blob or as an array of lines.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_match_http_protocol",
+        "Description": "Uses the same version of HTTP for backend connections that was used for frontend connections (ie HTTP 1.1 or HTTP 2). Ignores the value of enable_http2. HTTP2 backend connections require that `ha_proxy.backend_ssl` is not `off`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_bind",
+        "Description": "Define listening address and port for the stats frontend. If multithreading is enabled (`ha_proxy.threads \u003e 1`) multiple stat pages are available - one for each thread. You can see the stat page for each thread on a separate port - starting at the defined port number.",
+        "Default": "*:9000",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_promex_path",
+        "Description": "Define prometheus exporter path.",
+        "Default": "/metrics",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.headers",
+        "Description": "Hash of custom headers you wish you have set on each request. Spaces are automatically escaped, but any other haproxy delimiters will need to be escaped manually",
+        "Default": null,
+        "Example": "headers:\n  X-Application-ID: my-custom-header\n  MyCustomHeader: 3\n",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.max_open_files",
+        "Description": "The number of file descriptors HAProxy can have open at one time",
+        "Default": 256000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.drain_enable",
+        "Description": "Send SIGUSR1 signal to all haproxy processes in a drain script in order to gracefully shutdown",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.http_request_deny_conditions",
+        "Description": "List of conditions to block http requests. Each condition consists of multiple rules combined with the AND operator. Setting\nthe negate flag to true will negate the acl condition.\n",
+        "Default": null,
+        "Example": {
+          "http_request_deny_conditions": [
+            {
+              "condition": [
+                {
+                  "acl_name": "block_host",
+                  "acl_rule": "hdr_beg(host) -i login"
+                },
+                {
+                  "acl_name": "block_reset_password_url",
+                  "acl_rule": "path_beg,url_dec -m beg -i /reset_password"
+                },
+                {
+                  "acl_name": "whitelist_ips",
+                  "acl_rule": "src 5.22.5.11 5.22.5.12",
+                  "negate": true
+                }
+              ]
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.lua_scripts_per_thread",
+        "Description": "A list of LUA scripts that HA Proxy should load per thread. These will need to be provided\nby other boshreleases, as none are supplied in `haproxy_boshrelease`. Specify\neach script with the full path to the script (likely `/var/vcap/packages/something/something/darkside.lua`).\n\nInside these scripts, any global variable has a thread-local visibility so that each thread could\nsee a different value. As such it is strongly recommended not to use global\nvariables in programs loaded this way. An independent copy is loaded and\ninitialized for each thread, everything is done sequentially and in the\nthread's numeric order from 1 to nbthread. If some operations need to be\nperformed only once, the program should check the \"core.thread\" variable to\nfigure what thread is being initialized. Programs loaded this way will run\nconcurrently on all threads and will be highly scalable. This is the\nrecommended way to load simple functions that register sample-fetches,\nconverters, actions or services once it is certain the program doesn't depend\non global variables. For the sake of simplicity, the directive is available\neven if only one thread is used and even if threads are disabled (in which\ncase it will be equivalent to `lua_scripts`).\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.raw_config",
+        "Description": "A multiline text blob of an entire haproxy config. Overrides every other\noption available, so you can provide your own config, and do whatever\nyou want. Use at your own risk.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.https_redirect_all",
+        "Description": "If this is set to 'true', a https redirect rule for all http calls will be put in the config file",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.resolve_retry_timeout",
+        "Description": "Timeouts related to resolver name resolution",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.additional_unrestricted_volumes",
+        "Description": "Map of Additional Unrestricted volumes to added so HA Proxy to give the ability to load external volumes under BPM. These will need to be provided\nin a Map based on bpm unrestricted volume spec\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.drain_frontend_grace_time",
+        "Description": "Time in seconds after health checks have been shut down until SIGUSR1 signal is sent to make the frontends stop accepting connections",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ext_crt_list_timeout",
+        "Description": "Timeout (in seconds) to wait for the external certificates list located at `ha_proxy.ext_crt_list_file` to appear during HAproxy startup\n",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.hsts_max_age",
+        "Description": "max-age value for the Strict-Transport-Security header",
+        "Default": 31536000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.client_timeout",
+        "Description": "Timeout (in floating point seconds) used on connections from a client to haproxy that have gone inactive",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_crt",
+        "Description": "Provides client certificate to backend server to do mutual ssl. Note this only configures the client cert for HTTP backends configured via the backend_servers property or through BOSH links. It is not used with backend servers configured via routed_backend_servers or TCP backends",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE-----\n******\n-----END CERTIFICATE-----\n-----BEGIN PRIVATE KEY-----\n******\n-----END PRIVATE KEY-----\n",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.default_config",
+        "Description": "Raw HAProxy config that will be added to the HA proxy default section, provided either as a multiline text blob or as an array of lines.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.max_connections",
+        "Description": "Number of simultaneous connections HAProxy supports handling",
+        "Default": 64000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.connections_rate_limit.table_size",
+        "Description": "Size of the stick table in which the IPs and counters are stored. See docs/rate_limiting.md",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.hsts_enable",
+        "Description": "Enables HSTS(Strict-Transport-Security Header) for all the SSL/TLS listeners",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_uri",
+        "Description": "URI used to access the stats UI.",
+        "Default": "haproxy_stats",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.client_cert",
+        "Description": "Enable haproxy mutual auth\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.tcp",
+        "Description": "List of mappings to perform tcp-based proxying on. See example for mapping datastructure and keys",
+        "Default": [],
+        "Example": {
+          "tcp": [
+            {
+              "backend_port": 80,
+              "backend_servers": [
+                "10.20.10.10",
+                "10.20.10.11"
+              ],
+              "backend_servers_local": [
+                "10.20.10.10"
+              ],
+              "backend_ssl": "verify",
+              "backend_verifyhost": "example.com",
+              "balance": "roundrobin",
+              "health_check_http": 4444,
+              "name": "wss",
+              "port": 4443,
+              "ssl": true
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_tcp_accept_proxy",
+        "Description": "Disables the PROXY protocol on tcp backends. Only applies if `ha_proxy.accept_proxy` is enabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.hsts_preload",
+        "Description": "This enables the preload flag for HSTS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ssl_min_ver",
+        "Description": "This option enforces the use of 'version' or higher for SSL connections initiated from this listener.\nThe recommended value is 'TLSv1.2'. It is not the default due to backward compatibility concerns with\nthe 'disable_tls_*' options. If this option is set, the 'disable_tls_1*' options will be ignored.\n",
+        "Default": null,
+        "Example": "TLSv1.2",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_servers",
+        "Description": "Array of the router IPs acting as the HTTP/TCP backends (should include servers all Availability Zones being used)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_port",
+        "Description": "Listening port for Router",
+        "Default": 80,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.client_revocation_list",
+        "Description": "provide a list of revocation certs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.expect_proxy_cidrs",
+        "Description": "List of CIDRs to enable proxy protocol for. This enables forwarding of the client source IP for hyperscalers not supporting IP dual stack (v4 \u0026 v6). This property is mutually exclusive with the accept_proxy.",
+        "Default": null,
+        "Example": {
+          "expect_proxy_cidrs": [
+            "10.6.7.8/27",
+            "2001:db8::/32"
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_prefer_local_az",
+        "Description": "Prefer backend servers which are located on the same availability zone. Note that this only affects servers provided via the http_backend link property. Servers provided via the tcp backend_link will automatically prefer the local AZ.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.syslog_server",
+        "Description": "An IPv4 address optionally followed by a colon and a UDP port. It can also be an IPv6 address or filesystem path to a UNIX domain socket.",
+        "Default": "stdout",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.buffer_size_bytes",
+        "Description": "Buffer size to use for requests, any requests larger than this (large cookies or query strings) will result in a gateway error",
+        "Default": 16384,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_user",
+        "Description": "User name to authenticate haproxy stats, leave empty if you want the statistics to be available without authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.master_cli_bind",
+        "Description": "IP and port or UNIX socket to bind master CLI to",
+        "Default": "127.0.0.1:9001",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.forward_true_client_ip_header",
+        "Description": "This option lets you decide how to handle the header specified in ha_proxy.true_client_ip_header on any http and https frontend, when it already present in the request.\nYour options are:\n\n- always_forward: Always preserve the existing header.\n\n- forward_only_if_route_service: This option is useful to support the header with Route Services.\n    The header will be overwritten with the current source address, unless there is an X-Cf-Proxy-Signature header.\n\n- always_set: Always set the header with the current source address. Will overwrite any existing header.\n",
+        "Default": "forward_only_if_route_service",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.health_check_port",
+        "Description": "port for http health-check. Please note that `health_check_port` + 1 (e.g. 8081) is used with the `accept-proxy` directive, if `expect_proxy_cidrs` are defined. You will need to direct your health checker to the appropriate port (with or without Proxy Protocol) for correct functionality.",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_tls_tickets",
+        "Description": "Improve (Perfect) Forward Secrecy by disabling TLS tickets.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_tls_11",
+        "Description": "Disable TLS 1.1 in HA Proxy. Use 'ssl_min_ver' and 'ssl_max_ver' instead.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.websocket_timeout",
+        "Description": "Timeout (in floating point seconds) used on websocket/tunnel traffic, when both ends of the conversation have become inactive",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.accept_proxy",
+        "Description": "Turned off by default. Enforces the use of the PROXY protocol for all incoming connections to all frontends, with the exception of local requests to the health check endpoint, since Monit does not support PROXY protocol. When enabled, standard TCP connections to these ports no longer work.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.raw_blocks",
+        "Description": "A hash of block types, where each type contains either a configuration\nor a hash of specific block names with their respective configurations.\nThe configurations are provided as either multiline text blobs or arrays of lines.\nThis structure will be appended to the end of the HAProxy configuration file.\nUse at your own risk.\n",
+        "Default": null,
+        "Example": {
+          "defaults": "log global\ntimeout http-request 10s\n",
+          "listen": {
+            "my-listen-x": "bind :81\nmode http\nserver-template srv 1-3 q-s0.web.default.deployment-x.bosh:8080 check inter 1000\n",
+            "my-listen-y": [
+              "bind :82",
+              "mode http",
+              "server-template srv 1-3 q-s0.web.default.deployment-y.bosh:8080 check inter 1000"
+            ]
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.trusted_domain_cidrs",
+        "Description": "Space separated trusted cidr blocks for internal_only_domains. You may alternatively provide a base64-encoded gzipped HAProxy cidr file, with each CIDR on a new line.",
+        "Default": "0.0.0.0/32",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.default_dh_param",
+        "Description": "Maximum size of DH params when generating ephemeral keys during key exchange",
+        "Default": 2048,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.cidr_whitelist",
+        "Description": "List of CIDRs to allow for http(s). Format is string array of CIDRs or single string of base64 encoded gzip. Note that unless ha_proxy.block_all is true, non-whitelisted traffic will still be allowed, provided that traffic is not also blacklisted",
+        "Default": null,
+        "Example": {
+          "cidr_whitelist": [
+            "172.168.4.1/32",
+            "10.2.0.0/16"
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.max_rewrite",
+        "Description": "Buffer size to use for header rewriting or appending. The default of haproxy is min(1024,buffer_size_bytes/2). Will be set to buffer_size_bytes/2 by haproxy if it is set to a larger value",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.retries",
+        "Description": "HAProxy will retry this many times on failed connections. When redispatch is enabled, the retries may occur on different servers. In combination with connect_timeout this defines the maximum response time of HAProxy to clients. e.g. 0.5s connect_timeout * 10 retries = 5s max response time",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.enable_http2",
+        "Description": "Enables ingress (frontend) and egress (backend) HTTP/2 ALPN negotiation. Egress (backend) HTTP protocol version may be overridden by `ha_proxy.backend_ssl`, `ha_proxy.disable_backend_http2_websockets` and `ha_proxy.backend_match_http_protocol`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.requests_rate_limit.requests",
+        "Description": "How many requests are allowed in the given time window from one IP address. See docs/rate_limiting.md",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.connections_rate_limit.block",
+        "Description": "Whether or not to block connections. See docs/rate_limiting.md",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.log_max_length",
+        "Description": "Optional maximum line length. Log lines larger than this value will be truncated before being sent.",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.connect_timeout",
+        "Description": "Timeout (in floating point seconds) used on connections from haproxy to a backend, while waiting for the TCP handshake to complete + connection to establish",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.queue_timeout",
+        "Description": "Timeout (in floating point seconds) used on any connection sitting in the pending queue, waiting to be sent to the backend, to limit its time being queued",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.true_client_ip_header",
+        "Description": "Header to use to store the client's IP address, as seen from HAProxy. See forward_true_client_ip_header for more options.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.connections_rate_limit.connections",
+        "Description": "How many connections are allowed in the given time window from one IP address. See docs/rate_limiting.md",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.stats_enable",
+        "Description": "If true, haproxy will enable a socket for stats. You can see the stats on `haproxy_ip:9000/haproxy_stats`. If multithreading is enabled (`ha_proxy.threads \u003e 1`) haproxy will create a separate socket and stat page for each thread. Each stat page is reachable on a different port ranging from `9000` to `9000 + ha_proxy.threads - 1`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_config_targeted",
+        "Description": "A map of existing backends which enables more fine-grained configuration of the backend.\nexample:\n  backend_config_targeted:\n    http-routers-http1: |\n      http-reuse aggressive\n    http-routers-http2: |\n      http-reuse safe\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.custom_http_error_files",
+        "Description": "A map of status codes to errorfile contents\n",
+        "Default": {
+          "503": "HTTP/1.1 503 Service Unavailable\nCache-Control: no-cache\nConnection: close\nContent-Type: text/html\n\n\u003chtml\u003e\u003cbody\u003e\u003ch1\u003e503 Service Unavailable\u003c/h1\u003e\nNo server is available to handle this request.\n\u003c/body\u003e\u003c/html\u003e\n"
+        },
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_backend_http2_websockets",
+        "Description": "Forward websockets to the backend servers using HTTP/1.1, never HTTP/2. Does not apply to custom routed_backend_servers. Works around https://github.com/cloudfoundry/routing-release/issues/230. Overrides backend_match_http_protocol for websockets.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_health_check_proxy",
+        "Description": "Disables the use of the PROXY protocol for health checks. Only applies if `ha_proxy.accept_proxy` is enabled.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.requests_rate_limit.block",
+        "Description": "Whether or not to block requests. See docs/rate_limiting.md",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.connections_rate_limit.window_size",
+        "Description": "Window size for counting connections. See docs/rate_limiting.md",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_health_rise",
+        "Description": "Number of consecutive successful health checks required before the server is considered healthy from an unhealthy state. The default value of 2 matches the default if the parameter is undefined. This parameter will be ignored if ha_proxy.backend_use_http_health is false.",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.reload_hard_stop_after",
+        "Description": "Defines the maximum time allowed to perform a clean soft-stop. This is used when issuing a reload via the \"bin/reload\" script. It limits the time for the\nold instance to finish existing connections before the instance is stopped.\n",
+        "Default": "5m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.compress_types",
+        "Description": "If this property is set, gzip compression will be activated for the mime types named in this property. definition like 'text/html text/plain text/css'",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_config",
+        "Description": "Raw HAProxy config that will be added to the default HTTP + routed HTTP backend definitions, provided either as a multiline text blob or as an array of lines.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.strict_sni",
+        "Description": "Optional setting to decide whether the SSL/TLS negotiation is allowed only if the client provided an SNI which strict match a certificate. If set to true, the default certificate is not used",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ssl_pem",
+        "Description": "Array of private keys and certificates used for TLS handshakes with downstream clients. Each element in the array is an object containing fields 'cert_chain' and 'private_key',\neach of which supports a PEM block. Each element can also be a single string containing the cert chain and the private key.\n",
+        "Default": null,
+        "Example": {
+          "ssl_pem": [
+            {
+              "cert_chain": "-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n",
+              "private_key": "-----BEGIN RSA PRIVATE KEY-----\n-----END RSA PRIVATE KEY-----\n"
+            },
+            "-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----\n-----BEGIN RSA PRIVATE KEY-----\n-----END RSA PRIVATE KEY-----\n"
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_tls_12",
+        "Description": "Disable TLS 1.2 in HA Proxy. Use 'ssl_min_ver' and 'ssl_max_ver' instead.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.global_config",
+        "Description": "Raw HAProxy config that will be added to the HA proxy global section, provided either as a multiline text blob or as an array of lines.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.drain_timeout",
+        "Description": "Time in seconds after SIGUSR1 signal is sent in the drain script until monit stops the processes",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ext_crt_list_file",
+        "Description": "The location from which to load additional external certificates list\n",
+        "Default": "/var/vcap/jobs/haproxy/config/ssl/ext/crt-list",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.reload_max_instances",
+        "Description": "Sets the maximum number of instances to exist at the same time. In conjunction with \"reload_hard_stop_after\" this limits the number of reloads that can occur\nduring a given period of time. Set this to the number of instances your machine can fit into memory at a time, minus a safety buffer. Set to 0 for no limit.\n",
+        "Default": 4,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.disable_tls_10",
+        "Description": "Disable TLS 1.0 in HA Proxy. Use 'ssl_min_ver' and 'ssl_max_ver' instead.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.keepalive_timeout",
+        "Description": "Timeout (in floating point seconds) applied to any connection that is in an http-keepalive state, waiting for the next request to occur",
+        "Default": 6,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_http_health_uri",
+        "Description": "URI to request when checking the health of a backend",
+        "Default": "/health",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.nbthread",
+        "Description": "Optional number of threads per VM",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.internal_only_domains",
+        "Description": "Array of domains for internal-only apps/services (not hostnames for the apps/services)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.enable_redispatch",
+        "Description": "When enabled, HAProxy will try to connect to another server if a connect attempt fails. Best used in conjunction with retries.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.tcp_link_port",
+        "Description": "Port haproxy should listen on when using the tcp_backend link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.lua_scripts",
+        "Description": "A list of LUA scripts that HA Proxy should load. These will need to be provided\nby other boshreleases, as none are supplied in `haproxy_boshrelease`. Specify\neach script with the full path to the script (likely `/var/vcap/packages/something/something/darkside.lua`)\n\nInside these scripts, any variable set is visible\nfrom any thread. This is the easiest and recommended way to load Lua programs\nbut it will not scale well if a lot of Lua calls are performed, as only one\nthread may be running on the global state at a time. A program loaded this\nway will always see 0 in the \"core.thread\" variable. This directive can be\nused multiple times.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.log_format",
+        "Description": "The log format used when generating syslog messages.",
+        "Default": "raw",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ssl_ciphers",
+        "Description": "List of TLSv\u003c=1.2 Ciphers for that are passed to HAProxy",
+        "Default": "ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ssl_max_ver",
+        "Description": "This option enforces the use of 'version' or lower for SSL connections initiated from this listener.\nIt will only be set if 'ssl_min_ver' is specified, as the default HAProxy ssl-min-ver may change in future.\n",
+        "Default": null,
+        "Example": "TLSv1.3",
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.reload_idle_close_on_response",
+        "Description": "This option makes HAproxy wait for another request on idle connections during reloads or restarts. Once the response is received, a \"Connection: close\" header\nis injected to signal to the client that this connection no longer usable and permitting a more graceful handling on the client's side. This has the downside\nthat HAproxy may linger around for longer, waiting for a request on idle connections, so it should be used in conjunction with the \"reload_hard_stop_after\" option\nto limit that time. If set to false, idle connections will be terminated immediately during reloads or restarts.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.cidr_blacklist",
+        "Description": "List of CIDRs to block for http(s). Format is string array of CIDRs or single string of base64 encoded gzip.",
+        "Default": null,
+        "Example": {
+          "cidr_blacklist": [
+            "10.0.0.0/8",
+            "192.168.2.0/24"
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_health_fall",
+        "Description": "Number of consecutive unsuccessful health checks required before the server is considered unhealthy from a healthy state. The default value of 3 matches the default if the parameter is undefined. This parameter will be ignored if ha_proxy.backend_use_http_health is false.",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.enable_4443",
+        "Description": "Enables port 4443 for backwards compatibility with WSS-based apps using the old CF haproxy. If true you must provide a valid SSL config via ssl_pem or crt_list",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.enable_health_check_http",
+        "Description": "Optionally enable http health-check on `haproxy_ip:8080/health`. It shows `200 OK` if \u003e0 backend servers are up. If used with ext_crt_list_timeout you should make sure that the deployment canary_watch_time and update_watch_time are configured to wait at least the number of seconds defined by ext_crt_list_timeout.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.tcp_link_health_check_http",
+        "Description": "Optional port for http health check when using the tcp_backend link.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.resolve_retries",
+        "Description": "Number of dns queries to send to resolve a server name before giving up",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.ext_crt_list",
+        "Description": "A flag denoting the use of additional certificates from external sources.\nIf set to true the contents of an external crt-list file located at `ha_proxy.ext_crt_list_file` are\nadded to the crt-list described by the `ha_proxy.crt_list` property. Please be aware that reloading external certificates does only work if haproxy is\nstarted in daemon mode. So this feature does not work if \"haproxy.syslog_server\" is set to \"stdout\". If using this feature but not using internal certs,\nyou should set ha_proxy.crt_list to be an empty array\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.hsts_include_subdomains",
+        "Description": "This enables the includeSubDomains flag for HSTS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.server_timeout",
+        "Description": "Timeout (in floating point seconds) used on connections from haproxy to a backend, while waiting for data from the backend",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.routed_backend_servers",
+        "Description": "Hash of the URL prefixes -\u003e array of the router IPs acting as the HTTP/TCP backends (should include servers all Availability Zones being used)",
+        "Default": {},
+        "Example": {
+          "routed_backend_servers": {
+            "/images": {
+              "additional_acls": [
+                "method GET"
+              ],
+              "backend_health_fall": 3,
+              "backend_health_rise": 2,
+              "backend_http_health_port": 80,
+              "backend_http_health_uri": "/health",
+              "backend_ssl": "verify",
+              "backend_use_http_health": true,
+              "backend_verifyhost": "example.com",
+              "port": 4443,
+              "servers": [
+                "10.0.0.2",
+                "10.0.0.3"
+              ]
+            }
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.tcp_link_check_port",
+        "Description": "Optional port for tcp_backend health checks. Will use ha_proxy.tcp_link_port if not set.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.backend_https_check",
+        "Description": "Set to true if the backend uses TLS on the health endpoint. Adds the check-ssl option to the backend configs. If backend certificate on traffic port is verified the Health endpoint cert will also be verified.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ha_proxy.always_allow_body_http10",
+        "Description": "Always allow a body to be sent when using HTTP/1.0. By default HAProxy denies GET/HEAD/DELETE requests with a body when using HTTP/1.0 due to potential request smuggling attacks. See https://github.com/haproxy/haproxy/commit/e136bd12a32970bc90d862d5fe09ea1952b62974",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "keepalived",
+    "Description": "The keepalived job can be used to add a VRRP IP address to enforce HA on haproxy release",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3022908297/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "keepalived_ctl",
+        "DstPathEnd": "bin/keepalived_ctl",
+        "Path": "/tmp/tar-CmdExtractor3022908297/templates/keepalived_ctl"
+      },
+      {
+        "SrcPathEnd": "keepalived.config.erb",
+        "DstPathEnd": "config/keepalived.config.template",
+        "Path": "/tmp/tar-CmdExtractor3022908297/templates/keepalived.config.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "keepalived"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "keepalived.dont_track_primary",
+        "Description": "Ignore VRRP interface faults",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keepalived.vip",
+        "Description": "Virtual IP V4 address that will be given to master",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keepalived.healthcheck_name",
+        "Description": "label displayed for the health check. Will appear in keepalive traces e.g. \"Keepalived_vrrp[4558] VRRP_Script(check_haproxy) failed\"",
+        "Default": "check_haproxy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keepalived.healthcheck_command",
+        "Description": "when health check fails, this triggers a fail over. The default command checks the haproxy process is still alive.",
+        "Default": "killall -0 haproxy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keepalived.interface",
+        "Description": "interface keepalived will use to mount the VIP. If set to 'auto', uses the default interface on the VM",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "keepalived.virtual_router_id",
+        "Description": "Specifies the VRRP virtual router identifier (VRID)(numerical from 1 to 255). A unique VRID value is needed for each VRRP cluster",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
