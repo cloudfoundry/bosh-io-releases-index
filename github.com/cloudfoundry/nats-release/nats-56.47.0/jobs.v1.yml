@@ -1,0 +1,709 @@
+[
+  {
+    "Name": "nats",
+    "Description": "NATS server providing a publish-subscribe messaging system for Cloud Foundry components.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4209478691/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "internal_tls/certificate.pem.erb",
+        "DstPathEnd": "config/internal_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/internal_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "migrate_server_tls/certificate.pem.erb",
+        "DstPathEnd": "config/migrate_server_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrate_server_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "migrate_client_tls/certificate.pem.erb",
+        "DstPathEnd": "config/migrate_client_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrate_client_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "migrate_client_tls/private_key.pem.erb",
+        "DstPathEnd": "config/migrate_client_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrate_client_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "internal_tls/ca.pem.erb",
+        "DstPathEnd": "config/internal_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/internal_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "internal_tls/private_key.pem.erb",
+        "DstPathEnd": "config/internal_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/internal_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "migrate_server_tls/ca.pem.erb",
+        "DstPathEnd": "config/migrate_server_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrate_server_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "migrate_server_tls/private_key.pem.erb",
+        "DstPathEnd": "config/migrate_server_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrate_server_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "migrate_client_tls/ca.pem.erb",
+        "DstPathEnd": "config/migrate_client_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrate_client_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats.conf.erb",
+        "DstPathEnd": "config/nats.conf",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/nats.conf.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "migrator-config.json.erb",
+        "DstPathEnd": "config/migrator-config.json",
+        "Path": "/tmp/tar-CmdExtractor4209478691/templates/migrator-config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "gnatsd"
+      },
+      {
+        "Name": "nats-server"
+      },
+      {
+        "Name": "nats-v2-migrate"
+      },
+      {
+        "Name": "pid_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.monitor_port",
+        "Description": "Port for varz and connz monitoring. 0 means disabled.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.no_advertise",
+        "Description": "When configured to true, this nats server will not be advertised to any nats clients.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.prof_port",
+        "Description": "Port for pprof. 0 means disabled.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.ca",
+        "Description": "Certificate of the CA for cluster-internal traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.certificate",
+        "Description": "Certificate for cluster-internal traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_server.tls.ca",
+        "Description": "Certificate of the CA for migrate server. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_client.tls.certificate",
+        "Description": "The PEM-encoded certificate to use for verifying the TLS connection to the migrate server (used for local healthchecks).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_client.tls.private_key",
+        "Description": "The PEM-encoded private key to use for verifying the TLS connection to the migrate server (used for local healthchecks).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.hostname",
+        "Description": "Hostname for nats cluster. Set this to the value of your bosh-dns-alias.",
+        "Default": null,
+        "Example": "nats.service.cf.internal",
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls_cluster_port",
+        "Description": "The port for the NATS servers to communicate with other servers in the cluster. No default but usually 4225.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.private_key",
+        "Description": "Private key for cluster-internal traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_server.tls.private_key",
+        "Description": "Private key for migrate server. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.write_deadline",
+        "Description": "Maximum number of seconds the server will block when writing. Once this threshold is exceeded the connection will be closed and the client will be considered as Slow Consumer.",
+        "Default": "2s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.net",
+        "Description": "Client listening interface, defaults to spec.address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.cluster_host",
+        "Description": "Clustering listening interface, defaults to spec.address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IP or Domain Name of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.debug",
+        "Description": "Enable debug logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_client.tls.ca",
+        "Description": "Certificate of the CA for verifying the TLS connection to the migrate server. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.fail_deployment_if_v1",
+        "Description": "Fail the deployment in post-start if nats instances are on v1.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_server.tls.certificate",
+        "Description": "Certificate for migrate server. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.authorization_timeout",
+        "Description": "After accepting a connection, wait up to this many seconds for credentials.",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.disable",
+        "Description": "Disable this monit job. If this property is set to true, the nats process will not run. Connecting to nats (instead of nats-tls) is deprecated. This nats process will be removed soon. Please migrate to using nats-tls as soon as possible.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.enabled",
+        "Description": "Enable mutually authenticated TLS for NATS cluster-internal traffic.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_server.port",
+        "Description": "Port for endpoint to migrate nats job to nats-server v2. To be removed in a future release.",
+        "Default": 4242,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.cluster_port",
+        "Description": "The port for the NATS servers to communicate with other servers in the cluster.",
+        "Default": 4223,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.trace",
+        "Description": "Enable trace logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nats-tls",
+    "Description": "TLS-secured NATS server providing a publish-subscribe messaging system for Cloud Foundry components.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2539772919/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "internal_tls/private_key.pem.erb",
+        "DstPathEnd": "config/internal_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/internal_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "external_tls/ca.pem.erb",
+        "DstPathEnd": "config/external_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/external_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "internal_tls/ca.pem.erb",
+        "DstPathEnd": "config/internal_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/internal_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "internal_tls/certificate.pem.erb",
+        "DstPathEnd": "config/internal_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/internal_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "external_tls/certificate.pem.erb",
+        "DstPathEnd": "config/external_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/external_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "external_tls/private_key.pem.erb",
+        "DstPathEnd": "config/external_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/external_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "client_tls/ca.pem.erb",
+        "DstPathEnd": "config/client_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/client_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "client_tls/certificate.pem.erb",
+        "DstPathEnd": "config/client_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/client_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "client_tls/private_key.pem.erb",
+        "DstPathEnd": "config/client_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/client_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats-tls.conf.erb",
+        "DstPathEnd": "config/nats-tls.conf",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/nats-tls.conf.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "migrator-config.json.erb",
+        "DstPathEnd": "config/migrator-config.json",
+        "Path": "/tmp/tar-CmdExtractor2539772919/templates/migrator-config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "gnatsd"
+      },
+      {
+        "Name": "nats-server"
+      },
+      {
+        "Name": "nats-tls-healthcheck"
+      },
+      {
+        "Name": "nats-v2-migrate"
+      },
+      {
+        "Name": "pid_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.client.tls.ca",
+        "Description": "Certificate of the CA for verifying the TLS connection to the server. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.mem_limit.alert",
+        "Description": "Raise alert if total memory consumed by nats is larger than this. Format: \u003cnumber\u003e \u003cB|KB|MB|GB|%\u003e",
+        "Default": "500 MB",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.mem_limit.restart",
+        "Description": "Restart nats if total memory consumed is larger than this. Format: \u003cnumber\u003e \u003cB|KB|MB|GB|%\u003e",
+        "Default": "3000 MB",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.auth_required",
+        "Description": "",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.write_deadline",
+        "Description": "Maximum number of seconds the server will block when writing. Once this threshold is exceeded the connection will be closed and the client will be considered as Slow Consumer.",
+        "Default": "2s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.external.tls.certificate",
+        "Description": "Certificate for publisher/subscriber traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.external.tls.private_key",
+        "Description": "Private key for publisher/subscriber traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": 4224,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.debug",
+        "Description": "Enable debug logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.monitor_port",
+        "Description": "Port for varz and connz monitoring. 0 means disabled.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.cluster_host",
+        "Description": "Clustering listening interface, defaults to spec.address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.client.tls.private_key",
+        "Description": "The PEM-encoded private key to use for verifying the TLS connection to the server (used for local healthchecks).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.prof_port",
+        "Description": "Port for pprof. 0 means disabled.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.external.tls.ca",
+        "Description": "Certificate of the CA for publisher/subscriber traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.client.tls.certificate",
+        "Description": "The PEM-encoded certificate to use for verifying the TLS connection to the server (used for local healthchecks).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.hostname",
+        "Description": "Hostname for nats cluster. Set this to the value of your bosh-dns-alias.",
+        "Default": null,
+        "Example": "nats.service.cf.internal",
+        "Examples": null
+      },
+      {
+        "Name": "nats.cluster_port",
+        "Description": "The port for the NATS servers to communicate with other servers in the cluster.",
+        "Default": 4225,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IP or Domain Name of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.no_advertise",
+        "Description": "When configured to true, this nats server will not be advertised to any nats clients.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.certificate",
+        "Description": "Certificate for cluster-internal traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.private_key",
+        "Description": "Private key for cluster-internal traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.fail_deployment_if_v1",
+        "Description": "Fail the deployment in post-start if nats instances are on v1.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.enabled",
+        "Description": "Enable mutually authenticated TLS for NATS cluster-internal traffic.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.internal.tls.ca",
+        "Description": "Certificate of the CA for cluster-internal traffic. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.migrate_server.port",
+        "Description": "Port for endpoint to migrate nats job to nats-server v2. To be removed in a future release.",
+        "Default": 4243,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.nontls_cluster_port",
+        "Description": "The port for the NATS servers to communicate with other servers in the cluster. No default but usually 4223.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.authorization_timeout",
+        "Description": "After accepting a connection, wait up to this many seconds for credentials.",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.trace",
+        "Description": "Enable trace logging output.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.net",
+        "Description": "Client listening interface, defaults to spec.address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests",
+    "Description": "The smoke tests errand run a simple check that NATS is accessible and relaying messages properly",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4200906352/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor4200906352/templates/run"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor4200906352/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "client_tls/ca.pem.erb",
+        "DstPathEnd": "config/client_tls/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4200906352/templates/client_tls/ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "client_tls/certificate.pem.erb",
+        "DstPathEnd": "config/client_tls/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor4200906352/templates/client_tls/certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "client_tls/private_key.pem.erb",
+        "DstPathEnd": "config/client_tls/private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor4200906352/templates/client_tls/private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "bin/config.json",
+        "Path": "/tmp/tar-CmdExtractor4200906352/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nats-smoke"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IP of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.client.tls.certificate",
+        "Description": "The PEM-encoded certificate to use for verifying the TLS connection to the server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.client.tls.private_key",
+        "Description": "The PEM-encoded private key to use for verifying the TLS connection to the server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.hostname",
+        "Description": "Hostname for nats cluster.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
