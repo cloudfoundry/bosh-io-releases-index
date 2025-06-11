@@ -1,0 +1,1109 @@
+[
+  {
+    "Name": "iptables-logger",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor987077208/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "start.erb",
+        "DstPathEnd": "bin/start",
+        "Path": "/tmp/tar-CmdExtractor987077208/templates/start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor987077208/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "iptables-logger.json.erb",
+        "DstPathEnd": "config/iptables-logger.json",
+        "Path": "/tmp/tar-CmdExtractor987077208/templates/iptables-logger.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "iptables-logger"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "kernel_log_file",
+        "Description": "File that contains iptables kernel logs.",
+        "Default": "/var/log/kern.log",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job.  It will not run. Required for backwards compatability",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'deprecated'.\n'rfc3339' is the recommended format. It will result in all timestamps controlled by iptables-logger to be in RFC3339 format, which is human readable.\n'deprecated' will result in all timestamps being in the format they were before the rfc3339 flag was introduced. This format is different for different logs. We do not recommend using this flag unless you have scripts that expect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "netmon",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3367361292/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "netmon.json.erb",
+        "DstPathEnd": "config/netmon.json",
+        "Path": "/tmp/tar-CmdExtractor3367361292/templates/netmon.json.erb"
+      },
+      {
+        "SrcPathEnd": "start.erb",
+        "DstPathEnd": "bin/start",
+        "Path": "/tmp/tar-CmdExtractor3367361292/templates/start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3367361292/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "netmon"
+      },
+      {
+        "Name": "silk-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "telemetry_interval",
+        "Description": "Interval in seconds between logging telemetry events",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_address",
+        "Description": "Forward metrics to this metron agent",
+        "Default": "127.0.0.1:3457",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "poll_interval",
+        "Description": "Gather and report metrics at this interval, in seconds",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "interface_name",
+        "Description": "Report tx/rx bytes on the interface with this name",
+        "Default": "silk-vtep",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job.  It will not run. Required for backwards compatability",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "telemetry_enabled",
+        "Description": "Enables logging to a dedicated logfile that can be used for telemetry",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "silk-cni",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3602415529/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "teardown-config.json.erb",
+        "DstPathEnd": "config/teardown-config.json",
+        "Path": "/tmp/tar-CmdExtractor3602415529/templates/teardown-config.json.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor3602415529/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "cni-wrapper-plugin.conflist.erb",
+        "DstPathEnd": "config/cni/cni-wrapper-plugin.conflist",
+        "Path": "/tmp/tar-CmdExtractor3602415529/templates/cni-wrapper-plugin.conflist.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "silk-cni"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "iptables_accepted_udp_logs_per_sec",
+        "Description": "Maximum number of iptables logs per second for accepted UDP packets.",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "silk_daemon.listen_port",
+        "Description": "Silk CNI plugin connects to the silk daemon on this port.",
+        "Default": 23954,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_servers",
+        "Description": "DNS servers that containers will use.  If set, this list takes precedence over DNS servers configured through garden.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "burst",
+        "Description": "Bandwidth burst in Kb for traffic through container. 0 for no limit. If burst is set, rate must also be set.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job.  It will not run. Required for backwards compatability",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deny_networks.running",
+        "Description": "List of CIDR blocks to which all containers will be denied access, regardless of security groups.\nThis can severely impact the network connectivity of applications.\nUse with extreme caution and at your own risk.\nThese rules apply to running scheduled containers: apps and tasks.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "outbound_connections.limit",
+        "Description": "EXPERIMENTAL: Enables outbound connections count limiting per port on destination host per container.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "outbound_connections.burst",
+        "Description": "EXPERIMENTAL: Maximum number of outbound connections per port on destination host allowed to be opened at once per container.\nHas no effect when `outbound_connections.limit` is false.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug",
+        "Description": "Enable debugging for silk-cni",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "deny_networks.always",
+        "Description": "List of CIDR blocks to which all containers will be denied access, regardless of security groups.\nThis can severely impact the network connectivity of applications.\nUse with extreme caution and at your own risk.\nThese rules apply to all containers.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "no_masquerade_cidr_range",
+        "Description": "When set, app traffic sent to this CIDR will not be masqueraded. If this\nproperty is not set, then silk-cni will not masquerade traffic sent to the\noverlay network, which allows container-to-container networking to work.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mtu",
+        "Description": "Pre-encapsulation MTU for containers.  If set, the network interface inside the container will have an MTU that is 50 bytes less than this value, in order to account for VXLAN encap overhead.  If zero, MTU will be automatically configured to account for the VXLAN encapsulation, but it may not account for additional network encapsulations, e.g. IPSec.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "temporary.underlay_interface_names",
+        "Description": "Use with extreme caution. To be used only if there are network interfaces not created by BOSH. Provide names for all interfaces. If provided, only interfaces referenced here will be used. Will not use any bosh interface by default.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "host_tcp_services",
+        "Description": "List of TCP addresses running on the BOSH VM that should be accessible from containers.  The address must not be in the 127.0.0.0/8 range.  The network plugin will install an iptables INPUT rule for each service.",
+        "Default": [],
+        "Example": "- 169.254.0.2:9001\n- 169.254.0.2:9002\n",
+        "Examples": null
+      },
+      {
+        "Name": "host_udp_services",
+        "Description": "List of UDP addresses running on the BOSH VM that should be accessible from containers.  The address must not be in the 127.0.0.0/8 range.  The network plugin will install an iptables INPUT rule for each service.",
+        "Default": [],
+        "Example": "- 169.254.0.2:9001\n- 169.254.0.2:9002\n",
+        "Examples": null
+      },
+      {
+        "Name": "deny_networks.staging",
+        "Description": "List of CIDR blocks to which all containers will be denied access, regardless of security groups.\nThis can severely impact the network connectivity of applications.\nUse with extreme caution and at your own risk.\nThese rules apply during the staging process.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "outbound_connections.rate_per_sec",
+        "Description": "EXPERIMENTAL: Maximum number of outbound connections to be opened per second per port on destination host per container given that the burst is exhausted.\nHas no effect when `outbound_connections.limit` is false.\n",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "outbound_connections.dry_run",
+        "Description": "EXPERIMENTAL: When set to true negates the effect of `outbound_connections.limit`. Enables the specific DENY_ORL entries to the kernel log.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "iptables_logging",
+        "Description": "Enables iptables logging for overlay network policies, Application Security Groups and outbound container connection limits.  Logs to the kernel log.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "rate",
+        "Description": "Bandwidth rate in Kbps for traffic through container. 0 for no limit. If rate is set, burst must also be set.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "iptables_denied_logs_per_sec",
+        "Description": "Maximum number of iptables logs per second for denied packets.",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "silk-controller",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1720049009/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "silk-controller.json.erb",
+        "DstPathEnd": "config/silk-controller.json",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/silk-controller.json.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/server.key.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "database_ca.crt.erb",
+        "DstPathEnd": "config/certs/database_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/database_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor1720049009/templates/post-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "silk-controller"
+      },
+      {
+        "Name": "silk-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "subnet_lease_expiration_hours",
+        "Description": "Expiration time for subnet leases, in hours.  If a cell is not gracefully stopped, its lease may be reclaimed after this duration.  Diego cells that are partitioned from the silk controller for longer than this duration will be removed from the network.",
+        "Default": 168,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_cert",
+        "Description": "Server certificate for TLS. Must have common name that matches the Bosh DNS name of the silk controller, eg silk-controller.service.cf.internal",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.port",
+        "Description": "Port for database server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.skip_hostname_validation",
+        "Description": "Skip hostname validation when true. Requires 'database.require_ssl' to be true",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_idle_connections",
+        "Description": "Maximum number of idle connections to the SQL database\nIdle connections will be retained until their `connections_max_lifetime_seconds` has been reached.\n",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "connections_max_lifetime_seconds",
+        "Description": "Sets the maximum amount of time a connection may be reused. Expired connections may be closed lazily before reuse.\nIf value \u003c= 0, connections are reused forever\n\nIf there is a spike in connection usage, all of these connections have the potential to stick around with a high lifetime.\nLowering the lifetime will result in connections getting reaped sooner, but the policy server may have to renegotiate connections\nmore often, which could add some latency. We recommend using the default unless you have seen specific needs to change it.\n",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job.  It will not run. Required for backwards compatability",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_ip",
+        "Description": "IP address where the silk controller will serve its API.",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ca_cert",
+        "Description": "Trusted CA certificate that was used to sign the silk daemon client cert and key.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "server_key",
+        "Description": "Server key for TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Forward metrics to this metron agent, listening on this port on localhost",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.host",
+        "Description": "Host (IP or DNS name) for database server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.ca_cert",
+        "Description": "ca cert for db connectivity. Requires 'database.require_ssl' to be true.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.connect_timeout_seconds",
+        "Description": "Connection timeout between the silk controller and the silk database.",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.username",
+        "Description": "Username for database connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "subnet_prefix_length",
+        "Description": "Length, in bits, of the prefix for subnets allocated per Diego cell, e.g. '24' for a '/24' subnet.",
+        "Default": 24,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Debug port for silk controller.  Use this to adjust log level at runtime or dump process stats.",
+        "Default": 46455,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_check_port",
+        "Description": "Health check port for silk controller. Used by the Bosh DNS health check.",
+        "Default": 19683,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "Port where the silk controller will serve its API.   Silk daemon connects to this port.",
+        "Default": 4103,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.type",
+        "Description": "Type of database: postgres or mysql",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.name",
+        "Description": "Name of logical database to use.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "health_check_timeout_seconds",
+        "Description": "Health check timeout",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.password",
+        "Description": "Password for database connection.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.require_ssl",
+        "Description": "Require ssl db connectivity when true. Must be used in conjuncture with a release that is configured with ssl.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_open_connections",
+        "Description": "Maximum number of open connections to the SQL database.\n\nThe number of necessary connections will scale with the number of diego-cells in the deployment.\nThe handlers that use the db conns in this job respond to the silk-daemon, which runs on the diego-cells.\nEach daemon polls this server once every 5s, by default.\nAnecdote: A deployment with ~200 diego-cells has been seen to use up to ~200 conns in total.\nEach instance of this job would expect approx 200/job-instance-count conns each in this scenario.\nYMMV based on the performance of the db, latency, load, etc.\n",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "network",
+        "Description": "A single CIDR address block as a string, or an array of CIDR address\nblocks for overlay network as an array of strings. Subnets for each diego\ncell are allocated out of this network. The \"subnet_prefix_length\"\nproperty must be smaller than the smallest CIDR address block.\n",
+        "Default": [
+          "10.255.0.0/16"
+        ],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "silk-daemon",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2695261850/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "healthchecker.yml.erb",
+        "DstPathEnd": "config/healthchecker.yml",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/healthchecker.yml.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "policy-agent-ca.crt.erb",
+        "DstPathEnd": "config/certs/policy-agent/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/policy-agent-ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "policy-agent-client.key.erb",
+        "DstPathEnd": "config/certs/policy-agent/client.key",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/policy-agent-client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client-config.json.erb",
+        "DstPathEnd": "config/client-config.json",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/client-config.json.erb"
+      },
+      {
+        "SrcPathEnd": "policy-agent-client.crt.erb",
+        "DstPathEnd": "config/certs/policy-agent/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/policy-agent-client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bootstrap-config.json.erb",
+        "DstPathEnd": "config/bootstrap-config.json",
+        "Path": "/tmp/tar-CmdExtractor2695261850/templates/bootstrap-config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "silk-daemon"
+      },
+      {
+        "Name": "silk-ctl-utils"
+      },
+      {
+        "Name": "silk-healthchecker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "temporary_vxlan_interface",
+        "Description": "Not recommended. Use vxlan_network instead. Name of network interface which container traffic is sent to. If empty, the default network interface is used. This cannot be set when vxlan_network is set.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_server_url",
+        "Description": "The policy server internal hostname and port",
+        "Default": "https://policy-server.service.cf.internal:4003",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthchecker.failure_counter_file",
+        "Description": "File used by the healthchecker to monitor consecutive failures.",
+        "Default": "/var/vcap/data/silk-daemon/counters/consecutive_healthchecker_failures.count",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_cert",
+        "Description": "Client certificate for TLS to access silk controller.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "silk_controller.hostname",
+        "Description": "Host name for the silk controller.  E.g. the service advertised via Bosh DNS.  Must match common name in the silk_controller.server_cert",
+        "Default": "silk-controller.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job.  It will not run. Required for backwards compatability",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "single_ip_only",
+        "Description": "When true, this VM will get assigned exactly one IP address on the Silk\nnetwork.  Use this to connect this VM to the Silk network without\nacquiring a whole block of addresses (as would be required for a Diego\nCell). WARNING: Do not use single_ip_only mode when the overylay network has\nmore than one CIDR. The overlay network is set on the silk-controller\njob via the \"network\" bosh property.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in the drain log. Valid values are 'rfc3339' and 'deprecated'.\nThis property only affects the drain log because other component and bosh lifecycle logs were already in the rfc3339 format.\n'rfc3339' is the recommended format. It will result in all timestamps in the drain log controlled by silk-daemon to be in RFC3339 format, which is human readable. This does not include stderr logs from golang libraries.\n'deprecated' will result in all timestamps being in the format they were before the rfc3339 flag was introduced for the drain log.  We do not recommend using this flag unless you have scripts that expect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "container_metadata_file_check_timeout",
+        "Description": "Timeout in seconds for checking the container metadata file during drain",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_key",
+        "Description": "Client private key for TLS to access silk controller.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_port",
+        "Description": "Debug port for silk daemon.  Use this to adjust log level at runtime or dump process stats.",
+        "Default": 22233,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Forward metrics to this metron agent, listening on this port on localhost",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vtep_port",
+        "Description": "Host port used for receiving VXLAN packets",
+        "Default": 4789,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "lease_poll_interval_seconds",
+        "Description": "The silk daemon queries the silk controller on this interval in seconds to renew its lease and get all routable leases.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_port",
+        "Description": "Silk daemon handles requests from the CNI plugin on this localhost port.",
+        "Default": 23954,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.level",
+        "Description": "Log Level for silk-daemon to start with",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "partition_tolerance_hours",
+        "Description": "When silk controller is unavailable, silk daemon will remain healthy and allow creation of new containers for this number of hours.  Should be no larger than cf_networking.subnet_lease_expiration_hours.",
+        "Default": 168,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ca_cert",
+        "Description": "Trusted CA certificate that was used to sign the silk controller server cert and key.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "silk_controller.listen_port",
+        "Description": "Silk controller handles requests from the silk daemon on this port.",
+        "Default": 4103,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vxlan_network",
+        "Description": "The name of the bosh network which container traffic is sent over. If empty, the default gateway network is used.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "silk-datastore-syncer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3678198561/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3678198561/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "start.erb",
+        "DstPathEnd": "bin/start",
+        "Path": "/tmp/tar-CmdExtractor3678198561/templates/start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "silk-datastore-syncer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job. It will not run. Required for backwards compatability.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "sync_interval_in_seconds",
+        "Description": "Interval to check garden for new metadata.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.address",
+        "Description": "Garden server listening address.",
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "garden.network",
+        "Description": "Network type for the garden server connection (tcp or unix).",
+        "Default": "unix",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "vxlan-policy-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2808067564/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/client.key",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "start.erb",
+        "DstPathEnd": "bin/start",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/start.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "vxlan-policy-agent.json.erb",
+        "DstPathEnd": "config/vxlan-policy-agent.json",
+        "Path": "/tmp/tar-CmdExtractor2808067564/templates/vxlan-policy-agent.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "vxlan-policy-agent"
+      },
+      {
+        "Name": "silk-ctl-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "iptables_logging",
+        "Description": "Enables iptables logging for container to container traffic. Logs to the kernel log.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_server.internal_listen_port",
+        "Description": "Policy server handles requests from the vxlan policy agent on this port.",
+        "Default": 4003,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_asg_syncing",
+        "Description": "Enable dynamic updates to ASG rules for running containers",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "asg_poll_interval_seconds",
+        "Description": "The VXLAN policy agent queries the policy server on this interval in seconds and updates local security groups rules.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_cert",
+        "Description": "Client certificate for TLS to access policy server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_port",
+        "Description": "Port of metron agent on localhost. This is used to forward metrics.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_level",
+        "Description": "Logging level (debug, info, warn, error).",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "iptables_accepted_udp_logs_per_sec",
+        "Description": "Maximum number of iptables logs per second for accepted UDP packets.",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_server.hostname",
+        "Description": "Host name for the policy server.  E.g. the service advertised via Bosh DNS.  Must match common name in the policy_server.server_cert",
+        "Default": "policy-server.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "policy_poll_interval_seconds",
+        "Description": "The VXLAN policy agent queries the policy server on this interval in seconds and updates local policy rules.",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_timeout_seconds",
+        "Description": "Timeout to use for HTTP connections to policy_server",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ca_cert",
+        "Description": "Trusted CA certificate that was used to sign the policy server's server cert and key.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "client_key",
+        "Description": "Client private key for TLS to access policy server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "force_policy_poll_cycle_port",
+        "Description": "Port for force policy poll cycle server. Use this server to force an immediate poll cycle.",
+        "Default": 8722,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_overlay_ingress_rules",
+        "Description": "Experimental feature. Allows ingress over the overlay network, from a vm running silk-daemon in singleIPMode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable",
+        "Description": "Disable this monit job.  It will not run. Required for backwards compatability",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_container_network_policy",
+        "Description": "WARNING!!! Disables network policy enforcement. Setting this property to true allows all app containers to access any other app container with no restrictions.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug_server_port",
+        "Description": "Port for the debug server. Use this to adjust log level at runtime or dump process stats.",
+        "Default": 8721,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.use_v2_api",
+        "Description": "True to use local metron agent gRPC v2 API. False to use UDP v1 API.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
