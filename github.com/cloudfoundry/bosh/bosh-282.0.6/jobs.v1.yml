@@ -1,0 +1,2447 @@
+[
+  {
+    "Name": "blobstore",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3831538101/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bbr_restore",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/bbr_restore"
+      },
+      {
+        "SrcPathEnd": "server_tls_private_key.pem.erb",
+        "DstPathEnd": "config/server_tls_private_key.pem",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/server_tls_private_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/pre-start"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "mime.types",
+        "DstPathEnd": "config/mime.types",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/mime.types"
+      },
+      {
+        "SrcPathEnd": "write_users.erb",
+        "DstPathEnd": "config/write_users",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/write_users.erb"
+      },
+      {
+        "SrcPathEnd": "bbr_backup",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/bbr_backup"
+      },
+      {
+        "SrcPathEnd": "server_tls_cert.pem.erb",
+        "DstPathEnd": "config/server_tls_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/server_tls_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nginx.conf.erb",
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/nginx.conf.erb"
+      },
+      {
+        "SrcPathEnd": "blobstore.conf.erb",
+        "DstPathEnd": "config/sites/blobstore.conf",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/blobstore.conf.erb"
+      },
+      {
+        "SrcPathEnd": "read_users.erb",
+        "DstPathEnd": "config/read_users",
+        "Path": "/tmp/tar-CmdExtractor3831538101/templates/read_users.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nginx"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "blobstore.tls.ssl_prefer_server_ciphers",
+        "Description": "Prefer server's cipher priority instead of client's (true for On, false for Off)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.ipv6_listen",
+        "Description": "Enable binding to IPv6 addresses",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.agent.password",
+        "Description": "Password agents must use to access blobstore via HTTP Basic (mandatory when the user is provided)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.nginx.workers",
+        "Description": "Number of nginx workers for blobstore",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.nginx.enable_metrics_endpoint",
+        "Description": "Expose basic nginx metrics on localhost:\u003cblobstore.port\u003e/stats endpoint. Uses the ngx_http_stub_status_module (see http://nginx.org/en/docs/http/ngx_http_stub_status_module.html).",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.tls.ssl_ciphers",
+        "Description": "List of SSL ciphers to allow (format: https://www.openssl.org/docs/manmaster/man1/ciphers.html - CIPHER LIST FORMAT section)",
+        "Default": "DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.secret",
+        "Description": "Secret used to sign the HMAC pre-signed URLs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.allow_http",
+        "Description": "Enable http connections to blobstore, in addition to https",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.bbr.enabled",
+        "Description": "Enable bbr backup and restore operations",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.enable_signed_urls",
+        "Description": "Enable blobstore to pre-sign urls so that clients do not require blobstore credentials",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.tls.cert.certificate",
+        "Description": "SSL cert for blobstore nginx server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.port",
+        "Description": "TCP port blobstore server (ngnix) listens on",
+        "Default": 25250,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.director.password",
+        "Description": "Password director must use to access blobstore via HTTP Basic",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.agent.user",
+        "Description": "Username agents must use to access blobstore via HTTP Basic\n(optional when 'blobstore.enable_signed_urls' is true)\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.agent.additional_users",
+        "Description": "An array of objects with keys 'user' and 'password' agents must use to access Blobstore via HTTP Basic Auth. These users are in addition to the user defined by 'blobstore.agent.user' and 'blobstore.agent.password'. This is to enable blobstore credential rotation for the agents.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.tls.ssl_protocols",
+        "Description": "SSL/TLS protocols to allow",
+        "Default": "TLSv1.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.director.user",
+        "Description": "Username director must use to access blobstore via HTTP Basic",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.max_upload_size",
+        "Description": "Max allowed file size for upload",
+        "Default": "10000m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.tls.cert.private_key",
+        "Description": "SSL cert key for blobstore nginx server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "director",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1752883381/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "console",
+        "DstPathEnd": "bin/console",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/console"
+      },
+      {
+        "SrcPathEnd": "director.key.erb",
+        "DstPathEnd": "config/ssl/director.key",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/director.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics-server",
+        "DstPathEnd": "bin/metrics-server",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/metrics-server"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "utils.sh",
+        "DstPathEnd": "helpers/utils.sh",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/utils.sh"
+      },
+      {
+        "SrcPathEnd": "worker_ctl.erb",
+        "DstPathEnd": "bin/worker_ctl",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/worker_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bbr_backup",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/bbr_backup"
+      },
+      {
+        "SrcPathEnd": "nats_server_ca.pem.erb",
+        "DstPathEnd": "config/nats_server_ca.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/nats_server_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "ps_utils.sh",
+        "DstPathEnd": "bin/ps_utils.sh",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/ps_utils.sh"
+      },
+      {
+        "SrcPathEnd": "task_logrotate.sh",
+        "DstPathEnd": "bin/task_logrotate",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/task_logrotate.sh"
+      },
+      {
+        "SrcPathEnd": "db_client_certificate.pem.erb",
+        "DstPathEnd": "config/db/client_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/db_client_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "director.pem.erb",
+        "DstPathEnd": "config/ssl/director.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/director.pem.erb"
+      },
+      {
+        "SrcPathEnd": "director.yml.erb",
+        "DstPathEnd": "config/director.yml",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/director.yml.erb"
+      },
+      {
+        "SrcPathEnd": "config_server_ca.cert.erb",
+        "DstPathEnd": "config/config_server_ca.cert",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/config_server_ca.cert.erb"
+      },
+      {
+        "SrcPathEnd": "env.erb",
+        "DstPathEnd": "env",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/env.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client_ca_certificate.pem.erb",
+        "DstPathEnd": "config/nats_client_ca_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/nats_client_ca_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "certificate_expiry.json.erb",
+        "DstPathEnd": "config/certificate_expiry.json",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/certificate_expiry.json.erb"
+      },
+      {
+        "SrcPathEnd": "drain",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/drain"
+      },
+      {
+        "SrcPathEnd": "mime.types",
+        "DstPathEnd": "config/mime.types",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/mime.types"
+      },
+      {
+        "SrcPathEnd": "nats_client_ca_private_key.erb",
+        "DstPathEnd": "config/nats_client_ca_private_key",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/nats_client_ca_private_key.erb"
+      },
+      {
+        "SrcPathEnd": "nginx.conf.erb",
+        "DstPathEnd": "config/nginx.conf",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/nginx.conf.erb"
+      },
+      {
+        "SrcPathEnd": "trigger-one-time-sync-dns",
+        "DstPathEnd": "bin/trigger-one-time-sync-dns",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/trigger-one-time-sync-dns"
+      },
+      {
+        "SrcPathEnd": "uaa_server_ca.cert.erb",
+        "DstPathEnd": "config/uaa_server_ca.cert",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/uaa_server_ca.cert.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client_private_key.erb",
+        "DstPathEnd": "config/nats_client_private_key",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/nats_client_private_key.erb"
+      },
+      {
+        "SrcPathEnd": "bbr_config.json.erb",
+        "DstPathEnd": "config/bbr.json",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/bbr_config.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "director",
+        "DstPathEnd": "bin/director",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/director"
+      },
+      {
+        "SrcPathEnd": "indicator.yml.erb",
+        "DstPathEnd": "config/indicator.yml",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/indicator.yml.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_server_certificate.pem.erb",
+        "DstPathEnd": "config/metrics_server/certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/metrics_server_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_server_private_key.key.erb",
+        "DstPathEnd": "config/metrics_server/private_key.key",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/metrics_server_private_key.key.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client_certificate.pem.erb",
+        "DstPathEnd": "config/nats_client_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/nats_client_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bbr_restore",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/bbr_restore"
+      },
+      {
+        "SrcPathEnd": "db_ca.pem.erb",
+        "DstPathEnd": "config/db/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/db_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "db_client_private_key.key.erb",
+        "DstPathEnd": "config/db/client_private_key.key",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/db_client_private_key.key.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_server_ca.pem.erb",
+        "DstPathEnd": "config/metrics_server/ca.pem",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/metrics_server_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "scheduler",
+        "DstPathEnd": "bin/scheduler",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/scheduler"
+      },
+      {
+        "SrcPathEnd": "sync-dns",
+        "DstPathEnd": "bin/sync-dns",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/sync-dns"
+      },
+      {
+        "SrcPathEnd": "task_logrotate.cron",
+        "DstPathEnd": "config/task_logrotate.cron",
+        "Path": "/tmp/tar-CmdExtractor1752883381/templates/task_logrotate.cron"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "director"
+      },
+      {
+        "Name": "nginx"
+      },
+      {
+        "Name": "libpq"
+      },
+      {
+        "Name": "mysql"
+      },
+      {
+        "Name": "director-ruby-3.3"
+      },
+      {
+        "Name": "s3cli"
+      },
+      {
+        "Name": "azure-storage-cli"
+      },
+      {
+        "Name": "davcli"
+      },
+      {
+        "Name": "bosh-gcscli"
+      },
+      {
+        "Name": "verify_multidigest"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "director.proxy_timeout",
+        "Description": "Timeout for proxy connection from nginx to director",
+        "Default": 900,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.ssl.cert",
+        "Description": "SSL Certificate for director (PEM encoded)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.ssl.key",
+        "Description": "SSL private key for director (PEM encoded)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_cpi_update_disk",
+        "Description": "Enable/Disable native CPI disk update (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.generate_vm_passwords",
+        "Description": "When true, a random unique password will be used for each vm if user has not specified a password",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.remove_dev_tools",
+        "Description": "When true, remove dev tool packages from non-compilation VMs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.auto_fix_stateful_nodes",
+        "Description": "Enable/Disable auto resolution for stateful nodes for scan_and_fix (true|false)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.log_level",
+        "Description": "Log level",
+        "Default": "debug",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.address",
+        "Description": "Address of blobstore server used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.ssl_verify_peer",
+        "Description": "Verify the SSL certificate used on the blobstore?",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_snapshots",
+        "Description": "Enable/Disable snapshots for persistent disks (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.uaa.ca_cert",
+        "Description": "CA cert to trust when communicating with UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.director.user",
+        "Description": "Username director uses to connect to blobstore used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.user_management.uaa.public_key",
+        "Description": "Public key to verify Uaa token when token is encoded with asymmetric encryption",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.default_ssh_options.gateway_user",
+        "Description": "Default user to use with bosh ssh command",
+        "Default": "vcap",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.host",
+        "Description": "Address of the director database, for example, in the case of AWS RDS:\nfake-rds-instance-name.fake-rds-subdomain.us-east-1.rds.amazonaws.com\n",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.json_key",
+        "Description": "Contents of a GCP JSON service account file used for static credentials_source (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.server_side_encryption",
+        "Description": "Server-side encryption algorithm used when storing blobs in S3 (Optional - \"AES256\"|\"aws:kms\")",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.nginx.ssl_prefer_server_ciphers",
+        "Description": "Prefer server's cipher priority instead of client's (true for On, false for Off)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.log_access_events",
+        "Description": "Access to api is logged in CEF format",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.uaa.client_id",
+        "Description": "UAA client id to access Config Server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.port",
+        "Description": "External Port for nginx to listen for metrics server",
+        "Default": 9091,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.user",
+        "Description": "Username used for the director database",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.port",
+        "Description": "Port that the director nginx listens on",
+        "Default": 25555,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.max_vm_create_tries",
+        "Description": "Max retries when creating VMs",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.default_ssh_options.gateway_host",
+        "Description": "Default host to use as ssh gateway with bosh ssh command",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.client_ca.certificate",
+        "Description": "Certificate for NATs mutual TLS (Director uses to generate Agent cert)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.director.private_key",
+        "Description": "Private Key for NATs mutual TLS client (Director client)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.flush_arp",
+        "Description": "Clear up arp entries when machines are recreated",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.secret_access_key",
+        "Description": "AWS secret_access_key used by s3 blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_nats_delivered_templates",
+        "Description": "When true, rendered templates will be sent over NATs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.ca_cert",
+        "Description": "CA cert to trust when communicating with Config Server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.assume_role_arn",
+        "Description": "Assume role arn used by s3 blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "List of comma-separated hosts that should skip connecting to the proxy in the director, scheduler and workers",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.tls.ca",
+        "Description": "CA certificate for mutual TLS connections to an external metrics server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_signature_version",
+        "Description": "Signature version of the blobstore used by s3 blobstore plugin (optional, if not provided the s3 client decides which version to use)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.url",
+        "Description": "URL for the Config Server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.user_management.uaa.symmetric_key",
+        "Description": "Symmetric key to verify Uaa token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.client_ca.private_key",
+        "Description": "Private Key for NATs mutual TLS (Director uses to generate Agent cert)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "HTTP proxy that the director, scheduler and workers should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.puma_workers",
+        "Description": "Number of puma workers",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.local_dns.include_index",
+        "Description": "If local DNS is enabled, then include_index will cause director to propagate dns records with instance index number as well as dns records with instance ID",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_host_style",
+        "Description": "Whether to use host-style urls instead of path-style urls",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.provider",
+        "Description": "Provider of the blobstore used by director and agent (dav|simple|s3|gcs|azure-storage)",
+        "Default": "dav",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.workers",
+        "Description": "Number of director workers",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.timeout",
+        "Description": "Timeout for connection from bosh CLI to nginx",
+        "Default": 7200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.tasks_cleanup_schedule",
+        "Description": "Schedule cleanup of tasks and their log files, keeping `max_tasks`",
+        "Default": "0 0 0 */7 * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.debug.keep_unreachable_vms",
+        "Description": "When a bosh deploy fails, the failed VM will be kept instead of destroyed",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.networks.max_orphaned_age_in_days",
+        "Description": "Days to keep orphaned networks before cleanup",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.access_key_id",
+        "Description": "AWS access_key_id used by s3 blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.storage_class",
+        "Description": "Storage Class used when storing blobs in GCS (optional, if not provided uses bucket default)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_dedicated_status_worker",
+        "Description": "Separate worker for 'bosh vms' and 'bosh ssh'",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.nginx.enable_metrics_endpoint",
+        "Description": "Expose basic nginx metrics on localhost:\u003cdirector.port\u003e/stats endpoint. Uses the ngx_http_stub_status_module (see http://nginx.org/en/docs/http/ngx_http_stub_status_module.html).",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_short_lived_nats_bootstrap_credentials_compilation_vms",
+        "Description": "When true, NATS bootstrap credentials will be short lived on new compilation VMs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.user_management.local.users",
+        "Description": "List of users that can authenticate with director in non-Uaa mode",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.director.certificate",
+        "Description": "Certificate for NATs mutual TLS client (Director client). The Common-Name for this certificate\nshould be \"default.director.bosh-internal\"\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.secret",
+        "Description": "Secret used for HMAC signature for pre-signed urls",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.address",
+        "Description": "Address of the Registry to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "HTTPS proxy that the director, scheduler and workers should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.uaa.client_secret",
+        "Description": "UAA client secret to access Config Server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.ca",
+        "Description": "CA cert to trust when communicating with NATS server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.swift_temp_url_key",
+        "Description": "swift_temp_url_key of swift storage account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.port",
+        "Description": "Port of the director database (e.g, mysql2 adapter would generally use 3306)",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.tls.enabled",
+        "Description": "Flag for enabling tls for database",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_pre_ruby_3_2_equal_tilde_behavior",
+        "Description": "When true, Kernel will be patched to enable Pre-Ruby 3.2 =~ behavior. This is needed for release templates incorrectly using =~.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.enabled",
+        "Description": "When true, replace substitution values in manifest with values from Config Server",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.tls.cert.ca",
+        "Description": "CA Cert for TLS communication with blobstore",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.account_key",
+        "Description": "account_key of azure storage account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "indicators.queued_tasks_threshold",
+        "Description": "Amount of tasks queued for a certain time before alerts are sent",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.backend_port",
+        "Description": "Internal port for metrics server to listen to",
+        "Default": 9092,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.config_server.uaa.url",
+        "Description": "URL for the UAA server used for authenticating access to Config Server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.user_management.uaa.url",
+        "Description": "Uaa URL, specify either the url or the urls attribute",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.database",
+        "Description": "Name of the director database",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.tls.skip_host_verify",
+        "Description": "Skip host verification for Server CA certificate. Must be true if database is hosted on GCP.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.encryption_key",
+        "Description": "Customer-Supplied Encryption key used when storing blobs in GCS (Optional - Base64 encoded 32 byte key)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.max_upload_size",
+        "Description": "Max allowed file size for upload",
+        "Default": "10000m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.tasks_deployments_retention_period",
+        "Description": "the retention period for tasks and their log files of specific deployments (days)",
+        "Default": null,
+        "Example": "- deployment_name: \"deployment-name\"\n  retention_period: 14\n",
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.enabled",
+        "Description": "Enables the metrics server on the director",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.host",
+        "Description": "Host of blobstore server used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.use_ssl",
+        "Description": "Whether the simple blobstore plugin should use SSL to connect to the blobstore server",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_port",
+        "Description": "Port of blobstore server used by s3 blobstore plugin",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.trusted_certs",
+        "Description": "Certificates that VMs created by this director should trust in addition to those packaged with the stemcell (PEM encoded; zero or more certs allowed)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.password",
+        "Description": "Password to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.nginx.workers",
+        "Description": "Number of nginx workers for director",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.log_access_events_to_syslog",
+        "Description": "Removed. Please use director.log_access_events instead.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_virtual_delete_vms",
+        "Description": "When true, bosh will not delete vm from cloud when instance update, just destroy vm record in db",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.local_dns.use_dns_addresses",
+        "Description": "When true, address references in rendered templates will evaluate to DNS entries rather than IP addresses",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.credentials_source",
+        "Description": "AWS or GCP Credential Source (static / env_or_profile / none)",
+        "Default": "static",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.azure_cloud_name",
+        "Description": "Name of the Azure Cloud",
+        "Default": "AzureCloud",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.agent_wait_timeout",
+        "Description": "optional agent wait timeout setting, default 600s",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.self_snapshot_schedule",
+        "Description": "RufusScheduler cron formatted schedule for self snapshots",
+        "Default": "0 0 6 * * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.networks.enable_cpi_management",
+        "Description": "Enables bosh managed networks",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.user_management.uaa.urls",
+        "Description": "List of Uaa URLs, specify either the url or the urls attribute",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.tls.certificate",
+        "Description": "Client certificate for mutual TLS connections to an external metrics server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.swift_auth_account",
+        "Description": "swift_auth_account of swift storage account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.tasks_retention_period",
+        "Description": "the retention period for tasks and their log files (days)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.max_threads",
+        "Description": "Max number of director concurrent threads",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_cpi_resize_disk",
+        "Description": "Enable/Disable native CPI disk resizing (true|false)",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.parallel_problem_resolution",
+        "Description": "When true, problems (e.g. resurrection, disk reattaching) are resolved in parallel",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.cpi.preferred_api_version",
+        "Description": "The preferred api version to use when communicating with the CPI. If specified greater than the max supported version it will only communicate via the highest available api version.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.adapter",
+        "Description": "The type of database used (mysql2|postgres|sqlite)",
+        "Default": "postgres",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.password",
+        "Description": "Password used for the director database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.tls.cert.certificate",
+        "Description": "Client certificate for mutual TLS connections to DB",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.backend_port",
+        "Description": "Port that the director listens on",
+        "Default": 25556,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.max_tasks",
+        "Description": "Max number of tasks per each type to keep in disk",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.disks.cleanup_schedule",
+        "Description": "RufusScheduler cron formatted schedule for cleanup of orphaned disks and orphaned snapshots",
+        "Default": "0 0,30 * * * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.listen_on_external_interface",
+        "Description": "Exposes the directors metrics server on an external interface. Requires the use of mutual auth TLS",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.tls.cert.ca",
+        "Description": "Database CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.tls.cert.private_key",
+        "Description": "Client private key for mutual TLS connections to DB",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.events.cleanup_schedule",
+        "Description": "RufusScheduler cron formatted schedule for cleanup of events",
+        "Default": "0 * * * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.s3_region",
+        "Description": "Region of the blobstore used by s3 blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.ipv6_listen",
+        "Description": "Enable binding to IPv6 addresses",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.allow_errands_on_stopped_instances",
+        "Description": "When true, bosh will not error out when running errands on stopped instances",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.port",
+        "Description": "Port of blobstore server used by simple blobstore plugin",
+        "Default": 25250,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.sse_kms_key_id",
+        "Description": "AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.cpi_job",
+        "Description": "Name of cpi job (null to use bundled cpi gems)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.username",
+        "Description": "User to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.snapshot_schedule",
+        "Description": "RufusScheduler cron formatted schedule for snapshots",
+        "Default": "0 0 7 * * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.user_management.provider",
+        "Description": "User management implementation (local|uaa)",
+        "Default": "local",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.events.record_events",
+        "Description": "Enable recording of events to the database and audit logs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.enable_short_lived_nats_bootstrap_credentials",
+        "Description": "When true, NATS bootstrap credentials will be short lived on new VMs",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.local_dns.enabled",
+        "Description": "Enables local DNS, i.e., sending sync_dns messages with all names/IPs to all agents managed by this director",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.account_name",
+        "Description": "account_name of azure storage account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.name",
+        "Description": "Name of the director",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.nginx.ssl_protocols",
+        "Description": "SSL/TLS protocols to allow",
+        "Default": "TLSv1.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.networks.cleanup_schedule",
+        "Description": "RufusScheduler cron formatted schedule for cleanup of orphaned networks",
+        "Default": "0 0,30 * * * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns.domain_name",
+        "Description": "TLD of the dns zone used by bosh",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.events.max_events",
+        "Description": "Max number of events to keep",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.bucket_name",
+        "Description": "AWS S3 or GCP GCS Bucket used by external blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.container_name",
+        "Description": "container_name of azure storage account",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.ignore_missing_gateway",
+        "Description": "Allow gateway to be omitted from subnet configuration. Bosh lite vms(containers) do not require gateway.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.nginx.ssl_ciphers",
+        "Description": "List of SSL ciphers to allow (format: https://www.openssl.org/docs/manmaster/man1/ciphers.html - CIPHER LIST FORMAT section)",
+        "Default": "DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.vms.cleanup_schedule",
+        "Description": "RufusScheduler cron formatted schedule for cleanup of orphaned vms",
+        "Default": "*/5 * * * * UTC",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.enable_signed_urls",
+        "Description": "Use pre-signed urls for blobstore so that deployed VMs do not require blobstore credentials",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.port",
+        "Description": "Port of the Registry to connect to",
+        "Default": 25777,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.metrics_server.tls.private_key",
+        "Description": "Client private key for mutual TLS connections to an external metrics server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "Port that the nats server listens on",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "blobstore.director.password",
+        "Description": "Password director uses to connect to blobstore used by simple blobstore plugin",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.nats.address",
+        "Description": "Address for agent to connect to nats",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.env.bosh",
+        "Description": "Base env for agent",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.http.port",
+        "Description": "TCP where health monitor is",
+        "Default": 25923,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.disks.max_orphaned_age_in_days",
+        "Description": "Days to keep orphaned disks and orphaned snapshots before cleanup",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.db.connection_options",
+        "Description": "Additional options for the database\nThe below default applies to postgres databases. For config options for mysql dbs, refer to the mysql2 gem options.\n",
+        "Default": {
+          "max_connections": 32,
+          "pool_timeout": 10
+        },
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "health_monitor",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2557399117/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "health_monitor.yml.erb",
+        "DstPathEnd": "config/health_monitor.yml",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/health_monitor.yml.erb"
+      },
+      {
+        "SrcPathEnd": "uaa.pem.erb",
+        "DstPathEnd": "config/uaa.pem",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/uaa.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats_server_ca.pem.erb",
+        "DstPathEnd": "config/nats_server_ca.pem",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/nats_server_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client_certificate.pem.erb",
+        "DstPathEnd": "config/nats_client_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/nats_client_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client_private_key.erb",
+        "DstPathEnd": "config/nats_client_private_key",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/nats_client_private_key.erb"
+      },
+      {
+        "SrcPathEnd": "health_monitor",
+        "DstPathEnd": "bin/health_monitor",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/health_monitor"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2557399117/templates/bpm.yml"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "health_monitor"
+      },
+      {
+        "Name": "director-ruby-3.3"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "hm.datadog.custom_tags",
+        "Description": "Tags, as key/value pairs, to add to all metrics sent to DataDog.  See https://docs.datadoghq.com/tagging/",
+        "Default": null,
+        "Example": "env: prod\nregion: eu\n",
+        "Examples": null
+      },
+      {
+        "Name": "hm.tsdb.address",
+        "Description": "Address of TSDB to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.riemann_enabled",
+        "Description": "Enable Riemann plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.riemann.host",
+        "Description": "Riemann host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.user",
+        "Description": "User for SMTP Authentication (optional, use in conjunction with hm.smtp.auth)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.pagerduty.service_key",
+        "Description": "PagerDuty service API key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "HTTP proxy that the health monitor should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.domain",
+        "Description": "SMTP EHLO domain (typically server's fully qualified domain name, e.g. \"smtp-domain.example.com\")",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.email_interval",
+        "Description": "Interval (in seconds) to deliver alerts by email (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder_enabled",
+        "Description": "Enable Consul Plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.log_stats",
+        "Description": "Interval (in seconds) to log Health Monitor statistics",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.riemann.port",
+        "Description": "Riemann port",
+        "Default": 5555,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.resurrector.percent_threshold",
+        "Description": "Percentage of total jobs in a deployment that must be down for the resurrector to to stop sending recreate-job requests. Used in 'meltdown' situations so resurrector will not try to recreate the world.",
+        "Default": 0.2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.pagerduty.http_proxy",
+        "Description": "HTTP proxy to connect to PagerDuty (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.resurrector.time_threshold",
+        "Description": "Time (in seconds) for which an alert in the resurrector is considered 'current'; alerts older than this are ignored when deciding to recreate a job.",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.datadog_enabled",
+        "Description": "Enable DataDog plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.graphite.port",
+        "Description": "Graphite port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.host",
+        "Description": "Location of Consul Cluster or agent",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.loglevel",
+        "Description": "Level of log messages (fatal, error, warn, info, debug)",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "Port of the NATS message bus port to connect to",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.director_account.client_secret",
+        "Description": "UAA client secret to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.resurrector.minimum_down_jobs",
+        "Description": "If the total number of down jobs in a deployment is below this threshold, the resurrector will always request a down job be recreated",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.protocol",
+        "Description": "http/https",
+        "Default": "http",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.events",
+        "Description": "Whether or not to use the events api",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.heartbeats_as_alerts",
+        "Description": "Should we treat all heartbeats as alerts as well?",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.pagerduty_enabled",
+        "Description": "Enable PagerDuty plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.http.port",
+        "Description": "TCP port Health Monitor daemon listens on",
+        "Default": 25923,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "Address of the NATS message bus to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.health_monitor.certificate",
+        "Description": "Certificate for establishing mutual TLS with NATS server. The Common-Name for the certificate\nshould be \"default.hm.bosh-internal\"\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.address",
+        "Description": "Address of the Bosh Director to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.director_account.password",
+        "Description": "Password to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.director_account.client_id",
+        "Description": "UAA client id to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.ttl_note",
+        "Description": "A note for ttl checks",
+        "Default": "Automatically Registered by Bosh-Monitor",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.graphite.prefix",
+        "Description": "Prefix that will be added to all metrics sent to Graphite",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.prune_events",
+        "Description": "Interval (in seconds) to prune received events",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.health_monitor.private_key",
+        "Description": "Private Key for establishing mutual TLS with NATS",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.port",
+        "Description": "Port of the Bosh Director to connect to",
+        "Default": 25555,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.syslog_event_forwarder_enabled",
+        "Description": "Removed. Please co-locate the syslog-release instead to forward your logs.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.agent_timeout",
+        "Description": "Interval (in seconds) to consider an agent has timed out",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.ca",
+        "Description": "CA cert to trust when communicating with NATS server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.datadog.api_key",
+        "Description": "API Key for DataDog",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.namespace",
+        "Description": "A namespace for handling multiples of the same release",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.graphite.max_retries",
+        "Description": "Max attempts to connect to the Graphite service; use -1 for infinite retries",
+        "Default": 35,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.params",
+        "Description": "Params for url can be used for passing ACL token",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.port",
+        "Description": "Port of the SMTP server to connect to (e.g. 25, 465, or 587)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.director_account.user",
+        "Description": "User to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.resurrector_enabled",
+        "Description": "Enable VM resurrector plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.graphite.address",
+        "Description": "Graphite address",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.tls",
+        "Description": "Use STARTTLS (optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.graphite_enabled",
+        "Description": "Enable Graphite plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.datadog.pagerduty_service_name",
+        "Description": "Service name to alert in PagerDuty upon HM events",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "List of comma-separated hosts that should skip connecting to the proxy in the health monitor",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.analyze_agents",
+        "Description": "Interval (in seconds) to analyze the status of agents",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.director_account.ca_cert",
+        "Description": "Certificate to verify UAA endpoint",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.email_notifications",
+        "Description": "Enable email notifications plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.from",
+        "Description": "Email of sender, e.g. \"bosh-director@example.com\"",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.datadog.application_key",
+        "Description": "Health Monitor Application Key for DataDog",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "HTTPS proxy that the health monitor should use",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.password",
+        "Description": "Password for SMTP Authentication (optional, use in conjunction with hm.smtp.auth)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.tsdb_enabled",
+        "Description": "Enable TSDB plugin",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.tsdb.max_retries",
+        "Description": "Max attempts to connect to the TSDB service; use -1 for infinite retries",
+        "Default": 35,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.poll_grace_period",
+        "Description": "Interval (in seconds) between discovering managed VMs and analyzing their status",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.auth",
+        "Description": "SMTP Authentication type (optional, only \"plain\" is supported)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.ttl",
+        "Description": "A ttl time for ttl checks, if set ttl checks will be used",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.poll_director",
+        "Description": "Interval (in seconds) to get the list of managed VMs from Bosh Director",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.rogue_agent_alert",
+        "Description": "Interval (in seconds) to consider an agent as rogue (an agent that is no part of any deployment)",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.intervals.analyze_instances",
+        "Description": "Interval (in seconds) to analyze the status of instances for missing VMs",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.email_recipients",
+        "Description": "Email of recipients (Array)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.smtp.host",
+        "Description": "Address of the SMTP server to connect to (e.g. \"smtp-host.example.com\")",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.tsdb.port",
+        "Description": "Port of TSDB to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "hm.consul_event_forwarder.port",
+        "Description": "Consul Port",
+        "Default": 8500,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "nats",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3557245094/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "nats.cfg.erb",
+        "DstPathEnd": "config/nats.cfg",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/nats.cfg.erb"
+      },
+      {
+        "SrcPathEnd": "nats_server_certificate.pem.erb",
+        "DstPathEnd": "config/nats_server_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/nats_server_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats_director_client_certificate.pem.erb",
+        "DstPathEnd": "config/nats_director_client_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/nats_director_client_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats_hm_client_certificate.pem.erb",
+        "DstPathEnd": "config/nats_hm_client_certificate.pem",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/nats_hm_client_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bosh_nats_sync_config.yml.erb",
+        "DstPathEnd": "config/bosh_nats_sync_config.yml",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/bosh_nats_sync_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "uaa.pem.erb",
+        "DstPathEnd": "config/uaa.pem",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/uaa.pem.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/pre-start"
+      },
+      {
+        "SrcPathEnd": "nats_client_ca.pem.erb",
+        "DstPathEnd": "config/nats_client_ca.pem",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/nats_client_ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "nats_server_private_key.erb",
+        "DstPathEnd": "config/nats_server_private_key",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/nats_server_private_key.erb"
+      },
+      {
+        "SrcPathEnd": "bosh_nats_sync",
+        "DstPathEnd": "bin/bosh_nats_sync",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/bosh_nats_sync"
+      },
+      {
+        "SrcPathEnd": "post-start",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor3557245094/templates/post-start"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nats"
+      },
+      {
+        "Name": "director-ruby-3.3"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.ping_max_outstanding",
+        "Description": "Maximum number of pings before declaring a client unresponsive",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "Username clients must use to access nats mbus",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password clients must use to access nats mbus",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.auth_timeout",
+        "Description": "Timeout (in seconds) for clients to send auth credentials",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.health_monitor.certificate",
+        "Description": "Certificate for establishing mutual TLS with NATS server. The Common-Name for the certificate\nshould be \"default.hm.bosh-internal\"\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.director.certificate",
+        "Description": "Certificate for NATs mutual TLS client (Director client). The Common-Name for this certificate\nshould be \"default.director.bosh-internal\"\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.ca",
+        "Description": "CA cert used by NATS server to verify clients certificates (For Mutual TLS Connections)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.server.private_key",
+        "Description": "Private Key used by the NATS server to serve TLS connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.timeout",
+        "Description": "Timeout (in seconds) for TLS handshake",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.director_account.user",
+        "Description": "User to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.director_account.client_secret",
+        "Description": "UAA client secret to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats-sync.intervals.poll_user_sync",
+        "Description": "Interval (in seconds) to get the list of managed VMs from Bosh Director",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.listen_address",
+        "Description": "IP address nats mbus listens on",
+        "Default": "0.0.0.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.ping_interval",
+        "Description": "Time interval (in seconds) pings from server",
+        "Default": "5s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.max_payload_mb",
+        "Description": "Maximum message size in megabytes",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.server.certificate",
+        "Description": "Certificate used by the NATS server to serve TLS connections. The Common-Name for the certificate\nshould be \"default.nats.bosh-internal\"\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.address",
+        "Description": "Address of the Bosh Director to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "director.port",
+        "Description": "Port of the Bosh Director to connect to",
+        "Default": 25555,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.director_account.password",
+        "Description": "Password to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.director_account.client_id",
+        "Description": "UAA client id to access Bosh Director",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.director_account.ca_cert",
+        "Description": "Certificate to verify UAA endpoint",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port nats mbus listens on",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.enable_metrics_endpoint",
+        "Description": "Expose basic nats metrics on localhost:8222 endpoint.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "postgres",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1345942155/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1345942155/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor1345942155/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "create-database.erb",
+        "DstPathEnd": "bin/create-database",
+        "Path": "/tmp/tar-CmdExtractor1345942155/templates/create-database.erb"
+      },
+      {
+        "SrcPathEnd": "postgres.erb",
+        "DstPathEnd": "bin/postgres",
+        "Path": "/tmp/tar-CmdExtractor1345942155/templates/postgres.erb"
+      },
+      {
+        "SrcPathEnd": "postgresql.conf.erb",
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/tmp/tar-CmdExtractor1345942155/templates/postgresql.conf.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "postgres-15"
+      },
+      {
+        "Name": "postgres-13"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "postgres.listen_address",
+        "Description": "IP address Postgres listens on; use 0.0.0.0 to listen on all IP addresses",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.port",
+        "Description": "TCP port Postgres listens on",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.database",
+        "Description": "Default Postgres database (it will be created during the startup process)",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.additional_databases",
+        "Description": "Additional Postgres databases to be created (during the startup process)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.max_connections",
+        "Description": "Set max concurrent connections for database",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.user",
+        "Description": "Username clients must use to access Postgres",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.password",
+        "Description": "Password clients must use to access Postgres",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "postgres-13",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2667976722/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "postgres.erb",
+        "DstPathEnd": "bin/postgres",
+        "Path": "/tmp/tar-CmdExtractor2667976722/templates/postgres.erb"
+      },
+      {
+        "SrcPathEnd": "postgresql.conf.erb",
+        "DstPathEnd": "config/postgresql.conf",
+        "Path": "/tmp/tar-CmdExtractor2667976722/templates/postgresql.conf.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2667976722/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2667976722/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "create-database.erb",
+        "DstPathEnd": "bin/create-database",
+        "Path": "/tmp/tar-CmdExtractor2667976722/templates/create-database.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "postgres-13"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "postgres.listen_address",
+        "Description": "IP address Postgres listens on; use 0.0.0.0 to listen on all IP addresses",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.port",
+        "Description": "TCP port Postgres listens on",
+        "Default": 5432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.database",
+        "Description": "Default Postgres database (it will be created during the startup process)",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.additional_databases",
+        "Description": "Additional Postgres databases to be created (during the startup process)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.max_connections",
+        "Description": "Set max concurrent connections for database",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.user",
+        "Description": "Username clients must use to access Postgres",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "postgres.password",
+        "Description": "Password clients must use to access Postgres",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
