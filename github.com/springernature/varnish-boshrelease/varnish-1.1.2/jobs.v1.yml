@@ -1,0 +1,114 @@
+[
+  {
+    "Name": "varnish",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2058282820/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2058282820/templates/bpm.yml"
+      },
+      {
+        "SrcPathEnd": "default.vcl.erb",
+        "DstPathEnd": "etc/default.vcl",
+        "Path": "/tmp/tar-CmdExtractor2058282820/templates/default.vcl.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2058282820/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2058282820/templates/pre-start"
+      },
+      {
+        "SrcPathEnd": "varnish_wrapper.erb",
+        "DstPathEnd": "bin/varnish_wrapper",
+        "Path": "/tmp/tar-CmdExtractor2058282820/templates/varnish_wrapper.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "ncurses"
+      },
+      {
+        "Name": "varnish"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "drain_script",
+        "Description": "A placeholder to add a custom drain script",
+        "Default": "#!/bin/bash\necho 0\n",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "listen_address",
+        "Description": "Defines what address Varnish should listen to, and service HTTP requests from.",
+        "Default": ":80",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "management_interface",
+        "Description": "Offers a management interface on the specified address and port. To disable the management interface use 'none'.",
+        "Default": "none",
+        "Example": {
+          "management_interface": "localhost:6082"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "vcl_configuration",
+        "Description": "Content of VCL configuration file",
+        "Default": [],
+        "Example": {
+          "vcl_configuration": "vcl 4.1;\nbackend default {\n  .host = \"www.example.org\";\n  .port = \"80\";\n}\n"
+        },
+        "Examples": null
+      },
+      {
+        "Name": "storage",
+        "Description": "Defines storage backend(s): '-s \u003c[name=]type[,options]\u003e'",
+        "Default": [],
+        "Example": {
+          "storage": [
+            {
+              "name": "myStorage",
+              "options": 0,
+              "type": "malloc"
+            }
+          ]
+        },
+        "Examples": null
+      },
+      {
+        "Name": "parameters",
+        "Description": "Set parameters passed to varnishd as '-p \u003cname=value\u003e'. This option can be used multiple times to specify multiple parameters.",
+        "Default": [],
+        "Example": {
+          "parameters": [
+            {
+              "name": "default_ttl",
+              "value": 0
+            },
+            {
+              "name": "nuke_limit",
+              "value": 500
+            }
+          ]
+        },
+        "Examples": null
+      }
+    ]
+  }
+]
