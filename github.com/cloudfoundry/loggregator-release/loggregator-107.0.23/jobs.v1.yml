@@ -1,0 +1,851 @@
+[
+  {
+    "Name": "doppler",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3646260764/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns/healthy",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "profile.sh.erb",
+        "DstPathEnd": "bin/profile.sh",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/profile.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "doppler.crt.erb",
+        "DstPathEnd": "config/certs/doppler.crt",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/doppler.crt.erb"
+      },
+      {
+        "SrcPathEnd": "doppler.key.erb",
+        "DstPathEnd": "config/certs/doppler.key",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/doppler.key.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3646260764/templates/loggregator_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "doppler"
+      },
+      {
+        "Name": "profiler"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "doppler.ingress_buffer_size",
+        "Description": "The buffer size for ingress traffic for the v1 loggregator",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.egress_buffer_size",
+        "Description": "The buffer size for egress traffic for the v1 loggregator",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.enabled",
+        "Description": "Enable v1 Firehose and v2 Logstream",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.host",
+        "Description": "The host used to emit messages to the Metron agent",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.grpc_port",
+        "Description": "The port used to emit grpc messages to the Metron agent",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.doppler.cert",
+        "Description": "TLS certificate for doppler",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.doppler.key",
+        "Description": "TLS key for doppler",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.pprof_port",
+        "Description": "The pprof port for runtime profiling data",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "loggregator_trafficcontroller",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3014499212/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc_trafficcontroller.crt.erb",
+        "DstPathEnd": "config/certs/cc_trafficcontroller.crt",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/cc_trafficcontroller.crt.erb"
+      },
+      {
+        "SrcPathEnd": "mutual_tls_ca.crt.erb",
+        "DstPathEnd": "config/certs/mutual_tls_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/mutual_tls_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "profile.sh.erb",
+        "DstPathEnd": "bin/profile.sh",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/profile.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "trafficcontroller_outgoing.key.erb",
+        "DstPathEnd": "config/certs/trafficcontroller_outgoing.key",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/trafficcontroller_outgoing.key.erb"
+      },
+      {
+        "SrcPathEnd": "cc_trafficcontroller.key.erb",
+        "DstPathEnd": "config/certs/cc_trafficcontroller.key",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/cc_trafficcontroller.key.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "trafficcontroller.crt.erb",
+        "DstPathEnd": "config/certs/trafficcontroller.crt",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/trafficcontroller.crt.erb"
+      },
+      {
+        "SrcPathEnd": "trafficcontroller.key.erb",
+        "DstPathEnd": "config/certs/trafficcontroller.key",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/trafficcontroller.key.erb"
+      },
+      {
+        "SrcPathEnd": "trafficcontroller_outgoing.crt.erb",
+        "DstPathEnd": "config/certs/trafficcontroller_outgoing.crt",
+        "Path": "/tmp/tar-CmdExtractor3014499212/templates/trafficcontroller_outgoing.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "loggregator_trafficcontroller"
+      },
+      {
+        "Name": "profiler"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "metron_endpoint.host",
+        "Description": "The host used to emit messages to the Metron agent",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ssl.skip_cert_verify",
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.tls_port",
+        "Description": "Port for internal TLS communication",
+        "Default": 9023,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cc_trafficcontroller.cert",
+        "Description": "TLS certificate for communication between Cloud Controller and trafficcontroller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cc_trafficcontroller.key",
+        "Description": "TLS key for communication between Cloud Controller and trafficcontroller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.disable_access_control",
+        "Description": "Traffic controller bypasses authentication with the UAA and CC",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.grpc_port",
+        "Description": "The port used to emit grpc messages to the Metron agent",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.internal_service_hostname",
+        "Description": "Internal hostname used to resolve the address of the Cloud Controller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.outgoing_cert",
+        "Description": "TLS cert for outgoing dropsonde connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.security_event_logging.enabled",
+        "Description": "Enable logging of all requests made to the Traffic Controller in CEF format",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.uaa.client_secret",
+        "Description": "Doppler's client secret to connect to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.doppler.addrs",
+        "Description": "The addresses of Dopplers (alternative to doppler link)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "doppler.grpc_port",
+        "Description": "Port for outgoing log messages via GRPC",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "system_domain",
+        "Description": "Domain reserved for CF operator, base URL where the login, uaa, and other non-user apps listen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.uaa_client_id",
+        "Description": "DEPRECATED in favor of loggregator.uaa.client.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metric_emitter.interval",
+        "Description": "The interval that metrics are emitted to the metron.",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.outgoing_dropsonde_port",
+        "Description": "Port for outgoing dropsonde messages",
+        "Default": 8081,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.outgoing_key",
+        "Description": "TLS key for outgoing dropsonde connection",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.internal_url",
+        "Description": "Internal URL of UAA",
+        "Default": "",
+        "Example": "https://uaa.service.cf.internal:8443",
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "PEM encoded CA certificate for secure communication to UAA. Required if uaa.internal_url is provided.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.trafficcontroller.cert",
+        "Description": "TLS certificate for trafficcontroller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.pprof_port",
+        "Description": "The pprof port for runtime profiling data",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.mutual_tls.ca_cert",
+        "Description": "PEM-encoded CA certificate for secure, mutually authenticated TLS communication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "traffic_controller.enabled",
+        "Description": "Enable v1 Firehose",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.uaa.client",
+        "Description": "Doppler's client id to connect to UAA",
+        "Default": "doppler",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.trafficcontroller.key",
+        "Description": "TLS key for trafficcontroller",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "reverse_log_proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2819590396/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "profile.sh.erb",
+        "DstPathEnd": "bin/profile.sh",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/profile.sh.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "reverse_log_proxy.crt.erb",
+        "DstPathEnd": "config/certs/reverse_log_proxy.crt",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/reverse_log_proxy.crt.erb"
+      },
+      {
+        "SrcPathEnd": "reverse_log_proxy.key.erb",
+        "DstPathEnd": "config/certs/reverse_log_proxy.key",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/reverse_log_proxy.key.erb"
+      },
+      {
+        "SrcPathEnd": "mutual_tls_ca.crt.erb",
+        "DstPathEnd": "config/certs/mutual_tls_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/mutual_tls_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor2819590396/templates/dns_health_check.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "reverse_log_proxy"
+      },
+      {
+        "Name": "profiler"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.doppler.addrs",
+        "Description": "The addresses of Dopplers (alternative to doppler link)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.host",
+        "Description": "The host used to emit messages to the Metron agent",
+        "Default": "127.0.0.1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron_endpoint.grpc_port",
+        "Description": "The port used to emit grpc messages to the Metron agent",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metric_emitter.interval",
+        "Description": "The interval that metrics are emitted to the metron.",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "reverse_log_proxy.enabled",
+        "Description": "Enable v2 Logstream",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "reverse_log_proxy.egress.port",
+        "Description": "The port of Loggregator's v2 API",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "reverse_log_proxy.egress.max_streams",
+        "Description": "Maximum allowed streams open from a single reverse log proxy.\n",
+        "Default": 1000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "reverse_log_proxy.pprof.port",
+        "Description": "",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.reverse_log_proxy.cert",
+        "Description": "TLS certificate for the reverse log proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.cipher_suites",
+        "Description": "An ordered list of supported SSL cipher suites. Allowed cipher suites are\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 and TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384.\n",
+        "Default": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.doppler.grpc_port",
+        "Description": "The grpc port for Doppler (alternative to doppler link)",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.tls.reverse_log_proxy.key",
+        "Description": "TLS key for the reverse log proxy",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "reverse_log_proxy_gateway",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1709700607/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "reverse_log_proxy.key.erb",
+        "DstPathEnd": "config/certs/reverse_log_proxy.key",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/reverse_log_proxy.key.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "reverse_log_proxy_gateway.key.erb",
+        "DstPathEnd": "config/certs/reverse_log_proxy_gateway.key",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/reverse_log_proxy_gateway.key.erb"
+      },
+      {
+        "SrcPathEnd": "mutual_tls_ca.crt.erb",
+        "DstPathEnd": "config/certs/mutual_tls_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/mutual_tls_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc.key.erb",
+        "DstPathEnd": "config/certs/cc.key",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/cc.key.erb"
+      },
+      {
+        "SrcPathEnd": "profile.sh.erb",
+        "DstPathEnd": "bin/profile.sh",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/profile.sh.erb"
+      },
+      {
+        "SrcPathEnd": "reverse_log_proxy_gateway.crt.erb",
+        "DstPathEnd": "config/certs/reverse_log_proxy_gateway.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/reverse_log_proxy_gateway.crt.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics_ca.crt.erb",
+        "DstPathEnd": "config/certs/metrics_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/metrics_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.crt.erb",
+        "DstPathEnd": "config/certs/metrics.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/metrics.crt.erb"
+      },
+      {
+        "SrcPathEnd": "reverse_log_proxy.crt.erb",
+        "DstPathEnd": "config/certs/reverse_log_proxy.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/reverse_log_proxy.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc_ca.crt.erb",
+        "DstPathEnd": "config/certs/cc_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/cc_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc.crt.erb",
+        "DstPathEnd": "config/certs/cc.crt",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/cc.crt.erb"
+      },
+      {
+        "SrcPathEnd": "metrics.key.erb",
+        "DstPathEnd": "config/certs/metrics.key",
+        "Path": "/tmp/tar-CmdExtractor1709700607/templates/metrics.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "reverse_log_proxy_gateway"
+      },
+      {
+        "Name": "profiler"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "logs_provider.enabled",
+        "Description": "Enable v2 Logstream",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logs_provider.client_cert",
+        "Description": "TLS client certificate for connecting to logs provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logs_provider.common_name",
+        "Description": "TLS common name for logs provider",
+        "Default": "reverselogproxy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_id",
+        "Description": "The client id to authenticate to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.internal_addr",
+        "Description": "The endpoint used for the internal UAA api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_cert_verify",
+        "Description": "Whether to accept certificates signed by an unknown CA",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port the agent uses to serve metrics and debug information",
+        "Default": 8089,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.cert",
+        "Description": "The cert used to authenticate against the internal CC api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.ca_cert",
+        "Description": "TLS CA cert to verify requests to metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.cert",
+        "Description": "TLS certificate for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'deprecated' and 'rfc3339'.",
+        "Default": "deprecated",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http.key",
+        "Description": "The TLS key for the gateway server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "The client secret to authenticate to UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.key",
+        "Description": "TLS private key for metrics server signed by the metrics CA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "The server name used in the scrape configuration for the metrics endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http.address",
+        "Description": "HTTP address for the gateway to listen on",
+        "Default": ":8088",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logs_provider.ca_cert",
+        "Description": "CA root required for key/cert verification",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logs_provider.client_key",
+        "Description": "TLS client key for connecting to logs provider",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.ca_cert",
+        "Description": "The CA for the internal api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.key",
+        "Description": "The client private key used to authenticate against the internal CC api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.common_name",
+        "Description": "The CN for the CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.override_address",
+        "Description": "Override as alternative to using CC link",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "The CA for internal UAA api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http.cert",
+        "Description": "The TLS cert for the gateway server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
