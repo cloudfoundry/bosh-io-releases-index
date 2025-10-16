@@ -1,0 +1,295 @@
+[
+  {
+    "Name": "enable_rdp",
+    "Description": "Enables RDP on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4094457744/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor4094457744/templates/pre-start.ps1"
+      },
+      {
+        "SrcPathEnd": "drain.ps1",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor4094457744/templates/drain.ps1"
+      },
+      {
+        "SrcPathEnd": "disable-rdp.ps1",
+        "DstPathEnd": "bin/disable-rdp.ps1",
+        "Path": "/tmp/tar-CmdExtractor4094457744/templates/disable-rdp.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_rdp.enabled",
+        "Description": "If enabled, this job enabled RDP",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "enable_ssh",
+    "Description": "Enables SSH on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1420824567/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "disable-ssh.ps1",
+        "DstPathEnd": "bin/disable-ssh.ps1",
+        "Path": "/tmp/tar-CmdExtractor1420824567/templates/disable-ssh.ps1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor1420824567/templates/pre-start.ps1"
+      },
+      {
+        "SrcPathEnd": "drain.ps1",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor1420824567/templates/drain.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_ssh.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_ssh.firewall_rule_name",
+        "Description": "the SSH firewall rule name",
+        "Default": "SSH",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "enable_windowsdefender",
+    "Description": "Enables Windows Defender on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1308274337/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain.ps1",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor1308274337/templates/drain.ps1"
+      },
+      {
+        "SrcPathEnd": "modules/WindowsDefenderManager.psd1",
+        "DstPathEnd": "modules/WindowsDefenderManager.psd1",
+        "Path": "/tmp/tar-CmdExtractor1308274337/templates/modules/WindowsDefenderManager.psd1"
+      },
+      {
+        "SrcPathEnd": "modules/WindowsDefenderManager.psm1",
+        "DstPathEnd": "modules/WindowsDefenderManager.psm1",
+        "Path": "/tmp/tar-CmdExtractor1308274337/templates/modules/WindowsDefenderManager.psm1"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor1308274337/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "enable_windowsdefender.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "randomize_password",
+    "Description": "Sets password for the Administrator user on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor126828360/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor126828360/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "randomize_password.username",
+        "Description": "Username",
+        "Default": "Administrator",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "randomize_password.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "set_kms_host",
+    "Description": "Enables KMS activation on Windows",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4136086804/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor4136086804/templates/pre-start.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "set_kms_host.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kms_host.host",
+        "Description": "Host of KMS server",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kms_host.port",
+        "Description": "Port of KMS server",
+        "Default": 1688,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "set_password",
+    "Description": "Sets password for a user on Windows (defaults to Administrator)",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1512157431/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor1512157431/templates/pre-start.ps1"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "set_password.username",
+        "Description": "Username",
+        "Default": "Administrator",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_password.password",
+        "Description": "New password",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_password.enabled",
+        "Description": "If false this job will do nothing",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "set_registry",
+    "Description": "Set Windows registy",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4287172414/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor4287172414/templates/pre-start.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": [
+      {
+        "Name": "entries",
+        "Description": "Array of registy entries\n",
+        "Default": [],
+        "Example": {
+          "entries": [
+            {
+              "name": "enablesecuritysignature",
+              "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+              "type": "DWord",
+              "value": "1"
+            },
+            {
+              "name": "requiresecuritysignature",
+              "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+              "type": "DWord",
+              "value": "1"
+            },
+            {
+              "name": "enablesecuritysignature",
+              "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
+              "type": "DWord",
+              "value": "1"
+            },
+            {
+              "name": "requiresecuritysignature",
+              "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
+              "type": "DWord",
+              "value": "1"
+            }
+          ]
+        },
+        "Examples": null
+      }
+    ]
+  }
+]
