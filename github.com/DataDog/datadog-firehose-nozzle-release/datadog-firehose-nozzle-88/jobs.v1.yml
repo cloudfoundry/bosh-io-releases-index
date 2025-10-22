@@ -1,0 +1,450 @@
+[
+  {
+    "Name": "datadog-firehose-nozzle",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1525532704/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "datadog_logrotate.cron.erb",
+        "DstPathEnd": "config/datadog_logrotate.cron",
+        "Path": "/tmp/tar-CmdExtractor1525532704/templates/datadog_logrotate.cron.erb"
+      },
+      {
+        "SrcPathEnd": "logrotate.conf.erb",
+        "DstPathEnd": "config/logrotate.conf",
+        "Path": "/tmp/tar-CmdExtractor1525532704/templates/logrotate.conf.erb"
+      },
+      {
+        "SrcPathEnd": "flare.erb",
+        "DstPathEnd": "bin/flare",
+        "Path": "/tmp/tar-CmdExtractor1525532704/templates/flare.erb"
+      },
+      {
+        "SrcPathEnd": "clean_config.py",
+        "DstPathEnd": "bin/clean_config.py",
+        "Path": "/tmp/tar-CmdExtractor1525532704/templates/clean_config.py"
+      },
+      {
+        "SrcPathEnd": "datadog-firehose-nozzle-ctl.erb",
+        "DstPathEnd": "bin/datadog-firehose-nozzle-ctl",
+        "Path": "/tmp/tar-CmdExtractor1525532704/templates/datadog-firehose-nozzle-ctl.erb"
+      },
+      {
+        "SrcPathEnd": "datadog-firehose-nozzle.json.erb",
+        "DstPathEnd": "config/datadog-firehose-nozzle.json",
+        "Path": "/tmp/tar-CmdExtractor1525532704/templates/datadog-firehose-nozzle.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "datadog-firehose-nozzle"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "datadog.api_key",
+        "Description": "The datadog API key to use while submitting requests",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.no_proxy",
+        "Description": "Hosts that should skip the proxy",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.metadata_keys_whitelist_patterns",
+        "Description": "Label and annotation keys that match any regular expression in this list are included.\nIf neither a whitelist nor a blacklist is provided, everything is included.\nIf a key matches both a whitelist and a blacklist pattern, it is excluded.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.dca_port",
+        "Description": "Port to connect to the cluster agent.",
+        "Default": 5005,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_url_2",
+        "Description": "Additional Endpoint URL 2 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.deployment",
+        "Description": "Name of deployment (added as tag on all outgoing metrics)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_log_intake_url_2",
+        "Description": "Additional Log Intake Endpoint URL 2 for datadog",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.metric_prefix",
+        "Description": "Text which will be prepended to each metric name submitted to datadog",
+        "Default": "cloudfoundry.nozzle.",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.logrotate.size",
+        "Description": "The size at which logrotate will decide to rotate the log file",
+        "Default": "50M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.enable_metadata_app_metrics_prefix",
+        "Description": "Wheter or not to add \"label/\" or \"annotation/\" prefix to app metadata tags in app metrics.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.logrotate.freq_min",
+        "Description": "The frequency in minutes which logrotate will rotate VM logs",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.timeout_seconds",
+        "Description": "The number of seconds to set the timeout for writes to Datadog",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.org_data_collection_interval",
+        "Description": "The interval (in seconds) in which to submit org metrics",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.http_proxy_url",
+        "Description": "Use an http proxy",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.metadata_keys_blacklist_patterns",
+        "Description": "Label and annotation keys that match any regular expression in this list are excluded.\nIf neither a whitelist nor a blacklist is provided, everything is included.\nIf a key matches both a whitelist and a blacklist pattern, it is excluded.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_log_intake_url_3",
+        "Description": "Additional Log Intake Endpoint URL 3 for datadog",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_url_4",
+        "Description": "Additional Endpoint URL 4 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_key_1",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 1",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_url_3",
+        "Description": "Additional Endpoint URL 3 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_url_5",
+        "Description": "Additional Endpoint URL 5 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.idle_timeout_seconds",
+        "Description": "Number of seconds to wait before timing out the read to the firehose, if there are no messages",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.dca_enabled",
+        "Description": "Whether or not to use the cluster agent API.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.enable_advanced_tagging",
+        "Description": "Wheter or not to send extra tags such as `sidecar_present` and `sidecar_count` for app metrics.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.custom_tags",
+        "Description": "Send up custom tags with every request (e.g. to label your foundries)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "The secret for the user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_key_3",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 3",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_url_1",
+        "Description": "Additional Endpoint URL 1 for datadog",
+        "Default": "https://app.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.api_url",
+        "Description": "The REST API Endpoint for datadog",
+        "Default": "https://api.datadoghq.com/api/v1/series",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_log_intake_url_1",
+        "Description": "Additional Log Intake Endpoint URL 1 for datadog",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_log_intake_url_4",
+        "Description": "Additional Log Intake Endpoint URL 4 for datadog",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.flush_max_bytes",
+        "Description": "The maximum number of bytes to send per POST request",
+        "Default": 2097152,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.grab_interval",
+        "Description": "The Interval (in minutes) to update the app metadata",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.dca_token",
+        "Description": "Token to connect to the cluster agent.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_key_2",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 2",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.enable_application_logs",
+        "Description": "Whether or not to enable forwarding application logs from the nozzle",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.flush_duration_seconds",
+        "Description": "The duration in seconds between flushes to datadog",
+        "Default": 15,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.api_batch_size",
+        "Description": "Size of batches in which to query V3 API to populate app cache (integer between 100 and 5000)",
+        "Default": 500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.https_proxy_url",
+        "Description": "Use an https proxy",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.workers",
+        "Description": "The number of worker threads to use",
+        "Default": 4,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.enable_metadata_collection",
+        "Description": "Whether or not to enable labels and annotations collection as tags",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.subscription_id",
+        "Description": "The subscription id to be used for the firehose",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.disable_access_control",
+        "Description": "Datadog Nozzle bypasses authentication with the UAA",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.environment",
+        "Description": "The name of the environment where the nozzle is running",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.dca_url",
+        "Description": "URL of the cluster agent, the scheme will be added automatically in case it is not included.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.logrotate.rotate",
+        "Description": "The number of files that logrotate will keep around on the VM",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.url",
+        "Description": "URL for the UAA server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.insecure_ssl_skip_verify",
+        "Description": "Skip verifying SSL certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.deployment_filter",
+        "Description": "If set, this will filter out envelopes that do not match the deployment name",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_key_5",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 5",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_api_key_4",
+        "Description": "The datadog API key to use while submitting requests for additional endpoint url 4",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.additional_log_intake_url_5",
+        "Description": "Additional Log Intake Endpoint URL 5 for datadog",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.tags",
+        "Description": "Send up custom tags with every request (e.g. to label your foundries)",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client",
+        "Description": "The client that has access to the loggregator firehose",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cc.endpoint",
+        "Description": "Cloud Controller Endpoint for getting appmetrics",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nozzle.app_metrics",
+        "Description": "Turn on grabbing of app metrics (may substantially increase load)",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.rlp_gateway_url",
+        "Description": "RLP Gateway URL (loggregator V2 API - not necessary if you have cc.endpoint)",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "datadog.log_intake_url",
+        "Description": "The REST Log Intake Endpoint for datadog",
+        "Default": "https://http-intake.logs.datadoghq.com/",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
