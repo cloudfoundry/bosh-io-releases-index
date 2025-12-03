@@ -1,0 +1,2553 @@
+[
+  {
+    "Name": "acceptance_tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3147014754/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3147014754/templates/run.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "bin/config.json",
+        "Path": "/tmp/tar-CmdExtractor3147014754/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3147014754/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.25-linux"
+      },
+      {
+        "Name": "acceptance_tests"
+      },
+      {
+        "Name": "rtr"
+      },
+      {
+        "Name": "cf-cli-8-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "acceptance_tests.cloud_controller.api",
+        "Description": "URL of the Cloud Controller API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.admin_user",
+        "Description": "Cloud Controller admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.admin_password",
+        "Description": "Cloud Controller admin user's password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.user_password",
+        "Description": "By default, users created during acceptance tests will be configured random names and random passwords. This property enables specifying the password for users created during the test.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.tcp_router_group",
+        "Description": "The name of the the router group associated with the default TCP Router",
+        "Default": "default-tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.apps_domain",
+        "Description": "App domain that will be created",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.verbose",
+        "Description": "Whether to pass the -v flag to router acceptance tests",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_emitter.oauth_secret",
+        "Description": "Password for UAA client for the tcp emitter.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.default_timeout",
+        "Description": "Default timeout for Ginkgo assertions. i.e. Timeout for `Eventually`",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.nodes",
+        "Description": "The number of parallel test executors to spawn. The larger the number the higher the stress on the system.",
+        "Default": 4,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.skip_ssl_validation",
+        "Description": "When true, does not verify TLS certificates for any API calls made during the test run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.use_http",
+        "Description": "Flag for using HTTP when making application requests rather than the default HTTPS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.system_domain",
+        "Description": "Domain for system components, e.g. bosh-lite.com",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.include_http_routes",
+        "Description": "When true, additionally runs the HTTP Routes test for Routing API",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.addresses",
+        "Description": "A list of addresses which will be checked for TCP connectivity and features",
+        "Default": [
+          "10.244.14.2"
+        ],
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bbr-routingdb",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor408793755/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "backup.erb",
+        "DstPathEnd": "bin/bbr/backup",
+        "Path": "/tmp/tar-CmdExtractor408793755/templates/backup.erb"
+      },
+      {
+        "SrcPathEnd": "restore.erb",
+        "DstPathEnd": "bin/bbr/restore",
+        "Path": "/tmp/tar-CmdExtractor408793755/templates/restore.erb"
+      },
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor408793755/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": null,
+    "Properties": null
+  },
+  {
+    "Name": "gorouter",
+    "Description": "Gorouter maintains a dynamic routing table based on updates received from NATS and (when enabled) the Routing API. This routing table maps URLs to backends. The router finds the URL in the routing table that most closely matches the host header of the request and load balances across the associated backends.",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1007003094/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "prometheus_ca.crt.erb",
+        "DstPathEnd": "config/certs/prometheus/prometheus_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/prometheus_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "gorouter.yml.erb",
+        "DstPathEnd": "config/gorouter.yml",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/gorouter.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "prometheus.key.erb",
+        "DstPathEnd": "config/certs/prometheus/prometheus.key",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/prometheus.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "error.html.erb",
+        "DstPathEnd": "config/error.html",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/error.html.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.erb",
+        "DstPathEnd": "bin/nats_client",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/nats_client.erb"
+      },
+      {
+        "SrcPathEnd": "prometheus.crt.erb",
+        "DstPathEnd": "config/certs/prometheus/prometheus.crt",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/prometheus.crt.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "setup-jq.erb",
+        "DstPathEnd": "bin/setup-jq",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/setup-jq.erb"
+      },
+      {
+        "SrcPathEnd": "healthchecker.yml.erb",
+        "DstPathEnd": "config/healthchecker.yml",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/healthchecker.yml.erb"
+      },
+      {
+        "SrcPathEnd": "retrieve-local-routes.erb",
+        "DstPathEnd": "bin/retrieve-local-routes",
+        "Path": "/tmp/tar-CmdExtractor1007003094/templates/retrieve-local-routes.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "gorouter"
+      },
+      {
+        "Name": "routing-healthchecker"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "router.ca_certs",
+        "Description": "Required. List of Strings of concatenated certificate authorities in PEM format, used to validate server certificates provided by remote systems. Gorouter also trust certificates signed by well-known CAs and by CA certificates installed on the filesystem. These CA certificates are also used to validate client certificates when router.only_trust_client_ca_certs is false.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_internal_server_port",
+        "Description": "Gorouter will use this port for internal route services.",
+        "Default": 7070,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_recommend_https",
+        "Description": "Route Services are told where to send requests after processing using the X-CF-Forwarded-Url header. When this property is true, the scheme for this URL is https. When false, the scheme is http. As requests from Route Services to applications on CF transit load balancers and gorouter, disable this property for deployments that have TLS termination disabled.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_proxy",
+        "Description": "Enables support for the popular PROXY protocol, allowing downstream load balancers that do not support HTTP to pass along client information.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.ip_local_port_range",
+        "Description": "Ephemeral port range. `router.set_kernel_parameters` must be enabled.",
+        "Default": "1024 65535",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_open_files",
+        "Description": "The number of file descriptors a router can have open at one time",
+        "Default": 100000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.ca_certs",
+        "Description": "String of concatenated certificate authorities in PEM format, used to validate certificates presented by NATS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_2_request_timeout_in_seconds",
+        "Description": "The amount of time HTTP/2 requests from the Gorouter to apps are allowed to live before being canceled. \nEnter value in seconds. Set to -1 to disable timeouts. If set to 0, it inherits the value from request_timeout_in_seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.debug_address",
+        "Description": "Endpoint for process profiling. For more info see https://github.com/cloudfoundry/debugserver",
+        "Default": "127.0.0.1:17002",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services.enable_websockets",
+        "Description": "Enable websocket connections for application routes bound to Route Services.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services.private_key",
+        "Description": "Private key used for client authentication to TLS-registered route services.  In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_secret_decrypt_only",
+        "Description": "To rotate keys, add your new key here and deploy. Then swap this key with the value of route_services_secret and deploy again.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.html_error_template",
+        "Description": "(optional) When given a valid Go template, gorouter will generate HTML error pages instead of plain text error pages.\nThe following is an example of a valid HTML template:\n\n\u003chtml\u003e\n  \u003cbody\u003e\n    Code: {{ .Status }} {{ .StatusText }}\n    Message: {{ .Message }}\n    Cause: {{ .Header.Get \"X-Cf-RouterError\" }}\n  \u003c/body\u003e\n\u003c/html\u003e\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.token_endpoint",
+        "Description": "UAA token endpoint host name. Do not include a scheme in this value; TCP Router will always use TLS to connect to UAA.",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.load_balancer_healthy_threshold",
+        "Description": "Time period in seconds to wait until declaring the router instance started after starting the listener socket. This allows an external load balancer time to register the instance as healthy.",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_http2",
+        "Description": "Enables support for HTTP/2 ingress traffic to the Gorouter. Also enables the option to use the HTTP/2 protocol for traffic to specified backends.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.suspend_pruning_if_nats_unavailable",
+        "Description": "Suspend pruning of routes when NATs is unavailable and maintain the\ncurrent routing table. Note: only non-TLS routes are ever pruned.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.backends.max_attempts",
+        "Description": "Maximum number of attempts on failing requests against backend routes.\nThe number of attempts per request is limited by the number of endpoints on the route, regardless of this setting.\nThis includes CF apps and route-registrar endpoints.\nThe minimum value for this setting is 1. This prevents gorouter from getting blocked by indefinite retries.\n",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.offset",
+        "Description": "",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.drain_timeout",
+        "Description": "Delay in seconds after drain wait has completed to allow existing connections to finish their active requests.\nThe drain will begin when there are no active connections or until the timeout is reached.\nAny remaining connections that are open when the drain timeout is reached will be closed.\nTo reduce the drain time during deploys, set the value of drain timeout below the request timeout.\n",
+        "Default": 900,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.forwarded_client_cert",
+        "Description": "How to handle the x-forwarded-client-cert (XFCC) HTTP header. Possible values are:\n- always_forward: Always forward the XFCC header in the request, regardless of whether the client connection is mTLS.\n  Use this value when your load balancer is forwarding the client certificate and requests are not forwarded to Gorouter over mTLS.\n  In the case where the connection between load balancer and Gorouter is mTLS, the client certificate received by Gorouter in the TLS handshake will not be put in the XFCC header.\n- forward: Forward the XFCC header received from the client only when the client connection is mTLS.\n  This is a more secure version of `always_forward`. The client certificate received by Gorouter in the TLS handshake will not be put in the XFCC header.\n  Requires `client_cert_validation: request` or `require`.\n- sanitize_set: Strip any instances of XFCC headers from the client request.\n  When the client connection is mTLS, the client certificate received by Gorouter in the TLS handshake will be put in this header.\n  Values will be base64 encoded PEM. Use this value when Gorouter is the first component to terminate TLS.\n  Requires `client_cert_validation: request` or `require`.\n",
+        "Default": "always_forward",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_ssl",
+        "Description": "When enabled, Gorouter will listen on port 443 and terminate TLS for requests received on this port.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.logging.syslog_network",
+        "Description": "Network protocol to use when connecting to the syslog server. Valid values are 'tcp', 'udp', \u003cempty\u003e. When choosing an empty string value, the local syslog daemon is used.",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.clients.gorouter.secret",
+        "Description": "Password for UAA client for the gorouter.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.tls.certificate",
+        "Description": "TLS Certificate used for the TLS listener of the LB healthcheck endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_envelope_v1_metrics",
+        "Description": "Enables support for metrics reported via Envelope.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_verify_client_certificate_metadata",
+        "Description": "Enable additional client certificate verification via verify_client_certificate_metadata (see below).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.routes.port",
+        "Description": "Port used for the /routes endpoint (available on localhost-only)",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.backends.ca",
+        "Description": "Certificate authority that was used to sign certificates for TLS-registered backends. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.cipher_suites",
+        "Description": "An ordered, colon-delimited list of golang supported TLS cipher suites in OpenSSL or RFC format. The selected cipher suite will be negotiated according to the order of this list during a TLS handshake. See https://github.com/golang/go/blob/release-branch.go1.21/src/crypto/tls/cipher_suites.go#L663-L690 for golang supported cipher suites. The first four of these are supported for TLSv1.0/1.1 only. See https://www.openssl.org/docs/man1.1.0/apps/ciphers.html for a mapping of OpenSSL and RFC suite names.",
+        "Default": "ECDHE-RSA-AES128-GCM-SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.tls.port",
+        "Description": "Port used for the TLS listener of the LB healthcheck endpoint",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.meters.route_registration_latency_histogram_buckets",
+        "Description": "Upper limits in milliseconds of the ranges in which the observed value of route registration latency is expected to fall",
+        "Default": [
+          0.1,
+          0.5,
+          1,
+          1.5,
+          2,
+          2.5,
+          3,
+          3.5,
+          4
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.meters.route_lookup_time_histogram_buckets",
+        "Description": "Upper limits in nanoseconds of the ranges in which the observed value of route lookup time is expected to fall",
+        "Default": [
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000,
+          100000
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.sticky_sessions_for_auth_negotiate",
+        "Description": "Controls whether or not gorouter will apply sticky sessions to request/response flows using 'Authorization: Negotiate'",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.backends.max_conns",
+        "Description": "Maximum concurrent TCP connections per backend. When set to 0 there is no limit",
+        "Default": 500,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.trace_key",
+        "Description": "If the X-Vcap-Trace request header is set and has this value, trace headers are added to the response.",
+        "Default": 22,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.cert_chain",
+        "Description": "Certificate chain used for client authentication to the routing API. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.send_http_start_stop_client_event",
+        "Description": "Send a httpstartstopevent of type client for each request",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.verify_client_certificate_metadata",
+        "Description": "Additional client certificate verification, after the certificate was validated using the regular mTLS mechanism and is issued using one of the CAs in `client_ca_certs`.\nThe additional verification limits the allowed client certificates for a given signing CA (identified by its distinguished name) to certificates with subjects provided in the list of valid subjects. Within the certificate chain there may be more than one CA certificates (e.g. intermediate CA certificates). The `issuer_in_chain` must match one of the CA certificates in the chain.\nEach list entry contains an issuer_in_chain with a corresponding list of valid subjects. Each issuer_in_chain must match one of the certificates in `client_ca_certs`. When an issuer_in_chain is defined that does not match, this raises an error during templating time and at startup in gorouter.\n- issuer_in_chain:\n    common_name: \"\"\n    serial_number: \"\"\n    country: []\n    organization: []\n    organizational_unit: []\n    locality: []\n    province: []\n    street_address: []\n    postal_code: []\n  valid_cert_subjects:\n    - common_name: \"\"\n      serial_number: \"\"\n      country: []\n      organization: []\n      organizational_unit: []\n      locality: []\n      province: []\n      street_address: []\n      postal_code: []\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.sticky_session_cookie_names",
+        "Description": "The names of the cookies to use for handling sticky sessions",
+        "Default": [
+          "JSESSIONID"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for NATS authentication",
+        "Default": null,
+        "Example": "natSpa55w0rd",
+        "Examples": null
+      },
+      {
+        "Name": "websocket_dial_timeout_in_seconds",
+        "Description": "Maximum time in seconds for gorouter to establish a websocket upgrade for the websocket ForwardIO connection with a backend.\nThis timeout comes before `tls_handshake_timeout_in_seconds` and `request_timeout_in_seconds`. When not set, defaults to `endpoint_dial_timeout_in_seconds`.\n",
+        "Default": "endpoint_dial_timeout_in_seconds",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.private_key",
+        "Description": "Private key used for client authentication to the routing API. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.tls.key",
+        "Description": "Private Key used for the TLS listener of the LB healthcheck endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_http1_concurrent_read_write",
+        "Description": "Enables concurrent request reads and response writes for HTTP/1 requests",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_response_headers",
+        "Description": "This value controls the maximum number of headers gorouter will accept in a\nsingle response. Only the header keys are counted and values separated by commas\nare not considered additional headers. Setting this to zero or less disables the\nlimit. Must be at least 30 for CF to function properly (enforced).\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_idle_connections",
+        "Description": "When 0, keepalive connections are disabled.\nWhen a number greater than zero, keepalives are enabled, and Gorouter will keep up to this number of idle keepalive connections open across all backends.\nWhen keepalive connections are enabled, the maximum number of idle keepalive connections Gorouter will keep open to an individual backend is 100, which cannot be changed.\n",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.http_rewrite.responses.add_headers_if_not_present",
+        "Description": "(optional, array pairs name-value) If set, gorouter will add the given headers into the response if they are not already present.\n",
+        "Default": null,
+        "Example": [
+          {
+            "name": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains; preload"
+          },
+          {
+            "name": "Cache-Control",
+            "value": "no-cache"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.key",
+        "Description": "TLS private key for prometheus server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.meters.routing_response_latency_histogram_buckets",
+        "Description": "Upper limits in milliseconds of the ranges in which the observed value of route response latency is expected to fall",
+        "Default": [
+          1,
+          2,
+          4,
+          6,
+          8,
+          10,
+          20,
+          40,
+          50,
+          100,
+          500,
+          1000
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.logging.syslog_tag",
+        "Description": "Tag to use when writing syslog messages",
+        "Default": "vcap.gorouter",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls_handshake_timeout_in_seconds",
+        "Description": "Maximum time in seconds for gorouter to establish a TLS connection with a backend container. This timeout is for establishing\nthe TLS connection only. Actual HTTP request timeout is defined by `router.request_timeout_in_seconds`.\n",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.port",
+        "Description": "Port on which Routing API is running.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_secret",
+        "Description": "Support for route services is disabled when no value is configured. A robust passphrase is recommended.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ssl.port",
+        "Description": "Secure Port on which UAA is running.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IPs of each NATS cluster member",
+        "Default": null,
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null
+      },
+      {
+        "Name": "router.status.enable_nontls_health_checks",
+        "Description": "Toggles whether or not gorouter will listen on a non-tls endpoint for load balancer health checks.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services.max_attempts",
+        "Description": "Maximum number of attempts on failing requests against route service URLs.\nThe minimum value for this setting is 1. This prevents gorouter from getting blocked by indefinite retries.\n",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services.cert_chain",
+        "Description": "Certificate chain used for client authentication to TLS-registered route services.  In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.isolation_segments",
+        "Description": "Routes with these isolation segments will be registered. Used in combination with routing_table_sharding_mode.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.port",
+        "Description": "Port for the prometheus endpoint. Automatically enables Prometheus support.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_tls_version",
+        "Description": "Maximum accepted version of TLS protocol. Versions below this will, down to the min_tls_version, will also be accepted. Valid values are TLSv1.2 and TLSv1.3.\nWarning: Setting this to TLSv1.3 will cause things to fail with any Java clients using versions of Java without a fix for the following issue: https://bugs.openjdk.java.net/browse/JDK-8236039\n",
+        "Default": "TLSv1.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.logging.syslog_addr",
+        "Description": "Address of a syslog server to send access logs",
+        "Default": "localhost:514",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port of NATS servers",
+        "Default": null,
+        "Example": 4222,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.enable_deprecated_varz_healthz_endpoints",
+        "Description": "Toggles whether or not gorouter will respond to the deprecated /healthz,\n/varz, and /routes endpoints on its non-tls load balancer status port.\nRequires 'router.status.enable_nontls_health_checks' to be true.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthchecker.failure_counter_file",
+        "Description": "File used by the healthchecker to monitor consecutive failures.",
+        "Default": "/var/vcap/data/gorouter/counters/consecutive_healthchecker_failures.count",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.requested_route_registration_interval_in_seconds",
+        "Description": "On startup, the router will delay listening for requests by this duration to increase likelihood that it has a complete routing table before serving requests.\nThe router also broadcasts the same duration as a recommended interval to registering clients via NATS.\nThis must be less than 60, otherwise monit will mark the process as failed.\n",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.healthcheck_user_agent",
+        "Description": "DEPRECATED. Use /health endpoint on port specified by status.port. User-Agent for the health check agent (usually the Load Balancer).",
+        "Default": "HTTP-Monitor/1.1",
+        "Example": "ELB-HealthChecker/1.0",
+        "Examples": null
+      },
+      {
+        "Name": "router.client_ca_certs",
+        "Description": "Required. String of concatenated certificate authorities in PEM format, used to validate certificates provided by remote systems. By default, Gorouter will trust certificates signed by well-known CAs and by CA certificates installed on the filesystem.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_timeout",
+        "Description": "Expiry time of a route service signature in seconds",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.keep_alive_probe_interval",
+        "Description": "Interval between TCP keep alive probes. Value is a string (e.g. \"10s\")",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.sanitize_forwarded_proto",
+        "Description": "When true, Gorouter will strip the X-Forwarded-Proto header when present in client request and set it to the scheme of the request.\nWhen false, Gorouter will pass through the value of this header.\nWhen force_forwarded_proto_https: true, this property will be ignored.\nOtherwise,  we recommend setting the property to true if Gorouter is the first component to terminate TLS, and set to false when your load balancer is terminating TLS and setting the X-Forwarded-Proto header.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "Certificate authority for communication between clients and uaa.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.set_kernel_parameters",
+        "Description": "Optimize kernel networking settings for GoRouter. If you deploy GoRouter in a container set this to false.\nThis configures the following kernel parameters:\n  * Increases the number of allowed IP local port ranges specified by the `router.ip_local_port_range` value.\n  * Reserves ports configured for gorouter and other bosh components via /proc/sys/net/ipv4/ip_local_reserved_ports.\n  * Reduces the timeout of TCP_FIN_TIMEOUT, so that TCP/IP can release closed connections faster, making more\n    resources available for new connections.\n  * Disables TCP_TW_RECYCLE to enable fast recycling of TIME_WAIT sockets.\n  * Enables TCP_TW_REUSE to reuse sockets in TIME_WAIT state for new connections when it is safe from protocol viewpoint\n  * Increase the number of max queued connections than are allowed by default.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.user",
+        "Description": "Username for HTTP basic auth to the /varz and /routes endpoints.",
+        "Default": "router-status",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.enable_scraper",
+        "Description": "Activate the Prometheus scraper to collect metrics from the gorouter.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.cert",
+        "Description": "TLS certificate for prometheus server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.balancing_algorithm_az_preference",
+        "Description": "Configuration option used in conjunction with the `router.balancing_algorithm` to decide from which\navailability zone to pick a suitable backend. Defaults to \"None\".\n\"none\" - There is no preference regarding availability zones. The router uses the \n  `router.balancing_algorithm` across all possible backends in all existing AZs.\n\"locally-optimistic\" - On the initial attempt to pick a backend, the router will use\n  `router.balancing_algorithm` across all backends in the same AZ as the router itself. Subsequent\n  retries, in the case of failure or unavailability, will use _all_ available AZs.\n",
+        "Default": "none",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_request_header_kb",
+        "Description": "This value controls the maximum number of bytes (in KB) the gorouter will read\nparsing the request header's keys and values, including the request\nline. It does not limit the size of the request body. Requests with\nlarger headers will result in a 431 status code. Must be between 1 and 1024kb.\n",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.logging_level",
+        "Description": "Log level for router",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.write_access_logs_locally",
+        "Description": "Enables writing access log to local disk.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "for_backwards_compatibility_only.empty_pool_response_code_503",
+        "Description": "This property is provided for backwards compatibility reasons. We recommend leaving it set to true.\nWhen it set to true, the gorouter will return a 503 when a route is known but there is nothing in the pool available to handle the request. When false, the gorouter will return a 404.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.secure_cookies",
+        "Description": "Set secure flag on http cookies",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.client_cert_validation",
+        "Description": "none - Gorouter will not request client certificates in TLS handshakes, and will ignore them if presented. Incompatible with `forwarded_client_cert: forward` or `sanitize_set`.\nrequest - Gorouter will request client certificates in TLS handshakes, and will validate them when presented, but will not require them.\nrequire - Gorouter will fail a TLS handshake if the client does not provide a certificate signed by a CA it trusts. Select this option if your load balancer terminates TLS and does not require client certificates, and the load balancer provides a compatible client certificate of its own to Gorouter in an independent TLS handshake. This option may also be selected for Isolation Segments when Gorouter is the first point of TLS termination. Many clients of CF platform APIs do not present client certificates in TLS handshakes, so the first point of TLS termination for requests to the system domain must not require them. This option has no effect on the HTTP listener; to disable HTTP support set `disable_http: true`.\n",
+        "Default": "request",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_request_headers",
+        "Description": "This value controls the maximum number of headers gorouter will accept in a\nsingle request. Only the header keys are counted and values separated by commas\nare not considered additional headers. Setting this to zero or less disables the\nlimit. Must be at least 30 for CF to function properly (enforced).\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.logging.syslog_message_limit",
+        "Description": "Limit the number of bytes per access log written to syslog. A value of zero disables the limit.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.tracing.w3c_tenant_id",
+        "Description": "Specifies the tenant ID to use in the W3C tracestate header, only used when W3C tracing headers are enabled.\nIf specified, the tracestate identifier will be \"tenant-id@gorouter\" where \"tenant-id\" is the value specified.\nIf not specified, the tracestate identifier will be \"gorouter\"\nThe W3C tracing specification has more information: https://www.w3.org/TR/trace-context/\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.routing_table_sharding_mode",
+        "Description": "all: all routes will be registered.\nshared-and-segments: both routes for the configured isolation segments and those that do not have an isolation segment specified will be registered.\nsegments: only routes for the configured isolation segments will be registered.\n",
+        "Default": "all",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "for_backwards_compatibility_only.empty_pool_timeout",
+        "Description": "This property depends on empty_pool_response_code_503. If empty_pool_response_code_503 is set to true, then gorouter will consider empty_pool_timout parameter.\nIf set to 0, gorouter will remove empty pools after pruning their endpoints. The gorouter will respond with 404 code.\nIf set to different value, gorouter will wait until this timeout is reached then will delete the empty pools. Before pool deletion, gorouter will continue to respond with 503 code.\nThe type of empty_pool_timeout is time.Duration. We have to specify the unit of time. For example, a value \"10s\" means 10 seconds.\n",
+        "Default": "0s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.port",
+        "Description": "Port for the /health, /varz, and /routes endpoints.",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.keep_alive_100_continue_requests",
+        "Description": "If set gorouter reuses backend connection for requests expecting 100-Continue",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.read_header_timeout",
+        "Description": "The amount of time allowed to read request headers.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.disable_log_source_ip",
+        "Description": "(optional, boolean) When false, gorouter will include the source IP in access logs. When true, the source IP will not be logged.\nThis is to comply with EU regulations that do not allow persisting personal data. When Gorouter is behind an L3 load balancer that\npersists the IP of the originating client, set this to true to comply with GDPR.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "http_1_request_timeout_in_seconds",
+        "Description": "The amount of time HTTP/1 requests from the Gorouter to apps are allowed to live before being canceled. \nEnter value in seconds. Set to -1 to disable timeouts. If set to 0, it inherits the value from request_timeout_in_seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.ca_certs",
+        "Description": "String of concatenated certificate authorities in PEM format, used to validate certificates provided by the routing API.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.per_app_prometheus_http_metrics_reporting",
+        "Description": "Reports the http latency in a prometheus histogram for each application",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.http_rewrite.responses.remove_headers",
+        "Description": "(optional, array pairs name-value) List of HTTP headers that will be stripped from responses.\n",
+        "Default": null,
+        "Example": [
+          {
+            "name": "X-Vcap-Request-Id"
+          },
+          {
+            "name": "Accept-Ranges"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "router.frontend_idle_timeout",
+        "Description": "(optional, integer) Duration in seconds to maintain an open connection when client supports keep-alive.\nThis property must be configured with regards to how an IaaS-provided load balancer behaves in order to prevent connections from being closed prematurely.\nGenerally, this timeout must be greater than that of the load balancer. As examples, GCP HTTP(S) load balancer has a default timeout of 600 seconds so a value greater than 600 is recommended and AWS ELB has a default timeout of 60 seconds so a value greater than 60 is recommended.\nHowever, depending on the IaaS, this timeout may need to be shorter than the load balancer's timeout, e.g., Azure's load balancer times out at 240 seconds (by default) and GCP TCP load balancer times out at 600 seconds without sending a TCP RST to clients, so a value lower than this is recommended in order to force it to send the TCP RST.\n",
+        "Default": 900,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.tls_port",
+        "Description": "Listening port for SSL connections to the router, when SSL is enabled.",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_access_log_streaming",
+        "Description": "Enables streaming access log to syslog server.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_internal_lookup_allowlist",
+        "Description": "a list of host names for route services that should be resolved internally. Each entry can be a fully qualified domain name or DNS wildcard (i.e. wildcard on 1 segment of a subdomain). If the list is empty, it is not in effect and internal lookup will be attempted for all host names, which can lead to CVE-2019-3789. Please turn on internal lookup only with an allowlist.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.logging.extra_access_log_fields",
+        "Description": "An array of additional access log fields to log. Any new log fields will only be exposed via\nthis property and operators have to explicitly enable them. This is done to prevent breaking\nlog parsing in existing setups by the introduction of new fields. Does not affect stdout /\nstderr logs.\nAvailable fields are: backend_time, dial_time, dns_time, failed_attempts, failed_attempts_time, local_address, tls_time\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.force_forwarded_proto_https",
+        "Description": "Enables setting X-Forwarded-Proto header if SSL termination happened upstream and incorrectly set the header value. When this property is set to true gorouter sets the header X-Forwarded-Proto to https. When this value set to false, gorouter set the header X-Forwarded-Proto to the protocol of the incoming request",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "User name for NATS authentication",
+        "Default": null,
+        "Example": "nats",
+        "Examples": null
+      },
+      {
+        "Name": "router.number_of_cpus",
+        "Description": "Number of CPUs to utilize, the default (-1) will equal the number of available CPUs",
+        "Default": -1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.disable_http",
+        "Description": "Disables the http listener on port specified by router.port. This cannot be set to true if enable_ssl is false.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.redact_query_parameters",
+        "Description": "(optional, string) This option can be used to hide potentially sensitive information on GET request query parameters in the access log.\nnone: Log all query parameters on GET requests. E.g. GET /users?name=peter\nall: Log no query parameters on GET requests.   E.g. GET /users\nhash: Log query parameters in hashed form only. E.g. GET /users?hash=a6909eece4005d85fb1894cc4efa38564b9c30c3\n",
+        "Default": "none",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.backends.cert_chain",
+        "Description": "Certificate chain used for client authentication to TLS-registered backends.  In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.enabled",
+        "Description": "When enabled, GoRouter will fetch HTTP routes from the Routing API in addition to routes obtained via NATS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.server_name",
+        "Description": "The server name used in the certificate for the metrics endpoint.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_strict_signature_validation",
+        "Description": "Enforce strict validation of a route service signature",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.hop_by_hop_headers_to_filter",
+        "Description": "(optional, array value) List of HTTP Headers that are filtered for\nHop-By-Hop Connection header.\nWhen clients make requests to the gorouter and the gorouter proxies\ntheir request, these HTTP Headers will be automatically be removed from\nthe request's Connection header and sent as normal headers to the\ntarget backend. This list *also* specificies the Headers that can be\nreturned by the backend; i.e. if a client attempts to send one of these\nHeaders in their Connection Header to gorouter and it's *NOT* filtered,\nthe header will *NOT* be returned to client properly after proxying the\nrequest.\n",
+        "Default": [
+          "X-Forwarded-For",
+          "X-Forwarded-Proto",
+          "B3",
+          "X-B3",
+          "X-B3-SpanID",
+          "X-B3-TraceID",
+          "X-Request-Start",
+          "X-Forwarded-Client-Cert"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.tracing.enable_zipkin",
+        "Description": "Enables the addition of the X-B3-Trace-Id header to incoming requests. If the header already exists on the incoming request, it will not be overwritten.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.balancing_algorithm",
+        "Description": "Algorithm used to distribute requests for a route across backends. Supported values are round-robin and least-connection",
+        "Default": "round-robin",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.dns_health_check_host",
+        "Description": "Host to ping for confirmation of DNS resolution, only used when Routing API is enabled",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls_enabled",
+        "Description": "When enabled, Gorouter will prefer to connect to NATS over TLS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.cert_chain",
+        "Description": "Certificate chain used for client authentication to NATS. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.send_http_start_stop_server_event",
+        "Description": "Send a httpstartstopevent of type server for each request",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.min_tls_version",
+        "Description": "Minimum accepted version of TLS protocol. All versions above this, up to the max_tls_version, will also be accepted. Valid values are TLSv1.0, TLSv1.1, TLSv1.2, and TLSv1.3.",
+        "Default": "TLSv1.2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.tls_pem",
+        "Description": "Array of private keys and certificates for serving TLS requests. Each element in the array is an object containing fields 'private_key' and 'cert_chain', each of which supports a PEM block. Required if router.enable_ssl is true.",
+        "Default": null,
+        "Example": "- cert_chain: |\n    -----BEGIN CERTIFICATE-----\n    -----END CERTIFICATE-----\n    -----BEGIN CERTIFICATE-----\n    -----END CERTIFICATE-----\n  private_key: |\n    -----BEGIN RSA PRIVATE KEY-----\n    -----END RSA PRIVATE KEY-----\n",
+        "Examples": null
+      },
+      {
+        "Name": "router.only_trust_client_ca_certs",
+        "Description": "When router.only_trust_client_ca_certs is true, router.client_ca_certs are the only trusted CA certs for client requests. When router.only_trust_client_ca_certs is false, router.client_ca_certs are trusted in addition to router.ca_certs and the CA certificates installed on the filesystem. This will have no affect if the `router.client_cert_validation` property is set to none.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.max_response_header_kb",
+        "Description": "This value controls the maximum number of bytes (in KB) the gorouter will read\nparsing the response header's keys and values, including the request\nline. It does not limit the size of the response body. Responses with\nlarger headers will result in a 502 status code. A limit of zero or less will\nresult in the default GoLang limit being used.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron.port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.auth_disabled",
+        "Description": "When false, Routing API requires OAuth tokens for authentication.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.status.password",
+        "Description": "Password for HTTP basic auth to the /varz and /routes endpoints.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.backends.private_key",
+        "Description": "Private key used for client authentication to TLS-registered backends.  In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.ssl_skip_validation",
+        "Description": "Skip validation of TLS certificates received from route services and UAA.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.disable_log_forwarded_for",
+        "Description": "(optional, boolean) When false, gorouter will include the value of the HTTP header X-Forwarded-For which it sends to a backend.\nWhen true, the value of this header will not be logged. This is to comply with EU regulations that do not allow persisting personal data.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.uri",
+        "Description": "URL where the routing API can be reached internally",
+        "Default": "https://routing-api.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.per_request_metrics_reporting",
+        "Description": "Report the metrics latency, latency.\u003ccomponent\u003e and route_lookup_time for each request",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.private_key",
+        "Description": "Private key used for client authentication to NATS. In PEM format.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.meters.http_latency_histogram_buckets",
+        "Description": "Upper limits in seconds of the ranges in which the observed value of the latency of http requests from gorouter and back",
+        "Default": [
+          0.1,
+          0.2,
+          0.4,
+          0.8,
+          1.6,
+          3.2,
+          6.4,
+          12.8,
+          25.6
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.drain_wait",
+        "Description": "Delay in seconds after shut down is initiated before server stops listening.\nDuring this time the server will reject requests to the /health endpoint.\nThis accommodates requests forwarded by a load balancer until it considers the router unhealthy.\n",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.route_services_internal_lookup",
+        "Description": "setting this property to true causes gorouter to bypass another trip through the load balancer when directing traffic to a route service that is a known route by the gorouter.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.extra_headers_to_log",
+        "Description": "An array of headers that access log events will be annotated with. This only applies to headers on requests.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.tracing.enable_w3c",
+        "Description": "Enables the addition of the W3C tracing headers to incoming requests.\nIf the traceparent and tracestate headers exist on the incoming request, they will be updated, if they do not exist they will be created.\nThe W3C tracing specification has more information: https://www.w3.org/TR/trace-context/\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "go.httplaxcontentlength",
+        "Description": "Environment Flag to temporarily allow requests containing an invalid, empty `Content-Length` header for backwards compatibility.\nThis toggle allows operators to add the `GODEBUG` field `httplaxcontentlength=1`, as allowable per the [go 1.22 release documentation](https://tip.golang.org/doc/go1.22#minor_library_changes).\nDefaults to `false` as the default behavior in go 1.22+ is to reject these requests.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "request_timeout_in_seconds",
+        "Description": "This configures an entire request timeout.\nRequests from router to backend endpoints that are longer than this duration will be canceled and logged as\n`backend-request-timeout` errors. If set to 0 this timeout is disabled.\n",
+        "Default": 900,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_dial_timeout_in_seconds",
+        "Description": "Maximum time in seconds for gorouter to establish a TCP connection with a backend. This timeout comes before `tls_handshake_timeout_in_seconds`\nand `request_timeout_in_seconds`.\n",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.port",
+        "Description": "Listening Port for Router.",
+        "Default": 80,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.prometheus.ca_cert",
+        "Description": "TLS CA cert to verify requests to prometheus endpoint.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "router.enable_log_attempts_details",
+        "Description": "Log additional fields in the access log that provide more details on the specific timings and attempts performed towards endpoints.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "route_registrar",
+    "Description": "Used for registering routes",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor569111702/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "client_private.key.erb",
+        "DstPathEnd": "config/routing_api/keys/client_private.key",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/client_private.key.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.crt.erb",
+        "DstPathEnd": "config/nats/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/nats_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client_private.key.erb",
+        "DstPathEnd": "config/nats/certs/client_private.key",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/nats_client_private.key.erb"
+      },
+      {
+        "SrcPathEnd": "registrar_settings.json.erb",
+        "DstPathEnd": "config/registrar_settings.json",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/registrar_settings.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/routing_api/certs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "server_ca.crt.erb",
+        "DstPathEnd": "config/routing_api/certs/server_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/server_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_server_ca.crt.erb",
+        "DstPathEnd": "config/nats/certs/server_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor569111702/templates/nats_server_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "route_registrar"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "nats.tls.ca_cert",
+        "Description": "The certificate authority certificate used for the route registrar",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.api_url",
+        "Description": "(optional, string) The routing API's URL. This is required to register any TCP routes. If not provided here or via link, this defaults to 'https://routing-api.service.cf.internal:3001'",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.server_ca_cert",
+        "Description": "Routing API Certificate Authority",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.machines",
+        "Description": "IPs of each NATS cluster member",
+        "Default": null,
+        "Example": "- 192.168.50.123\n- 192.168.52.123\n",
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password for NATS authentication",
+        "Default": null,
+        "Example": "natSpa55w0rd",
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.client_key",
+        "Description": "PEM-encoded private key for the route-registrar to present to NATS for verification when connecting via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.skip_ssl_validation",
+        "Description": "(optional, boolean) Option to skip TLS validation.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.client_cert",
+        "Description": "Routing API Client Certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "TCP port of NATS servers",
+        "Default": null,
+        "Example": 4222,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.enabled",
+        "Description": "Enable connecting to NATS server via TLS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.tls.client_cert",
+        "Description": "PEM-encoded certificate for the route-registrar to present to NATS for verification when connecting via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.fail_if_using_nats_without_tls",
+        "Description": "Connecting to nats (instead of nats-tls) is deprecated. The nats\nprocess will be removed soon. Please migrate to using nats-tls as soon\nas possible. If you must continue using nats for a short time you can\nset this flag to false.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "host",
+        "Description": "(string, optional) By default, route_registrar will detect the IP of the VM and use it, in combination with port as the backend destination for each uri being registered. This property enables overriding the destination hostname or IP.",
+        "Default": null,
+        "Example": "192.168.60.25",
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.client_secret",
+        "Description": "(optional, string) The OAuth client secret for the above client. This is required to register any TCP routes. If set, overrides values provided via routing_api's link. If not provided via link, this must be set when registering TCP routes.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.ca_certs",
+        "Description": "(optional, array of strings) The certificate authority certificates for any APIs that the route registrar is communicating with over HTTPS, e.g., the OAuth server. This is required to register any TCP routes.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.dynamic_config_globs",
+        "Description": "Files matching the globs contain routes configuration that will be loaded dynamically. Parent directory must exist for bpm to mount it.",
+        "Default": [
+          "/var/vcap/jobs/*/config/route_registrar/config.yml"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.logging_level",
+        "Description": "Log level for route_registrar",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.oauth_url",
+        "Description": "(optional, string) The OAuth server's URL. This is required to register any TCP routes. If not provided here or via link, this defaults to 'https://uaa.service.cf.internal:8443'",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.client_private_key",
+        "Description": "Routing API Client Private Key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routes",
+        "Description": "(required, array of objects): Routes that will be registered\n\nroute object\n  name (required, string, for all routes): Human-readable reference for the route\n  type (optional, string, for all routes): Defaults to http, can specify http, sni, or tcp.\n  uris (required, array, for http routes): When Gorouter receives a request that matches one of these URIs,\n    it will forward them to the IP of the host on which route_registrar runs, and either port or tls_port.\n  sni_port (required, integer, for sni routes): When sni type provided, this is the downstream port to route to\n  port (required, integer, for all routes): Either `port` or `tls_port` are required; if both are provided, Gorouter will prefer tls_port.\n    Requests for associated URIs will be forwarded unencypted by the router to this port.\n    The IP is determined automatically from the host on which route-registrar is run.\n  tls_port (required, integer, for http routes): Either `port` or `tls_port` are required; if both are provided, Gorouter will prefer tls_port.\n    Requests for associated URIs will be forwarded over TLS by the router to this port.\n    The IP is determined automatically from the host on which route-registrar is run.\n  protocol (optional, string): 'http1' or 'http2'. If not provided, Gorouter uses 'http1' as default.\n  route_service_url (optional, string, for http routes): When valid route service URL is provided, Gorouter will proxy requests received for the uris above to the specified route service URL.\n  server_cert_domain_san (conditional, string, for http routes): Required if tls_port is present.\n    Gorouter will validate that the TLS certificate presented by the destination host contains this as a Subject Alternative Name (SAN).\n  registration_interval (required, string, for all routes): Interval between heartbeated route registrations\n    (e.g. 10s). It must parse to a positive time duration i.e. \"-5s\" is not permitted.\n  tags (optional, array of objects, for http routes): Arbitrary key-value pairs emitted with metrics to support\n    filtering of metrics\n  prepend_instance_index (optional, boolean, for http routes): When set to true the values in `uris` will be\n    prepended with the instance index. e.g. 'some-uri.system-domain.com' will become '0-some-uri.system-domain.com' on the instance with index 0, and '2-some-url.system-domain.com' on the instance with index 2. When this value is enabled, each instance will register its own, unique, set of uris. To additionally continue to register these original uris, create another route with the same uris and set 'prepend_instance_index' to false (or omit the key entirely).\n  health_check (optional, object, for all routes): Script executed on frequency of `registration_interval`. If\n    healthcheck script exits with success, route registration heartbeat is sent. If script exits\n    with error, the route is unregistered.\n  router_group (required, string, for tcp routes): Name of the router group to which the TCP route should be added.\n  external_port (required, string, for tcp routes): Port that the TCP router will listen on.\n  server_cert_domain_name_modifier (optional, string, for sni routes): a regex replace to help with complicated hostnames.\n  options (optional, object, for http routes): Custom per-route options\n  terminate_frontend_tls (optional, boolean): When true, the router will terminate TLS before forwarding requests to the backend. Default: false\n  alpns (optional, array): Application Layer Protocol Negotiation strings.\n  sni_routable_san(optional, string): is the SAN used to route the request to the appropriate backend. \n    Required when `type` is `sni` and `terminate_frontend_tls` is enabled.\n\nhealth_check object\n  name (required, string): Human-readable reference for the healthcheck\n  script_path (required, string): Path to script that will be run periodically to determine\n    service health\n  unrestricted_volumes (optional, array of unrestricted_volumes): Additional directories to be mounted in the bpm config for the route_registrar job.\n  privileged: (optional, boolean): Sets bpm privileged flag. defaults to false\n  timeout (optional, string): The healthcheck script must exit within this timeout, otherwise\n    the script is terminated with `SIGKILL` and the route is unregistered. Value is a string (e.g. \"10s\") and must parse to a positive time duration i.e. \"-5s\" is not permitted. Must be less than the value of `registration_interval`.\n    Default: Half of the value of `registration_interval`\n\nunrestricted_volume object\n  path (required, string): the path to be mounted\n  writable (optional, boolean): sets the writable flag. defaults to false\n\noptions object\n  loadbalancing (optional, string): Load balancing algorithm for routing incoming requests to the backend: 'round-robin' or 'least-connection'. In cases where this option is not specified, the algorithm defined in gorouter spec is applied.\n",
+        "Default": null,
+        "Example": "- name: my-service\n  uris:\n    - my-service.system-domain.com\n    - *.my-service.system-domain.com\n  port: 12345\n  registration_interval: 20s\n  tags:\n    component: my-service\n    env: production\n  health_check:\n    name: my-service-health_check\n    script_path: /path/to/script\n    timeout: 5s\n  route_service_url: https://my-oauth-proxy-route-service.example.com\n  terminate_frontend_tls: true\n  alpns:\n    - h2\n    - http/1.1\n  options:\n    loadbalancing: least-connection\n- name: my-tls-endpoint\n  tls_port: 12346\n  server_cert_domain_san: \"my-tls-endpoint.internal.com\"\n  uris:\n    - my-service.system-domain.com\n- name: my-debug-endpoint\n  uris:\n    - my-service.system-domain.com/debug\n  port: 12346\n- name: cf-mysql-proxy-api-per-instance\n  uris:\n  - proxy-cf-mysql.system.domain\n  port: 8080\n  prepend_instance_index: true\n- name: cf-mysql-proxy-api\n  uris:\n  - proxy-cf-mysql.system.domain\n  port: 8081\n- name: my-tcp-route\n  type: tcp\n  port: 6263\n  router_group: my-router-group\n  external_port: 1234\n  registration_interval: 10s\n",
+        "Examples": null
+      },
+      {
+        "Name": "route_registrar.routing_api.client_id",
+        "Description": "(optional, string) An OAuth client ID for a client that is permitted to add new TCP routes. This is required to register any TCP routes. If set, overrides values provided via routing_api's link. If not provided via link or property, defaults to 'routing_api_client'.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "User name for NATS authentication",
+        "Default": null,
+        "Example": "nats",
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "routing-api",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor33380284/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "routing_api_health_check.erb",
+        "DstPathEnd": "bin/routing_api_health_check",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/routing_api_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "locket_client.crt.erb",
+        "DstPathEnd": "config/certs/locket/client.crt",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/locket_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "locket_client.key.erb",
+        "DstPathEnd": "config/certs/locket/client.key",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/locket_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bbr-metadata",
+        "DstPathEnd": "bin/bbr/metadata",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/bbr-metadata"
+      },
+      {
+        "SrcPathEnd": "post-restore-unlock.erb",
+        "DstPathEnd": "bin/bbr/post-restore-unlock",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/post-restore-unlock.erb"
+      },
+      {
+        "SrcPathEnd": "api_mtls_client.crt.erb",
+        "DstPathEnd": "config/certs/routing-api/client.crt",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/api_mtls_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_mtls_client.key.erb",
+        "DstPathEnd": "config/certs/routing-api/client.key",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/api_mtls_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "api_mtls_server.crt.erb",
+        "DstPathEnd": "config/certs/routing-api/server.crt",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/api_mtls_server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_mtls_server.key.erb",
+        "DstPathEnd": "config/certs/routing-api/server.key",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/api_mtls_server.key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-backup-lock.erb",
+        "DstPathEnd": "bin/bbr/pre-backup-lock",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/pre-backup-lock.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "routing-api.yml.erb",
+        "DstPathEnd": "config/routing-api.yml",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/routing-api.yml.erb"
+      },
+      {
+        "SrcPathEnd": "locket_ca.crt.erb",
+        "DstPathEnd": "config/certs/locket/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/locket_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "api_mtls_client_ca.crt.erb",
+        "DstPathEnd": "config/certs/routing-api/client_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/api_mtls_client_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-restore-lock.erb",
+        "DstPathEnd": "bin/bbr/pre-restore-lock",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/pre-restore-lock.erb"
+      },
+      {
+        "SrcPathEnd": "dns_health_check.erb",
+        "DstPathEnd": "bin/dns_health_check",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/dns_health_check.erb"
+      },
+      {
+        "SrcPathEnd": "post-backup-unlock.erb",
+        "DstPathEnd": "bin/bbr/post-backup-unlock",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/post-backup-unlock.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor33380284/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "routing-api"
+      },
+      {
+        "Name": "routing_utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "routing_api.sqldb.ca_cert",
+        "Description": "(optional, string) When present, force database connections via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.max_ttl",
+        "Description": "String representing the maximum TTL a client can request for route registration.",
+        "Default": "120s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.metrics_reporting_interval",
+        "Description": "String representing interval for reporting the following metrics: total_http_subscriptions, total_http_routes, total_tcp_subscriptions, total_tcp_routes, total_token_errors, key_refresh_events. Units: ms, s, m h",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.system_domain",
+        "Description": "Domain reserved for CF operator; base URL where the UAA, Cloud Controller, and other non-user apps listen",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.mtls_server_cert",
+        "Description": "Routing API server cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.health_check_total_timeout",
+        "Description": "Maximum health check timeout (in seconds). Health checks will be retried until this time limit is reached. This should be less than or equal to your route_registrar.routes.routing-api.health_check.timeout",
+        "Default": 6,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.statsd_client_flush_interval",
+        "Description": "Buffered statsd client flush interval",
+        "Default": "300ms",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.mtls_server_key",
+        "Description": "Routing API server key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.mtls_client_cert",
+        "Description": "Routing API client cert (provided to clients by bosh link)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.health_check_timeout_per_retry",
+        "Description": "Maximum health check timeout (in seconds) for each retry attempt in the Routing API's route registration health check",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.host",
+        "Description": "Host for SQL database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.bbr.metadata",
+        "Description": "BBR Metadata",
+        "Default": "---\nrestore_should_be_locked_before:\n- job_name: uaa\n  release: uaa\n",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Skip TLS verification when talking to UAA",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.mtls_ca",
+        "Description": "Routing API CA cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.password",
+        "Description": "Password used for connecting to SQL database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.token_endpoint",
+        "Description": "UAA token endpoint host name. Do not include a scheme in this value; TCP Router will always use TLS to connect to UAA.",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.clients",
+        "Description": "OAuth client ids and secrets provided via link to jobs in other BOSH deployments that need to read and/or write to Routing API. These clients must be configured in UAA via API or using the property uaa.clients with the desired scopes. For a list of scopes supported see https://github.com/cloudfoundry-incubator/routing-api/blob/master/docs/api_docs.md. Jobs consuming the link should use these credentials to fetch a token from UAA with which to authenticate with Routing API.",
+        "Default": null,
+        "Example": {
+          "cfcr_routing_api_client": {
+            "secret": "((uaa_clients_cfcr_routing_api_client_secret))"
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.lock_ttl",
+        "Description": "TTL for service lock",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.mtls_client_key",
+        "Description": "Routing API client key (provided to clients by bosh link)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_health_check_host",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.skip_hostname_validation",
+        "Description": "skip checking the hostname of the server cert when connecting via TLS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.connections_max_lifetime_seconds",
+        "Description": "Sets the maximum amount of time a connection may be reused. Expired connections may be closed lazily before reuse.\nIf value \u003c= 0, connections are reused forever.\nIf there is a spike in connection usage, all of these connections have the potential to stick around with a high lifetime.\nLowering the lifetime will result in connections getting reaped sooner, but the routing-api may have to renegotiate connections\nmore often, which could add some latency. We recommend using the default unless you have seen specific needs to change it.\n",
+        "Default": 3600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.fail_on_router_port_conflicts",
+        "Description": "This should come via a bosh link from the tcp_routing job. This property is here in case it needs to be overwritten.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.locket.api_location",
+        "Description": "Hostname and port of the Locket server. Used to obtain a lock so only one instance of Routing API is active at a time.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.admin_port",
+        "Description": "Local port to listen on with admin endpoint (used for backup/restore locking)",
+        "Default": 15897,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.statsd_endpoint",
+        "Description": "The endpoint for the statsd server used to translate the following metrics from statsd to dropsonde: total_http_subscriptions, total_http_routes, total_tcp_subscriptions, total_tcp_routes, total_token_errors, key_refresh_events.",
+        "Default": "localhost:8125",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.mtls_port",
+        "Description": "Port on which Routing API is running, listening with mTLS.",
+        "Default": 3001,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.type",
+        "Description": "Type of SQL database",
+        "Default": null,
+        "Example": "mysql",
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "Certificate authority for communication between clients and UAA.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.tls_port",
+        "Description": "Port on which UAA is listening for TLS connections. This is required for obtaining a key to verify client OAuth tokens.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.router_groups",
+        "Description": "Array of router groups that will be seeded into routing_api database. Once some value is included with a deploy, subsequent changes to this property will be ignored. TCP Routing requires a router group of type: tcp.",
+        "Default": [],
+        "Example": "- name: default-tcp\n  reservable_ports: 1024-10000,12000\n  type: tcp\n",
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.reserved_system_component_ports",
+        "Description": "Array of ports that are reserved for system components.\nUsers will not be able to create router_groups with ports that overlap\nwith this value. Please see docs for more information about these ports.\n",
+        "Default": [
+          2822,
+          2825,
+          3457,
+          3458,
+          3459,
+          3460,
+          3461,
+          8853,
+          9100,
+          14726,
+          14727,
+          14821,
+          14822,
+          14823,
+          14824,
+          14829,
+          14830,
+          14920,
+          14922,
+          15821,
+          17002,
+          53035,
+          53080
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.locket.ca_cert",
+        "Description": "CA cert for the Locket server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.schema",
+        "Description": "Database name for routing api",
+        "Default": null,
+        "Example": "routing_api",
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.username",
+        "Description": "Username used for connecting to SQL database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.debug_address",
+        "Description": "Address at which to serve debug info",
+        "Default": "127.0.0.1:17002",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron.port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.locket.client_cert",
+        "Description": "Client cert for the Locket server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.locket.client_key",
+        "Description": "Client key for the Locket server.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "release_level_backup",
+        "Description": "Include routing api database in backup and restore operations",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.auth_disabled",
+        "Description": "Disables UAA authentication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.port",
+        "Description": "Port on which SQL database is listening",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.max_open_connections",
+        "Description": "Maximum number of open connections to the SQL database.\nThe number of necessary connections will scale with the number of requests to the `/routing/...` cf api endpoints.\n",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.lock_retry_interval",
+        "Description": "interval to wait before retrying a failed lock acquisition",
+        "Default": "5s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.port",
+        "Description": "Port on which Routing API is running. If this is changed and routing_api.enabled:true in cf-release, it will break management of routes and domains until routing_api.port is updated in cf-release.",
+        "Default": 3000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.enabled_api_endpoints",
+        "Description": "Protocols that the routing api will listen on. Possible values: 'mtls', or 'both' (mTLS + HTTP)",
+        "Default": "mtls",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.sqldb.max_idle_connections",
+        "Description": "Maximum number of idle connections to the SQL database.\nIdle connections will be retained until their `routing_api.sqldb.connections_max_lifetime_seconds` has been reached.\n",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke_tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor6446807/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "bin/config.json",
+        "Path": "/tmp/tar-CmdExtractor6446807/templates/config.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor6446807/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor6446807/templates/run.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.25-linux"
+      },
+      {
+        "Name": "acceptance_tests"
+      },
+      {
+        "Name": "cf-cli-8-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "acceptance_tests.skip_ssl_validation",
+        "Description": "When true, does not verify TLS certificates for any API calls made during the test run",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.api",
+        "Description": "URL of the Cloud Controller API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.admin_user",
+        "Description": "Cloud Controller admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_emitter.oauth_secret",
+        "Description": "Password for UAA client for the tcp emitter.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.user_password",
+        "Description": "By default, users created during acceptance tests will be configured random names and random passwords. This property enables specifying the password for users created during the test.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.addresses",
+        "Description": "A list of addresses which will be checked for TCP connectivity and features",
+        "Default": [
+          "10.244.14.2"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.apps_domain",
+        "Description": "App domain that will be created",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.admin_password",
+        "Description": "Cloud Controller admin user's password",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.cloud_controller.use_http",
+        "Description": "Flag for using HTTP when making application requests rather than the default HTTPS",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.system_domain",
+        "Description": "Domain for system components, e.g. bosh-lite.com",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "smoke_tests.tcp_apps_domain",
+        "Description": "TCP app domain to use for testing. By default, a temporary domain will be created but tests will use the IP address of the TCP Router",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.default_timeout",
+        "Description": "Default timeout for Ginkgo assertions. i.e. Timeout for `Eventually`",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.tcp_router_group",
+        "Description": "The name of the the router group associated with the default TCP Router",
+        "Default": "default-tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "acceptance_tests.verbose",
+        "Description": "Whether to pass the -v flag to router acceptance tests",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "tcp_router",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2693056844/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "tcp_router_backend_ca.crt.erb",
+        "DstPathEnd": "config/certs/tcp-router/backend/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/tcp_router_backend_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy_reloader.erb",
+        "DstPathEnd": "bin/haproxy_reloader",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/haproxy_reloader.erb"
+      },
+      {
+        "SrcPathEnd": "tcp_router.yml.erb",
+        "DstPathEnd": "config/tcp_router.yml",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/tcp_router.yml.erb"
+      },
+      {
+        "SrcPathEnd": "tcp_router_health_check_certificate.pem.erb",
+        "DstPathEnd": "config/certs/health.pem",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/tcp_router_health_check_certificate.pem.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_client_certificate.crt.erb",
+        "DstPathEnd": "config/certs/routing-api/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/routing_api_client_certificate.crt.erb"
+      },
+      {
+        "SrcPathEnd": "tcp_router_backend_client_cert_and_key.pem.erb",
+        "DstPathEnd": "config/keys/tcp-router/backend/client_cert_and_key.pem",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/tcp_router_backend_client_cert_and_key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "tcp_router_ctl.erb",
+        "DstPathEnd": "bin/tcp_router_ctl",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/tcp_router_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_client_private.key.erb",
+        "DstPathEnd": "config/keys/routing-api/client.key",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/routing_api_client_private.key.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_ca_certificate.crt.erb",
+        "DstPathEnd": "config/certs/routing-api/ca_cert.crt",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/routing_api_ca_certificate.crt.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy.conf.erb",
+        "DstPathEnd": "config/haproxy.conf",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/haproxy.conf.erb"
+      },
+      {
+        "SrcPathEnd": "haproxy.conf.template.erb",
+        "DstPathEnd": "config/haproxy.conf.template",
+        "Path": "/tmp/tar-CmdExtractor2693056844/templates/haproxy.conf.template.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "routing_utils"
+      },
+      {
+        "Name": "tcp_router"
+      },
+      {
+        "Name": "haproxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "tcp_router.drain_wait",
+        "Description": "Delay in seconds after shut down is initiated before haproxy stops listening.\nDuring this time haproxy will reject requests to the /health endpoint.\nThis accommodates requests forwarded by a load balancer until it considers the tcp_router unhealthy.\n",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.port",
+        "Description": "Port of routing api",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.token_endpoint",
+        "Description": "UAA token endpoint host name. Do not include a scheme in this value; TCP Router will always use TLS to connect to UAA.",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.disable",
+        "Description": "Disable this monit job. It will not run.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.backend_tls.enabled",
+        "Description": "Turns on support for TLS for TCP Router. Requires tcp_router.backend_tls.ca_cert to\nbe set. For mTLS also set tcp_router.backend_tls.client_cert and\ntcp_router.backend_tls.client_key.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.client_cert",
+        "Description": "Routing API Client Certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.request_timeout_in_seconds",
+        "Description": "Server and client timeouts in seconds",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.fail_on_router_port_conflicts",
+        "Description": "Fail the tcp router if routing_api.reserved_system_component_ports conflict with ports in existing router groups.",
+        "Default": "false",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.load_balancer_healthy_threshold",
+        "Description": "Time period in seconds to wait until declaring the tcp_router instance\nstarted after starting the listener socket. This allows an external load\nbalancer time to register the instance as healthy.\"\n",
+        "Default": 20,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.isolation_segments",
+        "Description": "Routes with these isolation segments will be registered. Used in combination with routing_table_sharding_mode.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.ca_cert",
+        "Description": "Routing API Certificate Authority",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "reserved_system_component_ports",
+        "Description": "This should come via a bosh link from the routing_api job. This property is here in case it needs to be overwritten.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.health_check_port",
+        "Description": "Load balancer in front of TCP Routers should be configured to check the health of TCP Router instances by establishing a TCP connection on this port",
+        "Default": 80,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "Certificate authority for communication between clients and uaa.",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.auth_disabled",
+        "Description": "Disables UAA authentication",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.tls_health_check_cert",
+        "Description": "TLS certificate to use on the TCP Router's TLS health check port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.tls_health_check_key",
+        "Description": "TLS private key to use on the TCP Router's TLS health check port",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.backend_tls.client_cert",
+        "Description": "TCP Router's TLS client cert used for mTLS with route backends",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.backend_tls.ca_cert",
+        "Description": "TCP Router's TLS CA used with route backends",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.tls_port",
+        "Description": "Port on which UAA is listening for TLS connections. This is required for obtaining an OAuth token for Routing API.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "skip_ssl_validation",
+        "Description": "Skip TLS verification when talking to UAA",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.debug_address",
+        "Description": "Address at which to serve debug info",
+        "Default": "127.0.0.1:17002",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.oauth_secret",
+        "Description": "OAuth client secret used to obtain token for Routing API from UAA.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.uri",
+        "Description": "URL where the routing API can be reached internally",
+        "Default": "https://routing-api.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.client_private_key",
+        "Description": "Routing API Client Private Key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.enable_nontls_health_checks",
+        "Description": "Toggles on/off whether or not to listen for load balancer health check requests on the non-tls `tcp_router.health_check_port` port",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "dns_health_check_host",
+        "Description": "Host to ping for confirmation of DNS resolution",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.tcp_stats_collection_interval",
+        "Description": "String representing interval for collecting statistic metrics from tcp proxy. Units: ms, s, m h",
+        "Default": "1m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.backend_tls.client_key",
+        "Description": "TCP Router's TLS client private key used for mTLS with route backends",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metron.port",
+        "Description": "The port used to emit dropsonde messages to the Metron agent.",
+        "Default": 3457,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.frontend_tls_pem.certificate_path",
+        "Description": "Path to the certs and key store",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.frontend_tls",
+        "Description": "Array of private keys, certificates and names for serving TLS requests. Each element in the array is an object containing fields 'private_key' and 'cert_chain', each of which supports a PEM block.",
+        "Default": null,
+        "Example": "- cert_chain: |\n    -----BEGIN CERTIFICATE-----\n    -----END CERTIFICATE-----\n    -----BEGIN CERTIFICATE-----\n    -----END CERTIFICATE-----\n  private_key: |\n    -----BEGIN RSA PRIVATE KEY-----\n    -----END RSA PRIVATE KEY-----\n  name: |\n    name of the cert\n",
+        "Examples": null
+      },
+      {
+        "Name": "tcp_router.tls_health_check_port",
+        "Description": "Load balancer in front of TCP Routers should be configured to check the health of TCP Router instances by establishing a TLS connection on this port",
+        "Default": 443,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
