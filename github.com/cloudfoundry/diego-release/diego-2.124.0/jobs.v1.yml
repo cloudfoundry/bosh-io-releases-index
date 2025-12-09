@@ -1,0 +1,4212 @@
+[
+  {
+    "Name": "auctioneer",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2818288611/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer.json.erb",
+        "DstPathEnd": "config/auctioneer.json",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/auctioneer.json.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_ca.crt.erb",
+        "DstPathEnd": "config/certs/auctioneer/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/auctioneer_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_server.crt.erb",
+        "DstPathEnd": "config/certs/auctioneer/server.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/auctioneer_server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_server.key.erb",
+        "DstPathEnd": "config/certs/auctioneer/server.key",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/auctioneer_server.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "rep_ca.crt.erb",
+        "DstPathEnd": "config/certs/rep/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/rep_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "rep_client.crt.erb",
+        "DstPathEnd": "config/certs/rep/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/rep_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_as_vcap.erb",
+        "DstPathEnd": "bin/auctioneer_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/auctioneer_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.crt.erb",
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/bbs_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.key.erb",
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/bbs_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_ctl.erb",
+        "DstPathEnd": "bin/auctioneer_ctl",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/auctioneer_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ca.crt.erb",
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/bbs_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "rep_client.key.erb",
+        "DstPathEnd": "config/certs/rep/client.key",
+        "Path": "/tmp/tar-CmdExtractor2818288611/templates/rep_client.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "auctioneer"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.starting_container_count_maximum",
+        "Description": "Maximum number of inflight container starts allowed globally. Value of 0 or less indicates no limit.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bbs.ca_cert",
+        "Description": "REQUIRED: PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bbs.client_key",
+        "Description": "REQUIRED: PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.server_cert",
+        "Description": "REQUIRED: PEM-encoded certificate for the auctioneer API server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.listen_addr",
+        "Description": "address where auctioneer listens for LRP and task start auction requests",
+        "Default": "0.0.0.0:9016",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.rep.client_key",
+        "Description": "Client key for communication to the rep.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.locket.client_keepalive_timeout",
+        "Description": "Timeout in seconds to receive a response to the keepalive ping. If a response is not received within this time, the locket client will reconnect to another server.",
+        "Default": 22,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bbs.api_location",
+        "Description": "Address to the BBS Server",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bbs.client_cert",
+        "Description": "REQUIRED: PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.ca_cert",
+        "Description": "REQUIRED: PEM-encoded CA certificate for the auctioneer API server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.server_key",
+        "Description": "REQUIRED: PEM-encoded key for the auctioneer API server.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17001",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.cell_state_timeout",
+        "Description": "Timeout applied to HTTP requests to the Cell State endpoint.",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bin_pack_first_fit_weight",
+        "Description": "EXPERIMENTAL: Factor to bias against BOSH instance index number of a cell. Instead of spreading containers equally accross all cells, cells with a lower index number will be deployed to first when this setting is \u003e 0. (0.0 - 1.0)",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.starting_container_weight",
+        "Description": "Factor to bias against cells with starting containers (0.0 - 1.0)",
+        "Default": 0.25,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bbs.max_idle_conns_per_host",
+        "Description": "maximum number of idle http connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.rep.ca_cert",
+        "Description": "CA cert for communication to the rep.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.bbs.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.rep.client_cert",
+        "Description": "Client cert for communication to the rep.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.rep.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": 4096,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.locket.api_location",
+        "Description": "Hostname and port of the Locket server. When set, the auctioneer attempts to claim a lock from the Locket API.",
+        "Default": "locket.service.cf.internal:8891",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.auctioneer.locket.client_keepalive_time",
+        "Description": "Period in seconds after which the locket gRPC client sends keepalive ping requests to the locket server it is connected to.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "bbs",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor663851294/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "rep_ca.crt.erb",
+        "DstPathEnd": "config/certs/rep/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/rep_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "set-bbs-kernel-params.erb",
+        "DstPathEnd": "bin/set-bbs-kernel-params",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/set-bbs-kernel-params.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bbs_server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "sql_ca.crt.erb",
+        "DstPathEnd": "config/certs/sql/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/sql_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_as_vcap.erb",
+        "DstPathEnd": "bin/bbs_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bbs_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "bbs.json.erb",
+        "DstPathEnd": "config/bbs.json",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bbs.json.erb"
+      },
+      {
+        "SrcPathEnd": "rep_client.key.erb",
+        "DstPathEnd": "config/certs/rep/client.key",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/rep_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_client.key.erb",
+        "DstPathEnd": "config/certs/auctioneer/client.key",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/auctioneer_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ctl.erb",
+        "DstPathEnd": "bin/bbs_ctl",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bbs_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bbs_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_client.crt.erb",
+        "DstPathEnd": "config/certs/auctioneer/client.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/auctioneer_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/bbs_server.key.erb"
+      },
+      {
+        "SrcPathEnd": "rep_client.crt.erb",
+        "DstPathEnd": "config/certs/rep/client.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/rep_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "auctioneer_ca.crt.erb",
+        "DstPathEnd": "config/certs/auctioneer/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor663851294/templates/auctioneer_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "bbs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.auctioneer.require_tls",
+        "Description": "Whether to require mutual TLS for communication with the auctioneer API. Deprecated, Diego V2 and later require Auctioneer communication to use TLS.  This is only relevant when upgrading from V1 to ensure no downtime during the upgrade",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.listen_addr",
+        "Description": "address at which to serve API requests",
+        "Default": "0.0.0.0:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.enable_access_log",
+        "Description": "Enable access log, i.e. log every request made to the bbs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.encryption_keys",
+        "Description": "List of encryption keys to be used",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.max_open_connections",
+        "Description": "Maximum number of open connections to the SQL database",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.metrics.advanced_metrics.route_config.request_count",
+        "Description": "Set the routes for which request_count should be emitted. If empty, no request_count metrics will be emitted.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cell_registrations.locket.enabled",
+        "Description": "When set, the BBS will detect Diego cells registered with the Locket API.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.auctioneer.client_cert",
+        "Description": "Client cert for communication to the auctioneer.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_host",
+        "Description": "Host for SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_password",
+        "Description": "Password to use for connecting to SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.rep.ca_cert",
+        "Description": "CA cert for communication to the rep.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.locket.client_keepalive_timeout",
+        "Description": "Timeout in seconds to receive a response to the keepalive ping. If a response is not received within this time, the locket client will reconnect to another server.",
+        "Default": 22,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.max_data_string_length",
+        "Description": "Length in bytes above which logged strings will be truncated. If set to 0, turns off truncation.",
+        "Default": 640,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tasks.max_retries",
+        "Description": "The number of times task placement should be retried after pre-execution task failure.",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17017",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.health_addr",
+        "Description": "address at which BBS serves '/ping' health-check endpoint",
+        "Default": "127.0.0.1:8890",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_driver",
+        "Description": "Database driver to use for SQL backend (for example: mysql,postgres)",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_read_timeout",
+        "Description": "Timeout in seconds for a db client to wait for data to be received from the server",
+        "Default": "60",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.require_ssl",
+        "Description": "Whether to require SSL for BBS communication to the SQL backend",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.convergence.expire_completed_task_duration_in_seconds",
+        "Description": "completed, unresolved tasks are deleted after this duration in seconds",
+        "Default": 120,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.server_cert",
+        "Description": "REQUIRED: PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.locket.client_keepalive_time",
+        "Description": "Period in seconds after which the locket gRPC client sends keepalive ping requests to the locket server it is connected to.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "limits.open_files",
+        "Description": "Maximum number of files (including sockets) the BBS process may have open.",
+        "Default": 100000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.tls.enable_identity_verification",
+        "Description": "Whether to verify the identity of the database host when connecting with TLS. Set this to `false` to allow TLS connections to database providers that do not configure the database's TLS certificate to include its hostname or IP, such as Google Cloud SQL",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.auctioneer.ca_cert",
+        "Description": "CA cert for communication to the auctioneer.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.ca_cert",
+        "Description": "REQUIRED: PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.server_key",
+        "Description": "REQUIRED: PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.max_idle_connections",
+        "Description": "Maximum number of idle connections to the SQL database",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.max_connection_lifetime",
+        "Description": "Maximum lifetime of connections to the SQL database before connections are recreated",
+        "Default": 90,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.ca_cert",
+        "Description": "Bundle of CA certificates for the BBS to verify the SQL server SSL certificate when connecting via SSL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.rep.require_tls",
+        "Description": "Whether to require TLS for communication to the securable rep API server.  Deprecated, Diego V2 and later require Rep communication to use TLS. This is only relevant when upgrading from V1 to ensure no downtime during the upgrade",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.rep.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.auctioneer.client_key",
+        "Description": "Client key for communication to the auctioneer.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.active_key_label",
+        "Description": "Label of the encryption key to be used when writing to the database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.rep.client_cert",
+        "Description": "Client cert for communication to the rep.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.locket.api_location",
+        "Description": "Hostname and port of the Locket server. When set, the BBS attempts to claim a lock from the Locket API and will detect Diego cells registered with the Locket API.",
+        "Default": "locket.service.cf.internal:8891",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.metrics.advanced_metrics.enabled",
+        "Description": "Enables emitting BBS Metrics per specified routes/endpoints in advanced_metrics, useful for debugging issues. May impact performances.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.metrics.advanced_metrics.route_config.request_latency",
+        "Description": "Set the routes for which request_latency should be emitted. If empty, no request_latency metrics will be emitted.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kernel_parameters",
+        "Description": "Enable tuning /proc/sys kernel parameters. NOTE: set this property to 'false' when deploying to BOSH-Lite or other containerized BOSH clouds.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_connection_timeout",
+        "Description": "Timeout in seconds for a db client to wait for a connection to be established",
+        "Default": "30",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.advertisement_base_hostname",
+        "Description": "Suffix for the BBS advertised hostname",
+        "Default": "bbs.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.auctioneer.api_location",
+        "Description": "Hostname and port of the auctioneer API, without URI scheme.",
+        "Default": "auctioneer.service.cf.internal:9016",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_port",
+        "Description": "Port for SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_username",
+        "Description": "Username to use for connecting to SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_write_timeout",
+        "Description": "Timeout in seconds for a db client to wait for data to be sent to the server",
+        "Default": "60",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.convergence.kick_task_duration_in_seconds",
+        "Description": "the interval, in seconds, between kicks to tasks in seconds",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.convergence.expire_pending_task_duration_in_seconds",
+        "Description": "unclaimed tasks are marked as failed, after this duration in seconds",
+        "Default": 1800,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.debug_lrp_start_heartbeats",
+        "Description": "When this property is set to 'true', container heartbeat log messages are issued at a debug level, which reduces log volume. When this property is set to 'false', container heartbeat log messages issued at an info level.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.sql.db_schema",
+        "Description": "Database name to use for connecting to SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.convergence.repeat_interval_in_seconds",
+        "Description": "the interval between runs of the converge process",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.bbs.rep.client_key",
+        "Description": "Client key for communication to the rep.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "cfdot",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor571126618/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "setup.erb",
+        "DstPathEnd": "bin/setup",
+        "Path": "/tmp/tar-CmdExtractor571126618/templates/setup.erb"
+      },
+      {
+        "SrcPathEnd": "ca.crt.erb",
+        "DstPathEnd": "config/certs/cfdot/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor571126618/templates/ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.crt.erb",
+        "DstPathEnd": "config/certs/cfdot/client.crt",
+        "Path": "/tmp/tar-CmdExtractor571126618/templates/client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "client.key.erb",
+        "DstPathEnd": "config/certs/cfdot/client.key",
+        "Path": "/tmp/tar-CmdExtractor571126618/templates/client.key.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor571126618/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "cfdot"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "locket.port",
+        "Description": "Port of the Locket API server.",
+        "Default": 8891,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_certificate",
+        "Description": "REQUIRED: PEM-encoded CA certificate used for client credentials.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.certificate",
+        "Description": "REQUIRED: PEM-encoded certificate used for client credentials.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.private_key",
+        "Description": "REQUIRED: PEM-encoded key used for client credentials.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.hostname",
+        "Description": "Hostname of the BBS service.",
+        "Default": "bbs.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "bbs.port",
+        "Description": "Port of the BBS service.",
+        "Default": 8889,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locket.hostname",
+        "Description": "Hostname at which to discover the Locket API server.",
+        "Default": "locket.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "file_server",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2928663002/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "set-file-server-kernel-params.erb",
+        "DstPathEnd": "bin/set-file-server-kernel-params",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/set-file-server-kernel-params.erb"
+      },
+      {
+        "SrcPathEnd": "file_server_ctl.erb",
+        "DstPathEnd": "bin/file_server_ctl",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/file_server_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "file_server_as_vcap.erb",
+        "DstPathEnd": "bin/file_server_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/file_server_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "tls.crt.erb",
+        "DstPathEnd": "config/certs/tls.crt",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/tls.crt.erb"
+      },
+      {
+        "SrcPathEnd": "tls.key.erb",
+        "DstPathEnd": "config/certs/tls.key",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/tls.key.erb"
+      },
+      {
+        "SrcPathEnd": "file_server.json.erb",
+        "DstPathEnd": "config/file_server.json",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/file_server.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor2928663002/templates/loggregator_ca.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "file_server"
+      },
+      {
+        "Name": "buildpack_app_lifecycle"
+      },
+      {
+        "Name": "docker_app_lifecycle"
+      },
+      {
+        "Name": "windows_app_lifecycle"
+      },
+      {
+        "Name": "cnb_app_lifecycle"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "https_server_enabled",
+        "Description": "Use HTTPS for serving file_server assets",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "PEM-encoded tls key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA certificate to use to verify the metron agent serving the v2 API.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Private key for the SSH-proxy metron client certificate.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kernel_parameters",
+        "Description": "Enable tuning /proc/sys kernel parameters. NOTE: set this property to 'false' when deploying to BOSH-Lite or other containerized BOSH clouds.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.file_server.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "https_listen_addr",
+        "Description": "Address at which HTTPS server is listening",
+        "Default": "0.0.0.0:8443",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "https_url",
+        "Description": "The URL provided in file_server link",
+        "Default": "https://file-server.service.cf.internal:8443",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "PEM-encoded tls certificate that can be used for server auth",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Port which the component should use to communicate to the metron agent's v2 API (host is assumed to be `localhost`).",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Client certificate for the SSH-proxy to use when communicating to the metron agent.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.file_server.listen_addr",
+        "Description": "Address of interface on which to serve files",
+        "Default": "0.0.0.0:8080",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.file_server.static_directory",
+        "Description": "Fully-qualified path to the doc root for the file server's static files",
+        "Default": "/var/vcap/jobs/file_server/packages/",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.file_server.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17005",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "locket",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1364731093/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "sql_ca.crt.erb",
+        "DstPathEnd": "config/certs/sql/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/sql_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "locket_ctl.erb",
+        "DstPathEnd": "bin/locket_ctl",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/locket_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "locket_as_vcap.erb",
+        "DstPathEnd": "bin/locket_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/locket_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "locket.json.erb",
+        "DstPathEnd": "config/locket.json",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/locket.json.erb"
+      },
+      {
+        "SrcPathEnd": "locket_ca.crt.erb",
+        "DstPathEnd": "config/certs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/locket_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "set-locket-kernel-params.erb",
+        "DstPathEnd": "bin/set-locket-kernel-params",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/set-locket-kernel-params.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "locket_server.crt.erb",
+        "DstPathEnd": "config/certs/server.crt",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/locket_server.crt.erb"
+      },
+      {
+        "SrcPathEnd": "locket_server.key.erb",
+        "DstPathEnd": "config/certs/server.key",
+        "Path": "/tmp/tar-CmdExtractor1364731093/templates/locket_server.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "locket"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "diego.locket.sql.require_ssl",
+        "Description": "Whether to require SSL for Locket communication to the SQL backend",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.ca_cert",
+        "Description": "Bundle of CA certificates for the Locket to verify the SQL server SSL certificate when connecting via SSL",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "server key for locket server mutual auth tls",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_driver",
+        "Description": "Database driver to use for SQL backend (for example: mysql,postgres)",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_connection_timeout",
+        "Description": "Timeout in seconds for a db client to wait for a connection to be established",
+        "Default": "30",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_read_timeout",
+        "Description": "Timeout in seconds for a db client to wait for data to be received from the server",
+        "Default": "600",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "set_kernel_parameters",
+        "Description": "Enable tuning /proc/sys kernel parameters. NOTE: set this property to 'false' when deploying to BOSH-Lite or other containerized BOSH clouds.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.max_open_connections",
+        "Description": "maximum number of open connections to the database",
+        "Default": 200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17018",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_host",
+        "Description": "Host for SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_port",
+        "Description": "Port for SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_password",
+        "Description": "Password to use for connecting to SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "database.tls.enable_identity_verification",
+        "Description": "Whether to verify the identity of the database host when connecting with TLS. Set this to `false` to allow TLS connections to database providers that do not configure the database's TLS certificate to include its hostname or IP, such as Google Cloud SQL",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "server cert for locket server mutual auth tls",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.listen_addr",
+        "Description": "address at which to serve API requests",
+        "Default": "0.0.0.0:8891",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_schema",
+        "Description": "Database name to use for connecting to SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_username",
+        "Description": "Username to use for connecting to SQL backend",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.locket.sql.db_write_timeout",
+        "Description": "Timeout in seconds for a db client to wait for data to be sent to the server",
+        "Default": "600",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "ca cert for locket server mutual auth tls",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "rep",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1649784956/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "trusted_ca_certificates.json.erb",
+        "DstPathEnd": "config/certs/rep/trusted_ca_certificates.json",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/trusted_ca_certificates.json.erb"
+      },
+      {
+        "SrcPathEnd": "instance_identity.crt.erb",
+        "DstPathEnd": "config/certs/rep/instance_identity.crt",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/instance_identity.crt.erb"
+      },
+      {
+        "SrcPathEnd": "instance_identity.key.erb",
+        "DstPathEnd": "config/certs/rep/instance_identity.key",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/instance_identity.key.erb"
+      },
+      {
+        "SrcPathEnd": "set-rep-kernel-params.erb",
+        "DstPathEnd": "bin/set-rep-kernel-params",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/set-rep-kernel-params.erb"
+      },
+      {
+        "SrcPathEnd": "setup_mounted_data_dirs.erb",
+        "DstPathEnd": "bin/setup_mounted_data_dirs",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/setup_mounted_data_dirs.erb"
+      },
+      {
+        "SrcPathEnd": "volume_mounted_files.erb",
+        "DstPathEnd": "bin/volume_mounted_files",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/volume_mounted_files.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "tls.crt.erb",
+        "DstPathEnd": "config/certs/tls.crt",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/tls.crt.erb"
+      },
+      {
+        "SrcPathEnd": "rep_as_vcap.erb",
+        "DstPathEnd": "bin/rep_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/rep_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "tls.key.erb",
+        "DstPathEnd": "config/certs/tls.key",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/tls.key.erb"
+      },
+      {
+        "SrcPathEnd": "tls_ca.crt.erb",
+        "DstPathEnd": "config/certs/tls_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/tls_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "rep.erb",
+        "DstPathEnd": "bin/rep",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/rep.erb"
+      },
+      {
+        "SrcPathEnd": "rep.json.erb",
+        "DstPathEnd": "config/rep.json",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/rep.json.erb"
+      },
+      {
+        "SrcPathEnd": "bpm-pre-start.erb",
+        "DstPathEnd": "bin/bpm-pre-start",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/bpm-pre-start.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "rep_ctl.erb",
+        "DstPathEnd": "bin/rep_ctl",
+        "Path": "/tmp/tar-CmdExtractor1649784956/templates/rep_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "rep"
+      },
+      {
+        "Name": "healthcheck"
+      },
+      {
+        "Name": "proxy"
+      },
+      {
+        "Name": "certsplitter"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssl.skip_cert_verify",
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.container_max_cpu_shares",
+        "Description": "number of CPU shares per 100 CPU weight",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden.network",
+        "Description": "Network type for the garden server connection (tcp or unix).",
+        "Default": "unix",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.metrics_work_pool_size",
+        "Description": "Maximum number of concurrent get container metrics operations.",
+        "Default": 8,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.max_concurrent_downloads",
+        "Description": "the max concurrent download steps that can be active",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.container_metrics_report_interval",
+        "Description": "the frequency for emitting container metrics; should be a string that can be parsed by time.ParseDuration, such as 15s",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.create_work_pool_size",
+        "Description": "Maximum number of concurrent create container operations.",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.post_setup_hook",
+        "Description": "Experimental: arbitrary command to run after setup action. WARNING: this applies to both buildpack + docker app lifecycles. Any commands specified here *MUST* exist in any docker image being run, or the app will fail to start",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.graceful_shutdown_interval_in_seconds",
+        "Description": "time in seconds between signalling a container to shutdown gracefully and stopping it forcefully. Should not be less than 10.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.placement_tags",
+        "Description": "Array of tags used for scheduling Tasks and LRPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden.address",
+        "Description": "Garden server listening address.",
+        "Default": "/var/vcap/data/garden/garden.sock",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.args",
+        "Description": "List of command line args to pass to the garden health check process",
+        "Default": "-c, ls \u003e /tmp/test",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.configuration_reload_duration",
+        "Description": "Duration of time in seconds that the rep grants the container Envoy proxy to reload its listener configuration when shutting down a container gracefully so that TLS-verifying clients will stop making connections. After this time duration, the rep will shut down other processes in the container.",
+        "Default": "5s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.polling_interval_in_seconds",
+        "Description": "The interval to look for completed tasks and LRPs in seconds",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.use_azure_fault_domains",
+        "Description": "If set to true the rep zone will be determined by IAAS. If VM belongs to Azure Fault-Domain the value of the zone will be z\u003cFault-Domain-index\u003e. e.g. z0, z1, etc. If VM belongs to Azure Availability Zone the value of zone determined in diego.rep.zone will be used.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.memory_capacity_mb",
+        "Description": "the memory capacity the executor should manage.  this should not be greater than the actual memory on the VM",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.command_retry_pause",
+        "Description": "Time to wait between retrying garden commands",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.disk_capacity_mb",
+        "Description": "the container disk capacity the executor should manage.  this should not be greater than the actual disk quota on the VM",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.unhealthy_monitoring_interval_in_seconds",
+        "Description": "Interval to check unhealthy containers in seconds.",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.volman.driver_paths",
+        "Description": "OS style path string containing the directories volman will look in for voldriver specs (delimited by : or ; depending on the OS)",
+        "Default": "/var/vcap/data/voldrivers",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.api_location",
+        "Description": "Address of the BBS server",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.locket.client_keepalive_timeout",
+        "Description": "Timeout in seconds to receive a response to the keepalive ping. If a response is not received within this time, the locket client will reconnect to another server.",
+        "Default": 22,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.advertise_domain",
+        "Description": "base domain at which the rep should advertise its secure API",
+        "Default": "cell.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.auto_disk_capacity_overhead_mb",
+        "Description": "the amount of overhead that should be subtracted from the container disk capacity, this only applies when disk_capacity_mb is set to auto",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.interval",
+        "Description": "Frequency for healtchecking garden",
+        "Default": "10m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.locket.api_location",
+        "Description": "Hostname and port of the Locket server. When set, the cell rep will establish its cell registration in the Locket API.",
+        "Default": "locket.service.cf.internal:8891",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.trusted_ca_certificates",
+        "Description": "List of CA certificate bundles against which the per-container proxy will verify certificates for clients connecting to its ingress listeners, if containers.proxy.require_and_verify_client_certificates is enabled.",
+        "Default": [],
+        "Example": [
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #1\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #2\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #3\n----- END CERTIFICATE -----\n----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #4\n----- END CERTIFICATE -----\n"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.post_setup_user",
+        "Description": "Experimental: user to run post setup hook command",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.extra_root_fs_dir",
+        "Description": "dir to scan for extra rootfs to be loaded by rep",
+        "Default": "/var/vcap/store/rootfses",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.listen_addr_securable",
+        "Description": "address where rep listens for LRP and task start auction requests",
+        "Default": "0.0.0.0:1801",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.max_idle_conns_per_host",
+        "Description": "maximum number of idle http connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_healthcheck_metrics",
+        "Description": "When set, enables the rep to emit healtcheck failure metrics.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.listen_addr_admin",
+        "Description": "serve (insecure) ping and evacuate requests on this address and port",
+        "Default": "127.0.0.1:1800",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.use_schedulable_disk_size",
+        "Description": "Use total space available to containers reported by Garden. If false the total size of image plugin store minus max_cache_size_in_bytes is used.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.dir",
+        "Description": "Directory to run the healthcheck process from",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.instance_identity_validity_period_in_hours",
+        "Description": "Validity period for the generated instance identity certificate",
+        "Default": 24,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.request_timeout",
+        "Description": "Request timeout to the BBS server",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.enable_http2",
+        "Description": "Whether envoy proxy advertises HTTP/2 support via ALPN.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.advertise_preference_for_instance_address",
+        "Description": "advertise that containers managed by this rep are directly accessible on the infrastructure network at their instance address. Components like ssh-proxy or routers may use this property when determining how to connect to a container. Set this flag only when using a third-party container-networking solution that provides direct connectivity between containers and VMs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.enable_container_proxy_healthcheck",
+        "Description": "When set, enables the liveness health check for the envoy proxy in the container.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.healthcheck_work_pool_size",
+        "Description": "Maximum number of concurrent health check operations.",
+        "Default": 64,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.user",
+        "Description": "User to use while performing a container healthcheck",
+        "Default": "vcap",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.require_and_verify_client_certificates",
+        "Description": "whether the per-container proxy should require and verify a TLS certificate from a client connecting to one of its ingress listeners. Proxy will trust the set of CA certificates supplied in the containers.proxy.trusted_ca_certificates property.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.optional_placement_tags",
+        "Description": "Array of optional tags used for scheduling Tasks and LRPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.healthy_monitoring_interval_in_seconds",
+        "Description": "Interval to check healthy containers in seconds.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.job_name",
+        "Description": "The name of the Diego job referenced by this spec (DO NOT override)",
+        "Default": "rep",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.max_cache_size_in_bytes",
+        "Description": "maximum size of the cache in bytes - this should leave a healthy overhead for temporary items, etc.",
+        "Default": 10000000000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.max_log_lines_per_second",
+        "Description": "EXPERIMENTAL: Maximum log lines allowed per second per app instance. Default value of 0 will disable rate limiting. Minimum recommended value is 100.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.declarative_healthcheck_default_timeout",
+        "Description": "Default timeout for declarative healthcheck. This value is used when the LRP spec does not specify a timeout.",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.enable_unproxied_port_mappings",
+        "Description": "EXPERIMENTAL: whether the cell should still map host ports directly to the unproxied container ports.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.max_data_string_length",
+        "Description": "Length in bytes above which logged strings will be truncated. If set to 0, turns off truncation.",
+        "Default": 640,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17008",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.evacuation_polling_interval_in_seconds",
+        "Description": "The interval to look for completed tasks and LRPs during evacuation in seconds",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.sidecar_rootfs_path",
+        "Description": "absolute_path representing the root filesystem used for sidecar processes (ie. '/var/vcap/packages/cflinuxfs4/rootfs.tar'). Must be one of the preloaded_rootfses paths. Leaving the default empty string is ok, as it will then select the first of he preloaded_rootfses",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.rootfs_providers",
+        "Description": "Array of schemes for which the underlying garden can support arbitrary root filesystems",
+        "Default": [
+          "docker"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.path",
+        "Description": "Path of the command to run to perform a container healthcheck",
+        "Default": "/bin/sh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.instance_identity_ca_cert",
+        "Description": "PEM-encoded CA used to sign instance identity credentials. Enables instance identity if set along with instance_identity_key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cell_registrations.locket.enabled",
+        "Description": "Enable the cell rep to register itself as a service with Locket.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.trusted_ca_certificates",
+        "Description": "List of PEM-encoded CA certificates to make available inside containers in a conventional location. List entries may be individual or concatenated CAs.",
+        "Default": null,
+        "Example": [
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #1\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #2\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #3\n----- END CERTIFICATE -----\n----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #4\n----- END CERTIFICATE -----\n"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "REQUIRED: PEM-encoded tls client CA certificate for asset upload/download",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.timeout",
+        "Description": "Maximum allowed time for garden healthcheck",
+        "Default": "10m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.evacuation_timeout_in_seconds",
+        "Description": "The time to wait for evacuation to complete in seconds",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "REQUIRED: PEM-encoded tls client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.container_inode_limit",
+        "Description": "the inode limit enforced on each garden container.",
+        "Default": 200000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.delete_work_pool_size",
+        "Description": "Maximum number of concurrent delete container operations.",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.layering_mode",
+        "Description": "Configures downloaded container asset management mode. Valid values are 'single-layer' and 'two-layer'. Setting this property to 'two-layer' enables the conversion of some downloaded Task and LRP assets to container image layers.",
+        "Default": "single-layer",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.env",
+        "Description": "Environment variables to use when running the garden health check",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.app_metric_exclusion_filter",
+        "Description": "Array of application metrics to not emit",
+        "Default": [
+          "cpu_entitlement"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "REQUIRED: PEM-encoded tls certificate that can be used for client or server auth",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.proxy_healthcheck_interval",
+        "Description": "Interval that checks envoy responsiveness every 30s.",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.read_work_pool_size",
+        "Description": "Maximum number of concurrent get container info operations.",
+        "Default": 64,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.instance_identity_key",
+        "Description": "PEM-encoded key used to sign instance identity credentials. Enables instance identity if set along with instance_identity_ca_cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.locket.client_keepalive_time",
+        "Description": "Period in seconds after which the locket gRPC client sends keepalive ping requests to the locket server it is connected to.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.additional_memory_allocation_mb",
+        "Description": "Additional memory allocated to each container for the envoy proxy. This value must not be negative",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.zone",
+        "Description": "The zone associated with the rep. This will override the BOSH-provided spec.az property if present.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.preloaded_rootfses",
+        "Description": "Array of name:absolute_path pairs representing root filesystems preloaded onto the underlying garden",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.max_containers",
+        "Description": "Maximum container capacity per rep",
+        "Default": 250,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.verify_subject_alt_name",
+        "Description": "If specified when containers.proxy.require_and_verify_client_certificates is enabled, the per-container proxy will also verify that the Subject Alternative Name of the presented certificate matches one of the specified values.",
+        "Default": [],
+        "Example": [
+          "gorouter.service.cf.internal",
+          "tcp-router.service.cf.internal"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "containers.set_cpu_weight",
+        "Description": "EXPERIMENTAL: Set CPU weight on each Garden container to be proportional to its memory limit.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.ads_addresses",
+        "Description": "EXPERIMENTAL:  When set, the envoy proxy consumes dynamic config from the specified Aggregated Discovery Service servers (specified as a list of host:port).  This config is in addition to the static configuration that supports TLS termination / route-integrity.",
+        "Default": [],
+        "Example": [
+          "169.254.0.2:15001"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "set_kernel_parameters",
+        "Description": "Enable tuning /proc/sys kernel parameters. NOTE: set this property to 'false' when deploying to BOSH-Lite or other containerized BOSH clouds.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "rep_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3599225845/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "drain.ps1.erb",
+        "DstPathEnd": "bin/drain.ps1",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/drain.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "instance_identity.crt.erb",
+        "DstPathEnd": "config/certs/rep/instance_identity.crt",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/instance_identity.crt.erb"
+      },
+      {
+        "SrcPathEnd": "tls.crt.erb",
+        "DstPathEnd": "config/certs/tls.crt",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/tls.crt.erb"
+      },
+      {
+        "SrcPathEnd": "tls.key.erb",
+        "DstPathEnd": "config/certs/tls.key",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/tls.key.erb"
+      },
+      {
+        "SrcPathEnd": "tls_ca.crt.erb",
+        "DstPathEnd": "config/certs/tls_ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/tls_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "start.ps1.erb",
+        "DstPathEnd": "bin/start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "trusted_ca_certificates.json.erb",
+        "DstPathEnd": "config/certs/rep/trusted_ca_certificates.json",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/trusted_ca_certificates.json.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.ps1.erb",
+        "DstPathEnd": "bin/post-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/post-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "instance_identity.key.erb",
+        "DstPathEnd": "config/certs/rep/instance_identity.key",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/instance_identity.key.erb"
+      },
+      {
+        "SrcPathEnd": "rep.json.erb",
+        "DstPathEnd": "config/rep.json",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/rep.json.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3599225845/templates/loggregator_client.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "rep_windows"
+      },
+      {
+        "Name": "healthcheck_windows"
+      },
+      {
+        "Name": "certsplitter_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "diego.executor.garden_healthcheck.interval",
+        "Description": "Frequency for healtchecking garden",
+        "Default": "10m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.timeout",
+        "Description": "Maximum allowed time for garden healthcheck",
+        "Default": "10m",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.transport",
+        "Description": "Syslog transport protocol (tcp or udp)",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssl.skip_cert_verify",
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.use_schedulable_disk_size",
+        "Description": "Use total space available to containers reported by Garden. If false the total size of image plugin store minus max_cache_size_in_bytes is used.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.proxy_healthcheck_interval",
+        "Description": "Interval that checks envoy responsiveness.",
+        "Default": "30s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.post_setup_user",
+        "Description": "Experimental: user to run post setup hook command",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.locket.client_keepalive_time",
+        "Description": "Period in seconds after which the locket gRPC client sends keepalive ping requests to the locket server it is connected to.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "declarative_healthcheck_path",
+        "Description": "The directory containing the declarative healthcheck binary",
+        "Default": "/var/vcap/packages/healthcheck_windows/external",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.evacuation_timeout_in_seconds",
+        "Description": "The time to wait for evacuation to complete in seconds",
+        "Default": 600,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.extra_root_fs_dir",
+        "Description": "dir to scan for extra rootfs to be loaded by rep",
+        "Default": "/var/vcap/store/rootfses",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.open_bindmounts_acl",
+        "Description": "Add more permissive ACLs to directories that are bind mounted into containers. Required for Windows 2016 cells",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.max_data_string_length",
+        "Description": "Length in bytes above which logged strings will be truncated. If set to 0, turns off truncation.",
+        "Default": 640,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.unhealthy_monitoring_interval_in_seconds",
+        "Description": "Interval to check unhealthy containers in seconds.",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.args",
+        "Description": "List of command line args to pass to the garden health check process",
+        "Default": "/c, dir",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.job_name",
+        "Description": "The name of the Diego job referenced by this spec (DO NOT override)",
+        "Default": "rep_windows",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.memory_capacity_mb",
+        "Description": "the memory capacity the executor should manage.  this should not be greater than the actual memory on the VM",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.healthy_monitoring_interval_in_seconds",
+        "Description": "Interval to check healthy containers in seconds.",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.additional_memory_allocation_mb",
+        "Description": "EXPERIMENTAL: Additional memory allocated to each container for the envoy proxy. This must not be negative. Currently doesn't work on windows cells but left here for compatability with the linux Rep",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.use_azure_fault_domains",
+        "Description": "Use Azure Fault-Domains to determine the value of the zone. The value of the zone will be z\u003cFD-index\u003e. e.g. z0, z1, etc.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.create_work_pool_size",
+        "Description": "Maximum number of concurrent create container operations.",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.metrics_work_pool_size",
+        "Description": "Maximum number of concurrent get container metrics operations.",
+        "Default": 8,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.instance_identity_key",
+        "Description": "PEM-encoded key used to sign instance identity credentials. Enables instance identity if set along with instance_identity_ca_cert",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.locket.client_keepalive_timeout",
+        "Description": "Timeout in seconds to receive a response to the keepalive ping. If a response is not received within this time, the locket client will reconnect to another server.",
+        "Default": 22,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_healthcheck_metrics",
+        "Description": "When set, enables the rep to emit healtcheck failure metrics.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.enable_http2",
+        "Description": "EXPERIMENTAL: Whether envoy proxy advertises HTTP/2 support via ALPN. Currently doesn't work on windows cells but left here for compatability with the linux Rep",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.verify_subject_alt_name",
+        "Description": "If specified when containers.proxy.require_and_verify_client_certificates is enabled, the per-container proxy will also verify that the Subject Alternative Name of the presented certificate matches one of the specified values.",
+        "Default": [],
+        "Example": [
+          "gorouter.service.cf.internal",
+          "tcp-router.service.cf.internal"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tls.key",
+        "Description": "REQUIRED: PEM-encoded tls client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.instance_identity_validity_period_in_hours",
+        "Description": "Validity period for the generated instance identity certificate",
+        "Default": 24,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.max_log_lines_per_second",
+        "Description": "EXPERIMENTAL: Maximum log lines allowed per second per app instance. Default value of 0 will disable rate limiting. Minimum recommended value is 100.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.max_idle_conns_per_host",
+        "Description": "maximum number of idle http connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.address",
+        "Description": "Syslog host",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.graceful_shutdown_interval_in_seconds",
+        "Description": "time in seconds between signalling a container to shutdown gracefully and stopping it forcefully. Should not be less than 10.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.app_metric_exclusion_filter",
+        "Description": "Array of application metrics to not emit",
+        "Default": [
+          "cpu_entitlement"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.max_cache_size_in_bytes",
+        "Description": "maximum size of the cache in bytes - this should leave a healthy overhead for temporary items, etc.",
+        "Default": 10000000000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.dir",
+        "Description": "Directory to run the healthcheck process from",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.optional_placement_tags",
+        "Description": "Array of optional tags used for scheduling Tasks and LRPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.trusted_ca_certificates",
+        "Description": "List of CA certificate bundles against which the per-container proxy will verify certificates for clients connecting to its ingress listeners, if containers.proxy.require_and_verify_client_certificates is enabled.",
+        "Default": [],
+        "Example": [
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #1\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #2\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #3\n----- END CERTIFICATE -----\n----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #4\n----- END CERTIFICATE -----\n"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.configuration_reload_duration",
+        "Description": "Duration of time in seconds that the rep grants the container Envoy proxy to reload its listener configuration when shutting down a container gracefully so that TLS-verifying clients will stop making connections. After this time duration, the rep will shut down other processes in the container.",
+        "Default": "5s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.zone",
+        "Description": "The zone associated with the rep. This will override the BOSH-provided spec.az property if present.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.auto_disk_capacity_overhead_mb",
+        "Description": "the amount of overhead that should be subtracted from the container disk capacity, this only applies when disk_capacity_mb is set to auto",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.enable_unproxied_port_mappings",
+        "Description": "EXPERIMENTAL: whether the cell should still map host ports directly to the unproxied container ports.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.layering_mode",
+        "Description": "Configures downloaded container asset management mode. Valid values are 'single-layer' and 'two-layer'. Setting this property to 'two-layer' enables the conversion of some downloaded Task and LRP assets to container image layers.",
+        "Default": "single-layer",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.env",
+        "Description": "Environment variables to use when running the garden health check",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.listen_addr_securable",
+        "Description": "address where rep listens for LRP and task start auction requests",
+        "Default": "0.0.0.0:1801",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.rootfs_providers",
+        "Description": "Array of schemes for which the underlying garden can support arbitrary root filesystems",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.advertise_domain",
+        "Description": "base domain at which the rep should advertise its secure API",
+        "Default": "cell.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.declarative_healthcheck_default_timeout",
+        "Description": "Default timeout for declarative healthcheck. This value is used when the LRP spec does not specify a timeout.",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.placement_tags",
+        "Description": "Array of tags used for scheduling Tasks and LRPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cell_registrations.locket.enabled",
+        "Description": "Enable the cell rep to register itself as a service with Locket.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.sidecar_rootfs_path",
+        "Description": "absolute_path representing the root filesystem used for sidecar processes (ie. '/tmp/windows2012R2'). Must be one of the preloaded_rootfses paths. Leaving the default empty string is ok, as it will then select the first of he preloaded_rootfses",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.delete_work_pool_size",
+        "Description": "Maximum number of concurrent delete container operations.",
+        "Default": 32,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.instance_identity_ca_cert",
+        "Description": "PEM-encoded CA used to sign instance identity credentials. Enables instance identity if set along with instance_identity_key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.request_timeout",
+        "Description": "Request timeout to the BBS server",
+        "Default": "10s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.advertise_preference_for_instance_address",
+        "Description": "advertise that containers managed by this rep are directly accessible on the infrastructure network at their instance address. Components like ssh-proxy or routers may use this property when determining how to connect to a container. Set this flag only when using a third-party container-networking solution that provides direct connectivity between containers and VMs",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.ca_cert",
+        "Description": "REQUIRED: PEM-encoded tls client CA certificate for asset upload/download",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.container_metrics_report_interval",
+        "Description": "the frequency for emitting container metrics",
+        "Default": "15s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17008",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.evacuation_polling_interval_in_seconds",
+        "Description": "The interval to look for completed tasks and LRPs during evacuation in seconds",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.container_inode_limit",
+        "Description": "the inode limit enforced on each garden container.",
+        "Default": 200000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.ads_addresses",
+        "Description": "EXPERIMENTAL:  When set, the envoy proxy consumes dynamic config from the specified Aggregated Discovery Service servers (specified as a list of host:port).  This config is in addition to the static configuration that supports TLS termination / route-integrity.",
+        "Default": [],
+        "Example": [
+          "169.254.0.2:15001"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "tls.cert",
+        "Description": "REQUIRED: PEM-encoded tls certificate that can be used for client and server authentication",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.polling_interval_in_seconds",
+        "Description": "The interval to look for completed tasks and LRPs in seconds",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.preloaded_rootfses",
+        "Description": "Array of name:absolute_path pairs representing root filesystems preloaded onto the underlying garden",
+        "Default": [
+          "windows2012R2:/tmp/windows2012R2"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.listen_addr_admin",
+        "Description": "serve (insecure) ping and evacuate requests on this address and port",
+        "Default": "127.0.0.1:1800",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.max_concurrent_downloads",
+        "Description": "the max concurrent download steps that can be active",
+        "Default": 5,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden.address",
+        "Description": "Garden server listening address.",
+        "Default": "127.0.0.1:9241",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.healthcheck_work_pool_size",
+        "Description": "Maximum number of concurrent health check operations.",
+        "Default": 64,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.container_max_cpu_shares",
+        "Description": "number of CPU shares per 100 CPU weight",
+        "Default": 10000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.post_setup_hook",
+        "Description": "Experimental: arbitrary command to run after setup action",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.api_location",
+        "Description": "Address of the BBS server",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.bbs.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.port",
+        "Description": "Syslog port",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.proxy.require_and_verify_client_certificates",
+        "Description": "whether the per-container proxy should require and verify a TLS certificate from a client connecting to one of its ingress listeners. Proxy will trust the set of CA certificates supplied in the containers.proxy.trusted_ca_certificates property.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "containers.trusted_ca_certificates",
+        "Description": "List of PEM-encoded CA certificates to make available inside containers in a conventional location. List entries may be individual or concatenated CAs.",
+        "Default": null,
+        "Example": [
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #1\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #2\n----- END CERTIFICATE -----\n",
+          "----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #3\n----- END CERTIFICATE -----\n----- BEGIN CERTIFICATE -----\nCONTENTS OF CERTIFICATE #4\n----- END CERTIFICATE -----\n"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "containers.set_cpu_weight",
+        "Description": "EXPERIMENTAL: Set CPU weight on each Garden container to be proportional to its memory limit.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden.network",
+        "Description": "Network type for the garden server connection (tcp or unix).",
+        "Default": "tcp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.rep.locket.api_location",
+        "Description": "Hostname and port of the locket server",
+        "Default": "locket.service.cf.internal:8891",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.disk_capacity_mb",
+        "Description": "the container disk capacity the executor should manage.  this should not be greater than the actual disk quota on the VM",
+        "Default": "auto",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.user",
+        "Description": "User to use while performing a container healthcheck",
+        "Default": "vcap",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.command_retry_pause",
+        "Description": "Time to wait between retrying garden commands",
+        "Default": "1s",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.garden_healthcheck.process.path",
+        "Description": "Path of the command to run to perform a container healthcheck",
+        "Default": "C:\\windows\\system32\\cmd.exe",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.enable_container_proxy_healthcheck",
+        "Description": "When set, enables the liveness health check for the envoy proxy in the container.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.executor.read_work_pool_size",
+        "Description": "Maximum number of concurrent get container info operations.",
+        "Default": 64,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "route_emitter",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor469992436/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.crt.erb",
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/bbs_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_ca.crt.erb",
+        "DstPathEnd": "config/certs/routing_api/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/routing_api_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "route_emitter_ctl.erb",
+        "DstPathEnd": "bin/route_emitter_ctl",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/route_emitter_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "route_emitter_as_vcap.erb",
+        "DstPathEnd": "bin/route_emitter_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/route_emitter_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_ca.crt.erb",
+        "DstPathEnd": "config/certs/nats/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/nats_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "route_emitter.json.erb",
+        "DstPathEnd": "config/route_emitter.json",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/route_emitter.json.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.key.erb",
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/bbs_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.key.erb",
+        "DstPathEnd": "config/certs/nats/client.key",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/nats_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_client.key.erb",
+        "DstPathEnd": "config/certs/routing_api/client.key",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/routing_api_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ca.crt.erb",
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/bbs_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.crt.erb",
+        "DstPathEnd": "config/certs/nats/client.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/nats_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_client.crt.erb",
+        "DstPathEnd": "config/certs/routing_api/client.crt",
+        "Path": "/tmp/tar-CmdExtractor469992436/templates/routing_api_client.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "route_emitter"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "locks.locket.hostname",
+        "Description": "Hostname at which to discover the Locket API server. The route-emitter will use its BBS client credentials to authenticate to the Locket API.",
+        "Default": "locket.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locks.locket.port",
+        "Description": "Port of the Locket API server.",
+        "Default": 8891,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.client_key",
+        "Description": "PEM-encoded private key for the route-emitter to present to NATS for verification when connecting via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.healthcheck_address",
+        "Description": "address for the route_emitter health endpoint.",
+        "Default": "127.0.0.1:17011",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.api_location",
+        "Description": "Address to the BBS Server",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.client_cert",
+        "Description": "REQUIRED: PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp.enable_tls",
+        "Description": "When enabled route-emitter will include TLS port and instance GUID when emitting TCP routes.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.hostname",
+        "Description": "UAA hostname",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.hostname",
+        "Description": "Hostname of the NATS cluster.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.sync_interval_in_seconds",
+        "Description": "Interval to sync routes to the router in seconds.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.max_idle_conns_per_host",
+        "Description": "maximum number of idle http connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.url",
+        "Description": "Routing API uri to be used by the tcp route-emitter",
+        "Default": "http://routing-api.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_name",
+        "Description": "UAA client id",
+        "Default": "tcp_emitter",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.enabled",
+        "Description": "Enable connecting to NATS server via TLS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal_routes.enabled",
+        "Description": "Experimental: Enable the route-emitter to emit registrations for internal DNS-based service discovery.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "UAA client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.local_mode",
+        "Description": "Enable cell-local mode for the route-emitter. In this mode, the route-emitter emits route registrations only for the instances associated to its cell, as determined by the BOSH-assigned VM identifier `spec.id`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.ca_cert",
+        "Description": "REQUIRED: PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.jitter_factor",
+        "Description": "The jitter factor is the percentage of register interval used in determining the jitter interval (the time for which the emitter sleeps)",
+        "Default": 0.2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17009",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.client_key",
+        "Description": "REQUIRED: PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.machines",
+        "Description": "IP of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.auth_enabled",
+        "Description": "Enable UAA authentication when communicating with the Routing API",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.port",
+        "Description": "The port on which UAA accepts TLS connections",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "register_direct_instance_routes",
+        "Description": "Use the container IP address and internal port instead of the host IP address and external port when registering route endpoints. Suitable only for deployments in which the gorouters and TCP routers can route directly to the container IP of instances.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.client_cert",
+        "Description": "PEM-encoded certificate for the route-emitter to present to NATS for verification when connecting via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp.enabled",
+        "Description": "Enable the route-emitter in cell-local mode to emit TCP routes for instances to the Routing API.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.skip_cert_verify",
+        "Description": "Skip certificate verification when communicating with UAA",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.job_name",
+        "Description": "The name of the Diego job referenced by this spec (DO NOT override)",
+        "Default": "route_emitter",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.port",
+        "Description": "Routing API port to be used by the tcp route-emitter",
+        "Default": 3000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "UAA ca certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "route_emitter_windows",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3500899431/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "post-start.ps1.erb",
+        "DstPathEnd": "bin/post-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/post-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ca.crt.erb",
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/bbs_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.key.erb",
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/bbs_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_ca.crt.erb",
+        "DstPathEnd": "config/certs/routing_api/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/routing_api_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.crt.erb",
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/bbs_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.key.erb",
+        "DstPathEnd": "config/certs/nats/client.key",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/nats_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_client.crt.erb",
+        "DstPathEnd": "config/certs/routing_api/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/routing_api_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "indicators.yml.erb",
+        "DstPathEnd": "config/indicators.yml",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/indicators.yml.erb"
+      },
+      {
+        "SrcPathEnd": "route_emitter.json.erb",
+        "DstPathEnd": "config/route_emitter.json",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/route_emitter.json.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_ca.crt.erb",
+        "DstPathEnd": "config/certs/nats/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/nats_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "nats_client.crt.erb",
+        "DstPathEnd": "config/certs/nats/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/nats_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "routing_api_client.key.erb",
+        "DstPathEnd": "config/certs/routing_api/client.key",
+        "Path": "/tmp/tar-CmdExtractor3500899431/templates/routing_api_client.key.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "route_emitter_windows"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "diego.route_emitter.nats.tls.client_key",
+        "Description": "PEM-encoded private key for the route-emitter to present to NATS for verification when connecting via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.skip_cert_verify",
+        "Description": "Skip certificate verification when communicating with UAA",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.api_location",
+        "Description": "Address to the BBS Server",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.enabled",
+        "Description": "Enable connecting to NATS server via TLS.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.hostname",
+        "Description": "Hostname of the NATS cluster.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.sync_interval_in_seconds",
+        "Description": "Interval to sync routes to the router in seconds.",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.max_idle_conns_per_host",
+        "Description": "maximum number of idle http connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.jitter_factor",
+        "Description": "The jitter factor is the percentage of register interval used in determining the jitter interval (the time for which the emitter sleeps)",
+        "Default": 0.2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.address",
+        "Description": "Syslog host",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17009",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.healthcheck_address",
+        "Description": "address for the route_emitter health endpoint.",
+        "Default": "127.0.0.1:17011",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.client_cert",
+        "Description": "REQUIRED: PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "internal_routes.enabled",
+        "Description": "Experimental: Enable the route-emitter to emit registrations for internal DNS-based service discovery.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.port",
+        "Description": "Routing API port to be used by the tcp route-emitter",
+        "Default": 3000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.auth_enabled",
+        "Description": "Enable UAA authentication when communicating with the Routing API",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.port",
+        "Description": "The port on which UAA accepts TLS connections",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.ca_cert",
+        "Description": "UAA ca certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.tls.client_cert",
+        "Description": "PEM-encoded certificate for the route-emitter to present to NATS for verification when connecting via TLS.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp.enabled",
+        "Description": "Enable the route-emitter in cell-local mode to emit TCP routes for instances to the Routing API.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.hostname",
+        "Description": "UAA hostname",
+        "Default": "uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.ca_cert",
+        "Description": "REQUIRED: PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.port",
+        "Description": "Syslog port",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_name",
+        "Description": "UAA client id",
+        "Default": "tcp_emitter",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locks.locket.hostname",
+        "Description": "Hostname at which to discover the Locket API server. The route-emitter will use its BBS client credentials to authenticate to the Locket API.",
+        "Default": "locket.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "locks.locket.port",
+        "Description": "Port of the Locket API server.",
+        "Default": 8891,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tcp.enable_tls",
+        "Description": "When enabled route-emitter will include TLS port and instance GUID when emitting TCP routes.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.password",
+        "Description": "Password for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "syslog_daemon_config.transport",
+        "Description": "Syslog transport protocol (tcp or udp)",
+        "Default": "udp",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.port",
+        "Description": "The port for the NATS server to listen on.",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.job_name",
+        "Description": "The name of the Diego job referenced by this spec (DO NOT override)",
+        "Default": "route_emitter_windows",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "routing_api.url",
+        "Description": "Routing API uri to be used by the tcp route-emitter",
+        "Default": "http://routing-api.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.user",
+        "Description": "Username for server authentication.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.nats.machines",
+        "Description": "IP of each NATS cluster member.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.bbs.client_key",
+        "Description": "REQUIRED: PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.client_secret",
+        "Description": "UAA client secret",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.route_emitter.local_mode",
+        "Description": "Enable cell-local mode for the route-emitter. In this mode, the route-emitter emits route registrations only for the instances associated to its cell, as determined by the BOSH-assigned VM identifier `spec.id`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "ssh_proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3214918524/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ssh_proxy_ctl.erb",
+        "DstPathEnd": "bin/ssh_proxy_ctl",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/ssh_proxy_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "uaa_ca.crt.erb",
+        "DstPathEnd": "config/certs/uaa/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/uaa_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "ssh_proxy.json.erb",
+        "DstPathEnd": "config/ssh_proxy.json",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/ssh_proxy.json.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/loggregator_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.crt.erb",
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/bbs_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_ca.crt.erb",
+        "DstPathEnd": "config/certs/loggregator/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/loggregator_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_ca.crt.erb",
+        "DstPathEnd": "config/certs/bbs/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/bbs_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "loggregator_client.key.erb",
+        "DstPathEnd": "config/certs/loggregator/client.key",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/loggregator_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "backends_tls_client.key.erb",
+        "DstPathEnd": "config/certs/backends_tls/client.key",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/backends_tls_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "ssh_proxy_as_vcap.erb",
+        "DstPathEnd": "bin/ssh_proxy_as_vcap",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/ssh_proxy_as_vcap.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.key.erb",
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/bbs_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "backends_tls_ca.crt.erb",
+        "DstPathEnd": "config/certs/backends_tls/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/backends_tls_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "backends_tls_client.crt.erb",
+        "DstPathEnd": "config/certs/backends_tls/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/backends_tls_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "cc_api_ca_cert.crt.erb",
+        "DstPathEnd": "config/certs/cc/cc_api_ca_cert.crt",
+        "Path": "/tmp/tar-CmdExtractor3214918524/templates/cc_api_ca_cert.crt.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pid_utils"
+      },
+      {
+        "Name": "ssh_proxy"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "backends.tls.client_private_key",
+        "Description": "PEM-encoded private key associated to backends.tls.client_certificate.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.listen_addr",
+        "Description": "address for the proxy to listen on",
+        "Default": "0.0.0.0:2222",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.host_key",
+        "Description": "PEM encoded RSA private key used to identify host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.allowed_macs",
+        "Description": "Comma separated list of allowed MAC algorithms",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.uaa.ca_cert",
+        "Description": "The CA certificate of the UAA",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.bbs.ca_cert",
+        "Description": "REQUIRED: PEM-encoded CA certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.bbs.max_idle_conns_per_host",
+        "Description": "maximum number of idle http connections",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.allowed_ciphers",
+        "Description": "Comma separated list of allowed cipher algorithms",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.bbs.client_cert",
+        "Description": "REQUIRED: PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.ca_cert",
+        "Description": "CA Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.allowed_keyexchanges",
+        "Description": "Comma separated list of allowed key exchange algorithms",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.bbs.client_key",
+        "Description": "REQUIRED: PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.key",
+        "Description": "Key used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.healthcheck_listen_addr",
+        "Description": "address for the ssh proxy healthcheck server",
+        "Default": "0.0.0.0:2223",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.debug_addr",
+        "Description": "address at which to serve debug info",
+        "Default": "127.0.0.1:17016",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.uaa_secret",
+        "Description": "The oauth client secret used to authenticate the ssh-proxy with the uaa",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.v2_api_port",
+        "Description": "Local metron agent gRPC port",
+        "Default": 3458,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "loggregator.cert",
+        "Description": "Cert used to communicate with local metron agent over gRPC",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backends.tls.client_certificate",
+        "Description": "PEM-encoded certificate for the SSH proxy to present to backends for verification when connecting via TLS proxy.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.disable_healthcheck_server",
+        "Description": "Whether to disable the ssh proxy HTTP healthcheck server. Defaults to `false`.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.bbs.api_location",
+        "Description": "Address to the BBS Server",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.enable_diego_auth",
+        "Description": "Allow ssh access for diego applications",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.cc.external_port",
+        "Description": "External port of the Cloud Controller API",
+        "Default": 9022,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backends.tls.enabled",
+        "Description": "Whether to enable TLS-proxied connections to target backend instances.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "backends.tls.ca_certificates",
+        "Description": "List of PEM-encoded CA certificate bundles for the SSH proxy to use to verify backends when connecting via TLS proxy. Should be non-empty if `backends.tls.enabled` is enabled.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssl.skip_cert_verify",
+        "Description": "when connecting over https, ignore bad ssl certificates",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.enable_cf_auth",
+        "Description": "Allow ssh access for cf applications",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.uaa.port",
+        "Description": "The port to contact UAA on",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "connect_to_instance_address",
+        "Description": "Connect directly to container IP instead of to the host IP and external port. Suitable only for deployments in which the gorouters and TCP routers can route directly to the container IP of instances.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.diego_credentials",
+        "Description": "Diego Credentials to be used with the Diego authenitcation method",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.idle_connection_timeout_in_seconds",
+        "Description": "Idle timeout for incoming connections",
+        "Default": 300,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.uaa.url",
+        "Description": "The domain name of the UAA",
+        "Default": "https://uaa.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.cc.internal_service_hostname",
+        "Description": "Internal service hostname of Cloud Controller API",
+        "Default": "cloud-controller-ng.service.cf.internal",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego.ssh_proxy.bbs.client_session_cache_size",
+        "Description": "capacity of the tls client cache",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "vizzini",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3022331163/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "vizzini.json.erb",
+        "DstPathEnd": "config/vizzini.json",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/vizzini.json.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.crt.erb",
+        "DstPathEnd": "config/certs/bbs/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/bbs_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "bbs_client.key.erb",
+        "DstPathEnd": "config/certs/bbs/client.key",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/bbs_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "container_proxy_ca.crt.erb",
+        "DstPathEnd": "config/certs/container_proxy/ca.crt",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/container_proxy_ca.crt.erb"
+      },
+      {
+        "SrcPathEnd": "container_proxy_client.crt.erb",
+        "DstPathEnd": "config/certs/container_proxy/client.crt",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/container_proxy_client.crt.erb"
+      },
+      {
+        "SrcPathEnd": "container_proxy_client.key.erb",
+        "DstPathEnd": "config/certs/container_proxy/client.key",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/container_proxy_client.key.erb"
+      },
+      {
+        "SrcPathEnd": "run.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor3022331163/templates/run.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "golang-1.25-linux"
+      },
+      {
+        "Name": "vizzini"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "vizzini.eventually_timeout",
+        "Description": "default timeout for ginkgo assertions",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.container_proxy.ca",
+        "Description": "When `enable_container_proxy_tests` is true, is used as the certificate authority for certs presnted by container proxies (required if `enable_container_proxy_tests` is true)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.bbs.client_cert",
+        "Description": "REQUIRED: PEM-encoded client certificate",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.bbs.client_key",
+        "Description": "REQUIRED: PEM-encoded client key",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "max_task_retries",
+        "Description": "When set, allows for rejected tasks to be retried",
+        "Default": 3,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.container_proxy.client_cert",
+        "Description": "When `enable_container_proxy_tests` is true, is used as the client certificate to present to container proxies",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.container_proxy.client_key",
+        "Description": "When `enable_container_proxy_tests` is true, is used as the client private key in mutual TLS connections with the container proxies",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_privileged_container_tests",
+        "Description": "When set, enables the privileged container tests in vizzini",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grace_tarball_url",
+        "Description": "URL for the grace test asset",
+        "Default": "https://storage.googleapis.com/diego-assets/grace.tar.gz",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grace_busybox_image_url",
+        "Description": "grace test asset busybox container image",
+        "Default": "docker:///cloudfoundry/grace",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.ssh.proxy_secret",
+        "Description": "Shared secret for the SSH proxy's Diego authenticator",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.nodes",
+        "Description": "The number of nodes to run the tests with",
+        "Default": 4,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.routable_domain_suffix",
+        "Description": "The deployment's routable domain name",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.verbose",
+        "Description": "Run tests in verbose mode",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "enable_container_proxy_tests",
+        "Description": "When set, enables the container proxy tests in vizzini",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "default_rootfs",
+        "Description": "Default preloaded rootfs to target for running Tasks and LRPs",
+        "Default": "preloaded:cflinuxfs4",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "grace_tarball_checksum",
+        "Description": "grace test asset sha1 checksum",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "diego_docker_oci_image_url",
+        "Description": "diego docker app in OCI image format",
+        "Default": "docker:///cloudfoundry/diego-docker-app:oci",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.bbs.api_location",
+        "Description": "The address of the BBS",
+        "Default": "bbs.service.cf.internal:8889",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.file_server.address",
+        "Description": "The address of the file-server",
+        "Default": "file-server.service.cf.internal:8080",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.rep.placement_tags",
+        "Description": "use placement tags for created LRPs",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "vizzini.ssh.proxy_address",
+        "Description": "Host and port for the SSH proxy",
+        "Default": "ssh-proxy.service.cf.internal:2222",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
