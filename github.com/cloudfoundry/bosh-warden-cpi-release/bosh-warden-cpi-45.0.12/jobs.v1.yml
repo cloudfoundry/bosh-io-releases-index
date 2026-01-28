@@ -1,0 +1,170 @@
+[
+  {
+    "Name": "warden_cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor415725731/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor415725731/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi_ctl.erb",
+        "DstPathEnd": "bin/cpi_ctl",
+        "Path": "/tmp/tar-CmdExtractor415725731/templates/cpi_ctl.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor415725731/templates/cpi.json.erb"
+      },
+      {
+        "SrcPathEnd": "sudoers",
+        "DstPathEnd": "config/sudoers",
+        "Path": "/tmp/tar-CmdExtractor415725731/templates/sudoers"
+      },
+      {
+        "SrcPathEnd": "pre-start.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor415725731/templates/pre-start.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "warden_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "warden_cpi.actions.host_persistent_bind_mounts_dir",
+        "Description": "Directory with sub-directories at which persistent disks are mounted on the host",
+        "Default": "/var/vcap/store/warden_cpi/persistent_bind_mounts_dir",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.host_ip",
+        "Description": "IP address of the host that will be used by containers, must be the same as mbus IP",
+        "Default": null,
+        "Example": "10.254.50.4",
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.agent.mbus",
+        "Description": "Mbus URL used by deployed BOSH agents",
+        "Default": null,
+        "Example": "nats://nats:nats-password@10.254.50.4:4222",
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.agent.ntp",
+        "Description": "NTP configuration used by deployed BOSH agents",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.actions.guest_persistent_bind_mounts_dir",
+        "Description": "Directory with sub-directories at which persistent disks are mounted inside VMs",
+        "Default": "/warden-cpi-dev",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.start_containers_with_systemd",
+        "Description": "Containers will use /sbin/init as the entry point. Enabling this is required for Noble stemcells, but currently breaks all pre-Noble stemcells",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.no_masq_cidrs",
+        "Description": "Do not masquerade NAT traffic internally.\nRelated: https://github.com/cloudfoundry/bosh-lite/pull/364\n",
+        "Default": [
+          "10.244.0.0/16"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.warden.connect_network",
+        "Description": "Connection type warden client will use to connect (tcp or unix)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.agent.blobstore.provider",
+        "Description": "Provider type for the blobstore used by deployed BOSH agents (e.g. dav, s3)",
+        "Default": "dav",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.agent.blobstore.options",
+        "Description": "Options for the blobstore used by deployed BOSH agents",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.actions.disks_dir",
+        "Description": "Directory where disks are stored",
+        "Default": "/var/vcap/store/warden_cpi/disks",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.loopback_range",
+        "Description": "Range of loopback devices that will be used by the CPI for mounting persistent disks (example shows /dev/loop100 to /dev/loop130)",
+        "Default": null,
+        "Example": [
+          100,
+          130
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.warden.connect_address",
+        "Description": "Address warden client will use to connect (ip:port or sock path)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.actions.stemcells_dir",
+        "Description": "Directory where stemcells are stored",
+        "Default": "/var/vcap/store/warden_cpi/stemcells",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.actions.expand_stemcell_tarball",
+        "Description": "Wether or not to untar stemcells, setting this to false simply gunzips it, enabling the CPI to be used with GrootFS",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.actions.host_ephemeral_bind_mounts_dir",
+        "Description": "Directory with sub-directories at which ephemeral disks are mounted on the host",
+        "Default": "/var/vcap/store/warden_cpi/ephemeral_bind_mounts_dir",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "warden_cpi.actions.guest_ephemeral_bind_mount_path",
+        "Description": "Path at which ephemeral disk is mounted inside VMs",
+        "Default": "/var/vcap/data",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
