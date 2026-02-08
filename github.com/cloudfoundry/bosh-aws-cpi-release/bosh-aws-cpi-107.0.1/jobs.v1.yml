@@ -1,0 +1,289 @@
+[
+  {
+    "Name": "aws_cpi",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3714517066/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor3714517066/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor3714517066/templates/cpi.json.erb"
+      },
+      {
+        "SrcPathEnd": "cacert.pem.erb",
+        "DstPathEnd": "config/cacert.pem",
+        "Path": "/tmp/tar-CmdExtractor3714517066/templates/cacert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "cpi_ctl.erb",
+        "DstPathEnd": "bin/cpi_ctl",
+        "Path": "/tmp/tar-CmdExtractor3714517066/templates/cpi_ctl.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "aws-cpi-ruby-3.3"
+      },
+      {
+        "Name": "bosh_aws_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "aws.role_arn",
+        "Description": "AWS role_arn to be assumed by the CPI when authenticating (Optional)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.default_iam_instance_profile",
+        "Description": "Default AWS iam_instance_profile for the aws cpi",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.default_key_name",
+        "Description": "Default SSH keypair used for new VMs",
+        "Default": null,
+        "Example": [
+          "bosh"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "aws.max_retries",
+        "Description": "The maximum number of times AWS service errors and throttling errors\nshould be retried. There is an exponential backoff in between retries,\nso the more retries the longer it can take to fail. This only applies\nto the AWS client passing calls to the AWS API.\n",
+        "Default": 8,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.host",
+        "Description": "Address of the Registry to connect to",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.http_proxy",
+        "Description": "Http proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.secret_access_key",
+        "Description": "AWS secret_access_key for the aws cpi (Required when aws.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.dualstack",
+        "Description": "AWS provide new APIs to support IPv6. If you want to use IPv6 only, you must enable dualstack.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "registry.password",
+        "Description": "Password to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.user",
+        "Description": "Username to connect to nats with",
+        "Default": "nats",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.password",
+        "Description": "Password to connect to nats with",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.session_token",
+        "Description": "AWS session_token when using STS credentials for the aws cpi (Optional, used when aws.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.encrypted",
+        "Description": "Encrypts all instances' volumes",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.kms_key_arn",
+        "Description": "Encrypts all instances' volumes with the given KMS key. (aws.encrypted) should be true",
+        "Default": null,
+        "Example": "arn:aws:kms:us-east-1:XXXXXX:key/e1c1f008-779b-4ebe-8116-0a34b77747dd",
+        "Examples": null
+      },
+      {
+        "Name": "aws.metadata_options",
+        "Description": "Metadata configuration options that are set on a VM during creation. These options should be snake-cased\nproperties accepted by the ModifyInstanceMetadataOptions endpoint\n(https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyInstanceMetadataOptions.html).\ne.g. `http_put_response_hop_limit`.\n",
+        "Default": null,
+        "Example": {
+          "aws": {
+            "metadata_options": {
+              "http_endpoint": "enabled",
+              "http_tokens": "required"
+            }
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "registry.username",
+        "Description": "User to access the Registry",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "debug.cpi.api_version",
+        "Description": "api_version supported by cpi (can be used as an override for fallback).",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.credentials_source",
+        "Description": "Where to get AWS credentials for the aws cpi. This can be set to `static` to use an `access_key_id` and `secret_access_key` or `env_or_profile` to get the credentials from environment variables or an EC2 instance profile.",
+        "Default": "static",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.access_key_id",
+        "Description": "AWS access_key_id for the aws cpi (Required when aws.credentials_source is set to `static`)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "env.https_proxy",
+        "Description": "Https proxy to connect to cloud API's",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.default_security_groups",
+        "Description": "Default security groups for new VMs (required)",
+        "Default": null,
+        "Example": [
+          "bosh-grp"
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "aws.stemcell.kernel_id",
+        "Description": "AWS kernel id used by aws cpi",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.address",
+        "Description": "Address of the nats server",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.elb_endpoint",
+        "Description": "AWS ELB service endpoint, without protocol/scheme (Optional: default endpoint will be constructed from region if not specified)",
+        "Default": null,
+        "Example": "elasticloadbalancing.us-east-1.amazonaws.com",
+        "Examples": null
+      },
+      {
+        "Name": "registry.port",
+        "Description": "Port of the Registry to connect to",
+        "Default": 25777,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ntp",
+        "Description": "List of ntp server IPs. pool.ntp.org attempts to return IPs closest to your location, but you can still specify if needed.",
+        "Default": [
+          "0.pool.ntp.org",
+          "1.pool.ntp.org"
+        ],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.mbus",
+        "Description": "Agent mbus",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "nats.port",
+        "Description": "Port that the nats server listens on",
+        "Default": 4222,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "aws.region",
+        "Description": "AWS region name (Required unless both ec2_endpoint and elb_endpoint are specified)",
+        "Default": null,
+        "Example": "us-east-1",
+        "Examples": null
+      },
+      {
+        "Name": "aws.ec2_endpoint",
+        "Description": "AWS EC2 service endpoint, without protocol/scheme (Optional: default endpoint will be constructed from region if not specified)",
+        "Default": null,
+        "Example": "ec2.us-east-1.amazonaws.com",
+        "Examples": null
+      },
+      {
+        "Name": "aws.connection_options.ca_cert",
+        "Description": "All required custom CA certificates",
+        "Default": null,
+        "Example": "-----BEGIN CERTIFICATE----- MII... -----END CERTIFICATE-----",
+        "Examples": null
+      },
+      {
+        "Name": "env.no_proxy",
+        "Description": "No proxy environment variable",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
