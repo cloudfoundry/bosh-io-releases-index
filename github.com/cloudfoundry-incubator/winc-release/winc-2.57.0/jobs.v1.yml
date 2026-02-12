@@ -1,0 +1,275 @@
+[
+  {
+    "Name": "ccg-plugin",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2269468260/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor2269468260/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "post-stop.ps1.erb",
+        "DstPathEnd": "bin/post-stop.ps1",
+        "Path": "/tmp/tar-CmdExtractor2269468260/templates/post-stop.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "credential_spec.json.erb",
+        "DstPathEnd": "config/credential_spec.json",
+        "Path": "/tmp/tar-CmdExtractor2269468260/templates/credential_spec.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "ccg-plugin"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "ccg.credential_spec",
+        "Description": "JSON string describing the GMSA user account and domain details.  See https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#create-a-credential-spec",
+        "Default": null,
+        "Example": "{\n  \"CmsPlugins\": [\n    \"ActiveDirectory\"\n  ],\n  \"DomainJoinConfig\": {\n    \"Sid\": \"S-1-5-21-702590844-1001920913-2680819671\",\n    \"MachineAccountName\": \"webapp01\",\n    \"Guid\": \"56d9b66c-d746-4f87-bd26-26760cfdca2e\",\n    \"DnsTreeName\": \"contoso.com\",\n    \"DnsName\": \"contoso.com\",\n    \"NetBiosName\": \"CONTOSO\"\n  },\n  \"ActiveDirectoryConfig\": {\n    \"GroupManagedServiceAccounts\": [\n      {\n        \"Name\": \"webapp01\",\n        \"Scope\": \"contoso.com\"\n      },\n      {\n        \"Name\": \"webapp01\",\n        \"Scope\": \"CONTOSO\"\n      }\n    ]\n  }\n}\n",
+        "Examples": null
+      },
+      {
+        "Name": "ccg.enabled",
+        "Description": "When enabled, winc will pass a credential spec to HCS on container creation.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ccg.plugin_guid",
+        "Description": "The curly-brace-enclosed GUID of the COM class which implements the ICcgDomainAuthCredentials::GetPasswordCredentials method. See https://docs.microsoft.com/en-us/windows/win32/api/ccgplugins/nf-ccgplugins-iccgdomainauthcredentials-getpasswordcredentials.",
+        "Default": "{8019A64C-3F4E-4DE3-AD2B-9A544290E2C3}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "ccg.plugin_input",
+        "Description": "The input to the plugin used to resolve credentials from Active Directory. See https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#additional-credential-spec-configuration-for-non-domain-joined-container-host-use-case",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "groot",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor895596062/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "groot.yml.erb",
+        "DstPathEnd": "config/groot.yml",
+        "Path": "/tmp/tar-CmdExtractor895596062/templates/groot.yml.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor895596062/templates/pre-start.ps1.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "groot"
+      },
+      {
+        "Name": "cert-injector"
+      },
+      {
+        "Name": "diff-exporter"
+      },
+      {
+        "Name": "certsplitter-fs"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "groot.cached_image_uris",
+        "Description": "An array of Windows container image URIs to cache at deployment time.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "groot.driver_store",
+        "Description": "The directory in which groot will store read-only layers and read/write volumes.",
+        "Default": "/var/lib/groot",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "groot.log_level",
+        "Description": "Can be debug, info, error or fatal",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "groot.refresh_base_layer",
+        "Description": "EXPERIMENTAL: Delete size file in order to pull fresh base layer.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "winc",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1412997061/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "config.json.erb",
+        "DstPathEnd": "config/config.json",
+        "Path": "/tmp/tar-CmdExtractor1412997061/templates/config.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "nstar"
+      },
+      {
+        "Name": "winc"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "winc.credhub_endpoint",
+        "Description": "Address for credhub server",
+        "Default": "https://credhub.service.cf.internal:8844",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc.credhub_ca_certificate",
+        "Description": "Credhub CA Certificate",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc.uaa_credhub_client_id",
+        "Description": "UAA Credhub Client Id for fetching GMSA Credentials",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc.uaa_credhub_client_secret",
+        "Description": "UAA Credhub Client Secret for fetching GMSA Credentials",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "winc-network-hns-acls",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2904563412/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "interface.json.erb",
+        "DstPathEnd": "config/interface.json",
+        "Path": "/tmp/tar-CmdExtractor2904563412/templates/interface.json.erb"
+      },
+      {
+        "SrcPathEnd": "pre-start.ps1.erb",
+        "DstPathEnd": "bin/pre-start.ps1",
+        "Path": "/tmp/tar-CmdExtractor2904563412/templates/pre-start.ps1.erb"
+      },
+      {
+        "SrcPathEnd": "addresses.json.erb",
+        "DstPathEnd": "dns/addresses.json",
+        "Path": "/tmp/tar-CmdExtractor2904563412/templates/addresses.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "winc-network-hns-acls"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "winc_network.search_domains",
+        "Description": "DNS suffixes that the container will use to construct an FQDN that will be used for name resolution by the DNS client",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.wait_timeout_in_seconds",
+        "Description": "Timeout to wait for commands to execute within a running container.",
+        "Default": 2,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.subnet_range",
+        "Description": "Range of IP addresses assigned to containers.",
+        "Default": "172.30.0.0/22",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.dns_servers",
+        "Description": "DNS servers that containers will use. If not set, will use DNS settings from the host.",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.allow_outbound_traffic_by_default",
+        "Description": "Allow containers to have outbound traffic. Only respected when network properties are left unspecified.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.mtu",
+        "Description": "Maximum network transmission unit length in bytes.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.gateway_address",
+        "Description": "Gateway address assigned to containers. When not specified, the first\nusable address in the subnet_range will be used. For example, if\nsubnet_range is specified as 192.168.1.0/24, it will choose 192.168.1.1\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "winc_network.maximum_outgoing_bandwidth",
+        "Description": "Maximum outgoing bandwidth in bytes for each container. If 0, no limit is set. Values under 10KB are not respected by HNS",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
