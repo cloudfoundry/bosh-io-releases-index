@@ -1,0 +1,1258 @@
+[
+  {
+    "Name": "bootstrap",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2826709567/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2826709567/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "errand.sh.erb",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor2826709567/templates/errand.sh.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor2826709567/templates/config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "bootstrap"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'unix-epoch'. 'rfc3339' is the recommended\nformat. It will result in all timestamps controlled by this job to be in RFC3339 format, which is human readable.\nThis includes stdout, pre-start, and post-start logs. This does not include stderr logs from golang libraries.\n'unix-epoch' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\nThis format is different for different logs. We do not recommend using this flag unless you have scripts that\nexpect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "cluster-health-logger",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1672207952/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1672207952/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "cluster_health_logger_config.yml.erb",
+        "DstPathEnd": "config/cluster_health_logger_config.yml",
+        "Path": "/tmp/tar-CmdExtractor1672207952/templates/cluster_health_logger_config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pxc-cluster-health-logger"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "db_password",
+        "Description": "Password for the cluster health logger user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "log_interval",
+        "Description": "Time in seconds between log entries for cluster health",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "galera-agent",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2383701549/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "drain.sh.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2383701549/templates/drain.sh.erb"
+      },
+      {
+        "SrcPathEnd": "galera-agent-config.yml.erb",
+        "DstPathEnd": "config/galera-agent-config.yml",
+        "Path": "/tmp/tar-CmdExtractor2383701549/templates/galera-agent-config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2383701549/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "service.bash",
+        "DstPathEnd": "bin/service",
+        "Path": "/tmp/tar-CmdExtractor2383701549/templates/service.bash"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "galera-agent"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "endpoint_tls.ca",
+        "Description": "PEM-encoded certificate authority (CA) for securing TLS communication over the galera-agent endpoint",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_tls.certificate",
+        "Description": "PEM-encoded certificate for securing TLS communication over the galera-agent endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_tls.private_key",
+        "Description": "PEM-encoded key for securing TLS communication over the galera-agent endpoint",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_tls.server_name",
+        "Description": "The host name a client should accept on the endpoint_tls.certificate when communicating with galera-agent\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_password",
+        "Description": "Password used by the sidecar endpoints for Basic Auth",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port used by sidecar process to listen on",
+        "Default": 9200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "Password used by the sidecar to connect to the database",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'unix-epoch'. 'rfc3339' is the recommended\nformat. It will result in all timestamps controlled by this job to be in RFC3339 format, which is human readable.\nThis includes stdout, pre-start, and post-start logs. This does not include stderr logs from golang libraries.\n'unix-epoch' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\nThis format is different for different logs. We do not recommend using this flag unless you have scripts that\nexpect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_tls.enabled",
+        "Description": "Enable TLS for galera-agent endpoints. This requires the endpoint_tls.certificate and endpoint_tls.private_key options are configured.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "endpoint_username",
+        "Description": "Username used by the sidecar endpoints for Basic Auth",
+        "Default": "galera-agent",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "available_when_read_only",
+        "Description": "Health checks for mysql nodes which have the 'read-only' option enabled will be considered healthy. If enabled, the proxy job will send traffic to a read-only backend, but \"write\" queries will fail with an error.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "gra-log-purger",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1716597864/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor1716597864/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pxc-gra-log-purger"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'unix-epoch'. 'rfc3339' is the recommended\nformat. It will result in all timestamps controlled by this job to be in RFC3339 format, which is human readable.\nThis includes stdout, pre-start, and post-start logs. This does not include stderr logs from golang libraries.\n'unix-epoch' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\nThis format is different for different logs. We do not recommend using this flag unless you have scripts that\nexpect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "percona-xtrabackup-2.4",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor3806911412/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "percona-xtrabackup-2.4"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "percona-xtrabackup-8.0",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1283983353/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "percona-xtrabackup-8.0"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "percona-xtrabackup-8.4",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor512680964/monit"
+    },
+    "Templates": null,
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "percona-xtrabackup-8.4"
+      }
+    ],
+    "Properties": null
+  },
+  {
+    "Name": "proxy",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor2667640730/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "proxy.yml.erb",
+        "DstPathEnd": "config/proxy.yml",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/proxy.yml.erb"
+      },
+      {
+        "SrcPathEnd": "post-start.erb",
+        "DstPathEnd": "bin/post-start",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/post-start.erb"
+      },
+      {
+        "SrcPathEnd": "drain.erb",
+        "DstPathEnd": "bin/drain",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/drain.erb"
+      },
+      {
+        "SrcPathEnd": "healthcheck.erb",
+        "DstPathEnd": "bin/healthcheck",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/healthcheck.erb"
+      },
+      {
+        "SrcPathEnd": "prom_scraper_config.yml.erb",
+        "DstPathEnd": "config/prom_scraper_config.yml",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/prom_scraper_config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "dns_healthcheck.erb",
+        "DstPathEnd": "bin/dns/healthy",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/dns_healthcheck.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor2667640730/templates/bpm.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "proxy"
+      },
+      {
+        "Name": "pxc-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "inactive_mysql_port",
+        "Description": "If configured, listens on this port and routes traffic to an inactive mysql node. Useful for queries you do not want to impact other clients",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_port",
+        "Description": "Port for the proxy API to listen on",
+        "Default": 8080,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_uri",
+        "Description": "Optional, Base URI registered to the proxies.\nUsed by the proxy aggregator.\n",
+        "Default": null,
+        "Example": "proxy-cf-mysql.my-system-domain.com",
+        "Examples": null
+      },
+      {
+        "Name": "health_port",
+        "Description": "Port for checking the health of the proxy process",
+        "Default": 1936,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.enabled",
+        "Description": "Enable proxy metrics using prometheus",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.source_id",
+        "Description": "The source ID to set on scraped metrics",
+        "Default": "pxc-proxy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.server_name",
+        "Description": "Required for HTTPS targets. Prom scraper uses this to set the server name for cert verification despite using localhost to resolve the request.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "healthcheck_timeout_millis",
+        "Description": "Timeout (milliseconds) before assuming a backend is unhealthy",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_tls.certificate",
+        "Description": "PEM-encoded certificate for securing TLS communication to the proxy API",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_tls.private_key",
+        "Description": "PEM-encoded key for securing TLS communication to the proxy API",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_aggregator_port",
+        "Description": "Port for the proxy aggregator API to listen on",
+        "Default": 8082,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "startup_delay",
+        "Description": "If using a load balancer above the proxies,\nenter your load balancer's healthy total threshold time here in seconds.\nE.g., if your LB polls every 30 seconds and requires 3 successful attempts,\nthen set this property to 90 seconds.\n",
+        "Default": 45,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "shutdown_delay",
+        "Description": "If using a load balancer above the proxies,\nenter your load balancer's unhealthy total threshold time here in seconds.\nE.g., if your LB polls every 30 seconds, and immediately fails over upon failure,\nthen set this property to 30 seconds.\n",
+        "Default": 45,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port for the proxy to listen on",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_tls.enabled",
+        "Description": "Enable TLS for client connections to the proxy's api endpoints",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_password",
+        "Description": "Password for Basic Auth used to secure API",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'unix-epoch'. 'rfc3339' is the recommended\nformat. It will result in all timestamps controlled by this job to be in RFC3339 format, which is human readable.\nThis includes stdout, pre-start, and post-start logs. This does not include stderr logs from golang libraries.\n'unix-epoch' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\nThis format is different for different logs. We do not recommend using this flag unless you have scripts that\nexpect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "type",
+        "Description": "Used by consumers of the database link to configure database properties",
+        "Default": "mysql",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_force_https",
+        "Description": "Redirect all HTTP requests to the API to HTTPS",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "api_username",
+        "Description": "Username for Basic Auth used to secure API",
+        "Default": "proxy",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.port",
+        "Description": "Port for the prometheus API to listen on",
+        "Default": 9999,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "metrics.labels",
+        "Description": "A map of labels that will be added to all proxy metrics",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "pxc-mysql",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4070857005/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "pre-start.sh.erb",
+        "DstPathEnd": "bin/pre-start",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/pre-start.sh.erb"
+      },
+      {
+        "SrcPathEnd": "server-ca.pem.erb",
+        "DstPathEnd": "certificates/server-ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/server-ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "server-cert.pem.erb",
+        "DstPathEnd": "certificates/server-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/server-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "cleanup-socket.sh.erb",
+        "DstPathEnd": "bin/cleanup-socket",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/cleanup-socket.sh.erb"
+      },
+      {
+        "SrcPathEnd": "client-ca.pem.erb",
+        "DstPathEnd": "certificates/client-ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/client-ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "galera-cert.pem.erb",
+        "DstPathEnd": "certificates/galera-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/galera-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "get-sequence-number.sh.erb",
+        "DstPathEnd": "bin/get-sequence-number",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/get-sequence-number.sh.erb"
+      },
+      {
+        "SrcPathEnd": "mysql57_upgrade",
+        "DstPathEnd": "bin/mysql57_upgrade",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/mysql57_upgrade"
+      },
+      {
+        "SrcPathEnd": "audit_logs.logrotate.erb",
+        "DstPathEnd": "config/mysql_clustered_audit_logs.logrotate",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/audit_logs.logrotate.erb"
+      },
+      {
+        "SrcPathEnd": "mysql_slow_query_logs.logrotate.erb",
+        "DstPathEnd": "config/mysql_slow_query_logs.logrotate",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/mysql_slow_query_logs.logrotate.erb"
+      },
+      {
+        "SrcPathEnd": "galera-ca.pem.erb",
+        "DstPathEnd": "certificates/galera-ca.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/galera-ca.pem.erb"
+      },
+      {
+        "SrcPathEnd": "mylogin.cnf.erb",
+        "DstPathEnd": "config/mylogin.cnf",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/mylogin.cnf.erb"
+      },
+      {
+        "SrcPathEnd": "pxc-sudoers",
+        "DstPathEnd": "config/pxc-sudoers",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/pxc-sudoers"
+      },
+      {
+        "SrcPathEnd": "server-key.pem.erb",
+        "DstPathEnd": "certificates/server-key.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/server-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "db_init.erb",
+        "DstPathEnd": "config/db_init",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/db_init.erb"
+      },
+      {
+        "SrcPathEnd": "pre-stop.erb",
+        "DstPathEnd": "bin/pre-stop",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/pre-stop.erb"
+      },
+      {
+        "SrcPathEnd": "galera-key.pem.erb",
+        "DstPathEnd": "certificates/galera-key.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/galera-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "my.cnf.erb",
+        "DstPathEnd": "config/my.cnf",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/my.cnf.erb"
+      },
+      {
+        "SrcPathEnd": "client-cert.pem.erb",
+        "DstPathEnd": "certificates/client-cert.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/client-cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "client-key.pem.erb",
+        "DstPathEnd": "certificates/client-key.pem",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/client-key.pem.erb"
+      },
+      {
+        "SrcPathEnd": "disable_mysql_cli_history.sh.erb",
+        "DstPathEnd": "config/disable_mysql_cli_history.sh",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/disable_mysql_cli_history.sh.erb"
+      },
+      {
+        "SrcPathEnd": "galera-init-config.yml.erb",
+        "DstPathEnd": "config/galera-init-config.yml",
+        "Path": "/tmp/tar-CmdExtractor4070857005/templates/galera-init-config.yml.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "auto-tune-mysql"
+      },
+      {
+        "Name": "galera-init"
+      },
+      {
+        "Name": "jemalloc"
+      },
+      {
+        "Name": "percona-xtradb-cluster-5.7"
+      },
+      {
+        "Name": "percona-xtradb-cluster-8.0"
+      },
+      {
+        "Name": "percona-xtradb-cluster-8.4"
+      },
+      {
+        "Name": "percona-xtrabackup-2.4"
+      },
+      {
+        "Name": "percona-xtrabackup-8.0"
+      },
+      {
+        "Name": "percona-xtrabackup-8.4"
+      },
+      {
+        "Name": "pxc-utils"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "monit_startup_timeout",
+        "Description": "Number of seconds that monit should wait for mysql to start before giving up",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.server",
+        "Description": "Required. TLS certificate for client-server encryption",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.user_authentication_policy",
+        "Description": "Authentication plugin for identifying all created users",
+        "Default": "mysql_native_password",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_backup_username",
+        "Description": "Optional. Username for mysql-backup user",
+        "Default": "mysql-backup",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cluster_probe_timeout",
+        "Description": "The maximum time, in seconds, that a new node will search for an existing cluster.",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "seeded_databases",
+        "Description": "Set of databases to seed. DEPRECATED: Use the seeded_users property with the \"schema-admin\" role.\n",
+        "Default": {},
+        "Example": "- name: db1\n  username: user1\n  password: pw1\n- name: db2\n  username: user2\n  password: pw2\n",
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.gcache_size",
+        "Description": "Cache size used by galera (maximum amount of data possible in an IST), in MB",
+        "Default": 512,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.wsrep_log_conflicts",
+        "Description": "Defines whether the node logs additional information about conflicts. The values that were in conflict are logged, so it is possible for user data to end up in the logs.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.additional_raw_entries",
+        "Description": "This option allows for adding extra raw configuration entries divided into sections.\nThese entries will be appended to the end of each respective section and can potentially overwrite existing configuration settings.\nUse it carefully and at your own risk.\n",
+        "Default": {},
+        "Example": {
+          "mysql": {
+            "connect_timeout": 10
+          },
+          "mysqld": {
+            "early-plugin-load": "keyring_file.so",
+            "keyring_file_data": "/var/vcap/store/pxc-mysql/keyring"
+          }
+        },
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.audit_logs.rotate_size_in_mb",
+        "Description": "Size in MB of each audit log file",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.log_queries_not_using_indexes",
+        "Description": "Queries that do not use an index, or that perform a full index scan where the index does not limit the number of rows, will be logged to the slow query log.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_password",
+        "Description": "Required. Password for the MySQL server admin user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.required",
+        "Description": "Require TLS for all client connections.  This enables the MySQL require_secure_transport option.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.client.certificate",
+        "Description": "Optional. Client certificate used when this MySQL instance establishes a connection to another remote MySQL\ninstance.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.long_query_time",
+        "Description": "Threshold in seconds above which SQL queries get logged in the slow query log file",
+        "Default": 10,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.collation_server",
+        "Description": "Default collation. Use SHOW COLLATION to view the valid collations for your character set.",
+        "Default": "use_default",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.read_write_permissions",
+        "Description": "Specify the database server's read/write setting. For single-node deployments, valid options are `read_write`, `read_only`, or `super_read_only`. The setting must be `read_write` for Galera clusters.",
+        "Default": "read_write",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.enabled",
+        "Description": "Enable this when deploying a galera cluster",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.wsrep_max_ws_size",
+        "Description": "Maximum permitted size in bytes per writeset.",
+        "Default": 1073741824,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pxc_enabled",
+        "Description": "Used for disabling the job. Useful if co-locating the cf-mysql release mysql job and migrating",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_backup_password",
+        "Description": "Optional. Password for mysql-backup user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.binlog.expire_logs_days",
+        "Description": "Time in days to store binlogs before purging",
+        "Default": 7,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_buffer_pool_size",
+        "Description": "Optional. The size in bytes of the memory buffer InnoDB uses to cache data and indexes of its tables",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_log_file_size",
+        "Description": "Size of the ib_log_file used by innodb, in MB",
+        "Default": 1024,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.port",
+        "Description": "Port which Galera Cluster uses for communication across nodes",
+        "Default": 4567,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "logging.format.timestamp",
+        "Description": "Format for timestamp in component logs. Valid values are 'rfc3339', 'unix-epoch'. 'rfc3339' is the recommended\nformat. It will result in all timestamps controlled by this job to be in RFC3339 format, which is human readable.\nThis includes stdout, pre-start, and post-start logs. This does not include stderr logs from golang libraries.\n'unix-epoch' will result in all timestamps being in the format they were before the rfc3339 flag was introduced.\nThis format is different for different logs. We do not recommend using this flag unless you have scripts that\nexpect a particular timestamp format.\n",
+        "Default": "rfc3339",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "disable_persistent_storage_safety_check",
+        "Description": "pre-start checks that /var/vcap/store is a persistent volume to prevent accidentally running the database on an ephemeral disk. This can be used to disable this check for test or bosh-lite situations",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "admin_username",
+        "Description": "Username for the MySQL server admin user",
+        "Default": "root",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.client.private_key",
+        "Description": "Optional. Client private key used when this MySQL instance establishes a connection to another remote MySQL\ninstance.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.audit_logs.audit_log_exclude_accounts_csv",
+        "Description": "Optional. Additional database users to exclude from audit logging, will be combined with uses specified in engine_config.audit_logs.audit_log_exclude_accounts",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.log_slow_verbosity",
+        "Description": "Specifies how much information to include in your slow query log",
+        "Default": "query_plan,innodb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.max_allowed_packet",
+        "Description": "The maximum size in bytes of a packet or a generated/intermediate string",
+        "Default": "256M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "kernel.vm.swappiness",
+        "Description": "Configure Linux vm.swappiness",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.audit_logs.audit_log_policy",
+        "Description": "Audit events to log. Valid values are: ALL, LOGINS, QUERIES, NONE",
+        "Default": "ALL",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.max_connections",
+        "Description": "Maximum total number of database connections for the node",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.table_definition_cache",
+        "Description": "Set this to a number relative to the number of tables the server will manage.",
+        "Default": 8192,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.tmp_table_size",
+        "Description": "The maximum size (in bytes) of internal in-memory temporary tables",
+        "Default": 33554432,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.wsrep_max_ws_rows",
+        "Description": "Maximum permitted number of rows per writeset.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "remote_admin_access",
+        "Description": "When set to true, admin and roadmin will be able to connect from any remote host.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.jemalloc.enabled",
+        "Description": "Enable the jemalloc memory allocator. See: https://github.com/jemalloc/jemalloc\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.max_heap_table_size",
+        "Description": "The maximum size (in rows) to which user-created MEMORY tables are permitted to grow",
+        "Default": 16777216,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.wsrep_applier_threads",
+        "Description": "Defines the number of threads to use when applying replicated write-sets.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "previous_admin_username",
+        "Description": "Optional. Previous username of the MySQL server admin user to be removed. Use this when changing the admin_username to avoid leaving around an unused user with root access.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "roadmin_enabled",
+        "Description": "When set to true, a read-only admin user called roadmin is added",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.audit_logs.file_rotations",
+        "Description": "Number of audit file rotations to keep",
+        "Default": 30,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.binlog.space_limit_percent",
+        "Description": "Set this to an integer which represents the percentage of disk space to reserve for binary logs. 0 indicates no limit on binary log space.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_strict_mode",
+        "Description": "Whether innodb_strict_mode is enabled",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_version",
+        "Description": "Version of MySQL to use.  One of '5.7' or '8.0' or '8.4'",
+        "Default": "8.0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "cli_history",
+        "Description": "When set to false, disables cli history on the mysql vms.",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.character_set_server",
+        "Description": "Default character set. Note that while the MySQL default is latin1, we default to utf8.",
+        "Default": "utf8mb4",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_buffer_pool_instances",
+        "Description": "Optional. Number of buffer pool instances for InnoDB",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_flush_method",
+        "Description": "Advanced configuration variable, consult the documentation before changing. Controls how MySQL opens data files; by default uses fsync(). Set to O_DIRECT if innodb_buffer_pool is sufficiently large that you can use O_DIRECT thus avoiding double-buffering.",
+        "Default": "fsync",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_lock_wait_timeout",
+        "Description": "Time in seconds that an InnoDB transaction waits for an InnoDB row lock",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_ft_min_token_size",
+        "Description": "Minimum length of words that are stored in an InnoDB FULLTEXT index.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "seeded_users",
+        "Description": "Set of database users to create\n",
+        "Default": {},
+        "Example": "seeded_users:\n  admin:\n    password: \"((mysql_root_password))\"\n    host: loopback\n    role: admin\n  monitoring:\n    password: \"((mysql_monitoring_password))\"\n    host: any\n    role: minimal\n  app-user:\n    password: \"((app_user_password))\"\n    host: any\n    role: schema-admin\n    schema: \"app-db\"\n    auth_plugin: caching_sha2_password\n  app-user-with-wildcard-db-access:\n    password: \"((wildcard_app_user_password))\"\n    host: any\n    role: multi-schema-admin\n    schema: \"some\\_db\\_prefix\\_%\"\n",
+        "Examples": null
+      },
+      {
+        "Name": "tls.galera",
+        "Description": "Required if engine_config.galera.enabled is true. TLS certificate for galera cluster encryption",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.audit_logs.audit_log_exclude_accounts",
+        "Description": "Database users to exclude from audit logging",
+        "Default": [],
+        "Example": "- monitoring_user\n- other_excluded_user\n- bot_user\n",
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.binlog.enable_gtid_mode",
+        "Description": "Enable gtid-mode / enforce-gtid-consistency for GTID based replication. NOTE: Enabling this option for existing clusters can result in inconsistent GTIDs across the cluster.\nFor high-availability clusters this property must be explicitly enabled in the manifest and will default to false.  When Galera is not enabled (i.e. for a single-node / standalone MySQL), this property defaults to true unless explicitly disabled.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "port",
+        "Description": "Port the mysql server should bind to",
+        "Default": 3306,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "tls.client.ca",
+        "Description": "Optional. Certificate bundle that defines the set of root certificate authorities that MySQL instances in this\ndeployment will use to verify client certificates\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_large_prefix",
+        "Description": "Whether innodb_large_prefix is enabled",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_log_buffer_size",
+        "Description": "Size in bytes of the buffer for writing log files to disk. Increasing this means larger transactions can run without needing to perform disk I/O before committing.",
+        "Default": "32M",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "mysql_socket",
+        "Description": "Location of the mysql socket for connecting locally",
+        "Default": "/var/vcap/sys/run/pxc-mysql/mysqld.sock",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_buffer_pool_size_percent",
+        "Description": "Set this to an integer which represents the percentage of system RAM to reserve for the InnoDB buffer pool",
+        "Default": 50,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.event_scheduler",
+        "Description": "Events are named database objects containing SQL statements that are to be executed at a later stage, either once off, or at regular intervals.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "roadmin_password",
+        "Description": "Required when roadmin_enabled is true. Password for the MySQL server read-only admin user.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.audit_logs.enabled",
+        "Description": "Enable audit logging",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.binlog.sync",
+        "Description": "Advanced configuration variable, consult the documentation before changing.\nsync_binlog=0: Disables synchronization of the binary log to disk by the MySQL server. Instead, the MySQL server relies on the operating system to flush the binary log to disk from time to time as it does for any other file. This setting provides the best performance, but in the event of a power failure or operating system crash, it is possible that the server has committed transactions that have not been synchronized to the binary log.\nsync_binlog=1: Enables synchronization of the binary log to disk before transactions are committed. This is the safest setting but can have a negative impact on performance due to the increased number of disk writes. In the event of a power failure or operating system crash, transactions that are missing from the binary log are only in a prepared state. This permits the automatic recovery routine to roll back the transactions, which guarantees that no transaction is lost from the binary log.\n",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.innodb_flush_log_at_trx_commit",
+        "Description": "Control balance between performance and full ACID compliance. Valid values are: 0, 1, 2",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.userstat",
+        "Description": "Enables user statistics, adding several new information schema tables and new FLUSH and SHOW commands.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.jemalloc.profiling",
+        "Description": "Enable jemalloc memory profiling.  Requires engine_config.jemalloc.enabled to be configured. See: https://docs.percona.com/percona-server/8.0/jemalloc-profiling.html\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.table_open_cache",
+        "Description": "Configure the number of table handles to keep open",
+        "Default": 2000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.galera.cluster_name",
+        "Description": "A unique name for this cluster. ONLY set before first deployment. DO NOT attempt to change an existing multi-node cluster.",
+        "Default": "galera-cluster",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.binlog.enabled",
+        "Description": "Enable binlogs across all nodes",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.local_infile",
+        "Description": "Allow or disallow clients to access local files",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.server_id",
+        "Description": "In leader-follower topology, this value must be unique. In other words, the leader must have a different value than the follower and vice versa. If this is set to 0, then the server refuses any replication connections.",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.enable_lower_case_table_names",
+        "Description": "Enable or disable the \"lower_case_table_names\" MySQL server variable via a boolean of true/false.",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "engine_config.wait_timeout",
+        "Description": "The time in seconds that the MySQL server waits for inactive connections before closing them.",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  },
+  {
+    "Name": "smoke-tests",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor4169390088/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "errand.sh",
+        "DstPathEnd": "bin/run",
+        "Path": "/tmp/tar-CmdExtractor4169390088/templates/errand.sh"
+      },
+      {
+        "SrcPathEnd": "bpm.yml.erb",
+        "DstPathEnd": "config/bpm.yml",
+        "Path": "/tmp/tar-CmdExtractor4169390088/templates/bpm.yml.erb"
+      },
+      {
+        "SrcPathEnd": "run-smoke-test.sh.erb",
+        "DstPathEnd": "bin/run-smoke-test",
+        "Path": "/tmp/tar-CmdExtractor4169390088/templates/run-smoke-test.sh.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "smoke-tests"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "db_username",
+        "Description": "Username for generated database user",
+        "Default": "smoke-tests-user",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "db_password",
+        "Description": "Password for generated database user",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
