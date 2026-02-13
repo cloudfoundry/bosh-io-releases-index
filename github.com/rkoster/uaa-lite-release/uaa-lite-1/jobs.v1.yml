@@ -1,0 +1,114 @@
+[
+  {
+    "Name": "uaa",
+    "Description": "",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1861650169/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "ctl.erb",
+        "DstPathEnd": "bin/ctl",
+        "Path": "/tmp/tar-CmdExtractor1861650169/templates/ctl.erb"
+      },
+      {
+        "SrcPathEnd": "config.yml.erb",
+        "DstPathEnd": "config/config.yml",
+        "Path": "/tmp/tar-CmdExtractor1861650169/templates/config.yml.erb"
+      },
+      {
+        "SrcPathEnd": "tls_cert.pem.erb",
+        "DstPathEnd": "config/tls_cert.pem",
+        "Path": "/tmp/tar-CmdExtractor1861650169/templates/tls_cert.pem.erb"
+      },
+      {
+        "SrcPathEnd": "tls_key.pem.erb",
+        "DstPathEnd": "config/tls_key.pem",
+        "Path": "/tmp/tar-CmdExtractor1861650169/templates/tls_key.pem.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "uaa"
+      },
+      {
+        "Name": "golang-1.26-linux"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "uaa.jwt.policy.active_key_id",
+        "Description": "Active signing key ID",
+        "Default": "key-1",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.jwt.policy.keys",
+        "Description": "Map of key_id to signing key configuration.\nExample:\n  key-1:\n    signingKey: |\n      -----BEGIN RSA PRIVATE KEY-----\n      ...\n      -----END RSA PRIVATE KEY-----\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.jwt.policy.access_token_validity",
+        "Description": "Default access token validity in seconds",
+        "Default": 43200,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.clients",
+        "Description": "Map of OAuth client configurations.\nExample:\n  bosh_cli:\n    secret: \"bosh-cli-secret\"\n    authorized_grant_types:\n      - password\n      - refresh_token\n    scope:\n      - openid\n      - bosh.admin\n    authorities:\n      - uaa.none\n    access_token_validity: 600\n    refresh_token_validity: 86400\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.users",
+        "Description": "Map of user configurations. Passwords are in plaintext and will be hashed on startup.\nExample:\n  admin:\n    password: \"admin-password\"\n    email: \"admin@example.com\"\n    groups:\n      - bosh.admin\n      - openid\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.issuer",
+        "Description": "Token issuer URL (e.g., https://uaa.service.cf.internal:8443)",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.tls.private_key",
+        "Description": "TLS private key in PEM format",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.jwt.policy.refresh_token_validity",
+        "Description": "Default refresh token validity in seconds",
+        "Default": 2592000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.port",
+        "Description": "HTTPS port for UAA",
+        "Default": 8443,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "uaa.tls.certificate",
+        "Description": "TLS certificate in PEM format",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
