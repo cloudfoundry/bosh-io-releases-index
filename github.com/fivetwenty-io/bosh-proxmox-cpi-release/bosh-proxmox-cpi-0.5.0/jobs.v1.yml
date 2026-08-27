@@ -1,0 +1,1435 @@
+[
+  {
+    "Name": "pve_cpi",
+    "Description": "BOSH Cloud Provider Interface for Proxmox VE",
+    "MonitTemplate": {
+      "SrcPathEnd": "monit",
+      "DstPathEnd": "monit",
+      "Path": "/tmp/tar-CmdExtractor1553597381/monit"
+    },
+    "Templates": [
+      {
+        "SrcPathEnd": "cpi.erb",
+        "DstPathEnd": "bin/cpi",
+        "Path": "/tmp/tar-CmdExtractor1553597381/templates/cpi.erb"
+      },
+      {
+        "SrcPathEnd": "cpi.json.erb",
+        "DstPathEnd": "config/cpi.json",
+        "Path": "/tmp/tar-CmdExtractor1553597381/templates/cpi.json.erb"
+      }
+    ],
+    "DeploymentJobTemplates": null,
+    "Packages": [
+      {
+        "Name": "pve_cpi"
+      }
+    ],
+    "Properties": [
+      {
+        "Name": "pve.resize_wait_for_convergence",
+        "Description": "When true, resize_disk polls the VM config after the PVE resize task\ncompletes until the reported disk size reaches the requested size, before\nreturning. On asynchronous backends (Ceph RBD, LVM-thin) the size metadata\ncan lag the task completion, so a follow-on operation might otherwise read\nthe old size. The poll is best-effort: if the size has not converged within\nresize_convergence_timeout_sec it logs a warning and returns success, never\nblocking the director. Default false (no extra polling).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.pin_az_via_ha_rules",
+        "Description": "When true and placement.az_map is set, create_vm writes a PVE HA\nnode-affinity rule binding each VM to its AZ's node set after scoring, so\nthe AZ placement is durable across HA failover and DLB rebalance (scoring\nalone only pins the VM at creation). delete_vm removes the rule. Best-effort\nand non-fatal. Incompatible with the DLB sentinel AZ (rejected at config\nvalidation, since DLB intentionally un-pins guests). Default false (opt-in).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_import.jitter_pct",
+        "Description": "Plus/minus jitter percentage (0-100) applied to each storage-import\nbackoff delay. Zero (default) applies the built-in 30.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.vmid_alloc.base_ms",
+        "Description": "Lower bound in milliseconds of the uniform VMID-conflict retry jitter.\nZero (default) applies the built-in 50 ms.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_types",
+        "Description": "Optional map of operator-named disk-type profiles. Each key is a profile\nname (e.g. \"ssd\", \"archive\") and each value is an object whose\ncloud_properties key holds default cloud_properties for that profile.\nA disk is associated with a profile by setting cloud_properties.disk_type\nto the profile name at deploy time. Disk-type profiles take precedence over\nvm_type profiles when both define the same attribute. When unset\n(default {}), no profiles are defined and no behavior change occurs.\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_zone_type",
+        "Description": "PVE zone type the CPI uses when it creates a zone (requires\nsdn_auto_manage_zone). One of: simple, vlan, qinq, vxlan, evpn.\nThe default \"vxlan\" builds a cluster-wide L2 overlay — peers are\nauto-derived from the online cluster nodes (override with\npve.sdn_vxlan_peers) and each vnet gets a VNI from the\nsdn_vni_range band. \"vlan\" maps each managed network onto an 802.1Q\nVLAN of the physical fabric: the zone is created with\npve.network_bridge as its underlay (the bridge must exist on every\nnode, VLAN-aware, with trunked switch ports), each vnet carries the\nVLAN ID as its tag (cloud_properties.vnet_tag, capped at 4094), and\nVMs join by bridge selection alone — no VLAN tag ever appears in a\nVM's NIC config. \"simple\" remains an opt-in for single-node or\ndeliberately node-local networks (its bridges do not span nodes).\n\"qinq\" zones must pre-exist (the CPI does not auto-create them).\n\"evpn\" is never CPI-created: pre-create the zone and its BGP\ncontroller in PVE, and the CPI manages only vnets and subnets\ninside it.\n",
+        "Default": "vxlan",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_vmid_range_end",
+        "Description": "Inclusive upper bound of the VMID range for persistent-disk containers.\nWhen unset (0), defaults to 29999. Must be \u003e disk_vmid_range_start.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_pool",
+        "Description": "PVE resource pool name assigned to every VM create_vm provisions, on\nboth the import path and the clone path (both PVE's create and clone\nendpoints accept \"pool\" directly). The CPI creates the resolved pool\nif it does not already exist, tagging it with a \"managed by\nbosh-proxmox-cpi\" provenance comment, before the first VM lands in it.\nDefault \"bosh\" (create-if-missing); set explicitly to \"\" to opt this\nglobal layer out entirely — a higher-precedence layer still\napplies if set, and when every layer resolves empty no pool is\nassigned, byte-identical to every release before this property\nexisted.\n\nResolution precedence (highest wins, first non-empty selected):\ncall-level cloud_properties.pool \u003e vm_type profile cloud_properties.pool\n\u003e pve.vm_pool_template (rendered) \u003e this global value. See\npve.vm_pool_template below for the template layer's four supported\nvariables.\n\nSetting this lets an operator scope the CPI's VM.* ACL grants to\n/pool/\u003cname\u003e instead of cluster-wide /vms, shrinking the blast radius\nof a compromised CPI token on a shared cluster: PVE's create and clone\nendpoints accept \"VM.Allocate on /vms/{vmid}\" OR \"VM.Allocate on\n/pool/{pool}\" when a pool is supplied, and existing-VM operations\n(config, power, disk, etc.) resolve permissions on /vms/{vmid}\ninclusive of any ACL granted on a pool the VM belongs to (PVE's\nresource-pool permission propagation) — so a token granted only on\n/pool/\u003cname\u003e can fully manage every VM this CPI creates once vm_pool\nis set. See docs/pve-api-permissions.md for the reduced ACL table and\none gap the pool scoping does not close (cloning still requires\nVM.Clone on the *template's* own vmid/pool, which is not automatically\ncovered).\n\nMust not equal stemcell_template_pool, and must not start with\n\"bosh-lock-\" (reserved for the cluster-lock sentinel pool namespace,\nsee pve.cluster_lock_mode) — both are rejected at config load. Must be\na flat PVE poolid (no \"/\"); the CPI never creates nested pools.\n",
+        "Default": "bosh",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_template_node",
+        "Description": "Optional PVE node on which template VMs are created. When empty (default),\nfalls back to pve.node. Useful when stemcell_storage is on shared storage\naccessible to multiple nodes but template creation should be pinned to one\nspecific node. When using local stemcell_storage (dir, zfspool, lvmthin, or\nlvm), this must equal the node where stemcell_storage is mounted; pointing\nto a different node causes create_stemcell to fail because the uploaded\nqcow2 is not visible from the other node.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_fetch_response_header_timeout_sec",
+        "Description": "Optional. Bounds the wait for response headers after a stemcell-fetch\nrequest is sent. Guards against slow-loris drips on the response-header\nphase. The request body transfer is bounded by the outer 30-minute\nstemcell-fetch deadline, not by this field. 0 (default) applies the\nbuilt-in 120s default. Valid range when set: 1-3600 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.external_command.timeout_ms",
+        "Description": "Per-invocation timeout in milliseconds. Zero (default) applies a built-in\n30 s default. The child process is killed when the deadline passes.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.debug.keep_failed_vms",
+        "Description": "Diagnostic mode. When true, a VM that fails mid-creation is NOT destroyed.\nInstead it is tagged \"bosh-create-failed\" (plus the deployment/job derived\nfrom the BOSH env) and create_vm returns an error naming the VMID and node,\nleaving the VM intact for post-mortem. This deliberately breaks the normal\nno-orphan guarantee, so it is for debugging only. Default false (opt-in).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.dlb.az_name",
+        "Description": "Sentinel availability-zone name. When a VM is created with\ncloud_properties.availability_zone equal to this value, the VM is treated\nas DLB-delegated even when dlb.enabled is false: the CPI skips its own\nAZ-map node restriction (any online node is a candidate) and registers the\nVM as a PVE HA resource with auto-rebalance so the DLB places and balances\nit. Default \"dlb\". Set to \"\" to disable the sentinel trigger entirely\n(DLB opt-in via master flag only). When both dlb.enabled and the sentinel\nAZ match, the master flag takes precedence (same registration path).\n",
+        "Default": "dlb",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.protocol",
+        "Description": "OTLP wire protocol used by the exporter for every enabled signal\n(traces, logs, metrics): \"http\" for OTLP/HTTP protobuf (collector's\nconventional port 4318) or \"grpc\" for OTLP/gRPC (conventional port\n4317). One protocol applies uniformly across whichever signals are\nenabled; there is no per-signal override. Rendering fails on any\nother value. Only relevant when pve.otel.enabled, pve.otel.logs.enabled,\nor pve.otel.metrics.enabled is true.\n",
+        "Default": "http",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_import.max_attempts",
+        "Description": "Maximum allocation attempts when PVE serialises disk/template imports\nunder a storage lock. Zero (default) keeps the built-in per-handler budget\n(create_vm 10, create_disk package default). Raise this on slow Ceph where\nlock windows are wide. Overrides vmid_alloc_attempts for the storage-lock\nretry loop.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.vmid_alloc.cap_ms",
+        "Description": "Upper bound in milliseconds of the uniform VMID-conflict retry jitter.\nZero (default) applies the built-in 250 ms. Must be \u003e= base_ms when set.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.fetch_credential_defaults",
+        "Description": "Ordered list of URL-prefix to auth-payload mappings used by the CPI when\nfetching a light stemcell whose cloud_properties.image_url is set without\nper-stemcell image_url_auth. The entry whose url_prefix is the longest\nmatching prefix of the request URL wins.\nEach entry requires two fields: url_prefix (string) and auth (object with\na required type field). Supported auth.type values: basic, bearer, s3, oci,\nblobstore. When unset, light-stemcell fetches without per-stemcell\ncredentials are unauthenticated.\n",
+        "Default": [],
+        "Example": [
+          {
+            "auth": {
+              "password": "s3cr3t",
+              "type": "basic",
+              "username": "robot"
+            },
+            "url_prefix": "https://artifactory.corp/"
+          },
+          {
+            "auth": {
+              "access_key_id": "AKIA...",
+              "endpoint": "https://s3.lab.local",
+              "secret_access_key": "...",
+              "type": "s3"
+            },
+            "url_prefix": "s3://stemcells-mirror/"
+          }
+        ],
+        "Examples": null
+      },
+      {
+        "Name": "pve.external_command.allowlist",
+        "Description": "Allowlist of absolute executable paths permitted to run. Must be non-empty\nand contain external_command.command. An empty allowlist makes the hook\ninert (it never executes anything).\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_pool_template",
+        "Description": "Director-level pool-name template rendered at create_vm time when\nneither the call-level nor the vm_type-level cloud_properties.pool\nis set (precedence position 3, above the pve.vm_pool global default;\nsee pve.vm_pool for the full pipeline). Supports four variables:\n\"{prefix}\" (pve.vm_prefix), \"{director}\", \"{deployment}\", and\n\"{instance_group}\"; any other \"{...}\" token is rejected at config\nload. The rendered name is sanitized (repeated separators collapsed to\none, leading/trailing \"-\" trimmed); a render that collapses to \"\"\nfalls through to pve.vm_pool. Must not contain \"/\" (flat names only,\nthe CPI never creates nested pools); the same PVE poolid charset rules\nthat apply to vm_pool also apply to the rendered result, and a render\nthat equals pve.stemcell_template_pool fails create_vm with a named\nerror. The default \"bosh-{director}-{deployment}\" gives every\ndeployment its own pool; set explicitly to \"\" to disable this layer\nentirely, so resolution falls straight from call/vm_type to\npve.vm_pool (the single static pool, and the right choice on clusters\nwhose CPI token cannot create pools).\n\nOn a create-env path (bosh create-env, no director VM yet) the\n{director} token is underivable and {deployment} falls back to\npve.create_env_deployment, so this default renders \"bosh-create-env\",\nshared by every create-env director on the cluster unless\npve.create_env_deployment is set per bundle.\n",
+        "Default": "bosh-{director}-{deployment}",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vmid_range_start",
+        "Description": "Starting VMID for VM allocation. VMs are allocated in the range\n[vmid_range_start, vmid_range_end]; default vmid_range_start is 100.\nPersistent disks use synthetic VMIDs 9000-29999 (unchanged).\n",
+        "Default": 100,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.api_dial_timeout_sec",
+        "Description": "Optional. Bounds the TCP dial step of every PVE API HTTP request.\n0 (default) leaves the transport at the SDK default (no explicit dial\ntimeout). When set, the TCP dial is cancelled if it has not completed\nwithin this many seconds. Useful on high-latency or flaky networks to\nsurface connection failures faster. Must be \u003e= 0.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.allow_private_ip",
+        "Description": "When false (default), an endpoint resolving to a private or loopback\naddress is rejected (SSRF guard). Set true only for a Data Plane API on a\ntrusted private network.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.fallback_max",
+        "Description": "Maximum number of alternate candidate nodes to try after a transient clone or\nVM start failure on the initially selected node. When 0 (default), create_vm\nmakes a single attempt on the selected node and returns any failure immediately\n— behavior is unchanged from prior releases. When \u003e 0, on a transient failure\n(classified by the same transient/permanent classifier used for intra-attempt\nretries) the CPI cleans up the partial VM (purges it, freeing the VMID) and\nretries on the next-ranked candidate from the same constrained placement set\n(same AZ restriction and disk fault-domain co-location constraints). Permanent\nerrors (missing clone source, non-retriable PVE errors) fail immediately\nwithout consuming alternates. Valid range: 0 (off) to 5. Recommended\noperational value: 2.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.ephemeral_disk_min_ratio",
+        "Description": "Minimum size floor, as a multiple of VM RAM, for a dedicated ephemeral disk\ncreated by create_vm (when ephemeral_disk_size_mb is set). The BOSH agent\nlays a RAM-sized swap file plus /var/vcap/data on the ephemeral disk, so an\nephemeral disk smaller than ratio × RAM cannot satisfy the agent's own\nlayout and the job fails to come up at boot. When set, create_vm asserts\nephemeral_GiB \u003e= ratio × (RAM_MiB / 1024) and, on violation, rejects (or\nwarns — see ephemeral_disk_min_mode). 0 (the default) disables the check\nentirely, leaving create_vm byte-identical to prior releases. The check is\nalso skipped when no dedicated ephemeral disk is requested (the agent then\ncarves ephemeral storage from the grown root disk). A conventional value is\n2.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.require_snapshot_check_pass",
+        "Description": "When true, a disk operation aborts if the snapshot pre-flight check itself\nfails (cannot reach PVE to list snapshots). Default false: on check failure\nthe CPI logs a warning and proceeds (fail-open).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.node",
+        "Description": "Default PVE node",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_vxlan_peers",
+        "Description": "Optional list of VXLAN peer IPs used when the CPI creates a vxlan\nzone. Empty (the default) derives the peer list from the online\ncluster nodes (/cluster/status). Set it when tunnel traffic must\nride a dedicated underlay network whose addresses differ from the\nmanagement IPs.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.operation_timeout.delete_sec",
+        "Description": "Deadline in seconds for delete_* methods. Zero (default) applies the\nbuilt-in 900 s. Honored only when operation_timeout.enabled is true.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.reboot_timeout",
+        "Description": "Seconds the soft reboot waits for graceful ACPI shutdown before\nfalling back to a hard reset. Range 1-3600. Ignored when\nreboot_mode is \"hard\".\n",
+        "Default": 60,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.redact_logs",
+        "Description": "When true, the CPI emits a debug-level trace of each call's request\narguments and result with credentials masked — the mbus URL's embedded\nNATS credentials, blobstore secret_access_key/password, and any other\nsensitive-named key are replaced with\n\u003credacted\u003e while the structure is preserved. When false (default), no\npayload trace is emitted and logging is identical to prior releases.\nRecommended on so an operator raising the log level to triage a deploy\ncannot accidentally write agent credentials to syslog.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.external_command.command",
+        "Description": "Absolute path of the executable to run. Must also appear in\nexternal_command.allowlist. Required when \"external_command\" is in\npve.hooks. The command runs with no shell, a scrubbed environment, and a\ntimeout; arguments are passed verbatim as discrete argv.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.metrics.file_path",
+        "Description": "Absolute path of the metrics file. Required when pve.metrics.enabled is\ntrue. The CPI opens, appends, and closes the file per call (atomic line\nappend, no file descriptor held between calls). The file is created if\nabsent. The containing directory must exist and be writable by the CPI\nprocess.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.parked_disk_vmid_range_start",
+        "Description": "Inclusive lower bound of the VMID range reserved for parker VMs\n(bosh-parker-\u003cn\u003e). Each parker VM holds up to 31 parked disk volumes in\nscsi0-30 slots. The band resolves under every detached_disk_strategy, at\nthe job level and in every cpi-config entry alike: under \"parked\" (the\ndefault) it is where parker VMs are allocated, and under \"free\" it is\nread-only — it lets the CPI recognize disks parked earlier and unpark\nthem on their next attach_disk or delete_disk instead of refusing them.\nAn unset (0) bound resolves independently of the other, so a cpi-config\nentry may move one bound and leave the other at 0. The resolved partner\nis the built-in bound when that leaves a window no wider than\n90000-90999, and otherwise is derived from the bound that was set, at the\nsame width: a start of 50000 alone gives [50000,50999], not\n[50000,90999]. Both bounds unset resolves to 90000-90999. Move the band\nonly to a window whose parker VMs move with it: a parked disk on a VM\noutside the resolved band can no longer be unparked, and attach_disk and\ndelete_disk refuse it until the band covers that VM again.\n\nMust not overlap the VM range, the persistent-disk range, or the\nstemcell-template range under the parked strategy; under \"free\" nothing\nallocates a parker VMID, so an overlap there is accepted rather than\nrejected. The bands are checked against each other, never against VMIDs\nalready allocated.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.operation_timeout.create_sec",
+        "Description": "Deadline in seconds for create_* methods. Zero (default) applies the\nbuilt-in 1800 s. Honored only when operation_timeout.enabled is true.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.memory_signal",
+        "Description": "Selects which live memory signal the placement scorer's Mem axis uses\nto rank candidate nodes: \"reserved\" (default) sums each resident QEMU\nguest's configured memory (maxmem) on a node, regardless of run state,\nand scores free capacity as (node total memory − that sum) / node\ntotal memory. This tracks memory reservations rather than actual host\nmemory in use, so a sequence of freshly-booted BOSH VMs — which touch\nonly a fraction of their reserved RAM — still visibly lowers a node's\nscore on every create, causing sequential creates to fan out across\nequal nodes instead of stacking on whichever node's resident-memory\nusage happens to lag behind. \"resident\" restores the legacy signal:\nfree memory = node total memory − memory currently resident in the\nhost (Maxmem − Mem from PVE cluster status). Any other value, or a\ntypo, falls back to \"reserved\" rather than blocking the deploy.\n",
+        "Default": "reserved",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.weights.guest_count",
+        "Description": "Weight applied to the inverse-guest-count axis in the node scorer.\nHigher value = stronger preference for nodes hosting fewer guests\n(spreads load across the cluster). Must be \u003e= 0. When unset (0),\ndefaults to 0.3 at runtime.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.external_command.methods",
+        "Description": "CPI methods that trigger the command. Empty (default) runs it on create_vm\nand delete_vm.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.metrics.enabled",
+        "Description": "When true, the CPI appends one JSON-line sample per RPC to the file at\npve.metrics.file_path. Each line carries: ts (RFC3339Nano), method,\nduration_ms, outcome (ok|error), and request_id. duration_ms covers\nhandler execution; post-call work by other configured hooks is not\nincluded. Write failures are\nlogged at Warn level and never fail the CPI call. Default false; the\nhook is not registered when false and adds zero dispatch-path overhead.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.enabled",
+        "Description": "When true, the CPI emits OpenTelemetry traces for each RPC and the PVE\nAPI calls it makes, exported via OTLP (see pve.otel.protocol) to\npve.otel.exporter_endpoint. Default false; when false no tracer\nprovider is built, no network connection is opened, and PVE API calls\nbypass the tracing layer entirely.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.dlb.require_shared_storage",
+        "Description": "When true (default), the CPI skips DLB/HA registration for VMs whose root\ndisk resides on local storage (dir, lvm, lvmthin, zfspool) that cannot be\nlive-migrated. Registering a non-shared VM as an HA resource would cause\nPVE to attempt live-migration during rebalance and fail. Set to false to\nregister regardless — not recommended unless all storage is shared. When\nthe storage type cannot be determined at create time, the CPI fails open\n(proceeds with registration) and logs a debug entry.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_upload.max_attempts",
+        "Description": "Maximum attempts for the storage upload retry loops (stemcell image\nand per-VM ConfigDrive ISO uploads). Zero (default) applies the\nbuilt-in budget of 30: roughly six minutes on the transient backoff\ncurve, roughly twelve when storage-lock contention dominates. Each\nattempt reopens the file and re-sends the upload; the backoff curve is\nselected per fault from the shared transient and storage-lock curves\nand is not configurable per upload.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.mbps_rd",
+        "Description": "Default read throughput cap in MB/s for every disk created by this CPI.\nZero or unset means no cap. Fractional values are accepted (e.g. 100.5).\nOverridden per disk by cloud_properties.mbps_rd. When unset (default), the\nkey is omitted and PVE imposes no throughput limit.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.iso_storage_follow_vm_storage",
+        "Description": "When true (the default), resolves the ConfigDrive ISO pool to\npve.vm_storage instead of the pve.iso_storage default, provided\nvm_storage advertises PVE content type `iso` and is shared. Evaluated\nonce at CPI process startup, before pve.iso_storage is otherwise\napplied. Because BOSH renders the \"local\" spec default for iso_storage\nwhether or not the operator set it in the manifest, the CPI cannot\ndistinguish \"unset\" from \"explicitly local\" — this flag therefore\ntreats iso_storage resolving to the literal value \"local\" as the\n\"unset\" signal. An operator who deliberately sets iso_storage: local\nwhile this flag is active (its default state) gets vm_storage-following\nbehavior instead of a literal local pool; set iso_storage to any other\nvalue to pin a literal pool this flag will never override. When\nvm_storage lacks `iso` content, is not shared, or cannot be resolved,\nthe CPI falls back to iso_storage unchanged and logs a warning\n(fail-open). Set explicitly to false to disable and always use\niso_storage as configured. Leave unset (~) to get\nthe default-true behavior; explicit true/false always overrides it.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_prefix",
+        "Description": "Optional prefix prepended to every CPI-provisioned VM's PVE name.\nWhen set (e.g. \"cpi\") VM names take the form\n\"\u003cprefix\u003e-\u003cdeployment\u003e-\u003cjob\u003e-\u003cindex\u003e\", so deployments sharing a PVE\ncluster can be filtered by prefix in the PVE UI. When empty the\nprefix is omitted and the name is \"\u003cdeployment\u003e-\u003cjob\u003e-\u003cindex\u003e\".\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_fetch_tls_handshake_timeout_sec",
+        "Description": "Optional. Bounds the TLS handshake step of every stemcell-fetch HTTPS\nrequest. 0 (default) applies the built-in 15s default. Valid range when\nset: 1-3600 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.dlb.enabled",
+        "Description": "Master switch for PVE 9.2+ Dynamic Load Balancer (CRS dynamic mode)\nintegration. When true, every VM created by this CPI is registered as a\nPVE HA resource with auto-rebalance=1 and state=started, delegating\ninitial placement and continuous rebalancing to the DLB. Works alongside\noperator-defined availability zones: master-flag-on VMs are still scored\nwithin their AZ candidate set at create time; DLB then rebalances within\nallowed nodes afterward. Default false (opt-in). See also\nplacement.dlb.az_name for per-workload sentinel-AZ opt-in.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_perf_invariant_mode",
+        "Description": "Controls enforcement of creation-time disk-performance invariants at\nattach_disk time. The structural options cache, iothread, and ssd are\nbaked into the disk CID at create_disk time; on re-attach the CPI merges\nglobal disk_performance defaults over the recorded options. If global\nconfig has since introduced a structural option the disk did not have at\ncreation, the disk's runtime profile would silently diverge from its\nrecorded one. This knob governs that case:\n  enforce (default) - reject the attach with a non-retriable error\n  warn              - log the divergence and proceed with the merged options\n  off               - skip the check entirely\nThrottle options (mbps_*, iops_*) and discard are never enforced. The\ncheck is a no-op for any disk whose CID carries no performance options, so\nbehavior is unchanged unless disk_performance options were recorded.\nOptions an operator updates through update_disk are recorded per disk\nand join the expected baseline, so an intentional update never reads as\na divergence; only drift the disk never opted into trips the guard.\nValid values: \"\" (empty, same as \"enforce\"), \"enforce\", \"warn\", \"off\".\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.disk_migrate.max_attempts",
+        "Description": "Maximum attempts for transient retries of the cross-node disk-migration\nrequest attach_disk issues when pve.disk_migration resolves to\n\"on_attach\". Zero (default) applies the built-in budget of 4. The\nrequest runs while the mover's protection flag is down, so a long\nbudget widens that window.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.realm",
+        "Description": "Authentication realm",
+        "Default": "pam",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_vmid_range_start",
+        "Description": "Starting VMID for persistent-disk container allocation. Disk containers\nare allocated in [disk_vmid_range_start, disk_vmid_range_end]. When unset\n(0), defaults to 9000. Must not overlap the VM range or the template range.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.allow_disk_ops_with_snapshots",
+        "Description": "When true, bypasses the snapshot pre-flight guard in attach_disk, detach_disk,\nand resize_disk. Use only for emergency disk recovery; snapshot state will be\ninconsistent after the operation. Default false (guard active).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.ensure_no_ip_conflicts",
+        "Description": "When true (default), create_vm scans the whole cluster's VMs and checks\nthat none already holds the requested static IP before provisioning.\nPrevents duplicate-IP collisions on static networks. Set to false only for\ndynamic (DHCP) networks where IP pre-assignment is not meaningful.\nProtective default: true. Omitting this property preserves the default.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_migration",
+        "Description": "Cross-node persistent-disk migration on attach. One of:\n  \"\"          — same as \"on_attach\" (the default).\n  \"on_attach\" — when a stable-ID disk sits on one node and the target\n                VM runs on another, attach_disk moves the disk instead\n                of erroring: the disk is isolated onto a fresh\n                single-purpose mover parker VM on its own node (a\n                metadata-only reassignment, so sibling parked disks\n                never travel), the never-started mover is\n                offline-migrated to the VM's node through the PVE\n                migrate API (a metadata move on shared storage, a\n                volume copy on node-local storage), the disk attaches\n                from the mover, and the now-empty mover is destroyed\n                through a guard that refuses to destroy a mover still\n                referencing any volume.\n  \"off\"       — restore the hard cross-node errors; attach_disk names\n                this property in the refusal.\nLegacy disks (created before stable disk identities) are never migrated\nunder either setting: the migration renames the volume and a legacy CID\nis the volume name. Disks on an offline node cannot migrate either; PVE\nneeds the source node online to run the migration task. Overridable per\ncpi-config entry as pve_disk_migration.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.health_check.enabled",
+        "Description": "When true, create_vm polls the guest QEMU agent via ping after the start task\ncompletes, waiting until the agent responds or the deadline (health_check.timeout_sec)\nexpires. On timeout, VM status diagnostics are folded into the error before the\nstandard rollback runs. Default false (opt-in): no polling occurs and create_vm\nreturns as soon as PVE reports the start task complete.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.operator_id",
+        "Description": "Optional operator identifier appended to the User-Agent header on all PVE\nAPI requests as \"pid-\u003cvalue\u003e\". Use this to attribute CPI traffic in PVE\naccess logs when multiple BOSH directors share a single PVE cluster.\nWhen unset (the default), the User-Agent is \"BOSH-Proxmox-CPI/\u003cversion\u003e\"\nwith no suffix. The value passes through unmodified; avoid whitespace and\ncontrol characters, which may be interpreted differently by PVE log parsers.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_vni_range_start",
+        "Description": "Start of the band from which the CPI auto-allocates vnet tags (VNIs\nfor vxlan/evpn, 802.1Q VLAN IDs for vlan/qinq) for tagged zone\ntypes. 0 uses the default band: 5000-5999, or 2000-2999 when\nsdn_zone_type is vlan or qinq (the band must fit the 4094 VLAN ID\ncap; an explicit band beyond it fails validation). Per-network\noverride via cloud_properties.vnet_tag.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.api_tls_handshake_timeout_sec",
+        "Description": "Optional. Bounds the TLS handshake step of every PVE API HTTPS request.\n0 (default) leaves the transport at the SDK default (no explicit handshake\ntimeout). When set, the handshake is cancelled if it has not completed\nwithin this many seconds. Must be \u003e= 0.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.ip_conflict_probe",
+        "Description": "Selects the active IP-conflict probe mode. When empty or \"off\" (default),\nno active probe runs and behavior is identical to prior releases.\nWhen \"agent\", create_vm additionally calls the QEMU guest agent on each\nrunning VM to collect dynamically assigned IP addresses and checks them\nagainst the target IPs before provisioning. This detects DHCP-assigned\naddresses that the static-config scan (ensure_no_ip_conflicts) cannot see.\nThe probe is fail-open: a guest agent error is logged and that guest is\nskipped, never blocking provisioning.\nValid values: \"\" (empty, same as \"off\"), \"off\", \"agent\".\nOnly meaningful when ensure_no_ip_conflicts is true or unset.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.az_fallback_order",
+        "Description": "Ordered list of AZ names appended as fallback candidates after\ncloud_properties.availability_zones are exhausted. Use to express a cluster-wide\n\"prefer AZ-a then AZ-b\" policy without per-VM cloud_properties. Empty (default)\nmeans no config-level fallback chain; placement considers only AZs from\ncloud_properties.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.ephemeral_disk_min_mode",
+        "Description": "Action when the ephemeral_disk_min_ratio invariant is violated: \"enforce\"\n(the default) rejects create_vm with a non-retriable error naming the\ndeficit; \"warn\" logs the deficit and proceeds. No effect unless\nephemeral_disk_min_ratio is set. One of enforce|warn; empty resolves to\nenforce.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.health_check.expected_agent_sha256",
+        "Description": "Expected SHA-256 hex digest of the BOSH agent binary\n(/var/vcap/bosh/bin/bosh-agent) inside the booted VM. When non-empty and\nhealth_check.enabled is true, create_vm runs sha256sum via the QEMU guest\nagent after the ping succeeds and fails (destroying the VM) only on a\nconfirmed digest mismatch; any inability to verify (guest-agent error,\nnon-zero exit, unparseable output) is fail-open. Must be 64 hex characters\nwhen set. Empty (default) disables the assertion.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.pool_reap_empty",
+        "Description": "When true, delete_vm deletes a CPI-managed pool (tagged with the\n\"managed by bosh-proxmox-cpi\" provenance comment) once the destroyed VM's\npool membership, captured before destroy, is reported empty by PVE.\nAn operator-created pool without that provenance comment is never\nreaped, the static pve.vm_pool and pve.stemcell_template_pool are\nrefused by name regardless of comment, and a pool that is still\nnon-empty or already gone (a race with another creator) is tolerated\nsilently, never failing delete_vm. Only the main delete_vm path\nreaps; the fast-path delete skips the reaper, so some empty pools\npersist until a later synchronous delete. Requires the CPI's PVE\ntoken to hold Pool.Allocate on the pool being reaped. Default true:\nthe per-deployment pools the pve.vm_pool_template default creates are\nreaped with their deployments. Set to false to keep empty pools for\nthe operator to manage.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.iso_storage",
+        "Description": "Storage pool (dir/nfs/cifs with `iso` content enabled) used to hold the\nper-VM ConfigDrive ISO. Block storages (lvm/lvmthin/zfspool) cannot\nhold ISO files. The ISO is attached as a CD-ROM on scsi30 for the VM's\nwhole life, not only at boot: PVE refuses to live-migrate a VM whose\nCD-ROM volume sits on non-shared storage, and HA recovery on another\nnode fails at start because the ISO file does not exist there. This\nsilently defeats placement.dlb, placement.pin_az_via_ha_rules, and\nplacement.anti_affinity.use_ha_rules. Use a shared pool (rbd, nfs, cifs,\nglusterfs, cephfs) whenever any of those features is active; see\npve.require_shared_iso_for_ha and pve.iso_storage_follow_vm_storage.\n",
+        "Default": "local",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.network_mode",
+        "Description": "Selects the default create_network/delete_network path. The mode\ngoverns networks whose spec does not say otherwise; an unambiguous\nnetwork spec overrides it (cloud_properties naming a zone or vnet\ntakes the SDN path under \"bridge\"; naming only a bridge takes the\nbridge path under \"sdn\"). This setting has no effect on create_vm's\nNIC attachment: mtu=1 vnet-MTU inheritance and cloud_properties.vlan\ntagging are both decided by the actual SDN vnet list in every mode,\nnot by network_mode.\n\"bridge\" — Linux bridge lifecycle via the nodes API. The default:\n         a plain pre-existing Linux bridge (managed: false,\n         cloud_properties.bridge) needs no SDN prerequisites and no\n         CPI-side provisioning — the normal path for an\n         operator-managed fabric. create_network under this mode\n         provisions a bridge on one PVE node only (see\n         create_network's own single-node-scope note); multi-node\n         bridge fabrics must be pre-provisioned outside the CPI.\n\"sdn\" — PVE SDN vnet lifecycle (cluster SDN must be enabled).\n         CPI-created networks are SDN vnets that span every cluster\n         node. Opt in globally (network_mode: sdn) or per network via\n         cloud_properties naming a zone or vnet.\n\"auto\" — legacy heuristic retained for compatibility: use SDN when\n         cloud_properties.zone or pve.sdn_zone is set; fall back to\n         bridge otherwise. Deployments that relied on the old\n         auto-to-bridge fallback without naming a zone can also give\n         each bridge network an explicit cloud_properties.bridge and\n         keep the default mode.\n",
+        "Default": "bridge",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.ca_cert",
+        "Description": "Optional. PEM-encoded CA certificate bundle for verifying the Proxmox VE\nAPI TLS certificate. When empty (default), the system trust pool is used\nunmodified — behavior is byte-identical to prior releases. When set, the\nPEM is parsed and the resulting cert pool replaces the system pool for PVE\nAPI HTTPS verification. Ignored when verify_ssl is false.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_import.cap_ms",
+        "Description": "Maximum delay in milliseconds for the storage-import backoff. Zero\n(default) applies the built-in 30000 ms. Must be \u003e= base_ms when both set.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.operation_timeout.enabled",
+        "Description": "Opt-in per-method deadline envelope. When false (default) no deadline\nwraps handler execution and behavior is identical to prior releases. When\ntrue, each CPI method runs under a context deadline sized by its class so a\nwedged retry/poll combination converts into a retriable timeout the\nDirector can act on instead of holding a queue slot indefinitely.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_template_vmid_range_start",
+        "Description": "Starting VMID for template VM allocation. Template VMs are allocated in\n[stemcell_template_vmid_range_start, stemcell_template_vmid_range_end], a\ndedicated band above the persistent disk range. When unset (0), defaults\nto 30000. Must not overlap with vmid_range_start..vmid_range_end (VM range)\nor the persistent disk range 9000-29999.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.pin_az_strict",
+        "Description": "Controls the strictness of the rule created by pin_az_via_ha_rules. Default\ntrue: a strict rule is a hard AZ guarantee — HA will not relocate the VM off\nits AZ node set even if every AZ node is down (durability of locality over\navailability). Set false for a preferred pin that lets HA relocate off-AZ on\ntotal AZ failure. Ignored when pin_az_via_ha_rules is false.\n\nThis default is deliberate — BOSH AZ placement is a contract, not a hint —\nbut it carries two operational hazards on an AZ mapped to a single node:\n(1) if that node goes down, the VM cannot restart anywhere else, since HA\nhas no other in-AZ node to fail over to; (2) draining that node for\nmaintenance (reboot, upgrade) has nowhere legal to place the VM, which can\nwedge the maintenance operation. Both hazards disappear once the AZ maps to\ntwo or more nodes, since HA then has an in-AZ fallback target. Map every\nstrict AZ to \u003e= 2 nodes. create_vm logs a Warn at pin time whenever a\nstrict pin targets a single-node AZ, naming the AZ and node, so this\ncondition is visible rather than silent.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.storage.max_utilization_mode",
+        "Description": "Enforcement mode when placement.storage.max_utilization_pct is exceeded.\nOnly consulted when max_utilization_pct is \u003e 0. One of \"enforce\"\n(default) or \"warn\":\n  - enforce: create_vm placement rejects the candidate node; create_disk\n    and resize_disk return a RETRIABLE cloud error naming the pool, the\n    current projected percentage, and the ceiling — capacity can be\n    freed, so the director should re-drive rather than treat this as a\n    permanent, non-retriable failure.\n  - warn: the same facts are logged at Warn and the operation proceeds\n    unblocked.\nsnapshot_disk ignores this setting: it is always Warn-only regardless of\nmax_utilization_mode, since snapshot growth cannot be estimated and\nblocking snapshots on a capacity guess would be unsound.\n",
+        "Default": "enforce",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.pushback.cap_ms",
+        "Description": "Maximum pushback backoff in milliseconds (the backoff grows toward this\nvalue). Zero (default) applies the built-in 60000 ms. Clamped up to\nbase_ms if smaller.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.verify_ssl",
+        "Description": "Verify TLS certificate",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_disk_format",
+        "Description": "Disk format: qcow2, raw, vmdk",
+        "Default": "qcow2",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.balloon",
+        "Description": "Memory-balloon setting written to every new VM's PVE \"balloon\" config\nkey. Default \"\" (empty) resolves to \"0\": the balloon device is\ndisabled. BOSH sizes VMs deterministically from the manifest and the\nagent plans job memory against that size, so PVE's default\nauto-ballooning — which reclaims guest memory beneath those\nassumptions — invites OOM kills that look like application failures.\n\nSet a positive integer (MiB) to enable PVE auto-ballooning with that\nfloor; the CPI fails fast when the value exceeds the VM's memory. Set\nthe sentinel \"pve-default\" to leave no balloon key on the VM — on\nclones the CPI clears the template-inherited value — restoring\nPVE's own default (device enabled, balloon = memory) for clusters\nthat deliberately overcommit memory.\n\nPrecedence (highest wins): cloud_properties.balloon\n(per-instance-group, resolved through the same call/disk_type/vm_type\nlayered resolver as other create_vm knobs; the \"pve-default\" sentinel\nworks there too) \u003e this global value \u003e built-in default \"0\".\ncloud_properties.pve_config.balloon is rejected — this knob is the\nsupported surface. Applies on VM creation; existing VMs keep their\nballoon setting until recreated.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.anti_affinity.strict",
+        "Description": "When true, the PVE HA negative resource-affinity rule created by\nanti_affinity.use_ha_rules is set to strict mode (hard spread): PVE\nrefuses to place or failover a VM onto a node that already hosts another\nmember of the same instance group. Strict mode can block HA failover on\nsmall clusters when no compliant node exists. Default false (advisory\nspreading — PVE honors the rule as a soft preference, not an absolute\nconstraint). Has no effect unless anti_affinity.use_ha_rules is true.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.maintenance_node_tags",
+        "Description": "List of PVE node tags that mark a node as in maintenance. A node carrying any\ntag in this list is excluded from placement when placement.exclude_maintenance_nodes\nis true (or defaults true). Default [\"maintenance\"]. Set to [] to disable tag-based\ndetection while still honoring HA-status-based detection. Leave unset to accept\nthe default.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.network_resolve_timeout_sec",
+        "Description": "Absolute time bound (seconds) on the SDN eventual-consistency poll described\nunder network_resolve_retries: polling stops once this many seconds have\nelapsed even if the retry budget is not yet spent. Only meaningful when\nnetwork_resolve_retries \u003e 0. Zero (default) resolves to 60 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell.prune_orphans",
+        "Description": "When true, the delete_stemcell call performs an opt-in garbage-collection\npass over bosh-stemcell-tagged templates carrying the calling Director's\n\"director--\u003cuuid\u003e\" tag (director identity comes from the request context\nthe Director sends with every CPI call; no configuration needed) that no\nlonger have a referencing linked clone. Pruning is best-effort: failures\nare logged and do not cause delete_stemcell to fail. A request without a\ndirector UUID in its context skips the pass with a warning. Default false.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.network_bridge",
+        "Description": "Default network bridge. Per-NIC cloud_properties (bridge, model,\nfirewall, vlan, mtu) and cloud_properties.network_defaults override\nthis per network or for every NIC on one VM — see docs/networks.md\nfor the full per-NIC cloud_properties reference.\n",
+        "Default": "vmbr0",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.api_idle_conn_timeout_sec",
+        "Description": "Optional. How long an idle keep-alive PVE API connection remains in the\ntransport pool before being closed, in seconds. 0 (default) selects the\nCPI default of 15, which retires idle connections before pveproxy's\nshorter keep-alive window closes them server-side (reusing a\nserver-closed connection races the close and surfaces as a dropped\nrequest). Set 90 for the previous SDK behavior. Shorter values free\nsockets sooner on clusters with infrequent CPI activity; longer values\nretain warmed connections across calls. Must be \u003e= 0.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.weights.cpu",
+        "Description": "Weight applied to the free-CPU-headroom axis in the node scorer.\nHigher value = stronger preference for nodes with more available CPU.\nMust be \u003e= 0. When unset (0), defaults to 0.5 at runtime.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_lock.jitter_pct",
+        "Description": "Plus/minus jitter percentage (0-100) applied to each storage-lock\nbackoff delay. Zero (default) applies the built-in 30.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.iops_rd",
+        "Description": "Default read IOPS cap for every disk created by this CPI. Zero or unset\nmeans no cap. Must be a non-negative integer. Overridden per disk by\ncloud_properties.iops_rd. When unset (default), the key is omitted and PVE\nimposes no IOPS limit.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell.prune_dry_run",
+        "Description": "When true and prune_orphans is enabled, the GC pass logs each candidate\ntemplate it would delete but performs no deletions. Use to audit orphan\naccumulation before enabling live pruning. Has no effect when\nprune_orphans is false. Default false.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.hotplug",
+        "Description": "PVE hotplug flags applied to every new VM. Comma-separated list of\n\"network,disk,cpu,memory,usb,cloudinit\"; \"0\" disables hotplug entirely.\nDefaults to \"network,disk,cpu,memory\" so CPU + RAM can be resized live\nvia `qm set` without rebooting. Per-VM override via\ncloud_properties.hotplug for stemcells that misbehave on memory hot-add.\n",
+        "Default": "network,disk,cpu,memory",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.backend",
+        "Description": "HAProxy backend name that VMs are added to and removed from. Required when\n\"lb_register\" is listed in pve.hooks.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.logs.enabled",
+        "Description": "When true, the CPI exports its structured stderr logs as OpenTelemetry\nlog records via OTLP to pve.otel.logs.exporter_endpoint (or, if that is\nempty, pve.otel.exporter_endpoint). Independent of pve.otel.enabled:\nlogs can be exported with tracing off. Default false; when false no\nlog exporter is built, no network connection is opened for logs, and\nexport failures never fail a CPI call (fail-open).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.reserve_storage_headroom",
+        "Description": "Enables the storage-capacity hard placement filter. When true, create_vm\ncomputes a minimum free-storage requirement for each candidate node and\nrejects nodes whose target storage pool does not have enough free bytes to\nhold the VM's disks plus a headroom margin. The filter is fail-open: nodes\nwhose storage facts are unavailable (ListStorage API error or no matching\npool) are never rejected — they pass and may be picked by the scorer.\nThe filter is applied only to the VM storage pool (pve.vm_storage); disks\nthat resolve to a different pool (e.g. a separately configured ephemeral\npool) are excluded from the count. A capacity shortfall is treated as a\npermanent, non-retriable placement failure. Default false (opt-in);\nplacement is byte-identical to prior releases when unset or false.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_types",
+        "Description": "Optional map of operator-named VM-type profiles. Each key is a profile name\n(e.g. \"large\", \"cpu-heavy\") and each value is an object whose\ncloud_properties key holds default cloud_properties for that profile.\nA VM is associated with a profile by setting cloud_properties.vm_type to\nthe profile name at deploy time. Attribute resolution precedence (highest\nto lowest): per-call cloud_properties, disk_type profile, vm_type profile,\nglobal config. When unset (default {}), no profiles are defined and no\nbehavior change occurs.\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_zone",
+        "Description": "Default PVE SDN zone name for vnet creation. Used when\ncloud_properties.zone is absent. When empty with auto-manage enabled,\nthe CPI uses the turnkey zone \"bosh\"; when empty with auto-manage\ndisabled, the zone must be supplied per-call in cloud_properties.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.resize_convergence_timeout_sec",
+        "Description": "Bounds the resize_wait_for_convergence poll, in seconds. This is an\nindependent budget (not the operation_timeout envelope) so the poll is\nbounded even when that envelope is disabled. 0 means the built-in default\nof 120 seconds. Negative values are rejected. Only meaningful when\nresize_wait_for_convergence is true.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.mbus",
+        "Description": "URL the BOSH agent should bind/listen on inside the VM (the same value\n`cloud_provider.properties.agent.mbus` carries in bosh-deployment).\nRequired for create-env: bosh-init does not pass it via the per-call\nenv argument, only via CPI config.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_staging_dir",
+        "Description": "Optional. When set, restricts stemcell file reads/writes to this directory\nusing Go 1.24+ os.Root scoping. Defense-in-depth; if unset, behavior is\nunchanged from prior releases. Paths supplied by the BOSH director must\nreside under this directory when set. Must be an absolute path to an\nexisting directory on the CPI host.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_fetch_idle_conn_timeout_sec",
+        "Description": "Optional. Bounds how long an idle keep-alive connection stays in the\nconnection pool before being closed. 0 (default) applies the built-in 90s\ndefault. Valid range when set: 1-3600 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_firewall",
+        "Description": "When true, every NIC of newly created VMs is given PVE's per-NIC firewall\nflag (firewall=1). A per-NIC network cloud_property (firewall: true|false)\noverrides this global default for that NIC. Note: enabling the NIC flag\nalone does not activate packet filtering — PVE also requires the VM-level\nfirewall to be enabled. The security_groups VM cloud_property enables both\nthe group rules and the VM-level firewall. Default false (no behavior\nchange). PVE also requires the cluster-wide datacenter firewall master\nswitch (Datacenter \u003e Firewall \u003e Options \u003e Enable) to be on before any of\nthis is actually enforced; create_vm probes that switch once per process\nwhenever this flag (or security_groups, or allowed_address_pairs) is in\nplay and warns if it is off. Enabling the master switch activates\ncluster-wide host-level enforcement — see docs/configuration.md for the\nanti-lockout prerequisites before turning it on.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.storage.max_utilization_pct",
+        "Description": "Ceiling on projected storage-pool utilization, as a percentage of pool\ncapacity (0-100). Default 0 (disabled): behavior is byte-identical to\nprior releases. When set \u003e 0, four evaluation points check the target\npool's utilization AFTER accounting for the operation's disk footprint:\n  - create_vm placement: a candidate node whose vm_storage pool would\n    exceed the ceiling after adding the VM's disk footprint is rejected\n    from placement (enforce mode) or logged (warn mode).\n  - create_disk: the resolved disk pool is checked before allocation.\n  - resize_disk: the resize delta is checked before the resize call.\n  - snapshot_disk: Warn-only regardless of storage.max_utilization_mode\n    — snapshot growth is unbounded and cannot be estimated ahead of\n    time, so this evaluation point only warns when the pool is already\n    above the ceiling; it never blocks a snapshot.\nComputation reuses the storage status the CPI already fetches (used/total\nbytes from the node storage API); when storage facts cannot be determined\n(API error, pool not found, or pool inactive) the gate fails open\n(proceeds) and logs a warning, matching placement.reserve_storage_headroom's\nfail-open behavior. This gate is independent of, and composes with,\nplacement.reserve_storage_headroom: the pct ceiling is a proportional\nearly-warning band, the headroom filter is a fixed-byte-margin floor;\nboth can be active together.\n\nWhy this matters: copy-on-write pools (qcow2, thin-LVM, ZFS) degrade\nprogressively as they fill — noticeably from roughly 50% utilization,\nbadly by roughly 80%, and a pool that fills completely can take days to\nrecover. Ceph separately enforces nearfull/backfill-full/full watermarks\nat 85/90/95% by default; a ceiling set below those watermarks gives an\nearlier, CPI-level signal before Ceph's own thresholds engage, which\nmatters most on small clusters where Ceph's default watermarks leave\nlittle headroom above them — a stricter ceiling (e.g. 70-75) is sensible\nthere. Recommended operational value: 80.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.health_check.interval_sec",
+        "Description": "Seconds between successive agent ping attempts. Valid range 0-3600 when\nhealth_check.enabled is true. Zero (default) applies the built-in 5 s default.\nSet to 0 for back-to-back pings (fast test mode). Ignored when\nhealth_check.enabled is false.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.port",
+        "Description": "PVE API port",
+        "Default": 8006,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.cpu_type",
+        "Description": "Emulated CPU type/model written to every new VM's PVE \"cpu\" config key\n(e.g. \"host\", \"x86-64-v2-AES\", \"Skylake-Server-noTSX-IBRS\"). Default\n\"\" (empty) resolves to \"host\": the guest sees the physical CPU's full\nfeature set, the best-performing choice, and safe on the homogeneous\nclusters typical of BOSH deployments. Set the sentinel \"pve-default\"\nto restore the legacy behavior: the CPI writes no cpu key at all and\nPVE falls back to kvm64.\n\nWARNING — heterogeneous clusters: a \"host\"-typed guest can crash when\nlive-migrated to a node with a different CPU generation. If your\ncluster mixes CPU models and relies on live migration (HA, DLB,\nmaintenance evacuations), override this with a portable named model.\n\"x86-64-v2-AES\" (PVE's own create-wizard default since 8.0) keeps\nAES-NI and live-migrates across CPU generations from roughly 2010\nonward; for hardware older than that baseline, use the cluster's\nlowest-common-denominator named model.\n\nPrecedence (highest wins): cloud_properties.cpu_type (per-instance-group,\nresolved through the same call/disk_type/vm_type layered resolver as\nother create_vm knobs; the \"pve-default\" sentinel works there too) \u003e\nthis global value \u003e built-in default \"host\".\ncloud_properties.pve_config.cpu is a separate raw escape hatch applied\nafter VM creation in the same create_vm call — when both this and\npve_config.cpu are set, pve_config.cpu wins as the final write (the\nCPI logs an Info line pointing at this knob when pve_config.cpu is\nused).\n\nExisting VMs keep their CPU type until recreated; a changed value (or\nthis release's new default) applies on the next VM creation, e.g.\n\"bosh deploy --recreate\". PVE validates the model name itself; the\nCPI passes the value through verbatim with no additional validation.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.cluster_lock_timeout_sec",
+        "Description": "Bounds how long the anti-affinity read-modify-write waits to acquire the\ncluster lock before returning a retriable error (the BOSH director then\nre-drives the operation). It also serves as the lock's TTL: a holder whose\nrecorded expiry has passed is treated as crashed and its lock is stolen.\nOnly meaningful when cluster_lock_mode is \"pool\"; 0 resolves to 60 seconds.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_delete_state_guard",
+        "Description": "Whether delete_disk first checks the lock state of the VM the target disk\nis attached to before deleting it. One of \"off\" or \"on\" (the default). When \"on\" (default), delete_disk scans the cluster for the VM\nwhose config currently references the volume (the VMID baked into the\nvolume name is only an allocation placeholder, so the attached VM is\nresolved by config, not by name) and, if that VM holds a destructive or\nin-flight config lock (backup, clone, migrate, snapshot, rollback, or\ncreate), defers the delete with a retriable error so the BOSH Director\nre-drives it once the operation completes — closing the window in which an\nimgdel could otherwise race a nightly vzdump/PBS backup, a clone, or a\nmigration of the same disk. The guard is best-effort: a disk attached to\nno VM (the normal pre-delete state) is allowed straight through, and any\nattachment-resolution uncertainty fails open so a guard hiccup never\nblocks a legitimate delete — the worst case of leaving this on its\ndefault is a delayed delete during a backup window, never a hard\nfailure. Set \"off\" to restore the earlier unguarded behaviour (no attachment\nlookup, byte-identical to releases before this default changed).\nOperator note: if the attached VM is left with a stuck config lock,\ndelete_disk will keep deferring; clear it with \"qm unlock \u003cvmid\u003e\" on\nthat VM's node.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.task_poll.jitter_pct",
+        "Description": "Plus/minus jitter percentage (0-100) applied to each task poll interval.\nZero (default) applies the built-in 10.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.disk_migrate.cap_ms",
+        "Description": "Wall-clock budget in milliseconds for awaiting the PVE migrate task the\ncross-node disk migration starts. Zero (default) applies the built-in\n1800000 ms (30 minutes), sized for a node-local volume copy. When the\nbudget is exhausted while the task still runs, attach_disk returns a\nretriable error saying the copy continues server-side; the Director's\nretried attach re-enters the migration and completes once it lands.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.cache",
+        "Description": "Default PVE disk cache mode applied to every disk created by this CPI.\nValid values: none, writethrough, writeback, unsafe, directsync.\n\"writeback\" offers best throughput for most workloads; \"none\" is required\nfor data safety on Ceph/RBD. Overridden per disk by cloud_properties.cache.\nWhen unset (default), the key is omitted and PVE uses its own default.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.virtio_scsi_single",
+        "Description": "When true, sets the SCSI controller to virtio-scsi-single mode for every\nVM created by this CPI, giving each disk its own dedicated virtio-scsi\ncontroller. Required to use iothread per disk on virtio-scsi. Overridden\nper VM by cloud_properties.virtio_scsi_single.\n\nDefault true: a dedicated controller per disk avoids\nserializing every persistent disk behind one shared virtio-scsi-pci\ncontroller, and matches the modern PVE creation default. Set false\n(globally or per VM via cloud_properties.virtio_scsi_single) to restore\nthe earlier virtio-scsi-pci default. Create-time only: an existing\nVM's controller is never changed retroactively — this only affects new\nVMs created after the default takes effect. The root disk itself stays\non the virtio-blk bus regardless of this setting; moving the root disk\nonto the SCSI bus is a separate, opt-in change tracked independently of\nthis property.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.reboot_mode",
+        "Description": "reboot_vm behavior. \"soft\" (default) performs a graceful ACPI reboot\n(shutdown + auto-start) and falls back to a hard reset if the guest\ndoes not shut down within reboot_timeout seconds. \"hard\" performs an\nimmediate hard reset (power cycle). One of soft|hard.\n",
+        "Default": "soft",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_template_pool",
+        "Description": "PVE resource pool name assigned to newly created template VMs. The CPI\ncreates this pool if it does not already exist, tagging it with a\n\"managed by bosh-proxmox-cpi\" provenance comment, before the first\ntemplate VM is assigned to it. Default \"bosh-templates\"\n(create-if-missing); set explicitly to \"\" to opt out entirely — no\npool assignment and no pool creation.\n\nMust not equal pve.vm_pool (validated at config load): pools are the\nCPI's ACL boundary, and sharing one pool would let a create_vm-scoped\nACL also touch stemcell templates. Must not start with \"bosh-lock-\"\n(reserved for the cluster-lock sentinel pool namespace, see\npve.cluster_lock_mode) and must be a flat PVE poolid (no \"/\"); the CPI\nnever creates nested pools.\n",
+        "Default": "bosh-templates",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.root_disk_bus",
+        "Description": "Selects the PVE bus the root (system) disk is created on. \"virtio\"\n(default when empty): root disk lands on virtio0 — byte-identical to\nevery release before this property existed. \"scsi\": root disk lands on\nscsi0, under the same virtio-scsi controller persistent disks already\nuse, which unlocks TRIM (discard) and ssd auto-resolution on the root\ndisk itself (disk_performance.discard/.ssd auto-resolution is otherwise\nunavailable on virtio-blk).\n\nPersistent-disk slot allocation is unaffected either way: scsi0 has\nalways been reserved for the root disk and attach_disk has always\nstarted its free-slot search at scsi1, so there is no slot collision to\nmanage when the root disk moves onto the scsi bus.\n\nClone-path requirement: create_vm's dominant path clones a pre-built\nstemcell template (every \"template:\u003cvmid\u003e\" stemcell CID), and a clone\ninherits its source template's exact disk layout. Templates are built\nonce by create_stemcell and reused by content-hash tag match, so\nflipping this setting does not retroactively rebuild existing\ntemplates. create_vm compares the resolved bus against the matched\ntemplate's actual root disk key before cloning and fails with a clear,\nnon-retriable error naming the conflict on a mismatch, rather than\nsilently producing a root disk on the wrong bus. After changing this\nvalue, re-run create_stemcell for affected stemcells so new templates\nare built on the matching bus.\n\nOne of virtio|scsi.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "agent.blobstore",
+        "Description": "Optional default blobstore for settings.json (agent.blobstore in bosh.yml)",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.weights.storage",
+        "Description": "Weight applied to the free-storage-fraction axis in the node scorer.\nHigher value = stronger preference for nodes with more available storage.\nMust be \u003e= 0. When unset (0), defaults to 0.5 at runtime.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.timeout_ms",
+        "Description": "Per-call timeout in milliseconds for HAProxy Data Plane API requests. Zero\n(default) applies a built-in 10 s default.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.detached_disk_strategy",
+        "Description": "Lifecycle strategy for persistent disks in the detached state (between\ndetach_disk and the next attach_disk or delete_disk). One of:\n  \"\"       — same as \"parked\" (the default).\n  \"parked\" — detached disks are attached to a dedicated parker VM\n             (bosh-parker-\u003cn\u003e) in an active scsi slot (scsi0-30) with\n             protection=1 and onboot=0. The parker VM is never started.\n             Provides PVE-side ownership visibility and accident protection.\n             The CPI defaults pve.parked_disk_vmid_range_start and\n             pve.parked_disk_vmid_range_end to 90000/90999 if unset, each\n             bound independently. The parker VMID band must not overlap\n             the VM range, the persistent-disk range, or the\n             stemcell-template range. A deployment that asks for parking\n             by name, or that names its own parker band, fails to load on\n             overlap. A deployment that sets neither and whose other bands\n             reach into 90000-90999 keeps the pre-parking behavior for new\n             detaches on that load and warns (the band stays in force\n             read-only, so disks parked earlier still drain), so an\n             upgrade cannot take a working deployment down: set a free\n             parker band to turn parking on there. Costs a few extra PVE API calls per detach and attach.\n  \"free\"   — opt out of parking: detached disks float as unattached volumes\n             in their synthetic VMID container. PVE has no first-class\n             volume object; the disk is visible only via its container VM\n             config. Risk: administrators may mistake the container VM for\n             an unused resource and delete it, destroying the disk with it.\n             This was the default before parking became the default.\n             The parker band still resolves (90000/90999 unless set), so\n             a disk parked while \"parked\" was in effect is recognized and\n             unparked on its next attach_disk or delete_disk — switching\n             to \"free\" only stops NEW detaches from parking. delete_vm\n             and snapshot_disk still refuse a parker VM by tag.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.encrypted",
+        "Description": "Global opt-in for encrypted-storage disk placement. When true,\ncreate_disk and ephemeral disk creation restrict storage-tier selection\nto tiers that have encrypted: true set in the pve.storage_tiers map.\nA per-call cloud_properties.encrypted overrides this global value\n(per-call \u003e global). When false or absent (default), no encrypted filter\nis applied and behavior is byte-identical to prior releases.\nThe CPI cannot verify that a pool is actually encrypted — marking a tier\nencrypted is operator responsibility; a warning is logged whenever an\nencrypted tier is selected.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.clone_mode",
+        "Description": "Controls the clone type used when create_vm clones a stemcell template.\nA linked clone's overlay volume always lands on the TEMPLATE's own\nstorage pool (PVE does not honor a Storage override on linked clones) —\nnever on vm_storage; only a full clone can be placed on vm_storage.\n\"auto\" (default when unset): linked clone when the template's storage\nsupports it (all backends except lvm-thick) AND vm_storage is the same\npool as the template's storage (stemcell_storage); full clone otherwise,\nincluding whenever vm_storage differs from the template's storage, so\nthe root disk always lands where vm_storage points rather than silently\nlanding on stemcell_storage. \"linked\": force linked clone; returns an\nerror if the template's storage does not support linked clones (e.g.\nlvm-thick), or if vm_storage differs from the template's storage (which\nwould silently misplace the disk) — set clone_mode to auto or full, or\nalign stemcell_storage/vm_storage, to resolve. \"full\": force full clone\non all backends. One of auto|linked|full.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_auto_manage_zone",
+        "Description": "When true, create_network creates the SDN zone (type sdn_zone_type,\nname pve.sdn_zone or the turnkey default \"bosh\") if it does not\nalready exist, and delete_network deletes the zone when ALL of the\nfollowing hold: (1) sdn_auto_manage_zone is true, (2) the zone name\ndoes not equal pve.sdn_zone (the operator-pinned zone is never\nauto-deleted), (3) the zone is not an EVPN zone (operator-owned\nfabric, never CPI-deleted), and (4) the zone has zero remaining\nvnets after the vnet delete. Set false to keep zones operator-owned;\nthe CPI then manages only vnets and subnets.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.weights.mem",
+        "Description": "Weight applied to the free-memory headroom axis in the node scorer.\nHigher value = stronger preference for nodes with more available RAM.\nMust be \u003e= 0. When unset (0), defaults to 1.0 at runtime.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.ca_cert",
+        "Description": "Optional PEM-encoded CA certificate (or chain) that pins the HAProxy Data\nPlane API server certificate. When empty, the system trust store is used.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.logs.exporter_endpoint",
+        "Description": "OTLP collector endpoint for the logs signal. When\npve.otel.logs.enabled is true and this is left empty, it defaults to\npve.otel.exporter_endpoint. Rendering fails if both are empty while\npve.otel.logs.enabled is true. Ignored when pve.otel.logs.enabled is\nfalse.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_import.base_ms",
+        "Description": "Base delay in milliseconds for the storage-import exponential backoff\n(base x 1.5^attempt). Zero (default) applies the built-in 2000 ms.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.task_poll.cap_ms",
+        "Description": "Maximum PVE task poll interval in milliseconds (the poller backs off\ntoward this value). Zero (default) applies the built-in 10000 ms. Clamped\nup to base_ms if smaller.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_lock.base_ms",
+        "Description": "Base delay in milliseconds for the storage-lock exponential backoff\n(base × 1.5^attempt). Zero (default) applies the built-in 2000 ms.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.sample_ratio",
+        "Description": "Fraction of traces sampled: greater than 0.0, up to 1.0 (all).\nRendering fails on values outside that range; to emit no traces,\nleave pve.otel.enabled false. Only relevant when pve.otel.enabled\nis true.\n",
+        "Default": 1,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.destroy_unreferenced_disks",
+        "Description": "When true, delete_vm passes DestroyUnreferencedDisks=true to PVE's\ndestroy call on every non-retain delete (the synchronous path, the\nfast path, and the fast-path straggler sweep). PVE's own semantics:\nfree every volume on the VM's storages that is (a) not referenced in\nthe destroyed VM's config and (b) has a VMID matching the VM being\ndestroyed -- a storage-wide scan by VMID, not scoped to this VM's\nconfig.\n\nDefault false. On storage dedicated to a single PVE cluster this is\nsafe and sweeps up orphaned own-VMID volumes (e.g. a disk left behind\nby an interrupted create) that the config-scoped guards never touch.\nIt is UNSAFE the moment pve.vm_storage/disk_storage/iso_storage is\nshared with a second, independent PVE cluster (a second BOSH-Proxmox\nAZ pointed at the same NFS/dir export): the destroyed VM's VMID band\ncan overlap the other cluster's VMID band, and this flag would then\nfree the OTHER cluster's live disks -- from this cluster's view they\nare unreferenced and VMID-matching, identical to a genuine orphan.\nNothing in the delete path can tell the two cases apart.\n\nEnable only when the configured storage pools are NOT shared with any\nother independent PVE cluster or non-CPI tooling allocating VMIDs in\nthe same range. On shared storage, leave this false and rely on\ndisjoint per-CPI VMID banding instead -- orphaned own-cluster volumes\nthen accumulate and are visible to scripts/disk-audit rather than\nbeing swept automatically.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_storage",
+        "Description": "Storage pool for persistent disks",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_storage",
+        "Description": "Storage pool for stemcell qcow2 images. PVE only allows uploads to\nfile-based storages (dir, nfs, cifs, glusterfs, cephfs); block-based\nstorages (lvm, lvmthin, zfspool, rbd) cannot accept qcow2 uploads and\nare rejected at create_stemcell time. On a multi-node cluster this\npool must be shared, unless vm_storage is shared (e.g. Ceph RBD)\nand stemcell_strategy is \"template\": then a node-local file pool is\naccepted for staging, because the single cache template's disk lives\non vm_storage and clones to every node (the import-strategy fallback\nremains available only on the staging node). Defaults to vm_storage\nif unset; in that case vm_storage must satisfy the same constraints.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.numa",
+        "Description": "Enable NUMA (numa=1) on every new VM. PVE requires this at create time\nfor memory hotplug to allocate DIMM slots; without it, memory hot-add\nsilently no-ops. Set false to disable globally; per-VM override via\ncloud_properties.numa.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vmid_range_end",
+        "Description": "Inclusive upper bound of the VMID range for VM allocation. VMs allocated in\n[vmid_range_start, vmid_range_end]. Default 8999. Must be \u003e vmid_range_start\nand must not overlap the persistent disk range or the template range.\nWith the default disk range (9000-29999) the effective maximum is 8999.\n",
+        "Default": 8999,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.cluster_lock_mode",
+        "Description": "Selects the cross-process cluster mutex used to serialize the\nread-modify-write on a shared HA anti-affinity rule. Two concurrent\ncreate_vm invocations for the same instance group both read the old member\nset and recreate the rule (PVE rules have no partial edit); the last writer\nwins, silently dropping a member and losing the spread guarantee. When\n\"pool\", the CPI acquires a sentinel resource pool (POST /pools is\npmxcfs-serialized, create-or-fail) keyed on the group name around that\nread-modify-write. When empty or \"off\" (default), no lock is taken and\nbehavior is identical to prior releases.\nValid values: \"\" (empty, same as \"off\"), \"off\", \"pool\".\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.task_poll_adaptive",
+        "Description": "When true, PVE task polling derives its interval from the task's reported\nprogress (clamped 1-10 seconds) for long operations such as clone and\nmove-disk, instead of the fixed task_poll cadence. Tasks that report no\nprogress fall back to the fixed cadence, so short tasks are unaffected.\nThis reduces poll-storm pressure early in a long operation and tightens\npolling as it nears completion. Default false (fixed-cadence polling).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.export_timeout_ms",
+        "Description": "Upper bound, in milliseconds, on how long telemetry export is allowed\nto block during process shutdown; each enabled signal's final flush\n(traces, logs, metrics) gets its own deadline of this length. Export\nfailures after the deadline are logged at Warn level and never fail\nthe CPI action. A value of 0 is treated as unset and yields the 5000\ndefault; negative values fail validation at CPI startup when tracing\nis enabled.\n",
+        "Default": 5000,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.vm_storage",
+        "Description": "Storage pool for VMs",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.hooks",
+        "Description": "Optional list of built-in dispatch middleware hooks to activate, applied\nin listed order. Each entry must be a known hook name; an unknown name\nfails CPI startup. Built-in hooks: \"audit_log\" (logs each CPI call's\nduration and outcome, never argument content); \"notes_audit\" (writes the\nBOSH deploy identity into the VM's PVE Notes after create_vm);\n\"lb_register\" (registers/deregisters the VM in an HAProxy backend via the\nData Plane API on create_vm/delete_vm — requires the lb_register block);\n\"external_command\" (runs an allowlisted host command on selected methods —\nrequires the external_command block). When empty (default), no middleware\nruns and there is zero per-call overhead. Example: [audit_log]\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.dlb.manage_cluster_crs",
+        "Description": "When true, the CPI ensures the cluster-wide CRS option is set to\nha=dynamic (auto-rebalance on) via POST /cluster/options before registering\na DLB VM, so CRS/DLB is active without manual `pvesh set /cluster/options`\nsteps. When false (default), the CPI only reads the cluster CRS setting and\nlogs a clear warning if a DLB workload is requested but the cluster is not\nin dynamic mode; the operator is responsible for setting the option via\n`pvesh set /cluster/options --crs ha=dynamic,...`. Writing the cluster CRS\noption affects ALL HA guests cluster-wide; default false keeps blast radius\nminimal.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.az_shuffle",
+        "Description": "When true, randomizes the AZ order within availability_zones before scoring,\nbreaking ordering ties with a random draw. Default false: preference order is\npreserved (deterministic). Set to true to distribute VMs across AZs\nnon-deterministically.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_strategy",
+        "Description": "How create_vm materializes a VM root disk from a stemcell CID.\n\"template\" — clone the per-cluster stemcell cache template (CoW-fast;\n         the cache is built eagerly by create_stemcell and used by\n         every create_vm on the cluster).\n\"import\" — import the stemcell qcow2 directly into the VM root disk\n         (full copy per VM; slower, but independent of the template\n         cache — useful when clones must not share a base volume).\nPer-VM override: vm_type/resource_pool cloud_properties.stemcell_strategy.\n",
+        "Default": "template",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.replica_adopt_timeout_sec",
+        "Description": "Adopt-and-wait bound (seconds) for a racing concurrent template-replica clone.\nWhen two CPI invocations independently decide a node needs a per-node stemcell\nreplica, both can pass the existence check while a winner is still building and\nthen clone, producing a duplicate half-built replica template. When \u003e 0, the\nreplica build first probes for an in-flight winner (a VM carrying the replica\ntags but not yet frozen / still clone-locked) and, finding one, waits up to this\nmany seconds for it to become a settled template and adopts it instead of\nbuilding a duplicate; a winner that never settles within the bound causes the\nnode to be skipped (best-effort, re-driven next deploy). Default 0 disables the\nadopt path, leaving replica-build behaviour byte-identical. A conventional value\nis 300. Operator note: if a winning clone crashed and left its guest stuck with\na \"clone\"/\"create\" config lock, every subsequent deploy will re-wait the full\ntimeout and skip that node (the warning names the stuck vmid and lock); clear it\nwith \"qm unlock \u003cvmid\u003e\" on the holding node so the replica can settle or rebuild.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_lock.max_attempts",
+        "Description": "Maximum attempts for the inner PVE storage-lock retry loop (the\n\"got timeout waiting for worker\" / \"storage locked\" signal that fires\ninside a single create_disk call). Zero (default) applies the built-in\nbudget of 10. Raise on slow Ceph or NFS where lock acquisition takes\nlonger than the default window.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.create_env_deployment",
+        "Description": "Synthetic deployment name used for VMs created by `bosh create-env`.\nbosh-init does not pass a deployment in env, so a stable placeholder\nis required for the \"\u003cdeployment\u003e\" segment of the VM name. Defaults\nto \"create-env\" so the director comes online as\n\"\u003cprefix\u003e-create-env-\u003cjob\u003e-0\".\n",
+        "Default": "create-env",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_fetch_dial_timeout_sec",
+        "Description": "Optional. Bounds the TCP dial step of every stemcell-fetch HTTP request\n(https and bosh+blobstore sources). 0 (default) applies the built-in 30s\ndefault. Valid range when set: 1-3600 seconds. Lower values make stalled\nhandshakes fail faster; raise only if reaching a high-latency artifact\nmirror.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.api_max_idle_conns_per_host",
+        "Description": "Optional. Maximum number of idle (keep-alive) connections retained in the\ntransport pool per PVE host. 0 (default) falls back to the SDK default\n(KeepAlive value). Higher values reduce connection-setup latency under\nburst load; lower values conserve file descriptors on constrained CPI\nhosts. Must be \u003e= 0.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.external_command.args",
+        "Description": "Arguments passed verbatim to the command as discrete argv (no shell\ninterpretation). The CPI also injects CPI_METHOD and CPI_VMID into the\nscrubbed environment.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_cid_compression",
+        "Description": "Retained for compatibility; the behavior it opted into is now always\non. A disk CID whose standard pvd- envelope would exceed 255 characters\nis emitted as pvz-\u003cbase64url(gzip(json))\u003e so it fits the varchar(255)\ndisk_cid column of MySQL-backed Directors (and the dynamic_disks table\non all database backends). CIDs that fit 255 characters stay pvd- and\nbyte-identical, and the CPI decodes every previously emitted format\nunconditionally, so no disk migration is ever needed.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_replication_concurrency",
+        "Description": "Maximum number of cluster nodes that receive a stemcell replica upload\nconcurrently during create_stemcell. Only meaningful when\nstemcell_replicate_local is true. Zero (default) resolves to 1, which\nreplicates one node at a time (serial, byte-identical to prior releases). Set\na positive value up to 64 to replicate multiple nodes in parallel and reduce\ntotal replication time on large clusters. Per-node semantics are preserved in\nall modes: a per-node failure is best-effort (logged, does not abort other\nnodes), idempotent skip applies when a replica already exists, and the\nper-node in-flight gate is honored. Negative values and values \u003e 64 are\nrejected at config validation.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.max_inflight_per_node",
+        "Description": "Maximum number of concurrent mutating PVE operations (create_vm,\ndelete_vm, create_disk, attach_disk, create_stemcell) allowed against a\nsingle node at once. Zero (default) means unlimited and is byte-identical\nto prior releases. Set a small positive value (for example 4) to prevent\nlarge parallel BOSH deploys from saturating a node's fixed pvedaemon /\npveproxy worker pool. A slot is held for the full lifetime of the\noperation, including any retry backoff (a create retrying against pushback\nkeeps its slot through the 5-60s backoff), so size this with headroom.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.mbps_wr",
+        "Description": "Default write throughput cap in MB/s for every disk created by this CPI.\nZero or unset means no cap. Fractional values are accepted. Overridden per\ndisk by cloud_properties.mbps_wr. When unset (default), the key is omitted\nand PVE imposes no throughput limit.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.agent_mode",
+        "Description": "Agent bootstrap mode. Valid values: cloudinit, noagent, auto.\n\"cloudinit\" — uses cloud-init configdrive (default).\n\"noagent\" — no agent bootstrap; assumes DNS/manual setup.\n\"auto\" — selects configdrive (cloudinit) for all stemcells. Equivalent\n         to cloudinit; retained for manifest compatibility.\n         Omitted from rendered cpi.json when default \"cloudinit\" is used.\n",
+        "Default": "cloudinit",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.password",
+        "Description": "PVE password (mutually exclusive with api_token). Must be credhub-managed\nin production: reference via `((pve_password))` against a credhub variable\ntyped `password`. Empty string when api_token is used instead.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.antiaffinity_verify",
+        "Description": "When true, after recreating an anti-affinity rule the CPI re-lists the HA\nrules and asserts the target VM is present in the rule's members. A\nconcurrent writer that dropped the member surfaces as a retriable error\nrather than a silent loss of spread. When false (default), no check runs\nand behavior is identical to prior releases.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.port",
+        "Description": "Server port registered for each VM in the HAProxy backend (e.g. the Cloud\nFoundry router port). Default 0 leaves the port unset on the server entry.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.service_name",
+        "Description": "Value of the service.name resource attribute attached to every emitted\nspan, log record, and metric, identifying this CPI instance to the\nobservability backend.\n",
+        "Default": "bosh-proxmox-cpi",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.iops_wr",
+        "Description": "Default write IOPS cap for every disk created by this CPI. Zero or unset\nmeans no cap. Must be a non-negative integer. Overridden per disk by\ncloud_properties.iops_wr. When unset (default), the key is omitted and PVE\nimposes no IOPS limit.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.aio",
+        "Description": "Default PVE AsyncIO backend applied to every disk created by this CPI.\nValid values: native, io_uring, threads. Overridden per disk by\ncloud_properties.aio. When unset (default), the key is omitted and PVE\nuses its own default (io_uring on modern PVE hosts).\n\nio_uring is PVE's modern default and generally the best choice on a\ncurrent kernel. native (Linux AIO, kernel io_submit) pairs with\ncache=none on block-backed storage (lvmthin, zfspool, rbd, lvm) for the\nlowest-overhead path to raw/thin-provisioned block devices — the classic\n\"aio=native + cache=none\" combination for high-IOPS workloads on\nblock-native pools. threads uses a userspace thread pool and is the\nsafest fallback for file-backed storage (dir, nfs, cifs) or older\nkernels where io_uring is unavailable or unstable.\n\nStructural option: baked into the disk's PVE volid options at create\ntime (create_disk, create_vm's root disk) and governed by\ndisk_perf_invariant_mode on re-attach, same as cache/iothread/ssd — a\ndisk whose creation-time record diverges from a later re-resolution is\ncaught by that guard (reject in enforce mode, warn in warn mode, ignore\nin off mode).\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.reject_tls_downgrade_overrides",
+        "Description": "Hardens the per-request pve_* context override mechanism (BOSH\ncpi-config multi-cluster routing). When true, a request whose context\ncarries pve_verify_ssl=false against a job-level config that itself\nverifies (verify_ssl=true) is rejected with a non-retriable error\ninstead of the default warn-and-proceed behavior. A job-level config\nthat already has verify_ssl=false is never rejected by this knob.\nDefault false: the downgrade is still logged at Warn, never rejected —\nbehavior is byte-identical to prior releases.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.api_token",
+        "Description": "PVE API token (mutually exclusive with password). Format:\n\u003cuser\u003e!\u003ctoken-id\u003e=\u003cuuid\u003e. Must be credhub-managed in production: reference\nvia `((pve_api_token))` against a credhub variable typed `password`. Empty\nstring when password is used instead.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.exporter_endpoint",
+        "Description": "Base URL of the OTLP collector endpoint (host:port or full URL) used\nfor traces. Required when pve.otel.enabled is true. Also serves as the\nfallback endpoint for the logs and metrics signals when their own\nendpoint properties are left empty.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.network_resolve_retries",
+        "Description": "Eventual-consistency poll budget for freshly created SDN networks. SDN\nstate propagates over inter-node SSH, so one broken node can leave a\nnewly applied SDN vnet silently pending cluster-wide while the apply\ntask still reports success — the data-plane realization (ifupdown2\nreload, pmxcfs propagation) is asynchronous and per-node, so a create_vm\nthat immediately follows a create_network on a different node can\nattach a NIC to a bridge that does not yet exist there. When \u003e 0 (the\ndefault: 30, roughly 30 seconds at the 1-second poll\ncadence), create_network polls the running cluster SDN config until the\nnew vnet converges, and create_vm confirms each SDN-managed NIC bridge\nis present on the target node before writing the NIC config — a\nnot-yet-present bridge is treated as a retriable error so the BOSH\nDirector re-drives rather than booting a NIC into a bridge that does\nnot exist, converting the silent race into an actionable, retriable\nfailure. Only SDN-managed vnets are gated; external or static Linux\nbridges (e.g. vmbr0) always pass straight through untouched, and SDN-\nmembership lookup failures fail the gate open (never block a legitimate\ndeploy on the guard's own lookup blip) — so the worst case of the\ndefault is a bounded retriable delay, never a false block. Both polls\nare bounded by network_resolve_timeout_sec. Set explicitly to 0 to\ndisable both gates and restore the earlier ungated behavior (create_network\nand create_vm byte-identical to releases before this default changed).\nSet to any other positive value to override the retry budget. This\nproperty has no default in this spec (see the CPI's own accessor for\nwhy: an unset property must be distinguishable from an explicit 0 to\nsupport the disable case) — omitting it from the manifest is exactly\nequivalent to leaving it unset, which resolves to 30.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.node_endpoints_discovery",
+        "Description": "Explicit override for whether uploadISO to a node absent from\npve.node_endpoints falls back to /cluster/status name-to-IP discovery.\nUnset (the default) preserves the pre-existing behavior byte-for-byte:\ndiscovery runs exactly when verify_ssl is false. Set false to opt a\nverify_ssl:false deployment out of discovery entirely, for example a\ncluster running corosync on a dedicated ring, where the discovered\naddress is not where pveproxy listens, so every discovered dial fails\nand falls back to the proxied path with a warning until the operator\nmaps the affected nodes explicitly; false skips straight to the\nproxied path instead. Set true to force discovery on even with\nverify_ssl true (the operator accepts that the discovered corosync IP\nis unlikely to be covered by the node certificate; a mismatched dial\nstill falls back to the proxied path rather than failing the deploy).\nExplicit pve.node_endpoints entries are unaffected either way; they\nstay opt-in by construction and need no gate.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.api_tcp_keepalive_sec",
+        "Description": "Optional. TCP keep-alive probe interval for PVE API connections, in\nseconds. 0 (default) leaves the transport at the Go default. A positive\nvalue enables periodic TCP keep-alive probes at this interval, which helps\ndetect silently-dropped connections on stateful firewalls between the CPI\nhost and the PVE API endpoint. Must be \u003e= 0.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.endpoint",
+        "Description": "HAProxy Data Plane API base URL (e.g. https://lb.example:5555). Required\nwhen \"lb_register\" is listed in pve.hooks. Registration is best-effort: a\nData Plane API failure is logged and never fails the CPI call.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.user",
+        "Description": "HAProxy Data Plane API basic-auth username.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.storage_headroom_mb",
+        "Description": "Extra storage margin in MiB added on top of the VM's raw disk footprint when\nplacement.reserve_storage_headroom is true. Mirrors vSphere's DISK_HEADROOM\nconstant: an absolute safety buffer so the placement filter accounts for\nfilesystem overhead and thin-provisioning slack. When 0 (default), a 1 GiB\nfloor is used. Negative values are rejected at startup. Only meaningful when\nplacement.reserve_storage_headroom is true.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.strict_config_validation",
+        "Description": "When false (default) unknown configuration keys are logged as warnings and\na handful of contradictory option combinations are tolerated, preserving\nbehavior identical to prior releases. When true the CPI fails fast at\nstart-up, rejecting unknown top-level keys and these cross-field\ncontradictions: use_ha_rules without anti_affinity enabled; network_mode\nsdn without an sdn_zone or sdn_auto_manage_zone; and a DLB\nrequire_shared_storage setting while the dynamic load balancer is disabled.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.iothread",
+        "Description": "When true, enables the PVE iothread option on every disk created by this\nCPI. One I/O thread per disk reduces contention on the QEMU main loop.\nApplicable to virtio-scsi-single and virtio-blk buses; ignored on ide/sata\nbuses by PVE. Overridden per disk by cloud_properties.iothread.\n\nDefault true: a dedicated I/O thread per disk relieves\nQEMU main-loop contention on multi-disk BOSH VMs and matches the modern\nPVE creation default; leaving iothread off serializes every disk's I/O\nbehind the shared main loop. Set false (globally or per disk via\ncloud_properties.iothread) to restore the earlier off-by-default behavior. This is\na create/attach-time bake only: existing VMs and previously baked disk\nCIDs are unaffected — the recorded structural options on an existing\ndisk CID are never silently rewritten to the new default; a disk whose\ncreation-time record diverges from the newly-resolved default at the\nnext attach is instead governed by disk_perf_invariant_mode (reject in\nenforce mode, warn in warn mode, ignore in off mode), same as any other\ndisk_performance configuration change. A deliberate per-disk change is\nstill available at any time through update_disk, which records the\nupdate so it survives detach/attach cycles.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.ssd",
+        "Description": "Tri-state (true|false|unset, default unset = auto), same auto\nresolution as pve.disk_performance.discard — see that property for the\nfull TRIM-capability matrix and precedence rules. When true (explicit or\nauto-resolved), marks the disk as SSD-backed (rotation=0 in the guest).\nOverridden per disk by cloud_properties.ssd, which accepts the same\nthree states.\n\nssd only ever reaches a disk on the scsi bus: the pre-existing\nvirtio-blk bus filter drops it from the VM root disk unconditionally,\nregardless of how the value resolved (explicit or auto). Unlike\ndiscard, ssd IS governed by disk_perf_invariant_mode on re-attach — a\ndisk whose creation-time record diverges from a later resolution\n(e.g. a legacy disk created before auto-resolution existed, now\nauto-resolving ssd=1 on a TRIM-capable pool) is caught by that guard\nexactly as any other structural option divergence is.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.log_level",
+        "Description": "Log level",
+        "Default": "info",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.lb_register.password",
+        "Description": "HAProxy Data Plane API basic-auth password.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_replicate_local",
+        "Description": "When true, create_stemcell builds a per-node cache template (tagged\n\"bosh-stemcell-node-\u003cnode\u003e\") on every candidate cluster node, enabling\ncreate_vm on nodes that cannot reach a cross-node clone source.\n\nThe gate is pve.vm_storage — where every cache template's root disk\nlands — not the stemcell (qcow2) pool. Replicas are built whenever\nvm_storage classifies as node-local, regardless of whether the qcow2\npool is shared; a shared qcow2 pool only skips the per-node file copy,\nnot the per-node template. This applies to every stemcell kind,\nincluding a pre-uploaded \":light:\" image the operator owns.\n\ndelete_stemcell removes all replicas (best-effort; a single-node failure\nis logged and skipped rather than aborting).\n\nDefault false: a node-local vm_storage on a multi-node cluster is then\nrejected at create_stemcell time with a clear error directing the\noperator to use shared storage or enable this flag. Not needed when\nvm_storage is shared (e.g. Ceph RBD): a single cache template then\nserves every node via cross-node clone, even when the qcow2 staging\npool (stemcell_storage) is node-local.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.storage_tiers",
+        "Description": "Optional map of operator-named storage tiers. Each key is a tier label\n(e.g. \"fast\", \"bulk\") and each value is an object with up to two fields:\ntypes (list of PVE storage types such as lvm, lvmthin, zfspool, dir, nfs,\ncifs, rbd, cephfs, btrfs, glusterfs, pbs) and shared (bool). At create_vm\nor create_disk time the CPI selects the first live cluster storage whose\ntype and shared flag match the criteria. A tier is selected by setting\ncloud_properties.storage_tier to the tier name. When unset (default {}),\nno tier matching runs and storage is chosen by the existing vm_storage /\ndisk_storage config fields.\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.fast_path_delete",
+        "Description": "When true, delete_vm and delete_disk issue the PVE destroy call and return\nimmediately without awaiting the task's terminal state. delete_vm additionally\nstamps a \"bosh-deleting\" tag on the VM before issuing the destroy; each\nsubsequent fast-path delete_vm sweeps the cluster for VMs still carrying that\ntag and re-issues the destroy, so a stalled async destroy is reaped automatically.\nDisk volumes cannot carry PVE tags, so no marker is applied there.\nThis eliminates the queue-slot hazard of a hung destroy-task poll at the\ncost of eventual consistency: a subsequent has_vm or has_disk call may\nbriefly still see the resource until PVE's async destroy completes.\nDefault false (synchronous, fully-consistent behavior unchanged).\n\nThe fast-path destroy issues DeleteQemu with skiplock=true so a locked\nor still-running VM is destroyed without a separate unlock/stop step\nfirst. PVE honors skiplock=true only for the literal root@pam\nsuperuser (password auth) — not for any API token, including one\nowned by root@pam, and not for any other authenticated identity\nregardless of granted privileges or role. Enabling fast_path_delete\nunder any other identity means the skiplock destroy call falls back to\nPVE's own rejection whenever it actually hits a locked or running VM;\nthe CPI logs a startup Warn naming the configured identity when this\ncombination is detected, but does not block config load over it — the\noperator may know the identity ultimately resolves to root@pam\nthrough a proxy layer this check cannot see.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.user",
+        "Description": "PVE username",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.node_endpoints",
+        "Description": "Optional map of PVE node name to the address (host or host:port, no\nscheme, no path) that node's own pveproxy is reachable at. Storage\nuploads targeting a mapped node (stemcell images, per-VM ConfigDrive\nISOs) dial it directly instead of letting the pve.host endpoint proxy\nthe multipart POST cross-node, a hop that sheds connections under\nburst load. Nodes absent from the map are discovered from\n/cluster/status when pve.node_endpoints_discovery allows it (default:\nonly when verify_ssl is false); with verify_ssl true we only route\nnodes listed here, because the discovered address is the corosync\nlink0 IP and stock PVE node certificates usually do not carry it as a\nSAN. Prefer hostnames or FQDNs the node certificate covers. When a\ndirect dial fails TLS certificate verification, a TLS handshake\nfailure for any other reason, or the connection itself (unresolvable,\nrefused, unreachable, reset or stalled during the handshake), the\nupload falls back to the pve.host endpoint, logs a warning, and skips\nthat node's direct route for the rest of the process.\nExample: {pve02: pve02.example.com, pve03: 10.0.0.13:8006}\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_template_vmid_range_end",
+        "Description": "Inclusive upper bound of the VMID range for template VM allocation.\nWhen unset (0), defaults to 30999. Must be \u003e stemcell_template_vmid_range_start.\nMust not overlap the persistent disk range 9000-29999.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.stemcell_fetch_block_private_networks",
+        "Description": "Optional. When true, the https and bosh+blobstore stemcell fetchers\nrefuse any connection whose target resolves to a private, loopback, or\nlink-local address. The check runs on every dial, so redirect hops and\nDNS-rebinding flips are covered. Leave false (the default) when\nimage_url points at a mirror on a private network — that is a\nlegitimate deployment shape; enable when the mirror is public and a\nredirect chain must never re-enter the private network.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.az_map",
+        "Description": "Optional. Maps availability-zone names to the PVE node names that\nserve each AZ. When a VM is created with cloud_properties.availability_zone\nset to a key in this map, candidate nodes are restricted to the mapped\nlist and the scorer picks the best-fit node within that set.\nIf availability_zone is set in cloud_properties but the value is not\npresent in this map, create_vm returns an error (explicit\nmisconfiguration, not silent fall-through). When empty (default), all\nonline cluster nodes are candidates regardless of availability_zone.\nExample: {us-east-1a: [pve01, pve02], us-east-1b: [pve03]}\n",
+        "Default": {},
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.parked_disk_vmid_range_end",
+        "Description": "Inclusive upper bound of the VMID range for parker VMs. Must be \u003e\nparked_disk_vmid_range_start. An unset (0) bound resolves to 90999\nindependently of the lower bound, under every strategy. Must not overlap\nthe VM range, the persistent-disk range, or the stemcell-template range\nunder the parked strategy; under \"free\" the overlap is accepted, since\nnothing allocates a parker VMID there.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.vmid_alloc.max_attempts",
+        "Description": "Maximum attempts for VMID-conflict retries. Zero (default) falls back to\nvmid_alloc_attempts, then the per-handler default (create_vm 10,\ncreate_disk 5).\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.operation_timeout.query_sec",
+        "Description": "Deadline in seconds for read-only methods (info, has_vm, has_disk,\nget_disks, calculate_vm_cloud_properties). Zero (default) applies the\nbuilt-in 120 s. Honored only when operation_timeout.enabled is true.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.host",
+        "Description": "PVE host",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.require_shared_iso_for_ha",
+        "Description": "When true, escalates the config-drive ISO migration-safety warning to a\nnon-retriable error that fails create_vm. The warning (and, when this is\ntrue, the error) fires whenever create_vm registers the VM under any\nHA-driven feature (placement.dlb, placement.pin_az_via_ha_rules, or\nplacement.anti_affinity.use_ha_rules) while pve.iso_storage resolves to\na storage pool that /storage does not report as shared. Default false:\nthe hazard is only logged (see docs/configdrive.md), never blocks\ncreate_vm.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.anti_affinity.enabled",
+        "Description": "When true, the node scorer spreads members of the same BOSH instance\ngroup across cluster nodes at create time (scheduler-soft anti-affinity):\na node already hosting members of the VM's instance group is penalized so\nthe next member prefers a different node. This is advisory — under\nresource pressure two members may still co-locate. Default false (opt-in).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.metrics.exporter_endpoint",
+        "Description": "OTLP collector endpoint for the metrics signal. When\npve.otel.metrics.enabled is true and this is left empty, it defaults\nto pve.otel.exporter_endpoint. Rendering fails if both are empty\nwhile pve.otel.metrics.enabled is true. Ignored when\npve.otel.metrics.enabled is false.\n",
+        "Default": "",
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.task_poll.base_ms",
+        "Description": "PVE task poll interval in milliseconds. Zero (default) applies the\nbuilt-in 2000 ms. Raise to reduce API pressure on large clusters.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.disk_performance.discard",
+        "Description": "Tri-state (true|false|unset, default unset = auto). Controls discard=on\n(TRIM/UNMAP passthrough to the underlying storage) on every disk created\nby this CPI. Overridden per disk by cloud_properties.discard, which\naccepts the same three states.\n\nunset (auto, the default) — discard is resolved per disk at bake time\n(create_disk/create_vm/attach_disk) based on the disk's actual resolved\nstorage pool: \"on\" when the pool is TRIM-capable — lvmthin, zfspool,\nrbd (any format), or a file-backed pool (dir/nfs/cifs) with a qcow2\ndisk image — and omitted otherwise (thick lvm, cephfs, glusterfs, or\nany other backend where TRIM does not reclaim space). This matters\nbecause guest-deleted blocks are never reclaimed without discard on a\nthin pool, so an unmanaged thin pool grows monotonically until full.\ntrue  — forces discard=on regardless of the resolved pool's TRIM\n        capability; PVE is left to accept or reject the value.\nfalse — always omits the key, restoring the pre-auto behavior (PVE\n        uses its own default) on every disk, TRIM-capable or not.\n\nAn explicit true/false at any layer (cloud_properties, disk_type/\nvm_type profile, or this global default) always wins over auto\nresolution. The resolved value is baked at create/attach time only;\nconfig changes never rewrite existing disks or VMs on their own, and a\ndisk whose recorded creation-time value diverges from a later\nre-resolution follows the normal cloud_properties/pve_config\nprecedence — discard itself is not governed by\ndisk_perf_invariant_mode (see that property; it never was, even before\nauto-resolution — discard can change on a live device without a\nstructural reconfiguration). An operator update through update_disk is\nrecorded per disk and wins over both layers at every later attach.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_vni_range_end",
+        "Description": "End of the tag auto-allocation band. 0 uses the default band\n(5000-5999, or 2000-2999 for vlan/qinq zone types).\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.sdn_zone_mtu",
+        "Description": "Optional MTU override for CPI-created SDN zones. 0 (the default)\nlets PVE derive the vnet MTU from the underlay (e.g. 1450 on a 1500\nunderlay for vxlan). Set for unusual underlays (e.g. 8950 on a\n9000-MTU jumbo underlay).\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.insecure",
+        "Description": "When true, the OTLP exporters connect over plain HTTP/gRPC instead of\nTLS. Default false (TLS). Applies to every enabled signal (traces,\nlogs, and metrics).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.exclude_maintenance_nodes",
+        "Description": "When true (default), nodes in a PVE HA maintenance or error state, or carrying\nany tag listed in placement.maintenance_node_tags, are excluded from placement\ncandidates at create_vm time. Set to false only when HA status is unavailable\nor placing on maintenance nodes is intentional. The Go accessor defaults nil to\ntrue — leave this property unset to accept the default.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.parked_anchor_strict",
+        "Description": "Anchor-missing invariant for the parked strategy. A disk created under\n\"parked\" carries a promise in its CID that a parker VM holds it whenever\nit is detached. When the cluster-wide holder scan then finds no holder\nat all, or a parker the scan identified vanishes before it can be read\nor unparked, the anchor is missing: a parker VM was deleted out-of-band.\nUnset or true (strict, the default): attach_disk, create_vm with\ndisk_cids, and delete_disk refuse with an error naming the recovery\ninstead of proceeding against a volume whose protected home silently\ndisappeared. Set false to restore the permissive behavior (the volume\nis treated as free-floating), for labs that intentionally delete parker\nVMs. Disks without the promise in their CID (created before this\nrelease, or under the \"free\" strategy) are always handled permissively;\ntheir anchor was never promised.\n",
+        "Default": null,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.transient.max_attempts",
+        "Description": "Maximum attempts for transport-layer transient retries (pvedaemon\nworker recycling, connection refusals, request timeouts). Zero\n(default) applies the built-in budget of 8. The backoff curve for this\nclass is fixed (1s growing to 15s, plus/minus 30 percent jitter) and\nis not configurable.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.security_groups",
+        "Description": "Optional global default list of PVE firewall group names applied to every\nVM that does not carry a per-call or per-profile security_groups override.\nEach entry must be a group name that already exists in the PVE firewall\nconfiguration. When empty (default []), no global firewall groups are\napplied and behavior is unchanged from prior releases. As with\npve.vm_firewall, the attached group rules are unenforced unless the PVE\ndatacenter firewall master switch (Datacenter \u003e Firewall \u003e Options \u003e\nEnable) is also on; create_vm warns once per process when it detects the\nswitch is off. See docs/configuration.md for the anti-lockout\nprerequisites before enabling the master switch.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.enabled",
+        "Description": "When true (default), create_vm runs live node-scoring to select the\nbest-fit PVE node based on available memory, CPU headroom, storage\ncapacity, and guest density. When false, create_vm falls back to\npve.node (the existing static behavior). An explicit cloud_properties\ntarget_node always wins over scoring regardless of this setting.\nProtective default: true. Set to false to opt out of scoring and\npreserve legacy single-node behavior.\n",
+        "Default": true,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.placement.anti_affinity.use_ha_rules",
+        "Description": "When true (and anti_affinity.enabled is also true), the CPI additionally\nregisters each VM as a PVE HA resource and maintains a cluster-level\nnegative resource-affinity rule (POST /cluster/ha/rules,\ntype=resource-affinity, affinity=negative) keyed on the BOSH instance\ngroup, so PVE enforces spreading at the hypervisor level rather than only\nat create time. On delete the VM is removed from the rule and empty rules\nare pruned. HA-managed resources interact with the BOSH resurrector;\nenable only when PVE-level enforcement is desired. Has no effect unless\nanti_affinity.enabled is true. Default false.\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.external_command.env_passlist",
+        "Description": "Names of environment variables passed through from the CPI process to the\nchild. Everything else is scrubbed; the child does not inherit the CPI\nenvironment.\n",
+        "Default": [],
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.otel.metrics.enabled",
+        "Description": "When true, the CPI records a cpi.action.duration histogram (per\ndispatched CPI method, tagged with outcome) and exports it via OTLP\nto pve.otel.metrics.exporter_endpoint (or, if that is empty,\npve.otel.exporter_endpoint). Independent of pve.otel.enabled: metrics\ncan be exported with tracing off. Default false; when false no\nmetrics provider is built, no network connection is opened for\nmetrics, and export failures never fail a CPI call (fail-open).\n",
+        "Default": false,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.pushback.base_ms",
+        "Description": "Initial pushback backoff in milliseconds. Zero (default) applies the\nbuilt-in 5000 ms (longer than the storage-lock curve). Raise to ease off\na saturated cluster more aggressively.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.retry.storage_lock.cap_ms",
+        "Description": "Maximum delay in milliseconds for the storage-lock backoff. Zero\n(default) applies the built-in 30000 ms. Must be \u003e= base_ms when both\nare set.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.operation_timeout.default_sec",
+        "Description": "Deadline in seconds for every other mutating method (reboot_vm,\nattach/detach/resize/snapshot_disk, set_*_metadata, update_disk). Zero\n(default) applies the built-in 600 s. Honored only when\noperation_timeout.enabled is true.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      },
+      {
+        "Name": "pve.health_check.timeout_sec",
+        "Description": "Maximum seconds to wait for the QEMU guest agent to respond after VM start.\nValid range 1-3600 when health_check.enabled is true. Zero (default) applies the\nbuilt-in 300 s default. Ignored when health_check.enabled is false.\n",
+        "Default": 0,
+        "Example": null,
+        "Examples": null
+      }
+    ]
+  }
+]
